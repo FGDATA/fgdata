@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!-- Set of industrial buildings, for inclusion in a materials file -->
+<PropertyList>
+  <range-m>10000</range-m>
+  <object>
+    <path>Models/Industrial/Industrial110x185.xml</path>
+    <path>Models/Industrial/Industrial150x115.xml</path>
+    <path>Models/Industrial/Industrial85x160.xml</path>
+    <coverage-m2>100000</coverage-m2>
+    <heading-type>mask</heading-type>
+    <spacing-m>80</spacing-m>
+  </object>
+  <object>
+    <path>Models/Buildings/factory.ac</path>
+    <path>Models/Industrial/Industrial120x90.xml</path>
+    <path>Models/Industrial/Industrial130x95.xml</path>
+    <coverage-m2>100000</coverage-m2>
+    <heading-type>mask</heading-type>
+    <spacing-m>60</spacing-m>
+  </object>
+  <object>
+    <path>Models/Industrial/Industrial100x90.xml</path>
+    <path>Models/Industrial/Industrial100x70.xml</path>
+    <path>Models/Industrial/Industrial50x100.xml</path>
+    <coverage-m2>100000</coverage-m2>
+    <heading-type>mask</heading-type>
+    <spacing-m>50</spacing-m>
+  </object>
+  <object>
+    <path>Models/Industrial/Industrial70x75.xml</path>
+    <path>Models/Industrial/Industrial70x60.xml</path>
+    <path>Models/Industrial/Industrial50x75.xml</path>
+    <path>Models/Industrial/Industrial60x50.xml</path>
+    <coverage-m2>50000</coverage-m2>
+    <heading-type>mask</heading-type>
+    <spacing-m>40</spacing-m>
+  </object>
+  <object>
+    <path>Models/Industrial/Industrial55x35.xml</path>
+    <path>Models/Industrial/Industrial35x55.xml</path>
+    <path>Models/Industrial/Industrial10x20.xml</path>
+    <path>Models/Buildings/small-modern-office.ac</path>
+    <path>Models/Buildings/small-office.ac</path>
+    <path>Models/Buildings/oil-tanks.ac</path>
+    <coverage-m2>10000</coverage-m2>
+    <heading-type>mask</heading-type>
+    <spacing-m>30</spacing-m>
+  </object>
+</PropertyList>
+

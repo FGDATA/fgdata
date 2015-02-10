@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+
+<!--
+************************************************************************
+*
+* Bindings for Lew Engineering RCJOY USB - R/C Transmitter USB Joystick
+*
+* Configured for the Hitec Laser 4 RC transmitter,
+* but nearly all major brands are supported:
+* Futaba, Airtronics, JR, Hitec, Tower Hobbies, and Multiplex
+*
+* Ailerons, elevators, rudder, and throttle (channels 1 through 4)
+* are supported.  Channels 5 through 8 are used to emulate the 
+* four standard joystick buttons.
+*
+* For a list of supported radios, 
+* see http://www.leweng.com/support.html
+*
+* Michael Selig
+* 2003/03/25
+*
+* Axis 0: ailerons
+* Axis 1: elevator
+* Axis 2: rudder
+* Axis 3: throttle
+*
+* Radios other than the Hitec might require different axis index assignments.
+* Also, the factor value below might need to be adjusted to get full
+* stick throws in FlightGear.
+*
+************************************************************************
+$Id$
+-->
+
+<PropertyList>
+
+ <name>Lew Engineering  RCJOY USB - R/C Transmitter USB Joystick</name>
+
+ <axis n="0">
+  <desc>Aileron</desc>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/aileron</property>
+   <squared type="bool">false</squared>
+   <factor type="double">1.1</factor>
+  </binding>
+ </axis>
+
+  <axis n="2">
+   <desc>Rudder</desc>
+   <binding>
+    <command>property-scale</command>
+    <property>/controls/flight/rudder</property>
+    <squared type="bool">false</squared>
+    <factor type="double">1.0</factor>
+   </binding>
+  </axis>
+
+ <axis n="1">
+  <desc>Elevator</desc>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/elevator</property>
+   <squared type="bool">false</squared>
+   <factor type="double">1.0</factor>
+  </binding>
+ </axis>
+
+
+ <axis n="3">
+  <desc>Throttle</desc>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/engines/engine[0]/throttle</property>
+   <offset type="double">1.0</offset>
+   <factor type="double">0.6</factor>
+  </binding>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/engines/engine[1]/throttle</property>
+   <offset type="double">1.0</offset>
+   <factor type="double">0.6</factor>
+  </binding>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/engines/engine[2]/throttle</property>
+   <offset type="double">1.0</offset>
+   <factor type="double">0.6</factor>
+  </binding>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/engines/engine[3]/throttle</property>
+   <offset type="double">1.0</offset>
+   <factor type="double">0.6</factor>
+  </binding>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/engines/engine[4]/throttle</property>
+   <offset type="double">1.0</offset>
+   <factor type="double">0.6</factor>
+  </binding>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/engines/engine[5]/throttle</property>
+   <offset type="double">1.0</offset>
+   <factor type="double">0.6</factor>
+  </binding>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/engines/engine[6]/throttle</property>
+   <offset type="double">1.0</offset>
+   <factor type="double">0.6</factor>
+  </binding>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/engines/engine[7]/throttle</property>
+   <offset type="double">1.0</offset>
+   <factor type="double">0.6</factor>
+  </binding>
+ </axis>
+
+
+</PropertyList>

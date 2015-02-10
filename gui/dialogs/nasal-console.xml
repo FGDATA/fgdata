@@ -1,0 +1,332 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<x>-20</x>
+	<y>-20</y>
+	<name>nasal-console</name>
+	<dialog-name>nasal-console</dialog-name>
+	<layout>vbox</layout>
+	<resizable>true</resizable>
+
+	<group>
+		<layout>hbox</layout>
+		<empty><stretch>1</stretch></empty>
+
+		<text>
+			<label>Nasal Console</label>
+		</text>
+
+		<empty><stretch>1</stretch></empty>
+
+		<button>
+			<pref-width>16</pref-width>
+			<pref-height>16</pref-height>
+			<legend></legend>
+			<keynum>27</keynum>
+			<border>2</border>
+
+			<binding>
+				<command>dialog-close</command>
+			</binding>
+		</button>
+	</group>
+
+	<hrule/>
+
+	<textbox>
+		<name>editfield</name>
+		<halign>fill</halign>
+		<valign>fill</valign>
+		<stretch>true</stretch>
+		<pref-width>450</pref-width>
+		<pref-height>200</pref-height>
+		<padding>6</padding>
+		<slider>20</slider>
+		<editable>true</editable>
+		<wrap>false</wrap>
+		<font>
+			<name>FIXED_8x13</name>
+		</font>
+		<property>/sim/gui/dialogs/nasal-console/edit</property>
+		<binding>
+			<command>dialog-apply</command>
+			<object-name>editfield</object-name>
+		</binding>
+		<binding>
+			<command>nasal</command>
+			<script>select(active)</script>
+		</binding>
+	</textbox>
+
+	<loglist>
+		<halign>fill</halign>
+		<valign>fill</valign>
+		<stretch>true</stretch>
+		<pref-width>450</pref-width>
+		<pref-height>200</pref-height>
+		<padding>6</padding>
+	</loglist>
+    
+	<group>
+		<layout>hbox</layout>
+		<halign>fill</halign>
+		<default-padding>4</default-padding>
+
+		<button-template>
+			<enabled>false</enabled>
+			<halign>fill</halign>
+			<stretch>true</stretch>
+			<pref-width>20</pref-width>
+			<pref-height>20</pref-height>
+			<one-shot>0</one-shot>
+			<live>1</live>
+			<legend>## 1 ##</legend>
+			<property>## /sim/gui/dialogs/nasal-console/tab-down[1] ##</property>
+			<binding>
+				<command>dialog-apply</command>
+				<object-name>editfield</object-name>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>## select(1) ##</script>
+			</binding>
+			<binding>
+				<command>dialog-update</command>
+				<object-name>editfield</object-name>
+			</binding>
+		</button-template>
+	</group>
+
+	<hrule/>
+
+	<group>
+		<layout>hbox</layout>
+		<default-padding>4</default-padding>
+
+		<button>
+			<legend>?</legend>
+			<pref-width>20</pref-width>
+			<pref-height>20</pref-height>
+			<binding>
+				<command>nasal</command>
+				<script>help()</script>
+			</binding>
+			<binding>
+				<command>dialog-update</command>
+				<object-name>editfield</object-name>
+			</binding>
+		</button>
+
+		<empty><stretch>1</stretch></empty>
+
+		<button>
+			<legend>Copy to Clipboard</legend>
+			<key>Ctrl-c</key>
+			<key-desc>Copy buffer contents to clipboard</key-desc>
+			<equal>true</equal>
+			<binding>
+				<command>nasal</command>
+				<script>active and copy()</script>
+			</binding>
+			<binding>
+				<command>dialog-update</command>
+				<object-name>editfield</object-name>
+			</binding>
+		</button>
+
+		<button>
+			<legend>Paste from Clipboard</legend>
+			<key>Ctrl-v</key>
+			<key-desc>Paste clipboard contents into active buffer</key-desc>
+			<equal>true</equal>
+			<binding>
+				<command>nasal</command>
+				<script>active and paste()</script>
+			</binding>
+			<binding>
+				<command>dialog-update</command>
+				<object-name>editfield</object-name>
+			</binding>
+		</button>
+
+		<button>
+			<legend>Clear</legend>
+			<key>Ctrl-x</key>
+			<key-desc>Clear buffer</key-desc>
+			<equal>true</equal>
+			<binding>
+				<command>nasal</command>
+				<script>active and clear()</script>
+			</binding>
+			<binding>
+				<command>dialog-update</command>
+				<object-name>editfield</object-name>
+			</binding>
+		</button>
+
+		<button>
+			<legend>Dump</legend>
+			<key>Ctrl-d</key>
+			<key-desc>Dump buffer contents to console</key-desc>
+			<equal>true</equal>
+			<binding>
+				<command>dialog-apply</command>
+				<object-name>editfield</object-name>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>active and dump()</script>
+			</binding>
+		</button>
+
+		<button>
+			<legend>Execute</legend>
+			<default>true</default>
+			<equal>true</equal>
+			<binding>
+				<command>dialog-apply</command>
+				<object-name>editfield</object-name>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>active and execute()</script>
+			</binding>
+		</button>
+	</group>
+
+	<nasal>
+		<open>
+			var self = cmdarg();
+			var dlg = props.globals.getNode("/sim/gui/dialogs/nasal-console", 1);
+			var kbdctrl = props.globals.getNode("/devices/status/keyboard/ctrl", 1);
+			var edit = dlg.getNode("edit", 1);
+			if (!contains(globals, "__nasal_console"))
+				globals["__nasal_console"] = {};
+
+			var locals = globals["__nasal_console"];
+			var numtabs = size(dlg.getChildren("code"));
+			if (!numtabs)
+				numtabs = 10;
+
+			var dump = func {
+				gui.dialog_apply("nasal-console", "editfield");
+				select(active);
+				rule = "--------------------------------------------------------------------------------";
+				print(rule ~ "\n");
+				print(edit.getValue());
+				print(rule);
+			}
+
+			var clear = func {
+				edit.setValue("");
+				select(active);
+			}
+
+			var copy = func {
+				gui.dialog_apply("nasal-console", "editfield");
+				select(active);
+				clipboard.setText( edit.getValue() );
+			}
+
+			var paste = func {
+				edit.setValue( clipboard.getText() );
+				select(active);
+			}
+
+			var execute = func(what = nil) {
+				var num = what != nil ? what.getIndex() : active;
+				var tag = "&lt;nasal-console/#" ~ num ~ ">";
+				var err = [];
+				if (what == nil)
+					what = edit;
+
+				var f = call(func { compile(what.getValue(), tag) }, nil, nil, nil, err);
+				if (size(err)) {
+					print(tag ~ ": " ~ err[0]);
+					return;
+				}
+				f = bind(f, globals);
+				call(f, nil, nil, locals, err);
+				debug.printerror(err);
+			}
+
+			var tabs = self.getNode("group[1]");
+			var select = func(which, init = 0) {
+				if (active) { # false in help mode
+					dlg.getNode("active").setIntValue(active);
+					if (!init)
+						dlg.getChild("code", active).setValue(string.trim(edit.getValue()));
+				}
+				if (kbdctrl.getValue()) {
+					execute(dlg.getChild("code", which));
+					return;
+				}
+				active = which;
+				foreach (var c; dlg.getChildren("tab-down"))
+					c.setBoolValue(c.getIndex() == active);
+
+				dlg.getNode("active").setIntValue(active = which);
+				edit.setValue(dlg.getChild("code", active).getValue());
+			}
+			var get_button_desc = func (b) {
+				var sep = " ... ";
+				var key=b.getChild("key");
+				var desc=b.getChild("key-desc");
+				if( !isa(key, props.Node) or !isa(desc, props.Node) )
+				return "";
+				return    "  "~key.getValue() ~sep~desc.getValue() ~"\n";
+			}
+
+			var key_bindings = (func {
+				var desc = "";
+				var buttons = self.getNode("group[2]").getChildren("button");
+				foreach(var b; buttons) desc ~= get_button_desc(b);
+				return desc;
+			})();
+
+			var help = func {
+				active = 0;
+				foreach (var c; dlg.getChildren("tab-down"))
+					c.setBoolValue(0);
+
+				edit.setValue("Keys:\n"
+					~ "  tab    ... leave edit mode (visible text cursor)\n"
+					~ "  return ... execute active code\n"
+				~ key_bindings
+					~ "  esc    ... close dialog\n\n"
+					~ "Ctrl-click on tab buttons executes code without\n"
+					~ "switching to the tab. Add more &lt;code> properties\n"
+					~ "in ~/.fgfs/autosave.xml for more tab buttons.");
+			}
+
+			# setup tab buttons and properties from the template
+			tabs.removeChildren("button");
+			var template = tabs.getNode("button-template");
+			var d = dlg.getPath();
+			for (var i = 1; i &lt;= numtabs; i += 1) {
+				var button = tabs.getChild("button", i, 1);
+				var state = dlg.getChild("tab-down", i, 1);
+				state.setBoolValue(0);
+
+				props.copy(template, button);
+				button.getNode("enabled").setBoolValue(1);
+				button.getNode("legend").setIntValue(i);
+				button.getNode("binding[1]/script").setValue("select(" ~ i ~ ")");
+				button.getNode("property").setValue(state.getPath());
+				var c = dlg.getChild("code", i);
+				if (c == nil or c.getType() == "NONE") {
+					c = dlg.getChild("code", i, 1);
+					c.setValue("");
+					c.setAttribute("userarchive", 1);
+				}
+			}
+
+			edit.setValue("");
+			var active = dlg.getNode("active", 1).getValue();
+			if (active == nil)
+				active = 1;
+
+			select(active, 1);
+		</open>
+	</nasal>
+</PropertyList>

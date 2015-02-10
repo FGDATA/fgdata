@@ -1,0 +1,658 @@
+<?xml version="1.0"?>
+
+<!--
+Modularized lighted buttons added March 5 2001
+by John Check, <j4strngs@rockfish.net>
+Wing leveler and climb/descent added Feb 2001
+by Curtis Olson, <curt@infoplane.com>
+APR by Jim Wilson <jimw@kelcomaine.com> Feb 2002
+_______________________________________________________________________________
+Default autopilot instrument.
+
+Started summer 2000 by David Megginson, david@megginson.com.
+
+This is an instrument configuration file for the open-source flight
+simulator FlightGear (www.flightgear.org).  The file is an XML-encoded
+FlightGear property list defining the instrument's layers and actions.
+
+Each instrument is composed of layers stacked on top of each other.
+A layer may be a texture (with transparent parts to show the layers
+underneath), text, or a special layer that switches between two
+others (say, to turn an indicator light on or off).  Each layer can
+move independently in proportion to a property value, and text
+can be generated from property values as well: all of the layer's
+movements are defined as transformations.
+
+Actions are hotspots on the instrument that will respond to a mouse
+click.  Actions always modify the values of properties, either by
+adjusting them, toggling them, or swaping them with other
+properties' values.
+-->
+
+<PropertyList>
+ <name>autopilot</name>
+ <w-base>256</w-base>
+ <h-base>32</h-base>
+
+ <layers>
+
+  <layer>
+   <name>background</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/navcom-radios.rgb</path>
+    <x1>0.0</x1>
+    <x2>1.0</x2>
+    <y1>0.375</y1>
+    <y2>0.5</y2>
+   </texture>
+   <w>256</w>
+   <h>32</h>
+  </layer>
+
+  <layer>
+   <name>WL button</name>
+   <type>switch</type>
+   <layer>
+    <condition>
+     <equals>
+      <property>/autopilot/locks/heading</property>
+      <value>wing-leveler</value>
+     </equals>
+    </condition>
+    <name>WL on</name>
+    <texture>
+     <path>Aircraft/Instruments/Textures/blister.rgb</path>
+     <x1>0.0</x1>
+     <x2>0.21875</x2>
+     <y1>0.328125</y1>
+     <y2>0.4921875</y2>
+    </texture>
+    <w>32</w>
+    <h>16</h>
+   </layer>
+   <layer>
+    <name>WL off</name>
+    <texture>
+     <path>Aircraft/Instruments/Textures/blister.rgb</path> 
+     <x1>0.0</x1>
+     <x2>0.21875</x2>
+     <y1>0.1640625</y1>
+     <y2>0.328125</y2>
+    </texture>
+    <w>32</w>
+    <h>16</h>
+   </layer>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-76</offset>
+    </transformation>
+   </transformations>
+  </layer>
+  <layer>
+    <name>WL top</name>
+    <texture>
+     <path>Aircraft/Instruments/Textures/blister.rgb</path> 
+     <x1>0.0</x1>
+     <x2>0.21484375</x2>
+     <y1>0.0</y1>
+     <y2>0.16796875</y2>
+    </texture>
+    <w>32</w>
+    <h>16</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-76</offset>
+    </transformation>
+   </transformations>
+  </layer> 
+  <layer>
+   <name>WL label</name>
+    <texture>
+     <path>Aircraft/Instruments/Textures/blister.rgb</path> 
+     <x1>0.421875</x1>
+     <x2>0.546875</x2>
+     <y1>0.0675</y1>
+     <y2>0.125</y2>
+    </texture>
+    <w>20</w>
+    <h>8</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-76</offset>
+    </transformation>
+   </transformations>
+   </layer>  
+
+  <layer>
+   <name>HDG button</name>
+   <type>switch</type>
+   <layer>
+    <condition>
+     <equals>
+      <property>/autopilot/locks/heading</property>
+      <value>dg-heading-hold</value>
+     </equals>
+    </condition>
+    <name>HDG on</name>
+    <texture>
+     <path>Aircraft/Instruments/Textures/blister.rgb</path>
+     <x1>0.0</x1>
+     <x2>0.21484375</x2>
+     <y1>0.328125</y1>
+     <y2>0.4921875</y2>
+    </texture>
+    <w>32</w>
+    <h>16</h>
+   </layer>
+   <layer>
+    <name>HDG off</name>
+    <texture>
+     <path>Aircraft/Instruments/Textures/blister.rgb</path> 
+     <x1>0.0</x1>
+     <x2>0.21484375</x2>
+     <y1>0.1640625</y1>
+     <y2>0.328125</y2>
+    </texture>
+    <w>32</w>
+    <h>16</h>
+   </layer>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-44</offset>
+    </transformation>
+   </transformations>
+  </layer>
+  <layer>
+    <name>HDG top</name>
+    <texture>
+     <path>Aircraft/Instruments/Textures/blister.rgb</path> 
+     <x1>0.0</x1>
+     <x2>0.21484375</x2>
+     <y1>0.0</y1>
+     <y2>0.16796875</y2>
+    </texture>
+    <w>32</w>
+    <h>16</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-44</offset>
+    </transformation>
+   </transformations>
+  </layer> 
+  <layer>
+   <name>HDG label</name>
+    <texture>
+     <path>Aircraft/Instruments/Textures/blister.rgb</path> 
+     <x1>0.4140625</x1>
+     <x2>0.609375</x2>
+     <y1>0.0078125</y1>
+     <y2>0.0703125</y2>
+    </texture>
+    <w>20</w>
+    <h>8</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-44</offset>
+    </transformation>
+   </transformations>
+   </layer>  
+
+  <layer>
+   <name>NAV button</name>
+   <type>switch</type>
+   <layer>
+    <condition>
+     <equals>
+      <property>/autopilot/locks/heading</property>
+      <value>nav1-hold</value>
+     </equals>
+    </condition>
+    <name>NAV on</name>
+    <texture>
+     <path>Aircraft/Instruments/Textures/blister.rgb</path>
+     <x1>0.0</x1>
+     <x2>0.21484375</x2>
+     <y1>0.328125</y1>
+     <y2>0.4921875</y2>
+    </texture>
+    <w>32</w>
+    <h>16</h>
+   </layer>
+   <layer>
+    <name>NAV off</name>
+    <texture>
+     <path>Aircraft/Instruments/Textures/blister.rgb</path> 
+     <x1>0.0</x1>
+     <x2>0.21484375</x2>
+     <y1>0.1640625</y1>
+     <y2>0.328125</y2>
+    </texture>
+    <w>32</w>
+    <h>16</h>
+   </layer>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-12</offset>
+    </transformation>
+   </transformations>
+  </layer>
+  <layer>
+    <name>NAV top</name>
+    <texture>
+     <path>Aircraft/Instruments/Textures/blister.rgb</path> 
+     <x1>0.0</x1>
+     <x2>0.21484375</x2>
+     <y1>0.0</y1>
+     <y2>0.16796875</y2>
+    </texture>
+    <w>32</w>
+    <h>16</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-12</offset>
+    </transformation>
+   </transformations>
+  </layer> 
+  <layer>
+   <name>NAV label</name>
+    <texture>
+     <path>Aircraft/Instruments/Textures/blister.rgb</path> 
+     <x1>0.21875</x1>
+     <x2>0.421875</x2>
+     <y1>0.0078125</y1>
+     <y2>0.0703125</y2>
+    </texture>
+    <w>20</w>
+    <h>8</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-12</offset>
+    </transformation>
+   </transformations>
+   </layer>  
+
+  <layer>
+   <name>APR button</name>
+   <type>switch</type>
+   <layer>
+    <condition>
+     <equals>
+      <property>/autopilot/locks/altitude</property>
+      <value>gs1-hold</value>
+     </equals>
+    </condition>
+    <name>APR on</name>
+    <texture>
+     <path>Aircraft/Instruments/Textures/blister.rgb</path>
+     <x1>0.0</x1>
+     <x2>0.21484375</x2>
+     <y1>0.328125</y1>
+     <y2>0.4921875</y2>
+    </texture>
+    <w>32</w>
+    <h>16</h>
+   </layer>
+   <layer>
+    <name>APR off</name>
+    <texture>
+     <path>Aircraft/Instruments/Textures/blister.rgb</path>
+     <x1>0.0</x1>
+     <x2>0.21484375</x2>
+     <y1>0.1640625</y1>
+     <y2>0.328125</y2>
+    </texture>
+    <w>32</w>
+    <h>16</h>
+   </layer>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>20</offset>
+    </transformation>
+   </transformations>
+  </layer>
+  <layer>
+    <name>APR top</name>
+    <texture>
+     <path>Aircraft/Instruments/Textures/blister.rgb</path> 
+     <x1>0.0</x1>
+     <x2>0.21484375</x2>
+     <y1>0.0</y1>
+     <y2>0.16796875</y2>
+    </texture>
+    <w>32</w>
+    <h>16</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>20</offset>
+    </transformation>
+   </transformations>
+  </layer> 
+  <layer>
+   <name>APR label</name>
+    <texture>
+     <path>Aircraft/Instruments/Textures/blister.rgb</path> 
+     <x1>0.6171875</x1>
+     <x2>0.796875</x2>
+     <y1>0.0078125</y1>
+     <y2>0.0703125</y2>
+    </texture>
+    <w>20</w>
+    <h>8</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>20</offset>
+    </transformation>
+   </transformations>
+   </layer>
+
+  <layer>
+   <name>ALT button</name>
+   <type>switch</type>
+   <layer>
+    <condition>
+     <equals>
+      <property>/autopilot/locks/altitude</property>
+      <value>altitude-hold</value>
+     </equals>
+    </condition>
+    <name>ALT on</name>
+    <texture>
+     <path>Aircraft/Instruments/Textures/blister.rgb</path>
+     <x1>0.0</x1>
+     <x2>0.21484375</x2>
+     <y1>0.328125</y1>
+     <y2>0.4921875</y2>
+    </texture>
+    <w>32</w>
+    <h>16</h>
+   </layer>
+   <layer>
+    <name>ALT off</name>
+    <texture>
+     <path>Aircraft/Instruments/Textures/blister.rgb</path> 
+     <x1>0.0</x1>
+     <x2>0.21484375</x2>
+     <y1>0.1640625</y1>
+     <y2>0.328125</y2>
+    </texture>
+    <w>32</w>
+    <h>16</h>
+   </layer>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>52</offset>
+    </transformation>
+   </transformations>
+  </layer>
+  <layer>
+    <name>ALT top</name>
+    <texture>
+     <path>Aircraft/Instruments/Textures/blister.rgb</path> 
+     <x1>0.0</x1>
+     <x2>0.21484375</x2>
+     <y1>0.0</y1>
+     <y2>0.16796875</y2>
+    </texture>
+    <w>32</w>
+    <h>16</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>52</offset>
+    </transformation>
+   </transformations>
+  </layer> 
+  <layer>
+   <name>ALT label</name>
+    <texture>
+     <path>Aircraft/Instruments/Textures/blister.rgb</path> 
+     <x1>0.21875</x1>
+     <x2>0.421875</x2>
+     <y1>0.0675</y1>
+     <y2>0.125</y2>
+    </texture>
+    <w>20</w>
+    <h>8</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>52</offset>
+    </transformation>
+   </transformations>
+   </layer>  
+
+  <layer>
+   <name>button</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/blister.rgb</path>
+    <x1>0.0</x1>
+    <x2>0.25</x2>
+    <y1>0.75</y1>
+    <y2>1.0</y2>
+   </texture>
+   <w>15</w>
+   <h>15</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>76</offset>
+    </transformation>
+   </transformations>
+  </layer>
+  <layer>
+   <name>target climb rate</name>
+   <type>text</type>
+   <font>led</font>
+   <point-size>5</point-size>
+   <color>
+    <red>1.0</red>
+    <green>0.5</green>
+    <blue>0.0</blue>
+   </color>
+   <chunks>
+    <chunk>
+     <type>number-value</type>
+     <property>/autopilot/settings/target-altitude-ft</property>
+     <format>%05.0f</format>
+    </chunk>
+   </chunks>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>85</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-5</offset>
+    </transformation>
+   </transformations>
+  </layer>
+  
+ </layers>
+
+ <actions>
+
+  <action>
+   <name>toggle wing leveler lock</name>
+   <button>0</button>
+   <x>-92</x>
+   <y>-8</y>
+   <w>32</w>
+   <h>16</h>
+   <binding>
+    <command>nasal</command>
+    <script>
+     node = props.globals.getNode("/autopilot/locks/heading", 1);
+     if ( node.getValue() == "wing-leveler" ) {
+      node.setValue( "" );
+     } else {
+      node.setValue( "wing-leveler" );
+     }
+    </script>
+   </binding>
+  </action>
+
+  <action>
+   <name>toggle heading lock</name>
+   <button>0</button>
+   <x>-60</x>
+   <y>-8</y>
+   <w>32</w>
+   <h>16</h>
+   <binding>
+    <command>nasal</command>
+    <script>
+     node = props.globals.getNode("/autopilot/locks/heading", 1);
+     if ( node.getValue() == "dg-heading-hold" ) {
+      node.setValue( "" );
+     } else {
+      node.setValue( "dg-heading-hold" );
+     }
+    </script>
+   </binding>
+  </action>
+
+  <action>
+   <name>toggle nav1 lock</name>
+   <button>0</button>
+   <x>-28</x>
+   <y>-8</y>
+   <w>32</w>
+   <h>16</h>
+   <binding>
+    <command>nasal</command>
+    <script>
+     node = props.globals.getNode("/autopilot/locks/heading", 1);
+     if ( node.getValue() == "nav1-hold" ) {
+      node.setValue( "" );
+     } else {
+      node.setValue( "nav1-hold" );
+     }
+   </script>
+   </binding>
+  </action>
+
+  <action>
+   <name>toggle apr/nav1 lock</name>
+   <button>0</button>
+   <x>4</x>
+   <y>-8</y>
+   <w>32</w>
+   <h>16</h>
+   <binding>
+    <command>nasal</command>
+    <script>
+     node = props.globals.getNode("/autopilot/locks/altitude", 1);
+     if ( node.getValue() == "gs1-hold" ) {
+      node.setValue( "" );
+     } else {
+      node.setValue( "gs1-hold" );
+     }
+    </script>
+   </binding>
+  </action>
+
+  <action>
+   <name>toggle altitude lock</name>
+   <button>0</button>
+   <x>36</x>
+   <y>-8</y>
+   <w>32</w>
+   <h>16</h>
+   <binding>
+    <command>nasal</command>
+    <script>
+     node = props.globals.getNode("/autopilot/locks/altitude", 1);
+     if ( node.getValue() == "altitude-hold" ) {
+      node.setValue( "" );
+     } else {
+      node.setValue( "altitude-hold" );
+     }
+    </script>
+   </binding>
+  </action>
+
+  <action>
+   <name>decrease climb rate</name>
+   <button>0</button>
+   <x>70</x>
+   <y>-8</y>
+   <w>8</w>
+   <h>16</h>
+   <binding>
+    <command>property-adjust</command>
+    <property>/autopilot/settings/target-altitude-ft</property>
+    <step>-100</step>
+    <min>0</min>
+    <max>99900</max>
+    <wrap>0</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>large decrease climb rate</name>
+   <button>1</button>
+   <x>70</x>
+   <y>-8</y>
+   <w>8</w>
+   <h>16</h>
+   <binding>
+    <command>property-adjust</command>
+    <property>/autopilot/settings/target-altitude-ft</property>
+    <step>-1000</step>
+    <min>0</min>
+    <max>99900</max>
+    <wrap>0</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>increase climb rate</name>
+   <button>0</button>
+   <x>78</x>
+   <y>-8</y>
+   <w>8</w>
+   <h>16</h>
+   <binding>
+    <command>property-adjust</command>
+    <property>/autopilot/settings/target-altitude-ft</property>
+    <step>100</step>
+    <min>0</min>
+    <max>99900</max>
+    <wrap>0</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>large increase climb rate</name>
+   <button>1</button>
+   <x>78</x>
+   <y>-8</y>
+   <w>8</w>
+   <h>16</h>
+   <binding>
+    <command>property-adjust</command>
+    <property>/autopilot/settings/target-altitude-ft</property>
+    <step>1000</step>
+    <min>0</min>
+    <max>99900</max>
+    <wrap>0</wrap>
+   </binding>
+  </action>
+
+ </actions>
+
+</PropertyList>

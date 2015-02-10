@@ -1,0 +1,217 @@
+<!--
+Syd Adams
+Primus 1000 MFD  hotspots
+-->
+
+<PropertyList>
+
+    <name>MFD hotspots</name>
+    <w-base>180</w-base>
+    <h-base>240</h-base>
+    <w>180</w>
+    <h>240</h>
+
+    <layers>
+            <layer>
+            <name>NAV/SRC</name>
+            <type>text</type>
+            <font>arial_black</font>
+            <point-size>7</point-size>
+            <color>
+                <red>0.9</red>
+                <green>0.2</green>
+                <blue>0.6</blue>
+            </color>
+            <chunks>
+                <chunk>
+                    <type>text-value</type>
+                    <property>/instrumentation/primus1000/nav-string</property>
+                </chunk>
+            </chunks>
+            <transformations>
+                <transformation>
+                    <type>x-shift</type>
+                    <offset>48</offset>
+                </transformation>
+                <transformation>
+                    <type>y-shift</type>
+                    <offset>100</offset>
+                </transformation>
+            </transformations>
+        </layer>
+
+        <layer>
+            <name>NAV/DST</name>
+            <type>text</type>
+            <font>arial_black</font>
+            <point-size>7</point-size>
+            <color>
+                <red>0.9</red>
+                <green>0.2</green>
+                <blue>0.6</blue>
+            </color>
+            <chunks>
+                <chunk>
+                    <type>number-value</type>
+                    <property>/instrumentation/primus1000/nav-dist-nm</property>
+                    <format>%3.1f</format>
+                </chunk>
+            </chunks>
+            <transformations>
+                <transformation>
+                    <type>x-shift</type>
+                    <offset>48</offset>
+                </transformation>
+                <transformation>
+                    <type>y-shift</type>
+                    <offset>93</offset>
+                </transformation>
+            </transformations>
+        </layer>
+
+        <layer>
+            <name>NAV/ID</name>
+            <type>text</type>
+            <font>arial_black</font>
+            <point-size>7</point-size>
+            <color>
+                <red>0.9</red>
+                <green>0.2</green>
+                <blue>0.6</blue>
+            </color>
+            <chunks>
+                <chunk>
+                    <type>text-value</type>
+                    <property>/instrumentation/primus1000/nav-id</property>
+                </chunk>
+            </chunks>
+            <transformations>
+                <transformation>
+                    <type>x-shift</type>
+                    <offset>48</offset>
+                </transformation>
+                <transformation>
+                    <type>y-shift</type>
+                    <offset>86</offset>
+                </transformation>
+            </transformations>
+        </layer>
+
+    </layers>
+
+    <actions>
+
+<!--
+        <action>
+            <name>bezel outline</name>
+            <button>0</button>
+            <x>-90</x>
+            <y>-120</y>
+            <w>180</w>
+            <h>240</h>
+        </action>
+-->
+
+        <action>
+            <name>Alt decrease</name>
+            <button>0</button>
+            <x>67</x>
+            <y>-110</y>
+            <w>8</w>
+            <h>14</h>
+            <binding>
+                <command>property-adjust</command>
+                <property>autopilot/settings/target-altitude-ft</property>
+                <step>-100</step>
+                <min>0</min>
+                <max>99999</max>
+                <wrap>0</wrap>
+            </binding>
+        </action>
+
+        <action>
+            <name>Alt increase</name>
+            <button>0</button>
+            <x>75</x>
+            <y>-110</y>
+            <w>8</w>
+            <h>14</h>
+            <binding>
+                <command>property-adjust</command>
+                <property>autopilot/settings/target-altitude-ft</property>
+                <step>100</step>
+                <min>0</min>
+                <max>99999</max>
+                <wrap>0</wrap>
+            </binding>
+        </action>
+
+        <action>
+            <name>mode1</name>
+            <button>0</button>
+            <x>-70</x>
+            <y>-110</y>
+            <w>14</w>
+            <h>10</h>
+            <binding>
+            </binding>
+        </action>
+
+        <action>
+            <name>mode2</name>
+            <button>0</button>
+            <x>-50</x>
+            <y>-110</y>
+            <w>18</w>
+            <h>10</h>
+            <binding>
+            </binding>
+        </action>
+
+        <action>
+            <name>mode3</name>
+            <button>0</button>
+            <x>-28</x>
+            <y>-110</y>
+            <w>18</w>
+            <h>10</h>
+            <binding>
+            </binding>
+        </action>
+
+        <action>
+            <name>mode4</name>
+            <button>0</button>
+            <x>-7</x>
+            <y>-110</y>
+            <w>18</w>
+            <h>10</h>
+            <binding>
+            </binding>
+        </action>
+
+        <action>
+            <name>mode5</name>
+            <button>0</button>
+            <x>14</x>
+            <y>-110</y>
+            <w>18</w>
+            <h>10</h>
+            <binding>
+            </binding>
+        </action>
+
+        <action>
+            <name>mode6</name>
+            <button>0</button>
+            <x>36</x>
+            <y>-110</y>
+            <w>18</w>
+            <h>10</h>
+            <binding>
+            </binding>
+        </action>
+
+    </actions>
+
+</PropertyList>

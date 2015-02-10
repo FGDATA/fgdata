@@ -1,0 +1,288 @@
+<?xml version="1.0"?>
+<!--
+Marker beacon indicator
+March 2001
+John Check <j4strngs@usa.net>
+_____________________________________________________________________
+
+This is an instrument configuration file for the open-source flight
+simulator FlightGear (www.flightgear.org).  The file is an XML-encoded
+FlightGear property list defining the instrument's layers and actions.
+ 
+Each instrument is composed of layers stacked on top of each other.
+A layer may be a texture (with transparent parts to show the layers
+underneath), text, or a special layer that switches between two
+others (say, to turn an indicator light on or off).  Each layer can
+move independently in proportion to a property value, and text
+can be generated from property values as well: all of the layer's
+movements are defined as transformations.
+ 
+Actions are hotspots on the instrument that will respond to a mouse
+click.  Actions always modify the values of properties, either by
+adjusting them, toggling them, or swapping them with other
+properties' values.
+
+-->
+
+<PropertyList>
+ <name>marker beacon</name>
+ <w-base>60</w-base>
+ <h-base>22</h-base>
+
+ <layers>
+ <layer>
+  <name>backplate</name>
+  <texture>
+   <path>Aircraft/Instruments/Textures/flaps.rgb</path>
+   <x1>0.5</x1>
+   <y1>0.75</y1>
+   <x2>1.0</x2>
+   <y2>1.0</y2>
+  </texture> 
+ </layer> 
+<!-- Outer Indicator -->
+ <layer>
+   <name>lamp</name>
+   <type>switch</type>
+   <layer>
+   <condition>
+    <property>/instrumentation/marker-beacon/outer</property>
+   </condition>
+   <name>on</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/led.rgb</path>
+    <x1>0.5</x1>
+    <y1>0.75</y1>
+    <x2>0.75</x2>
+    <y2>1.0</y2>
+   </texture>
+    <w>12</w>
+    <h>12</h>
+   <transformations>
+   <transformation>
+   <type>x-shift</type>
+     <offset>-20</offset>
+   </transformation>
+   </transformations>
+  </layer>
+   <layer>
+   <name>off</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/led.rgb</path>
+    <x1>0.25</x1>
+    <y1>0.75</y1>
+    <x2>0.5</x2>
+    <y2>1.0</y2>
+   </texture>
+    <w>12</w>
+    <h>12</h>
+   <transformations>
+   <transformation>
+   <type>x-shift</type>
+     <offset>-20</offset>
+   </transformation>
+   </transformations>
+  </layer>
+ </layer>
+  <layer>
+   <name>Lens-Outer</name>
+       <texture>
+       <path>Aircraft/Instruments/Textures/led.rgb</path>
+       <x1>0.75</x1>
+       <y1>0.0</y1>
+       <x2>1.0</x2>
+       <y2>0.25</y2>
+       </texture>
+    <w>12</w>
+    <h>12</h>
+   <transformations>
+   <transformation>
+   <type>x-shift</type>
+     <offset>-20</offset>
+   </transformation>
+   </transformations>
+  </layer>
+  <layer>
+   <name>Bezel-Outer</name>
+   <texture>
+   <path>Aircraft/Instruments/Textures/led.rgb</path>
+   <x1>0.0</x1>
+   <y1>0.75</y1>
+   <x2>0.25</x2>
+   <y2>1.0</y2>
+   </texture>
+    <w>12</w>
+    <h>12</h>
+   <transformations>
+   <transformation>
+   <type>x-shift</type>
+     <offset>-20</offset>
+   </transformation>
+   </transformations>
+  </layer>
+
+<!-- Middle Indicator -->
+ <layer>
+   <name>lamp</name>
+   <type>switch</type>
+   <layer>
+   <condition>
+    <property>/instrumentation/marker-beacon/middle</property> 
+   </condition>
+   <name>on</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/led.rgb</path>
+    <x1>0.5</x1>
+    <y1>0.75</y1>
+    <x2>0.75</x2>
+    <y2>1.0</y2>
+   </texture>
+    <w>12</w>
+    <h>12</h>
+   <transformations>
+   <transformation>
+   <type>x-shift</type>
+     <offset>0</offset>
+   </transformation>
+   </transformations>
+  </layer>
+   <layer>
+   <name>off</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/led.rgb</path>
+    <x1>0.25</x1>
+    <y1>0.75</y1>
+    <x2>0.5</x2>
+    <y2>1.0</y2>
+   </texture>
+    <w>12</w>
+    <h>12</h>
+   <transformations>
+   <transformation>
+   <type>x-shift</type>
+     <offset>0</offset>
+   </transformation>
+   </transformations>
+  </layer>
+ </layer>
+ 
+ <layer>
+   <name>Lens-Middle</name>
+       <texture>
+       <path>Aircraft/Instruments/Textures/led.rgb</path>
+       <x1>0.5</x1>
+       <y1>0.0</y1>
+       <x2>0.75</x2>
+       <y2>0.25</y2>
+       </texture>
+    <w>12</w>
+    <h>12</h>
+   <transformations>
+   <transformation>
+   <type>x-shift</type>
+     <offset>0</offset>
+   </transformation>
+   </transformations>
+  </layer>
+ 
+ <layer>
+   <name>Bezel-Middle</name>
+   <texture>
+   <path>Aircraft/Instruments/Textures/led.rgb</path>
+   <x1>0.0</x1>
+   <y1>0.75</y1>
+   <x2>0.25</x2>
+   <y2>1.0</y2>
+   </texture>
+    <w>12</w>
+    <h>12</h>
+   <transformations>
+   <transformation>
+   <type>x-shift</type>
+     <offset>0</offset>
+   </transformation>
+   </transformations>
+  </layer>
+
+<!-- Inner Indicator -->
+ <layer>
+   <name>lamp</name>
+   <type>switch</type>
+   <layer>
+   <condition>
+    <property>/instrumentation/marker-beacon/inner</property> 
+   </condition>
+   <name>on</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/led.rgb</path>
+    <x1>0.5</x1>
+    <y1>0.75</y1>
+    <x2>0.75</x2>
+    <y2>1.0</y2>
+   </texture>
+    <w>12</w>
+    <h>12</h>
+   <transformations>
+   <transformation>
+   <type>x-shift</type>
+     <offset>20</offset>
+   </transformation>
+   </transformations>
+  </layer>
+   <layer>
+   <name>off</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/led.rgb</path>
+    <x1>0.25</x1>
+    <y1>0.75</y1>
+    <x2>0.5</x2>
+    <y2>1.0</y2>
+   </texture>
+    <w>12</w>
+    <h>12</h>
+   <transformations>
+   <transformation>
+   <type>x-shift</type>
+     <offset>20</offset>
+   </transformation>
+   </transformations>
+  </layer>
+ </layer>
+ <layer>
+   <name>Lens-Inner</name>
+       <texture>
+       <path>Aircraft/Instruments/Textures/led.rgb</path>
+       <x1>0.0</x1>
+       <y1>0.25</y1>
+       <x2>0.25</x2>
+       <y2>0.5</y2>
+       </texture>
+    <w>12</w>
+    <h>12</h>
+   <transformations>
+   <transformation>
+   <type>x-shift</type>
+     <offset>20</offset>
+   </transformation>
+   </transformations>
+  </layer>
+  <layer>
+   <name>Bezel-Inner</name>
+   <texture>
+   <path>Aircraft/Instruments/Textures/led.rgb</path>
+   <x1>0.0</x1>
+   <y1>0.75</y1>
+   <x2>0.25</x2>
+   <y2>1.0</y2>
+   </texture>
+    <w>12</w>
+    <h>12</h>
+   <transformations>
+   <transformation>
+   <type>x-shift</type>
+     <offset>20</offset>
+   </transformation>
+   </transformations>
+  </layer>
+ </layers>
+</PropertyList>

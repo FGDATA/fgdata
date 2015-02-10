@@ -1,0 +1,197 @@
+<?xml version="1.0"?>
+<PropertyList>
+  <name>location-of-tower</name>
+  <layout>vbox</layout>
+
+
+  <group>
+    <layout>hbox</layout>
+	  <empty><stretch>1</stretch></empty>
+
+    <text>
+      <label>Tower Position</label>
+    </text>
+
+	  <empty><stretch>1</stretch></empty>
+
+    <button>
+      <pref-width>16</pref-width>
+      <pref-height>16</pref-height>
+      <legend></legend>
+      <keynum>27</keynum>
+      <border>2</border>
+      <binding>
+        <command>dialog-close</command>
+      </binding>
+    </button>
+  </group>
+
+  <hrule/>
+
+  <text>
+    <label>Select position of tower for the Tower Views</label>
+  </text>
+
+  <group>
+    <layout>table</layout>
+
+    <checkbox>
+      <name>auto-tower</name>
+      <row>0</row>
+      <col>0</col>
+      <colspan>2</colspan>
+      <label>Always use nearest tower</label>
+      <property>/sim/tower/auto-position</property>
+      <live>true</live>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>auto-tower</object-name>
+      </binding>
+    </checkbox>
+
+    <text>
+      <row>1</row><col>0</col>
+      <halign>right</halign>
+      <label>Airport ID:</label>
+    </text>
+    <input>
+      <name>airport-id</name>
+      <row>1</row><col>1</col>
+      <property>/sim/tower/airport-id</property>
+	  <enable>
+        <not>
+          <property>/sim/tower/auto-position</property>
+        </not>
+      </enable>
+    </input>
+    <empty>
+      <row>0</row><col>3</col>
+      <stretch>true</stretch>
+    </empty>
+
+    <!-- Commented out because the /instrumentation/comm[%d]/airport-id
+      are not filled in on the COM radio retuning...
+      I'm working on that part now.
+    <button>
+      <row>2</row><col>0</col>
+      <legend>COM1</legend>
+      <binding>
+       <command>property-assign</command>
+       <property>/sim/tower/airport-id</property>
+       <property>/instrumentation/comm[0]/airport-id</property>
+      </binding>
+      <binding>
+       <command>dialog-update</command>
+       <object-name>airport-id</object-name>
+      </binding>
+    </button>
+    <text>
+      <row>2</row><col>2</col>
+      <property>/instrumentation/comm[0]/frequencies/selected-mhz</property>
+      <label>MHz</label>
+      <format>%-0.2f</format>
+    </text>
+    <text>
+      <row>2</row><col>1</col>
+      <property>/instrumentation/comm[0]/airport-id</property>
+    </text>
+    <empty>
+      <row>2</row><col>3</col>
+      <stretch>true</stretch>
+    </empty>
+
+    <button>
+      <row>3</row><col>0</col>
+      <legend>COM2</legend>
+      <binding>
+       <command>property-assign</command>
+       <property>/sim/tower/airport-id</property>
+       <property>/instrumentation/comm[1]/airport-id</property>
+      </binding>
+      <binding>
+       <command>dialog-update</command>
+       <object-name>airport-id</object-name>
+      </binding>
+    </button>
+    <text>
+      <row>3</row><col>2</col>
+      <property>/instrumentation/comm[1]/frequencies/selected-mhz</property>
+      <label>MHz</label>
+      <format>%-0.2f</format>
+    </text>
+    <text>
+      <row>3</row><col>1</col>
+      <property>/instrumentation/comm[1]/airport-id</property>
+    </text>
+    <empty>
+      <row>3</row><col>3</col>
+      <stretch>true</stretch>
+    </empty>
+    -->
+
+    <button>
+      <legend>Preset</legend>
+      <row>4</row><col>0</col>
+      <!--
+        Is there a way in the GUI (other than via a dynamic
+	NASAL dialog) to assign text to the widget rather
+	than to the underlying property and doing an update?
+
+        The way it is now CANCEL doesn't undo PRESET  :-(
+      -->
+      <enable>
+       <not><property>sim/tower/auto-position</property></not>
+      </enable>
+      <binding>
+       <command>property-assign</command>
+       <property>/sim/tower/airport-id</property>
+       <property>/sim/presets/airport-id</property>
+      </binding>
+      <binding>
+       <command>dialog-update</command>
+       <object-name>airport-id</object-name>
+      </binding>
+    </button>
+    <text>
+      <row>4</row><col>1</col>
+      <property>/sim/presets/airport-id</property>
+    </text>
+    <empty>
+      <row>4</row><col>3</col>
+      <stretch>true</stretch>
+    </empty>
+  </group>
+
+  <hrule/>
+
+  <group>
+    <layout>hbox</layout>
+    <default-padding>10</default-padding>
+    <empty><stretch>true</stretch></empty>
+
+    <button>
+      <legend>OK</legend>
+      <default>true</default>
+      <equal>true</equal>
+      <binding>
+        <command>dialog-apply</command>
+      </binding>
+      <binding>
+        <command>dialog-close</command>
+      </binding>
+    </button>
+
+    <empty><stretch>true</stretch></empty>
+
+    <button>
+      <legend>Cancel</legend>
+      <equal>true</equal>
+      <key>Esc</key>
+      <binding>
+        <command>dialog-close</command>
+      </binding>
+    </button>
+
+    <empty><stretch>true</stretch></empty>
+  </group>
+</PropertyList>

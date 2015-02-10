@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+
+<!-- Nav Display -->
+
+<PropertyList>
+	
+	<path>../../../../Aircraft/Buccaneer/Instruments/speed_display.ac</path>
+	
+	<!--<animation>
+		<type>translate</type>
+		<object-name>needle</object-name>
+		<property>/instrumentation/airspeed-indicator/indicated-speed-kt</property>
+		<interpolation>
+			<entry><ind>0</ind><dep>0</dep></entry>
+			<entry><ind>100</ind><dep>0.0423</dep></entry>
+			<entry><ind>150</ind><dep>0.0816</dep></entry>
+			<entry><ind>200</ind><dep>0.1172</dep></entry>
+			<entry><ind>300</ind><dep>0.1683</dep></entry>
+			<entry><ind>400</ind><dep>0.2051</dep></entry>
+			<entry><ind>600</ind><dep>0.2587</dep></entry>
+			<entry><ind>700</ind><dep>0.28</dep></entry>
+		</interpolation>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+	</animation>-->
+
+	<animation>
+		<type>textranslate</type>
+		<object-name>scale_background</object-name>
+		<property>/instrumentation/airspeed-indicator/indicated-speed-kt</property>
+		<!--<factor>0.001</factor>-->
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>0</dep>
+			</entry>
+			<entry>
+				<ind>100</ind>
+				<dep>0.075</dep>
+			</entry>
+			<entry>
+				<ind>150</ind>
+				<dep>0.15</dep>
+			</entry>
+			<entry>
+				<ind>200</ind>
+				<dep>0.21</dep>
+			</entry>
+			<entry>
+				<ind>300</ind>
+				<dep>0.3</dep>
+			</entry>
+			<entry>
+				<ind>400</ind>
+				<dep>0.365</dep>
+			</entry>
+			<entry>
+				<ind>500</ind>
+				<dep>0.42</dep>
+			</entry>
+			<entry>
+				<ind>600</ind>
+				<dep>0.46</dep>
+			</entry>
+			<entry>
+				<ind>700</ind>
+				<dep>0.5</dep>
+			</entry>
+		</interpolation>
+		<axis>
+			<x>1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+	
+	<!-- Panel Lighting -->
+	<animation>
+		<type>material</type>
+		<object-name>housing</object-name>
+		<emission>
+			<factor-prop>/systems/electrical/outputs/panel-floodlighting</factor-prop>
+			<red>0.03125</red>
+			<green>0.0089</green>
+			<blue>0.0089</blue>
+		</emission>
+	</animation>
+
+	<animation>
+		<type>material</type>
+		<object-name>lighting-group</object-name>
+		<emission>
+			<factor-prop>/systems/electrical/outputs/instrument-lighting</factor-prop>
+			<red>0.03125</red>
+			<green>0.0089</green>
+			<blue>0.0089</blue>
+		</emission>
+	</animation>
+
+	<!-- *** LoD *** -->
+	<animation>
+		<type>range</type>
+		<min-m>0</min-m>
+		<max-m>5</max-m>
+	</animation>
+
+</PropertyList>

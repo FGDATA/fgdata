@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<PropertyList>
+
+  <!-- Le fuselage -->
+  <model>
+    <path>main.xml</path>
+  </model>
+
+  <!-- Les roues -->
+  <model>
+    <path>wheels.xml</path>
+  </model>
+
+  <!-- La soute -->
+  <model>
+    <path>tank.xml</path>
+  </model>
+  
+   <offsets>
+    <z-m>1.39</z-m>   
+  </offsets>
+ 
+  <!--Lights-->
+  <model>
+    <name>BeaconOn</name>
+    <path>light/beacon.xml</path>
+    <offsets>
+      <x-m> 5.596 </x-m>
+      <y-m> 0.000 </y-m>
+      <z-m> 3.190 </z-m>
+    </offsets>
+  </model>
+  
+  <model>
+    <name>BeaconOff</name>
+    <path>light/ToggleLight.xml</path>
+    <offsets>
+      <x-m> 5.596 </x-m>
+      <y-m> 0.000 </y-m>
+      <z-m> 3.190 </z-m>
+    </offsets>
+  </model>
+  
+	<animation>
+	  <name>BeaconStrobe</name>
+	  <type>timed</type>
+	  <object-name>BeaconOn</object-name>
+	  <object-name>BeaconOff</object-name>
+	  <use-personality type="bool">true</use-personality>
+		  <branch-duration-sec>0.1</branch-duration-sec>
+		  <branch-duration-sec>1.0</branch-duration-sec>
+	 </animation>
+	 
+  <animation>
+    <type>select</type>
+    <object-name>BeaconStrobe</object-name>
+    <condition>
+      <and>
+		<greater-than>
+			<property>/sim/time/sun-angle-rad</property>
+			<value>1.57</value>
+		</greater-than>
+		<greater-than>
+			<property>velocities/true-airspeed-kt</property>
+			<value>0</value>
+		</greater-than>
+	  </and>
+    </condition>
+  </animation>
+  
+  <model>
+    <name>Strobe1-Light</name>
+    <path>light/StrobeWhite.xml</path>
+    <offsets>
+      <x-m> -1.325 </x-m>
+      <y-m> -7.916 </y-m>
+      <z-m>  1.505 </z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <name>Strobe2-Light</name>
+    <path>light/StrobeWhite.xml</path>
+    <offsets>
+      <x-m> -1.325 </x-m>
+      <y-m>  7.916 </y-m>
+      <z-m>  1.505 </z-m>
+   </offsets>
+  </model>
+  
+  <animation>
+    <name>AllStrobeLight</name>
+    <object-name>Strobe1-Light</object-name>
+    <object-name>Strobe2-Light</object-name>
+  </animation>
+
+  <model>
+    <name>StrobeOff1</name>
+    <path>light/ToggleLight.xml</path>
+    <offsets>
+      <x-m> -1.297 </x-m>
+      <y-m> -4.253 </y-m>
+      <z-m>  0.005 </z-m>
+    </offsets>
+  </model>
+  
+  <model>
+    <name>StrobeOff2</name>
+    <path>light/ToggleLight.xml</path>
+    <offsets>
+      <x-m> -1.297 </x-m>
+      <y-m>  4.253 </y-m>
+      <z-m>  0.005 </z-m>
+    </offsets>
+  </model>
+  
+  <animation>
+    <name>AllStrobeOff</name>
+    <object-name>StrobeOff1</object-name>
+    <object-name>StrobeOff2</object-name>
+  </animation>
+ 
+  <animation>
+  <name>timed_strobe</name>
+  <type>timed</type>
+  <object-name>AllStrobeLight</object-name>
+  <object-name>AllStrobeOff</object-name>
+  <use-personality type="bool">true</use-personality>
+	  <branch-duration-sec>0.1</branch-duration-sec>
+	  <branch-duration-sec>1.0</branch-duration-sec>
+ </animation>
+ 
+  <animation>
+    <type>select</type>
+    <object-name>timed_strobe</object-name>
+    <condition>
+      <and>
+		<greater-than>
+			<property>/sim/time/sun-angle-rad</property>
+			<value>1.57</value>
+		</greater-than>
+		<greater-than>
+			<property>velocities/true-airspeed-kt</property>
+			<value>0</value>
+		</greater-than>
+	  </and>
+    </condition>
+  </animation>
+  
+   <model>
+    <name>Nav2-Light</name>
+    <path>light/RedLight.xml</path>
+    <offsets>
+      <x-m> -1.337 </x-m>
+      <y-m> -7.916 </y-m>
+      <z-m>  1.505 </z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <name>Nav3-Light</name>
+    <path>light/GreenLight.xml</path>
+    <offsets>
+      <x-m> -1.337 </x-m>
+      <y-m>  7.916 </y-m>
+      <z-m>  1.505 </z-m>
+    </offsets>
+  </model>
+
+  <animation>
+    <name>AllNavLight</name>
+    <object-name>Nav2-Light</object-name>
+    <object-name>Nav3-Light</object-name>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>AllNavLight</object-name>
+    <condition>
+      <and>
+		<greater-than>
+			<property>/sim/time/sun-angle-rad</property>
+			<value>1.57</value>
+		</greater-than>
+		<greater-than>
+			<property>velocities/true-airspeed-kt</property>
+			<value>0</value>
+		</greater-than>
+	  </and>
+    </condition>
+  </animation>
+  
+   <model>
+    <name>Landing-LightL1</name>
+    <path>light/light-cone.xml</path>
+    <offsets>
+      <x-m>       -1.960 </x-m>
+      <y-m>       -4.800 </y-m>
+      <z-m>        1.310 </z-m>
+      <pitch-deg> -7.500 </pitch-deg>
+    </offsets>
+  </model>
+  
+  <model>
+    <name>Landing-LightR1</name>
+    <path>light/light-cone.xml</path>
+    <offsets>
+      <x-m>       -1.960 </x-m>
+      <y-m>        4.800 </y-m>
+      <z-m>        1.310 </z-m>
+      <pitch-deg> -7.500 </pitch-deg>
+    </offsets>
+  </model>
+  
+  <model>
+    <name>Landing-LightL2</name>
+    <path>light/light-cone.xml</path>
+    <offsets>
+      <x-m>       -1.960 </x-m>
+      <y-m>       -4.609 </y-m>
+      <z-m>        1.299 </z-m>
+      <pitch-deg> -7.500 </pitch-deg>
+    </offsets>
+  </model>
+  
+  <model>
+    <name>Landing-LightR2</name>
+    <path>light/light-cone.xml</path>
+    <offsets>
+      <x-m>       -1.960 </x-m>
+      <y-m>        4.609 </y-m>
+      <z-m>        1.299 </z-m>
+      <pitch-deg> -7.500 </pitch-deg>
+    </offsets>
+  </model>
+  
+   <animation>
+    <name>AllLandingLight</name>
+    <object-name>Landing-LightL1</object-name>
+    <object-name>Landing-LightR1</object-name>
+	<object-name>Landing-LightL2</object-name>
+    <object-name>Landing-LightR2</object-name>
+  </animation>
+
+  	<animation>
+        <type>select</type>
+        <object-name>AllLandingLight</object-name>
+        <condition>
+		<and>
+			<greater-than>
+				<property>/sim/time/sun-angle-rad</property>
+				<value>1.57</value>
+			</greater-than>
+			<greater-than>
+				<property>velocities/true-airspeed-kt</property>
+				<value>59</value>
+			</greater-than>
+			<less-than>
+				<property>velocities/true-airspeed-kt</property>
+				<value>71</value>
+			</less-than>
+		  </and>
+        </condition>
+    </animation>
+
+<!--  
+<model>
+    <name>NozeGear</name>
+    <path>light/WhiteLight.xml</path>
+    <offsets>
+      <x-m> -2.574 </x-m>
+      <y-m>  0.074 </y-m>
+      <z-m> -0.643 </z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <name>Taxi-Light</name>
+    <path>light/light-cone.xml</path>
+    <offsets>
+      <x-m> -2.574 </x-m>
+      <y-m>  0.074 </y-m>
+      <z-m> -0.643 </z-m>
+      <pitch-deg> -7.500 </pitch-deg>
+    </offsets>
+  </model>
+
+  <animation>
+    <name>AllGearLight</name>
+    <object-name>Taxi-Light</object-name>
+    <object-name>NozeGear</object-name>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>AllGearLight</object-name>
+    <condition>
+      <and>
+		<greater-than>
+			<property>/sim/time/sun-angle-rad</property>
+			<value>1.57</value>
+		</greater-than>
+		<greater-than>
+			<property>velocities/true-airspeed-kt</property>
+			<value>0</value>
+		</greater-than>
+		<less-than>
+			<property>velocities/true-airspeed-kt</property>
+			<value>71</value>
+		</less-than>
+	  </and>
+    </condition>
+  </animation>
+
+  <model>
+    <name>Landing-Light</name>
+    <path>light/light-cone.xml</path>
+    <offsets>
+      <x-m>       -1.749 </x-m>
+      <y-m>       -2.192 </y-m>
+      <z-m>       -0.382 </z-m>
+      <pitch-deg> -7.500 </pitch-deg>
+    </offsets>
+  </model>
+
+  	<animation>
+        <type>select</type>
+        <object-name>Landing-Light</object-name>
+        <condition>
+		  <and>
+			<greater-than>
+				<property>/sim/time/sun-angle-rad</property>
+				<value>1.57</value>
+			</greater-than>
+			<greater-than>
+				<property>velocities/true-airspeed-kt</property>
+				<value>59</value>
+			</greater-than>
+			<less-than>
+				<property>velocities/true-airspeed-kt</property>
+				<value>71</value>
+			</less-than>
+		  </and>
+        </condition>
+    </animation>
+-->
+
+</PropertyList>
+

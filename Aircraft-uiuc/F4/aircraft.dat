@@ -1,0 +1,64 @@
+# Michael Selig
+# F-4 Phantom, subsonic cruise configuration
+# twin jet engine supersonic fighter/attack airplane, data from:
+#       Roskam, Jan. Airplane Flight Dynamics and Automatic Flight
+#         Controls, Part I. Lawrence KS: DARcorporation, 1995, 
+#         pg 536-538
+# 02-10-2000    file creation
+
+init Dz_cg      5.0     # [ft]
+
+geometry bw    38.7     # [ft]
+geometry cbar  16.0     # [ft]
+geometry Sw   530.0     # [ft^2]
+
+controlSurface de 20 20 # [deg]  guess for now
+controlSurface da 20 20 # [deg]  guess for now
+controlSurface dr 20 20 # [deg]  guess for now
+
+mass Weight  39000      # [lb]
+mass I_xx    25000      # [slug-ft^2]
+mass I_yy   122200      # [slug-ft^2]
+mass I_zz   139800      # [slug-ft^2]
+mass I_xz     2200      # [slug-ft^2]
+
+
+# Roskam: CTx=0.2 (SL conditions) --> 6670 lb
+# aircraft specs: 2 engines of 16000 lb static thrust each (F-4A)
+#                 2 engines of 17900 lb static thrust each (F-4E)
+engine simpleSingle 16000 # [lb]
+
+
+CL CLo        0.100     # []
+CL CL_a       3.750     # [/rad]
+CL CL_adot    0.86      # [/rad]
+CL CL_q       1.8       # [/rad]
+CL CL_de      0.40      # [/rad]    used CLih (typo in Roskam?)
+
+CD CDo        0.0205    # []
+CD CD_a       0.300     # [/rad]
+CD CD_de     -0.10      # [/rad]    used CDih (typo in Roskam?)
+
+Cm Cmo        0.025     # []
+Cm Cm_a      -0.400     # [/rad]
+Cm Cm_adot   -1.3       # [/rad]
+Cm Cm_q      -2.7       # [/rad]
+Cm Cm_de     -0.580     # [/rad]    used Cmih (typo in Roskam?)
+
+CY CY_beta   -0.68      # [/rad]
+CY CY_p       0.0       # [/rad]
+CY CY_r       0.0       # [/rad]
+CY CY_da      0.016     # [/rad]    sign reversed
+CY CY_dr      0.095     # [/rad]
+
+Cl Cl_beta   -0.080     # [/rad]
+Cl Cl_p      -0.240     # [/rad]
+Cl Cl_r       0.070     # [/rad]
+Cl Cl_da     -0.042     # [/rad]    sign reversed
+Cl Cl_dr      0.0060    # [/rad]
+
+Cn Cn_beta   0.125      # [/rad]
+Cn Cn_p     -0.036      # [/rad]
+Cn Cn_r     -0.270      # [/rad]
+Cn Cn_da     0.0010     # [/rad]    sign reversed
+Cn Cn_dr    -0.066      # [/rad]

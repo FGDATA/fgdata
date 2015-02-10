@@ -1,0 +1,26 @@
+{       
+    "src":    "FGPanel-Sample.svg",
+  
+    "animations": [
+      { 
+        "element": "#Ground",
+        "type":    "transform",
+        "transforms": [{
+          "type": "rotate",
+          "a": {
+            "property": "roll",
+            "scale": -1
+          }, 
+          "x": 256,
+          "y": 256
+        },{
+          "type": "translate",
+          "x": 0,
+          "y": {
+            "property": "pitch",
+            "scale": 10
+          }
+        }] 
+      }   
+    ]   
+}     

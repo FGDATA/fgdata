@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+	<particlesystem>
+		<name>wake</name>
+		<texture>smoke-large.png</texture>
+		<emissive>true</emissive>
+		<lighting>true</lighting>
+
+		<offsets>
+			<x-m>0</x-m>
+			<y-m>0</y-m>
+			<z-m>0</z-m>
+		</offsets>
+
+		<attach>world</attach>
+
+		<placer>
+			<type>segments</type>
+			<vertex>
+				<x-m>0</x-m>
+				<y-m>0</y-m>
+				<z-m>0</z-m>
+			</vertex>
+			<vertex>
+				<x-m>0</x-m>
+				<y-m>1.0</y-m>
+				<z-m>0</z-m>
+			</vertex>
+			<vertex>
+				<x-m>6.5</x-m>
+				<y-m>7.5</y-m>
+				<z-m>0</z-m>
+			</vertex>
+			<vertex>
+				<x-m>13</x-m>
+				<y-m>15.0</y-m>
+				<z-m>0</z-m>
+			</vertex>
+		</placer>
+
+		<shooter>
+			<theta-min-deg>80</theta-min-deg>
+			<theta-max-deg>100</theta-max-deg>
+			<phi-min-deg>85</phi-min-deg>
+			<phi-max-deg>90</phi-max-deg>
+			<speed-mps>
+				<property>/environment/Vinson/spd-kt</property>
+				<factor>0.514</factor>
+				<spread>10</spread>
+			</speed-mps>
+			<rotation-speed>
+				<!--<x-max-deg-sec>15</x-max-deg-sec>
+				<x-min-deg-sec>-15</x-min-deg-sec>-->
+				<!--<y-max-deg-sec>15</y-max-deg-sec>
+				<y-min-deg-sec>-15</y-min-deg-sec>-->
+				<z-max-deg-sec>15</z-max-deg-sec>
+				<z-min-deg-sec>-15</z-min-deg-sec>
+			</rotation-speed>
+		</shooter>
+
+		<counter>
+			<particles-per-sec>
+				<property>/environment/Vinson/spd-kt</property>
+				<factor>0.1</factor>
+				<!--<value>3.0</value>-->
+				<spread>1.0</spread>
+			</particles-per-sec>
+		</counter>
+
+		<align>fixed</align>
+
+		<particle>
+			<start>
+				<color>
+					<red>
+						<value>0.95</value>
+					</red>
+					<green>
+						<value>0.95</value>
+					</green>
+					<blue>
+						<value>0.95</value>
+					</blue>
+					<alpha>
+						<value>0.25</value>
+					</alpha>
+				</color>
+				<size>
+					<value>10.0</value>
+				</size>
+			</start>
+			<end>
+				<color>
+					<red>
+						<value>0.95</value>
+					</red>
+					<green>
+						<value>0.95</value>
+					</green>
+					<blue>
+						<value>0.95</value>
+					</blue>
+					<alpha>
+						<value>0.1</value>
+					</alpha>
+				</color>
+				<size>
+					<value>12.0</value>
+				</size>
+			</end>
+			<life-sec>
+				<value>120</value>
+			</life-sec>
+			<mass-kg>1.0</mass-kg>
+			<radius-m>0.5</radius-m>
+		</particle>
+
+		<program>
+			<fluid>water</fluid>
+			<gravity>false</gravity>
+			<wind>false</wind>
+		</program>
+
+	</particlesystem>
+
+</PropertyList>

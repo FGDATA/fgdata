@@ -1,0 +1,178 @@
+<?xml version="1.0"?>
+
+<!--
+************************************************************************
+* Bindings for Logitech WingMan Force 3D USB joystick.
+*
+* Bindings are as follow:
+*
+* Axis 0: ailerons
+* Axis 1: elevator
+* Axis 2 (slider): throttle
+* Axis 3 (twist): rudder
+* Axes 6 and 7 (hat): view direction
+*
+* Button 0 (trigger): all brakes
+* Button 1 (02): elevator trim up
+* Button 2 (03): elevator trim down
+* Button 3 (04): mixture richer
+* Button 4 (05): mixture leaner
+* Button 5 (06): flaps ups
+* Button 6 (07): flaps down
+************************************************************************
+-->
+
+<PropertyList>
+
+	<name>Logitech Inc. WingMan Force 3D</name>
+	<name>Logitech Inc. WingMan Force 3d</name>
+	<name>Logitech WingMan Force 3D USB</name>
+
+	<axis n="0">
+		<desc>Aileron</desc>
+		<binding>
+			<command>property-scale</command>
+			<property>/controls/flight/aileron</property>
+			<factor type="double">1.0</factor>
+			<dead-band type="double">0.02</dead-band>
+			<power type="double">2.0</power>
+		</binding>
+	</axis>
+
+	<axis n="1">
+		<desc>Elevator</desc>
+		<binding>
+			<command>property-scale</command>
+			<property>/controls/flight/elevator</property>
+			<factor type="double">-1.0</factor>
+			<dead-band type="double">0.02</dead-band>
+			<power type="double">2.0</power>
+		</binding>
+	</axis>
+
+	<axis>
+		<desc>Throttle</desc>
+		<number>
+			<unix>3</unix>
+			<mac>2</mac>
+			<windows>2</windows>
+		</number>
+		<binding>
+			<command>nasal</command>
+			<script>controls.throttleAxis()</script>
+		</binding>
+	</axis>
+
+	<axis>
+		<desc>Rudder</desc>
+		<number>
+			<unix>2</unix>
+			<mac>3</mac>
+			<windows>3</windows>
+		</number>
+		<binding>
+			<command>property-scale</command>
+			<property>/controls/flight/rudder</property>
+			<factor type="double">1.0</factor>
+			<dead-band type="double">0.2</dead-band>
+			<power type="double">2.0</power>
+		</binding>
+	</axis>
+
+	<!-- The next two axes are the view hat -->
+
+	<axis>
+		<desc>Lat-Hat</desc>
+		<number>
+			<unix>4</unix>
+			<mac>4</mac>
+			<windows>6</windows>
+		</number>
+		<binding>
+			<command>property-scale</command>
+			<property>/sim/current-view/axes/lat</property>
+		</binding>
+	</axis>
+
+	<axis>
+		<desc>Long-Hat</desc>
+		<number>
+			<unix>5</unix>
+			<mac>5</mac>
+			<windows>7</windows>
+		</number>
+		<binding>
+			<command>property-scale</command>
+			<property>/sim/current-view/axes/long</property>
+		</binding>
+	</axis>
+
+	<button n="0">
+		<desc>Brakes</desc>
+		<binding>
+			<command>nasal</command>
+			<script>controls.applyBrakes(1)</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>controls.applyBrakes(0)</script>
+			</binding>
+		</mod-up>
+	</button>
+
+	<button n="1">
+		<desc>Elevator trim up</desc>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>controls.elevatorTrim(0.75)</script>
+		</binding>
+	</button>
+
+	<button n="2">
+		<desc>Elevator trim down</desc>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>controls.elevatorTrim(-0.75)</script>
+		</binding>
+	</button>
+
+	<button n="3">
+		<desc>Mixture richer</desc>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>controls.adjMixture(1)</script>
+		</binding>
+	</button>
+
+	<button n="4">
+		<desc>Mixture leaner</desc>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>controls.adjMixture(-1)</script>
+		</binding>
+	</button>
+
+	<button n="5">
+		<desc>Flaps down</desc>
+		<repeatable>false</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>controls.flapsDown(1)</script>
+		</binding>
+	</button>
+
+	<button n="6">
+		<desc>Flaps up</desc>
+		<repeatable>false</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>controls.flapsDown(-1)</script>
+		</binding>
+	</button>
+
+</PropertyList>

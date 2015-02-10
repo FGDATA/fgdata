@@ -1,0 +1,249 @@
+<?xml version="1.0"?>
+
+<!--
+Airspeed.xml
+
+airspeed indicator for a SenecaII
+
+Torsten Dreyer torsten@t3r.de
+
+-->
+
+<PropertyList>
+
+    <name>AirspeedIndicator</name>
+    <w-base>512</w-base>
+    <h-base>512</h-base>
+
+    <layers>
+  
+        <layer>
+            <name>TAS Face</name>
+            <w>440</w>
+            <h>440</h>
+            <texture>
+                <path>Aircraft/SenecaII/Panels/Textures/Airspeed2.rgb</path>
+                <x1>0.0</x1>
+                <x2>1.0</x2>
+                <y1>0.0</y1>
+                <y2>1.0</y2>
+            </texture>
+            <transformations>
+                <transformation>
+                    <type>rotation</type>
+                    <property>/instrumentation/airspeed-indicator/tas-face-rotation</property>
+                    <scale>-1.0</scale>
+                    <offset>0</offset>
+                </transformation>
+            </transformations>
+        </layer>
+
+        <layer>
+            <name>IAS Face</name>
+            <w>440</w>
+            <h>440</h>
+            <texture>
+                <path>Aircraft/SenecaII/Panels/Textures/Airspeed1.rgb</path>
+                <x1>0.0</x1>
+                <x2>1.0</x2>
+                <y1>0.0</y1>
+                <y2>1.0</y2>
+            </texture>
+        </layer>
+
+        <layer>
+            <name>Needle</name>
+            <w>56</w>
+            <h>272</h>
+            
+            <texture>
+                <path>Aircraft/Instruments/Textures/misc1.rgb</path>
+                <x1>0.71875</x1>
+                <x2>0.828125</x2>
+                <y1>0.46875</y1>
+                <y2>1.0</y2>
+            </texture>
+            
+            <transformations>
+                <transformation>
+                    <type>rotation</type>
+                    <property>/instrumentation/airspeed-indicator/indicated-speed-kt</property>
+                    <scale>1.0</scale>
+                    <interpolation>
+                        <entry>
+                            <ind> 0</ind>
+                            <dep>0</dep>
+                        </entry>
+                        <entry>
+                            <ind> 40</ind>
+                            <dep> 31</dep>
+                        </entry>
+                        <entry>
+                            <ind> 50</ind>
+                            <dep> 52</dep>
+                        </entry>
+                        <entry>
+                            <ind> 60</ind>
+                            <dep> 75</dep>
+                        </entry>
+                        <entry>
+                            <ind> 70</ind>
+                            <dep> 95</dep>
+                        </entry>
+                        <entry>
+                            <ind> 80</ind>
+                            <dep>115</dep>
+                        </entry>
+                        <entry>
+                            <ind> 90</ind>
+                            <dep>135</dep>
+                        </entry>
+                        <entry>
+                            <ind>100</ind>
+                            <dep>153</dep>
+                        </entry>
+                        <entry>
+                            <ind> 110</ind>
+                            <dep>172</dep>
+                        </entry>
+                        <entry>
+                            <ind> 120</ind>
+                            <dep>191</dep>
+                        </entry>
+                        <entry>
+                            <ind> 130</ind>
+                            <dep>207</dep>
+                        </entry>
+                        <entry>
+                            <ind> 140</ind>
+                            <dep>223</dep>
+                        </entry>
+                        <entry>
+                            <ind> 150</ind>
+                            <dep>237</dep>
+                        </entry>
+                        <entry>
+                            <ind> 160</ind>
+                            <dep> 250</dep>
+                        </entry>
+                        <entry>
+                            <ind>170</ind>
+                            <dep> 267</dep>
+                        </entry>
+                        <entry>
+                            <ind> 180</ind>
+                            <dep> 280</dep>
+                        </entry>
+                        <entry>
+                            <ind>190</ind>
+                            <dep>293</dep>
+                        </entry>
+                        <entry>
+                            <ind> 200</ind>
+                            <dep> 307</dep>
+                        </entry>
+                        <entry>
+                            <ind> 210</ind>
+                            <dep> 314</dep>
+                        </entry>
+                        <entry>
+                            <ind> 280</ind>
+                            <dep> 355</dep>
+                        </entry>
+                    </interpolation>
+                    <offset>0</offset>
+                </transformation>
+                <transformation>
+                    <type>y-shift</type>
+                    <offset>57</offset>
+                </transformation>
+            </transformations>
+        </layer>
+
+        <layer>
+            <name>Ring</name>
+            <w>512</w>
+            <h>512</h>
+            <texture>
+                <path>Aircraft/SenecaII/Panels/Textures/Ring.rgb</path>
+                <x1>0.0</x1>
+                <x2>1.0</x2>
+                <y1>0.0</y1>
+                <y2>1.0</y2>
+            </texture>
+        </layer>
+
+    </layers>
+    <!--
+    <actions>
+        <action>
+            <name>fine lower</name>
+            <button>0</button>
+            <x>-218</x>
+            <y>-212</y>
+            <w>48</w>
+            <h>96</h>
+            <binding>
+                <command>property-adjust</command>
+                <property>/instrumentation/airspeed-indicator/tas-offset-deg</property>
+                <step>0.1</step>
+                <min>-70</min>
+                <max>22</max>
+                <wrap>false</wrap>
+            </binding>
+        </action>
+
+        <action>
+            <name>coarse lower</name>
+            <button>1</button>
+            <x>-218</x>
+            <y>-212</y>
+            <w>48</w>
+            <h>96</h>
+            <binding>
+                <command>property-adjust</command>
+                <property>/instrumentation/airspeed-indicator/tas-offset-deg</property>
+                <step>3.5</step>
+                <min>-70</min>
+                <max>22</max>
+                <wrap>false</wrap>
+            </binding>
+        </action>
+
+        <action>
+            <name>fine raise</name>
+            <button>0</button>
+            <x>-170</x>
+            <y>-212</y>
+            <w>48</w>
+            <h>96</h>
+            <binding>
+                <command>property-adjust</command>
+                <property>/instrumentation/airspeed-indicator/tas-offset-deg</property>
+                <step>-0.1</step>
+                <min>-70</min>
+                <max>22</max>
+                <wrap>false</wrap>
+            </binding>
+        </action>
+
+        <action>
+            <name>coarse raise</name>
+            <button>1</button>
+            <x>-170</x>
+            <y>-212</y>
+            <w>48</w>
+            <h>96</h>
+            <binding>
+                <command>property-adjust</command>
+                <property>/instrumentation/airspeed-indicator/tas-offset-deg</property>
+                <step>-3.5</step>
+                <min>-70</min>
+                <max>22</max>
+                <wrap>false</wrap>
+            </binding>
+        </action>
+
+    </actions>
+-->
+</PropertyList>

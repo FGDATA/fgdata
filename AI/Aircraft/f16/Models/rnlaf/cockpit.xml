@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+ <path>../../../../../Aircraft/f16/Models/Cockpit/F-16A-MLU/cockpit.ac</path>
+
+ <model>
+  <name>AcesII</name>
+  <path>Aircraft/f16/Models/Cockpit/AcesII/acesII.xml</path>
+ </model>
+
+ <model>
+  <name>Pilot_ext</name>
+  <path>Aircraft/f16/Models/Pilots/pilot_externalview.xml</path>
+ </model>
+
+ <animation>
+  <type>range</type>
+  <object-name>Pilot_ext</object-name>
+  <min-m>0</min-m>
+  <max-m>5000</max-m>
+ </animation>
+
+ <model>
+  <name>ICP</name>
+  <path>Aircraft/f16/Models/Cockpit/Panels/icp.ac</path>
+  <offsets>
+   <x-m>-4.555</x-m>
+   <y-m>0.0</y-m>
+   <z-m>0.65</z-m>
+  </offsets>
+ </model>
+
+ <model>
+  <name>EYEBROW_RIGHT</name>
+  <path>Aircraft/f16/Models/Cockpit/F-16A-MLU/eyebrow_right.xml</path>
+ </model>
+
+ <model>
+  <name>EYEBROW_LEFT</name>
+  <path>Aircraft/f16/Models/Cockpit/F-16A-MLU/eyebrow_left.xml</path>
+ </model>
+
+ <model>
+  <name>THREAT</name>
+  <path>Aircraft/f16/Models/Cockpit/Avionics/EWS/MLU_threat_warning_prime.xml</path>
+  <offsets>
+   <x-m>-4.786</x-m>
+   <y-m>-0.203</y-m>
+   <z-m>0.578</z-m>
+   <pitch-deg>-15</pitch-deg><!-- needs verification! -->
+  </offsets>
+ </model>
+
+</PropertyList>

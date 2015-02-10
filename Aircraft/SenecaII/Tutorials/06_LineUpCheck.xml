@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ This file is part of FlightGear, the free flight simulator
+ http://www.flightgear.org/
+
+ Copyright (C) 2009 Torsten Dreyer, Torsten (at) t3r _dot_ de
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation; either version 2 of the
+ License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+-->
+<PropertyList>
+  <name>Line Up Check</name>
+  <description>This is the line up checklist. Check these items when lined up on the runway.</description>
+  <interval>0</interval>
+
+  <init>
+    <set>
+      <property>/sim/current-view/view-number</property>
+      <value>0</value>
+    </set>
+  </init>
+
+  <step>
+    <message>
+      LANDING LIGHT: on
+    </message>
+    <view>
+      <heading-offset-deg>22</heading-offset-deg>
+      <pitch-offset-deg>-38</pitch-offset-deg>
+      <field-of-view>35</field-of-view>
+    </view>
+
+    <exit>
+      <condition>
+        <equals>
+          <property>sim/model/door-positions/right-door/position-norm</property>
+          <value>0</value>
+        </equals>
+        <equals>
+          <property>sim/model/door-positions/pax-door/position-norm</property>
+          <value>0</value>
+        </equals>
+        <equals>
+          <property>sim/model/door-positions/baggage-door/position-norm</property>
+          <value>0</value>
+        </equals>
+      </condition>
+    </exit>
+  </step>
+
+  <step>
+    <message>
+      ANTI ICE: as required
+    </message>
+  </step>
+
+  <step>
+    <message>
+      GYRO: checked
+    </message>
+  </step>
+
+</PropertyList>

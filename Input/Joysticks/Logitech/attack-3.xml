@@ -1,0 +1,167 @@
+<?xml version="1.0"?>
+
+<!--
+    ************************************************************************
+    Logitech Attack 3 joystick bindings.
+
+    Justin Smithies 2006
+    
+    2 Axis joystick with throttle and 11 buttons.
+    ************************************************************************
+    -->
+
+<PropertyList>
+	
+	<name>Logitech Attack 3</name>
+	<name>Logitech Logitech Attack 3</name>
+	
+	<axis n="0">
+		<desc>Aileron</desc>
+		<binding>
+			<command>property-scale</command>
+			<property>/controls/flight/aileron</property>
+			<squared type="bool">true</squared>
+		</binding>
+	</axis>
+	
+	<axis n="1">
+		<desc>Elevator</desc>
+		<binding>
+			<command>property-scale</command>
+			<property>/controls/flight/elevator</property>
+			<factor type="double">-1.0</factor>
+			<squared type="bool">true</squared>
+		</binding>
+	</axis>
+	
+	<axis n="2">
+		<desc>Throttle</desc>
+		<binding>
+			<command>nasal</command>
+			<script>controls.throttleAxis()</script>
+		</binding>
+	</axis>
+	
+	<button n="0">
+		<desc>Brakes</desc>
+		<binding>
+			<command>nasal</command>
+			<script>controls.applyBrakes(1)</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>controls.applyBrakes(0)</script>
+			</binding>
+		</mod-up>
+	</button>
+	
+	<button n="2">
+		<desc>Elevator trim up</desc>
+		<repeatable type="bool">true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>controls.elevatorTrim(1)</script>
+		</binding>
+	</button>
+	
+	<button n="1">
+		<desc>Elevator trim down</desc>
+		<repeatable type="bool">true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>controls.elevatorTrim(-1)</script>
+		</binding>
+	</button>
+	
+	<button n="6">
+		<desc>Flaps down</desc>
+		<binding>
+			<command>nasal</command>
+			<script>controls.flapsDown(1)</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>controls.flapsDown(0)</script>
+			</binding>
+		</mod-up>
+	</button>
+	
+	<button n="5">
+		<desc>Flaps up</desc>
+		<repeatable>false</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>controls.flapsDown(-1)</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>controls.flapsDown(0)</script>
+			</binding>
+		</mod-up>
+	</button>
+
+	<button n="7">
+		<desc>Left brake</desc>
+		<binding>
+			<command>nasal</command>
+			<script>controls.applyBrakes(1, -1)</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>controls.applyBrakes(0, -1)</script>
+			</binding>
+		</mod-up>
+	</button>
+
+	<button n="8">
+		<desc>Right brake</desc>
+		<binding>
+			<command>nasal</command>
+			<script>controls.applyBrakes(1, 1)</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>controls.applyBrakes(0, 1)</script>
+			</binding>
+		</mod-up>
+	</button>
+	
+	<button n="10">
+		<desc>Gear up</desc>
+		<repeatable>false</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>controls.gearDown(-1)</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>controls.gearDown(0)</script>
+			</binding>
+		</mod-up>
+	</button>
+	
+	<button n="9">
+		<desc>Gear down</desc>
+		<repeatable>false</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>controls.gearDown(1)</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>controls.gearDown(0)</script>
+			</binding>
+		</mod-up>
+ </button>
+
+</PropertyList>
+
+<!-- end of joystick.xml -->
+ 

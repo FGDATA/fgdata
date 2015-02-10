@@ -1,0 +1,172 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<name>stopwatch-dialog</name>
+	<layout>vbox</layout>
+	<modal>false</modal>
+	<default-padding>8</default-padding>
+	<x>-5</x>
+	<y>5</y>
+	<color>
+		<red>0.2</red>
+		<green>0.2</green>
+		<blue>0.2</blue>
+		<alpha>0.7</alpha>
+	</color>
+
+	<nasal>
+		<open>
+			var p = "/sim/gui/dialogs/stopwatch-dialog/";
+			var display = props.globals.getNode(p ~ "display", 1);
+			var time = props.globals.getNode("/sim/time/elapsed-sec");
+
+			var start_time = props.globals.getNode(p ~ "start-time", 1).getValue();
+			var accu = props.globals.getNode(p ~ "accu", 1).getValue();
+			if (start_time == nil)
+				start_time = 0;
+			if (accu == nil)
+				accu = 0;
+
+			var r = props.globals.getNode(p ~ "running");
+			var running = r != nil ? r.getBoolValue() : 0;
+
+			var start = func {
+				if (!running) {
+					start_time = time.getValue();
+					running = 1;
+					loop();
+				}
+			}
+
+			var stop = func {
+				if (running) {
+					running = 0;
+					show(accu += time.getValue() - start_time);
+				}
+			}
+
+			var reset = func {
+				accu = 0;
+				if (running)
+					start_time = time.getValue();
+				else
+					show(0);
+			}
+
+			var loop = func {
+				if (running) {
+					show(time.getValue() - start_time + accu);
+					settimer(loop, 0.02);
+				}
+			}
+
+			var show = func(s) {
+				var hours = s / 3600;
+				var minutes = int(math.mod(s / 60, 60));
+				var seconds = int(math.mod(s, 60));
+				var msec = int(math.mod(s * 1000, 1000) / 100);
+				var d = sprintf("%3d : %02d : %02d.%d", hours, minutes, seconds, msec);
+				display.setValue(d);
+			}
+
+			if (running) {
+				loop();
+			} else {
+				if (accu == nil)
+					accu = 0;
+				show(accu);
+			}
+		</open>
+
+		<close>
+			props.globals.getNode(p ~ "start-time", 1).setDoubleValue(start_time);
+			props.globals.getNode(p ~ "running", 1).setBoolValue(running);
+			props.globals.getNode(p ~ "accu", 1).setDoubleValue(accu);
+			running = 0;	# stop display loop
+		</close>
+	</nasal>
+
+	<text>
+		<label>xxxxx000 : 00 : 00.000</label>
+		<halign>center</halign>
+		<live>true</live>
+		<property>/sim/gui/dialogs/stopwatch-dialog/display</property>
+		<font>
+			<name>TIMES_24</name>
+		</font>
+		<color>
+			<red>1</red>
+			<green>0.9</green>
+			<blue>0</blue>
+			<alpha>1</alpha>
+		</color>
+	</text>
+
+	<group>
+		<layout>hbox</layout>
+		<default-padding>2</default-padding>
+
+		<button>
+			<legend>Start</legend>
+			<equal>true</equal>
+			<pref-width>47</pref-width>
+			<color>
+				<red type="float">0.3</red>
+				<green type="float">0.3</green>
+				<blue type="float">0.3</blue>
+				<alpha type="float">0.8</alpha>
+			</color>
+			<binding>
+				<command>nasal</command>
+				<script>start()</script>
+			</binding>
+		</button>
+
+		<button>
+			<legend>Stop</legend>
+			<default>true</default>
+			<pref-width>47</pref-width>
+			<color>
+				<red type="float">0.3</red>
+				<green type="float">0.3</green>
+				<blue type="float">0.3</blue>
+				<alpha type="float">0.8</alpha>
+			</color>
+			<binding>
+				<command>nasal</command>
+				<script>stop()</script>
+			</binding>
+		</button>
+
+		<button>
+			<legend>Reset</legend>
+			<key>Delete</key>
+			<pref-width>47</pref-width>
+			<color>
+				<red type="float">0.3</red>
+				<green type="float">0.3</green>
+				<blue type="float">0.3</blue>
+				<alpha type="float">0.8</alpha>
+			</color>
+			<binding>
+				<command>nasal</command>
+				<script>reset()</script>
+			</binding>
+		</button>
+
+		<button>
+			<legend>Close</legend>
+			<color>
+				<red type="float">0.3</red>
+				<green type="float">0.3</green>
+				<blue type="float">0.3</blue>
+				<alpha type="float">0.8</alpha>
+			</color>
+			<key>Esc</key>
+			<pref-width>47</pref-width>
+			<binding>
+				<command>dialog-close</command>
+			</binding>
+		</button>
+	</group>
+</PropertyList>

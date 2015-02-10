@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!--
+Author : Syd Adams
+AOA
+-->
+<PropertyList>
+
+    <path>aoa.ac</path>
+
+    <animation>
+        <type>material</type>
+        <object-name>AOA</object-name>
+        <object-name>AoA.needle</object-name>
+        <emission>
+            <red>0.8</red>
+            <green>0.3</green>
+            <blue>0.2</blue>
+            <factor-prop>systems/electrical/outputs/instrument-lights</factor-prop>
+        </emission>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>AoA.needle</object-name>
+        <property>orientation/alpha-deg</property>
+        <interpolation>
+            <entry><ind>0</ind><dep>0</dep></entry>
+            <entry><ind>16.0</ind><dep>225</dep></entry>
+        </interpolation>
+        <axis>
+            <x>1.0</x>
+            <y>0.0</y>
+            <z>0</z>
+        </axis>
+        <center>
+            <x-m>0</x-m>
+            <y-m>0</y-m>
+            <z-m>0</z-m>
+        </center>
+    </animation>
+
+</PropertyList>

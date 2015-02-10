@@ -1,0 +1,248 @@
+<?xml version="1.0"?>
+<!-- Regional definitions for Europe -->
+<PropertyList>
+  <name>Europe</name>
+  <area>
+    <lon1>2.0</lon1>
+    <lon2>40.0</lon2>
+    <lat1>35.0</lat1>
+    <lat2>90.0</lat2>
+  </area>
+
+  <area>
+    <lon1>-20.0</lon1>
+    <lon2>40.0</lon2>
+    <lat1>35.0</lat1>
+    <lat2>49.8</lat2>
+  </area>
+
+  <condition>
+    <equals>
+      <property>sim/startup/season</property>
+      <value>summer</value>
+    </equals>
+  </condition>
+
+   <material>
+    <name>BarrenCover</name>
+    <name>Dirt</name>
+    <name>OpenMining</name>
+    <name>Rock</name>
+    <name>Dump</name>
+    <effect>Effects/rock</effect>
+    <texture-set>
+      <texture>Terrain/rock.png</texture>
+      <texture n="11">Terrain/grass_hires.png</texture>
+      <texture n="12">Terrain/rock_alt.png</texture>
+      <texture n="13">Terrain/rock.png</texture>
+      <texture n="14">Terrain/grain_texture.png</texture>
+    </texture-set>
+    <parameters>
+      <grain_strength>0.7</grain_strength>
+      <transition_model>0.3</transition_model>
+      <hires_overlay_bias>-0.2</hires_overlay_bias>
+      <overlay-alpha type="float">0.4</overlay-alpha>
+      <overlay-bias type="float">0.0</overlay-bias>
+      <contrast type="float">1.0</contrast>
+      <crack-depth type="float">0.6</crack-depth>
+      <crack-pattern-stretch type="float">7.0</crack-pattern-stretch>
+      <rock-brightness type="float">1.0</rock-brightness>
+      <grain-fade-power type="float">1.0</grain-fade-power>
+      <rock_strata>0</rock_strata>
+    </parameters>
+    <xsize>1000</xsize>
+    <ysize>1000</ysize>
+    <solid>1</solid>
+    <friction-factor>0.9</friction-factor>
+    <rolling-friction>0.1</rolling-friction>
+    <bumpiness>0.3</bumpiness>
+  </material>
+
+  <material>
+    <effect>Effects/cropgrass</effect>
+    <name>CropGrassCover</name>
+    <name>CropGrass</name>
+    <texture>Terrain/cropgrass-hires-autumn.png</texture>
+    <object-mask>Terrain/cropgrass-hires.mask.png</object-mask>
+    <xsize>2000</xsize>
+    <ysize>2000</ysize>
+    <light-coverage>2000000.0</light-coverage>
+    <diffuse>
+      <r>0.93</r>
+      <g>0.95</g>
+      <b>0.93</b>
+      <a>1.0</a>
+    </diffuse>
+    <specular>
+      <r>0.1</r>
+      <g>0.12</g>
+      <b>0.1</b>
+      <a>1.0</a>
+    </specular>
+    <shininess>1.2</shininess>
+    <solid>1</solid>
+    <friction-factor>0.7</friction-factor>
+    <rolling-friction>0.1</rolling-friction>
+    <bumpiness>0.3</bumpiness>
+    <load-resistance>1e30</load-resistance>
+    <wood-coverage>5000.0</wood-coverage>
+    <object-group include="Materials/base/farm-buildings.xml"/>
+    <tree-texture>Trees/mixed-alt.png</tree-texture>
+    <tree-varieties>8</tree-varieties>
+    <tree-range-m alias="/params/forest/tree-range-m"/>
+    <tree-height-m>20.0</tree-height-m>
+    <tree-width-m>12.0</tree-width-m>
+  </material>
+
+  <material>
+    <name>BuiltUpCover</name>
+    <name>Urban</name>
+    <texture>Terrain/18th_century_city.png</texture>
+    <object-mask>Terrain/18th_century_city.mask.png</object-mask>
+    <xsize>1000</xsize>
+    <ysize>1000</ysize>
+    <light-coverage>100000.0</light-coverage>
+    <emissive>
+      <r>0.05</r>
+      <g>0.05</g>
+      <b>0.02</b>
+      <a>1.0</a>
+    </emissive>
+    <object-group include="Materials/base/urban-buildings.xml"/>
+    <building-coverage>500.0</building-coverage>
+    <building-small-ratio>0.4</building-small-ratio>
+    <building-small-min-floors>3</building-small-min-floors>
+    <building-small-max-width-m>30.0</building-small-max-width-m>
+    <building-small-min-depth-m>10.0</building-small-min-depth-m>
+    <building-small-max-depth-m>30.0</building-small-max-depth-m>
+    <building-medium-ratio>0.6</building-medium-ratio>
+    <building-large-ratio>0.2</building-large-ratio>
+    <building-texture>Textures/buildings.png</building-texture>
+    <building-lightmap>Textures/buildings-lightmap.png</building-lightmap>
+    <wood-coverage>250000.0</wood-coverage>
+    <tree-texture>Trees/deciduous-alt.png</tree-texture>
+    <tree-varieties>8</tree-varieties>
+    <tree-range-m alias="/params/forest/tree-range-m"/>
+    <tree-height-m>15.0</tree-height-m>
+    <tree-width-m>10.0</tree-width-m>
+  </material>
+
+  <material>
+    <name>Town</name>
+    <name>SubUrban</name>
+    <texture>Terrain/town-europe-autumn.png</texture>
+    <object-mask>Terrain/town-europe.mask.png</object-mask>
+    <xsize>1024</xsize>
+    <ysize>1024</ysize>
+    <light-coverage>100000.0</light-coverage>
+    <emissive>
+      <r>0.05</r>
+      <g>0.05</g>
+      <b>0.02</b>
+      <a>1.0</a>
+    </emissive>
+    <object-group include="Materials/base/town-buildings.xml"/>
+    <building-coverage>500.0</building-coverage>
+    <building-small-ratio>0.9</building-small-ratio>
+    <building-medium-ratio>0.1</building-medium-ratio>
+    <building-large-ratio>0.0</building-large-ratio>
+    <building-medium-max-floors>4</building-medium-max-floors>
+    <building-texture>Textures/buildings.png</building-texture>
+    <building-lightmap>Textures/buildings-lightmap.png</building-lightmap>
+    <wood-coverage>1000.0</wood-coverage>
+    <tree-texture>Trees/deciduous-alt.png</tree-texture>
+    <tree-varieties>8</tree-varieties>
+    <tree-range-m alias="/params/forest/tree-range-m"/>
+    <tree-height-m>15.0</tree-height-m>
+    <tree-width-m>10.0</tree-width-m>
+  </material>
+
+  <material>
+    <name>Marsh</name>
+    <name>FloodLand</name>
+    <name>SaltMarsh</name>
+    <name>HerbWetlandCover</name>
+    <name>WoodedWetlandCover</name>
+    <texture>Terrain/marsh2a.png</texture>
+    <texture>Terrain/marsh3a.png</texture>
+    <texture>Terrain/marsh4a.png</texture>
+    <xsize>2000</xsize>
+    <ysize>2000</ysize>
+    <solid>1</solid>
+    <light-coverage>40000000.0</light-coverage>
+    <friction-factor>0.8</friction-factor>
+    <rolling-friction>0.3</rolling-friction>
+    <bumpiness>0.2</bumpiness>
+    <load-resistance>1e30</load-resistance>
+  </material>
+
+  <material>
+    <name>Littoral</name>
+    <effect>Effects/water</effect>
+    <texture>Terrain/tidal.png</texture>
+    <xsize>2000</xsize>
+    <ysize>2000</ysize>
+    <solid>1</solid>
+    <light-coverage>40000000.0</light-coverage>
+    <friction-factor>0.8</friction-factor>
+    <rolling-friction>0.3</rolling-friction>
+    <bumpiness>0.2</bumpiness>
+    <load-resistance>1e30</load-resistance>
+  </material>
+
+  <material>
+    <effect>Effects/agriculture</effect>
+    <name>MixedCropPastureCover</name>
+    <name>MixedCrop</name>
+    <name>ComplexCrop</name>
+    <texture>Terrain/irrcrop-europe-autumn.png</texture>
+    <parameters>
+      <rotation_flag>1</rotation_flag>
+      <rotation_scale>2000.0</rotation_scale>
+    </parameters>
+    <object-mask>Terrain/irrcrop-europe.mask.png</object-mask>
+    <xsize>2000</xsize>
+    <ysize>2000</ysize>
+    <light-coverage>2000000.0</light-coverage>
+    <solid>1</solid>
+    <friction-factor>0.9</friction-factor>
+    <rolling-friction>0.1</rolling-friction>
+    <bumpiness>0.7</bumpiness>
+    <load-resistance>1e30</load-resistance>
+    <object-group include="Materials/base/farm-buildings.xml"/>
+    <wood-coverage>5000.0</wood-coverage>
+    <tree-texture>Trees/mixed-alt.png</tree-texture>
+    <tree-varieties>8</tree-varieties>
+    <tree-range-m alias="/params/forest/tree-range-m"/>
+    <tree-height-m>20.0</tree-height-m>
+    <tree-width-m>12.0</tree-width-m>
+  </material>
+
+  <material>
+    <effect>Effects/crop</effect>
+    <name>IrrCropPastureCover</name>
+    <name>IrrCrop</name>
+    <name>Orchard</name>
+    <name>Olives</name>
+    <name>Vineyard</name>
+    <name>Rice</name>
+    <texture>Terrain/irrcrop-europe-autumn.png</texture>
+    <object-mask>Terrain/irrcrop-europe.mask.png</object-mask>
+    <xsize>2000</xsize>
+    <ysize>2000</ysize>
+    <light-coverage>2000000.0</light-coverage>
+    <solid>1</solid>
+    <friction-factor>0.9</friction-factor>
+    <rolling-friction>0.3</rolling-friction>
+    <bumpiness>0.6</bumpiness>
+    <load-resistance>1e30</load-resistance>
+    <object-group include="Materials/base/farm-buildings.xml"/>
+    <wood-coverage>5000.0</wood-coverage>
+    <tree-texture>Trees/mixed-alt.png</tree-texture>
+    <tree-varieties>8</tree-varieties>
+    <tree-range-m alias="/params/forest/tree-range-m"/>
+    <tree-height-m>20.0</tree-height-m>
+    <tree-width-m>12.0</tree-width-m>
+  </material>
+
+</PropertyList>

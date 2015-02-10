@@ -1,0 +1,42 @@
+AC3Db
+MATERIAL "ac3dmat1" rgb 1 1 1  amb 1 1 1  emis 0 0 0  spec 1 1 1  shi 0  trans 0
+OBJECT world
+kids 2
+OBJECT poly
+name "rect1"
+loc 181.418 -4.62034 -15.8995
+texture "altocumulus_textures.rgb"
+crease 45.000000
+numvert 4
+-9.15527e-005 -1515.36 -1678.44
+0.00012207 -1515.36 1678.44
+0.00012207 1515.36 1678.44
+-9.15527e-005 1515.36 -1678.44
+numsurf 1
+SURF 0x30
+mat 0
+refs 4
+3 0.988281 0.992188
+2 0.677735 0.992188
+1 0.677735 0.683594
+0 0.988281 0.683594
+kids 0
+OBJECT poly
+name "rect2"
+loc -158.347 75.4949 -124.158
+texture "altocumulus_textures.rgb"
+crease 45.000000
+numvert 4
+-7.62939e-005 -998.912 -1236.75
+6.10352e-005 -998.912 1236.75
+6.10352e-005 998.912 1236.75
+-7.62939e-005 998.912 -1236.75
+numsurf 1
+SURF 0x30
+mat 0
+refs 4
+3 0.697266 0.275391
+2 0.972656 0.275391
+1 0.972656 0.03125
+0 0.697266 0.03125
+kids 0

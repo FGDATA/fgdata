@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+
+<!--
+**********************************************************************
+This file selects the instrumentation modules that should be available.
+**********************************************************************
+-->
+
+<PropertyList>
+
+    <mk-viii>
+        <name>mk-viii</name>
+        <number>0</number>
+    </mk-viii>
+
+    <adf>
+        <name>adf</name>
+        <number>0</number>
+    </adf>
+
+    <airspeed-indicator>
+        <name>airspeed-indicator</name>
+        <number>0</number>
+        <total-pressure>/systems/pitot/total-pressure-inhg</total-pressure>
+        <static-pressure>/systems/static/pressure-inhg</static-pressure>
+        <has-overspeed-indicator>1</has-overspeed-indicator>
+    </airspeed-indicator>
+
+    <altimeter>
+        <name>altimeter</name>
+        <number>0</number>
+        <static-pressure>/systems/static/pressure-inhg</static-pressure>
+    </altimeter>
+
+    <attitude-indicator>
+        <name>attitude-indicator</name>
+        <number>0</number>
+        <suction>/systems/vacuum/suction-inhg</suction>
+    </attitude-indicator>
+
+    <clock>
+        <name>clock</name>
+        <number>0</number>
+    </clock>
+
+    <comm-radio>
+        <name>comm</name>
+        <number>0</number>
+    </comm-radio>
+
+    <comm-radio>
+        <name>comm</name>
+        <number>1</number>
+    </comm-radio>
+
+    <heading-indicator>
+        <name>heading-indicator</name>
+        <number>0</number>
+        <suction>/systems/vacuum/suction-inhg</suction>
+    </heading-indicator>
+
+    <heading-indicator-dg>
+        <name>heading-indicator-dg</name>
+        <number>0</number>
+    </heading-indicator-dg>
+
+    <magnetic-compass>
+        <name>magnetic-compass</name>
+        <number>0</number>
+    </magnetic-compass>
+
+    <marker-beacon>
+        <name>marker-beacon</name>
+        <number>0</number>
+    </marker-beacon>
+
+    <nav-radio>
+        <name>nav</name>
+        <number>0</number>
+    </nav-radio>
+
+    <nav-radio>
+        <name>nav</name>
+        <number>1</number>
+    </nav-radio>
+
+    <slip-skid-ball>
+        <name>slip-skid-ball</name>
+        <number>0</number>
+    </slip-skid-ball>
+
+    <turn-indicator>
+        <name>turn-indicator</name>
+        <number>0</number>
+    </turn-indicator>
+
+    <inst-vertical-speed-indicator>
+        <name>inst-vertical-speed-indicator</name>
+        <number>0</number>
+        <static-pressure>/systems/static/pressure-inhg</static-pressure>
+    </inst-vertical-speed-indicator>
+
+    <gps>
+        <name>gps</name>
+        <number>0</number>
+    </gps>
+
+    <KT-70>
+        <name>kt-70</name>
+        <number>0</number>
+    </KT-70>
+
+    <radar>
+        <name>radar</name>
+        <number>0</number>
+    </radar>
+
+    <dme>
+        <name>dme</name>
+        <number>0</number>
+    </dme>
+
+</PropertyList>

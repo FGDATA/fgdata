@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+ <path>front-airbrakes-handle.ac</path>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>ab-handles-link</object-name>
+   <property>surface-positions/speedbrake-pos-norm</property>
+   <interpolation>
+     <entry>
+       <ind>0</ind>
+       <dep>0</dep>
+     </entry>
+     <entry>
+       <ind>0.02</ind>
+       <dep>5.0</dep>
+     </entry>
+     <entry>
+       <ind>1.0</ind>
+       <dep>45</dep>
+     </entry>
+      </interpolation>
+		<center>
+			<x-m>-0.051474</x-m>
+			<y-m>-0.004328</y-m>
+			<z-m>0.141122</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>-0.022202</y>
+			<z>0</z>
+		</axis>
+ </animation>
+
+</PropertyList>
+
+

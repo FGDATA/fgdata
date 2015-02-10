@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<PropertyList>
+
+ <fx>
+    <engine>
+        <name>burner</name>
+        <mode>once</mode>
+        <path>AI/Sounds/balloon-sound1.wav</path>
+	    <condition>
+    		<property>engines/engine[0]/running</property>
+	    </condition>
+        <volume>1.0</volume>
+        <reference-dist>100.0</reference-dist>
+        <max-dist>3000.0</max-dist>
+    </engine>
+ </fx>
+
+</PropertyList>

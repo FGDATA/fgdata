@@ -1,0 +1,261 @@
+<?xml version="1.0" ?>
+<!-- Maintainer: Frederic Bouvier -->
+<!--
+************************************************************************
+* Bindings for Logitech WingMan Extreme Digital 3D (USB) joystick.
+*
+*
+* Axis 0: ailerons
+* Axis 1: elevator
+* Axis 2(windows),3(unix,mac) (slider): throttle
+* Axis 3(windows),2(unix,mac) (twist): rudder
+* Axes 6&7(windows), 4&5(unix,mac) (hat): view direction
+*
+* Button 0: all brakes
+* Button 1: elevator trim up
+* Button 2: elevator trim down
+* Button 3: mixture richer
+* Button 4: mixture leaner
+* Button 5: left brake only
+* Button 6: right brake only
+************************************************************************
+$Id$
+-->
+
+<PropertyList>
+
+ <name>Logitech Inc. WingMan Extreme Digital 3D</name>
+ <name>Logitech WingMan Extreme Digital 3D (USB)</name>
+
+ <axis>
+  <desc>Aileron</desc>
+  <number>
+   <unix>0</unix>
+   <mac>0</mac>
+   <windows>0</windows>
+  </number>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/aileron</property>
+   <squared type="bool">true</squared>
+  </binding>
+ </axis>
+
+ <axis>
+  <desc>Elevator</desc>
+  <number>
+   <unix>1</unix>
+   <mac>1</mac>
+   <windows>1</windows>
+  </number>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/elevator</property>
+   <factor type="double">-1.0</factor>
+   <squared type="bool">true</squared>
+  </binding>
+ </axis>
+
+ <axis>
+  <desc>Throttle</desc>
+  <number>
+   <unix>3</unix>
+   <mac>3</mac>
+   <windows>2</windows>
+  </number>
+  <binding>
+   <command>nasal</command>
+   <script>controls.throttleAxis()</script>
+  </binding>
+ </axis>
+
+ <axis>
+  <desc>Rudder</desc>
+  <number>
+   <unix>2</unix>
+   <mac>2</mac>
+   <windows>3</windows>
+  </number>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/rudder</property>
+   <factor type="double">1.0</factor>
+  </binding>
+ </axis>
+
+ <axis n="6">
+  <desc>View Direction</desc>
+  <number>
+   <unix>4</unix>
+   <mac>4</mac>
+   <windows>6</windows>
+  </number>
+  <low>
+   <repeatable>true</repeatable>
+   <binding>
+    <command>property-adjust</command>
+    <property>/sim/current-view/goal-heading-offset-deg</property>
+    <step type="double">1.0</step>
+   </binding>
+  </low>
+  <high>
+   <repeatable>true</repeatable>
+   <binding>
+    <command>property-adjust</command>
+    <property>/sim/current-view/goal-heading-offset-deg</property>
+    <step type="double">-1.0</step>
+   </binding>
+  </high>
+ </axis>
+
+ <axis>
+  <desc>View Elevation</desc>
+  <number>
+   <unix>5</unix>
+   <mac>5</mac>
+   <windows>7</windows>
+  </number>
+  <low>
+   <repeatable>true</repeatable>
+   <binding>
+    <command>property-adjust</command>
+    <property>/sim/current-view/goal-pitch-offset-deg</property>
+    <step type="double">1.0</step>
+   </binding>
+  </low>
+  <high>
+   <repeatable>true</repeatable>
+   <binding>
+    <command>property-adjust</command>
+    <property>/sim/current-view/goal-pitch-offset-deg</property>
+    <step type="double">-1.0</step>
+   </binding>
+  </high>
+ </axis>
+
+ <button>
+  <desc>Brakes</desc>
+  <number>
+   <unix>0</unix>
+   <mac>0</mac>
+   <windows>0</windows>
+  </number>
+  <binding>
+   <command>nasal</command>
+   <script>controls.applyBrakes(1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.applyBrakes(0)</script>
+   </binding>
+  </mod-up>
+ </button>
+
+ <button>
+  <desc>Elevator trim up</desc>
+  <number>
+   <unix>1</unix>
+   <mac>1</mac>
+   <windows>1</windows>
+  </number>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.elevatorTrim(1)</script>
+  </binding>
+ </button>
+
+ <button>
+  <desc>Elevator trim down</desc>
+  <number>
+   <unix>2</unix>
+   <mac>2</mac>
+   <windows>2</windows>
+  </number>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.elevatorTrim(-1)</script>
+  </binding>
+ </button>
+
+ <button>
+  <desc>Mixture richer</desc>
+  <number>
+   <unix>3</unix>
+   <mac>3</mac>
+   <windows>3</windows>
+  </number>
+  <repeatable>true</repeatable>
+  <binding>
+   <command>property-adjust</command>
+   <property>/controls/engines/engine[0]/mixture</property>
+   <step>0.01</step>
+  </binding>
+  <binding>
+   <command>property-adjust</command>
+   <property>/controls/engines/engine[1]/mixture</property>
+   <step>0.01</step>
+  </binding>
+ </button>
+
+ <button>
+  <desc>Mixture leaner</desc>
+  <number>
+   <unix>4</unix>
+   <mac>4</mac>
+   <windows>4</windows>
+  </number>
+  <repeatable>true</repeatable>
+  <binding>
+   <command>property-adjust</command>
+   <property>/controls/engines/engine[0]/mixture</property>
+   <step>-0.01</step>
+  </binding>
+  <binding>
+   <command>property-adjust</command>
+   <property>/controls/engines/engine[1]/mixture</property>
+   <step>-0.01</step>
+  </binding>
+ </button>
+
+ <button>
+  <desc>Left brake</desc>
+  <number>
+   <unix>5</unix>
+   <mac>5</mac>
+   <windows>5</windows>
+  </number>
+  <binding>
+   <command>nasal</command>
+   <script>controls.applyBrakes(1, -1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.applyBrakes(0, -1)</script>
+   </binding>
+  </mod-up>
+ </button>
+
+ <button>
+  <desc>Right brake</desc>
+  <number>
+   <unix>6</unix>
+   <mac>6</mac>
+   <windows>6</windows>
+  </number>
+  <binding>
+   <command>nasal</command>
+   <script>controls.applyBrakes(1, 1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.applyBrakes(0, 1)</script>
+   </binding>
+  </mod-up>
+ </button>
+
+</PropertyList>

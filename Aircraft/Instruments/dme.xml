@@ -1,0 +1,567 @@
+<?xml version="1.01"?>
+
+<!--
+Default DME instrument.
+
+Started summer 2000 by David Megginson, david@megginson.com.
+
+This is an instrument configuration file for the open-source flight
+simulator FlightGear (www.flightgear.org).  The file is an XML-encoded
+FlightGear property list defining the instrument's layers and actions.
+
+Each instrument is composed of layers stacked on top of each other.
+A layer may be a texture (with transparent parts to show the layers
+underneath), text, or a special layer that switches between two
+others (say, to turn an indicator light on or off).  Each layer can
+move independently in proportion to a property value, and text
+can be generated from property values as well: all of the layer's
+movements are defined as transformations.
+
+Actions are hotspots on the instrument that will respond to a mouse
+click.  Actions always modify the values of properties, either by
+adjusting them, toggling them, or swaping them with other
+properties' values.
+-->
+<!--
+Dave Perry added a check for dme voltage greater than 8.0 volts so
+that the dme text does not light up if there is no power supplied.
+This allows more realistic implementation of master switches or
+avionics master switches as is done in pa24-electrical.nas.  This
+change has no affect on the c172p since this voltage is 28 volts
+all the time in that electrical system.
+-->
+<PropertyList>
+ <name>DME</name>
+ <w-base>128</w-base>
+ <h-base>64</h-base>
+
+ <layers>
+
+  <layer>
+   <name>background</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/navcom-radios.rgb</path>
+    <x1>0.0</x1>
+    <x2>0.49609375</x2>
+    <y1>0.0</y1>
+    <y2>0.23828125</y2>
+   </texture>
+  </layer>
+
+  <layer>
+   <name>distance to station</name>
+   <type>switch</type>
+   <w>128</w>
+   <h>64</h>
+
+   <layer>
+    <condition>
+     <equals>
+      <property>/instrumentation/dme/switch-position</property>
+      <value type="int">0</value>
+     </equals>
+    </condition>
+    <type>group</type>
+   </layer>
+
+   <layer>
+    <condition>
+     <and>
+      <greater-than>
+       <property>/systems/electrical/outputs/dme</property>
+       <value>8.0</value>
+      </greater-than>
+      <not>
+       <property>/instrumentation/dme/in-range</property>
+      </not>
+     </and>
+    </condition>
+    <name>display</name>
+    <type>text</type>
+    <font>led</font>
+    <point-size>6</point-size>
+    <color>
+     <red>1.0</red>
+     <green>0.5</green>
+     <blue>0.0</blue>
+    </color>
+    <chunks>
+     <chunk>
+      <type>literal</type>
+      <text>---.--</text>
+     </chunk>
+    </chunks>
+   </layer>
+
+   <layer>
+    <name>display</name>
+    <condition>
+     <and>
+      <greater-than>
+       <property>/systems/electrical/outputs/dme</property>
+       <value>8.0</value>
+      </greater-than>
+      <greater-than>
+       <property>/instrumentation/dme/indicated-distance-nm</property>
+       <value type="double">999.99</value>
+      </greater-than>
+     </and>
+    </condition>
+    <type>text</type>
+    <font>led</font>
+    <point-size>6</point-size>
+    <color>
+     <red>1.0</red>
+     <green>0.5</green>
+     <blue>0.0</blue>
+    </color>
+    <chunks>
+     <chunk>
+      <type>literal</type>
+      <text>999.99</text>
+     </chunk>
+    </chunks>
+   </layer>
+
+   <layer>
+    <name>display</name>
+     <condition>
+      <greater-than>
+       <property>/systems/electrical/outputs/dme</property>
+       <value>8.0</value>
+      </greater-than>
+     </condition>
+    <type>text</type>
+    <font>led</font>
+    <point-size>6</point-size>
+    <color>
+     <red>1.0</red>
+     <green>0.5</green>
+     <blue>0.0</blue>
+    </color>
+    <chunks>
+     <chunk>
+      <type>number-value</type>
+      <property>/instrumentation/dme/indicated-distance-nm</property>
+      <format>%5.1f</format>
+     </chunk>
+    </chunks>
+   </layer>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-50</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>11</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>ground speed towards station</name>
+     <condition>
+      <greater-than>
+       <property>/systems/electrical/outputs/dme</property>
+       <value>8.0</value>
+      </greater-than>
+     </condition>
+   <type>switch</type>
+
+   <layer>
+    <condition>
+     <equals>
+      <property>/instrumentation/dme/switch-position</property>
+      <value type="int">0</value>
+     </equals>
+    </condition>
+    <type>group</type>
+   </layer>
+
+   <layer>
+    <condition>
+     <and>
+      <greater-than>
+       <property>/systems/electrical/outputs/dme</property>
+       <value>8.0</value>
+      </greater-than>
+      <not>
+       <property>/instrumentation/dme/in-range</property>
+      </not>
+     </and>
+    </condition>
+    <name>display</name>
+    <type>text</type>
+    <font>led</font>
+    <point-size>6</point-size>
+    <color>
+     <red>1.0</red>
+     <green>0.5</green>
+     <blue>0.0</blue>
+    </color>
+    <chunks>
+     <chunk>
+      <type>literal</type>
+      <text>---</text>
+     </chunk>
+    </chunks>
+   </layer>
+
+   <layer>
+    <condition>
+     <and>
+      <greater-than>
+       <property>/systems/electrical/outputs/dme</property>
+       <value>8.0</value>
+      </greater-than>
+     <greater-than>
+       <property>/instrumentation/dme/indicated-ground-speed-kt</property>
+       <value type="double">999</value>
+     </greater-than>
+     </and>
+    </condition>
+    <name>display</name>
+    <type>text</type>
+    <font>led</font>
+    <point-size>6</point-size>
+    <color>
+     <red>1.0</red>
+     <green>0.5</green>
+     <blue>0.0</blue>
+    </color>
+    <chunks>
+     <chunk>
+      <type>literal</type>
+      <text>999</text>
+     </chunk>
+    </chunks>
+   </layer>
+
+   <layer>
+     <condition>
+      <greater-than>
+       <property>/systems/electrical/outputs/dme</property>
+       <value>8.0</value>
+      </greater-than>
+     </condition>
+    <type>text</type>
+    <font>led</font>
+    <point-size>6</point-size>
+    <color>
+     <red>1.0</red>
+     <green>0.5</green>
+     <blue>0.0</blue>
+    </color>
+    <chunks>
+     <chunk>
+      <type>number-value</type>
+      <property>/instrumentation/dme/indicated-ground-speed-kt</property>
+      <format>%3.0f</format>
+     </chunk>
+    </chunks>
+   </layer>
+
+   <transformations>
+    <transformation>
+     <type>y-shift</type>
+     <offset>11</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>time to station</name>
+   <type>switch</type>
+
+   <layer>
+    <condition>
+     <equals>
+      <property>/instrumentation/dme/switch-position</property>
+      <value type="int">0</value>
+     </equals>
+    </condition>
+    <type>group</type>
+   </layer>
+
+   <layer>
+    <condition>
+     <and>
+      <greater-than>
+       <property>/systems/electrical/outputs/dme</property>
+       <value>8.0</value>
+      </greater-than>
+     <not>
+      <property>/instrumentation/dme/in-range</property>
+     </not>
+    </and>
+    </condition>
+    <name>display</name>
+    <type>text</type>
+    <font>led</font>
+    <point-size>6</point-size>
+    <color>
+     <red>1.0</red>
+     <green>0.5</green>
+     <blue>0.0</blue>
+    </color>
+    <chunks>
+     <chunk>
+      <type>literal</type>
+      <text>--</text>
+     </chunk>
+    </chunks>
+   </layer>
+
+   <layer>
+    <condition>
+     <and>
+      <greater-than>
+       <property>/systems/electrical/outputs/dme</property>
+       <value>8.0</value>
+      </greater-than>
+     <greater-than>
+      <property>/instrumentation/dme/indicated-time-min</property>
+      <value type="double">99</value>
+     </greater-than>
+     </and>
+    </condition>
+    <name>display</name>
+    <type>text</type>
+    <font>led</font>
+    <point-size>6</point-size>
+    <color>
+     <red>1.0</red>
+     <green>0.5</green>
+     <blue>0.0</blue>
+    </color>
+    <chunks>
+     <chunk>
+      <type>literal</type>
+      <text>99</text>
+     </chunk>
+    </chunks>
+   </layer>
+
+   <layer>
+     <condition>
+      <greater-than>
+       <property>/systems/electrical/outputs/dme</property>
+       <value>8.0</value>
+      </greater-than>
+     </condition>
+    <type>text</type>
+    <font>led</font>
+    <point-size>6</point-size>
+    <color>
+     <red>1.0</red>
+     <green>0.5</green>
+     <blue>0.0</blue>
+    </color>
+    <chunks>
+     <chunk>
+      <type>number-value</type>
+      <property>/instrumentation/dme/indicated-time-min</property>
+      <format>%02.0f</format>
+     </chunk>
+    </chunks>
+   </layer>
+
+   <transformations>
+    <transformation>
+     <type>y-shift</type>
+     <offset>11</offset>
+    </transformation>
+    <transformation>
+     <type>x-shift</type>
+     <offset>33</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>knob</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/navcom-radios.rgb</path>
+    <x1>0.53125</x1>
+    <x2>0.59765625</x2>
+    <y1>0.05859375</y1>
+    <y2>0.1484375</y2>
+   </texture>
+   <w>16</w>
+   <h>20</h>
+   <transformations>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-24</offset>
+    </transformation>
+    <transformation>
+     <type>rotation</type>
+     <property>/instrumentation/dme/switch-position</property>
+     <min>0</min>
+     <max>3</max>
+     <scale>45</scale>
+     <offset>-90</offset>
+    </transformation>
+    <transformation>
+    <type>y-shift</type>
+    <offset>-4.0</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+ </layers>
+
+ <actions>
+
+  <action>
+   <name>Setup</name>
+   <binding>
+    <condition>
+     <equals>
+      <property>/instrumentation/dme/switch-position</property>
+      <value type="int">1</value>
+     </equals>
+    </condition>
+    <command>property-assign</command>
+    <property>/instrumentation/dme/frequencies/source</property>
+    <value>/instrumentation/nav[0]/frequencies/selected-mhz</value>
+   </binding>
+   <binding>
+    <condition>
+     <equals>
+      <property>/instrumentation/dme/switch-position</property>
+      <value type="int">2</value>
+     </equals>
+    </condition>
+    <command>property-assign</command>
+    <property>/instrumentation/dme/frequencies/source</property>
+    <value>/instrumentation/dme/frequencies/selected-mhz</value>
+   </binding>
+   <binding>
+    <condition>
+     <equals>
+      <property>/instrumentation/dme/switch-position</property>
+      <value type="int">3</value>
+     </equals>
+    </condition>
+    <command>property-assign</command>
+    <property>/instrumentation/dme/frequencies/source</property>
+    <value>/instrumentation/nav[1]/frequencies/selected-mhz</value>
+   </binding>
+  </action>
+
+  <action>
+   <name>Rotate knob left</name>
+   <button>0</button>
+   <x>-32</x>
+   <y>-32</y>
+   <w>32</w>
+   <h>32</h>
+   <binding>
+    <command>property-adjust</command>
+    <property>/instrumentation/dme/switch-position</property>
+    <step>-1</step>
+    <min>0</min>
+    <max>3</max>
+    <wrap>0</wrap>
+   </binding>
+   <binding>
+    <condition>
+     <equals>
+      <property>/instrumentation/dme/switch-position</property>
+      <value type="int">1</value>
+     </equals>
+    </condition>
+    <command>property-assign</command>
+    <property>/instrumentation/dme/frequencies/source</property>
+    <value>/instrumentation/nav[0]/frequencies/selected-mhz</value>
+   </binding>
+   <binding>
+    <condition>
+     <equals>
+      <property>/instrumentation/dme/switch-position</property>
+      <value type="int">2</value>
+     </equals>
+    </condition>
+    <command>property-assign</command>
+    <property>/instrumentation/dme/frequencies/source</property>
+    <value>/instrumentation/dme/frequencies/selected-mhz</value>
+   </binding>
+   <binding>
+    <condition>
+     <equals>
+      <property>/instrumentation/dme/switch-position</property>
+      <value type="int">2</value>
+     </equals>
+    </condition>
+    <command>property-assign</command>
+    <property>/instrumentation/dme/frequencies/selected-mhz</property>
+    <property>/instrumentation/nav[1]/frequencies/selected-mhz</property>
+   </binding>
+  </action>
+
+  <action>
+   <name>Rotate knob right</name>
+   <button>0</button>
+   <x>0</x>
+   <y>-32</y>
+   <w>32</w>
+   <h>32</h>
+   <binding>
+    <command>property-adjust</command>
+    <property>/instrumentation/dme/switch-position</property>
+    <step>1</step>
+    <min>0</min>
+    <max>3</max>
+    <wrap>0</wrap>
+   </binding>
+   <binding>
+    <condition>
+     <equals>
+      <property>/instrumentation/dme/switch-position</property>
+      <value type="int">1</value>
+     </equals>
+    </condition>
+    <command>property-assign</command>
+    <property>/instrumentation/dme/frequencies/source</property>
+    <value>/instrumentation/nav[0]/frequencies/selected-mhz</value>
+   </binding>
+   <binding>
+    <condition>
+     <equals>
+      <property>/instrumentation/dme/switch-position</property>
+      <value type="int">2</value>
+     </equals>
+    </condition>
+    <command>property-assign</command>
+    <property>/instrumentation/dme/frequencies/source</property>
+    <value>/instrumentation/dme/frequencies/selected-mhz</value>
+   </binding>
+   <binding>
+    <condition>
+     <equals>
+      <property>/instrumentation/dme/switch-position</property>
+      <value type="int">2</value>
+     </equals>
+    </condition>
+    <command>property-assign</command>
+    <property>/instrumentation/dme/frequencies/selected-mhz</property>
+    <property>/instrumentation/nav[0]/frequencies/selected-mhz</property>
+   </binding>
+   <binding>
+    <condition>
+     <equals>
+      <property>/instrumentation/dme/switch-position</property>
+      <value type="int">3</value>
+     </equals>
+    </condition>
+    <command>property-assign</command>
+    <property>/instrumentation/dme/frequencies/source</property>
+    <value>/instrumentation/nav[1]/frequencies/selected-mhz</value>
+   </binding>
+  </action>
+
+ </actions>
+
+</PropertyList>

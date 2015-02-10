@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+
+<!-- standby heading indicator -->
+
+<PropertyList>
+
+	<path>../../../../Aircraft/Buccaneer/Instruments/standby_heading_indicator.ac</path>
+	
+	<animation>
+		<type>rotate</type>
+		<object-name>face</object-name>
+		<property>/instrumentation/master-reference-gyro[1]/indicated-hdg-deg</property>
+		<axis>
+			<x>1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+	
+	<animation>
+		<type>rotate</type>
+		<object-name>pointer</object-name>
+		<property>/instrumentation/heading-indicator[1]/heading-bug-deg</property>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+	
+	<animation>
+		<type>rotate</type>
+		<object-name>knob</object-name>
+		<property>/instrumentation/heading-indicator[1]/heading-bug-deg</property>
+		<factor>10</factor>
+		<center>
+			<x-m>0</x-m>
+			<y-m>-0.0268906</y-m>
+			<z-m>-0.0282873</z-m>
+		</center>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<!--<animation>
+		<type>pick</type>
+		<visible>false</visible>
+		<object-name>bug_up</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>true</repeatable>
+			<binding>
+				<command>property-adjust</command>
+				<property>/instrumentation/heading-indicator[1]/heading-bug-deg</property>
+				<step>5</step>
+				<min>0</min>
+				<max>359</max>
+				<wrap>1</wrap>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<object-name>bug_down</object-name>
+		<visible>false</visible>
+		<action>
+			<button>0</button>
+			<repeatable>true</repeatable>
+			<binding>
+				<command>property-adjust</command>
+				<property>/instrumentation/heading-indicator[1]/heading-bug-deg</property>
+				<step>-5</step>
+				<min>0</min>
+				<max>359</max>
+				<wrap>1</wrap>
+			</binding>
+		</action>
+	</animation>-->
+	
+	<!-- Panel Lighting -->
+	<animation>
+		<type>material</type>
+		<emission>
+			<factor-prop>/systems/electrical/outputs/instrument-lighting</factor-prop>
+			<red>0.03125</red>
+			<green>0.0089</green>
+			<blue>0.0089</blue>
+		</emission>
+	</animation>
+
+	<!-- Noshadow -->
+	<animation>
+		<type>noshadow</type>
+	</animation>
+ 
+	<!-- *** LoD *** -->
+	<animation>
+		<type>range</type>
+		<min-m>0</min-m>
+		<max-m>5</max-m>
+	</animation>  
+
+</PropertyList>

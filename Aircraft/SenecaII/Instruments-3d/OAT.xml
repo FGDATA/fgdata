@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!--
+ This file is part of FlightGear, the free flight simulator
+ http://www.flightgear.org/
+
+ Copyright (C) 2009 Torsten Dreyer, Torsten (at) t3r _dot_ de
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation; either version 2 of the
+ License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+-->
+<PropertyList>
+    <path>OAT.ac</path>
+
+    <animation>
+        <type>noshadow</type>
+    </animation>
+    <animation>
+        <type>range</type>
+        <min-m>0</min-m>
+        <max-m>30</max-m>
+    </animation>
+    
+    <animation>
+        <type>rotate</type>
+        <object-name>Needle</object-name>
+        <property>environment/temperature-degc</property>
+        <factor>-2.7</factor>
+        <center>
+            <x>0</x>
+            <x>y</x>
+            <x>z</x>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+    </animation>
+    
+    <animation>
+        <type>scale</type>
+        <object-name>Ice</object-name>
+        <property>fdm/jsbsim/ice/fuselage</property>
+        <x-factor>0</x-factor>
+        <x-offset>1.0</x-offset>
+        <y-factor>0</y-factor>
+        <y-offset>1.0</y-offset>
+        <z-factor>8.3</z-factor>
+        <z-offset>1.0</z-offset>
+        <z-max>20</z-max>
+    </animation>
+
+</PropertyList>

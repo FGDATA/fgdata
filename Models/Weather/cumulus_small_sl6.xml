@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<path>cumulus_small_sl6.ac</path>
+
+	<animation>
+		<enable-hot type="bool">false</enable-hot>
+	</animation>
+
+	<effect>
+		<inherits-from>Effects/clouds-thick</inherits-from>
+		<object-name>rect</object-name>
+	</effect>
+
+</PropertyList>

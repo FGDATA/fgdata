@@ -1,0 +1,45 @@
+﻿<?xml version="1.0"?>
+<!--
+************************************************************************
+* Bindings for Microsoft SideWinder Precision Racing Wheel joystick.
+* Axis 1:                        rudder
+* Axis 2:                        rudder
+************************************************************************
+$Id$
+-->
+
+<PropertyList>
+  <name>Microsoft SideWinder Precision Racing Wheel USB version 1.0</name>
+
+  <axis n="1">
+    <desc>Rudder Right</desc>
+    <number>
+      <unix>1</unix>
+      <mac>1</mac>
+      <windows>2</windows>
+    </number>
+    <binding>
+      <command>property-scale</command>
+      <property>/controls/flight/rudder</property>
+      <factor type="double">-0.5</factor>
+      <offset type="double">-1.0</offset>
+      <squared type="bool">true</squared>
+    </binding>
+  </axis>
+
+  <axis n="2">
+    <desc>Rudder Left</desc>
+    <number>
+      <unix>2</unix>
+      <mac>2</mac>
+      <windows>3</windows>
+    </number>
+    <binding>
+      <command>property-scale</command>
+      <property>/controls/flight/rudder</property>
+      <factor type="double">0.5</factor>
+      <offset type="double">-1.0</offset>
+      <squared type="bool">true</squared>
+    </binding>
+  </axis>
+</PropertyList>

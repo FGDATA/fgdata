@@ -1,0 +1,102 @@
+<!-- $Id$ -->
+<!--
+  Submarine Scout class airship.
+
+  Copyright (C) 2006 - 2008  Anders Gidenstam  (anders(at)gidenstam.org)
+  This file is licensed under the GPL license version 2 or later.
+
+  The pilot model pilot-b.ac is from Detlef Faber's F4U in FlighGear/CVS.
+
+-->
+<PropertyList>
+
+ <!-- Overlay these to animate the crew member. -->
+ <params>
+  <right-shoulder-joint-deg>/constants/zero</right-shoulder-joint-deg>
+  <left-shoulder-joint-deg>/constants/zero</left-shoulder-joint-deg>
+  <right-elbow-joint-deg>/constants/zero</right-elbow-joint-deg>
+  <left-elbow-joint-deg>/constants/zero</left-elbow-joint-deg>
+ </params>
+
+ <path>pilot-b.ac</path>
+ <offsets>
+  <!-- x/y/z == back/right/up -->
+  <x-m> 0.0 </x-m>
+  <y-m> 0.0 </y-m>
+  <z-m> 1.0 </z-m>
+ </offsets>
+
+ <!-- arms -->
+ <animation>
+  <type>rotate</type>
+  <object-name>arm1.R</object-name>
+  <object-name>arm2.R</object-name>
+  <object-name>hand.R</object-name>
+  <property alias="../../params/right-shoulder-joint-deg"/>
+  <offset-deg>85.0</offset-deg>
+  <center>
+   <x-m>0.08</x-m>
+   <y-m>0.22</y-m>
+   <z-m>0.45</z-m>
+  </center>
+  <axis>
+   <x>-1.0</x>
+   <y>0.2</y>
+   <z>0.0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>arm2.R</object-name>
+  <object-name>hand.R</object-name>
+  <property alias="../../params/right-elbow-joint-deg"/>
+  <center>
+   <x-m>0.007</x-m>
+   <y-m>0.533</y-m>
+   <z-m>0.455</z-m>
+  </center>
+  <axis>
+   <x>0.0</x>
+   <y>-0.5</y>
+   <z>1.0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>arm1.L</object-name>
+  <object-name>arm2.L</object-name>
+  <object-name>hand.L</object-name>
+  <property alias="../../params/left-shoulder-joint-deg"/>
+  <offset-deg>85.0</offset-deg>
+  <center>
+   <x-m>0.08</x-m>
+   <y-m>-0.22</y-m>
+   <z-m>0.45</z-m>
+  </center>
+  <axis>
+   <x>1.0</x>
+   <y>0.2</y>
+   <z>0.0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>arm2.L</object-name>
+  <object-name>hand.L</object-name>
+  <property alias="../../params/left-elbow-joint-deg"/>
+  <center>
+   <x-m>0.007</x-m>
+   <y-m>-0.533</y-m>
+   <z-m>0.455</z-m>
+  </center>
+  <axis>
+   <x>0.0</x>
+   <y>-0.5</y>
+   <z>-1.0</z>
+  </axis>
+ </animation>
+
+</PropertyList>

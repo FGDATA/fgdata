@@ -1,0 +1,176 @@
+<?xml version="1.0"?>
+
+<!--
+************************************************************************
+*
+* Bindings or Thrustmaster Top Gun Fox 2 Pro USB joystick (see joysticks.xml in fgfsbase dir)
+*
+*
+* Axis 0: ailerons
+* Axis 1: elevator
+* Axis 2: rudder (twistable stick)
+* Axis 3: throttle
+* Axis 4: Horizontal Hat
+* Axis 5: Vertical Hat
+*
+* Button 0: (Trigger) elevator trim down
+* Button 1: (yellow and black button) all brakes
+* Button 2: (side button above trigger) gear up/down
+* Button 3: (right button, next to yellow and black button) elevator trim up
+* Button 4: (outside bottom button) flap up
+* Button 5: (middle bottom button) center rudder
+* Button 6: (inside bottom button) flap down
+* Borrowed heavily from sidewinder.xml
+*		Thank you, sidewinder.xml!
+************************************************************************
+-->
+
+<PropertyList>
+ <name>Top Gun Fox 2  Pro </name>
+ <name>THRUSTMASTER Top Gun Fox 2  Pro </name>
+
+ <axis>
+  <number>
+   <unix>0</unix>
+   <windows>0</windows>
+   <mac>0</mac>
+  </number>
+  <desc>Aileron</desc>
+  <dead-band type="double">0.02</dead-band>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/aileron</property>
+   <offset type="double">+0.0</offset>
+   <factor type="double">+1.0</factor>
+  </binding>
+ </axis>
+
+ <axis>
+  <number>
+   <unix>1</unix>
+   <windows>1</windows>
+   <mac>1</mac>
+  </number>
+  <desc>Elevator</desc>
+  <dead-band type="double">0.02</dead-band>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/elevator</property>
+   <offset type="double">+0.0</offset>
+   <factor type="double">-1.0</factor>
+  </binding>
+ </axis>
+
+ <axis>
+  <number>
+   <unix>2</unix>
+   <windows>3</windows>
+   <mac>2</mac>
+  </number>
+  <desc>Rudder</desc>
+  <dead-band type="double">0.02</dead-band>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/rudder</property>
+   <offset type="double">0.0</offset>
+   <factor type="double">1.0</factor>
+  </binding>
+ </axis>
+
+ <axis>
+  <desc>Throttle</desc>
+  <number>
+   <unix>3</unix>
+   <mac>3</mac>
+   <windows>2</windows>
+  </number>
+  <binding>
+   <command>nasal</command>
+   <script>controls.throttleAxis()</script>
+  </binding>
+ </axis>
+
+ <button n="0">
+  <desc>Elevator trim down</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.elevatorTrim(0.75)</script>
+  </binding>
+ </button>
+
+ <button n="1">
+  <desc>Brakes</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.applyBrakes(1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.applyBrakes(0)</script>
+   </binding>
+  </mod-up>
+ </button>
+
+ <button n="2">
+  <desc>Toggle gear</desc>
+  <repeatable>false</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.gearToggle()</script>
+  </binding>
+ </button>
+
+ <button n="3">
+  <desc>Elevator trim up</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.elevatorTrim(-0.75)</script>
+  </binding>
+ </button>
+
+ <button n="4">
+  <desc>Flaps up</desc>
+  <repeatable>false</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.flapsDown(-1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.flapsDown(0)</script>
+   </binding>
+  </mod-up>
+ </button>
+
+ <button n="5">
+  <desc>Center rudder</desc>
+  <repeatable>false</repeatable>
+  <binding>
+   <command>property-adjust</command>
+   <property>/controls/flight/rudder</property>
+   <step type="double">0.0</step>
+  </binding>
+ </button>
+
+ <button n="6">
+  <desc>Flaps down</desc>
+  <repeatable>false</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.flapsDown(1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.flapsDown(0)</script>
+   </binding>
+  </mod-up>
+ </button>
+
+</PropertyList>
+
+<!-- end of TGF2PROUSB.xml -->

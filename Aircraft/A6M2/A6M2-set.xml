@@ -1,0 +1,34 @@
+<!--
+    ************************************************************************
+    A6M2 'Zero'
+    Dec 2006 Syd Adams and Tat Nishioka
+    ************************************************************************
+  -->
+
+<PropertyList include="A6M2-base.xml">
+  <sim>
+    <description>A6M2 Zero</description>
+    <author>Syd Adams - Tatsuhiro Nishioka</author>
+    <flight-model>yasim</flight-model>
+    <aero>a6m2b</aero>
+  </sim>
+
+  <consumables>
+    <fuel>
+      <tank n="0">
+	<level-gal_us>50</level-gal_us>
+      </tank>
+      <tank n="1">
+	<level-gal_us>50</level-gal_us>
+      </tank>
+    </fuel>
+  </consumables>
+  <nasal>
+    <A6M2>
+      <file>Aircraft/A6M2/Nasal/electrical.nas</file>
+      <file>Aircraft/A6M2/Nasal/jwarbirds.nas</file>
+      <file>Aircraft/A6M2/Nasal/a6m2.nas</file>
+    </A6M2>
+  </nasal>
+
+</PropertyList>

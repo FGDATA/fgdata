@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<sim>
+		<model>
+			<formation>
+				<variant type="string">Carrier Launch</variant>
+				<index type="int">1</index>
+				<position>
+					<x-offset>-15</x-offset>
+					<y-offset>-65</y-offset>
+					<z-offset>0</z-offset>
+				</position>
+				<position>
+					<x-offset>-200</x-offset>
+					<y-offset>0</y-offset>
+					<z-offset>0</z-offset>
+				</position>
+				<position>
+					<x-offset>-15</x-offset>
+					<y-offset>-63</y-offset>
+					<z-offset>0</z-offset>
+				</position>
+			</formation>
+		</model>
+	</sim>
+</PropertyList>

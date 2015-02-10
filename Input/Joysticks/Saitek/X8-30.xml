@@ -1,0 +1,155 @@
+<?xml version="1.0"?>
+
+<!--
+************************************************************************
+Setup for a CH-Flightstick compatible joystick with
+stick, throttle, one digital hat, and four buttons.
+
+Layout:
+  Axis 0: ailerons
+  Axis 1: elevator
+  Axis 2: throttle
+
+  Hat:
+    Axis 3: rudder
+    Axis 4: elevator trim
+
+  Button 0: brakes
+  Button 1: center rudder
+  Button 2: flaps up
+  Button 3: flaps down
+
+************************************************************************
+$Id$
+-->
+
+<PropertyList>
+
+ <name>Analog 3-axis 4-button 1-hat CHF joystick</name>
+
+
+ <axis n="0">
+  <desc>Aileron</desc>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/aileron</property>
+   <power type="double">3</power>
+  </binding>
+ </axis>
+
+ <axis n="1">
+  <desc>Elevator</desc>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/elevator</property>
+   <factor type="double">-1.0</factor>
+   <power type="double">3</power>
+  </binding>
+ </axis>
+
+ <axis n="2">
+  <desc>Throttle</desc>
+  <binding>
+    <command>nasal</command>
+    <script>controls.throttleAxis()</script>
+  </binding>
+ </axis>
+
+ <axis n="3">
+  <desc>Rudder</desc>
+  <binding><command>null</command></binding>
+  <interval-sec type="double">0.02</interval-sec>
+  <low>
+   <repeatable type="bool">true</repeatable>
+   <binding>
+    <command>property-adjust</command>
+    <property>/controls/flight/rudder</property>
+    <step type="double">-0.02</step>
+   </binding>
+  </low>
+  <high>
+   <repeatable type="bool">true</repeatable>
+   <binding>
+    <command>property-adjust</command>
+    <property>/controls/flight/rudder</property>
+    <step type="double">0.02</step>
+   </binding>
+  </high>
+ </axis>
+
+ <axis n="4">
+  <desc>Elevator trim</desc>
+  <binding><command>null</command></binding>
+  <interval-sec type="double">0.02</interval-sec>
+  <low>
+   <repeatable type="bool">true</repeatable>
+   <binding>
+    <command>property-adjust</command>
+    <property>/controls/flight/elevator-trim</property>
+    <step type="double">0.001</step>
+   </binding>
+  </low>
+  <high>
+   <repeatable type="bool">true</repeatable>
+   <binding>
+    <command>property-adjust</command>
+    <property>/controls/flight/elevator-trim</property>
+    <step type="double">-0.001</step>
+   </binding>
+  </high>
+ </axis>
+
+ <button n="0">
+  <desc>Brakes</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.applyBrakes(1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.applyBrakes(0)</script>
+   </binding>
+  </mod-up>
+ </button>
+
+ <button n="1">
+  <desc>Center rudder</desc>
+  <binding>
+   <command>property-assign</command>
+   <property>/controls/flight/rudder</property>
+   <value type="double">0.0</value>
+  </binding>
+ </button>
+
+ <button n="2">
+  <desc>Flaps up</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.flapsDown(-1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.flapsDown(0)</script>
+   </binding>
+  </mod-up>
+ </button>
+
+ <button n="3">
+  <desc>Flaps down</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.flapsDown(1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.flapsDown(0)</script>
+   </binding>
+  </mod-up>
+ </button>
+
+</PropertyList>
+
+<!-- end of X8-30.xml -->

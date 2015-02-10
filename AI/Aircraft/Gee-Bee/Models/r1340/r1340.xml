@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<PropertyList>
+
+  <path>r1340.ac</path>
+
+  <animation>
+    <object-name>pistons</object-name>
+    <object-name>centre</object-name>
+    <object-name>axe1</object-name>
+    <object-name>axe2</object-name>
+    <object-name>bougies</object-name>
+    <object-name>anneau</object-name>
+    <object-name>cames</object-name>
+    <object-name>ecrous</object-name>
+    <object-name>caches</object-name>
+    <object-name>cylindres</object-name>
+    <object-name>souflets</object-name>
+
+    <object-name>moteur</object-name>
+
+    <!-- transparent objects -->
+  </animation>
+
+  <animation>
+    <name>Complex</name>
+    <object-name>pistons</object-name>
+    <object-name>centre</object-name>
+    <object-name>axe1</object-name>
+    <object-name>axe2</object-name>
+    <object-name>bougies</object-name>
+    <object-name>anneau</object-name>
+    <object-name>cames</object-name>
+    <object-name>caches</object-name>
+    <object-name>ecrous</object-name>
+    <object-name>cylindres</object-name>
+    <object-name>souflets</object-name>
+  </animation>
+
+  <animation>
+    <type>range</type>
+    <object-name>Complex</object-name>
+    <min-m>0</min-m>
+    <max-property>/sim/rendering/static-lod/detailed</max-property>
+  </animation>
+
+  <animation>
+    <type>range</type>
+    <object-name>moteur</object-name>
+    <min-property>/sim/rendering/static-lod/detailed</min-property>
+    <max-property>/sim/rendering/static-lod/bare</max-property>
+  </animation>
+
+</PropertyList>
+

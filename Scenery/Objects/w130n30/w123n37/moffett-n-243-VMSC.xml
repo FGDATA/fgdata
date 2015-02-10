@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+	<path>moffett-n-243-VMSC.ac</path>
+
+	<animation>
+		<type>select</type>
+		<object-name>red-lights</object-name>
+		<condition>
+			<greater-than>
+				<property>/sim/time/sun-angle-rad</property>
+				<value>1.56</value>
+			</greater-than>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>translate</type>
+		<object-name>red-light-1</object-name>
+		<offset-m>56.49</offset-m>
+		<axis>
+			<x>41.75</x>
+			<y>-1.98</y>
+			<z>38.01</z>
+		</axis>
+	</animation>
+	<animation>
+		<type>billboard</type>
+		<object-name>red-light-1</object-name>
+		<spherical type="bool">true</spherical>
+	</animation>
+	<animation>
+		<type>dist-scale</type>
+		<object-name>red-light-1</object-name>
+		<interpolation>
+			<entry><ind>0</ind><dep>0.1</dep></entry>
+			<entry><ind>500</ind><dep>0.2</dep></entry>
+			<entry><ind>16000</ind><dep>3</dep></entry>
+		</interpolation>
+	</animation>
+
+
+	<animation>
+		<type>translate</type>
+		<object-name>red-light-2</object-name>
+		<offset-m>61.83</offset-m>
+		<axis>
+			<x>41.75</x>
+			<y>-25.20</y>
+			<z>38.01</z>
+		</axis>
+	</animation>
+	<animation>
+		<type>billboard</type>
+		<object-name>red-light-2</object-name>
+		<spherical type="bool">true</spherical>
+	</animation>
+	<animation>
+		<type>dist-scale</type>
+		<object-name>red-light-2</object-name>
+		<interpolation>
+			<entry><ind>0</ind><dep>0.1</dep></entry>
+			<entry><ind>500</ind><dep>0.2</dep></entry>
+			<entry><ind>16000</ind><dep>3</dep></entry>
+		</interpolation>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>centrifuge</object-name>
+		<property>sim/time/elapsed-sec</property>
+		<factor>150</factor>
+		<center>
+			<x-m>-19.83</x-m>
+			<y-m>29.94</y-m>
+		</center>
+		<axis>
+			<z>1</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>range</type>
+		<object-name>centrifuge</object-name>
+		<min-m>0</min-m>
+		<max-m>300</max-m>
+	</animation>
+	<animation>
+		<type>range</type>
+		<object-name>details</object-name>
+		<min-m>0</min-m>
+		<max-m>2500</max-m>
+	</animation>
+	<animation>
+		<type>range</type>
+		<object-name>structures</object-name>
+		<min-m>0</min-m>
+		<max-m>15000</max-m>
+	</animation>
+
+</PropertyList>

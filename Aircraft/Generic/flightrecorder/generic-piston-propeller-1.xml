@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Generic flight recorder configuration: 1 propellers/engine, 2 tanks, 3 fixed gear.
+
+     Note: The generic configurations are provided as an example and for convenience only.
+     No need to use a generic configuration. You can copy the settings below to your aircraft's
+     flight recorder configuration and include a better combination of recorder components, if
+     none of the pre-defined configurations fits your aircraft.
+ -->
+
+<PropertyList>
+    <name type="string">Generic Flight Recorder (1 piston engine/1 propeller/4 tanks/3 fixed gear)</name>
+    <signals include="/Aircraft/Generic/flightrecorder/components/environment.xml"/>
+    <signals include="/Aircraft/Generic/flightrecorder/components/position.xml"/>
+    <signals include="/Aircraft/Generic/flightrecorder/components/controls.xml"/>
+    <signals include="/Aircraft/Generic/flightrecorder/components/surfaces.xml"/>
+    <signals include="/Aircraft/Generic/flightrecorder/components/engine-piston-prop.xml">
+        <count type="int">1</count>
+    </signals>
+    <signals include="/Aircraft/Generic/flightrecorder/components/faults-engines.xml">
+        <count type="int">1</count>
+    </signals>
+    <signals include="/Aircraft/Generic/flightrecorder/components/tanks.xml">
+        <count type="int">2</count>
+    </signals>
+    <signals include="/Aircraft/Generic/flightrecorder/components/gear-fixed.xml">
+        <count type="int">3</count>
+    </signals>
+</PropertyList>

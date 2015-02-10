@@ -1,0 +1,135 @@
+<?xml version="1.0"?>
+<!--
+  Zeppelin NT-07 airship for FlightGear.
+
+  Copyright (C) 2012 - 2013  Anders Gidenstam  (anders(at)gidenstam.org)
+  This file is licensed under the GPL license version 2 or later.
+-->
+<PropertyList>
+ <!-- Disclaimer: These instructions are derived only from common
+      sense together with certain data from the certificate of
+      airworthiness and have no connection whatsoever to any
+      instructions for the real Zeppelin NT.
+ -->
+ <title>Cruise Check</title>
+
+ <item>
+  <name>Envelope Pressure</name>
+  <value>Check (between 300 Pa and 600 Pa)</value>
+  <condition>
+   <and>
+    <greater-than>
+     <property>instrumentation/envelope-pressure-indicator/indicated-gas-pressure-psf</property>
+     <value>6.265</value>
+    </greater-than>
+    <less-than>
+     <property>instrumentation/envelope-pressure-indicator/indicated-gas-pressure-psf</property>
+     <value>12.532</value>
+    </less-than>
+   </and>
+  </condition>
+ </item>
+
+ <item>
+  <name>Static heaviness</name>
+  <value>Check (between 1102 lbs and -441 lbs)</value>
+  <condition>
+   <and>
+    <greater-than>
+     <property>fdm/jsbsim/static-condition/net-lift-lbs</property>
+     <value>-1102.0</value>
+    </greater-than>
+    <less-than>
+     <property>fdm/jsbsim/static-condition/net-lift-lbs</property>
+     <value>441.0</value>
+    </less-than>
+   </and>
+  </condition>
+ </item>
+
+ <item>
+  <name>Center of Gravity</name>
+  <value>As needed (between 1315.0 in and 1374.0 in)</value>
+  <condition>
+   <and>
+    <greater-than>
+     <property>fdm/jsbsim/inertia/cg-x-in</property>
+     <value>1315.0</value>
+    </greater-than>
+    <less-than>
+     <property>fdm/jsbsim/inertia/cg-x-in</property>
+     <value>1374.0</value>
+    </less-than>
+   </and>
+  </condition>
+ </item>
+
+ <item>
+  <name>Engine Swivel</name>
+  <value>Cruise</value>
+  <condition>
+   <and>
+    <less-than>
+     <property>fdm/jsbsim/propulsion/engine[0]/pitch-angle-rad</property>
+     <value>0.01</value>
+    </less-than>
+    <less-than>
+     <property>fdm/jsbsim/propulsion/engine[1]/pitch-angle-rad</property>
+     <value>0.01</value>
+    </less-than>
+    <less-than>
+     <property>fdm/jsbsim/propulsion/engine[2]/pitch-angle-rad</property>
+     <value>0.01</value>
+    </less-than>
+   </and>
+  </condition>
+  <binding>
+   <command>nasal</command>
+   <script>
+     setprop("fdm/jsbsim/fcs/side-engine-swivel-cmd-norm[0]", 0.0);
+     setprop("fdm/jsbsim/fcs/side-engine-swivel-cmd-norm[1]", 0.0);
+     controls.gearDown(-1.0);
+   </script>
+  </binding>
+ </item>
+
+ <item>
+  <name>Thrust</name>
+  <value>Max/Coarse pitch</value>
+  <condition>
+   <and>
+    <greater-than>
+     <property>controls/engines/engine[0]/propeller-pitch</property>
+     <value>0.95</value>
+    </greater-than>
+    <greater-than>
+     <property>controls/engines/engine[1]/propeller-pitch</property>
+     <value>0.95</value>
+    </greater-than>
+    <greater-than>
+     <property>controls/engines/engine[2]/propeller-pitch</property>
+     <value>0.95</value>
+    </greater-than>
+   </and>
+  </condition>
+  <binding>
+   <command>nasal</command>
+   <script>
+     interpolate("controls/engines/engine[0]/propeller-pitch", 1.00, 5.0);
+     interpolate("controls/engines/engine[1]/propeller-pitch", 1.00, 5.0);
+     interpolate("controls/engines/engine[2]/propeller-pitch", 1.00, 5.0);
+   </script>
+  </binding>
+ </item>
+
+ <item>
+  <name>Engine Speed</name>
+  <value>As needed</value>
+ </item>
+
+ <item>
+  <name>Mixture</name>
+  <value>Rich of peak EGT</value>
+ </item>
+
+</PropertyList>

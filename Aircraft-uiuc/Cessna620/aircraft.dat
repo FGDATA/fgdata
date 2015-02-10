@@ -1,0 +1,63 @@
+# Jeff Scott
+# Cessna 620, cruise configuration
+# four piston engine business airplane, data from:
+#	Roskam, Jan. Airplane Flight Dynamics and Automatic Flight
+# 	  Controls, Part I. Lawrence KS: DARcorporation, 1995, 
+# 	  pg 515-517
+# 03-23-2000    file creation
+
+init Dz_cg       4.0    # [ft]
+
+geometry bw     55.1    # [ft]
+geometry cbar    6.58   # [ft]
+geometry Sw    340      # [ft^2]
+
+controlSurface de 20 20 # [deg]  guess for now
+controlSurface da 20 20 # [deg]  guess for now
+controlSurface dr 20 20 # [deg]  guess for now
+
+mass Weight   15000     # [lb]
+mass I_xx     64811     # [slug-ft^2]
+mass I_yy     17300     # [slug-ft^2]
+mass I_zz     64543     # [slug-ft^2]
+mass I_xz         0     # [slug-ft^2]
+
+
+# Roskam: CTx=0.042 (cruise conditions) --> 1300 lb
+# aurcraft specs: 4 engines, power unknown
+engine simpleSingle 2500  # [lb]
+
+
+CL CLo      0.48        # []
+CL CL_a     5.55        # [/rad]
+CL CL_adot  2.7         # [/rad]
+CL CL_q     7.5         # [/rad]
+CL CL_de    0.58        # [/rad]
+
+CD CDo      0.0322      # []
+CD CD_a     0.269       # [/rad]
+CD CD_de    0.0         # [/rad]
+
+Cm Cmo      0.06        # []
+Cm Cm_a    -1.18        # [/rad]
+Cm Cm_adot -8.17        # [/rad]
+Cm Cm_q   -22.4         # [/rad]
+Cm Cm_de   -1.73        # [/rad]
+
+CY CY_beta -0.883       # [/rad]
+CY CY_p    -0.227       # [/rad]
+CY CY_r     0.448       # [/rad]
+CY CY_da    0.0         # [/rad]    sign reversed
+CY CY_dr    0.2         # [/rad]
+
+Cl Cl_beta -0.1381      # [/rad]
+Cl Cl_p    -0.566       # [/rad]
+Cl Cl_r     0.1166      # [/rad]
+Cl Cl_da   -0.1776      # [/rad]    sign reversed
+Cl Cl_dr    0.02        # [/rad]
+
+Cn Cn_beta  0.1739      # [/rad]
+Cn Cn_p    -0.0501      # [/rad]
+Cn Cn_r    -0.2         # [/rad]
+Cn Cn_da    0.0194      # [/rad]    sign reversed
+Cn Cn_dr   -0.1054      # [/rad]

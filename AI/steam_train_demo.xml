@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<PropertyList>
+	<name>Steamtrain (North Yorkshire Moors, UK)</name>
+	<description>
+		This scenario runs a steam Steamtrain comprising the A4 Class,
+		Mallard and 8 coaches along the track of the
+		North Yorkshire Moors Railway, UK.
+
+		To find it start at EGXZ - TOPCLIFFE and fly 084 degrees
+		magnetic
+
+		Note:
+
+		1.	Units are ft, lbs, deg.
+		2.	Lead Angle Gain is a dimensionless multiplication factor.
+		3.	Lead Angle Limit Deg is the max excursion either side of
+		the target heading
+		4.	Rudder Constant is rudder increase/decrease in degrees/sec.
+		5.	Speed Constant is increase/decrease in kts/sec.
+		6.	contact_x(1/2)_offset define the points at which ground elevation
+		is measured for pitch calulations in ft from the origin. Negative
+		is forward. z and y components are not (yet) available. When x = 0 no pitch
+		calculations are performed
+		7.	Pitch Coefficient is a dimensionless damping factor for pitch (0.5)
+		8.	Elevation Coefficient is a dimensionless damping factor for
+		elevation (0.5)
+
+
+		Vivian Meazza
+	</description>
+	<scenario>
+
+		<parameters>
+			<flightplan>NYMR.xml</flightplan>
+			<tunnel>false</tunnel>
+			<repeat>1</repeat>
+			<turn-radius-ft>200</turn-radius-ft>
+			<fixed-turn-radius-ft>200</fixed-turn-radius-ft>
+			<lead-angle-gain>1</lead-angle-gain>
+			<lead-angle-limit-deg>5.0</lead-angle-limit-deg>
+			<lead-angle-proportion>0.5</lead-angle-proportion>
+			<rudder-constant>50</rudder-constant>
+			<speed-constant>3</speed-constant>
+			<pitch-coefficient>0.1</pitch-coefficient>
+			<elevation-coefficient>0.1</elevation-coefficient>
+			<tow-angle-gain>0.25</tow-angle-gain>
+			<tow-angle-limit-deg>1.0</tow-angle-limit-deg>
+		</parameters>
+
+		<entry>
+			<type>groundvehicle</type>
+			<model>Models/Transport/locomotive-A4.xml</model>
+			<name>Steamtrain-1</name>
+
+			<flightplan alias="../../parameters/flightplan"/>
+			<tunnel alias="../../parameters/tunnel"/>
+			<repeat alias="../../parameters/repeat"/>
+			<turn-radius-ft alias="../../parameters/turn-radius-ft"/>
+			<fixed-turn-radius-ft alias="../../parameters/fixed-turn-radius-ft"/>
+			<lead-angle-gain alias="../../parameters/lead-angle-gain"/>
+			<lead-angle-limit-deg alias="../../parameters/lead-angle-limit-deg"/>
+			<lead-angle-proportion alias="../../parameters/lead-angle-proportion"/>
+			<rudder-constant alias="../../parameters/rudder-constant"/>
+			<speed-constant alias="../../parameters/speed-constant"/>
+			<pitch-coefficient alias="../../parameters/pitch-coefficient"/>
+			<elevation-coefficient alias="../../parameters/elevation-coefficient"/>
+
+			<tow-angle-gain alias="../../parameters/tow-angle-gain"/>
+			<tow-angle-limit-deg  alias="../../parameters/tow-angle-limit-deg"/>
+
+			<hitch-x-offset>21.922703</hitch-x-offset>
+			<contact-x1-offset>-19.5</contact-x1-offset>
+			<contact-x2-offset>19.5</contact-x2-offset>
+			<!--<time>090000</time>-->
+		</entry>
+
+		<entry>
+			<type>groundvehicle</type>
+			<model>Models/Transport/tender-A4.xml</model>
+			<name>Steamtrain-11</name>
+
+			<flightplan alias="../../parameters/flightplan"/>
+			<tunnel alias="../../parameters/tunnel"/>
+			<repeat alias="../../parameters/repeat"/>
+			<turn-radius-ft alias="../../parameters/turn-radius-ft"/>
+			<fixed-turn-radius-ft alias="../../parameters/fixed-turn-radius-ft"/>
+			<lead-angle-gain alias="../../parameters/lead-angle-gain"/>
+			<lead-angle-limit-deg alias="../../parameters/lead-angle-limit-deg"/>
+			<lead-angle-proportion alias="../../parameters/lead-angle-proportion"/>
+			<rudder-constant alias="../../parameters/rudder-constant"/>
+			<speed-constant alias="../../parameters/speed-constant"/>
+			<pitch-coefficient alias="../../parameters/pitch-coefficient"/>
+			<elevation-coefficient alias="../../parameters/elevation-coefficient"/>
+
+			<tow-angle-gain alias="../../parameters/tow-angle-gain"/>
+			<tow-angle-limit-deg  alias="../../parameters/tow-angle-limit-deg"/>
+
+			<hitch-x-offset>12.959744</hitch-x-offset>
+			<contact-x1-offset>-7.54</contact-x1-offset>
+			<contact-x2-offset>7.54</contact-x2-offset>
+			<parent>Steamtrain-1</parent>
+		</entry>
+
+		<entry>
+			<type>groundvehicle</type>
+			<model>Models/Transport/coach-teak-brake-1.xml</model>
+			<name>Steamtrain-12</name>
+
+			<flightplan alias="../../parameters/flightplan"/>
+			<tunnel alias="../../parameters/tunnel"/>
+			<repeat alias="../../parameters/repeat"/>
+			<turn-radius-ft alias="../../parameters/turn-radius-ft"/>
+			<fixed-turn-radius-ft alias="../../parameters/fixed-turn-radius-ft"/>
+			<lead-angle-gain alias="../../parameters/lead-angle-gain"/>
+			<lead-angle-limit-deg alias="../../parameters/lead-angle-limit-deg"/>
+			<lead-angle-proportion alias="../../parameters/lead-angle-proportion"/>
+			<rudder-constant alias="../../parameters/rudder-constant"/>
+			<speed-constant alias="../../parameters/speed-constant"/>
+			<pitch-coefficient alias="../../parameters/pitch-coefficient"/>
+			<elevation-coefficient alias="../../parameters/elevation-coefficient"/>
+
+			<tow-angle-gain alias="../../parameters/tow-angle-gain"/>
+			<tow-angle-limit-deg  alias="../../parameters/tow-angle-limit-deg"/>
+
+			<contact-x1-offset>-19.5</contact-x1-offset>
+			<contact-x2-offset>19.5</contact-x2-offset>
+			<hitch-x-offset>30.74</hitch-x-offset>
+			<parent>Steamtrain-11</parent>
+			<!--<time>090000</time>-->
+		</entry>
+
+		<entry>
+			<type>groundvehicle</type>
+			<model>Models/Transport/coach-teak-first-class.xml</model>
+			<name>Steamtrain-13</name>
+
+			<flightplan alias="../../parameters/flightplan"/>
+			<tunnel alias="../../parameters/tunnel"/>
+			<repeat alias="../../parameters/repeat"/>
+			<turn-radius-ft alias="../../parameters/turn-radius-ft"/>
+			<fixed-turn-radius-ft alias="../../parameters/fixed-turn-radius-ft"/>
+			<lead-angle-gain alias="../../parameters/lead-angle-gain"/>
+			<lead-angle-limit-deg alias="../../parameters/lead-angle-limit-deg"/>
+			<lead-angle-proportion alias="../../parameters/lead-angle-proportion"/>
+			<rudder-constant alias="../../parameters/rudder-constant"/>
+			<speed-constant alias="../../parameters/speed-constant"/>
+			<pitch-coefficient alias="../../parameters/pitch-coefficient"/>
+			<elevation-coefficient alias="../../parameters/elevation-coefficient"/>
+
+			<tow-angle-gain alias="../../parameters/tow-angle-gain"/>
+			<tow-angle-limit-deg  alias="../../parameters/tow-angle-limit-deg"/>
+
+			<contact-x1-offset>-19.5</contact-x1-offset>
+			<contact-x2-offset>19.5</contact-x2-offset>
+			<hitch-x-offset>30.74</hitch-x-offset>
+			<parent>Steamtrain-12</parent>
+			<!--<time>090000</time>-->
+		</entry>
+
+		<entry>
+			<type>groundvehicle</type>
+			<model>Models/Transport/coach-teak-first-class.xml</model>
+			<name>Steamtrain-14</name>
+
+			<flightplan alias="../../parameters/flightplan"/>
+			<tunnel alias="../../parameters/tunnel"/>
+			<repeat alias="../../parameters/repeat"/>
+			<turn-radius-ft alias="../../parameters/turn-radius-ft"/>
+			<fixed-turn-radius-ft alias="../../parameters/fixed-turn-radius-ft"/>
+			<lead-angle-gain alias="../../parameters/lead-angle-gain"/>
+			<lead-angle-limit-deg alias="../../parameters/lead-angle-limit-deg"/>
+			<lead-angle-proportion alias="../../parameters/lead-angle-proportion"/>
+			<rudder-constant alias="../../parameters/rudder-constant"/>
+			<speed-constant alias="../../parameters/speed-constant"/>
+			<pitch-coefficient alias="../../parameters/pitch-coefficient"/>
+			<elevation-coefficient alias="../../parameters/elevation-coefficient"/>
+
+			<tow-angle-gain alias="../../parameters/tow-angle-gain"/>
+			<tow-angle-limit-deg  alias="../../parameters/tow-angle-limit-deg"/>
+
+			<contact-x1-offset>-19.5</contact-x1-offset>
+			<contact-x2-offset>19.5</contact-x2-offset>
+			<hitch-x-offset>30.74</hitch-x-offset>
+			<parent>Steamtrain-13</parent>
+			<!--<time>090000</time>-->
+		</entry>
+
+		<entry>
+			<type>groundvehicle</type>
+			<model>Models/Transport/coach-teak-brake.xml</model>
+			<name>Steamtrain-15</name>
+
+			<flightplan alias="../../parameters/flightplan"/>
+			<tunnel alias="../../parameters/tunnel"/>
+			<repeat alias="../../parameters/repeat"/>
+			<turn-radius-ft alias="../../parameters/turn-radius-ft"/>
+			<fixed-turn-radius-ft alias="../../parameters/fixed-turn-radius-ft"/>
+			<lead-angle-gain alias="../../parameters/lead-angle-gain"/>
+			<lead-angle-limit-deg alias="../../parameters/lead-angle-limit-deg"/>
+			<lead-angle-proportion alias="../../parameters/lead-angle-proportion"/>
+			<rudder-constant alias="../../parameters/rudder-constant"/>
+			<speed-constant alias="../../parameters/speed-constant"/>
+			<pitch-coefficient alias="../../parameters/pitch-coefficient"/>
+			<elevation-coefficient alias="../../parameters/elevation-coefficient"/>
+
+			<tow-angle-gain alias="../../parameters/tow-angle-gain"/>
+			<tow-angle-limit-deg  alias="../../parameters/tow-angle-limit-deg"/>
+
+			<contact-x1-offset>-19.5</contact-x1-offset>
+			<contact-x2-offset>19.5</contact-x2-offset>
+			<hitch-x-offset>30.74</hitch-x-offset>
+			<parent>Steamtrain-14</parent>
+			<!--<time>090000</time>-->
+		</entry>
+
+		<entry>
+			<type>groundvehicle</type>
+			<model>Models/Transport/coach-teak-brake-1.xml</model>
+			<name>Steamtrain-16</name>
+
+			<flightplan alias="../../parameters/flightplan"/>
+			<tunnel alias="../../parameters/tunnel"/>
+			<repeat alias="../../parameters/repeat"/>
+			<turn-radius-ft alias="../../parameters/turn-radius-ft"/>
+			<fixed-turn-radius-ft alias="../../parameters/fixed-turn-radius-ft"/>
+			<lead-angle-gain alias="../../parameters/lead-angle-gain"/>
+			<lead-angle-limit-deg alias="../../parameters/lead-angle-limit-deg"/>
+			<lead-angle-proportion alias="../../parameters/lead-angle-proportion"/>
+			<rudder-constant alias="../../parameters/rudder-constant"/>
+			<speed-constant alias="../../parameters/speed-constant"/>
+			<pitch-coefficient alias="../../parameters/pitch-coefficient"/>
+			<elevation-coefficient alias="../../parameters/elevation-coefficient"/>
+
+			<tow-angle-gain alias="../../parameters/tow-angle-gain"/>
+			<tow-angle-limit-deg  alias="../../parameters/tow-angle-limit-deg"/>
+
+			<contact-x1-offset>-19.5</contact-x1-offset>
+			<contact-x2-offset>19.5</contact-x2-offset>
+			<hitch-x-offset>30.74</hitch-x-offset>
+			<parent>Steamtrain-15</parent>
+			<!--<time>090000</time>-->
+		</entry>
+
+		<entry>
+			<type>groundvehicle</type>
+			<model>Models/Transport/coach-teak-first-class.xml</model>
+			<name>Steamtrain-17</name>
+
+			<flightplan alias="../../parameters/flightplan"/>
+			<tunnel alias="../../parameters/tunnel"/>
+			<repeat alias="../../parameters/repeat"/>
+			<turn-radius-ft alias="../../parameters/turn-radius-ft"/>
+			<fixed-turn-radius-ft alias="../../parameters/fixed-turn-radius-ft"/>
+			<lead-angle-gain alias="../../parameters/lead-angle-gain"/>
+			<lead-angle-limit-deg alias="../../parameters/lead-angle-limit-deg"/>
+			<lead-angle-proportion alias="../../parameters/lead-angle-proportion"/>
+			<rudder-constant alias="../../parameters/rudder-constant"/>
+			<speed-constant alias="../../parameters/speed-constant"/>
+			<pitch-coefficient alias="../../parameters/pitch-coefficient"/>
+			<elevation-coefficient alias="../../parameters/elevation-coefficient"/>
+
+			<tow-angle-gain alias="../../parameters/tow-angle-gain"/>
+			<tow-angle-limit-deg  alias="../../parameters/tow-angle-limit-deg"/>
+
+			<contact-x1-offset>-19.5</contact-x1-offset>
+			<contact-x2-offset>19.5</contact-x2-offset>
+			<hitch-x-offset>30.74</hitch-x-offset>
+			<parent>Steamtrain-16</parent>
+			<!--<time>090000</time>-->
+		</entry>
+
+		<entry>
+			<type>groundvehicle</type>
+			<model>Models/Transport/coach-teak-first-class.xml</model>
+			<name>Steamtrain-18</name>
+
+			<flightplan alias="../../parameters/flightplan"/>
+			<tunnel alias="../../parameters/tunnel"/>
+			<repeat alias="../../parameters/repeat"/>
+			<turn-radius-ft alias="../../parameters/turn-radius-ft"/>
+			<fixed-turn-radius-ft alias="../../parameters/fixed-turn-radius-ft"/>
+			<lead-angle-gain alias="../../parameters/lead-angle-gain"/>
+			<lead-angle-limit-deg alias="../../parameters/lead-angle-limit-deg"/>
+			<lead-angle-proportion alias="../../parameters/lead-angle-proportion"/>
+			<rudder-constant alias="../../parameters/rudder-constant"/>
+			<speed-constant alias="../../parameters/speed-constant"/>
+			<pitch-coefficient alias="../../parameters/pitch-coefficient"/>
+			<elevation-coefficient alias="../../parameters/elevation-coefficient"/>
+
+			<tow-angle-gain alias="../../parameters/tow-angle-gain"/>
+			<tow-angle-limit-deg  alias="../../parameters/tow-angle-limit-deg"/>
+
+			<contact-x1-offset>-19.5</contact-x1-offset>
+			<contact-x2-offset>19.5</contact-x2-offset>
+			<hitch-x-offset>30.74</hitch-x-offset>
+			<parent>Steamtrain-17</parent>
+			<!--<time>090000</time>-->
+		</entry>
+
+		<entry>
+			<type>groundvehicle</type>
+			<model>Models/Transport/coach-teak-brake.xml</model>
+			<name>Steamtrain-19</name>
+
+			<flightplan alias="../../parameters/flightplan"/>
+			<tunnel alias="../../parameters/tunnel"/>
+			<repeat alias="../../parameters/repeat"/>
+			<turn-radius-ft alias="../../parameters/turn-radius-ft"/>
+			<fixed-turn-radius-ft alias="../../parameters/fixed-turn-radius-ft"/>
+			<lead-angle-gain alias="../../parameters/lead-angle-gain"/>
+			<lead-angle-limit-deg alias="../../parameters/lead-angle-limit-deg"/>
+			<lead-angle-proportion alias="../../parameters/lead-angle-proportion"/>
+			<rudder-constant alias="../../parameters/rudder-constant"/>
+			<speed-constant alias="../../parameters/speed-constant"/>
+			<pitch-coefficient alias="../../parameters/pitch-coefficient"/>
+			<elevation-coefficient alias="../../parameters/elevation-coefficient"/>
+
+			<tow-angle-gain alias="../../parameters/tow-angle-gain"/>
+			<tow-angle-limit-deg  alias="../../parameters/tow-angle-limit-deg"/>
+
+			<contact-x1-offset>-19.5</contact-x1-offset>
+			<contact-x2-offset>19.5</contact-x2-offset>
+			<hitch-x-offset>30.74</hitch-x-offset>
+			<parent>Steamtrain-18</parent>
+			<!--<time>090000</time>-->
+		</entry>
+
+	</scenario>
+</PropertyList>

@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+	<particlesystem>
+		<name>train-steam</name>
+		<texture>steam.png</texture>
+		<emissive>false</emissive>
+		<lighting>true</lighting>
+
+		<offsets>
+			<x-m>0</x-m>
+			<y-m>0</y-m>
+			<z-m>0</z-m>
+		</offsets>
+
+		<attach>world</attach>
+
+		<placer>
+			<type>sector</type>
+			<radius-min-m>0</radius-min-m> <!--= only for sector, inner radius at which particles appear-->
+			<radius-max-m>0.20</radius-max-m> <!--= only for sector, outer radius at which particles appear-->
+			<phi-min-deg>0</phi-min-deg> <!--= only for sector, starting angle of the slide at which particles appear-->
+			<phi-max-deg>359.5</phi-max-deg> <!--= only for sector, ending angle of the slide at which particles appear-->
+		</placer>
+
+		<shooter>
+			<theta-min-deg>-2.0</theta-min-deg>
+			<theta-max-deg>2.0</theta-max-deg>
+			<phi-min-deg>-2.0</phi-min-deg>
+			<phi-max-deg>2.0</phi-max-deg>
+			<speed-mps>
+				<value>750</value>
+				<!--<property>velocities/true-air-speed-kt</property>
+				<property>/velocities/groundspeed-kt</property>
+				<factor>0.8333</factor>
+				<offset>10</offset>-->
+				<spread>250</spread>
+			</speed-mps>
+			<rotation-speed>
+				<x-max-deg-sec>10</x-max-deg-sec>
+				<x-min-deg-sec>-10</x-min-deg-sec>
+				<y-max-deg-sec>10</y-max-deg-sec>
+				<y-min-deg-sec>-10</y-min-deg-sec>
+				<z-max-deg-sec>10</z-max-deg-sec>
+				<z-min-deg-sec>-10</z-min-deg-sec>
+			</rotation-speed>
+		</shooter>
+
+		<counter>
+			<particles-per-sec>
+				<value>30</value>
+				<!--<property>velocities/true-air-speed-kt</property>
+				<factor>0.8333</factor>
+				<offset>50</offset>-->
+				<spread>30</spread>
+			</particles-per-sec>
+		</counter>
+
+		<align>billboard</align>
+
+		<particle>
+			<start>
+				<color>
+					<red>
+						<value>1</value>
+					</red>
+					<green>
+						<value>1</value>
+					</green>
+					<blue>
+						<value>1</value>
+					</blue>
+					<alpha>
+						<value>0.25</value>
+					</alpha>
+				</color>
+				<size>
+					<value>0.5</value>
+				</size>
+			</start>
+			<end>
+				<color>
+					<red>
+						<value>1</value>
+					</red>
+					<green>
+						<value>1</value>
+					</green>
+					<blue>
+						<value>1</value>
+					</blue>
+					<alpha>
+						<value>0.15</value>
+					</alpha>
+				</color>
+				<size>
+					<value>10</value>
+				</size>
+			</end>
+			<life-sec>
+				<value>10</value>
+			</life-sec>
+			<mass-kg>0.0270</mass-kg>
+			<radius-m>0.175</radius-m>
+		</particle>
+
+		<program>
+			<fluid>air</fluid>
+			<gravity>true</gravity>
+			<wind>true</wind>
+		</program>
+
+	</particlesystem>
+
+</PropertyList>

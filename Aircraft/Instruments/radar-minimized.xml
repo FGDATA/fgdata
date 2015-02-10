@@ -1,0 +1,40 @@
+<PropertyList>
+ <name>Radar</name>
+ <w-base>44</w-base>
+ <h-base>16</h-base>
+ <layers>
+
+  <layer>
+   <name>background</name>
+   <w>44</w>
+   <h>16</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/radar_misc.rgb</path>
+    <x1>0</x1>
+    <y1>0.484375</y1>
+    <x2>0.171875</x2>
+    <y2>0.546875</y2>
+   </texture>
+  </layer>
+
+ </layers>
+
+ <actions>
+
+  <action>
+   <name>maximize</name>
+   <button>0</button>
+   <x>-20</x>
+   <y>-7</y>
+   <w>50</w>
+   <h>16</h>
+   <binding>
+    <command>property-assign</command>
+    <property>/instrumentation/radar/minimized</property>
+    <value>false</value>
+   </binding>
+  </action>
+
+ </actions>
+
+</PropertyList>

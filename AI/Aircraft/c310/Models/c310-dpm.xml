@@ -1,0 +1,322 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+ <path>c310-dpm.ac</path>
+
+ <animation>
+  <type>select</type>
+  <object-name>LeftPropeller</object-name>
+  <condition>
+   <less-than>
+    <property>engines/engine[0]/rpm</property>
+    <value>400</value>
+   </less-than>
+  </condition>
+ </animation>
+
+ <animation>
+  <type>select</type>
+  <object-name>LeftPropeller.Fast</object-name>
+  <condition>
+   <greater-than>
+    <property>engines/engine[0]/rpm</property>
+    <value>375</value>
+   </greater-than>
+  </condition>
+ </animation>
+
+ <animation>
+  <type>select</type>
+  <object-name>RightPropeller</object-name>
+  <condition>
+   <less-than>
+    <property>engines/engine[1]/rpm</property>
+    <value>400</value>
+   </less-than>
+  </condition>
+ </animation>
+
+ <animation>
+  <type>select</type>
+  <object-name>RightPropeller.Fast</object-name>
+  <condition>
+   <greater-than>
+    <property>engines/engine[1]/rpm</property>
+    <value>375</value>
+   </greater-than>
+  </condition>
+ </animation>
+
+ <animation>
+  <type>spin</type>
+  <object-name>LeftPropeller</object-name>
+  <property>engines/engine[0]/rpm</property>
+  <center>
+   <x-m>-1.5</x-m>
+   <y-m>-1.67</y-m>
+   <z-m>0.3</z-m>
+  </center>
+  <axis>
+   <x>1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>spin</type>
+  <object-name>RightPropeller</object-name>
+  <property>engines/engine[1]/rpm</property>
+  <center>
+   <x-m>-1.5</x-m>
+   <y-m>1.67</y-m>
+   <z-m>0.3</z-m>
+  </center>
+  <axis>
+   <x>1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>NoseWheel</object-name>
+  <property>surface-positions/rudder-pos-norm</property>
+  <factor>-35</factor>
+  <center>
+   <x-m>-2.28</x-m>
+   <y-m>0.0</y-m>
+   <z-m>0.035</z-m>
+  </center>
+  <axis>
+   <x>0</x>
+   <y>0</y>
+   <z>1</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>NoseWheel</object-name>
+  <property>gear/gear[0]/position-norm</property>
+  <factor>120</factor>
+  <offset-deg>-120</offset-deg>
+  <min-deg>-90</min-deg>
+  <max-deg>0</max-deg>
+  <center>
+   <x-m>-2.28</x-m>
+   <y-m>0.0</y-m>
+   <z-m>0.095</z-m>
+  </center>
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>LeftNoseWheelDoor</object-name>
+  <property>gear/gear[0]/position-norm</property>
+  <factor>-360</factor>
+  <offset-deg>90</offset-deg>
+  <min-deg>0</min-deg>
+  <max-deg>90</max-deg>
+  <center>
+   <x-m>-1.58</x-m>
+   <y-m>-0.17</y-m>
+   <z-m>-0.095</z-m>
+  </center>
+  <axis>
+   <x>1</x>
+   <y>0</y>
+   <z>-0.05</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>RightNoseWheelDoor</object-name>
+  <property>gear/gear[0]/position-norm</property>
+  <factor>360</factor>
+  <offset-deg>-90</offset-deg>
+  <min-deg>-90</min-deg>
+  <max-deg>0</max-deg>
+  <center>
+   <x-m>-1.58</x-m>
+   <y-m>0.17</y-m>
+   <z-m>-0.095</z-m>
+  </center>
+  <axis>
+   <x>1</x>
+   <y>0</y>
+   <z>-.05</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>LeftWheel</object-name>
+  <property>gear/gear[1]/position-norm</property>
+  <factor>-80</factor>
+  <offset-deg>80</offset-deg>
+  <center>
+   <x-m>0.2</x-m>
+   <y-m>-1.8</y-m>
+   <z-m>0.185</z-m>
+  </center>
+  <axis>
+   <x>1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>RightWheel</object-name>
+  <property>gear/gear[2]/position-norm</property>
+  <factor>80</factor>
+  <offset-deg>-80</offset-deg>
+  <center>
+   <x-m>0.2</x-m>
+   <y-m>1.8</y-m>
+   <z-m>0.185</z-m>
+  </center>
+  <axis>
+   <x>1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+<animation>
+  <type>rotate</type>
+  <object-name>Step</object-name>
+  <property>gear/gear[0]/position-norm</property>
+  <factor>150</factor>
+  <offset-deg>-150</offset-deg>
+  <min-deg>-150</min-deg>
+  <max-deg>0</max-deg>
+  <center>
+   <x-m>0.0</x-m>
+   <y-m>0.4</y-m>
+   <z-m>0.05</z-m>
+  </center>
+  <axis>
+   <x>1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+
+ <animation>
+  <type>rotate</type>
+  <object-name>Rudder</object-name>
+  <property>surface-positions/rudder-pos-norm</property>
+  <factor>25</factor> <!-- check -->
+  <center>
+   <x-m>5.5</x-m>
+   <y-m>0</y-m>
+   <z-m>1.185</z-m>
+  </center>
+  <axis>
+   <x>0.5</x>
+   <y>0</y>
+   <z>1</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>LeftOuterFlap</object-name>
+  <object-name>LeftInnerFlap</object-name>
+  <property>surface-positions/flap-pos-norm</property>
+  <factor>30</factor> <!-- check -->
+  <center>
+   <x-m>0.4</x-m>
+   <y-m>0</y-m>
+   <z-m>-0.095</z-m>
+  </center>
+  <axis>
+   <x>-0.05</x>
+   <y>1</y>
+   <z>-0.1</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>RightInnerFlap</object-name>
+  <object-name>RightOuterFlap</object-name>
+  <property>surface-positions/flap-pos-norm</property>
+  <factor>30</factor> <!-- check -->
+  <center>
+   <x-m>0.4</x-m>
+   <y-m>0</y-m>
+   <z-m>-0.095</z-m>
+  </center>
+  <axis>
+   <x>0.05</x>
+   <y>1</y>
+   <z>0.1</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>LeftAileron</object-name>
+  <property>surface-positions/left-aileron-pos-norm</property>
+  <factor>-15</factor> <!-- check -->
+  <center>
+   <x-m>0.75</x-m>
+   <y-m>-4.0</y-m>
+   <z-m>0.285</z-m>
+  </center>
+  <axis>
+   <x>-.08</x>
+   <y>-1.0</y>
+   <z>0.2</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>RightAileron</object-name>
+  <property>surface-positions/left-aileron-pos-norm</property>
+  <factor>-15</factor> <!-- check -->
+  <center>
+   <x-m>0.75</x-m>
+   <y-m>4.0</y-m>
+   <z-m>0.285</z-m>
+  </center>
+  <axis>
+   <x>-.08</x>
+   <y>1.0</y>
+   <z>0.2</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>LeftElevator</object-name>
+  <object-name>RightElevator</object-name>
+  <property>surface-positions/elevator-pos-norm</property>
+  <factor>15</factor> <!-- check -->
+  <center>
+   <x-m>5.1</x-m>
+   <y-m>0.0</y-m>
+   <z-m>0.215</z-m>
+  </center>
+  <axis>
+   <x>0.0</x>
+   <y>1.0</y>
+   <z>0.0</z>
+  </axis>
+ </animation>
+
+</PropertyList>

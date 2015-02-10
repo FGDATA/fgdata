@@ -1,0 +1,255 @@
+<?xml version="1.0"?>
+
+<!--
+hdg.xml
+
+Directional Gyro from C172-S
+
+Martin Dressler dr@musicabona.cz
+Jan 30 2003
+
+
+-->
+
+<PropertyList>
+
+ <name>C172-S Heading gyro</name>
+ <w-base>512</w-base>
+ <h-base>512</h-base>
+ 
+ <layers>
+ 
+  <layer>
+   <name>Backplate</name>
+   <w>512</w>
+   <h>512</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/hdg1.rgb</path>
+    <x1>0.0</x1>
+    <x2>1.0</x2>
+    <y1>0.0</y1>
+    <y2>1.0</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>rotation</type>
+     <property>/instrumentation/heading-indicator/indicated-heading-deg</property>
+     <scale>-1.0</scale>
+     <offset>0</offset>
+    </transformation>
+   </transformations>
+  </layer>
+				  
+  <layer>
+   <name>HDG bug</name>
+   <w>48</w>
+   <h>48</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/misc2.rgb</path>
+    <x1>0.46875</x1>
+    <x2>0.5625</x2>
+    <y1>0.5546875</y1>
+    <y2>0.6484375</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>rotation</type>
+     <property>/autopilot/settings/heading-bug-deg</property>
+    </transformation>
+    <transformation>
+     <type>rotation</type>
+     <property>/instrumentation/heading-indicator/indicated-heading-deg</property>
+     <scale>-1</scale>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>190</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>Foreground</name>
+   <w>512</w>
+   <h>512</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/hdg2.rgb</path>
+    <x1>0.0</x1>
+    <x2>1.0</x2>
+    <y1>0.0</y1>
+    <y2>1.0</y2>
+   </texture>
+  </layer>
+
+  <layer>
+   <name>HDG Knob</name>
+   <w>88</w>
+   <h>88</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/misc2.rgb</path>
+    <x1>0.0</x1>
+    <x2>0.171875</x2>
+    <y1>0.6484375</y1>
+    <y2>0.8203125</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>192</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-194</offset>
+    </transformation>
+    <transformation>
+     <type>rotation</type>
+     <offset>0</offset>
+     <property>/autopilot/settings/heading-bug-deg</property>
+     <scale>5.0</scale>
+    </transformation>
+   </transformations>
+  </layer>
+ 
+ </layers>
+
+ <actions>
+
+  <action>
+   <name>fine bug adjust</name>
+   <button>0</button>
+   <x>150</x>
+   <y>-238</y>
+   <w>44</w>
+   <h>88</h>
+   <binding>
+    <command>property-adjust</command>
+    <property>/autopilot/settings/heading-bug-deg</property>
+    <step>-1</step>
+    <min>0</min>
+    <max>360</max>
+    <wrap>true</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>coarse bug adjust</name>
+   <button>1</button>
+   <x>150</x>
+   <y>-238</y>
+   <w>44</w>
+   <h>88</h>
+   <binding>
+    <command>property-adjust</command>
+    <property>/autopilot/settings/heading-bug-deg</property>
+    <step>-5</step>
+    <min>0</min>
+    <max>360</max>
+    <wrap>true</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>fine bug adjust</name>
+   <button>0</button>
+   <x>194</x>
+   <y>-238</y>
+   <w>44</w>
+   <h>88</h>
+   <binding>
+    <command>property-adjust</command>
+    <property>/autopilot/settings/heading-bug-deg</property>
+    <step>1</step>
+    <min>0</min>
+    <max>360</max>
+    <wrap>true</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>coarse bug adjust</name>
+   <button>1</button>
+   <x>194</x>
+   <y>-238</y>
+   <w>44</w>
+   <h>88</h>
+   <binding>
+    <command>property-adjust</command>
+    <property>/autopilot/settings/heading-bug-deg</property>
+    <step>5</step>
+    <min>0</min>
+    <max>360</max>
+    <wrap>true</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>fine heading adjust</name>
+   <button>0</button>
+   <x>-236</x>
+   <y>-238</y>
+   <w>44</w>
+   <h>88</h>
+   <binding>
+    <command>property-adjust</command>
+    <property>/instrumentation/heading-indicator/offset-deg</property>
+    <step>-1</step>
+    <min>0</min>
+    <max>360</max>
+    <wrap>true</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>coarse heading adjust</name>
+   <button>1</button>
+   <x>-236</x>
+   <y>-238</y>
+   <w>44</w>
+   <h>88</h>
+   <binding>
+    <command>property-adjust</command>
+    <property>/instrumentation/heading-indicator/offset-deg</property>
+    <step>-5</step>
+    <min>0</min>
+    <max>360</max>
+    <wrap>true</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>fine heading adjust</name>
+   <button>0</button>
+   <x>-192</x>
+   <y>-238</y>
+   <w>44</w>
+   <h>88</h>
+   <binding>
+    <command>property-adjust</command>
+    <property>/instrumentation/heading-indicator/offset-deg</property>
+    <step>1</step>
+    <min>0</min>
+    <max>360</max>
+    <wrap>true</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>coarse heading adjust</name>
+   <button>1</button>
+   <x>-192</x>
+   <y>-238</y>
+   <w>44</w>
+   <h>88</h>
+   <binding>
+    <command>property-adjust</command>
+    <property>/instrumentation/heading-indicator/offset-deg</property>
+    <step>5</step>
+    <min>0</min>
+    <max>360</max>
+    <wrap>true</wrap>
+   </binding>
+  </action>
+
+ </actions>
+
+</PropertyList>

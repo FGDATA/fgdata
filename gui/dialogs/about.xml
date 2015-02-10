@@ -1,0 +1,297 @@
+<?xml version="1.0"?>
+<!--
+ This file is part of FlightGear, the free flight simulator
+ http://www.flightgear.org/
+
+ Copyright (C) 2009 Torsten Dreyer, Torsten (at) t3r _dot_ de
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation; either version 2 of the
+ License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+-->
+
+<PropertyList>
+  <name>about</name>
+  <modal>false</modal>
+  <layout>vbox</layout>
+  <resizable>false</resizable>
+  <default-padding>3</default-padding>
+
+  <group>
+    <layout>hbox</layout>
+    <default-padding>1</default-padding>
+
+    <empty>
+      <stretch>true</stretch>
+    </empty>
+
+    <text>
+      <label>About FlightGear</label>
+    </text>
+
+    <empty>
+      <stretch>true</stretch>
+    </empty>
+
+    <button>
+      <legend/>
+      <key>Esc</key>
+      <pref-width>16</pref-width>
+      <pref-height>16</pref-height>
+      <border>2</border>
+      <binding>
+        <command>dialog-close</command>
+      </binding>
+    </button>
+  </group>
+
+  <hrule/>
+  
+  <group>
+    <layout>vbox</layout>
+    <default-padding>5</default-padding>
+    
+    <group>
+      <layout>hbox</layout>
+     
+      <empty>
+        <stretch>true</stretch>
+      </empty>
+          
+      <text>
+        <label>FlightGear Flight Simulator VX.X.X</label>
+      </text>
+
+      <empty>
+        <stretch>true</stretch>
+      </empty>
+    </group>
+    
+    <text>
+      <label>(c) 1996-2015, the FlightGear Contributors</label>
+    </text>
+    
+    <group>
+      <layout>vbox</layout>
+      <border>10</border>
+      <halign>center</halign>
+      <default-padding>2</default-padding>
+
+      <text>
+        <halign>left</halign>
+        <label>FlightGear is free and open source software, licensed</label>
+      </text>
+      
+      <text>
+        <halign>left</halign>
+        <label>under the GNU General Public License Version 2.</label>
+      </text>
+      
+      <text>
+        <halign>left</halign>
+        <label>Get new versions, add-ons, forum, wiki and more</label>
+      </text>
+      
+      <text>
+        <halign>left</halign>
+        <label>from the web-site at http://www.flightgear.org/ for free.</label>
+      </text>
+      
+      <text>
+        <halign>left</halign>
+        <label>Have a nice flight!</label>
+      </text>
+      
+    </group>
+      
+    <empty>
+      <stretch>true</stretch>
+    </empty>
+    
+    <hrule/>
+    
+
+    <text>
+      <halign>center</halign>
+      <label>Version Information</label>
+    </text>
+    
+    <group>
+      <layout>vbox</layout>
+      <border>10</border>
+      <halign>center</halign>
+      <default-padding>2</default-padding>
+      
+      <text>
+        <halign>left</halign>
+        <label>MMMMMMMMMM</label>
+        <format>FlightGear Version: %s</format>
+        <property>/sim/version/flightgear</property>
+      </text>
+      
+      <text>
+        <halign>left</halign>
+        <label>MMMMMMMMMM</label>
+        <format>SimGear Version: %s</format>
+        <property>/sim/version/simgear</property>
+      </text>
+
+      <text>
+        <halign>left</halign>
+        <label>MMMMMMMMMMMMMMMMMM</label>
+        <format>OpenSceneGraph Version: %s</format>
+        <property>/sim/version/openscenegraph</property>
+      </text>
+
+      <text>
+        <halign>left</halign>
+        <label>MMMMMMMMMMMMMMMMMM</label>
+        <format>Build Id: %s</format>
+        <property>/sim/version/build-id</property>
+      </text>
+      
+      <text>
+        <halign>left</halign>
+        <label>MMMMMM</label>
+        <format>Build Number: %d</format>
+        <property>/sim/version/build-number</property>
+      </text>
+      
+      <text>
+        <halign>left</halign>
+        <label>MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM</label>
+        <format>Revision: %s</format>
+        <property>/sim/version/revision</property>
+      </text>
+    </group>
+      
+    <empty>
+      <stretch>true</stretch>
+    </empty>
+
+    <hrule/>
+      
+    <text>
+      <halign>center</halign>
+      <label>Graphics/OpenGL Information</label>
+    </text>
+    
+    <group>
+      <layout>vbox</layout>
+      <border>10</border>
+      <halign>center</halign>
+      <default-padding>2</default-padding>
+    
+  
+      <text>
+        <halign>left</halign>
+        <label>MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM</label>
+        <format>OpenGL Vendor: %s</format>
+        <property>/sim/rendering/gl-vendor</property>
+      </text>
+
+      <text>
+        <halign>left</halign>
+        <label>MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM</label>
+        <format>OpenGL Renderer: %s</format>
+        <property>/sim/rendering/gl-renderer</property>
+      </text>
+
+      <text>
+        <halign>left</halign>
+        <label>MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM</label>
+        <format>OpenGL Version: %s</format>
+        <property>/sim/rendering/gl-version</property>
+      </text>
+   
+      <text>
+        <halign>left</halign>
+        <label>MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM</label>
+        <format>GLSL Version: %s</format>
+        <property>/sim/rendering/gl-shading-language-version</property>
+      </text>
+
+      <text>
+        <halign>left</halign>
+        <label>MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM</label>
+        <format>Max Texture Size: %s</format>
+        <property>/sim/rendering/max-texture-size</property>
+      </text>
+
+      <text>
+        <halign>left</halign>
+        <label>MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM</label>
+        <format>Depth Buffer Bits: %s</format>
+        <property>/sim/rendering/depth-buffer-bits</property>
+      </text>
+    </group>
+  </group>
+  
+  <hrule/>
+  
+  <group>
+    <layout>hbox</layout>
+    <halign>fill</halign>
+    
+    <empty><stretch>true</stretch></empty>
+    
+    <button>
+      <legend>Close</legend>
+      <equal>true</equal>
+      <default>true</default>
+      <key>Esc</key>
+      <binding>
+        <command>dialog-close</command>
+      </binding>
+    </button>
+
+    <button>
+      <legend>Take screen shot</legend>
+      <equal>true</equal>
+      <default>false</default>
+      <binding>
+        <command>nasal</command>
+   <script>fgcommand("screen-capture");</script>
+      </binding>
+    </button>
+
+    <button>
+      <legend>Copy to Clipboard</legend>
+      <equal>true</equal>
+      <default>false</default>
+      <binding>
+        <command>nasal</command>
+        <script><![CDATA[
+   var properties = ["gl-vendor","gl-version","gl-renderer", "gl-shading-language-version"];
+   var data = "";
+   var path = "/sim/rendering/";
+   foreach(var p; properties)
+      data ~= p ~":"~getprop(path~p) ~"\n";
+   clipboard.setText(data);
+   gui.popupTip("Copied version information to clipboard!");
+   ]]></script>
+      </binding>
+    </button>
+
+
+    <empty><stretch>true</stretch></empty>
+    
+  </group>
+  
+  <nasal>
+    <open><![CDATA[
+      # Replace version in Nasal, as using the <format> code upsets layout
+      var ver = cmdarg().getNode("group[1]/group/text/label");
+      ver.setValue("FlightGear Flight Simulator V" ~ getprop("/sim/version/flightgear"));
+    ]]></open>
+
+    <close><![CDATA[
+    ]]></close>
+  </nasal>
+</PropertyList>

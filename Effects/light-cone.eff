@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+A light "cone" effect, written by Lauri Peltonen (Zan)
+
+With this effect, any object (most likely a cone) will 
+light up everything inside of it. Might be usefull for 
+landing lights etc.
+
+Uses stencil buffer.
+
+-->
+
+
+<PropertyList>
+  <name>Effects/light-cone</name>
+  <inherits-from>Effects/model-default</inherits-from>
+  <parameters>
+    <texture n ="0">
+      <type>white</type>
+    </texture>
+
+    <!-- Dunno if this does anything, it could be removed
+        what does this do with rendering-hint=transparent? -->
+    <render-bin>
+      <active>true</active>
+      <bin-number>9</bin-number>
+      <bin-name>RenderBin</bin-name>
+    </render-bin>
+
+  </parameters>
+  <technique n="8">
+
+    <!-- First pass, increase stencil when ground is in front of
+         the lighting object -->
+    <pass>
+    <render-bin>
+      <active>true</active>
+      <bin-number>9</bin-number>
+      <bin-name>RenderBin</bin-name>
+    </render-bin>
+
+      <lighting>false</lighting>
+
+      <color-mask type="vec4d">0 0 0 0</color-mask>  <!-- do not draw anything -->
+
+      <shade-model><use>shade-model</use></shade-model>
+      <cull-face>front</cull-face>
+<!--      <rendering-hint>transparent</rendering-hint> -->
+      <depth>
+        <write-mask>false</write-mask>
+      </depth>
+
+      <!-- Set stencil buffer to 1 if ground is in front of the back side
+      of the light volume, otherwise zero -->
+      <stencil>
+        <function>always</function> <!-- S-test passes always -->
+        <value>1</value>
+        <z-fail>replace</z-fail> <!-- Replace current s-buffer with value 1 -->
+        <pass>zero</pass>  <!-- Zero everything "behind" the volume -->
+      </stencil>
+    </pass>
+
+
+    <!-- Second pass, decrease stencil when ground is in front of the front
+         side of the volume, in stencil buffer, 1 exists where ground
+         (or other objects) is inside the lighting object! -->
+    <pass>
+    <render-bin>
+      <active>true</active>
+      <bin-number>9</bin-number>
+      <bin-name>RenderBin</bin-name>
+    </render-bin>
+
+      <lighting>false</lighting>
+      <color-mask type="vec4d">0 0 0 0</color-mask>  <!-- Do not draw anything -->
+      <shade-model><use>shade-model</use></shade-model>
+      <cull-face>back</cull-face>
+<!--      <rendering-hint>transparent</rendering-hint> -->
+      <depth>
+        <write-mask>false</write-mask>
+      </depth>
+
+      <!-- Set s-buffer to 0 when ground is in front of the front side of the volume -->
+      <stencil>
+        <function>always</function> <!-- S-test passes always -->
+        <z-fail>zero</z-fail>  <!-- Zero s-buffer when z-buffer test fails -->
+      </stencil>
+    </pass>
+
+    <!-- Third pass, render light where there is 1 on stencil buffer -->
+    <pass>
+    <render-bin>
+      <active>true</active>
+      <bin-number>9</bin-number>
+      <bin-name>RenderBin</bin-name>
+    </render-bin>
+
+      <lighting>false</lighting>
+      <shade-model><use>shade-model</use></shade-model>
+      <cull-face>back</cull-face>
+<!--      <rendering-hint>transparent</rendering-hint> -->
+      <depth>
+        <write-mask>false</write-mask>
+      </depth>
+
+      <!-- Draw when S-buffer EQUALS value 1 -->
+      <stencil>
+        <function>equal</function>
+        <value>1</value>
+      </stencil>
+
+      <!-- Do additive blending, so increase the color value of 
+           the existing pixel by the light's color. The light object should
+           have ambient & diffuse AND alpha should be around 0.2 or something -->
+      <blend>
+        <active>true</active>
+        <source-rgb>dst-color</source-rgb>
+        <source>dst-alpha</source>
+        <destination>one</destination>
+      </blend>
+
+    </pass>
+	
+  </technique>
+</PropertyList>

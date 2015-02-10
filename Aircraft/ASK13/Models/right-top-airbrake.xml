@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+ <path>right-top-airbrake.ac</path>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>right-top-ab</object-name>
+   <property>surface-positions/speedbrake-pos-norm</property>
+   <interpolation>
+     <entry>
+       <ind>0</ind>
+       <dep>0</dep>
+     </entry>
+     <entry>
+       <ind>0.02</ind>
+       <dep>7</dep>
+     </entry>
+     <entry>
+       <ind>1.0</ind>
+       <dep>65</dep>
+     </entry>
+      </interpolation>
+		<center>
+			<x-m>-0.022495</x-m>
+			<y-m>0.171445</y-m>
+			<z-m>0.102788</z-m>
+		</center>
+		<axis>
+			<x>-0.01878</x>
+			<y>-0.002464</y>
+			<z>0</z>
+		</axis>
+ </animation>
+
+</PropertyList>
+
+

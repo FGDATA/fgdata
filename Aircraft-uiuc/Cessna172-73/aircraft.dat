@@ -1,0 +1,61 @@
+# Jeff Scott
+# Cessna 172
+# small single piston engine general aviation airplane
+# This model was adapted from the file c172_aero.c in Flight 
+# Gear developed by Tony Peden.  This version uses stability
+# derivatives and a CL-alpha curve.  The aircraft data comes from:
+#       Tony Peden's c172_aero.c and c172_init.c files (FG 0.7.3)
+# 05-04-2000    file creation
+
+init Dz_cg     2.5      # [ft]        FG c172_aero.c
+init nondim_rate_V_rel_wind
+
+geometry bw   35.8      # [ft]        FG c172_aero.c
+geometry cbar  4.90     # [ft]        FG c172_aero.c
+geometry Sw  174.0      # [ft^2]      FG c172_aero.c
+
+controlSurface de 28 23 # [deg]       FG c172_aero.c
+controlSurface da 20 15 # [deg]       FG c172_aero.c
+controlSurface dr 16 16 # [deg]       FG c172_aero.c
+
+mass Weight  2300.0     # [lb]        FG c172_init.c
+mass I_xx     948.0     # [slug-ft^2] FG c172_init.c
+mass I_yy    1346.0     # [slug-ft^2] FG c172_init.c
+mass I_zz    1967.0     # [slug-ft^2] FG c172_init.c
+mass I_xz       0.0     # [slug-ft^2] FG c172_init.c
+
+engine c172
+
+CL CL_adot  1.7         # [/rad]      FG c172_aero.c
+CL CL_q     3.9         # [/rad]      FG c172_aero.c
+CL CL_de    0.34763715  # [/rad]      FG c172_aero.c
+CL CLfa Aircraft-uiuc/Cessna172-73/CLfa.dat 0 1   # [] FG c172_aero.c
+
+CD CDo      0.036       # []          FG c172_aero.c
+CD CDK      0.0830304   # []          FG c172_aero.c
+#CD CD_a    0.13         # [/rad]      FG c172_aero.c
+CD CD_de    0.06        # [/rad]      FG c172_aero.c
+
+Cm Cmo     -0.020       # []          FG c172_aero.c
+Cm Cm_a    -1.80        # [/rad]      FG c172_aero.c
+Cm Cm_adot -5.2         # [/rad]      FG c172_aero.c
+Cm Cm_q   -12.4         # [/rad]      FG c172_aero.c
+Cm Cm_de   -1.28        # [/rad]      FG c172_aero.c
+
+CY CY_beta -0.31        # [/rad]      FG c172_aero.c
+CY CY_p    -0.037       # [/rad]      FG c172_aero.c
+CY CY_r     0.21        # [/rad]      FG c172_aero.c
+CY CY_da    0.0         # [/rad]      FG c172_aero.c
+CY CY_dr    0.187       # [/rad]      FG c172_aero.c
+
+Cl Cl_beta -0.089       # [/rad]      FG c172_aero.c
+Cl Cl_p    -0.47        # [/rad]      FG c172_aero.c
+Cl Cl_r     0.096       # [/rad]      FG c172_aero.c
+Cl Cl_da   -0.090       # [/rad]      FG c172_aero.c
+Cl Cl_dr    0.0147      # [/rad]      FG c172_aero.c
+
+Cn Cn_beta  0.065       # [/rad]      FG c172_aero.c
+Cn Cn_p    -0.03        # [/rad]      FG c172_aero.c
+Cn Cn_r    -0.099       # [/rad]      FG c172_aero.c
+Cn Cn_da   -0.0053      # [/rad]      FG c172_aero.c
+Cn Cn_dr   -0.0657      # [/rad]      FG c172_aero.c

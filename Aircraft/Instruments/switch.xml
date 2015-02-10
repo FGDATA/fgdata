@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<PropertyList>
+
+
+  <name>voice/ident toggle</name>
+  <type>switch</type>
+  <layer>
+   <condition>
+    <property alias="../../../params/"/>
+   </condition>
+     <name>voice on</name>
+     <texture>
+     <path>Aircraft/Instruments/Textures/switches.rgb</path>
+     <x1>0.0</x1>
+     <y1>0.75</y1>
+     <x2>0.25</x2>
+     <y2>1.0</y2>
+    </texture>
+    <w>12</w>
+    <h>12</h>
+   <transformations>
+    <transformation>
+     <type>y-shift</type>
+     <offset>1</offset>
+    </transformation>
+   </transformations>
+  </layer>
+  <layer>
+  <name>ident on</name>
+  <texture>
+   <path>Aircraft/Instruments/Textures/switches.rgb</path>
+   <x1>0.0</x1>
+   <y1>0.0</y1>
+   <x2>0.25</x2>
+   <y2>0.30</y2>
+  </texture>
+   <w>12</w>
+   <h>15</h>
+  </layer>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>40</offset>
+     </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-0</offset>
+    </transformation>
+   </transformations>
+ 
+
+</PropertyList>

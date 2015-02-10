@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PropertyList>
+	<name>Effects/test</name>
+	<parameters>
+		<texture n ="0">
+		</texture>
+	</parameters>
+	<technique n="10">
+		<predicate>
+			<and>
+				<property>/sim/rendering/shaders/generic</property>
+				<less-equal>
+					<value type="float">1.0</value>
+					<shader-language/>
+				</less-equal>
+			</and>
+		</predicate>
+		<pass n="0">
+			<!-- This is apparently not used, so maybe we'll blow it way soon. -->
+			<lighting>true</lighting>
+			<material>
+				<ambient type="vec4d">0.5 0.5 0.5 1.0</ambient>
+				<diffuse type="vec4d">0.5 0.5 0.5 1.0</diffuse>
+				<color-mode>off</color-mode>
+			</material>
+			<alpha-test>
+				<comparison>greater</comparison>
+				<reference type="float">0.01</reference>
+			</alpha-test>
+			<shade-model>smooth</shade-model>
+			<blend>
+				<source>src-alpha</source>
+				<destination>one-minus-src-alpha</destination>
+			</blend>
+			<depth>
+				<write-mask>false</write-mask>
+			</depth>
+			<render-bin>
+				<bin-number>10</bin-number>
+				<bin-name>DepthSortedBin</bin-name>
+			</render-bin>
+			<texture-unit>
+				<unit>0</unit>
+				<type>
+					<use>texture[0]/type</use>
+				</type>
+				<image>
+					<use>texture[0]/image</use>
+				</image>
+				<filter>
+					<use>texture[0]/filter</use>
+				</filter>
+				<wrap-s>
+					<use>texture[0]/wrap-s</use>
+				</wrap-s>
+				<wrap-t>
+					<use>texture[0]/wrap-t</use>
+				</wrap-t>
+				<!--<wrap-s>clamp</wrap-s>
+        <wrap-t>clamp</wrap-t>-->
+			</texture-unit>
+			<!--<attribute>
+        <mypars type="vec3">0 0 0</mypars>
+        <value type="int">10</value>
+      </attribute>-->
+			<program>
+				<vertex-shader>Shaders/test.vert</vertex-shader>
+				<fragment-shader>Shaders/test.frag</fragment-shader>
+				<!--<attribute>
+          <name>usrAttr3</name>
+          <index>10</index>
+        </attribute>
+        <attribute>
+          <name>usrAttr4</name>
+          <index>11</index>
+        </attribute>-->
+			</program>
+			<uniform>
+				<name>baseTexture</name>
+				<type>sampler-2d</type>
+				<value type="int">0</value>
+			</uniform>
+			<uniform>
+				<name>shading</name>
+				<type>float</type>
+				<value type="float">0.5</value>
+			</uniform>
+			<vertex-program-two-side>true</vertex-program-two-side>
+		</pass>
+	</technique>
+</PropertyList>

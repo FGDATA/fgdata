@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+<path>carbtemp-gauge.ac</path>
+
+    <animation>
+        <type>material</type>
+        <object-name>Carbtemp.face</object-name>
+        <object-name>CARBneedle</object-name>
+        <emission>
+            <red>0.5</red>
+            <green>0.2</green>
+            <blue>0.0</blue>
+            <factor-prop>/systems/electrical/outputs/instrument-lights-norm</factor-prop>
+        </emission>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>CARBneedle</object-name>
+        <property>engines/engine/carb-temp-c</property>
+        <interpolation>
+            <entry><ind> -40.0</ind><dep>0</dep></entry>
+            <entry><ind> 0</ind><dep>130</dep></entry>
+            <entry><ind>50</ind><dep>325</dep></entry>
+        </interpolation>
+        <axis>
+            <x>-1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+        <center>
+            <x-m>0</x-m>
+            <y-m>0</y-m>
+            <z-m>0</z-m>
+        </center>
+    </animation>
+
+</PropertyList>

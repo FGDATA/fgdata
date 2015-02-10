@@ -1,0 +1,95 @@
+DIM M
+DERIV RAD
+PART
+#DAMP
+
+ $FLTCON WT=26000., 
+     LOOP=2.0, 
+     NMACH=1.0, MACH(1)=0.5,
+     NALT=1.0,  ALT(1)=4200.,
+     NALPHA=20.0,
+     ALSCHD(1)= -16.0, -8.0, -6.0, -4.0, -2.0, -1.0, 0.0, 1.0, 2.0,  4.0, 6.0,
+         8.0, 10.0, 12.0, 14.0, 16.0, 18.0, 19.0, 20.0, 21.0,
+#     NALPHA=4.0,
+#     ALSCHD(1)= -0.4,1.,2.,4.5,
+     STMACH=0.7, TSMACH=1.4, TR=1.0$
+
+ $OPTINS ROUGFC=0.25E-3, SREF=22.438, CBARR=2.5, BLREF=12.$
+
+ $SYNTHS XCG=-0.18, ZCG=-0.47,
+         XW=-1.13, ZW=-0.384, ALIW=3.5,
+         XH= 3.853,ZH=0.0993, ALIH=-3.0,
+         XV=3.86, SCALE=1.0, VERTUP=.TRUE.$
+* Body
+
+ $BODY NX=15.0,
+       X(1) =-2.191,-1.887,-1.476,-1.278,-0.841,-0.470, 0.000, 0.722, 1.772,
+              2.005, 2.929, 4.109, 4.603, 5.712, 6.285,
+       P(1) = 3.165, 4.630, 4.676, 4.874, 4.533, 4.628, 5.027, 4.940, 4.211,
+              4.010, 3.595, 2.690, 2.205, 0.960, 0.054,
+       S(1) = 0.509, 0.988, 1.042, 1.144, 1.057, 1.104, 1.223, 1.195, 0.918,
+              0.830, 0.671, 0.378, 0.255, 0.048, 0.0001,
+       R(1) = 0.389, 0.565, 0.579, 0.602, 0.536, 0.541, 0.528, 0.527, 0.483,
+              0.473, 0.421, 0.297, 0.238, 0.099, 0.007,
+       ZU(1)= 0.423, 0.546, 0.546, 0.570, 0.625, 0.674, 1.008, 0.972, 0.650,
+              0.587, 0.533, 0.413, 0.322, 0.108,-0.092,
+       ZL(1)=-0.414,-0.699,-0.712,-0.739,-0.628,-0.635,-0.631,-0.617,-0.588,
+             -0.573,-0.519,-0.426,-0.385,-0.212,-0.106,
+       BNOSE=2.0, BTAIL=1.0,
+       BLN=.25,   BLA=1.0,
+       ITYPE=3.0, METHOD=1.0$
+
+ $WGPLNF CHRDTP=1.22, CHRDR=2.72,
+         SSPNE=5.3, SSPN=5.82,
+         SAVSI=4.5,  CHSTAT=0.0,
+         TWISTA=-2.5, DHDADI=6.0,  TYPE=1.0$
+
+NACA W 4 3312! Best guess
+# From http://www.ae.illinois.edu/m-selig/ads/aircraft.html
+# Mitsubishi A6M2 Zero                                       MAC118                                   MAC118
+# Mitsubishi A6M2 Zero                                       NACA 2315 ?                              NACA 3309 ?
+
+CASEID ----- A6M2 Wing Body ----- 
+#DAMP
+SAVE
+#DUMP DYN
+NEXT CASE
+
+* TDCS 2A15 says flaps are 20 or 50
+# $SYMFLP NDELTA=5.0,DELTA(1)=0.,10.,20.,35.,50.,
+#         SPANFI=1.696,
+#         SPANFO=5.623,
+#         CHRDFI=.232,
+#         CHRDFO=.215,
+#
+#         FTYPE=3.0,
+#         CB=.001125,
+#         TC=.00225,
+#         PHETEP=.0391,
+#         PHETE=.0522,
+#         NTYPE=1.$
+
+#CASEID ----- A6M2 PLAIN WING FLAPS ----- 
+#SAVE
+#DUMP FCM
+#NEXT CASE
+
+ $HTPLNF TYPE=1.0,    CHRDR=1.6,CHRDTP=0.577,
+         SSPNE=1.8, SSPN=2.1, SAVSI=17.5,
+         CHSTAT=0.0, TWISTA=0.0, DHDADI=0.0,
+         SHB=0., SEXT=0., RLPH=6.66$ ! I Guessed at these numbers
+
+NACA H 4 0009
+
+ $VTPLNF TYPE=1.0,   CHRDR=2.313, CHRDTP=0.63,
+         SSPNE=1.25, SSPN=1.55,
+         SAVSI=39.0, CHSTAT=0.0$
+
+NACA V 4 0009
+CASEID ----- A6M2 Final ----- 
+#DAMP
+TRIM
+SAVE
+NEXT CASE
+
+

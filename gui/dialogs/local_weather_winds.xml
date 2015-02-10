@@ -1,0 +1,354 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+ <!-- Weather tiles -->
+
+ <name>local_weather_winds</name>
+ <width>500</width>
+ <height>200</height>
+ <modal>false</modal>
+
+
+<text>
+  <x>10</x>
+  <y>170</y>
+  <label>Specify aloft wind layers</label>
+</text>
+
+<text>
+ <x>220</x>
+ <y>170</y>
+ <label>lat:</label>
+</text>
+
+<input>
+   <x>250</x>
+   <y>170</y>
+   <width>80</width>
+   <height>25</height>
+   <property>/local-weather/tmp/ipoint-latitude-deg</property>
+</input>
+
+
+<text>
+ <x>340</x>
+ <y>170</y>
+ <label>lon:</label>
+</text>
+
+<input>
+   <x>370</x>
+   <y>170</y>
+   <width>80</width>
+   <height>25</height>
+   <property>/local-weather/tmp/ipoint-longitude-deg</property>
+</input>
+
+<group>
+  <x>0</x>
+  <y>140</y>
+
+ <text>
+   <x>80</x>
+   <y>0</y>
+   <label>0</label>
+  </text>
+
+<text>
+   <x>110</x>
+   <y>0</y>
+   <label>FL50</label>
+  </text>
+
+<text>
+   <x>155</x>
+   <y>0</y>
+   <label>FL100</label>
+  </text>
+
+<text>
+   <x>200</x>
+   <y>0</y>
+   <label>FL180</label>
+  </text>
+
+<text>
+   <x>245</x>
+   <y>0</y>
+   <label>FL240</label>
+  </text>
+
+<text>
+   <x>290</x>
+   <y>0</y>
+   <label>FL300</label>
+  </text>
+
+<text>
+   <x>335</x>
+   <y>0</y>
+   <label>FL340</label>
+  </text>
+
+<text>
+   <x>380</x>
+   <y>0</y>
+   <label>FL390</label>
+  </text>
+
+<text>
+   <x>425</x>
+   <y>0</y>
+   <label>FL450</label>
+  </text>
+
+</group>
+
+<group>
+  <x>0</x>
+  <y>100</y>
+
+<text>
+   <x>5</x>
+   <y>0</y>
+   <label>direction</label>
+  </text>
+
+<input>
+   <x>70</x>
+   <y>0</y>
+   <width>40</width>
+   <height>25</height>
+   <property>/local-weather/tmp/FL0-wind-from-heading-deg</property>
+  </input>
+
+<input>
+   <x>115</x>
+   <y>0</y>
+   <width>40</width>
+   <height>25</height>
+   <property>/local-weather/tmp/FL50-wind-from-heading-deg</property>
+  </input>
+
+<input>
+   <x>160</x>
+   <y>0</y>
+   <width>40</width>
+   <height>25</height>
+   <property>/local-weather/tmp/FL100-wind-from-heading-deg</property>
+  </input>
+
+<input>
+   <x>205</x>
+   <y>0</y>
+   <width>40</width>
+   <height>25</height>
+   <property>/local-weather/tmp/FL180-wind-from-heading-deg</property>
+  </input>
+
+<input>
+   <x>250</x>
+   <y>0</y>
+   <width>40</width>
+   <height>25</height>
+   <property>/local-weather/tmp/FL240-wind-from-heading-deg</property>
+  </input>
+
+
+<input>
+   <x>295</x>
+   <y>0</y>
+   <width>40</width>
+   <height>25</height>
+   <property>/local-weather/tmp/FL300-wind-from-heading-deg</property>
+  </input>
+
+<input>
+   <x>340</x>
+   <y>0</y>
+   <width>40</width>
+   <height>25</height>
+   <property>/local-weather/tmp/FL340-wind-from-heading-deg</property>
+  </input>
+
+<input>
+   <x>385</x>
+   <y>0</y>
+   <width>40</width>
+   <height>25</height>
+   <property>/local-weather/tmp/FL390-wind-from-heading-deg</property>
+  </input>
+
+<input>
+   <x>430</x>
+   <y>0</y>
+   <width>40</width>
+   <height>25</height>
+   <property>/local-weather/tmp/FL450-wind-from-heading-deg</property>
+  </input>
+
+</group>
+
+
+<group>
+  <x>0</x>
+  <y>60</y>
+
+<text>
+   <x>5</x>
+   <y>0</y>
+   <label>speed (kt)</label>
+  </text>
+
+<input>
+   <x>70</x>
+   <y>0</y>
+   <width>40</width>
+   <height>25</height>
+   <property>/local-weather/tmp/FL0-windspeed-kt</property>
+  </input>
+
+<input>
+   <x>115</x>
+   <y>0</y>
+   <width>40</width>
+   <height>25</height>
+   <property>/local-weather/tmp/FL50-windspeed-kt</property>
+  </input>
+
+<input>
+   <x>160</x>
+   <y>0</y>
+   <width>40</width>
+   <height>25</height>
+   <property>/local-weather/tmp/FL100-windspeed-kt</property>
+  </input>
+
+<input>
+   <x>205</x>
+   <y>0</y>
+   <width>40</width>
+   <height>25</height>
+   <property>/local-weather/tmp/FL180-windspeed-kt</property>
+  </input>
+
+<input>
+   <x>250</x>
+   <y>0</y>
+   <width>40</width>
+   <height>25</height>
+   <property>/local-weather/tmp/FL240-windspeed-kt</property>
+  </input>
+
+<input>
+   <x>295</x>
+   <y>0</y>
+   <width>40</width>
+   <height>25</height>
+   <property>/local-weather/tmp/FL300-windspeed-kt</property>
+  </input>
+
+<input>
+   <x>340</x>
+   <y>0</y>
+   <width>40</width>
+   <height>25</height>
+   <property>/local-weather/tmp/FL340-windspeed-kt</property>
+  </input>
+
+<input>
+   <x>385</x>
+   <y>0</y>
+   <width>40</width>
+   <height>25</height>
+   <property>/local-weather/tmp/FL390-windspeed-kt</property>
+  </input>
+
+<input>
+   <x>430</x>
+   <y>0</y>
+   <width>40</width>
+   <height>25</height>
+   <property>/local-weather/tmp/FL450-windspeed-kt</property>
+  </input>
+
+
+</group>
+
+<group>
+  <x>10</x>
+  <y>10</y>
+
+ <button>
+   <x>0</x>
+   <y>0</y>
+   <legend>OK</legend>
+   <!--<default>true</default>-->
+   <equal>true</equal>
+   <binding>
+    <command>dialog-apply</command>
+   </binding>
+   <binding>
+    <command>dialog-close</command>
+   </binding>
+  </button>
+
+ <button>
+   <x>45</x>
+   <y>0</y>
+   <legend>Set waypoint</legend>
+   <binding>
+    <command>dialog-apply</command>
+   </binding>
+   <binding>
+     <command>nasal</command>
+     <script>
+	if (local_weather.wind_model_flag == 5)	
+	{local_weather.set_aloft_wrapper();}
+	</script>
+   </binding>
+ </button>
+
+
+<button>
+   <x>150</x>
+   <y>0</y>
+   <legend>Clear Waypoints</legend>
+   <binding>
+     <command>nasal</command>
+     <script>
+	props.globals.getNode("local-weather/interpolation", 1).removeChildren("wind");
+	setprop("/local-weather/interpolation/ipoint-number",0);
+     </script>
+   </binding>
+ </button>
+
+  <button>
+   <x>265</x>
+   <y>0</y>
+   <legend>Cancel</legend>
+   <equal>true</equal>
+   <key>Esc</key>
+   <binding>
+    <command>dialog-close</command>
+   </binding>
+  </button>
+
+<text>
+   <x>360</x>
+   <y>0</y>
+   <label>waypoints:</label>
+ </text>
+
+<text>
+   <x>430</x>
+   <y>0</y>
+   <label>0</label>
+   <live>true</live>
+  <property>/local-weather/interpolation/ipoint-number</property>
+ </text>
+
+</group>
+
+</PropertyList>

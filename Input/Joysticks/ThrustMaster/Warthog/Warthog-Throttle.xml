@@ -1,0 +1,538 @@
+<?xml version="1.0"?>
+<!--
+	Copyright (c) 2011   Melchior FRANZ   mfranz # aon : at
+
+	This driver supports joystick overlay files (see ./Warthog/README).
+-->
+
+<PropertyList>
+	<name>Thrustmaster Throttle - HOTAS Warthog</name>
+
+	<nasal>
+		<script>
+			var this = cmdarg().getParent();
+			var init = !contains(caller(0)[0], "init");
+			if (!contains(globals, "warthog"))
+				io.load_nasal(getprop("/sim/fg-root") ~ "/Input/Joysticks/ThrustMaster/Warthog/warthog.nas");
+
+			var jslistener = func init and call(setlistener, arg);
+			var popup = func gui.popupTip(call(sprintf, arg));
+			var is_helicopter = (func {(var n = props.globals.getNode("rotors", 0)) != nil and n.getAttribute("children")})();
+			var aircraft_type = getprop("/sim/type");
+
+			var load_overlay = func(name) {
+				foreach (var dir; [getprop("/sim/fg-home"), getprop("/sim/fg-root")]) {
+					var file = dir ~ "/Input/Joysticks/ThrustMaster/Warthog/Throttle/" ~ name ~ ".xml";
+					if (io.stat(file) != nil) {
+						printlog("info", "WARTHOG: loading overlay " ~ file);
+						cmdarg().setValues({command: "nasal", script: ""});
+						io.read_properties(file, this);
+						props.runBinding(cmdarg());
+						break;
+					}
+				}
+			}
+
+			foreach (var b; this.getChildren("button")) {
+				if (b.getAttribute("children") == 1) {
+					var name = b.getNode("name", 1).getValue() or "??";
+					b.setValues({binding: {command: "nasal", script: 'popup("' ~ name ~ '")'}});
+				}
+			}
+
+			var gearcheck = func {
+				var agl = getprop("/position/altitude-agl-ft");
+				var geardown = getprop("/controls/gear/gear-down");
+				if (agl &lt; 500 and !geardown)
+					warthog.throttle.toggle_leds(1, 2, 3, 4, 5);
+				else
+					warthog.throttle.set_leds(0, 1, 2, 3, 4, 5);
+				settimer(gearcheck, 0.5);
+			};
+			if (init)
+				gearcheck();
+
+			var mod = 0;
+			var m = props.globals.initNode("/devices/status/joysticks/warthog/modifier", mod, "INT");
+			jslistener(m, func(n) mod = n.getValue());
+
+			var left_engines = [0, 2, 4, 6, 8, 10];
+			var right_engines = [1, 3, 5, 7, 9, 11];
+
+			load_overlay("generic");
+			if (is_helicopter)
+				load_overlay("helicopter");
+			if (aircraft_type)
+				load_overlay(aircraft_type);
+			foreach (var o; split(":", getprop("/input/joysticks/overlays") or ""))
+				load_overlay(o);
+			load_overlay(getprop("/sim/aircraft"));
+		</script>
+	</nasal>
+
+	<axis n="0">
+		<name>Mouse Horizontal</name>
+	</axis>
+
+	<axis n="1">
+		<name>Mouse Vertical</name>
+	</axis>
+
+	<axis n="2">
+		<name>Right Throttle</name>
+		<desc>right throttle</desc>
+		<tolerance>0.00001</tolerance>
+		<binding>
+			<command>nasal</command>
+			<script>controls.perEngineSelectedAxisHandler(0)(right_engines)</script>
+		</binding>
+	</axis>
+
+	<axis n="3">
+		<name>Left Throttle</name>
+		<desc>left throttle</desc>
+		<number>
+			<unix>3</unix>
+			<mac>3</mac>
+			<windows>5</windows>
+		</number>
+		<tolerance>0.00001</tolerance>
+		<binding>
+			<command>nasal</command>
+			<script>controls.perEngineSelectedAxisHandler(0)(left_engines)</script>
+		</binding>
+	</axis>
+
+	<axis n="4">
+		<name>Friction Wheel</name>
+		<desc>rudder trim</desc>
+		<number>
+			<unix>4</unix>
+			<mac>4</mac>
+			<windows>6</windows>
+		</number>
+		<binding>
+			<command>property-scale</command>
+			<property>/controls/flight/rudder-trim</property>
+			<factor type="double">-1</factor>
+			<power type="int">2</power>
+		</binding>
+	</axis>
+
+	<axis n="5">
+		<name>Hat Switch Horizontal</name>
+		<desc>adjust mixture: left = leaner, right = fatter</desc>
+		<number>
+			<unix>5</unix>
+			<mac>5</mac>
+			<windows>3</windows>
+		</number>
+		<low>
+			<repeatable>true</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>controls.adjMixture(-1)</script>
+			</binding>
+		</low>
+		<high>
+			<repeatable>true</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>controls.adjMixture(1)</script>
+			</binding>
+		</high>
+	</axis>
+
+	<axis n="6">
+		<name>Hat Switch Vertical</name>
+		<desc>adjust propeller pitch: forward = increase, backward = decrease</desc>
+		<number>
+			<unix>6</unix>
+			<mac>6</mac>
+			<windows>4</windows>
+		</number>
+		<low>
+			<repeatable>true</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>controls.adjPropeller(1)</script>
+			</binding>
+		</low>
+		<high>
+			<repeatable>true</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>controls.adjPropeller(-1)</script>
+			</binding>
+		</high>
+	</axis>
+
+	<button n="0">
+		<name>Mouse Button</name>
+	</button>
+
+	<button n="1">
+		<name>MIC Switch Push</name>
+		<desc>Push To Talk (PTT)</desc>
+		<binding>
+			<command>nasal</command>
+			<script>controls.ptt(1)</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>controls.ptt(0)</script>
+			</binding>
+		</mod-up>
+	</button>
+
+	<button n="2">
+		<name>MIC Switch Up</name>
+	</button>
+
+	<button n="3">
+		<name>MIC Switch Forward</name>
+	</button>
+
+	<button n="4">
+		<name>MIC Switch Down</name>
+	</button>
+
+	<button n="5">
+		<name>MIC Switch Aft</name>
+	</button>
+
+	<button n="6">
+		<name>Speedbrake Forward (right throttle, top grey)</name>
+		<desc>apply speed brake</desc>
+		<binding>
+			<command>property-assign</command>
+			<property>/controls/flight/speedbrake</property>
+			<value>1</value>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>property-assign</command>
+				<property>/controls/flight/speedbrake</property>
+				<value>0</value>
+			</binding>
+		</mod-up>
+	</button>
+
+	<button n="7">
+		<name>Speedbrake Aft</name>
+	</button>
+
+	<button n="8">
+		<name>Boat Switch Forward</name>
+	</button>
+
+	<button n="9">
+		<name>Boat Switch Aft</name>
+		<desc>apply thrust reverser</desc>
+		<binding>
+			<command>nasal</command>
+			<script>props.setAll("/controls/engines/engine", "reverser", 1)</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>props.setAll("/controls/engines/engine", "reverser", 0)</script>
+			</binding>
+		</mod-up>
+	</button>
+
+	<button n="10">
+		<name>China Hat Forward</name>
+		<desc>+mod: increase LED brightness (see README)</desc>
+		<binding>
+			<command>nasal</command>
+			<script>
+				if (mod)
+					warthog.throttle.brighter();
+			</script>
+		</binding>
+	</button>
+
+	<button n="11">
+		<name>China Hat Aft</name>
+		<desc>+mod: decrease LED brightness (see README)</desc>
+		<binding>
+			<command>nasal</command>
+			<script>
+				if (mod)
+					warthog.throttle.darker();
+			</script>
+		</binding>
+	</button>
+
+	<button n="12">
+		<name>Pinky Switch Forward</name>
+	</button>
+
+	<button n="13">
+		<name>Pinky Switch Aft</name>
+	</button>
+
+	<button n="14">
+		<name>Left Throttle Button</name>
+	</button>
+
+	<button n="15">
+		<name>Engine Fuel Flow Left</name>
+		<desc>engine fuel flow left</desc>
+		<binding>
+			<command>nasal</command>
+			<script>
+				foreach (var i; left_engines)
+					setprop("/controls/engines/engine[" ~ i ~ "]/fuel-pump", 1);
+			</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>
+					foreach (var i; left_engines)
+						setprop("/controls/engines/engine[" ~ i ~ "]/fuel-pump", 0);
+				</script>
+			</binding>
+		</mod-up>
+	</button>
+
+	<button n="16">
+		<name>Engine Fuel Flow Right</name>
+		<desc>engine fuel flow right</desc>
+		<binding>
+			<command>nasal</command>
+			<script>
+				foreach (var i; right_engines)
+					setprop("/controls/engines/engine[" ~ i ~ "]/fuel-pump", 1);
+			</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>
+					foreach (var i; right_engines)
+						setprop("/controls/engines/engine[" ~ i ~ "]/fuel-pump", 0);
+				</script>
+			</binding>
+		</mod-up>
+	</button>
+
+	<button n="17">
+		<name>Engine Operate Left MOTOR</name>
+		<desc>engine operate left motor (magnetos)</desc>
+		<binding>
+			<command>nasal</command>
+			<script>
+				foreach (var i; left_engines)
+					setprop("/controls/engines/engine[" ~ i ~ "]/magnetos", 1);
+			</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>
+					foreach (var i; left_engines)
+						setprop("/controls/engines/engine[" ~ i ~ "]/magnetos", 0);
+				</script>
+			</binding>
+		</mod-up>
+	</button>
+
+	<button n="18">
+		<name>Engine Operate Right MOTOR</name>
+		<desc>engine operate right motor (magnetos)</desc>
+		<binding>
+			<command>nasal</command>
+			<script>
+				foreach (var i; right_engines)
+					setprop("/controls/engines/engine[" ~ i ~ "]/magnetos", 1);
+			</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>
+					foreach (var i; right_engines)
+						setprop("/controls/engines/engine[" ~ i ~ "]/magnetos", 0);
+				</script>
+			</binding>
+		</mod-up>
+	</button>
+
+	<button n="19">
+		<name>APU Start</name>
+		<desc>APU (auxiliary power unit) on/off</desc>
+		<binding>
+			<command>property-assign</command>
+			<property>/controls/electric/APU-generator</property>
+			<value>1</value>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>property-assign</command>
+				<property>/controls/electric/APU-generator</property>
+				<value>0</value>
+			</binding>
+		</mod-up>
+	</button>
+
+	<button n="20">
+		<name>Landing Gear Horn Silence</name>
+		<desc>gear up,  +mod: gear down</desc>
+		<binding>
+			<command>nasal</command>
+			<script>controls.gearDown(mod ? 1 : -1)</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>controls.gearDown(0)</script>
+			</binding>
+		</mod-up>
+	</button>
+
+	<button n="21">
+		<name>Flaps Up</name>
+		<desc>flaps up</desc>
+		<binding>
+			<command>nasal</command>
+			<script>controls.flapsDown(-1)</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>controls.flapsDown(0)</script>
+			</binding>
+		</mod-up>
+	</button>
+
+	<button n="22">
+		<name>Flaps Down</name>
+		<desc>flaps down</desc>
+		<binding>
+			<command>nasal</command>
+			<script>controls.flapsDown(1)</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>controls.flapsDown(0)</script>
+			</binding>
+		</mod-up>
+	</button>
+
+	<button n="23">
+		<name>EAC Switch</name>
+	</button>
+
+	<button n="24">
+		<name>RADAR ALT</name>
+	</button>
+
+	<button n="25">
+		<name>Autopilot (Dis)Engage</name>
+	</button>
+
+	<button n="26">
+		<name>Autopilot PATH</name>
+		<binding>
+			<command>nasal</command>
+			<script>popup("autopilot path")</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>popup("autopilot alt/hdg")</script>
+			</binding>
+		</mod-up>
+	</button>
+
+	<button n="27">
+		<name>Autopilot ALT</name>
+		<binding>
+			<command>nasal</command>
+			<script>popup("autopilot alt")</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>popup("autopilot alt/hdg")</script>
+			</binding>
+		</mod-up>
+	</button>
+
+	<button n="28">
+		<name>Right Throttle Idle Switch</name>
+		<desc>right engines cutoff</desc>
+		<binding>
+			<command>nasal</command>
+			<script>
+				foreach (var i; right_engines)
+					setprop("/controls/engines/engine[" ~ i ~ "]/cutoff", 1);
+			</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>
+					foreach (var i; right_engines)
+						setprop("/controls/engines/engine[" ~ i ~ "]/cutoff", 0);
+				</script>
+			</binding>
+		</mod-up>
+	</button>
+
+	<button n="29">
+		<name>Left Throttle Idle Switch</name>
+		<desc>left engines cutoff</desc>
+		<binding>
+			<command>nasal</command>
+			<script>
+				foreach (var i; left_engines)
+					setprop("/controls/engines/engine[" ~ i ~ "]/cutoff", 1);
+			</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>
+					foreach (var i; left_engines)
+						setprop("/controls/engines/engine[" ~ i ~ "]/cutoff", 0);
+				</script>
+			</binding>
+		</mod-up>
+	</button>
+
+	<button n="30">
+		<name>Engine Operate Left IGN</name>
+		<desc>start left engines</desc>
+		<binding>
+			<command>nasal</command>
+			<script>call(controls.startEngine, [1] ~ left_engines)</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>call(controls.startEngine, [0] ~ left_engines)</script>
+			</binding>
+		</mod-up>
+	</button>
+
+	<button n="31">
+		<name>Engine Operate Right IGN</name>
+		<desc>start right engines</desc>
+		<binding>
+			<command>nasal</command>
+			<script>call(controls.startEngine, [1] ~ right_engines)</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>call(controls.startEngine, [0] ~ right_engines)</script>
+			</binding>
+		</mod-up>
+	</button>
+</PropertyList>

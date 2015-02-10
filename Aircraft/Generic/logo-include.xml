@@ -1,0 +1,29 @@
+<PropertyList>
+		<sim>
+				<menubar>
+						<default>
+								<menu n="10">
+								<label>Logo</label>
+								<enabled type="bool">true</enabled>
+										<item>
+												<label>Select Logo</label>
+												<binding>
+														<command>nasal</command>
+														<script>logo.logo_dialog.toggle()</script>
+												</binding>
+										</item>
+								</menu>
+						</default>
+				</menubar>
+				<multiplay>
+						<generic>
+								<string/>
+						</generic>
+				</multiplay>
+		</sim>
+		<nasal>
+				<logo>
+						<file>Aircraft/Generic/logo.nas</file>
+				</logo>
+		</nasal>
+</PropertyList>

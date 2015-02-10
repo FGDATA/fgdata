@@ -1,0 +1,289 @@
+<?xml version="1.0"  encoding="UTF-8"?>
+<!--
+  Zeppelin NT07 airship.
+
+  Copyright (C) 2008 - 2010  Anders Gidenstam  (anders(at)gidenstam.org)
+  This file is licensed under the GPL license v2 or later.
+-->
+<PropertyList>
+
+ <!-- Keyboard commands -->
+
+ <!-- Ballast commands ====================================== -->
+ <key n="87">
+  <name>W</name>
+  <desc>Perform on-ground weigh-off.</desc>
+  <binding>
+   <command>nasal</command>
+   <script>
+     if (!walkview.forward(4.0)) {
+         gui.popupTip("Weigh-off in progress.");
+         ZLTNT.auto_weighoff();
+     }
+   </script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>
+      walkview.forward(0);
+    </script>
+   </binding>
+  </mod-up>
+ </key>
+
+ <key n="119">
+  <name>w</name>
+  <desc>Show current on-ground weight.</desc>
+  <binding>
+   <command>nasal</command>
+   <script>
+     if (!walkview.forward(1.0)) {
+         ZLTNT.print_wow();
+     }
+   </script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>
+      walkview.forward(0);
+    </script>
+   </binding>
+  </mod-up>
+ </key>
+
+ <key n="100">
+  <name>d</name>
+  <desc>Drop 0.1% ballast</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>
+     if (!walkview.side_step(0.5)) {
+         gui.popupTip("Dropping ballast!");
+         interpolate(ZLTNT.ballast_p,
+                     0.999 * getprop(ZLTNT.ballast_p), 0.5);
+     }
+   </script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>
+      walkview.side_step(0);
+    </script>
+   </binding>
+  </mod-up>
+ </key>
+
+ <key n="68">
+  <name>D</name>
+  <desc>Drop 1% ballast</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>
+     if (!walkview.side_step(1.0)) {
+         gui.popupTip("Dropping ballast!");
+         interpolate(ZLTNT.ballast_p,
+                     0.99 * getprop(ZLTNT.ballast_p), 0.5);
+     }
+   </script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>
+      walkview.side_step(0);
+    </script>
+   </binding>
+  </mod-up>
+ </key>
+
+ <!-- Gas cell commands ====================================== -->
+ <key n="70">
+  <name>F</name>
+  <desc>Open gas valve.</desc>
+  <binding>
+   <command>nasal</command>
+   <script>
+     gui.popupTip("Gas valve open!");
+     setprop("/fdm/jsbsim/buoyant_forces/gas-cell/valve_open",
+             1.00);
+   </script>
+  </binding>
+ </key>
+
+ <key n="102">
+  <name>f</name>
+  <desc>Close gas valve.</desc>
+  <binding>
+   <command>nasal</command>
+   <script>
+    gui.popupTip("Gas valve closed!");
+    setprop("/fdm/jsbsim/buoyant_forces/gas-cell/valve_open",
+            0.00);
+   </script>
+  </binding>
+ </key>
+
+ <!-- Ballonet commands ====================================== -->
+ <key n="113">
+  <name>q</name>
+  <desc>Deflate forward ballonet</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>
+     ZLTNT.step_ballonet_cmd(0, -0.05);
+   </script>
+  </binding>
+ </key>
+ <key n="81">
+  <name>Q</name>
+  <desc>Inflate forward ballonet</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>
+     ZLTNT.step_ballonet_cmd(0, 0.05);
+   </script>
+  </binding>
+ </key>
+
+ <key n="97">
+  <name>a</name>
+  <desc>Deflate aft ballonet</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>
+     if (!walkview.side_step(-0.5)) {
+         ZLTNT.step_ballonet_cmd(1, -0.05);
+     }
+   </script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>
+      walkview.side_step(0);
+    </script>
+   </binding>
+  </mod-up>
+ </key>
+ <key n="65">
+  <name>A</name>
+  <desc>Inflate aft ballonet</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>
+     if (!walkview.side_step(-1.0)) {
+         ZLTNT.step_ballonet_cmd(1, 0.05);
+     }
+   </script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>
+      walkview.side_step(0);
+    </script>
+   </binding>
+  </mod-up>
+ </key>
+
+ <!-- Mooring commands ======================================= -->
+ <key n="85">
+  <name>U</name>
+  <desc>Attach mooring wire.</desc>
+  <binding>
+   <command>nasal</command>
+   <script>
+     ZLTNT.mooring.attach_mooring_wire();
+   </script>
+  </binding>
+ </key>
+
+ <key n="89">
+  <name>Y</name>
+  <desc>Release mooring connection or wire.</desc>
+  <binding>
+   <command>nasal</command>
+   <script>
+     ZLTNT.mooring.release_mooring();
+   </script>
+  </binding>
+ </key>
+
+ <key n="117">
+  <name>u</name>
+  <desc>Winch in mooring wire.</desc>
+  <binding>
+   <command>nasal</command>
+   <script>
+     var sp = getprop("/fdm/jsbsim/mooring/winch-speed-fps");
+     ZLTNT.mooring.set_winch_speed(sp - 0.5);
+   </script>
+  </binding>
+ </key>
+
+ <key n="121">
+  <name>y</name>
+  <desc>Winch out mooring wire.</desc>
+  <binding>
+   <command>nasal</command>
+   <script>
+     var sp = getprop("/fdm/jsbsim/mooring/winch-speed-fps");
+     ZLTNT.mooring.set_winch_speed(sp + 0.5);
+   </script>
+  </binding>
+ </key>
+
+ <!-- Walkview commands ======================================== -->
+ <key n="115">
+  <name>s</name>
+  <desc>Walk backwards.</desc>
+  <binding>
+   <command>nasal</command>
+   <script>
+     if (!walkview.forward(-1.0)) {
+         controls.startEngine(1);
+     }
+   </script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>
+      walkview.forward(0);
+      controls.startEngine(0);
+    </script>
+   </binding>
+  </mod-up>
+ </key>
+ <!-- Remove this if you for some reason have 2d panels and want the default
+      Swap panels function on 'S'.
+ -->
+ <key n="83">
+  <name>S</name>
+  <desc>Walk backwards.</desc>
+  <binding>
+   <command>nasal</command>
+   <script>
+     walkview.forward(-1.0);
+   </script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>
+      walkview.forward(0);
+    </script>
+   </binding>
+  </mod-up>
+ </key>
+
+</PropertyList>

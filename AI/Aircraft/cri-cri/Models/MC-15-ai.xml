@@ -1,0 +1,238 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+  <path>MC-15.ac</path>
+  
+   <offsets>
+	<z-m>.59</z-m>
+  </offsets>
+
+  <!-- L'hélice gauche--> 
+  <!-- Séléction de l'objet visible en fonction des rpm -->
+  <animation>
+    <type>select</type>
+    <object-name>propdiscG</object-name>
+    <condition>
+      <greater-than>
+        <property>velocities/true-airspeed-kt</property>
+        <value>101</value>
+      </greater-than>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>propblurG</object-name>
+    <condition>
+    <and>
+      <greater-than>
+        <property>velocities/true-airspeed-kt</property>
+        <value>14</value>
+      </greater-than>
+      <less-than>
+        <property>velocities/true-airspeed-kt</property>
+        <value>101</value>
+      </less-than>
+    </and>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>paleG1</object-name>
+    <object-name>paleG2</object-name>
+    <condition>
+      <less-than>
+        <property>velocities/true-airspeed-kt</property>
+	<value>100</value>
+      </less-than>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>spin</type>
+    <object-name>coneG</object-name>
+    <object-name>paleG1</object-name>
+    <object-name>paleG2</object-name>
+    <object-name>propdiscG</object-name>
+    <object-name>propblurG</object-name>
+    <property>velocities/true-airspeed-kt</property>
+    <factor> 1 </factor>
+    <center>
+      <x-m> -1.411 </x-m>
+      <y-m> -0.461 </y-m>
+      <z-m>  0.054 </z-m>
+    </center>
+    <axis>
+      <x> -1.000 </x>
+      <y>  0.000 </y>
+      <z>  0.000 </z>
+    </axis>
+  </animation>
+
+  <!-- L'hélice droite--> 
+  <!-- Séléction de l'objet visible en fonction des rpm -->
+  <animation>
+    <type>select</type>
+    <object-name>propdiscD</object-name>
+    <condition>
+      <greater-than>
+        <property>velocities/true-airspeed-kt</property>
+        <value>101</value>
+      </greater-than>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>propblurD</object-name>
+    <condition>
+    <and>
+      <greater-than>
+        <property>velocities/true-airspeed-kt</property>
+        <value>14</value>
+      </greater-than>
+      <less-than>
+        <property>velocities/true-airspeed-kt</property>
+        <value>101</value>
+      </less-than>
+    </and>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>paleD1</object-name>
+    <object-name>paleD2</object-name>
+    <condition>
+      <less-than>
+        <property>velocities/true-airspeed-kt</property>
+	<value>101</value>
+      </less-than>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>spin</type>
+    <object-name>coneD</object-name>
+    <object-name>paleD1</object-name>
+    <object-name>paleD2</object-name>
+    <object-name>propdiscD</object-name>
+    <object-name>propblurD</object-name>
+    <property>velocities/true-airspeed-kt</property>
+    <factor> -1 </factor>
+    <center>
+      <x-m> -1.411 </x-m>
+      <y-m>  0.461 </y-m>
+      <z-m>  0.054 </z-m>
+    </center>
+    <axis>
+      <x> 1.000 </x>
+      <y> 0.000 </y>
+      <z> 0.000 </z>
+    </axis>
+  </animation>
+
+  <!-- Rotation de la roue avant en fonction de la gouverne de direction -->
+  
+  <!-- Rotation des roues lors du roulage -->
+  <animation>
+    <type>spin</type>
+    <object-name>roueN</object-name>
+    <condition>
+		  <less-than>
+			<property>velocities/true-airspeed-kt</property>
+			<value>71</value>
+		  </less-than>
+		</condition>
+    <factor> 30 </factor>
+    <center>
+      <x-m> -1.381 </x-m>
+      <y-m>  0.000 </y-m>
+      <z-m> -0.493 </z-m>
+    </center>
+    <axis>
+      <x>  0.000 </x>
+      <y> -1.000 </y>
+      <z>  0.000 </z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>spin</type>
+    <object-name>roueG</object-name>
+    <condition>
+		  <less-than>
+			<property>velocities/true-airspeed-kt</property>
+			<value>71</value>
+		  </less-than>
+		</condition>
+    <factor> 30 </factor>
+    <center>
+      <x-m> -0.169 </x-m>
+      <y-m> -0.540 </y-m>
+      <z-m> -0.500 </z-m>
+    </center>
+    <axis>
+      <x>  0.000 </x>
+      <y> -1.000 </y>
+      <z>  0.000 </z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>spin</type>
+    <object-name>roueD</object-name>
+    <condition>
+		  <less-than>
+			<property>velocities/true-airspeed-kt</property>
+			<value>71</value>
+		  </less-than>
+		</condition>
+    <factor> 30 </factor>
+    <center>
+      <x-m> -0.169 </x-m>
+      <y-m>  0.540 </y-m>
+      <z-m> -0.500 </z-m>
+    </center>
+    <axis>
+      <x>  0.000 </x>
+      <y> -1.000 </y>
+      <z>  0.000 </z>
+    </axis>
+  </animation>
+
+<!--flaps
+  <animation>
+    <type>rotate</type>
+    <object-name>aileronG</object-name>
+    <property>surface-positions/flap-pos-norm</property>
+    <factor>-24.0</factor>
+    <axis>
+      <x1-m> -0.042 </x1-m>
+      <y1-m> -0.299 </y1-m>
+      <z1-m> -0.269 </z1-m>
+      <x2-m> -0.042 </x2-m>
+      <y2-m> -2.293 </y2-m>
+      <z2-m> -0.089 </z2-m>
+    </axis>
+  </animation> 
+  <animation>
+    <type>rotate</type>
+    <object-name>aileronD</object-name>
+    <property>surface-positions/flap-pos-norm</property>
+    <factor>-24.0</factor>
+    <axis>
+      <x1-m> -0.042 </x1-m>
+      <y1-m>  2.293 </y1-m>
+      <z1-m> -0.089 </z1-m>
+      <x2-m> -0.042 </x2-m>
+      <y2-m>  0.299 </y2-m>
+      <z2-m> -0.269 </z2-m>
+    </axis>
+  </animation>
+  -->
+  
+</PropertyList>
+

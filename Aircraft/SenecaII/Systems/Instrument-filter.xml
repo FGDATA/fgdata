@@ -1,0 +1,297 @@
+<?xml version="1.0"?>
+<!--
+ This file is part of FlightGear, the free flight simulator
+ http://www.flightgear.org/
+
+ Copyright (C) 2009 Torsten Dreyer, Torsten (at) t3r _dot_ de
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation; either version 2 of the
+ License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+-->
+<!-- Some low pass filters to soften the response of various instruments -->
+<PropertyList>
+  <filter>
+    <name>NAV1 gs-needle deflection filter</name>
+    <debug>false</debug>
+    <type>exponential</type>
+    <filter-time>2.0</filter-time> 
+    <input>instrumentation/nav[0]/gs-needle-deflection-norm</input>
+    <output>instrumentation/nav[0]/gs-needle-deflection-filtered</output>
+  </filter>
+
+  <filter>
+    <name>NAV2 gs-needle deflection filter</name>
+    <debug>false</debug>
+    <type>exponential</type>
+    <filter-time>1.5</filter-time> 
+    <input>instrumentation/nav[1]/gs-needle-deflection-norm</input>
+    <output>instrumentation/nav[1]/gs-needle-deflection-filtered</output>
+  </filter>
+
+  <filter>
+    <name>RPM Indicator-Left filter</name>
+    <debug>false</debug>
+    <type>exponential</type>
+    <filter-time>0.5</filter-time> 
+    <input>engines/engine[0]/rpm</input>
+    <output>engines/engine[0]/rpm-filtered</output>
+  </filter>
+
+  <filter>
+    <name>RPM Indicator-Right filter</name>
+    <debug>false</debug>
+    <type>exponential</type>
+    <filter-time>0.6</filter-time>
+    <input>engines/engine[1]/rpm</input>
+    <output>engines/engine[1]/rpm-filtered</output>
+  </filter>
+
+  <filter>
+    <name>MAP Indicator-Left filter</name>
+    <debug>false</debug>
+    <type>exponential</type>
+    <filter-time>1.0</filter-time> 
+    <input>engines/engine[0]/mp-osi</input>
+    <output>engines/engine[0]/mp-osi-filtered</output>
+  </filter>
+
+  <logic>
+    <name>Overboost Indicator Left</name>
+    <input>
+      <greater-than>
+        <property>engines/engine[0]/mp-osi-filtered</property>
+        <value>40.0</value>
+      </greater-than>
+    </input>
+    <output>instrumentation/annunciator/overboost[0]</output>
+  </logic>
+
+  <logic>
+    <name>Overboost Indicator Right</name>
+    <input>
+      <greater-than>
+        <property>engines/engine[1]/mp-osi-filtered</property>
+        <value>40.0</value>
+      </greater-than>
+    </input>
+    <output>instrumentation/annunciator/overboost[1]</output>
+  </logic>
+
+  <logic>
+    <name>Oil Pressure annunciator</name>
+    <input>
+      <or>
+        <less-than>
+          <property>/engines/engine[0]/oil-pressure-psi</property>
+          <value type="double">30.0</value>
+        </less-than>
+        <less-than>
+          <property>/engines/engine[1]/oil-pressure-psi</property>
+          <value type="double">30.0</value>
+        </less-than>
+      </or>
+    </input>
+    <output>/instrumentation/annunciator/oil</output>
+  </logic>
+
+  <filter>
+    <name>RPM-NORM-Inv Left</name>
+    <type>gain</type>
+    <gain>1</gain>
+    <input>
+      <expression>
+        <clip>
+          <clipMin>0.0</clipMin>
+          <clipMax>1.0</clipMax>
+          <difference>
+            <value>1.0</value>
+            <div>
+              <property>/engines/engine[0]/rpm</property>
+              <value>2575</value>
+            </div>
+          </difference>
+        </clip>
+      </expression>
+    </input>
+    <output>/engines/engine[0]/rpm-norm-inv</output>
+  </filter>
+
+  <filter>
+    <name>RPM-NORM-Inv Right</name>
+    <type>gain</type>
+    <gain>1</gain>
+    <input>
+      <expression>
+        <clip>
+          <clipMin>0.0</clipMin>
+          <clipMax>1.0</clipMax>
+          <difference>
+            <value>1.0</value>
+            <div>
+              <property>/engines/engine[1]/rpm</property>
+              <value>2575</value>
+            </div>
+          </difference>
+        </clip>
+      </expression>
+    </input>
+    <output>/engines/engine[1]/rpm-norm-inv</output>
+  </filter>
+
+  <filter>
+    <name>Suction indicator</name>
+    <type>gain</type>
+    <gain>1</gain>
+    <input>
+      <expression>
+        <max>
+          <property>/systems/vacuum[0]/suction-inhg</property>
+          <property>/systems/vacuum[1]/suction-inhg</property>
+        </max>
+      </expression>
+    </input>
+    <output>/instrumentation/vacuum/suction-inhg</output>
+  </filter>
+
+  <logic>
+    <name>Left Suction annunciator</name>
+    <input>
+      <less-than>
+        <property>/systems/vacuum[0]/suction-inhg</property>
+        <value type="double">3.5</value>
+      </less-than>
+    </input>
+    <output>/instrumentation/vacuum/inoperative[0]</output>
+  </logic>
+
+  <logic>
+    <name>Right Suction annunciator</name>
+    <input>
+      <less-than>
+        <property>/systems/vacuum[1]/suction-inhg</property>
+        <value type="double">3.5</value>
+      </less-than>
+    </input>
+    <output>/instrumentation/vacuum/inoperative[1]</output>
+  </logic>
+
+  <filter>
+    <name>MAP Indicator-Right filter</name>
+    <debug>false</debug>
+    <type>exponential</type>
+    <filter-time>1.1</filter-time> 
+    <input>engines/engine[1]/mp-osi</input>
+    <output>engines/engine[1]/mp-osi-filtered</output>
+  </filter>
+
+  <filter>
+    <name>EGT Indicator-Left filter</name>
+    <debug>false</debug>
+    <type>exponential</type>
+    <filter-time>8.0</filter-time> 
+    <input>engines/engine[0]/egt-degf</input>
+    <output>engines/engine[0]/egt-degf-filtered</output>
+  </filter>
+
+  <filter>
+    <name>EGT Indicator-Right filter</name>
+    <debug>false</debug>
+    <type>exponential</type>
+    <filter-time>8.3</filter-time> 
+    <input>engines/engine[1]/egt-degf</input>
+    <output>engines/engine[1]/egt-degf-filtered</output>
+  </filter>
+
+  <!-- adjust the MAP due to RPM change by modifying the airtake-impedance -->
+  <filter>
+    <name>MAP by RPM adjust-Left</name>
+    <type>gain</type>
+    <gain>1.0</gain>
+    <input>
+      <property>engines/engine[0]/rpm</property>
+      <scale>-.002</scale>
+      <offset>5.240</offset>
+    </input>
+    <output>fdm/jsbsim/propulsion/engine[0]/air-intake-impedance-factor</output>
+    <min>0.0</min>
+    <max>9999</max>
+  </filter>
+
+  <filter>
+    <name>MAP by RPM adjust-Right</name>
+    <type>gain</type>
+    <gain>1.0</gain>
+    <input>
+      <property>engines/engine[1]/rpm</property>
+      <scale>-.0021</scale>
+      <offset>5.4975</offset>
+    </input>
+    <output>fdm/jsbsim/propulsion/engine[1]/air-intake-impedance-factor</output>
+    <min>0.0</min>
+    <max>9999</max>
+  </filter>
+
+  <filter>
+    <name>Pitot-fail filter</name>
+    <initialize-to>output</initialize-to>
+    <enable>
+      <condition>
+        <not>
+          <property>systems/pitot/serviceable</property>
+        </not>
+      </condition>
+    </enable>
+    <type>exponential</type>
+    <filter-time>2</filter-time> 
+    <input>environment/pressure-inhg</input>
+    <output>systems/pitot/total-pressure-inhg</output>
+  </filter>
+
+  <logic>
+    <name>L/H fuel pump</name>
+    <debug>false</debug>
+    <input>
+      <or>
+        <greater-than>
+          <property>/engines/engine[0]/rpm</property>
+          <value type="double">600.0</value>
+        </greater-than>
+        <property>/controls/engines/engine[0]/primer</property>
+        <property>/controls/engines/engine[0]/fuel-pump</property>
+      </or>
+    </input>
+    <output>/systems/fuel/fuel-pump[0]/enabled</output>
+  </logic>
+
+  <logic>
+    <name>R/H fuel pump</name>
+    <debug>false</debug>
+    <input>
+      <or>
+        <greater-than>
+          <property>/engines/engine[1]/rpm</property>
+          <value type="double">600.0</value>
+        </greater-than>
+        <property>/controls/engines/engine[1]/primer</property>
+        <property>/controls/engines/engine[1]/fuel-pump</property>
+      </or>
+    </input>
+    <output>/systems/fuel/fuel-pump[1]/enabled</output>
+  </logic>
+
+  <flipflop>
+    <type>monostable</type>
+    <name>WingTailDeiceLight</name>
+    <S><property>/controls/deice/surface-deice</property></S>
+    <output>/controls/deice/surface-deice-wingtail-light</output>
+    <time><value>6.0</value></time>
+  </flipflop>
+
+</PropertyList>

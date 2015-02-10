@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- flight recorder configuration -->
+<!-- tanks  -->
+
+<PropertyList>
+
+    <signal>
+        <type>float</type>
+        <property type="string">/consumables/fuel/tank[%i]/level-gal_us</property>
+    </signal>
+    <signal>
+        <type>bool</type>
+        <property type="string">/controls/fuel/tank[%i]/fuel_selector</property>
+    </signal>
+
+</PropertyList>

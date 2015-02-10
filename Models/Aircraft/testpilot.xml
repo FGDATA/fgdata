@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+<path>testpilot.ac</path>
+
+    <animation>
+        <type>select</type>
+        <object-name>glasses</object-name>
+        <object-name>headset</object-name>
+        <object-name>Head</object-name>
+        <object-name>Torso</object-name>
+        <object-name>Rarm</object-name>
+        <object-name>Larm</object-name>
+        <object-name>Rforearm</object-name>
+        <object-name>Lforearm</object-name>
+        <object-name>Rhand</object-name>
+        <object-name>Lhand</object-name>
+        <object-name>Pelvis</object-name>
+        <object-name>Rthigh</object-name>
+        <object-name>Lthigh</object-name>
+        <object-name>Rcalf</object-name>
+        <object-name>Lcalf</object-name>
+        <object-name>Rfoot</object-name>
+        <object-name>Lfoot</object-name>
+        <condition>
+            <not>
+                <property>sim/current-view/internal</property>
+            </not>
+        </condition>
+ </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>Head</object-name>
+        <object-name>headset</object-name>
+        <object-name>glasses</object-name>
+        <property>controls/flight/aileron</property>
+        <factor>30</factor>
+        <center>
+            <x-m>0.076</x-m>
+            <y-m>0</y-m>
+            <z-m>0.676</z-m>
+        </center>
+        <axis>
+            <x>0.0</x>
+            <y>0.0</y>
+            <z>-1.0</z>
+        </axis>
+    </animation>
+
+</PropertyList>

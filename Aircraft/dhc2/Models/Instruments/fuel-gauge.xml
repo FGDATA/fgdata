@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+<path>fuel-gauge.ac</path>
+
+    <animation>
+        <type>material</type>
+        <object-name>Fuelgauge.001</object-name>
+        <object-name>RFneedle</object-name>
+        <object-name>CFneedle</object-name>
+        <object-name>FFneedle</object-name>
+        <emission>
+            <red>0.5</red>
+            <green>0.2</green>
+            <blue>0.0</blue>
+            <factor-prop>/systems/electrical/outputs/instrument-lights-norm</factor-prop>
+        </emission>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>FFneedle</object-name>
+        <property>/consumables/fuel/tank/level-gal_us</property>
+        <interpolation>
+            <entry><ind>0</ind><dep>0</dep></entry>
+            <entry><ind>4</ind><dep>29</dep></entry>
+            <entry><ind>8</ind><dep>59</dep></entry>
+            <entry><ind>12</ind><dep>119</dep></entry>
+            <entry><ind>16</ind><dep>180</dep></entry>
+            <entry><ind>20</ind><dep>242</dep></entry>
+            <entry><ind>24</ind><dep>272</dep></entry>
+            <entry><ind>28</ind><dep>300</dep></entry>
+        </interpolation>
+            <axis>
+            <x>-1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+        <center>
+            <x-m>0</x-m>
+            <y-m>-0.018</y-m>
+            <z-m>-0.009</z-m>
+        </center>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>CFneedle</object-name>
+        <property>/consumables/fuel/tank[1]/level-gal_us</property>
+        <interpolation>
+            <entry><ind>0</ind><dep>0</dep></entry>
+            <entry><ind>4</ind><dep>29</dep></entry>
+            <entry><ind>8</ind><dep>59</dep></entry>
+            <entry><ind>12</ind><dep>119</dep></entry>
+            <entry><ind>16</ind><dep>180</dep></entry>
+            <entry><ind>20</ind><dep>242</dep></entry>
+            <entry><ind>24</ind><dep>272</dep></entry>
+            <entry><ind>28</ind><dep>300</dep></entry>
+        </interpolation>
+        <axis>
+            <x>-1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+        <center>
+            <x-m>0</x-m>
+            <y-m>0.019</y-m>
+            <z-m>-0.009</z-m>
+        </center>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>RFneedle</object-name>
+        <property>/consumables/fuel/tank[2]/level-gal_us</property>
+        <interpolation>
+            <entry><ind>0</ind><dep>0</dep></entry>
+            <entry><ind>4</ind><dep>35</dep></entry>
+            <entry><ind>8</ind><dep>110</dep></entry>
+            <entry><ind>12</ind><dep>188</dep></entry>
+            <entry><ind>16</ind><dep>264</dep></entry>
+            <entry><ind>20</ind><dep>300</dep></entry>
+        </interpolation>
+        <axis>
+            <x>-1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+        <center>
+            <x-m>0</x-m>
+            <y-m>0</y-m>
+            <z-m>0.023</z-m>
+        </center>
+    </animation>
+
+</PropertyList>

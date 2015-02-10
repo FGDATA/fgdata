@@ -1,0 +1,21 @@
+*	Several .dds files to improve ground appearance
+
+*	A new experimental transition effect.
+	You will find examples of its usage in the effects inheriting from it.
+	It's not recommended to use the effect directly, but create a new one that inherits from it and defines the number of transitions, and the textures you want to transition to.
+
+*	You will find more info in the transition.eff file itself.
+
+
+Installation notes:
+*	There is an alternative materials file named materials-dds.xml included. You can activate this file by using
+
+ --prop:/sim/rendering/materials-file=materials-dds.xml
+
+You can replace materials-dds.xml with your own version if you prefer:
+
+ --prop:/sim/rendering/materials-file=your-filename.xml
+
+ 
+
+

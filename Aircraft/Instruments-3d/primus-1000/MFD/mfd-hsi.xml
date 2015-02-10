@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+
+
+<PropertyList>
+    <name>HSI</name>
+    <w-base>400</w-base>
+    <h-base>400</h-base>
+
+    <layers>
+
+    <layer>
+        <name>compass</name>
+        <w>430</w>
+        <h>430</h>
+        <texture>
+            <path>Aircraft/Instruments-3d/primus-1000/MFD/compass.png</path>
+            <x1>0.0</x1>
+            <y1>0.0</y1>
+            <x2>1.00</x2>
+            <y2>1.00</y2>
+        </texture>
+        <transformations>
+            <transformation>
+                <type>rotation</type>
+                <property>orientation/heading-magnetic-deg</property>
+                <scale>-1</scale>
+            </transformation>
+        </transformations>
+        <emissive>true</emissive>
+    </layer>
+
+    <layer>
+        <name>hdg bug</name>
+        <w>38</w>
+        <h>14</h>
+        <texture>
+            <path>Aircraft/Instruments-3d/primus-1000/MFD/mfd-mask.png</path>
+            <x1>0.838</x1>
+            <y1>0.940</y1>
+            <x2>0.986</x2>
+            <y2>0.984</y2>
+        </texture>
+        <transformations>
+            <transformation>
+                <type>rotation</type>
+                <property>autopilot/internal/fdm-heading-bug-error-deg</property>
+            </transformation>
+            <transformation>
+               <type>y-shift</type>
+                <offset>192</offset>
+            </transformation>
+        </transformations>
+        <emissive>true</emissive>
+    </layer>
+
+    </layers>
+
+</PropertyList>

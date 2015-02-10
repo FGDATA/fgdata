@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- flight recorder configuration -->
+<!-- NAV/COMM radio, matches Aircraft/Instruments-3d/kx165 -->
+
+<PropertyList>
+
+    <signal>
+        <type>bool</type>
+        <property type="string">/instrumentation/nav[%i]/power-btn</property>
+    </signal>
+    <signal>
+        <type>bool</type>
+        <property type="string">/instrumentation/comm[%i]/frq-swap-btn</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">/instrumentation/comm[%i]/frequencies/selected-mhz</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">/instrumentation/comm[%i]/frequencies/standby-mhz</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">/instrumentation/comm[%i]/volume</property>
+    </signal>
+    <signal>
+        <type>bool</type>
+        <property type="string">/instrumentation/comm[%i]/test-btn</property>
+    </signal>
+    <signal>
+        <type>bool</type>
+        <property type="string">/instrumentation/nav[%i]/frq-swap-btn</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">/instrumentation/nav[%i]/frequencies/selected-mhz</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">/instrumentation/nav[%i]/frequencies/standby-mhz</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">/instrumentation/nav[%i]/volume</property>
+    </signal>
+    <signal>
+        <type>bool</type>
+        <property type="string">/instrumentation/nav[%i]/audio-btn</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">/instrumentation/comm[%i]/dimming-norm</property>
+    </signal>
+
+</PropertyList>

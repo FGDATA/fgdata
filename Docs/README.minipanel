@@ -1,0 +1,32 @@
+Mini Panels for c172
+
+List of files:
+
+./keyboard.xml - same as release key bindings with "s" added to swap panels.
+./preferences.xml - same as release preferences.xml with "panel2" added.
+./Aircraft/c172/Panels/c172-panel-mini.xml - mini with sacred six, compass, 
+	mixture knob, flaps, and control indicators.
+./Aircraft/c172/Panels/c172-panel-trans-mini.xml - same mini panel with 
+	plexiglass (transparent) background.
+./Aircraft/c172/Panels/Textures/panel-mini-bg.rgb - grey background.
+./Aircraft/c172/Panels/Textures/panel-trans-mini-bg.rgb - transparent background.
+
+
+USAGE NOTES:
+
+Hitting "s" will switch between the standard panel and the default.
+
+You may choose other panels for the two that get toggled by changing the
+preferences or adding command line parameters.
+
+The property for the panels are:
+Normal (Primary) panel: /sim/panel/path=<path to xml file>
+Mini (Secondary) panel: /sim/panel2/path=<path to xml file>
+
+The new property is /sim/panel2/path,  it does not need to be a mini panel, you 
+can use whatever you want.
+
+For example: to use the grey mini panel change preferences.xml or add this to 
+your command line:
+
+runfgfs --prop:/sim/panel2/path=Aircraft/c172/Panels/c172-panel-mini.xml

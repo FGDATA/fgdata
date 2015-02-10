@@ -1,0 +1,350 @@
+<?xml version="1.0"?>
+<!--
+Joystick Definition for Speed-Link SL-6640 "Black Widow"
+http://www.speed-link.com/?p=2&cat=313&pid=1533&paus=1
+4-Axis, 8 Buttons, 8-way Coolie-Hat, Force-Feedback-Vibration (not in FG yet)
+
+My definitions:
+type	W#	U#	M#	assign
+##################################
+Axis	0	0	?	ailerons
+Axis	1	1 	?	elevator
+Axis	2	2	?	throttle
+Axis	3	3	?	rudder
+Axis	6	4	?	horizantal view direction
+Axis	7	5	?	vertical view direction
+Btn	0	0	?	Reset View
+Btn	1	1	?	Gear Up/Down
+Btn	2	2	?	Flaps Up
+Btn	3	3	?	Flaps Down
+Btn	4	4	?	Thrust Reverser
+Btn	5	5	?	Speed Brakes
+Btn	6	6	?	Elevator Trim Backward
+Btn	7	7	?	Elevator Trim Forward
+
+Notes, Todo and Addendum:
+- Pressing a button will bring up the gui.popupTip for the representing function
+- Addionally Buttons 2 and 3 (Flaps Up/Down)  and Buttons 6 and 7 (Elevator Trim Up/Down) returns a value on screen telling the actual chosen settings
+- Button- and Axis-assignment respect the use of civil planes. e.g. Button 0 (aka "Fire Trigger" is resetting actual view instead of fiering off a weapon) and Button 1 is reprensenting Gear Up/Down instead of alternate weapon
+- Numbering of axes and buttons for Apple mac not verified
+- Numbering of Buttons 6 and 7 respect  how Windows Vista x64 (german) sees the Stick. In  Ubuntu (9.04) Buttons 6 and 7 must be renumbered to 4 and 5.
+- Created and (mainly) tested in MS Windows Vista Home premium x64 (german)
+- Name-entries respect the lack of Vista (german) to present the correct joystick-name as desired for FGFS
+- Representing also the jostick-name as provided in Windows-internal registry entry
+- Actually only wheel[0] (most times the nose wheel) is checked for pressure / ground contact (=./gear/gear[0]/wow). In this case retraction of gear is not allowed
+      So technically on aircraft with multiple axis (e.g. nose wheel plus wing wheels) can retract the gear as soon as the nose wheel is up but wing wheels are still on ground ;)
+- Feel free to remove the lines starting with "gui.popupTip..." if you are annoyed by the messages within FG ;)
+
+Brought to you by Mike Nieber (Callsign: D-SKY1) (c) 2009
+This file is released under the GPL license v2 or later.
+$Id$
+-->
+
+<PropertyList>
+	<!--<name type="string">Microsoft-PC-Joysticktreiber</name>-->
+	<name type="string">Mega World USB Game Controllers</name>
+	<name type="string">SpeedLink SL-6640 Black Widow Flight Stick</name>
+	<name type="string">SL-6640 Black Widow Flightstick</name>
+	<name type="string">SL-6640-SBK BLACK WIDOW Flightstick</name>
+	<axis>
+		<desc type="string">Aileron</desc>
+		<number>
+			<windows>0</windows>
+			<mac>0</mac>
+			<unix>0</unix>
+		</number>
+		<binding>
+			<command>property-scale</command>
+			<property>/controls/flight/aileron</property>
+			<offset type="double">0.0</offset>
+			<factor type="double">1.0</factor>
+			<dead-band type="double">0.02</dead-band>
+		</binding>
+	</axis>
+	<axis>
+		<desc type="string">Elevator</desc>
+		<number>
+			<windows>1</windows>
+			<mac>1</mac>
+			<unix>1</unix>
+		</number>
+		<binding>
+			<command>property-scale</command>
+			<property>/controls/flight/elevator</property>
+			<offset type="double">0.0</offset>
+			<factor type="double">-1.0</factor>
+			<dead-band type="double">0.02</dead-band>
+		</binding>
+	</axis>
+	<axis>
+		<desc type="string">Throttle</desc>
+		<number>
+			<windows>2</windows>
+			<mac>2</mac>
+			<unix>2</unix>
+		</number>
+		<binding>
+			<command>nasal</command>
+			<script>controls.throttleAxis()</script>
+		</binding>
+	</axis>
+	<axis>
+		<desc type="string">Rudder</desc>
+		<number>
+			<windows>3</windows>
+			<mac>3</mac>
+			<unix>3</unix>
+		</number>
+		<binding>
+			<command>property-scale</command>
+			<property>/controls/flight/rudder</property>
+			<offset type="double">0.0</offset>
+			<factor type="double">1.0</factor>
+			<dead-band type="double">0.02</dead-band>
+		</binding>
+	</axis>
+	<axis>
+		<desc type="string">View Direction</desc>
+		<number>
+			<windows>6</windows>
+			<mac>6</mac>
+			<unix>6</unix>
+		</number>
+		<low>
+			<repeatable type="bool">true</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>
+					<![CDATA[
+					view.panViewDir(1);
+					]]>
+				</script>
+			</binding>
+		</low>
+		<high>
+			<repeatable type="bool">true</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>
+					<![CDATA[
+					view.panViewDir(-1);
+					]]>
+				</script>
+			</binding>
+		</high>
+	</axis>
+	<axis>
+		<desc type="string">View Elevation</desc>
+		<number>
+			<windows>7</windows>
+			<mac>7</mac>
+			<unix>7</unix>
+		</number>
+		<low>
+			<repeatable type="bool">true</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>
+					<![CDATA[
+					view.panViewPitch(-1);
+					]]>
+				</script>
+			</binding>
+		</low>
+		<high>
+			<repeatable type="bool">true</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>
+					<![CDATA[
+					view.panViewPitch(1);
+					]]>
+				</script>
+			</binding>
+		</high>
+	</axis>
+	<button n="0">
+		<desc type="string">Reset View</desc>
+		<binding>
+			<command>nasal</command>
+			<script>
+				<![CDATA[
+				view.resetView();
+				gui.popupTip("View Reset!");
+				]]>
+			</script>
+		</binding>
+	</button>
+	<button n="1">
+		<desc type="string">Gear</desc>
+		<binding>
+			<command>nasal</command>
+			<script>
+				<![CDATA[
+				var wowprop = getprop("/gear/gear[0]/wow");
+				var gearprop = getprop("/controls/gear/gear-down");
+				if (wowprop) {
+					if (gearprop) {
+						gui.popupTip("No service on ground!");
+					} else {
+						gui.popupTip("Call ground service for plane repair ;) !");
+					}
+				} else {
+					if (gearprop) {
+						controls.gearDown(-1);
+						gui.popupTip("Gear UP!");
+					} else {
+						controls.gearDown(1);
+						gui.popupTip("Gear DOWN!");
+					}
+				}
+				]]>
+			</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>
+					<![CDATA[
+					controls.gearDown(0);
+					]]>
+				</script>
+			</binding>
+		</mod-up>
+	</button>
+	<button n="2">
+		<desc type="string">Flaps Up</desc>
+		<repeatable type="bool">false</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>
+				<![CDATA[
+				controls.flapsDown(-1);
+				var flapsprop = getprop("/controls/flight/flaps");
+				if ( flapsprop == 1 ) {
+					gui.popupTip("Flaps full extracted!");
+				} elsif ( flapsprop == 0 ) {
+					gui.popupTip("Flaps full up!");
+				} else {
+					gui.popupTip(sprintf("Flaps at %i degrees", 100 * flapsprop));
+				}
+				]]>
+			</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>
+					<![CDATA[
+					controls.flapsDown(0);
+					]]>
+				</script>
+			</binding>
+		</mod-up>
+	</button>
+	<button n="3">
+		<desc type="string">Flaps Down</desc>
+		<repeatable type="bool">false</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>
+				<![CDATA[
+				controls.flapsDown(1);
+				var flapsprop = getprop("/controls/flight/flaps");
+				if ( flapsprop == 1 ) {
+					gui.popupTip("Flaps full extracted!");
+				} elsif ( flapsprop == 0 ) {
+					gui.popupTip("Flaps full up!");
+				} else {
+					gui.popupTip(sprintf("Flaps at %i degrees", 100 * flapsprop));
+				}
+				]]>
+			</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>
+					<![CDATA[
+					controls.flapsDown(0);
+					]]>
+				</script>
+			</binding>
+		</mod-up>
+	</button>
+	<button n="4">
+		<desc type="string">Thrust reverse</desc>
+		<binding>
+			<command>nasal</command>
+			<script>
+				<![CDATA[
+				var i = !getprop("/controls/engines/engine[0]/reverser");
+				props.setAll("/controls/engines/engine", "reverser", i);
+				gui.popupTip("Thrust Reverser " ~ (i ? "ON!" : "OFF!"));
+				]]>
+			</script>
+		</binding>
+	</button>
+	<button n="5">
+		<desc type="string">Speed Brake</desc>
+		<repeatable type="bool">false</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>
+				<![CDATA[
+				var i = !getprop("/controls/flight/speedbrake");
+				setprop("/controls/flight/speedbrake", i);
+				gui.popupTip("Speed Brake " ~ (i ? "ON!" : "OFF!"));
+				]]>
+			</script>
+		</binding>
+	</button>
+	<button n="6">
+		<desc type="string">Elevator Trim Down</desc>
+		<repeatable type="bool">true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>
+				<![CDATA[
+				var vertrim = getprop("/controls/flight/elevator-trim");
+				controls.elevatorTrim(-0.1);
+				gui.popupTip(sprintf("Elevator Trim Down: %i", 1000 * vertrim));
+				]]>
+			</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>
+					<![CDATA[
+					controls.elevatorTrim(0);
+					]]>
+				</script>
+			</binding>
+		</mod-up>
+	</button>
+	<button n="7">
+		<desc type="string">Elevator Trim Up</desc>
+		<repeatable type="bool">true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>
+				<![CDATA[
+				var vertrim = getprop("/controls/flight/elevator-trim");
+				controls.elevatorTrim(0.1);
+				gui.popupTip(sprintf("Elevator Trim Up: %i", 1000 * vertrim));
+				]]>
+			</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>
+					<![CDATA[
+					controls.elevatorTrim(0);
+					]]>
+				</script>
+			</binding>
+		</mod-up>
+	</button>
+</PropertyList>

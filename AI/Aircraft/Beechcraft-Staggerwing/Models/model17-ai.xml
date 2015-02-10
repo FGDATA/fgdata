@@ -1,0 +1,634 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<PropertyList>
+
+ <path>model17.ac</path>
+
+ <offsets>
+	<pitch-deg>12.8</pitch-deg>
+    <z-m>1.18</z-m>   
+  </offsets>
+
+  <animation>
+	  <type>rotate</type>
+	  <property>velocities/true-airspeed-kt</property>
+	  <interpolation>
+		<entry><ind>0</ind><dep>0.0</dep></entry>
+		<entry><ind>20</ind><dep>0.0</dep></entry>
+		<entry><ind>30</ind><dep>12.8</dep></entry>
+		<entry><ind>60</ind><dep>12.8</dep></entry>
+	  </interpolation>
+	  <center>
+	   <x-m>0.0</x-m>
+	   <y-m>0.0</y-m>
+	   <z-m>-25</z-m>
+	  </center>
+	  <axis>
+	   <x>0.0</x>
+	   <y>-.5</y>
+	   <z>0.0</z>
+	  </axis>
+  </animation>
+
+  <animation>
+    <type>shader</type>
+    <shader>chrome</shader>
+    <texture>Aircraft/Generic/Effects/glass_shader.png</texture>
+    <object-name>vitres</object-name>
+  </animation>
+
+  <!-- L'hélice --> 
+  <animation>
+    <name>HeliceComplete</name>
+    <object-name>propdisc</object-name>
+    <object-name>propblur</object-name>
+    <object-name>helice</object-name>
+    <object-name>bol</object-name>
+  </animation>
+
+  <!-- Séléction de l'objet visible en fonction des rpm -->
+  <animation>
+    <type>select</type>
+    <object-name>propdisc</object-name>
+    <condition>
+      <greater-than>
+        <property>velocities/true-airspeed-kt</property>
+        <value>14</value>
+      </greater-than>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>propblur</object-name>
+    <condition>
+    <and>
+      <greater-than>
+        <property>velocities/true-airspeed-kt</property>
+        <value>60</value>
+      </greater-than>
+      <less-than>
+        <property>velocities/true-airspeed-kt</property>
+        <value>101</value>
+      </less-than>
+    </and>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>helice</object-name>
+    <condition>
+      <less-than>
+        <property>velocities/true-airspeed-kt</property>
+		<value>101</value>
+      </less-than>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>spin</type>
+    <object-name>HeliceComplete</object-name>
+    <property>velocities/true-airspeed-kt</property>
+    <factor> 1 </factor>
+    <axis>
+      <x1-m> -4.062 </x1-m>
+      <y1-m>  0.000 </y1-m>
+      <z1-m> -0.073 </z1-m>
+      <x2-m> -3.626 </x2-m>
+      <y2-m>  0.000 </y2-m>
+      <z2-m> -0.042 </z2-m>
+    </axis>
+  </animation>
+ 
+  <!-- Fermeture des portes des trains -->
+  <!-- Gauche-->  <!--doors-->
+   <!--  left door -->
+  <animation>
+    <name>PorteGauche</name>
+    <object-name>porteG1</object-name>
+    <object-name>porteG2</object-name>
+  </animation>
+  
+  <animation>
+    <type>rotate</type>
+    <object-name>porteG2</object-name>
+    <property>velocities/true-airspeed-kt</property>
+    <interpolation>
+	  <entry><ind>  0 </ind><dep> -80 </dep></entry>
+	  <entry><ind>  60 </ind><dep> -80 </dep></entry>
+      <entry><ind>  65 </ind><dep> 0 </dep></entry>
+	  <entry><ind>  70 </ind><dep> 0 </dep></entry>
+    </interpolation>
+    <axis>
+      <x1-m> -2.431 </x1-m>
+      <y1-m> -0.308 </y1-m>
+      <z1-m> -0.718 </z1-m>
+      <x2-m> -1.811 </x2-m>
+      <y2-m> -0.308 </y2-m>
+      <z2-m> -0.814 </z2-m>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>PorteGauche</object-name>
+    <property>velocities/true-airspeed-kt</property>
+    <interpolation>
+	  <entry><ind>  0 </ind><dep> -108 </dep></entry>
+	  <entry><ind>  60 </ind><dep> -108 </dep></entry>
+      <entry><ind>  65 </ind><dep> 0 </dep></entry>
+	  <entry><ind>  70 </ind><dep> 0 </dep></entry>
+    </interpolation>
+    <axis>
+      <x1-m> -2.078 </x1-m>
+      <y1-m> -1.143 </y1-m>
+      <z1-m> -0.793 </z1-m>
+      <x2-m> -1.308 </x2-m>
+      <y2-m> -1.143 </y2-m>
+      <z2-m> -0.802 </z2-m>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>translate</type>
+    <object-name>PorteGauche</object-name>
+    <property>velocities/true-airspeed-kt</property>
+    <interpolation>
+	  <entry><ind> 0 </ind><dep> 0.10 </dep></entry>
+	  <entry><ind> 60 </ind><dep> 0.10 </dep></entry>
+	  <entry><ind> 65 </ind><dep> -0.00 </dep></entry>
+	  <entry><ind> 70 </ind><dep> -0.00 </dep></entry>
+    </interpolation>
+    <axis>
+      <x> 0 </x>
+      <y> 1 </y>
+      <z> 0 </z>
+    </axis>
+  </animation>
+  
+  <!-- right door -->
+  <animation>
+    <name>PorteDroite</name>
+    <object-name>porteD1</object-name>
+    <object-name>porteD2</object-name>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>porteD2</object-name>
+    <property>velocities/true-airspeed-kt</property>
+    <interpolation>
+      <entry><ind>  0 </ind><dep> 80 </dep></entry>
+	  <entry><ind>  60 </ind><dep> 80 </dep></entry>
+      <entry><ind>  65 </ind><dep> 0 </dep></entry>
+	  <entry><ind>  70 </ind><dep> 0 </dep></entry>
+    </interpolation>
+    <axis>
+      <x1-m> -2.431 </x1-m>
+      <y1-m>  0.308 </y1-m>
+      <z1-m> -0.718 </z1-m>
+      <x2-m> -1.811 </x2-m>
+      <y2-m>  0.308 </y2-m>
+      <z2-m> -0.814 </z2-m>
+    </axis>
+  </animation>
+  
+  <animation>
+    <type>rotate</type>
+    <object-name>PorteDroite</object-name>
+    <property>velocities/true-airspeed-kt</property>
+    <interpolation>
+      <entry><ind>  0 </ind><dep> 108 </dep></entry>
+	  <entry><ind>  60 </ind><dep> 108 </dep></entry>
+      <entry><ind>  65 </ind><dep> 0 </dep></entry>
+	  <entry><ind>  70 </ind><dep> 0 </dep></entry>
+    </interpolation>
+    <axis>
+      <x1-m> -2.078 </x1-m>
+      <y1-m>  1.143 </y1-m>
+      <z1-m> -0.793 </z1-m>
+      <x2-m> -1.308 </x2-m>
+      <y2-m>  1.143 </y2-m>
+      <z2-m> -0.802 </z2-m>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>translate</type>
+    <object-name>PorteDroite</object-name>
+    <property>velocities/true-airspeed-kt</property>
+    <interpolation>
+      <entry><ind> 0 </ind><dep> 0.10 </dep></entry>
+	  <entry><ind> 60 </ind><dep> 0.10 </dep></entry>
+	  <entry><ind> 65 </ind><dep> 0.00 </dep></entry>
+	  <entry><ind> 70 </ind><dep> 0.00 </dep></entry>
+    </interpolation>
+    <axis>
+      <x> 0 </x>
+      <y> 1 </y>
+      <z> 0 </z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>porteAG</object-name>
+    <property>velocities/true-airspeed-kt</property>
+    <interpolation>
+	  <entry><ind> 0 </ind><dep> 0 </dep></entry>
+	  <entry><ind> 60 </ind><dep> 0 </dep></entry>
+	  <entry><ind> 65 </ind><dep> -95 </dep></entry>
+      <entry><ind> 70 </ind><dep> -95 </dep></entry>
+    </interpolation>
+    <axis>
+      <x1-m>  2.739 </x1-m>
+      <y1-m> -0.066 </y1-m>
+      <z1-m> -0.072 </z1-m>
+      <x2-m>  3.311 </x2-m>
+      <y2-m> -0.066 </y2-m>
+      <z2-m>  0.010 </z2-m>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>porteAD</object-name>
+    <property>velocities/true-airspeed-kt</property>
+    <interpolation>
+	  <entry><ind> 0 </ind><dep> 0 </dep></entry>
+	  <entry><ind> 60 </ind><dep> 0 </dep></entry>
+	  <entry><ind> 65 </ind><dep> -95 </dep></entry>
+      <entry><ind> 70 </ind><dep> -95 </dep></entry>
+      
+    </interpolation>
+    <axis>
+      <x1-m>  3.311 </x1-m>
+      <y1-m>  0.066 </y1-m>
+      <z1-m>  0.010 </z1-m>
+      <x2-m>  2.739 </x2-m>
+      <y2-m>  0.066 </y2-m>
+      <z2-m> -0.072 </z2-m>
+    </axis>
+  </animation>
+
+  <!-- Rentrée des roues wheel train-->
+  <animation>
+    <name>TrainGauche</name>
+    <object-name>axeGA</object-name>
+    <object-name>axeGB</object-name>
+    <object-name>roueG</object-name>
+  </animation>
+
+  <animation>
+    <name>TrainDroit</name>
+    <object-name>axeDA</object-name>
+    <object-name>axeDB</object-name>
+    <object-name>roueD</object-name>
+  </animation>
+
+  <animation>
+    <name>TrainArriere</name>
+    <object-name>axeAA</object-name>
+    <object-name>axeAB</object-name>
+    <object-name>roueA</object-name>
+  </animation>
+
+  <!--left train-->
+  <animation>
+    <type>rotate</type>
+    <object-name>TrainGauche</object-name>
+    <property>velocities/true-airspeed-kt</property>
+    <interpolation>
+	  <entry><ind> 0 </ind><dep>  0 </dep></entry>
+	  <entry><ind> 60 </ind><dep>  0 </dep></entry>
+      <entry><ind> 65 </ind><dep> 95 </dep></entry>
+      <entry><ind> 70 </ind><dep> 95 </dep></entry>
+    </interpolation>
+    <center>
+      <x-m> -2.114 </x-m>
+      <y-m> -1.108 </y-m>
+      <z-m> -0.662 </z-m>
+    </center>
+    <axis>
+      <x> 1 </x>
+      <y> 0 </y>
+      <z> 0 </z>
+    </axis>
+  </animation>
+
+  <!--right train-->
+  <animation>
+    <type>rotate</type>
+    <object-name>TrainDroit</object-name>
+    <property>velocities/true-airspeed-kt</property>
+    <interpolation>
+      <entry><ind> 0 </ind><dep>   0 </dep></entry>
+	  <entry><ind> 60 </ind><dep>   0 </dep></entry>
+	  <entry><ind> 65 </ind><dep> -95 </dep></entry>
+	  <entry><ind> 70 </ind><dep> -95 </dep></entry>
+    </interpolation>
+    <center>
+      <x-m> -2.114 </x-m>
+      <y-m>  1.108 </y-m>
+      <z-m> -0.662 </z-m>
+    </center>
+    <axis>
+      <x> 1 </x>
+      <y> 0 </y>
+      <z> 0 </z>
+    </axis>
+  </animation>
+  
+<!--rear train-->
+  <animation>
+    <type>translate</type>
+    <object-name>TrainArriere</object-name>
+    <property>velocities/true-airspeed-kt</property>
+    <interpolation>
+	  <entry><ind> 0 </ind><dep> 0.0 </dep></entry>
+	  <entry><ind> 60 </ind><dep> 0.0 </dep></entry>
+      <entry><ind> 65 </ind><dep> 0.4 </dep></entry>
+      <entry><ind> 70 </ind><dep> 0.4 </dep></entry>
+      
+    </interpolation>
+    <axis>
+      <x> 0 </x>
+      <y> 0 </y>
+      <z> 1 </z>
+    </axis>
+  </animation>
+
+  <!-- Rotation des roues lors du roulage -->
+  <animation>
+    <type>spin</type>
+    <object-name>roueG</object-name>
+    <condition>
+		  <less-than>
+			<property>velocities/true-airspeed-kt</property>
+			<value>71</value>
+		  </less-than>
+	</condition>
+    <factor> 30 </factor>
+    <center>
+      <x-m> -2.114 </x-m>
+      <y-m> -1.108 </y-m>
+      <z-m> -1.423 </z-m>
+    </center>
+    <axis>
+      <x>  0 </x>
+      <y> -1 </y>
+      <z>  0 </z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>spin</type>
+    <object-name>roueD</object-name>
+    <condition>
+		  <less-than>
+			<property>velocities/true-airspeed-kt</property>
+			<value>71</value>
+		  </less-than>
+	</condition>
+    <factor> 30 </factor>
+    <center>
+      <x-m> -2.114 </x-m>
+      <y-m>  1.108 </y-m>
+      <z-m> -1.423 </z-m>
+    </center>
+    <axis>
+      <x>  0 </x>
+      <y> -1 </y>
+      <z>  0 </z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>spin</type>
+    <object-name>roueA</object-name>
+    <condition>
+		  <less-than>
+			<property>velocities/true-airspeed-kt</property>
+			<value>71</value>
+		  </less-than>
+	</condition>
+    <factor> 30 </factor>
+    <center>
+      <x-m>  3.107 </x-m>
+      <y-m>  0.000 </y-m>
+      <z-m> -0.266 </z-m>
+    </center>
+    <axis>
+      <x>  0 </x>
+      <y> -1 </y>
+      <z>  0 </z>
+    </axis>
+  </animation>
+
+  <!-- Ajout des effets lumineux -->
+  <model>
+	<name>beacon</name>
+    <path>lights/beacon.xml</path>
+    <offsets>
+      <x-m> 3.399 </x-m>
+      <y-m> 0.000 </y-m>
+      <z-m> 1.715 </z-m>
+    </offsets>
+  </model>
+  
+    <model>
+	<name>flash</name>
+    <path>lights/flash.xml</path>
+    <offsets>
+      <x-m> 3.399 </x-m>
+      <y-m> 0.000 </y-m>
+      <z-m> 1.715 </z-m>
+    </offsets>
+  </model>
+  
+ <animation>
+  <name>timed_beacon</name>
+  <type>timed</type>
+  <object-name>beacon</object-name>
+  <object-name>flash</object-name>
+  <use-personality type="bool">true</use-personality>
+	  <branch-duration-sec>0.1</branch-duration-sec>
+	  <branch-duration-sec>1.0</branch-duration-sec>
+ </animation>
+ 
+  <animation>
+    <type>select</type>
+    <object-name>timed_beacon</object-name>
+    <condition>
+      <and>
+		<greater-than>
+			<property>/sim/time/sun-angle-rad</property>
+			<value>1.57</value>
+		</greater-than>
+		<greater-than>
+			<property>velocities/true-airspeed-kt</property>
+			<value>0</value>
+		</greater-than>
+	  </and>
+    </condition>
+  </animation>
+    
+  <model>
+	<name>StrobeWhite1</name>
+    <path>lights/StrobeWhite.xml</path>
+    <offsets>
+      <x-m> -1.648 </x-m>
+      <y-m> -4.867 </y-m>
+      <z-m> -0.556 </z-m>
+    </offsets>
+  </model>
+
+  <model>
+	<name>StrobeWhite2</name>
+    <path>lights/StrobeWhite.xml</path>
+    <offsets>
+      <x-m> -1.648 </x-m>
+      <y-m>  4.867 </y-m>
+      <z-m> -0.556 </z-m>
+    </offsets>
+  </model>
+  
+   
+   <model>
+	<name>flash1</name>
+    <path>lights/flash.xml</path>
+    <offsets>
+      <x-m> -1.648 </x-m>
+      <y-m> -4.867 </y-m>
+      <z-m> -0.556 </z-m>
+    </offsets>
+  </model>
+  
+  <model>
+	<name>flash2</name>
+    <path>lights/flash.xml</path>
+    <offsets>
+      <x-m> -1.648 </x-m>
+      <y-m>  4.867 </y-m>
+      <z-m> -0.556 </z-m>
+    </offsets>
+  </model>
+  
+  <animation>
+    <name>StrobeLights</name>
+    <object-name>StrobeWhite1</object-name>
+    <object-name>StrobeWhite2</object-name>
+  </animation>
+  
+  <animation>
+    <name>StrobeFlash</name>
+    <object-name>flash1</object-name>
+    <object-name>flash2</object-name>
+  </animation>
+ 
+  <animation>
+	  <name>timed_beacon</name>
+	  <type>timed</type>
+	  <object-name>StrobeLights</object-name>
+	  <object-name>StrobeFlash</object-name>
+	  <use-personality type="bool">true</use-personality>
+		  <branch-duration-sec>0.1</branch-duration-sec>
+		  <branch-duration-sec>1.0</branch-duration-sec>
+  </animation>
+ 
+  <animation>
+    <type>select</type>
+    <object-name>timed_beacon</object-name>
+    <condition>
+      <and>
+		<greater-than>
+			<property>/sim/time/sun-angle-rad</property>
+			<value>1.57</value>
+		</greater-than>
+		<greater-than>
+			<property>velocities/true-airspeed-kt</property>
+			<value>0</value>
+		</greater-than>
+	  </and>
+    </condition>
+  </animation>
+  
+
+  <model>
+	<name>RedLight</name>
+    <path>lights/RedLight.xml</path>
+    <offsets>
+      <x-m> -1.651 </x-m>
+      <y-m> -4.867 </y-m>
+      <z-m> -0.556 </z-m>
+    </offsets>
+  </model>
+
+  <model>
+	<name>GreenLight</name>
+    <path>lights/GreenLight.xml</path>
+    <offsets>
+      <x-m> -1.651 </x-m>
+      <y-m>  4.867 </y-m>
+      <z-m> -0.556 </z-m>
+    </offsets>
+  </model>
+  
+    <animation>
+    <name>Colors</name>
+    <object-name>RedLight</object-name>
+    <object-name>GreenLight</object-name>
+  </animation>
+  
+  <animation>
+    <type>select</type>
+    <object-name>Colors</object-name>
+    <condition>
+      <and>
+		<greater-than>
+			<property>/sim/time/sun-angle-rad</property>
+			<value>1.57</value>
+		</greater-than>
+		<greater-than>
+			<property>velocities/true-airspeed-kt</property>
+			<value>0</value>
+		</greater-than>
+	  </and>
+    </condition>
+  </animation>
+
+    <!-- Volets
+  <animation>
+    <type>rotate</type>
+    <object-name>voletG</object-name>
+    <property>surface-positions/flap-pos-norm</property>
+    <factor> 40 </factor>
+    <axis>
+      <x1-m> -1.151 </x1-m>
+      <y1-m> -4.230 </y1-m>
+      <z1-m> -0.686 </z1-m>
+      <x2-m> -1.151 </x2-m>
+      <y2-m> -1.195 </y2-m>
+      <z2-m> -0.796 </z2-m>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>voletD</object-name>
+    <property>surface-positions/flap-pos-norm</property>
+    <factor> 40 </factor>
+    <axis>
+      <x1-m> -1.151 </x1-m>
+      <y1-m>  1.195 </y1-m>
+      <z1-m> -0.796 </z1-m>
+      <x2-m> -1.151 </x2-m>
+      <y2-m>  4.230 </y2-m>
+      <z2-m> -0.686 </z2-m>
+    </axis>
+  </animation>
+ -->
+
+</PropertyList>
+

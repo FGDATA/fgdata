@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<PropertyList>
+
+  <path>s11.ac</path>
+
+   <offsets>
+     <pitch-deg>10</pitch-deg>
+     <z-m>1.14</z-m>   
+   </offsets>
+   
+  <animation>
+	  <type>rotate</type>
+	  <property>velocities/true-airspeed-kt</property>
+	  <interpolation>
+		<entry><ind>0</ind><dep>0.0</dep></entry>
+		<entry><ind>20</ind><dep>0.0</dep></entry>
+		<entry><ind>30</ind><dep>10</dep></entry>
+		<entry><ind>60</ind><dep>10</dep></entry>
+	  </interpolation>
+	  <center>
+	   <x-m>0.0</x-m>
+	   <y-m>0.0</y-m>
+	   <z-m>-35.0</z-m>
+	  </center>
+	  <axis>
+	   <x>0.0</x>
+	   <y>-.5</y>
+	   <z>0.0</z>
+	  </axis>
+  </animation>	
+  
+  <animation>
+  <type>rotate</type>
+  <property>velocities/true-airspeed-kt</property>
+  <interpolation>
+	<entry><ind>0</ind><dep>0.0</dep></entry>
+	<entry><ind>20</ind><dep>0.0</dep></entry>
+	<entry><ind>30</ind><dep>10</dep></entry>
+	<entry><ind>40</ind><dep>10</dep></entry>
+	<entry><ind>60</ind><dep>10</dep></entry>
+  </interpolation>
+  <center>
+   <x-m>0.0</x-m>
+   <y-m>0.0</y-m>
+   <z-m>0.5</z-m>
+  </center>
+  <axis>
+   <x>0.0</x>
+   <y>0.0</y>
+   <z>0.0</z>
+  </axis>
+ </animation>	
+   
+  <animation>
+    <type>shader</type>
+    <shader>chrome</shader>
+    <texture>glass_shader.png</texture>
+    <object-name>fenetre</object-name>
+    <object-name>vitres</object-name>
+  </animation>
+
+  <animation>
+    <texture-prop>texture</texture-prop>
+    <texture>texture.png</texture>
+  </animation>
+
+  <!-- L'hélice --> 
+  <animation>
+    <name>HeliceComplete</name>
+    <object-name>propdisc</object-name>
+    <object-name>propblur</object-name>
+    <object-name>helice</object-name>
+    <object-name>bol</object-name>
+  </animation>
+
+  <!-- Séléction de l'objet visible en fonction des rpm -->
+  <animation>
+    <type>select</type>
+    <object-name>propdisc</object-name>
+    <condition>
+      <greater-than>
+           <property>velocities/true-airspeed-kt</property>
+			<value>0</value>
+      </greater-than>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>propblur</object-name>
+    <condition>
+     <and>
+      <greater-than>
+        <property>velocities/true-airspeed-kt</property>
+        <value>0</value>
+      </greater-than>
+      <less-than>
+        <property>velocities/true-airspeed-kt</property>
+        <value>100</value>
+      </less-than>
+     </and>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>helice</object-name>
+    <condition>
+      <less-than>
+      <property>velocities/true-airspeed-kt</property>
+	<value>100</value>
+      </less-than>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>spin</type>
+    <object-name>HeliceComplete</object-name>
+    <property>velocities/true-airspeed-kt</property>
+    <factor> 1 </factor>
+    <center>
+      <x-m> -3.944 </x-m>
+      <y-m>  0.000 </y-m>
+      <z-m>  0.015 </z-m>
+    </center>
+    <axis>
+      <x> -1 </x>
+      <y>  0 </y>
+      <z>  0 </z>
+    </axis>
+  </animation>
+
+  <!-- Volets
+  <animation>
+    <type>rotate</type>
+    <object-name>voletG</object-name>
+    <property>surface-positions/flap-pos-norm</property>
+    <factor> -25 </factor>
+    <axis>
+      <x1-m> -0.604 </x1-m>
+      <y1-m> -1.502 </y1-m>
+      <z1-m> -0.696 </z1-m>
+      <x2-m> -0.728 </x2-m>
+      <y2-m> -2.714 </y2-m>
+      <z2-m> -0.530 </z2-m>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>voletD</object-name>
+    <property>surface-positions/flap-pos-norm</property>
+    <factor> -25 </factor>
+    <axis>
+      <x1-m> -0.728 </x1-m>
+      <y1-m>  2.714 </y1-m>
+      <z1-m> -0.530 </z1-m>
+      <x2-m> -0.604 </x2-m>
+      <y2-m>  1.502 </y2-m>
+      <z2-m> -0.696 </z2-m>
+    </axis>
+  </animation>
+ -->
+
+</PropertyList>
+

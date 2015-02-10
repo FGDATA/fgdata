@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+ <description>A340-300</description>
+ <author>3D Model Innis Cunningham, UV map liveries Brett Harrison</author> 
+ <path>Models/A343.ac</path>
+  
+     <animation>
+		<type>select</type>
+		<object-name>gear</object-name>
+		<condition>
+			<less-than>
+				<property>velocities/true-airspeed-kt</property>
+				<value>175</value>
+			</less-than>
+		</condition>
+	</animation>
+  
+</PropertyList>

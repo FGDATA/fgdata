@@ -1,0 +1,134 @@
+By Default systems are initialized by the Aircraft/generic/generic-system.xml
+This initializes the following:
+- The generic electrical system
+- 1 pitot system, index [0]
+- 1 static system index [0]
+- 2 vacuum systems [0] and [1], depending on engine rpm of engine[0] and
+  engine[1] respectfully
+
+If you want to define more systems, copy the generic-system file to your
+aircraft-name/Systems folder and rename it systems.xml
+
+In your aircraft -set file add the path to the system.xml file:
+<sim>
+    ....
+    <systems>
+        ....
+        <path>Aircraft/aircraft-name/Systems/systems.xml</path>
+        ....
+    </systems>
+    ....
+</sim>
+
+
+** Adding a second pitot system.
+In your systems.xml, you should already have
+
+  <pitot>
+    <name>pitot</name>
+    <number>0</number>
+    <stall-deg>60</stall-deg>           # optionnal, default to 60 degrees
+  </pitot>
+
+and you need to add for a pitot system with index 1:
+
+  <pitot>
+    <name>pitot</name>
+    <number>1</number>
+    <stall-deg>60</stall-deg>  #optionnal
+  </pitot>
+
+For the any pitot system except for the first (with index 0)
+add in the aircraft -set file (below for index 1):
+
+<systems>
+      <pitot n="1">
+                <serviceable>1</serviceable>
+      </pitot>
+</systems>
+
+Of course you can add a third or fourth etc.
+
+
+** Adding a second static system
+Absolutely analog with the pitot system. So add in systems.xml:
+
+  <static>
+    <name>static</name>
+    <number>1</number>
+    <tau>1</tau>
+    <type>0</type>                          #optionnal: 0,1 or 2 default is 0
+    <error-factor>0.5</error-factor>        #optionnal see below default = 0
+  </static>
+
+and in the aircraft -set file:
+
+<systems>
+      <static n="1">
+                <serviceable>1</serviceable>
+      </static>
+</systems>
+
+Now you can source your instrumentation relying on static and pitot
+pressure (airspeed, altimeter, vertical speed indicator) from different
+and independent systems
+
+
+** The PITOT System
+
+The pitot system measures impact pressure and is basically a tube pointing forward.
+Small aircraft have one, small IFR aircraft have one or two (of which at least
+one is heated) and larger commercial aircraft have three or even more. In those large
+aircraft the left pitot serves the pilot instruments, the right the co-pilot and
+the third system the back-up instruments. This might be different for each type
+of aircraft of course.
+In Flightgear the pitot system outputs the total pressure to the following property:
+/systems/pitot[n]/total-pressure-inhg and
+/systems/pitot[n]/measured-total-pressure-inhg
+which are the same except at supersonic speeds. For supersonic aircraft use the "measured"
+property. See also the README.airspeed-indicator.
+However it is advised for every aircraft to use the measured property. In future
+this will be the property where all the measurement faults are reflected.
+the following "measurement failures" are currently applied:
+1) decrease of total and measured pressure due to side-slip and angle of attack
+2) at 60 deg the pitot tube will stall and the value will fall back to static pressure
+3) for the "measured" property only: at Mach>1, a shock wave is assumed in front of the
+  pitot tube, decreasing the total pressure.
+
+The stall angle may be (optionally) set to any angle between 0 and 90 deg
+(default = 60 deg) like so:
+  <pitot>
+    <name>pitot</name>
+    <number>0</number>
+    <stall-deg>45</stall-deg>
+  </pitot>
+
+Both the decrease of the pitot pressure and the default stall angle are based on a measurement
+on an AN5812 pitot tube.
+
+
+** The STATIC system
+
+The static system measures the static pressure. So all influences of airspeed are eliminated.
+In real life this is however not always easy. Effects from angle of attack, side-slip, flap defection,
+gear extension, engine power setting and airspeed are present and for the aircraft
+designer it is not alway easy to find a good position for the static port.
+Usually the number of static systems are equal to the number of pitot systems.
+In Flightgear there are 3 types of static systems modelled.
+Type 0 (default): the perfect sensor. No measurement failures.
+Type 1: Dual static ports on the fuselage sides. Side-slip angle influence only. this model the whole pair.
+Type 2: Static port on the pitot tube. Both angle of attack and side-slip influence.
+If you want to use type 1 or 2:
+  <static>
+    <name>static</name>
+    <number>0</number>
+    <tau>0.1</tau>
+    <type>1</type>
+    <error-factor>0.5</error-factor>
+  </static>
+The output property /systems/static[n]/pressure-inhg is filtered. Therefore, if you want to see
+the effect of the measurement failure, "tau" should be 0.1 or smaller.
+The "error-factor" should be between 0.2 and 0.7. Setting it to 0 equals a "perfect sensor".
+A setting of 1 means the whole (projected on static port face) impact pressure is applied.
+This is not realistic as usually there are more than one static pick-up points
+and so the pressure increase gets "flattened".

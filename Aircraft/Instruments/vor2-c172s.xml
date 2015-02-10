@@ -1,0 +1,361 @@
+<?xml version="1.0"?>
+
+<!--
+vor2.xml
+
+VOR2 from C172-S
+
+Martin Dressler dr@musicabona.cz
+Jan 26 2003
+
+
+-->
+
+<PropertyList>
+
+ <name>C172-S VOR2</name>
+ <w-base>512</w-base>
+ <h-base>512</h-base>
+
+ <params>
+  <nav-to-flag>/instrumentation/nav[1]/to-flag</nav-to-flag>
+  <nav-from-flag>/instrumentation/nav[1]/from-flag</nav-from-flag>
+  <nav-radial-selected>/instrumentation/nav[1]/radials/selected-deg</nav-radial-selected>
+  <nav-heading-needle-deflection>/instrumentation/nav[1]/heading-needle-deflection</nav-heading-needle-deflection>
+  <nav-in-range>/instrumentation/nav[1]/in-range</nav-in-range>
+ </params>
+ 
+ <layers>
+ 
+  <layer>
+   <name>NAV backplate</name>
+   <w>320</w>
+   <h>320</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/nav3.rgb</path>
+    <x1>0.0</x1>
+    <x2>0.625</x2>
+    <y1>0.0</y1>
+    <y2>0.625</y2>
+   </texture>
+  </layer>
+				  
+  <layer>
+   <name>VOR2 backplate</name>
+   <w>244</w>
+   <h>152</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/nav4.rgb</path>
+    <x1>0.0</x1>
+    <x2>0.476562</x2>
+    <y1>0.46875</y1>
+    <y2>0.765625</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-44</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>VOR TO</name>
+   <condition>
+    <equals>
+     <property alias="../../../../../params/nav-to-flag"/>
+     <value>true</value>
+    </equals>
+   </condition>
+   <w>52</w>
+   <h>48</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/nav4.rgb</path>
+    <x1>0.0</x1>
+    <x2>0.101562</x2>
+    <y1>0.765625</y1>
+    <y2>0.859375</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>y-shift</type>
+     <offset>2</offset>
+    </transformation>
+    <transformation>
+     <type>x-shift</type>
+     <offset>75</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>VOR FROM</name>
+   <condition>
+    <equals>
+     <property alias="../../../../../params/nav-from-flag"/>
+     <value>true</value>
+    </equals>
+   </condition>
+   <w>52</w>
+   <h>48</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/nav4.rgb</path>
+    <x1>0.101562</x1>
+    <x2>0.203125</x2>
+    <y1>0.765625</y1>
+    <y2>0.859375</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>y-shift</type>
+     <offset>2</offset>
+    </transformation>
+    <transformation>
+     <type>x-shift</type>
+     <offset>75</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  
+  <layer>
+   <name>VOR needle motor</name>
+   <w>76</w>
+   <h>76</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/nav4.rgb</path>
+    <x1>0.5625</x1>
+    <x2>0.710938</x2>
+    <y1>0.195312</y1>
+    <y2>0.34375</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>y-shift</type>
+     <offset>161</offset>
+    </transformation>
+    <transformation>
+     <type>rotation</type>
+     <offset>90</offset>
+     <property alias="../../../../../params/nav-heading-needle-deflection"/>
+     <min>-10.0</min>
+     <max>10.0</max>
+     <scale>-3.2</scale>
+    </transformation>
+   </transformations>
+  </layer>
+  
+  <layer>
+   <name>VOR needle</name>
+   <w>16</w>
+   <h>252</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/nav4.rgb</path>
+    <x1>0.96875</x1>
+    <x2>1.0</x2>
+    <y1>0.0</y1>
+    <y2>0.492188</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>y-shift</type>
+     <offset>162</offset>
+    </transformation>
+    <transformation>
+     <type>rotation</type>
+     <offset>0</offset>
+     <property alias="../../../../../params/nav-heading-needle-deflection"/>
+     <min>-10.0</min>
+     <max>10.0</max>
+     <scale>-3.2</scale>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-151</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>Radial</name>
+   <w>512</w>
+   <h>512</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/nav2.rgb</path>
+    <x1>0.0</x1>
+    <x2>1.0</x2>
+    <y1>0.0</y1>
+    <y2>1.0</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>rotation</type>
+     <property alias="../../../../../params/nav-radial-selected"/>
+     <min>0.0</min>
+     <max>360.0</max>
+     <scale>-1.0</scale>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>VOR arrow down</name>
+   <w>28</w>
+   <h>24</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/nav4.rgb</path>
+    <x1>0.476562</x1>
+    <x2>0.53125</x2>
+    <y1>0.6875</y1>
+    <y2>0.734375</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-153</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>VOR arrow up</name>
+   <w>40</w>
+   <h>44</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/nav4.rgb</path>
+    <x1>0.476562</x1>
+    <x2>0.554688</x2>
+    <y1>0.601562</y1>
+    <y2>0.6875</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>y-shift</type>
+     <offset>135</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>Foreground</name>
+   <w>512</w>
+   <h>512</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/nav1.rgb</path>
+    <x1>0.0</x1>
+    <x2>1.0</x2>
+    <y1>0.0</y1>
+    <y2>1.0</y2>
+   </texture>
+  </layer>
+
+  <layer>
+   <name>OBS Knob</name>
+   <condition>
+    <equals>
+     <property>/sim/instrument-options/omit-knobs</property>
+     <value></value>
+    </equals>
+   </condition>
+   <w>100</w>
+   <h>100</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/nav4.rgb</path>
+    <x1>0.757812</x1>
+    <x2>0.953125</x2>
+    <y1>0.0</y1>
+    <y2>0.195312</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-181</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-192</offset>
+    </transformation>
+    <transformation>
+     <type>rotation</type>
+     <property alias="../../../../../params/nav-radial-selected"/>
+     <scale>5</scale>
+    </transformation>
+   </transformations>
+  </layer>
+
+ 
+ </layers>
+
+ <actions>
+
+  <action>
+   <name>small counter-clockwise rotation</name>
+   <button>0</button>
+   <x>-231</x>
+   <y>-242</y>
+   <w>50</w>
+   <h>100</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/nav-radial-selected"/>
+    <step>-1.0</step>
+    <min>0</min>
+    <max>360</max>
+    <wrap>true</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>large counter-clockwise rotation</name>
+   <button>1</button>
+   <x>-231</x>
+   <y>-242</y>
+   <w>50</w>
+   <h>100</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/nav-radial-selected"/>
+    <step>-5.0</step>
+    <min>0</min>
+    <max>360</max>
+    <wrap>true</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>small clockwise rotation</name>
+   <button>0</button>
+   <x>-181</x>
+   <y>-242</y>
+   <w>50</w>
+   <h>100</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/nav-radial-selected"/>
+    <step>1.0</step>
+    <min>0</min>
+    <max>360</max>
+    <wrap>true</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>large clockwise rotation</name>
+   <button>1</button>
+   <x>-181</x>
+   <y>-242</y>
+   <w>50</w>
+   <h>100</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/nav-radial-selected"/>
+    <step>5.0</step>
+    <min>0</min>
+    <max>360</max>
+    <wrap>true</wrap>
+   </binding>
+  </action>
+
+ </actions>
+
+</PropertyList>

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+    <filter>
+        <name>Elevator PCU</name>
+        <type>noise-spike</type>
+        <max-rate-of-change>5</max-rate-of-change>
+        <input>controls/flight/elevator</input>
+        <output>surface-positions/elevator-pos-norm</output>
+    </filter>
+
+    <filter>
+        <name>Stabilizer PCU</name>
+        <type>noise-spike</type>
+        <max-rate-of-change>5</max-rate-of-change>
+        <input>controls/flight/elevator-trim</input>
+        <output>surface-positions/stabilizer-pos-norm</output>
+    </filter>
+</PropertyList>

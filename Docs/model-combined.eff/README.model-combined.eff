@@ -1,0 +1,392 @@
+MODEL COMBINED EFFECT - INSTRUCTIONS FOR USE
+============================================
+
+The model-combined effect uses the ubershader to provide any or all of diffuse,
+light-map, reflection, bump-mapping and dirt effects on the model on which it is
+applied. The effect responds to the quality setting of the "Model" slider in the
+advanced shader configuration, in the following order:
+
+-------------------------------------------------------------------------------
+*lowest quality     - enables light-map and dirt, if enabled by the effect;
+
+*medium quality     - enables reflection too, if enabled in the effect;
+
+*highest quality    - enables bump-mapping too, if enabled in the effect.
+-------------------------------------------------------------------------------
+
+To use this on your aircraft model, you are advised to create a local effect
+that has the following lines:
+
+
+1. for automatic Rembrandt support on opaque objects use this:
+
+ <name>my-aircraft-effect</name>
+ <inherits-from>Effects/model-combined-deferred</inherits-from>
+ 
+
+2. for automatic Rembrandt support on transparent objects (glass) use this:
+
+ <name>my-aircraft-glass-effect</name>
+ <inherits-from>Effects/model-combined-transparent</inherits-from>
+
+The only modeller-adjustable settings are those found in the parameters section
+and listed here. There are other entries in the parameters section, but those
+are for internal use only, please don't mess with them.
+
+You only need to list in your local effect those entries that you'll modify from
+the defaults, there's no need to repeat all of them.
+
+Following is the list of parameters, their default setting and a short
+explanation of what they control/affect
+
+--------------------------------------------------------------------------------
+
+<texture n ="0">
+
+          - the model texture, as assigned in the 3d-modelling
+          application, or by the livery select mechanism.
+          This only needs to be present in the main effect.
+          Setting this to some specific texture will override
+          the assigned texture/livery.
+
+
+Bumpmap control:
+===================
+
+-------------------------------------------------------------------------------
+WARNING!!! Enabling this requires further modification to the local effect.
+Please see the attached model-combined-nmap.eff stub for correct usage.
+-------------------------------------------------------------------------------
+
+<normalmap-enabled type="int">0</normalmap-enabled>
+
+           - enables bump-mapping (if quality is set high enough).
+            Default value is off.
+            Available values are 0 (off) and 1(on).
+            Leave off if you're not using it.
+
+ 
+ <normalmap-dds type="int">0</normalmap-dds>
+ 
+           - enable this if you're using a .dds compressed normal-map.
+            Default value is 0 (off).
+            Available values are 0 (off) and 1(on)
+
+		   
+ <normalmap-tiling type="float">1.0</normalmap-tiling>
+
+           - sets the repeat rate of the normal-map image, useful for covering
+            large areas with fine detail.
+            Default value is 1.0 (no-tiling).
+            If you set this to a value > 1.0, you need
+            to set wrapping mode to repeat below.
+
+<texture n="2">
+
+          - the normal-map texture slot
+
+
+  <image></image>
+
+          - the normal-map texture path
+
+ 
+  <wrap-s>clamp</wrap-s>
+
+          - X-axis (U) wrapping mode of the texture.
+           Default is set to clamp.
+           If you enable the tiling feature (normalmap-tiling > 1.0), you need
+           to set this to repeat.
+ 
+  <wrap-t>clamp</wrap-t>
+
+          - same as above for the Y-axis (V).
+
+</texture>
+
+-------------------------------------------------------------------------------
+
+Lightmap control:
+===================
+
+
+<lightmap-enabled type="int">0</lightmap-enabled>
+
+          - enables the light-map.
+           Default value is 0 (off).
+           Available values are 0 (off) and 1(on).
+           If you want control over your light-maps enable this
+           and use a variable property as factor.
+
+          
+<lightmap-multi type="int">0</lightmap-multi>
+
+          - this enables multiple light-maps per light-map texture.
+           Default value is 0 (off).
+           Available values are 0 (off) and 1(on).
+           When off the shader code uses information from
+           the red channel of the light-map.
+
+          
+<lightmap-factor type="float" n="0">1.0</lightmap-factor>
+
+          - factor to multiply the value of the red channel in the light-map.
+           Default value is 1.0.
+           This product is used as a resulting factor for
+           the final light-map color.
+
+          
+<lightmap-color type="vec3d" n="0"> 1.0 1.0 1.0 </lightmap-color>
+
+          - the color of the light for the red channel in the light-map.
+            Default value is white (1.0 1.0 1.0).
+
+          
+<lightmap-factor type="float" n="1">1.0</lightmap-factor>
+
+          - same as above for the green channel.
+
+
+<lightmap-color type="vec3d" n="1"> 1.0 1.0 1.0 </lightmap-color>
+
+          - same as above for the green channel.
+
+          
+<lightmap-factor type="float" n="2">1.0</lightmap-factor>
+
+          - same as above for the blue channel.
+
+
+<lightmap-color type="vec3d" n="2"> 1.0 1.0 1.0 </lightmap-color>
+
+          - same as above for the blue channel.
+
+
+<lightmap-factor type="float" n="3">1.0</lightmap-factor>
+
+          - same as above for the alpha channel.
+
+          
+<lightmap-color type="vec3d" n="3"> 1.0 1.0 1.0 </lightmap-color>
+
+          - same as above for the alpha channel.
+
+          
+<texture n="3">
+
+          - the light-map texture slot.
+
+          
+ <image>Aircraft/Generic/Effects/greymap.png</image>
+
+          - the light-map texture path.
+
+          
+ <filter>linear-mipmap-linear</filter>
+ <wrap-s>clamp</wrap-s>
+ <wrap-t>clamp</wrap-t>
+ <internal-format>normalized</internal-format>
+</texture>
+
+-------------------------------------------------------------------------------
+
+Reflection control:
+===================
+.
+
+<reflection-enabled type="int">0</reflection-enabled>
+
+          - enables reflection (if user preference is high enough).
+          Default value is 0 (off).
+          Available values are 0 (off) and 1(on).
+
+
+<reflection-correction type="float">0.0</reflection-correction>
+
+          - factor to add to the material specularity to give
+          the final reflection factor.
+          Default value is  0.0 (no correction).
+          Accepts values from -1.0 to 1.0.
+          If reflection-map is enabled below, this factor is added to the product
+          between the alpha channel of the texture and the material specularity.
+
+
+<reflect-map-enabled type="int">0</reflect-map-enabled>
+
+          - enables the usage of a texture to determine reflection intensity.
+          Default value is 0 (off).
+          Available values are 0 (off) and 1(on).
+
+
+<reflection-dynamic type="int">0</reflection-dynamic>
+
+          - enables dynamic reflections.
+          Default value is 0 (off).
+          Available values are 0 (off) and 1(on).
+          The reflection gets rotated according to the object orientation,
+          trying to keep the ground in the reflection on faces facing the ground.
+          Recommended setting for external reflections is 1 (on).
+          For internal (cockpit, instruments) leave it at 0 (off).
+
+
+
+<texture n="4">
+
+          - texture slot for the reflect-map. This map is also used for the dynamic dirt.
+
+          
+  <image>Aircraft/Generic/Effects/ReflectMaps/reflectmap.png</image>
+
+          - reflect-map texture path.
+
+
+  <filter>linear-mipmap-linear</filter>
+  <wrap-s>clamp</wrap-s>
+  <wrap-t>clamp</wrap-t>
+  <internal-format>normalized</internal-format>
+</texture>
+
+
+Reflection env-map:
+-------------------
+
+<texture n="5">
+
+          - texture slot for the texture(s) used to create
+          the cubic environment that is reflected
+
+          
+  <type>cubemap</type>
+
+    There are two ways of defining the environment texture:
+    1: a cubecross texture where all faces of the cube are stitched into one texture:
+
+  <image>Aircraft/Generic/Effects/CubeCrosses/blue_sky_big.jpg</image>
+
+    or
+
+    2: 6 different textures, one for each face of the environment cube:
+
+  <images>
+    <positive-x>Aircraft/Generic/Effects/CubeMaps/fair-sky/fair-sky_px.png</positive-x>
+    <negative-x>Aircraft/Generic/Effects/CubeMaps/fair-sky/fair-sky_nx.png</negative-x>
+    <positive-y>Aircraft/Generic/Effects/CubeMaps/fair-sky/fair-sky_py.png</positive-y>
+    <negative-y>Aircraft/Generic/Effects/CubeMaps/fair-sky/fair-sky_ny.png</negative-y>
+    <positive-z>Aircraft/Generic/Effects/CubeMaps/fair-sky/fair-sky_pz.png</positive-z>
+    <negative-z>Aircraft/Generic/Effects/CubeMaps/fair-sky/fair-sky_nz.png</negative-z>
+  </images>
+</texture>
+
+
+<reflection-fresnel type="float">0.1</reflection-fresnel>
+
+          - fresnel(banding) factor for the reflection.
+           Default value is 0.1.
+           Values range from -1.0 to 1.0.
+
+        
+<texture n="6">
+
+          - fresnel texture slot
+        
+  <image>Aircraft/Generic/Effects/FresnelLookUp.png</image>
+
+          - fresnel(banding) texture path
+
+        
+  <filter>linear-mipmap-linear</filter>
+  <wrap-s>repeat</wrap-s>
+  <wrap-t>repeat</wrap-t>
+  <internal-format>normalized</internal-format>
+</texture>
+
+
+<reflection-rainbow type="float">0.01</reflection-rainbow>
+
+          - rainbow factor for the reflection.
+           Default value is 0.01.
+           Values range from -1.0 to 1.0.
+
+         
+<texture n="7">
+
+          - rainbow texture slot.
+
+        
+  <image>Aircraft/Generic/Effects/Rainbow.png</image>
+
+          - rainbow texture path.
+
+        
+  <filter>linear-mipmap-linear</filter>
+  <wrap-s>repeat</wrap-s>
+  <wrap-t>repeat</wrap-t>
+  <internal-format>normalized</internal-format>
+</texture>
+
+
+<reflection-noise type="float">0.25</reflection-noise>
+
+          - Amount of color noise to be added to the reflected image.
+          Default value is 0.25.
+          Accepts values from 0.0 to 1.0.
+
+-------------------------------------------------------------------------------
+
+Dirt/Grit Control:
+==================
+
+<dirt-enabled type="int">0</dirt-enabled>
+
+          - enables dynamic dirt in the shader.
+          Default value is 0(off).
+          Available values are 0 (off) and 1(on).
+          This uses the red channel of the texture in slot 4 (reflection map)
+          to define areas that should be dirtied up.
+          You don't have to enable 'reflect-map-enabled' above to use this.
+
+         
+<dirt-color type="vec3d">0.0 0.0 0.0</dirt-color>
+
+          - color of the dirt added. Default is black (0.0 0.0 0.0).
+
+        
+<dirt-factor type="float">0.0</dirt-factor>
+
+          - factor to control how intense the dirt is drawn.
+          Default value is 0.0.
+          This should use a dynamic property settable at runtime.
+
+-------------------------------------------------------------------------------
+          
+Ambient Correction:
+===================
+
+<ambient-correction type="float">0.05</ambient-correction>
+
+          - factor by which to lighten/darken the final result, and to remove
+          some of the blueness induced by some of the reflection environments.
+          Default value is 0.05.
+          Values range from -1.0 to 1.0.
+
+-------------------------------------------------------------------------------
+
+
+FINAL WARNINGS:
+=====================
+
+To repeat the earlier warning:
+
+  Do NOT use in any situation the normal-map enabled effect on objects that
+  are NOT completely uv-mapped to a texture, and/or that texture is not available
+  at runtime.
+  The binormal/tangent generator needs the texture information at runtime,
+  failing to find this it crashes, causing a segfault for FlightGear.
+
+To fix culling/sorting problems:
+
+  This effect forces objects into Render-Bin 1.
+  This makes it necessary to use a specially modified local effect
+  for transparent objects.
+  This is provided as a stub in model-combined-glass.eff that you can find in
+  the same directory along with this ReadMe.

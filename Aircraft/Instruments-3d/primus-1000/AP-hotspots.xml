@@ -1,0 +1,247 @@
+<!--
+Syd Adams
+P1000 AP controller  hotspots
+Defaults to : Pitch and Hdg mode if no FD input
+
+Pitch Wheel: 
+Change pitch attitude
+Cancels ALT or ASEL
+No effect with GS hold captured
+
+Low Bank switch:
+Limits bank to 14 degrees in HDG mode
+No op in NAV mode
+Returns to normal bank (27 degrees)
+Low bank is automatic above 34.000 ft MSL
+
+AP button :
+Engages AP and Yaw Damper
+Disengages AP only
+
+YD button :
+Engages  Yaw Damper
+Disengages AP and YD 
+
+TURN knob :
+Commands roll - max 30 degrees
+Cancels other lateral modes 
+-->
+
+<PropertyList>
+
+    <name>AP hotspots</name>
+    <w-base>140</w-base>
+    <h-base>64</h-base>
+    <w>140</w>
+    <h>64</h>
+
+<actions>
+<!--
+    <action>
+        <name>bezel outline</name>
+        <x>-70</x>
+        <y>-32</y>
+        <w>140</w>
+        <h>64</h>
+    </action>
+-->
+    <action>
+        <name>Autopilot ON</name>
+        <button>0</button>
+        <x>-22</x>
+        <y>-24</y>
+        <w>16</w>
+        <h>10</h>
+        <condition>
+            <and>
+                <not>
+                    <property>gear/gear[1]/wow</property>
+                </not>
+                <not>
+                    <property>gear/gear[2]/wow</property>
+                </not>
+            </and>
+        </condition>
+        <binding>
+            <command>nasal</command>
+                <script>
+                if(getprop("autopilot/locks/passive-mode")==1){
+                    setprop("autopilot/locks/passive-mode",0);
+                    setprop("controls/flight/yaw-damper",1);
+                }else{
+                    setprop("autopilot/locks/passive-mode",1);
+                }
+                </script>
+        </binding>
+    </action>
+
+    <action>
+        <name>Low Bank</name>
+        <button>0</button>
+        <x>-24</x>
+        <y>10</y>
+        <w>18</w>
+        <h>10</h>
+        <binding>
+       <command>nasal</command>
+                <script>
+                var LB =getprop("autopilot/settings/low-bank-deg");
+                if(LB ==27 or LB == nil){
+                    setprop("autopilot/settings/low-bank-deg",14);
+                }else{
+                    setprop("autopilot/settings/low-bank-deg",27);
+                    }
+                </script>
+             </binding>
+    </action>
+
+    <action>
+        <name>Yaw Damper ON</name>
+        <button>0</button>
+        <x>-2</x>
+        <y>-24</y>
+        <w>16</w>
+        <h>10</h>
+        <binding>
+       <command>nasal</command>
+                <script>
+                var YD=getprop("controls/flight/yaw-damper");
+                if(YD==0 or YD == nil){
+                    setprop("controls/flight/yaw-damper",1);
+                }else{
+                    setprop("autopilot/locks/passive-mode",1);
+                    setprop("controls/flight/yaw-damper",0);
+                }
+                </script>
+             </binding>
+    </action>
+
+    <action>
+        <name>Pitch Decrease</name>
+        <button>0</button>
+        <x>-49</x>
+        <y>0</y>
+        <w>18</w>
+        <h>18</h>
+        <condition>
+            <equals>
+                <property>autopilot/locks/altitude</property>
+                <value>pitch-hold</value>
+            </equals>
+        </condition>
+        <binding>
+            <command>property-adjust</command>
+            <property>autopilot/settings/target-pitch-deg</property>
+            <step>-0.10000</step>
+            <min>-15</min>
+            <max>15</max>
+            <wrap>0</wrap>
+        </binding>
+    </action>
+
+    <action>
+        <name>Pitch Increase</name>
+        <button>0</button>
+        <x>-49</x>
+        <y>-18</y>
+        <w>18</w>
+        <h>18</h>
+        <condition>
+            <equals>
+                <property>autopilot/locks/altitude</property>
+                <value>pitch-hold</value>
+            </equals>
+        </condition>
+        <binding>
+            <command>property-adjust</command>
+            <property>autopilot/settings/target-pitch-deg</property>
+            <step>0.10000</step>
+            <min>-15</min>
+            <max>15</max>
+            <wrap>0</wrap>
+        </binding>
+    </action>
+
+    <action>
+        <name>VS Decrease</name>
+        <button>0</button>
+        <x>-49</x>
+        <y>0</y>
+        <w>18</w>
+        <h>18</h>
+        <condition>
+            <equals>
+                <property>autopilot/locks/altitude</property>
+                <value>vertical-speed-hold</value>
+            </equals>
+        </condition>
+        <binding>
+            <command>property-adjust</command>
+            <property>autopilot/settings/vertical-speed-fpm</property>
+            <step>-50</step>
+            <min>-5000</min>
+            <max>5000</max>
+            <wrap>0</wrap>
+        </binding>
+    </action>
+
+    <action>
+        <name>VS Increase</name>
+        <button>0</button>
+        <x>-49</x>
+        <y>-18</y>
+        <w>18</w>
+        <h>18</h>
+        <condition>
+            <equals>
+                <property>autopilot/locks/altitude</property>
+                <value>vertical-speed-hold</value>
+            </equals>
+        </condition>
+        <binding>
+            <command>property-adjust</command>
+            <property>autopilot/settings/vertical-speed-fpm</property>
+            <step>50</step>
+            <min>-5000</min>
+            <max>5000</max>
+            <wrap>0</wrap>
+        </binding>
+    </action>
+
+    <action>
+        <name>Roll Decrease</name>
+        <button>0</button>
+        <x>20</x>
+        <y>-22</y>
+        <w>20</w>
+        <h>40</h>
+        <binding>
+            <command>property-adjust</command>
+            <property>autopilot/settings/target-roll-deg</property>
+            <step>-0.10000</step>
+            <min>-30</min>
+            <max>30</max>
+            <wrap>0</wrap>
+        </binding>
+    </action>
+
+    <action>
+        <name>Roll Increase</name>
+        <button>0</button>
+        <x>40</x>
+        <y>-22</y>
+        <w>20</w>
+        <h>40</h>
+        <binding>
+            <command>property-adjust</command>
+            <property>autopilot/settings/target-roll-deg</property>
+            <step>0.10000</step>
+            <min>-30</min>
+            <max>30</max>
+            <wrap>0</wrap>
+        </binding>
+    </action>
+
+</actions>
+
+</PropertyList>

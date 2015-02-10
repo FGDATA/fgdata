@@ -1,0 +1,40 @@
+To incorporate the Primus 1000 system into your aircraft ,
+you need to add the following to your files:
+
+Place the PFD instruments in  the cockpit:
+add this to the aircrafts animation file:
+
+<model>
+    <name>PFD1</name>
+    <path>Aircraft/Instruments-3d/primus-1000/PDF/PFD.xml</path>
+    <offsets> <!--position in 3d space-->
+        <x-m>-7.523</x-m>
+        <y-m>0.380</y-m>
+        <z-m>0.020</z-m>
+        <pitch-deg>-10.0</pitch-deg>
+    </offsets>
+</model>
+
+<model>
+    <name>MFD1</name>
+    <path>Aircraft/Instruments-3d/primus-1000/MDF/MFD.xml</path>
+    <offsets> <!--position in 3d space-->
+        <x-m>-7.523</x-m>
+        <y-m>0.380</y-m>
+        <z-m>0.020</z-m>
+        <pitch-deg>-10.0</pitch-deg>
+    </offsets>
+</model>
+
+<!-- -->
+
+Load the P1000.nas  in your -set file:
+    <nasal>
+        <efis>
+            <file>Aircraft/Instruments-3d/primus-1000/P1000.nas</file>
+        </efis>
+    </nasal>
+
+Must be loaded under the <efis> tag for CitationX and Bravo controllers.
+
+

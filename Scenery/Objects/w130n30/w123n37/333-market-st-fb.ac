@@ -1,0 +1,139 @@
+AC3Db
+MATERIAL "Material.001" rgb 1 1 1 amb 1 1 1 emis 0.1 0.1 0.1 spec 1 1 1 shi 72 trans 0
+MATERIAL "Material" rgb 0.8 0.8 0.8 amb 0.8 0.8 0.8 emis 0.1 0.1 0.1 spec 1 1 1 shi 72 trans 0
+OBJECT world
+kids 2
+OBJECT group
+name "Detailed"
+kids 3
+OBJECT poly
+name "Plane"
+texture "333-mkt-1.rgb"
+texrep 1 1
+numvert 8
+20 0 -24.999992
+20 0 25.000006
+-20 0 25
+-19.999992 0 -25.000006
+-19.999992 144 -25.000006
+-20 144 25
+20 144 25.000006
+20 144 -24.999992
+numsurf 2
+SURF 0x00
+mat 0
+refs 4
+1 0.28125 0.0
+6 0.28125 33.0
+5 -8.0 33.0
+2 -8.0 0.0
+SURF 0x00
+mat 0
+refs 4
+7 -8.0 33.0
+0 -8.0 0.0
+3 0.28125 0.0
+4 0.28125 33.0
+kids 0
+OBJECT poly
+name "Plane.001"
+texture "333-mkt-1.rgb"
+texrep 1 1
+numvert 4
+20 144 -24.999992
+20 144 25.000006
+-20 144 25
+-19.999992 144 -25.000006
+numsurf 1
+SURF 0x00
+mat 0
+refs 4
+0 0.03125 0.5625
+3 0.03125 0.46875
+2 0.125 0.46875
+1 0.125 0.5625
+kids 0
+OBJECT poly
+name "Plane.002"
+texture "333-mkt-1.rgb"
+texrep 1 1
+numvert 8
+-20 144 25
+-19.999992 144 -25.000006
+-19.999992 0 -25.000006
+-20 0 25
+20 144 -24.999992
+20 144 25.000006
+20 0 25.000006
+20 0 -24.999992
+numsurf 2
+SURF 0x00
+mat 0
+refs 4
+3 0.28125 0.0
+0 0.28125 33.0
+1 -10.0 33.0
+2 -10.0 0.0
+SURF 0x00
+mat 0
+refs 4
+7 0.28125 0.0
+4 0.28125 33.0
+5 -10.0 33.0
+6 -10.0 0.0
+kids 0
+OBJECT poly
+name "Bare"
+numvert 8
+20 0 -24.999992
+20 0 25.000006
+-20 0 25
+-19.999992 0 -25.000006
+-19.999992 144 -25.000006
+-20 144 25
+20 144 25.000006
+20 144 -24.999992
+numsurf 6
+SURF 0x00
+mat 1
+refs 4
+0 0 0
+1 0 0
+2 0 0
+3 0 0
+SURF 0x00
+mat 1
+refs 4
+0 0 0
+7 0 0
+6 0 0
+1 0 0
+SURF 0x00
+mat 1
+refs 4
+1 0 0
+6 0 0
+5 0 0
+2 0 0
+SURF 0x00
+mat 1
+refs 4
+2 0 0
+5 0 0
+4 0 0
+3 0 0
+SURF 0x00
+mat 1
+refs 4
+7 0 0
+0 0 0
+3 0 0
+4 0 0
+SURF 0x00
+mat 1
+refs 4
+7 0 0
+4 0 0
+5 0 0
+6 0 0
+kids 0

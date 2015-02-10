@@ -1,0 +1,63 @@
+# Michael Selig
+# Learjet 24, max weight cruise configuration
+# twin jet-engine business jet, data from:
+#       Roskam, Jan. Airplane Flight Dynamics and Automatic Flight
+#         Controls, Part I. Lawrence KS: DARcorporation, 1995, 
+#         pg 522-524
+# 02-10-2000    file creation
+
+init Dz_cg       3.5    # [ft]
+
+geometry bw     34.     # [ft]
+geometry cbar    7.0    # [ft]
+geometry Sw    230.0    # [ft^2]
+
+controlSurface de 20 20 # [deg]  guess for now
+controlSurface da 20 20 # [deg]  guess for now
+controlSurface dr 20 20 # [deg]  guess for now
+
+mass Weight  13000      # [lb]
+mass I_xx    28000      # [slug-ft^2]
+mass I_yy    18800      # [slug-ft^2]
+mass I_zz    47000      # [slug-ft^2]
+mass I_xz     1300      # [slug-ft^2]
+
+
+# Roskam: CTx=0.256 (SL conditions) --> 2020 lb
+# aircraft specs: 2 engines of 2950 lb static thrust each
+engine simpleSingle 2950 # [lb]
+
+
+CL CLo       0.130      # []
+CL CL_a      5.840      # [/rad]
+CL CL_adot   2.2        # [/rad]
+CL CL_q      4.7        # [/rad]
+CL CL_de     0.46       # [/rad]
+
+CD CDo       0.0216     # []
+CD CD_a      0.300      # [/rad]
+CD CD_de     0.0        # [/rad]
+
+Cm Cmo       0.05       # []
+Cm Cm_a     -0.64       # [/rad]
+Cm Cm_adot  -6.7        # [/rad]
+Cm Cm_q    -15.5        # [/rad]
+Cm Cm_de    -1.24       # [/rad]
+
+CY CY_beta  -0.730      # [/rad]
+CY CY_p      0.0        # [/rad]
+CY CY_r      0.400      # [/rad]
+CY CY_da     0.0        # [/rad]    sign reversed
+CY CY_dr     0.140      # [/rad]
+
+Cl Cl_beta  -0.110      # [/rad]
+Cl Cl_p     -0.450      # [/rad]
+Cl Cl_r      0.160      # [/rad]
+Cl Cl_da    -0.178      # [/rad]    sign reversed
+Cl Cl_dr     0.019      # [/rad]
+
+Cn Cn_beta   0.127      # [/rad]
+Cn Cn_p     -0.008      # [/rad]
+Cn Cn_r     -0.200      # [/rad]
+Cn Cn_da     0.020      # [/rad]    sign reversed
+Cn Cn_dr    -0.074      # [/rad]

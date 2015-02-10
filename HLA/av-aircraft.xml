@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<hlaConfiguration version="1">
+  <!-- This is the top level HLA configuration file for use with the
+       multiplayer federation. This serves now as first demo how to configure
+       flightgears hla implementation.
+       This toplevel file consists of startup parameters for the rti,
+       the federate object model to use on create and a way to map the hla
+       attribute values to a semantic meaning or flightgear properties.
+    -->
+
+  <rti version="RTI13">
+    <!-- is ignored for RTI13 anyway, so the example here ... -->
+    <argument>rtiarg0</argument>
+    <argument>rtiarg1</argument>
+  </rti>
+
+  <!-- Contains the data layout and the object classes -->
+  <federateObjectModel name="AviationSimNet-v3.1.xml"/>
+
+  <!-- ??? more a AIModel Tag??? Or a generic one and decide which type should be time exact???? -->
+  <objects>
+    <objectClass type="Multiplayer" name="aircraft">
+
+      <model type="map">
+        <dataElement type="external" name="aircraftType"/>
+        <key external="A320" modelPath="Aircraft/A320/Models/a320-fb.xml"/>
+        <key external="B733" modelPath="Aircraft/737-300/Models/737-300.xml"/>
+        <key external="B742" modelPath="Aircraft/747-200/Models/boeing747-200.xml"/>
+        <key external="C172" modelPath="Aircraft/c172p/Models/c172p.xml"/>
+        <key external="C310" modelPath="Aircraft/c310/Models/c310-dpm.xml"/>
+        <key external="F18"  modelPath="Aircraft/f18/Models/f18.xml"/>
+        <key external="PC7"  modelPath="Aircraft/pc7/Models/pc7.xml"/>
+        <key external="DH8C" modelPath="Aircraft/dhc8/Models/dhc8-300Q.xml"/>
+        <key external="UFO"  modelPath="Aircraft/ufo/Models/ufo.xml"/>
+        <key external="C172"/>
+      </model>
+
+      <!-- This is an example for the variant that would make the AviationSimNet guys visible in flightgear. -->
+      <!-- It does not know any rotational velocities, but the linear velocity is present. -->
+      <position type="geodetic">
+        <dataElement type="latitude-deg" name="latitude"/>
+        <dataElement type="longitude-deg" name="longitude"/>
+        <dataElement type="elevation-m" name="altitudeMSL"/>
+
+        <dataElement type="heading-deg" name="trueHeading"/>
+        <dataElement type="pitch-deg" name="pitch"/>
+        <dataElement type="roll-deg" name="roll"/>
+
+        <dataElement type="ground-track-deg" name="groundTrack"/>
+        <dataElement type="ground-speed-kt" name="groundSpeed"/>
+        <dataElement type="vertical-speed-ft-per-min" name="verticalSpeed"/>
+      </position>
+
+      <simTime type="attribute-sec-msec">
+        <dataElement type="local-simtime-sec" name="timestampSeconds"/>
+        <dataElement type="local-simtime-msec" name="timestampMilliseconds"/>
+      </simTime>
+
+      <dataElement type="property" name="tailNum" in="sim/user/callsign" out="sim/user/callsign"/>
+
+    </objectClass>
+  </objects>
+</hlaConfiguration>

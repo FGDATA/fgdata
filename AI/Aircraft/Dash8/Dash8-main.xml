@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+
+<PropertyList>  
+     <animation>
+		<type>select</type>
+		<object-name>wheel.003</object-name>
+        <object-name>strut.001</object-name>
+		<condition>
+			<less-than>
+				<property>velocities/true-airspeed-kt</property>
+				<value>150</value>
+			</less-than>
+		</condition>
+	</animation>
+    
+     <animation>
+    <name>leftprop</name>
+    <object-name>Cube.000</object-name>
+    <object-name>Circle.001</object-name>
+  </animation>
+    
+
+    <animation>
+    <type>select</type>
+    <object-name>Circle.001</object-name>
+    <condition>
+      <greater-than>
+        <property>velocities/true-airspeed-kt</property>
+        <value>50</value>
+      </greater-than>
+    </condition>
+  </animation>
+    
+      <animation>
+    <type>select</type>
+    <object-name>Cube.000</object-name>
+    <condition>
+      <less-than>
+        <property>velocities/true-airspeed-kt</property>
+        <value>60</value>
+      </less-than>
+    </condition>
+  </animation>
+    
+      <animation>
+    <type>spin</type>
+    <object-name>leftprop</object-name>
+    <property>velocities/true-airspeed-kt</property>
+    <factor>10</factor>
+    <center>
+      <x-m> -4.6461 </x-m>
+      <y-m> -4.4876 </y-m>
+      <z-m> 3.5327 </z-m>
+    </center>
+    <axis>
+      <x> -1.000 </x>
+      <y>  0.000 </y>
+      <z>  0.000 </z>
+    </axis>
+  </animation>
+  
+      <animation>
+    <name>rightprop</name>
+    <object-name>Cube.001</object-name>
+    <object-name>Circle.000</object-name>
+    </animation>
+  
+      <animation>
+    <type>select</type>
+    <object-name>Circle.000</object-name>
+    <condition>
+      <greater-than>
+        <property>velocities/true-airspeed-kt</property>
+        <value>50</value>
+      </greater-than>
+    </condition>
+  </animation>
+    
+      <animation>
+    <type>select</type>
+    <object-name>Cube.001</object-name>
+    <condition>
+      <less-than>
+        <property>velocities/true-airspeed-kt</property>
+        <value>60</value>
+      </less-than>
+    </condition>
+  </animation>
+ 
+   <animation>
+    <type>spin</type>
+    <object-name>rightprop</object-name>
+    <property>velocities/true-airspeed-kt</property>
+    <factor>10</factor>
+    <center>
+      <x-m> -4.6461</x-m>
+      <y-m> 4.1884 </y-m>
+      <z-m> 3.5321 </z-m>
+    </center>
+    <axis>
+      <x> -1.000 </x>
+      <y>  0.000 </y>
+      <z>  0.000 </z>
+    </axis>
+  </animation>
+  
+  
+</PropertyList>

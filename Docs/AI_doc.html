@@ -1,0 +1,195 @@
+<HTML>
+<HEAD></HEAD>
+<BODY>
+<h3>Using AI objects in FlightGear</h3><hr>
+<br><br>
+Starting with FlightGear version 0.9.4 you can place AI objects in the "FlightGear world".
+  In version 0.9.4 the AI objects can be defined in the <b><tt>preferences.xml</tt></b> file, or 
+  in an airplane's <b><tt>*-set.xml</tt></b> file. In later versions of FlightGear they are 
+  defined in a "scenario file" only.  Types of AI objects available are ships, airplanes, 
+  thunderstorms, thermals, aircraft carriers, static and ballistic objects.
+<BR><BR>  
+
+AI objects have some things in common:  The have a location in the "FlightGear world", 
+they can have an associated exterior 3D model, and they can move according to an internal 
+FDM (flight dynamics model).  As of now, these objects are created at simulator start-up 
+by adding some XML code to a scenario file. The scenario file must be in the 
+<b><tt>data/Data/AI</tt></b> directory. You select which scenario file you want to use by naming 
+it in the <b><tt>preferences.xml</tt></b> file.  (Note: As with everything in the 
+<b><tt>preferences.xml</tt></b> file, the entries can be overridden by an aircraft's 
+<b><tt>*-set.xml</tt></b> file, or at the command line.)  The <b><tt>preferences.xml</tt></b> 
+file has an entry that looks like this (FlightGear versions newer than 0.9.4):
+<BR><BR>
+
+<b><tt>
+  &#60;ai><br>
+  &nbsp; &#60;enabled type="bool">true&#60;/enabled><br>
+  &nbsp; &#60;scenario>demo_scenario&#60;/scenario><br>
+  &#60;/ai><br>
+</tt></b>
+<BR><BR>
+
+The scenario contains one entry for each AI object.  The entry specifies what kind of 
+object to create, what it's initial conditions will be, and optionally (for aircraft and 
+ships) a flight plan.
+<BR><BR><BR>
+
+<h3>Ships</h3><hr>
+The entry to create a sailboat would look like this:
+<br><br>
+
+<b><tt>
+  &#60;entry><br>
+  &nbsp; &#60;type>ship&#60;/type><br>
+  &nbsp; &#60;path>AI/Aircraft/sailboat1/sailboat.xml&#60;/path><br>
+  &nbsp; &#60;speed type="double">12.0&#60;/speed><br>
+  &nbsp; &#60;altitude type="double">0.0&#60;/altitude><br>
+  &nbsp; &#60;longitude type="double">-122.33333&#60;/longitude><br>
+  &nbsp; &#60;latitude type="double">37.61667&#60;/latitude><br>
+  &nbsp; &#60;heading type="double">20.0&#60;/heading><br>
+  &nbsp; &#60;rudder type="double">-3.0&#60;/rudder><br>
+  &#60;/entry><br>
+</tt></b>
+<BR><BR>
+
+Most of the entries are self-explanatory.  The "type" of object can be one of "aircraft", 
+"ship", "storm", "thermal", "carrier", "static" or "ballistic".  The rest of the items 
+give the AI object a model, a starting location, and a starting speed and direction.  You 
+use the <b>&#60;path&#62;</b> item to give the object any valid exterior model. You can even 
+make the ship look like an airplane if you want!  The "ship" type can also have a 
+<b>&#60;rudder&#62;</b> value specified, which will cause the ship to move in a circle 
+(HINT: use small values, five degrees or less, and right rudder is positive). 
+<BR><BR>
+
+<h3>Aircraft</h3><hr>
+Here is an example of how to create an aircraft AI object:
+<BR><BR>
+
+<b><tt>
+  &#60;!-- puts an A-4 north of KSFO, orbiting at 7000 ft  --><br>
+  &#60;entry><br>
+  &nbsp; &#60;type>aircraft&#60;/type><br>
+  &nbsp; &#60;class>jet_fighter&#60;/class><br>
+  &nbsp; &#60;path>Aircraft/a4/Models/a4-blue.xml&#60;/path><br>
+  &nbsp; &#60;speed type="double">320.0&#60;/speed><br>
+  &nbsp; &#60;altitude type="double">7000.0&#60;/altitude><br>
+  &nbsp; &#60;longitude type="double">-122.6&#60;/longitude><br>
+  &nbsp; &#60;latitude type="double">37.9&#60;/latitude><br>
+  &nbsp; &#60;heading type="double">210.0&#60;/heading><br>
+  &nbsp; &#60;roll type="double">-15.0&#60;/roll><br>
+  &#60;/entry>
+</tt></b>
+<BR><BR>
+
+It looks much the same as the ship AI code.  There are two differences, the 
+<b>&#60;class&#62;</b> item and the <b>&#60;roll&#62;</b> item.  If the class is set to 
+"tanker" the airplane will allow you to refuel if you can get close behind it (so far 
+supported by JSBSim only)  The "roll" will cause the airplane to fly in a circle.  In the 
+above example the A-4 will be orbiting to the left at 15 degrees of bank.  You can also 
+create a ship or airplane with a flight plan.  In this case the object will follow the 
+flight plan and then delete itself when it reaches the end, or (new since version 0.9.8) 
+the object can be set to endlessly repeat a flight plan.  The flight plans are located in 
+<b><tt>data/Data/AI/FlightPlans</tt></b>.  To create an airplane with a flightplan do this:
+<BR><BR>
+
+<b><tt>
+  &#60;entry><br>
+  &nbsp; &#60;type>aircraft&#60;/type><br>
+  &nbsp; &#60;class>jet-transport&#60;/class><br>
+  &nbsp; &#60;path>Aircraft/737/Models/737.xml&#60;/path><br>
+  &nbsp; &#60;flightplan>KSFO_ILS28L.xml&#60;/flightplan><br>
+  &#60;/entry><br>
+</tt></b>
+<BR><BR>
+
+
+In this case you don't need to specify initial conditions because they are already defined 
+in the flight plan.  The AI aircraft objects can be displayed on radar.  See the 
+<b><tt>Aircraft/Instruments/radar.xml</tt></b> file for details.  
+
+<BR><BR>
+<h3>Thunderstorms</h3><hr>
+<BR>
+To make a thunderstorm, use this:
+<BR><BR>
+
+<b><tt>
+  &#60;!-- puts a thunderstorm overhead OSI (Woodside VOR) --><br>
+  &#60;entry><br>
+  &nbsp; &#60;type>storm&#60;/type><br>
+  &nbsp; &#60;path>Models/Geometry/thunderstorm.xml&#60;/path><br>
+  &nbsp; &#60;speed type="double">20.0&#60;/speed><br>
+  &nbsp; &#60;altitude type="double">4000.0&#60;/altitude><br>
+  &nbsp; &#60;latitude type="double">37.3917&#60;/latitude><br>
+  &nbsp; &#60;longitude type="double">-122.2817&#60;/longitude><br>
+  &nbsp; &#60;heading type="double">90&#60;/heading><br>
+  &#60;/entry><br>
+</tt></b>
+<BR><BR>
+
+There's not much to it.  No, they don't turn :)  New since version 0.9.8 is the ability
+to add lightning and turbulence to a thunderstorm.  For an example of this see the scenario 
+file called "bigstorm_demo.xml".  The AI storm objects can be displayed on weather radar.  See the 
+<b><tt>Aircraft/Instruments/wxradar.xml</tt></b> file for details.  
+
+<br><br>
+<h3>Thermals</h3><hr>
+<BR>
+To create a thermal, use this:
+<BR><BR>
+
+<b><tt>
+ &#60;!-- puts a thermal over the control tower at KSFO --><br>
+ &#60;entry><br>
+ &nbsp; &#60;type>thermal&#60;/type><br>
+ &nbsp; &#60;latitude type="double">37.61633&#60;/latitude><br>
+ &nbsp; &#60;longitude type="double">-122.38334&#60;/longitude><br>
+ &nbsp; &#60;strength-fps type="double">8.33&#60;/strength-fps><br>
+ &nbsp; &#60;diameter-ft type="double">4000.0&#60;/diameter-ft><br>
+ &nbsp; &#60;height-msl type="double">6000.0&#60;/height-msl><br>
+ &#60;/entry><br>
+</tt></b>
+<BR><BR>
+
+The AI thermals don't move, they are invisible, and they don't "lean" downwind.  
+The <b>&#60;strength-fps&#62;</b> defines the maximum vertical velocity of the airmass 
+at the center of the thermal.  The strength decreases to zero at the thermal's edge.  
+<b>&#60;height-msl&#62;</b> defines the top of the thermal.
+  
+
+<br><br>
+<h3>Ballistic objects</h3><hr>
+<br>
+A ballistic AI object starts with an initial location, azimuth, elevation and speed, then 
+follows a ballistic path from there (with air resistance included).  Try this:
+<BR><BR>
+
+<b><tt>
+  &#60;entry><br>
+  &nbsp; &#60;type>ballistic&#60;/type><br>
+  &nbsp; &#60;path>Models/Geometry/rocket.xml&#60;/path><br>
+  &nbsp; &#60;speed type="double">500.0&#60;/speed><br>
+  &nbsp; &#60;altitude type="double">50.0&#60;/altitude><br>
+  &nbsp; &#60;longitude type="double">-122.39&#60;/longitude><br>
+  &nbsp; &#60;latitude type="double">37.62&#60;/latitude><br>
+  &nbsp; &#60;heading type="double">200.0&#60;/heading><br>
+  &nbsp; &#60;azimuth type="double">70.0&#60;/azimuth><br>
+  &nbsp; &#60;elevation type="double">45.0&#60;/elevation><br>
+  &#60;/entry><br>
+</tt></b>
+<BR><BR>
+
+There is not much call for rocket launches in FlightGear, but the ballistic AI object is
+the basis for FlightGear's <a href="README.submodels">submodels</a> system.
+
+<BR><BR><BR>
+<h3>Aircraft Carriers</h3><hr>
+<br>
+The aircraft carrier AI object is based on the "ship" object but is much more complicated.  
+See the scenario file called <b><tt>nimitz_demo.xml</tt></b> for details.
+<BR><BR><BR>
+<hr>
+Dave Culp, updated 23 Oct 2005<br>
+davidculp2@comcast.net
+</BODY>
+</HTML>

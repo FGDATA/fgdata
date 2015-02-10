@@ -1,0 +1,548 @@
+<?xml version="1.0"?>
+<!--
+$Id$
+
+Note:  This is asimple edit of Melchor Franz Cyborg-Gold-3d-USB.xml file. This Saitek
+joystick has the same number of buttons as the MS Sidewinder Force Feedback 2.
+_______________________________________ Layout _______________________________________
+
+
+axis 0:              aileron
+axis 1:              elevator
+axis 2:              rudder
+axis 3:              throttle
+
+
+                     no modifier     K7=B6              K8=B7              K7+K8
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+button 0 (trigger):  brakes          parking brake   speed brake     thrust revers.
+button 2 (left):     flaps up        gear up         previous view   *
+button 1 (middle):   reset view dir  tail wheel lock cockpit view    reset all trim
+button 3 (right):    flaps down      gear down       next view       *
+button 4 (K5):       brakes right    *               zoom in         *
+button 5 (K6):       brakes left     *               zoom out        *
+button 6 (K7):       //////////////////////// modifier 0 /////////////////////////
+button 7 (K8):       //////////////////////// modifier 1 /////////////////////////
+hat left:            look left       leaner mixture  aileron trim    rudder trim
+hat right:           look right      richer mixture  aileron trim    rudder trim
+hat back:            look up       dec prop pitch  elevator trim   *
+hat forward:         look down         inc prop pitch  elevator trim   *
+
+
+K7 and K8 are used like "Shift", "Control", or "Alternate" on computer keyboards.
+For example: press K7 and keep holding it down while pressing the fire
+button/trigger -> toggle parking brake
+
+When flying the Harrier, "K7/hat left" and "right" control the thrust vector.
+
+
+
+___________________________________ Customization ____________________________________
+
+
+
+If you want to change some (or all) of the bindings, the recommended way is
+to copy this file to your home directory, make your changes there, and include
+it from your personal preferences.xml file. You can use any number lower than
+1000 for n in <js-named n="0">. The lowest takes precedence in case of identical
+names. You can include such a preferences.xml file with the ~~config option,
+e.g. ~~config=$HOME/.fgfs/preferences.xml, and you can put that ~~config line
+into your personal $HOME/.fgfsrc file.
+
+<?xml version="1.0"?>
+<PropertyList>
+	<input>
+		<js-named n="100">
+			<joysticks include="your-modified-copy.xml"/>
+		</js-named>
+	</input>
+</PropertyList>
+
+
+The property "/input/joysticks/js[0]/data/modifier" indicates the "shift" level.
+K7 sets bit 0, K8 sets bit 1. The property is zero if none of the shift buttons
+is pressed, 1 if K7 is pressed, 2 if K8 is pressed, and 3 if both K7 and K8 are
+pressed.
+
+Note that you have to enclose nasal scripts in <script><![CDATA[...]]></script>
+if they contain characters that interfere with the xml markup. This is the case
+if you are, for example, using < (lower than). Alternatively, you can 'escape'
+the character with "&lt;".
+
+Also note that all nasal code shares a common namespace, so it's possible to set
+a variable in one nasal binding, and to read it in another.
+
+
+
+____________________________________ References ______________________________________
+
+
+
+Joysticks:      $FG_ROOT/Docs/README.Joystick.html
+Properties:     see property browser (fgfs menu: "File"->"Browse internal properties")
+
+Nasal:          http://www.plausible.org/nasal/
+Nasal examples: $FG_ROOT/Nasal/
+
+
+______________________________________________________________________________________
+
+                                                 ~~ Melchior FRANZ <mfranz # aon : at>
+	This MS Sidewinder Force Feedback 2 xml is a straight forward edit by Dave Perry
+	of the Saitek Cyborg-Gold-3d-USB.xml file written by Melchior Franz.
+-->
+
+<PropertyList>
+	<name>Microsoft SideWinder Force Feedback 2</name>
+	<name>Microsoft SideWinder Force Feedback 2 Joystick</name>
+	<name>SideWinder Force Feedback 2 Joystick</name>
+
+	<data>
+		<mode type="int">0</mode>
+		<modifier type="int">0</modifier>
+	</data>
+
+	<nasal>
+		<script><![CDATA[
+			var self = cmdarg().getParent();
+			var data = self.getNode("data");
+			var mode = data.getNode("mode");
+			modifier = data.getNode("modifier");
+			f1 = f2 = 0;
+			left_brake = right_brake = 0;
+
+			get_mode = func { modifier.getValue() + mode.getValue() * 4 }
+
+			harrier = func {
+				if (getprop("/sim/aero") == "harrier") {
+					thv = getprop("/controls/engines/engine[0]/mixture");
+					gui.popupTip("Thrust vector " ~ int(thv * 120 - 20));
+				}
+			}
+		]]></script>
+	</nasal>
+
+	<axis n="0">
+		<desc>Aileron</desc>
+		<binding>
+			<command>property-scale</command>
+			<property>/controls/flight/aileron</property>
+			<power type="double">2.0</power>
+		</binding>
+	</axis>
+
+	<axis n="1">
+		<desc>Elevator</desc>
+		<binding>
+			<command>property-scale</command>
+			<property>/controls/flight/elevator</property>
+			<factor type="double">-1.0</factor>
+			<power type="double">2.0</power>
+		</binding>
+	</axis>
+
+	<axis>
+		<desc>Rudder</desc>
+		<number>
+			<unix>2</unix>
+			<mac>2</mac>
+			<windows>3</windows>
+		</number>
+		<binding>
+			<command>property-scale</command>
+			<property>/controls/flight/rudder</property>
+			<offset type="double">0.0</offset>
+			<factor type="double">1.0</factor>
+			<power type="double">2.0</power>
+		</binding>
+	</axis>
+
+	<axis>
+		<desc>Throttle</desc>
+		<number>
+			<unix>3</unix>
+			<mac>3</mac>
+			<windows>2</windows>
+		</number>
+		<binding>
+			<command>nasal</command>
+			<script>controls.throttleAxis()</script>
+		</binding>
+	</axis>
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~ Hat Switch ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+	<axis>
+		<desc>View Direction; Mixture; Aileron Trim; Rudder Trim;</desc>
+		<number>
+			<unix>4</unix>
+			<mac>4</mac>
+			<windows>6</windows>
+		</number>
+		<low>
+			<repeatable>true</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>
+					m = get_mode();
+					if (m == 0) {
+					 v = getprop("/sim/current-view/view-number");
+					 view.panViewDir(v == 0 or v == 4 ? 1 : -1);
+					} elsif (m == 1) {
+					 controls.adjMixture(-1);
+					 harrier();
+					} elsif (m == 2) {
+					 controls.aileronTrim(-0.75);
+					} elsif (m == 3) {
+					 controls.rudderTrim(-0.75);
+					}
+				</script>
+			</binding>
+		</low>
+		<high>
+			<repeatable>true</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>
+					m = get_mode();
+					if (m == 0) {
+					 v = getprop("/sim/current-view/view-number");
+					 view.panViewDir(v == 0 or v == 4 ? -1 : 1);
+					} elsif (m == 1) {
+					 controls.adjMixture(1);
+					 harrier();
+					} elsif (m == 2) {
+					 controls.aileronTrim(0.75);
+					} elsif (m == 3) {
+					 controls.rudderTrim(0.75);
+					}
+				</script>
+			</binding>
+		</high>
+	</axis>
+
+	<axis>
+		<desc>View Elevation; Prop Pitch; Elevator Trim;</desc>
+		<number>
+			<unix>5</unix>
+			<mac>5</mac>
+			<windows>7</windows>
+		</number>
+		<low>
+			<repeatable>true</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>
+					m = get_mode();
+					if (m == 0) {
+					 view.panViewPitch(-1);
+					} elsif (m == 1) {
+					 controls.adjPropeller(-1);
+					} elsif (m == 2) {
+					 controls.elevatorTrim(-0.75);
+					} elsif (m == 3) {
+					 #
+					}
+				</script>
+			</binding>
+		</low>
+		<high>
+			<repeatable>true</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>
+					m = get_mode();
+					if (m == 0) {
+					 view.panViewPitch(1);
+					} elsif (m == 1) {
+					 controls.adjPropeller(1);
+					} elsif (m == 2) {
+					 controls.elevatorTrim(0.75);
+					} elsif (m == 3) {
+					 #
+					}
+				</script>
+			</binding>
+		</high>
+	</axis>
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Buttons ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+	<button n="0"><!-- trigger -->
+		<desc>Brakes; Parking Brake; Speed Brake; Thrust Reverse;</desc>
+		<repeatable type="bool">false</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>
+				m = get_mode();
+				if (m == 0) {
+					controls.applyBrakes(1);
+				} elsif (m == 1) {
+					controls.applyBrakes(1);
+				} elsif (m == 2) {
+					#
+				} elsif (m == 3) {
+					#
+				}
+			</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>
+					m = get_mode();
+					if (m == 0) {
+						controls.applyBrakes(0);
+					} elsif (m == 1) {
+						i = controls.applyParkingBrake(1);
+						gui.popupTip("Parking Brake " ~ ["OFF", "ON"][i]);
+						controls.applyBrakes(0);
+					} elsif (m == 2) {
+						i = !getprop("/controls/flight/speedbrake");
+						setprop("/controls/flight/speedbrake", i);
+						gui.popupTip("Speed Brake " ~ ["OFF", "ON"][i]);
+					} elsif (m == 3) {
+						i = !getprop("/controls/engines/engine[0]/reverser");
+						props.setAll("/controls/engines/engine", "reverser", i);
+						gui.popupTip("Thrust Reverser " ~ ["OFF", "ON"][i]);
+					}
+				</script>
+			</binding>
+		</mod-up>
+	</button>
+
+	<button n="2"><!-- Labeled 3,  Left Below Hat -->
+		<desc>Flaps Up; Gear Up; Previous View</desc>
+		<repeatable type="bool">false</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>
+				m = get_mode();
+				if (m == 0) {
+					controls.flapsDown(-1);
+				} elsif (m == 1) {
+					controls.gearDown(-1);
+				} elsif (m == 2) {
+					view.stepView(-1);
+				} elsif (m == 3) {
+					#
+				}
+			</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>
+					m = get_mode();
+					if (m == 0) {
+						controls.flapsDown(0);
+					} elsif (m == 1) {
+						controls.gearDown(0);
+					} elsif (m == 2) {
+						#
+					} elsif (m == 3) {
+						#
+					}
+				</script>
+			</binding>
+		</mod-up>
+	</button>
+
+	<button n="1"><!-- Labeled 2,  Middle Below Hat-->
+		<desc>Reset View; Toggle Tail-wheel lock; Reset Trim;</desc>
+		<repeatable type="bool">false</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>
+				m = get_mode();
+				if (m == 0) {
+					view.resetView();
+				} elsif (m == 1) {
+					i = !getprop("/controls/gear/tailwheel-lock");
+					setprop("/controls/gear/tailwheel-lock", i);
+					gui.popupTip("Tail Wheel " ~ ["UNLOCKED", "LOCKED"][i]);
+				} elsif (m == 2) {
+					setprop("/sim/current-view/view-number", 0);
+					view.resetView();
+				} elsif (m == 3) {
+					setprop("/controls/flight/elevator-trim", 0);
+					setprop("/controls/flight/aileron-trim", 0);
+					setprop("/controls/flight/rudder-trim", 0);
+				}
+			</script>
+		</binding>
+	</button>
+
+	<button n="3"><!-- Labeled 4, Right Below Hat -->
+		<desc>Flaps Down; Gear Down; Next View;</desc>
+		<repeatable type="bool">false</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>
+				m = get_mode();
+				if (m == 0) {
+					controls.flapsDown(1);
+				} elsif (m == 1) {
+					controls.gearDown(1);
+				} elsif (m == 2) {
+					view.stepView(1);
+				} elsif (m == 3) {
+					#
+				}
+			</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>
+					m = get_mode();
+					if (m == 0) {
+						controls.flapsDown(0);
+					} elsif (m == 1) {
+						controls.gearDown(0);
+					} elsif (m == 2) {
+						#
+					} elsif (m == 3) {
+						#
+					}
+				</script>
+			</binding>
+		</mod-up>
+	</button>
+
+	<button n="5"><!-- Labeled 6,  Left key on Bottom Row on base -->
+		<desc>Brakes left</desc>
+		<repeatable type="bool">true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>
+				f1 = 1;
+				m = get_mode();
+				if (m == 0) {
+					if (!left_brake) {
+						controls.applyBrakes(left_brake = 1, -1);
+					}
+				} elsif (m == 1) {
+					#
+				} elsif (m == 2) {
+					f2 ? view.resetFOV() : view.increase();
+				} elsif (m == 3) {
+					#
+				}
+			</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>
+					f1 = 0;
+					m = get_mode();
+					if (m == 0) {
+						controls.applyBrakes(left_brake = 0, -1);
+					} elsif (m == 1) {
+						#
+					} elsif (m == 2) {
+						#
+					} elsif (m == 3) {
+						#
+					}
+				</script>
+			</binding>
+		</mod-up>
+	</button>
+
+	<button n="4"><!-- Labeled 5, Right key on Bottom Row on base -->
+		<desc>Brakes right</desc>
+		<repeatable type="bool">true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>
+				f2 = 1;
+				m = get_mode();
+				if (m == 0) {
+					if (!right_brake) {
+						controls.applyBrakes(right_brake = 1, 1);
+					}
+				} elsif (m == 1) {
+					#
+				} elsif (m == 2) {
+					f1 ? view.resetFOV() : view.decrease();
+				} elsif (m == 3) {
+					#
+				}
+			</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>
+					f2 = 0;
+					m = get_mode();
+					if (m == 0) {
+						controls.applyBrakes(right_brake = 0, 1);
+					} elsif (m == 1) {
+						#
+					} elsif (m == 2) {
+						#
+					} elsif (m == 3) {
+						#
+					}
+				</script>
+			</binding>
+		</mod-up>
+	</button>
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~ Modifier Keys ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+	<button n="6"><!-- K7 = Labeled 7, Left on Top Row on Base -->
+		<desc>Modifier Bit 0</desc>
+		<repeatable type="bool">false</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>
+				m = modifier.getValue();
+				if (m == 0 or m == 2) {
+					modifier.setIntValue(m + 1);
+				}
+			</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>
+					m = modifier.getValue();
+					if (m == 1 or m == 3) {
+						modifier.setIntValue(m - 1);
+					}
+				</script>
+			</binding>
+		</mod-up>
+	</button>
+
+	<button n="7"><!-- K8 = Labeled 8,  Right on Top Row on Base -->
+		<desc>Modifier Bit 1</desc>
+		<repeatable type="bool">false</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>
+				m = modifier.getValue();
+				if (m == 0 or m == 1) {
+					modifier.setIntValue(m + 2);
+				}
+			</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>
+					m = modifier.getValue();
+					if (m == 2 or m == 3) {
+						modifier.setIntValue(m - 2);
+					}
+				</script>
+			</binding>
+		</mod-up>
+	</button>
+
+</PropertyList>
+

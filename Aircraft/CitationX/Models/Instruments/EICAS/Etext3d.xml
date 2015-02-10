@@ -1,0 +1,458 @@
+<PropertyList>
+
+<text>
+        <name>LFuelFlow</name>
+        <offsets>
+            <x-m>0.0</x-m>
+            <y-m>0.022</y-m>
+            <z-m>0.0445</z-m>
+        </offsets>
+        <alignment>center-center</alignment>
+        <axis-alignment>yz-plane</axis-alignment>
+        <type type="string">number-value</type>
+        <property>engines/engine[0]/fuel-flow_pph</property>
+        <format>%04.0f</format>
+        <font>helvetica_bold.txf</font>
+        <character-size>0.006</character-size>
+        <character-aspect-ratio type="double">1.2</character-aspect-ratio>
+        <font-resolution>
+            <width type="int">64</width>
+            <height type="int">64</height>
+        </font-resolution>
+    </text>
+
+    <text>
+        <name>RFuelFlow</name>
+        <offsets>
+            <x-m>0.0</x-m>
+            <y-m>0.063</y-m>
+            <z-m>0.0445</z-m>
+        </offsets>
+        <alignment>center-center</alignment>
+        <axis-alignment>yz-plane</axis-alignment>
+        <type type="string">number-value</type>
+        <property>engines/engine[1]/fuel-flow_pph</property>
+        <format>%04.0f</format>
+        <font>helvetica_bold.txf</font>
+        <character-size>0.006</character-size>
+        <character-aspect-ratio type="double">1.2</character-aspect-ratio>
+        <font-resolution>
+            <width type="int">64</width>
+            <height type="int">64</height>
+        </font-resolution>
+    </text>
+
+    <text>
+        <name>TTLfuel</name>
+        <offsets>
+            <x-m>0.0</x-m>
+            <y-m>0.043</y-m>
+            <z-m>0.036</z-m>
+        </offsets>
+        <alignment>center-center</alignment>
+        <axis-alignment>yz-plane</axis-alignment>
+        <type type="string">number-value</type>
+        <property>consumables/fuel/total-fuel-lbs</property>
+        <format>%05.0f</format>
+        <font>helvetica_bold.txf</font>
+        <character-size>0.007</character-size>
+        <character-aspect-ratio type="double">1.2</character-aspect-ratio>
+        <font-resolution>
+            <width type="int">64</width>
+            <height type="int">64</height>
+        </font-resolution>
+    </text>
+
+
+    <text>
+        <name>Ltank</name>
+        <offsets>
+            <x-m>0.0</x-m>
+            <y-m>0.023</y-m>
+            <z-m>0.020</z-m>
+        </offsets>
+        <alignment>center-center</alignment>
+        <axis-alignment>yz-plane</axis-alignment>
+        <type type="string">number-value</type>
+        <property>consumables/fuel/tank/level-lbs</property>
+        <format>%04.0f</format>
+        <font>helvetica_bold.txf</font>
+        <character-size>0.006</character-size>
+        <character-aspect-ratio type="double">1.2</character-aspect-ratio>
+        <font-resolution>
+            <width type="int">64</width>
+            <height type="int">64</height>
+        </font-resolution>
+    </text>
+
+    <text>
+        <name>Rtank</name>
+        <offsets>
+            <x-m>0.0</x-m>
+            <y-m>0.064</y-m>
+            <z-m>0.020</z-m>
+        </offsets>
+        <alignment>center-center</alignment>
+        <axis-alignment>yz-plane</axis-alignment>
+        <type type="string">number-value</type>
+        <property>consumables/fuel/tank[1]/level-lbs</property>
+        <format>%04.0f</format>
+        <font>helvetica_bold.txf</font>
+        <character-size>0.006</character-size>
+        <character-aspect-ratio type="double">1.2</character-aspect-ratio>
+        <font-resolution>
+            <width type="int">64</width>
+            <height type="int">64</height>
+        </font-resolution>
+    </text>
+
+    <text>
+        <name>Ctank</name>
+        <offsets>
+            <x-m>0.0</x-m>
+            <y-m>0.043</y-m>
+            <z-m>0.024</z-m>
+        </offsets>
+        <alignment>center-center</alignment>
+        <axis-alignment>yz-plane</axis-alignment>
+        <type type="string">number-value</type>
+        <property>consumables/fuel/tank[2]/level-lbs</property>
+        <format>%04.0f</format>
+        <font>helvetica_bold.txf</font>
+        <character-size>0.006</character-size>
+        <character-aspect-ratio type="double">1.2</character-aspect-ratio>
+        <font-resolution>
+            <width type="int">64</width>
+            <height type="int">64</height>
+        </font-resolution>
+    </text>
+
+    <text>
+        <name>Lbus volts</name>
+        <offsets>
+            <x-m>0.0</x-m>
+            <y-m>0.023</y-m>
+            <z-m>-0.0</z-m>
+        </offsets>
+        <alignment>center-center</alignment>
+        <axis-alignment>yz-plane</axis-alignment>
+        <type type="string">number-value</type>
+        <property>systems/electrical/left-bus</property>
+        <format>%02.0f</format>
+        <font>helvetica_bold.txf</font>
+        <character-size>0.006</character-size>
+        <character-aspect-ratio type="double">1.2</character-aspect-ratio>
+        <font-resolution>
+            <width type="int">64</width>
+            <height type="int">64</height>
+        </font-resolution>
+    </text>
+
+    <text>
+        <name>Rbus volts</name>
+        <offsets>
+            <x-m>0.0</x-m>
+            <y-m>0.062</y-m>
+            <z-m>-0.0</z-m>
+        </offsets>
+        <alignment>center-center</alignment>
+        <axis-alignment>yz-plane</axis-alignment>
+        <type type="string">number-value</type>
+        <property>systems/electrical/right-bus</property>
+        <format>%02.0f</format>
+        <font>helvetica_bold.txf</font>
+        <character-size>0.006</character-size>
+        <character-aspect-ratio type="double">1.2</character-aspect-ratio>
+        <font-resolution>
+            <width type="int">64</width>
+            <height type="int">64</height>
+        </font-resolution>
+    </text>
+
+    <text>
+        <name>Lbus amps</name>
+        <offsets>
+            <x-m>0.0</x-m>
+            <y-m>0.023</y-m>
+            <z-m>-0.008</z-m>
+        </offsets>
+        <alignment>center-center</alignment>
+        <axis-alignment>yz-plane</axis-alignment>
+        <type type="string">number-value</type>
+        <property>systems/electrical/left-bus</property>
+        <scale>8.928</scale>
+        <format>%03.0f</format>
+        <font>helvetica_bold.txf</font>
+        <character-size>0.006</character-size>
+        <character-aspect-ratio type="double">1.2</character-aspect-ratio>
+        <font-resolution>
+            <width type="int">64</width>
+            <height type="int">64</height>
+        </font-resolution>
+    </text>
+
+    <text>
+        <name>Rbus amps</name>
+        <offsets>
+            <x-m>0.0</x-m>
+            <y-m>0.060</y-m>
+            <z-m>-0.008</z-m>
+        </offsets>
+        <alignment>center-center</alignment>
+        <axis-alignment>yz-plane</axis-alignment>
+        <type type="string">number-value</type>
+        <property>systems/electrical/right-bus</property>
+        <scale>8.928</scale>
+        <format>%03.0f</format>
+        <font>helvetica_bold.txf</font>
+        <character-size>0.006</character-size>
+        <character-aspect-ratio type="double">1.2</character-aspect-ratio>
+        <font-resolution>
+            <width type="int">64</width>
+            <height type="int">64</height>
+        </font-resolution>
+    </text>
+
+    <text>
+        <name>LHydr</name>
+        <offsets>
+            <x-m>0.0</x-m>
+            <y-m>0.040</y-m>
+            <z-m>-0.037</z-m>
+        </offsets>
+        <alignment>center-center</alignment>
+        <axis-alignment>yz-plane</axis-alignment>
+        <type type="string">number-value</type>
+        <property>systems/hydraulics/psi-norm</property>
+        <scale>3000</scale>
+        <format>%4.0f</format>
+        <font>helvetica_bold.txf</font>
+        <character-size>0.006</character-size>
+        <character-aspect-ratio type="double">1.2</character-aspect-ratio>
+        <font-resolution>
+            <width type="int">64</width>
+            <height type="int">64</height>
+        </font-resolution>
+    </text>
+
+    <text>
+        <name>RHydr</name>
+        <offsets>
+            <x-m>0.0</x-m>
+           <y-m>0.067</y-m>
+            <z-m>-0.037</z-m>
+        </offsets>
+        <alignment>center-center</alignment>
+        <axis-alignment>yz-plane</axis-alignment>
+        <type type="string">number-value</type>
+        <property>systems/hydraulics/psi-norm[1]</property>
+        <scale>3000</scale>
+        <format>%4.0f</format>
+        <font>helvetica_bold.txf</font>
+        <character-size>0.006</character-size>
+        <character-aspect-ratio type="double">1.2</character-aspect-ratio>
+        <font-resolution>
+            <width type="int">64</width>
+            <height type="int">64</height>
+        </font-resolution>
+    </text>
+
+    <text>
+        <name>Lfan</name>
+        <offsets>
+            <x-m>0.0</x-m>
+            <y-m>-0.059</y-m>
+            <z-m>0.027</z-m>
+        </offsets>
+        <alignment>center-center</alignment>
+        <axis-alignment>yz-plane</axis-alignment>
+        <type type="string">number-value</type>
+        <property>engines/engine/fan</property>
+        <format>%03.1f</format>
+        <font>helvetica_bold.txf</font>
+        <character-size>0.006</character-size>
+        <character-aspect-ratio type="double">1.2</character-aspect-ratio>
+        <font-resolution>
+            <width type="int">64</width>
+            <height type="int">64</height>
+        </font-resolution>
+    </text>
+
+    <text>
+        <name>Rfan</name>
+        <offsets>
+            <x-m>0.0</x-m>
+            <y-m>-0.039</y-m>
+            <z-m>0.027</z-m>
+        </offsets>
+        <alignment>center-center</alignment>
+        <axis-alignment>yz-plane</axis-alignment>
+        <type type="string">number-value</type>
+        <property>engines/engine[1]/fan</property>
+        <format>%03.1f</format>
+        <font>helvetica_bold.txf</font>
+        <character-size>0.006</character-size>
+        <character-aspect-ratio type="double">1.2</character-aspect-ratio>
+        <font-resolution>
+            <width type="int">64</width>
+            <height type="int">64</height>
+        </font-resolution>
+    </text>
+
+    <text>
+        <name>LTurbine</name>
+        <offsets>
+            <x-m>0.0</x-m>
+            <y-m>-0.064</y-m>
+            <z-m>0.018</z-m>
+        </offsets>
+        <alignment>center-center</alignment>
+        <axis-alignment>yz-plane</axis-alignment>
+        <type type="string">number-value</type>
+        <property>engines/engine/turbine</property>
+        <format>%3.0f</format>
+        <font>helvetica_bold.txf</font>
+        <character-size>0.006</character-size>
+        <character-aspect-ratio type="double">1.2</character-aspect-ratio>
+        <font-resolution>
+            <width type="int">64</width>
+            <height type="int">64</height>
+        </font-resolution>
+    </text>
+
+    <text>
+        <name>RTurbine</name>
+        <offsets>
+            <x-m>0.0</x-m>
+            <y-m>-0.034</y-m>
+            <z-m>0.018</z-m>
+        </offsets>
+        <alignment>center-center</alignment>
+        <axis-alignment>yz-plane</axis-alignment>
+        <type type="string">number-value</type>
+        <property>engines/engine[1]/turbine</property>
+        <format>%3.0f</format>
+        <font>helvetica_bold.txf</font>
+        <character-size>0.006</character-size>
+        <character-aspect-ratio type="double">1.2</character-aspect-ratio>
+        <font-resolution>
+            <width type="int">64</width>
+            <height type="int">64</height>
+        </font-resolution>
+    </text>
+
+    <text>
+        <name>Governor</name>
+        <offsets>
+            <x-m>0.0</x-m>
+            <y-m>-0.049</y-m>
+            <z-m>0.086</z-m>
+        </offsets>
+        <alignment>center-center</alignment>
+        <axis-alignment>yz-plane</axis-alignment>
+        <type type="string">number-value</type>
+        <property>controls/engines/N1-limit</property>
+        <format>%3.0f</format>
+        <font>helvetica_bold.txf</font>
+        <character-size>0.006</character-size>
+        <character-aspect-ratio type="double">1.2</character-aspect-ratio>
+        <font-resolution>
+            <width type="int">64</width>
+            <height type="int">64</height>
+        </font-resolution>
+    </text>
+
+    <text>
+        <name>RAT</name>
+        <offsets>
+            <x-m>0.0</x-m>
+            <y-m>-0.005</y-m>
+            <z-m>0.018</z-m>
+        </offsets>
+        <alignment>center-center</alignment>
+        <axis-alignment>yz-plane</axis-alignment>
+        <type type="string">number-value</type>
+        <property>environment/temperature-degc</property>
+        <format>%3.0f  C*</format>
+        <font>helvetica_bold.txf</font>
+        <character-size>0.006</character-size>
+        <character-aspect-ratio type="double">1.2</character-aspect-ratio>
+        <font-resolution>
+            <width type="int">64</width>
+            <height type="int">64</height>
+        </font-resolution>
+    </text>
+
+<!-- COLORS -->
+
+    <animation>
+        <name>green</name>
+        <type>material</type>
+        <object-name>LFuelFlow</object-name>
+        <object-name>RFuelFlow</object-name>
+        <object-name>TTLfuel</object-name>
+        <object-name>Rtank</object-name>
+        <object-name>Ltank</object-name>
+        <object-name>Ctank</object-name>
+        <object-name>Lbus volts</object-name>
+        <object-name>Rbus volts</object-name>
+        <object-name>Lbus amps</object-name>
+        <object-name>Rbus amps</object-name>
+        <object-name>Lfan</object-name>
+        <object-name>Rfan</object-name>
+        <object-name>LTurbine</object-name>
+        <object-name>RTurbine</object-name>
+        <object-name>LHydr</object-name>
+        <object-name>RHydr</object-name>
+        <emission>
+            <red-prop>sim/color-set/green/r</red-prop>
+            <green-prop>sim/color-set/green/g</green-prop>
+            <blue-prop>sim/color-set/green/b</blue-prop>
+            <alpha-prop>sim/color-set/green/a</alpha-prop>
+        </emission>
+        <ambient>
+            <red>0</red>
+            <green>0</green>
+            <blue>0</blue>
+        </ambient>
+        <diffuse>
+            <red>0</red>
+            <green>0</green>
+            <blue>0</blue>
+        </diffuse>
+        <specular>
+            <red>0</red>
+            <green>0</green>
+            <blue>0</blue>
+        </specular>
+    </animation>
+
+    <animation>
+        <name>cyan</name>
+        <type>material</type>
+        <object-name>Governor</object-name>
+        <object-name>RAT</object-name>
+        <emission>
+            <red-prop>sim/color-set/cyan/r</red-prop>
+            <green-prop>sim/color-set/cyan/g</green-prop>
+            <blue-prop>sim/color-set/cyan/b</blue-prop>
+            <alpha-prop>sim/color-set/cyan/a</alpha-prop>
+        </emission>
+        <ambient>
+            <red>0</red>
+            <green>0</green>
+            <blue>0</blue>
+        </ambient>
+        <diffuse>
+            <red>0</red>
+            <green>0</green>
+            <blue>0</blue>
+        </diffuse>
+        <specular>
+            <red>0</red>
+            <green>0</green>
+            <blue>0</blue>
+        </specular>
+    </animation>
+
+</PropertyList>

@@ -1,0 +1,428 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+  <name>chat-menu</name>
+  <x>10</x>
+  <y>-30</y>
+  <layout>vbox</layout>
+  <draggable>false</draggable>
+  <default-padding>1</default-padding>
+  <font>
+    <name>HELVETICA_12</name>
+  </font>
+  <color>
+    <red>0</red>
+    <green>0</green>
+    <blue>0</blue>
+    <alpha>0</alpha>
+  </color>
+  <text>
+    <label>0. Back</label>
+    <halign>left</halign>
+    <color>
+      <red>0.9</red>
+      <green>0.2</green>
+      <blue>0.2</blue>
+      <alpha>1</alpha>
+    </color>
+  </text>
+  <text>
+    <label>1. Edit</label>
+    <halign>left</halign>
+    <color>
+      <red>0.9</red>
+      <green>0.2</green>
+      <blue>0.2</blue>
+      <alpha>1</alpha>
+    </color>
+  </text>
+  <text>
+    <halign>left</halign>
+    <property>/sim/multiplay/chat-menu/entry[0]</property>
+    <live>true</live>
+    <color>
+      <red>0.9</red>
+      <green>0.2</green>
+      <blue>0.2</blue>
+      <alpha>1</alpha>
+    </color>
+  </text>
+  <text>
+    <halign>left</halign>
+    <property>/sim/multiplay/chat-menu/entry[1]</property>
+    <live>true</live>
+    <color>
+      <red>0.9</red>
+      <green>0.2</green>
+      <blue>0.2</blue>
+      <alpha>1</alpha>
+    </color>
+  </text>
+  <text>
+    <halign>left</halign>
+    <property>/sim/multiplay/chat-menu/entry[2]</property>
+    <live>true</live>
+    <color>
+      <red>0.9</red>
+      <green>0.2</green>
+      <blue>0.2</blue>
+      <alpha>1</alpha>
+    </color>
+  </text>
+  <text>
+    <halign>left</halign>
+    <property>/sim/multiplay/chat-menu/entry[3]</property>
+    <live>true</live>
+    <color>
+      <red>0.9</red>
+      <green>0.2</green>
+      <blue>0.2</blue>
+      <alpha>1</alpha>
+    </color>
+  </text>
+  <text>
+    <halign>left</halign>
+    <property>/sim/multiplay/chat-menu/entry[4]</property>
+    <live>true</live>
+    <color>
+      <red>0.9</red>
+      <green>0.2</green>
+      <blue>0.2</blue>
+      <alpha>1</alpha>
+    </color>
+  </text>
+  <text>
+    <halign>left</halign>
+    <property>/sim/multiplay/chat-menu/entry[5]</property>
+    <live>true</live>
+    <color>
+      <red>0.9</red>
+      <green>0.2</green>
+      <blue>0.2</blue>
+      <alpha>1</alpha>
+    </color>
+  </text>
+  <text>
+    <halign>left</halign>
+    <property>/sim/multiplay/chat-menu/entry[6]</property>
+    <live>true</live>
+    <color>
+      <red>0.9</red>
+      <green>0.2</green>
+      <blue>0.2</blue>
+      <alpha>1</alpha>
+    </color>
+  </text>
+  <text>
+    <halign>left</halign>
+    <property>/sim/multiplay/chat-menu/entry[7]</property>
+    <live>true</live>
+    <color>
+      <red>0.9</red>
+      <green>0.2</green>
+      <blue>0.2</blue>
+      <alpha>1</alpha>
+    </color>
+  </text>
+
+  <nasal>
+    <open>
+      <![CDATA[
+      var text = "";
+      var topNode = "/sim/multiplay/chat-menu/config";
+
+      setprop("/sim/multiplay/chat-menu/entry", "1");
+      setprop("/sim/multiplay/chat-menu/entry[1]", "2");
+      setprop("/sim/multiplay/chat-menu/entry[2]", "3");
+      setprop("/sim/multiplay/chat-menu/entry[3]", "4");
+      setprop("/sim/multiplay/chat-menu/entry[4]", "5");
+      setprop("/sim/multiplay/chat-menu/entry[5]", "6");
+      setprop("/sim/multiplay/chat-menu/entry[6]", "7");
+      setprop("/sim/multiplay/chat-menu/entry[7]", "8");
+      setprop("/sim/multiplay/chat-menu/entry[8]", "9");
+      setprop("/sim/multiplay/chat-menu/entry[9]", "0");
+
+      # Get the conversation tree.
+      var entryNodes = props.globals.getNode("/sim/multiplay/chat-menu").getChildren("entry");
+      var pos = props.globals.getNode(topNode);
+
+      # Get various substitution values.
+      var callsign = getprop("/sim/multiplay/callsign");
+
+      # Simple rounding of altitude to 100 ft.
+      var altitude = int(getprop("/position/altitude-ft")/100) * 100;
+
+      var type = getprop("/sim/description");
+      if (type != "")
+      {
+        # Get the first word of the description, which will (hopefully) be
+        # something appropriate, such as "Cessna", "Boeing".
+        type = split(" ", type)[0];
+      }
+
+      # Get the nearest airport.
+      var airport = airportinfo();
+
+      # Determine the active runway. We have two ways to do this:
+      # - If the aircraft is on the ground (or very close to it), we'll try to determine
+      # the runway it is closest to, and facing the correct direction for.
+      # - If the aircraft is in the air, we'll work out the active runway based on the wind.
+
+      var active_runway = "";
+      var on_ground = (getprop("/position/altitude-agl-ft") < 100);
+
+      if (on_ground)
+      {
+        # To find out the closest runway to the aircrafts position, we'll look at the heading
+        # required to go from the aircraft's current position to the center of each runway.
+        # The closer this is to the runways real heading, the more likely this is the runway
+        # we're on. Note that we can't rely on /sim/atc/runway, as this is only set on
+        # initialization.
+        var max = 360;
+        var loc = geo.aircraft_position();
+
+        foreach (var r; keys(airport.runways)) {
+          var curr = airport.runways[r];
+          var p = geo.Coord.new();
+          p.set_latlon(curr.lat, curr.lon, airport.elevation);
+
+          var course = loc.course_to(p) - curr.heading;
+          while (course >= 180) course -= 360;
+          while (course < -180) course += 360;
+
+          var deviation = math.abs(course);
+
+          if (deviation < max)
+          {
+            active_runway = r;
+            max = deviation;
+          }
+        }
+
+        # It may be the case that we're taxiing down the runway, past the mid-point.
+        # If the aircraft is facing the "wrong" way for this runway, then take the
+        # reciprocal runway.
+        var heading = getprop("/orientation/heading-magnetic-deg");
+        var deviation = heading - airport.runways[active_runway].heading;
+
+        while (deviation >= 180) deviation -= 360;
+        while (deviation < -180) deviation += 360;
+        deviation = math.abs(deviation);
+
+        if (deviation > 90)
+        {
+          var number = math.mod(num(substr(active_runway, 0, 2)) + 18, 36);
+          var side = substr(active_runway, 2, 1);
+          active_runway = sprintf("%02d%s", number, side == "R" ? "L" : side == "L" ? "R" : side);
+        }
+      }
+      else
+      {
+        var wind_speed = getprop("/environment/wind-speed-kt");
+        var wind_from = wind_speed ? getprop("/environment/wind-from-heading-deg") : 270;
+        var max = -1;
+
+        foreach (var r; keys(airport.runways)) {
+          var curr = airport.runways[r];
+
+          var wind = wind_from - curr.heading;
+          while (wind >= 180) wind -= 360;
+          while (wind < -180) wind += 360;
+
+          var deviation = math.abs(wind) + 1e-20;
+          var v = (0.01 * curr.length + 0.01 * curr.width) / deviation;
+
+          if (v > max) {
+            max = v;
+            active_runway = r;
+          }
+        }
+      }
+
+      # Find our distance and cardinal direction to the airport.
+      var directions = split(",", "North,North East,East,South East,South,South West,West,North West");
+      var loc = geo.aircraft_position();
+      var airportloc = geo.Coord.new();
+      airportloc.set_latlon(airport.lat, airport.lon, airport.elevation);
+
+      # We want the course _from_ the airport to the aircraft - for reporting ".. approaching from the SW"
+      var airport_course = airportloc.course_to(loc);
+      var airport_distance = int((airportloc.distance_to(loc) / 1609) + 0.5);
+
+      # Get an index into our array of directions.
+      var dir = int(math.mod((airport_course + 22.5), 360) / 45);
+      var airport_direction = directions[dir];
+
+      # Now launch the keyboard listener.
+      var kbdevent = setlistener("/devices/status/keyboard/event", func (event) {
+
+        # Only check the key when pressed.
+        if (!event.getNode("pressed").getValue())
+          return;
+
+        var key = event.getNode("key");
+
+        if (handle_key(key.getValue()))
+          key.setValue(-1);           # drop key event
+      });
+
+      var handle_key = func (key) {
+        # We only handle keys 0-9 and Esc
+
+        if (key == 27)
+        {
+          # escape -> cancel
+          removelistener(kbdevent);
+          gui.popdown();
+          fgcommand("dialog-close", props.Node.new({"dialog-name": "chat-menu"}));
+          return 1;
+        }
+
+        if ((key < `0`) or (key > `9`))
+        {
+          # pass the event back.
+          return 0;
+        }
+
+        if (key == `0`)
+        {
+          # Go back one level.
+          text = "";
+
+          if (pos.getName() != "config")
+          {
+            # Build up the chat string again.
+            pos = pos.getParent();
+            var p = pos;
+
+            while ((p.getName() != "config") and
+                   (p.getChild("name").getValue() != nil))
+            {
+              var t = string.trim(p.getChild("name").getValue());
+
+              # Entries that begin with "[" are silent.
+              if (t[0] != `[`)
+              {
+                text =  t ~ " " ~ text;
+              }
+
+              p = p.getParent();
+            }
+          }
+
+          updateDialog();
+        }
+
+        if (key == `1`)
+        {
+          # Go to edit mode using the inline editor.
+          removelistener(kbdevent);
+          gui.popdown();
+          multiplayer.compose_message(text);
+          fgcommand("dialog-close", props.Node.new({"dialog-name": "chat-menu"}));
+        }
+
+        if ((key > `1`) and (key <= `9`))
+        {
+          # Select the appropriate new node and update.
+          # The index starts from position 2.
+          var i = key - `2`;
+
+          if (i > (size(pos.getChildren("menu")) -1))
+          {
+            # Drop out if the user has entered a too large value.
+            return 0;
+          }
+
+          var t = entryNodes[i].getValue();
+
+          t = string.trim(substr(t, 3, size(t) -3));
+
+          # Entries that begin with "[" are silent.
+          if (t[0] != `[`)
+          {
+            text = text ~ " " ~ t;
+          }
+
+          pos = pos.getChildren("menu")[i];
+
+          if (size(pos.getChildren("menu")) == 0)
+          {
+            # We've come to the end of the tree - send the message and close
+            setprop("/sim/multiplay/chat", text);
+            removelistener(kbdevent);
+            gui.popdown();
+            fgcommand("dialog-close", props.Node.new({"dialog-name": "chat-menu"}));
+          }
+          else
+          {
+            # We've got more tree to traverse.
+            updateDialog();
+          }
+        }
+
+        # If we got here, we consumed the event
+        return 1;
+      }
+
+      # Substitute simple values into the string.
+      # The values we handle are
+      #
+      # % - Type (first word of /sim/description)
+      # # - callsign
+      # $ - altitude
+      # * - airport ID.
+      # & - course from airport to aircraft - "North West"
+      # ! - distance from aircraft to airport in miles.
+      #
+      var subvals = func (str) {
+        var t = "";
+
+        for (var p = 0; p < size(str); p += 1)
+        {
+          if (str[p] == `!`)    t ~= airport_direction;
+          elsif (str[p] == `^`) t ~= airport_distance;
+          elsif (str[p] == `(`) t ~= active_runway;
+          elsif (str[p] == `*`) t ~= airport.name;
+          elsif (str[p] == `%`) t ~= type;
+          elsif (str[p] == `#`) t ~= callsign;
+          elsif (str[p] == `$`) t ~= altitude;
+          else t ~= chr(str[p]);
+        }
+
+        return t;
+      }
+
+      var updateDialog = func {
+
+        var children = pos.getChildren("menu");
+        var i = 0;
+        foreach(var c; children)
+        {
+          var p = i + 2;
+          var txt = p ~ ': ' ~ subvals(c.getChild("name").getValue());
+
+          if (i < 9)
+          {
+            entryNodes[i].setValue(txt);
+          }
+          i = i + 1;
+        }
+
+        # Set the rest of the dialog to blank.
+        while (i <= 9)
+        {
+          entryNodes[i].setValue("");
+          i = i + 1;
+        }
+
+        # Write the popup.
+        gui.popupTip(text, 1000000);
+      }
+
+      # Start by updating the dialog.
+      updateDialog();
+     ]]>
+    </open>
+  </nasal>
+</PropertyList>

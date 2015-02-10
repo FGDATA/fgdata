@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+ <path>ai.ac</path>
+
+ <animation>
+  <type>material</type>
+  <object-name>Face</object-name>
+  <object-name>Pitch</object-name>
+  <object-name>Bezel</object-name>
+  <object-name>Ring</object-name>
+  <object-name>Front</object-name>
+  <emission>
+   <red>1.0</red>
+   <green>0.2</green>
+   <blue>0.0</blue>
+   <factor-prop>/sim/model//material/instruments/factor</factor-prop>
+  </emission>
+ </animation>
+
+ <animation>
+  <name>PitchTranslation</name>
+  <type>translate</type>
+  <object-name>Pitch</object-name>
+  <property>/instrumentation/attitude-indicator/indicated-pitch-deg</property>
+  <factor>-0.000530</factor>
+  <min-m>-0.01575</min-m>
+  <max-m>0.01575</max-m>
+  <axis>
+   <x>0.0</x>
+   <y>0.0</y>
+   <z>1.0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <name>BezelTranslation</name>
+  <type>translate</type>
+  <object-name>Bezel</object-name>
+  <property>/instrumentation/attitude-indicator/horizon-offset-deg</property>
+  <factor>-0.000530</factor>
+  <min-m>-0.01575</min-m>
+  <max-m>0.01575</max-m>
+  <axis>
+   <x>0.0</x>
+   <y>0.0</y>
+   <z>1.0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>Face</object-name>
+  <object-name>PitchTranslation</object-name>
+  <property>/instrumentation/attitude-indicator/indicated-roll-deg</property>
+  <factor>-1</factor>
+  <axis>
+   <x>-1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+ <!-- 
+    This cannot be part of the same rotation as the others, or else
+    it screws up the alpha drawing order and hides the bezel.
+ -->
+ <animation>
+  <type>rotate</type>
+  <object-name>Ring</object-name>
+  <property>/instrumentation/attitude-indicator/indicated-roll-deg</property>
+  <factor>-1</factor>
+  <axis>
+   <x>-1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+</PropertyList>
+
+

@@ -1,0 +1,354 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">
+<html>
+	<head>
+		<title>FlightGear: Festival Voice Interface</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	</head>
+
+	<body>
+
+
+<h1>FlightGear: Festival Voice Interface</h1>
+
+This page describes how to use FlightGear's voice interface to the Festival speech synthesis system, so that
+ATC, Pilot, etc. messages can be made audible. These messages are normally only displayed on top of the screen.
+A raw socket mode allows to send the messages to arbitrary servers.
+
+
+<h2>Quick instructions (assuming that you have Festival installed)</h2>
+
+<blockquote><pre>
+$ festival --server &amp;
+$ fgfs --aircraft=j3cub --airport=KSQL --prop:/sim/sound/voices/enabled=true</pre></blockquote>
+
+Now, in FlightGear, enable ATC (in the menu under "ATC"-&gt;"Options"), press the '-key (apostrophe key) and
+send a message to the ATC. Hear "your" voice, that of the ATC, and some time later that of AI-planes.
+
+
+
+<h2>Installing the Festival system</h2>
+
+<ul>
+<li>
+	Make sure Festival is installed, or download it from here:
+	<a href="http://www.cstr.ed.ac.uk/projects/festival/">http://www.cstr.ed.ac.uk/projects/festival/</a>
+</li><li>
+	Check if Festival works. Only the relevant lines are shown here. Note the parentheses!
+	<blockquote><pre>
+$ festival
+festival&gt; (SayText "FlightGear")
+festival&gt; (quit)</pre></blockquote>
+</li><li>
+	Check if MBROLA is installed, or download it from here:
+	<a href="http://tcts.fpms.ac.be/synthesis/mbrola/">http://tcts.fpms.ac.be/synthesis/mbrola/</a> -&gt; "Downloads"
+	-&gt; "MBROLA binary and voices" (link at the bottom; hard to find). Choose the binary for your platform.
+	Unfortunately, there's no source code available. If you don't like that, then you can skip the whole MBROLA
+	setup. But then you can't use the more realistic voices. You can also install further MBROLA voices from
+	this page. (See below)
+</li><li>
+	Run MBROLA and marvel at the help screen. That's just to check if it's in the path and executable.
+	<blockquote><pre>
+$ mbrola -h</pre></blockquote>
+</li>
+</ul>
+
+
+<h2>Installing more voices</h2>
+
+I'm afraid this is a bit tedious. You can skip it if you are happy with the default voice. First find the
+Festival data directory. All Festival data goes to a common file tree, like in FlightGear. This can be
+<tt>/usr/local/share/festival/</tt> on Unices. We'll call that directory <tt>$FESTIVAL</tt> for now.
+
+<ul>
+<li>
+	Check which voices are available. You can test them by prepending <tt>voice_</tt>:
+	<blockquote><pre>
+$ festival
+festival&gt; (print (mapcar (lambda (pair) (car pair)) voice-locations))
+(kal_diphone rab_diphone don_diphone us1_mbrola us2_mbrola us3_mbrola en1_mbrola)
+nil
+festival&gt; (voice_us3_mbrola)
+festival&gt; (SayText "I've got a nice voice.")
+festival&gt; (quit)</pre></blockquote>
+</li><li>
+	Festival voices and MBROLA wrappers can be downloaded here:
+	<a href="http://festvox.org/packed/festival/1.95/">http://festvox.org/packed/festival/1.95/</a>
+	The "don_diphone" voice isn't the best, but it's comparatively small and well suited for "ai-planes".
+	If you install it, it should end up as directory <tt>$FESTIVAL/voices/english/don_diphone/</tt>. You also need
+	to install "festlex_OALD.tar.gz" for it as <tt>$FESTIVAL/dicts/oald/</tt> and run the Makefile in this
+	directory. (You may have to add "<tt>--heap 10000000</tt>" to the festival command arguments in the Makefile.)
+</li><li>
+	Quite good voices are "us2_mbrola", "us3_mbrola", and "en1_mbrola". For these you need to install
+	MBROLA (see above) as well as these wrappers: <tt>festvox_us2.tar.gz</tt>, <tt>festvox_us3.tar.gz</tt>,
+	and <tt>festvox_en1.tar.gz</tt>. They create directories <tt>$FESTIVAL/voices/english/us2_mbrola/</tt> etc.
+	The voice <em>data</em>, however, has to be downloaded separately from another site:
+</li><li>
+	MBROLA voices can be downloaded from the MBROLA download page (see above). You want the
+	voices labeled "us2" and "us3". Unpack them in the directories that the wrappers have created:
+	<tt>$FESTIVAL/voices/english/us2_mbrola/</tt> and likewise for "us3" and "en1".
+</li>
+</ul>
+
+
+<h2>Running FlightGear with voice support</h2>
+
+<ul>
+<li>First start the festival server:
+	<blockquote><pre>
+$ festival --server</pre></blockquote>
+</li><li>
+	Start FlightGear with enabled voice subsystem, let's say with
+	<blockquote><pre>
+$ fgfs --aircraft=j3cub --airport=KSQL --prop:/sim/sound/voices/enabled=true</pre></blockquote>
+	Of course, you can put this option into your personal configuration file. This doesn't mean that
+	you then <em>always</em> have to use FlightGear together with Festival. You'll just get a few
+	error messages in the terminal window, but that's it. Note that you can currently <em>not</em>
+	enable the voice subsystem at runtime!
+</li><li>
+	Open the property browser to <tt>/sim/sound/voices/voice[0]/</tt> and write some text to the
+	<tt>text</tt> property. You should now hear this spoken with the default voice ("voice_kal_diphone").
+	You can try the same with <tt>voice[1]/</tt> etc. and should hear different voices if they
+	are installed, or the default voice again otherwise.
+</li><li>
+	Contact the KSFO ATC via '-key dialog (apostrophe key). You should hear "your" voice first (and see the
+	text in yellow color on top of the screen), then you should hear ATC answer with a different voice (and see
+	it in light-green color).
+</li><li>
+	You can edit the voice parameters in the <tt>preferences.xml</tt> file, and select different
+	screen colors and voice assignments in <tt>$FG_ROOT/Nasal/voice.nas</tt>. The messages aren't written
+	to the respective <tt>/sim/sound/voices/voice[*]/text</tt> properties directly, but rather to aliases
+	<tt>/sim/sound/voices/{atc,approach,ground,pilot,ai-plane}</tt>. (BTW: I've never heard anything from
+	<tt>ground</tt> and <tt>approach</tt> yet.)
+</li>
+</ul>
+
+
+
+<h2>Configuration &amp; Internals</h2>
+
+The <em>voice</em> subsystem only offers the common subsystem functions to the rest of FlightGear.
+There's no built-in function to let it send data to the socket. The only way is to write to the
+respective speech properties. The number of available voices, or rather "channels", isn't hard-coded.
+It's the number of &lt;voice&gt; groups in "/sim/sound/voices" that decides how many channels should be
+opened. This is a typical setting of interface properties, whereby the aliases at the end have
+nothing to do with the subsystem, but are handy shortcuts:
+
+<blockquote><pre>
+&lt;sim&gt;
+    &lt;voices&gt;
+        &lt;host type="string"&gt;localhost&lt;/host&gt;
+        &lt;port type="string"&gt;1314&lt;/port&gt;
+        &lt;enabled type="bool"&gt;false&lt;/enabled&gt;
+
+        &lt;voice&gt;
+            &lt;desc&gt;Pilot&lt;/desc&gt;
+            &lt;text type="string"&gt;&lt;/text&gt;
+            &lt;volume type="double"&gt;1.0&lt;/volume&gt;
+            &lt;pitch type="double"&gt;100.0&lt;/pitch&gt;
+            &lt;speed type="double"&gt;1.0&lt;/speed&gt;
+            &lt;preamble type="string"&gt;(voice_us3_mbrola)&lt;/preamble&gt;
+            &lt;festival type="bool"&gt;true&lt;/festival&gt;
+        &lt;/voice&gt;
+
+        &lt;voice&gt;
+            ...
+        &lt;/voice&gt;
+
+        &lt;!-- handy aliases, not part of the interface: --&gt;
+
+        &lt;atc alias="/sim/sound/voices/voice[0]/text"/&gt;
+        &lt;approach alias="/sim/sound/voices/voice[0]/text"/&gt;
+        &lt;ground alias="/sim/sound/voices/voice[0]/text"/&gt;
+        &lt;pilot alias="/sim/sound/voices/voice[1]/text"/&gt;
+        &lt;copilot alias="/sim/sound/voices/voice[2]/text"/&gt;
+        &lt;ai-plane alias="/sim/sound/voices/voice[3]/text"/&gt;
+    &lt;/voices&gt;
+&lt;/sim&gt;
+</pre></blockquote>
+
+The &lt;enabled&gt; property decides at init time whether the subsystem should
+be activated or not. There's currently no way to change this at runtime.
+
+Each &lt;voice&gt; group defines one channel. &lt;text&gt; is the output
+property. Every value that's written to it will be spoken by this channel.
+If &lt;festival&gt; is true, then the channel will set up &lt;pitch&gt; and
+&lt;speed&gt; (&lt;volume&gt; does currently not work and has to be <tt>1</tt>),
+and puts Festival markup around the text. If &lt;festival&gt; is false,
+then all text is written verbatim to the socket. &lt;preamble&gt; is always
+written to the socket once as last step of the socket creation. In "festival"
+mode it's used to set the voice, while in raw mode it could be used to identify
+the channel (assuming that the server knows what to do with it).
+
+
+
+<h2>Usage</h2>
+
+The design principle is that message generators (e.g. the ATC subsystem) write
+to a message property (e.g. <tt>/sim/messages/pilot</tt>). A listener ($FG_ROOT/Nasal/screen.nas)
+watches this property and decides what to do with it. For pilot and ATC it writes the message
+to the screen.log and copies it to the <tt>/sim/sound/voices/pilot</tt> property. This
+is an alias to the real voice channel <tt>/sim/sound/voices/voice[1]/text</tt>.
+This allows the most control and makes all steps user-configurable from Nasal
+scripts. Message generator should <em>not</em> write to the voice's &lt;text&gt;
+property directly, and only to the <tt>/sim/sound/voices/*</tt> aliases if a
+message should not be displayed by the system.
+
+
+
+<h2>Backward compatibility</h2>
+
+The new voice subsystem is functionally compatible with the old one that
+was part of the ATC subsystem. You just need to turn the &lt;festival&gt;
+bool properties off and set the server address correctly. This sends only
+the messages without any Festival syntax added:
+
+<blockquote><pre>
+&lt;sim&gt;
+    &lt;voices&gt;
+        &lt;host type="string"&gt;192.168.2.15&lt;/host&gt;
+        &lt;port type="string"&gt;7100&lt;/port&gt;
+        &lt;enabled type="bool"&gt;true&lt;/enabled&gt;
+        &lt;voice&gt;
+            &lt;desc&gt;ATC/Approach/Ground&lt;/desc&gt;
+            &lt;text type="string"&gt;&lt;/text&gt;
+            &lt;preamble type="string"&gt;ATC&lt;/preamble&gt;
+            &lt;festival type="bool"&gt;false&lt;/festival&gt;
+        &lt;/voice&gt;
+        &lt;voice&gt;
+            &lt;desc&gt;Pilot&lt;/desc&gt;
+            &lt;text type="string"&gt;&lt;/text&gt;
+            &lt;preamble type="string"&gt;Pilot&lt;/preamble&gt;
+            &lt;festival type="bool"&gt;false&lt;/festival&gt;
+        &lt;/voice&gt;
+        ...
+    &lt;/voices&gt;
+&lt;/sim&gt;
+</pre></blockquote>
+
+&lt;volume&gt;, &lt;pitch&gt;, and &lt;speed&gt; have no meaning and can
+be left away. Note that also in this mode the preamble gets sent first.
+It can be used to identify the channel. Of course, all messages could be
+sent to just one channel, though.
+
+
+
+<h2>Multichannel server</h2>
+
+Raw mode does, of course, require a different server than Festival. Here's
+a small Perl example for a multichannel server. Note how the &lt;preamble&gt;
+is used as channel identification:
+
+
+<blockquote><pre>
+#!/usr/bin/perl -Tw
+# License: GPL V2
+# Modified after Example from perlipc.pod ($ man perlipc)
+
+use strict;
+BEGIN {
+	$ENV{PATH} = '/usr/ucb:/bin';
+}
+
+use Socket;
+use Carp;
+my $EOL = "\015\012";
+
+sub spawn;  # forward declaration
+sub logmsg {
+	print "$0 $$: @_ at ", scalar localtime, "\n";
+}
+
+
+my $port = shift || 1314;
+my $proto = getprotobyname('tcp');
+
+
+($port) = $port =~ /^(\d+)$/ or die "invalid port";
+
+
+socket(Server, PF_INET, SOCK_STREAM, $proto) || die "socket: $!";
+setsockopt(Server, SOL_SOCKET, SO_REUSEADDR, pack("l", 1)) || die "setsockopt: $!";
+bind(Server, sockaddr_in($port, INADDR_ANY)) || die "bind: $!";
+listen(Server,SOMAXCONN) || die "listen: $!";
+
+
+logmsg "server started on port $port";
+
+
+my $waitedpid = 0;
+my $paddr;
+
+use POSIX ":sys_wait_h";
+sub REAPER {
+	my $child;
+	while (($waitedpid = waitpid(-1,WNOHANG)) &gt; 0) {
+		logmsg "reaped $waitedpid" . ($? ? " with exit $?" : '');
+	}
+	$SIG{CHLD} = \&amp;REAPER;  # loathe sysV
+}
+
+
+$SIG{CHLD} = \&amp;REAPER;
+
+for ($waitedpid = 0;
+		($paddr = accept(Client,Server)) || $waitedpid;
+		$waitedpid = 0, close Client) {
+	next if $waitedpid and not $paddr;
+	my($port,$iaddr) = sockaddr_in ($paddr);
+	my $name = gethostbyaddr($iaddr,AF_INET);
+
+	logmsg "connection from $name [", inet_ntoa($iaddr), "] at port $port";
+
+	spawn sub {
+		$|=1;
+		print "Hello there, $name, it's now ", scalar localtime, $EOL;
+		exec '/usr/bin/fortune'           # XXX: `wrong' line terminators
+			or confess "can't exec fortune: $!";
+	};
+}
+
+
+sub spawn
+{
+	my $coderef = shift;
+
+	unless (@_ == 0 &amp;&amp; $coderef &amp;&amp; ref($coderef) eq 'CODE') {
+		confess "usage: spawn CODEREF";
+	}
+
+	my $pid;
+	if (!defined($pid = fork)) {
+		logmsg "cannot fork: $!";
+		return;
+	} elsif ($pid) {
+		logmsg "creating child $pid";
+		return; # I'm the parent
+	}
+	# else I'm the child -- go spawn
+
+	# print header
+	my $id;
+	while (&lt;Client&gt;) {
+		s/^\s+//;
+		s/\s+$//;
+
+		# first line is voice channel id = "&lt;preamble&gt;"
+		if (not defined $id) {
+			$id = $_;
+			next;
+		}
+
+		print "\033[32m$id: \033[m$_\n";
+		last unless /\S/;
+	}
+
+	open(STDIN,  "&lt;&amp;Client") || die "can't dup client to stdin";
+	open(STDOUT, "&gt;&amp;Client") || die "can't dup client to stdout";
+	## open(STDERR, "&gt;&amp;STDOUT") || die "can't dup stdout to stderr";
+	exit &amp;$coderef();
+}
+</pre></blockquote>
+
+</body>
+</html>
+

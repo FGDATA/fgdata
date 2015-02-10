@@ -1,0 +1,223 @@
+<?xml version="1.0"?>
+<!-- (C) 2008 - 2010  Anders Gidenstam.
+     Distribution: GPL v2 or later.
+-->
+<PropertyList>
+
+ <!--==========================================================================
+  Fire LODs
+ -->
+ <model>
+  <name>SmokelessFireHigh</name>
+  <overlay>
+   <particlesystem>
+    <condition>
+     <greater-than>
+      <property>environment/wildfire/models/fire-lod</property>
+      <value>9</value>
+     </greater-than>
+    </condition>
+   </particlesystem>
+  </overlay>
+  <path>Models/Effects/Wildfire/fire.xml</path>
+  <offsets>
+   <x-m>0</x-m>
+   <y-m>0</y-m>
+   <z-m>2.0</z-m>
+  </offsets>
+ </model>
+
+ <model>
+  <name>SmokelessFireMed</name>
+  <overlay>
+   <particlesystem>
+    <condition>
+     <greater-than>
+      <property>environment/wildfire/models/fire-lod</property>
+      <value>4</value>
+     </greater-than>
+     <less-than>
+      <property>environment/wildfire/models/fire-lod</property>
+      <value>10</value>
+     </less-than>
+    </condition>
+    <counter>
+     <particles-per-sec>
+      <value>5.0</value>
+      <spread>5</spread>
+     </particles-per-sec>
+    </counter>
+   </particlesystem>
+  </overlay>
+  <path>Models/Effects/Wildfire/fire.xml</path>
+  <offsets>
+   <x-m>0</x-m>
+   <y-m>0</y-m>
+   <z-m>2.0</z-m>
+  </offsets>
+ </model>
+
+ <model>
+  <name>SmokelessFireLow</name>
+  <overlay>
+   <particlesystem>
+    <condition>
+     <less-than>
+      <property>environment/wildfire/models/fire-lod</property>
+      <value>5</value>
+     </less-than>
+    </condition>
+    <counter>
+     <particles-per-sec>
+      <value>2.0</value>
+      <spread>1</spread>
+     </particles-per-sec>
+    </counter>
+   </particlesystem>
+  </overlay>
+  <path>Models/Effects/Wildfire/fire.xml</path>
+  <offsets>
+   <x-m>0</x-m>
+   <y-m>0</y-m>
+   <z-m>2.0</z-m>
+  </offsets>
+ </model>
+
+ <!--==========================================================================
+  Smoke LODs
+ -->
+ <model>
+  <name>SmokeHigh</name>
+  <overlay>
+   <particlesystem>
+    <condition>
+     <greater-than>
+      <property>environment/wildfire/models/smoke-lod</property>
+      <value>9</value>
+     </greater-than>
+    </condition>
+   </particlesystem>
+  </overlay>
+  <path>Models/Effects/Wildfire/smoke.xml</path>
+  <offsets>
+   <x-m>0</x-m>
+   <y-m>0</y-m>
+   <z-m>10.0</z-m>
+  </offsets>
+ </model>
+
+ <model>
+  <name>SmokeMed</name>
+  <overlay>
+   <particlesystem>
+    <condition>
+     <greater-than>
+      <property>environment/wildfire/models/smoke-lod</property>
+      <value>4</value>
+     </greater-than>
+     <less-than>
+      <property>environment/wildfire/models/smoke-lod</property>
+      <value>10</value>
+     </less-than>
+    </condition>
+    <counter>
+     <particles-per-sec>
+      <value>0.5</value>
+      <spread>0.25</spread>
+     </particles-per-sec>
+    </counter>
+   </particlesystem>
+  </overlay>
+  <path>Models/Effects/Wildfire/smoke.xml</path>
+  <offsets>
+   <x-m>0</x-m>
+   <y-m>0</y-m>
+   <z-m>10.0</z-m>
+  </offsets>
+ </model>
+
+ <model>
+  <name>SmokeLow</name>
+  <overlay>
+   <particlesystem>
+    <condition>
+     <less-than>
+      <property>environment/wildfire/models/smoke-lod</property>
+      <value>5</value>
+     </less-than>
+    </condition>
+    <counter>
+     <particles-per-sec>
+      <value>0.1</value>
+      <spread>0.05</spread>
+     </particles-per-sec>
+    </counter>
+   </particlesystem>
+  </overlay>
+  <path>Models/Effects/Wildfire/smoke.xml</path>
+  <offsets>
+   <x-m>0</x-m>
+   <y-m>0</y-m>
+   <z-m>10.0</z-m>
+  </offsets>
+ </model>
+
+ <!--==========================================================================
+  Animations
+ -->
+
+ <animation>
+  <name>Fire</name>
+  <object-name>SmokelessFireHigh</object-name>
+  <object-name>SmokelessFireMed</object-name>
+  <object-name>SmokelessFireLow</object-name>
+ </animation>
+
+ <animation>
+  <name>Smoke</name>
+  <object-name>SmokeHigh</object-name>
+  <object-name>SmokeMed</object-name>
+  <object-name>SmokeLow</object-name>
+ </animation>
+
+ <animation>
+  <type>select</type>
+  <object-name>Fire</object-name>
+  <condition>
+   <property>environment/wildfire/models/enabled</property>
+  </condition>
+ </animation>
+
+ <animation>
+  <type>select</type>
+  <object-name>Smoke</object-name>
+  <condition>
+   <property>environment/wildfire/models/enabled</property>
+  </condition>
+ </animation>
+
+ <animation>
+  <type>range</type>
+  <object-name>Fire</object-name>
+  <min-m>0</min-m>
+  <max-m>10000</max-m>
+ </animation>
+
+ <animation>
+  <type>range</type>
+  <object-name>Smoke</object-name>
+  <min-m>0</min-m>
+  <max-m>20000</max-m>
+ </animation>
+
+ <animation>
+  <type>range</type>
+  <min-m>0</min-m>
+  <max-m>20000</max-m>
+ </animation>
+
+ <animation>
+  <enable-hot type="bool">false</enable-hot>
+ </animation>
+
+</PropertyList>

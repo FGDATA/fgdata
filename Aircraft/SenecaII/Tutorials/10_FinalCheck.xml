@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ This file is part of FlightGear, the free flight simulator
+ http://www.flightgear.org/
+
+ Copyright (C) 2009 Torsten Dreyer, Torsten (at) t3r _dot_ de
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation; either version 2 of the
+ License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+-->
+<PropertyList>
+  <name>Final Check</name>
+  <description>This is the final checklist. This is probably the most important checklist with its most important item "GEAR down/3green". Check these items at latest at the outer marker.</description>
+  <interval>0</interval>
+
+  <init>
+    <set>
+      <property>/sim/current-view/view-number</property>
+      <value>0</value>
+    </set>
+  </init>
+
+  <step>
+    <message>
+      GEAR: down/3 green
+    </message>
+  </step>
+
+  <step>
+    <message>
+      PROP: high rpm
+    </message>
+  </step>
+
+  <step>
+    <message>
+      MIXTURE: rich
+    </message>
+  </step>
+
+  <step>
+    <message>
+      FLAPS: set
+    </message>
+  </step>
+
+  <step>
+    <message>
+      LANDING LIGHT: on
+    </message>
+  </step>
+
+</PropertyList>

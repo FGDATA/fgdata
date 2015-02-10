@@ -1,0 +1,80 @@
+<?xml version="1.0" ?>
+<!--
+ This file is part of FlightGear, the free flight simulator
+ http://www.flightgear.org/
+
+ Copyright (C) 2009 Torsten Dreyer, Torsten (at) t3r _dot_ de
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation; either version 2 of the
+ License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+-->
+<PropertyList>
+    <path>GearTransitLight.ac</path>
+    <animation>
+        <type>material</type>
+        <object-name>GearTransitLight</object-name>
+        <condition>
+          <property>gear/transit-light/serviceable</property>
+          <or>
+            <and>
+              <greater-than>
+                <property>gear/gear[0]/position-norm</property>
+                <value>0.01</value>
+              </greater-than>
+              <less-than>
+                <property>gear/gear[0]/position-norm</property>
+                <value>0.99</value>
+              </less-than>
+            </and>
+            <and>
+              <greater-than>
+                <property>gear/gear[1]/position-norm</property>
+                <value>0.01</value>
+              </greater-than>
+              <less-than>
+                <property>gear/gear[1]/position-norm</property>
+                <value>0.99</value>
+              </less-than>
+            </and>
+            <and>
+              <greater-than>
+                <property>gear/gear[2]/position-norm</property>
+                <value>0.01</value>
+              </greater-than>
+              <less-than>
+                <property>gear/gear[2]/position-norm</property>
+                <value>0.99</value>
+              </less-than>
+            </and>
+          </or>
+
+          <greater-than>
+            <property>/systems/electrical/battery-bus/u-volts</property>
+            <value type="double">8.0</value>
+          </greater-than>
+          <not>
+            <property>controls/electric/circuitbreaker/cb_0_6</property>
+          </not>
+        </condition>
+        <emission>
+            <red>1.0</red>
+            <green>1.0</green>
+            <blue>1.0</blue>
+        </emission>
+    </animation>
+    <animation>
+        <type>noshadow</type>
+    </animation>
+    <animation>
+        <type>range</type>
+        <min-m>0</min-m>
+        <max-m>20</max-m>
+    </animation>
+</PropertyList>

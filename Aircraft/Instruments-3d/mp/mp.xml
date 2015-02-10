@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+ <path>mp.ac</path>
+
+ <animation>
+  <type>material</type>
+  <object-name>Face</object-name>
+  <object-name>Needle</object-name>
+  <emission>
+   <red>1.0</red>
+   <green>0.2</green>
+   <blue>0.0</blue>
+   <factor-prop>/sim/model//material/instruments/factor</factor-prop>
+  </emission>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>Needle</object-name>
+  <property>/engines/engine[0]/mp-osi</property>
+  <interpolation>
+   <entry><ind>  5</ind><dep>-116 </dep></entry>     
+   <entry><ind>  10</ind><dep>-96</dep></entry>     
+   <entry><ind>  15</ind><dep> -74</dep></entry>     
+   <entry><ind> 20</ind><dep> -52 </dep></entry>     
+   <entry><ind> 25</ind><dep> -28 </dep></entry>     
+   <entry><ind> 30</ind><dep>  0 </dep></entry>     
+   <entry><ind> 35</ind><dep>  28 </dep></entry>     
+   <entry><ind> 40</ind><dep>  56 </dep></entry>     
+   <entry><ind> 45</ind><dep> 84 </dep></entry>     
+  </interpolation>
+  <axis>
+   <x>-1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+</PropertyList>
+
+

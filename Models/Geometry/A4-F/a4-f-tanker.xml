@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+  <path>a4-f-tanker.ac</path>
+  <offsets>
+    <x-m>-5.61</x-m>
+    <z-m>-0.25</z-m>
+  </offsets>
+
+<!-- Transparent Surfaces for Rembrandt rendering -->
+  <effect>
+    <inherits-from>Effects/model-transparent</inherits-from>
+    <object-name>FixedCanopyGlass</object-name>
+    <object-name>Canopy_1</object-name>
+  </effect>
+ 
+  <animation>
+    <object-name>Hose</object-name>
+    <object-name>Drogue</object-name>
+    <enable-hot>false</enable-hot>
+  </animation>
+
+  <model>
+    <path>Pilot/pilot.xml</path>
+    <name>Pilot</name>
+    <offsets>
+	  <x-m>3.39</x-m>
+	  <y-m>0.0</y-m>
+	  <z-m>0.66</z-m>
+	</offsets>
+  </model>
+
+</PropertyList>
+
+
+
+

@@ -1,0 +1,258 @@
+<?xml version="1.0"?>
+
+<!-- Departs Port Angeles ferry terminal makes a sternboard across the 
+		 harbour, turns and sails ENE out of the harbour, turns N across 
+		 the tip of Ediz Hook into Strait of Juan deFuca, crosses to Victoria,
+		 turns and makes a sternboard through the inner harbor to the
+     terminal dock, and returns.
+     
+     Format:                                                         
+       <name>       Waypoint name.  When a waypoint named END is reached
+                    the AI airplane will delete itself.                                       
+       <lat>        latitude, degrees (-90 to 90)                                    
+       <lon>        Longitude, degrees (-180 to 180)                                   
+       [<alt>        altitude above sea level, feet]                                      
+       [<crossat>    Crossing altitude, feet ]                             
+       <ktas>       Knots true airspeed
+       [<on-ground>  set true if on the ground
+       <gear-down>  set true for gear down, false for gear up
+       <flaps-down> set true for flaps down, false for flaps up]
+			 [not required for ships]
+-->
+
+<PropertyList>
+
+	<flightplan>
+
+		<wpt>
+			<name>PA-Dock</name>
+			<lat>48.1221844549</lat>
+			<lon>-123.430264484</lon>
+			<alt>0.0</alt>
+			<ktas>-5</ktas>
+			<on-ground>true</on-ground>
+		</wpt>
+
+		<wpt>
+			<name>PA-Hbr1-Outbound</name>
+			<lat>48.1326143498</lat>
+			<lon>-123.41492986</lon>
+			<alt>0.0</alt>
+			<ktas>10</ktas>
+			<on-ground>true</on-ground>
+		</wpt>
+
+		<wpt>
+			<name>PA-Hbr2-Outbound</name>
+			<lat>48.1344474732</lat>
+			<lon>-123.388115089</lon>
+			<alt>0.0</alt>
+			<ktas>15</ktas>
+			<on-ground>true</on-ground>
+		</wpt>
+
+		<wpt>
+			<name>PA-Turn-Outbound</name>
+			<lat>48.1482851682</lat>
+			<lon>-123.365677316</lon>
+			<alt>0.0</alt>
+			<ktas>20</ktas>
+			<on-ground>true</on-ground>
+		</wpt>
+
+		<wpt>
+			<name>PA-Hbr-Approach-Outbound</name>
+			<lat>48.183131859</lat>
+			<lon>-123.364980425 </lon>
+			<alt>0.0</alt>
+			<ktas>20</ktas>
+			<on-ground>true</on-ground>
+		</wpt>
+
+		<wpt>
+			<name>Boundary-N</name>
+			<lat>48.256436062</lat>
+			<lon>-123.386972703</lon>
+			<alt>0.0</alt>
+			<ktas>20</ktas>
+			<on-ground>true</on-ground>
+		</wpt>
+
+		<wpt>
+			<name>Vic-Hbr-Approach-Inbound</name>
+			<lat>48.3817854566</lat>
+			<lon>-123.380799643</lon>
+			<alt>0.0</alt>
+			<ktas>15</ktas>
+			<on-ground>true</on-ground>
+		</wpt>
+
+		<wpt>
+			<name>Vic-Turn</name>
+			<lat>48.4036758581</lat>
+			<lon>-123.400737314</lon>
+			<alt>0.0</alt>
+			<ktas>-15</ktas>
+			<on-ground>true</on-ground>
+		</wpt>
+
+		<wpt>
+			<name>Vic-Hbr4-Inbound</name>
+			<lat>48.4165847721</lat>
+			<lon>-123.395552103</lon>
+			<alt>0.0</alt>
+			<ktas>-5</ktas>
+			<on-ground>true</on-ground>
+		</wpt>
+
+		<wpt>
+			<name>Vic-Hbr3-Inbound</name>
+			<lat>48.4248653282</lat>
+			<lon>-123.389698878</lon>
+			<alt>0.0</alt>
+			<ktas>-10</ktas>
+			<on-ground>true</on-ground>
+		</wpt>
+
+		<wpt>
+			<name>Vic-Hbr2-Inbound</name>
+			<lat>48.4249137814</lat>
+			<lon>-123.379223151</lon>
+			<alt>0.0</alt>
+			<ktas>-5</ktas>
+			<on-ground>true</on-ground>
+		</wpt>
+
+		<wpt>
+			<name>Vic-Hbr1-Inbound</name>
+			<lat>48.4247316913</lat>
+			<lon>-123.374674623</lon>
+			<alt>0.0</alt>
+			<ktas>-2.5</ktas>
+			<on-ground>true</on-ground>
+		</wpt>
+
+		<wpt>
+			<name>Vic-Dock</name>
+			<lat>48.4223615701</lat>
+			<lon>-123.372850847</lon>
+			<alt>0.0</alt>
+			<ktas>2.5</ktas>
+			<on-ground>true</on-ground>
+		</wpt>
+
+		<wpt>
+			<name>Vic-Hbr1-Outbound</name>
+			<lat>48.4247316913</lat>
+			<lon>-123.374674623</lon>
+			<alt>0.0</alt>
+			<ktas>5</ktas>
+			<on-ground>true</on-ground>
+		</wpt>
+
+		<wpt>
+			<name>Vic-Hbr2-Outbound</name>
+			<lat>48.4249137814</lat>
+			<lon>-123.379223151</lon>
+			<alt>0.0</alt>
+			<ktas>5</ktas>
+			<on-ground>true</on-ground>
+		</wpt>
+
+		<wpt>
+			<name>Vic-Hbr3-Outbound</name>
+			<lat>48.4248653282</lat>
+			<lon>-123.389698878</lon>
+			<alt>0.0</alt>
+			<ktas>15</ktas>
+			<on-ground>true</on-ground>
+		</wpt>
+
+		<wpt>
+			<name>Vic-Hbr4-Outbound</name>
+			<lat>48.4165847721</lat>
+			<lon>-123.395552103</lon>
+			<alt>0.0</alt>
+			<ktas>20</ktas>
+			<on-ground>true</on-ground>
+		</wpt>
+
+		<wpt>
+			<name>Vic-Turn</name>
+			<lat>48.4036758581</lat>
+			<lon>-123.400737314</lon>
+			<alt>0.0</alt>
+			<ktas>20</ktas>
+			<on-ground>true</on-ground>
+		</wpt>
+
+		<wpt>
+			<name>Vic-Hbr-Approach</name>
+			<lat>48.3812620399</lat>
+			<lon>-123.401088467</lon>
+			<alt>0.0</alt>
+			<ktas>20</ktas>
+			<on-ground>true</on-ground>
+		</wpt>
+
+		<wpt>
+			<name>Boundary-S</name>
+			<lat>48.2568629372</lat>
+			<lon>-123.386972703</lon>
+			<alt>0.0</alt>
+			<ktas>20</ktas>
+			<on-ground>true</on-ground>
+		</wpt>
+
+		<wpt>
+			<name>PA-Hbr-Approach-Inbound</name>
+			<lat>48.1829239323</lat>
+			<lon>-123.391092835</lon>
+			<alt>0.0</alt>
+			<ktas>15</ktas>
+			<on-ground>true</on-ground>
+		</wpt>
+
+		<wpt>
+			<name>PA-Turn-Inbound</name>
+			<lat>48.1482839721</lat>
+			<lon>-123.38735533</lon>
+			<alt>0.0</alt>
+			<ktas>10</ktas>
+			<on-ground>true</on-ground>
+		</wpt>
+
+		<wpt>
+			<name>PA-Hbr2-Inbound</name>
+			<lat>48.1344474732</lat>
+			<lon>-123.388115089</lon>
+			<alt>0.0</alt>
+			<ktas>5</ktas>
+			<on-ground>true</on-ground>
+		</wpt>
+
+		<wpt>
+			<name>PA-Hbr1-Inbound</name>
+			<lat>48.1326143498</lat>
+			<lon>-123.41492986</lon>
+			<alt>0.0</alt>
+			<ktas>2.5</ktas>
+			<on-ground>true</on-ground>
+		</wpt>
+
+		<wpt>
+			<name>PA-Dock</name>
+			<lat>48.1159864889</lat>
+			<lon>-123.435526156</lon>
+			<alt>0.0</alt>
+			<ktas>2.5</ktas>
+			<on-ground>true</on-ground>
+		</wpt>
+
+		<wpt>
+			<name>END</name>
+		</wpt>
+
+	</flightplan>
+
+</PropertyList>

@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+
+<!--
+Default vertical velocity indicator instrument.
+
+Started summer 2000 by David Megginson, david@megginson.com.
+
+This is an instrument configuration file for the open-source flight
+simulator FlightGear (www.flightgear.org).  The file is an XML-encoded
+FlightGear property list defining the instrument's layers and actions.
+
+Each instrument is composed of layers stacked on top of each other.
+A layer may be a texture (with transparent parts to show the layers
+underneath), text, or a special layer that switches between two
+others (say, to turn an indicator light on or off).  Each layer can
+move independently in proportion to a property value, and text
+can be generated from property values as well: all of the layer's
+movements are defined as transformations.
+
+Actions are hotspots on the instrument that will respond to a mouse
+click.  Actions always modify the values of properties, either by
+adjusting them, toggling them, or swaping them with other
+properties' values.
+-->
+
+<PropertyList>
+ <name>Vertical Speed Indicator</name>
+ <w-base>256</w-base>
+ <h-base>256</h-base>
+ <layers>
+  <layer>
+   <name>background</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/faces-1-hi.rgb</path>
+    <x1>0.0</x1>
+    <y1>0.0</y1>
+    <x2>0.49</x2>
+    <y2>0.49</y2>
+   </texture>
+   <w>228</w>
+   <h>228</h>
+  </layer>
+<!-- fix misc.rgb -->
+  <layer>
+   <name>needle</name>
+   <texture> 
+    <path>Aircraft/Instruments/Textures/madr-misc1.rgb</path>
+    <x1>0.875</x1>
+    <y1>0.5</y1>
+    <x2>1.0</x2>
+    <y2>1.0</y2>
+   </texture>
+   <w>32</w>
+   <h>138</h>
+   <transformations>
+    <transformation>
+     <type>rotation</type>
+     <property>/instrumentation/vertical-speed-indicator/indicated-speed-fpm</property>
+     <min>-2000.0</min>
+     <max>2000.0</max>
+     <scale>0.084</scale>
+     <offset>270.0</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>18.0</offset>
+    </transformation>
+   </transformations>
+  </layer>
+  <layer>
+  <name>button</name>
+  <texture>
+  <path>Aircraft/Instruments/Textures/misc-1.rgb</path>
+  <x1>0.6171875</x1>
+  <y1>0.2421875</y1>
+  <x2>0.7890625</x2>
+  <y2>0.4140625</y2>
+  </texture>
+  <w>30</w>
+  <h>30</h>
+  </layer>
+  <layer>
+   <name>glare shield</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/bezel1.rgb</path>
+    <x1>0.5</x1>
+    <y1>0.0</y1>
+    <x2>1.0</x2>
+    <y2>0.5</y2>
+   </texture>
+  <w>256</w>
+  <h>256</h>
+  <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>2</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-2</offset>
+    </transformation>
+  </transformations>
+ </layer>
+</layers>
+</PropertyList>

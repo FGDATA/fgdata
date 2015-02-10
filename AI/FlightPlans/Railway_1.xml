@@ -1,0 +1,256 @@
+<?xml version="1.0"?>
+
+<!-- Departs Port Angeles ferry terminal makes a sternboard across the 
+		 harbour, turns and sails ENE out of the harbour, turns N across 
+		 the tip of Ediz Hook into Strait of Juan deFuca, crosses to Victoria,
+		 turns and makes a sternboard through the inner harbor to the
+     terminal dock, and returns.
+     
+     Format:                                                         
+       <name>       Waypoint name.  When a waypoint named END is reached
+                    the AI airplane will delete itself.                                       
+       <lat>        latitude, degrees (-90 to 90)                                    
+       <lon>        Longitude, degrees (-180 to 180)                                   
+       [<alt>        altitude above sea level, feet]                                      
+       [<crossat>    Crossing altitude, feet ]                             
+       <ktas>       Knots true airspeed
+       [<on-ground>  set true if on the ground
+       <gear-down>  set true for gear down, false for gear up
+       <flaps-down> set true for flaps down, false for flaps up]
+			 [not required for ships]
+-->
+
+
+
+
+<!--
+
+
+
+
+
+
+
+
+
+
+-->
+
+<PropertyList>
+
+	<flightplan>
+
+		<wpt>
+			<name>1</name>
+			<lat>53.682875365</lat>
+			<lon>-1.506121977</lon>
+			<alt>0.0</alt>
+			<ktas>10</ktas>
+			<on-ground>true</on-ground>
+		</wpt>
+
+		<wpt>
+			<name>2</name>
+			<lat>53.683689746</lat>
+			<lon>-1.506762244</lon>
+			<alt>0.0</alt>
+			<ktas>10</ktas>
+			<on-ground>true</on-ground>
+		</wpt>
+
+		<wpt>
+			<name>3</name>
+			<lat>53.684504123</lat>
+			<lon>-1.507402535</lon>
+			<alt>0.0</alt>
+			<ktas>15</ktas>
+			<on-ground>true</on-ground>
+		</wpt>
+
+		<wpt>
+			<name>4</name>
+			<lat>53.685321700</lat>
+			<lon>-1.508031904</lon>
+			<alt>0.0</alt>
+			<ktas>20</ktas>
+			<on-ground>true</on-ground>
+		</wpt>
+
+		<wpt>
+			<name>5</name>
+			<lat>53.686700479</lat>
+			<lon>-1.509069578</lon>
+			<alt>0.0</alt>
+			<ktas>20</ktas>
+			<on-ground>true</on-ground>
+		</wpt>
+
+		<wpt>
+			<name>6</name>
+			<lat>53.687520558</lat>
+			<lon>-1.509688815</lon>
+			<alt>0.0</alt>
+			<ktas>20</ktas>
+			<on-ground>true</on-ground>
+		</wpt>
+
+		<wpt>
+			<name>7</name>
+			<lat>53.688340635</lat>
+			<lon>-1.510308077</lon>
+			<alt>0.0</alt>
+			<ktas>10</ktas>
+			<on-ground>true</on-ground>
+		</wpt>
+
+		<wpt>
+			<name>8</name>
+			<lat>53.689163620,</lat>
+			<lon>-1.510917017</lon>
+			<alt>0.0</alt>
+			<ktas>20</ktas>
+			<on-ground>true</on-ground>
+		</wpt>
+
+		<wpt>
+			<name>9</name>
+			<lat>53.689991639,</lat>
+			<lon>-1.511506507</lon>
+			<alt>0.0</alt>
+			<ktas>40</ktas>
+			<on-ground>true</on-ground>
+		</wpt>
+
+		<wpt>
+			<name>10</name>
+			<lat>53.690793507,</lat>
+			<lon>-1.512181794</lon>
+			<alt>0.0</alt>
+			<ktas>40</ktas>
+			<on-ground>true</on-ground>
+		</wpt>
+
+		<wpt>
+			<name>11</name>
+			<lat>53.692383414</lat>
+			<lon>-1.513594980</lon>
+			<alt>0.0</alt>
+			<ktas>30</ktas>
+			<on-ground>true</on-ground>
+		</wpt>
+
+		<wpt>
+			<name>12</name>
+			<lat>53.693178361</lat>
+			<lon>-1.514301613</lon>
+			<alt>0.0</alt>
+			<ktas>20</ktas>
+			<on-ground>true</on-ground>
+		</wpt>
+
+		<wpt>
+			<name>13</name>
+			<lat>53.693973304</lat>
+			<lon>-1.515008273</lon>
+			<alt>0.0</alt>
+			<ktas>10</ktas>
+			<on-ground>true</on-ground>
+		</wpt>
+
+		<wpt>
+			<name>14</name>
+			<lat>53.694768470,</lat>
+			<lon>-1.515714488</lon>
+			<alt>0.0</alt>
+			<ktas>20</ktas>
+			<on-ground>true</on-ground>
+		</wpt>
+
+		<wpt>
+			<name>16</name>
+			<lat>53.695565103</lat>
+			<lon>-1.516415727</lon>
+			<alt>0.0</alt>
+			<ktas>30</ktas>
+			<on-ground>true</on-ground>
+		</wpt>
+
+		<wpt>
+			<name>17</name>
+			<lat>53.696361731</lat>
+			<lon>-1.517116993</lon>
+			<alt>0.0</alt>
+			<ktas>15</ktas>
+			<on-ground>true</on-ground>
+		</wpt>
+
+		<wpt>
+			<name>18</name>
+			<lat>53.697544610</lat>
+			<lon>-1.517887745</lon>
+			<alt>0.0</alt>
+			<ktas>20</ktas>
+			<on-ground>true</on-ground>
+		</wpt>
+
+		<wpt>
+			<name>19</name>
+			<lat>53.698406477</lat>
+			<lon>-1.518320135</lon>
+			<alt>0.0</alt>
+			<ktas>20</ktas>
+			<on-ground>true</on-ground>
+		</wpt>
+
+		<wpt>
+			<name>20</name>
+			<lat>53.699296362</lat>
+			<lon>-1.518527759</lon>
+			<alt>0.0</alt>
+			<ktas>20</ktas>
+			<on-ground>true</on-ground>
+		</wpt>
+
+		<wpt>
+			<name>21</name>
+			<lat>53.700186248</lat>
+			<lon>-1.518735391</lon>
+			<alt>0.0</alt>
+			<ktas>20</ktas>
+			<on-ground>true</on-ground>
+		</wpt>
+		
+		<wpt>
+			<name>22</name>
+			<lat>53.700186248</lat>
+			<lon>-1.518735391</lon>
+			<alt>0.0</alt>
+			<ktas>-20</ktas>
+			<on-ground>true</on-ground>
+		</wpt>
+		
+		<wpt>
+			<name>23</name>
+			<lat>53.699296362</lat>
+			<lon>-1.518527759</lon>
+			<alt>0.0</alt>
+			<ktas>-20</ktas>
+			<on-ground>true</on-ground>
+		</wpt>
+
+		<wpt>
+			<name>24</name>
+			<lat>53.683689746</lat>
+			<lon>-1.506762244</lon>
+			<alt>0.0</alt>
+			<ktas>-20</ktas>
+			<on-ground>true</on-ground>
+		</wpt>
+
+		<wpt>
+			<name>END</name>
+		</wpt>
+
+	</flightplan>
+
+</PropertyList>

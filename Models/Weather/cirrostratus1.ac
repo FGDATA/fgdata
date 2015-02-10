@@ -1,0 +1,23 @@
+AC3Db
+MATERIAL "ac3dmat1" rgb 1 1 1  amb 0.2 0.2 0.2  emis 0 0 0  spec 0.2 0.2 0.2  shi 128  trans 0
+OBJECT world
+kids 1
+OBJECT poly
+name "rect"
+loc 0 443.588 -0.0564718
+texture "cirrostratus_textures.rgb"
+crease 45.000000
+numvert 4
+0 -1932.66 -2309.5
+0 -1932.66 2309.5
+0 1932.66 2309.5
+0 1932.66 -2309.5
+numsurf 1
+SURF 0x30
+mat 0
+refs 4
+3 0 0.996094
+2 0.404297 0.996094
+1 0.404297 0.664062
+0 0 0.664062
+kids 0

@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<assemblies
+  fg-root="../../.."
+  pwd="Aircraft/Instruments-3d/mk-viii"
+  texture-path="Textures/gpws"
+  emission-red="/sim/mk-viii/assemblies/emission/red"
+  emission-green="/sim/mk-viii/assemblies/emission/green"
+  emission-blue="/sim/mk-viii/assemblies/emission/blue"
+  emission-factor="/sim/mk-viii/assemblies/emission/factor">
+
+  <assembly
+    name="caution0"
+    texture="caution"
+    input="/instrumentation/mk-viii/outputs/discretes/gpws-alert"
+    output="/instrumentation/mk-viii/inputs/discretes/glideslope-cancel"/>
+
+  <assembly
+    name="caution1"
+    texture="caution"
+    input="/instrumentation/mk-viii/outputs/discretes/gpws-alert"
+    output="/instrumentation/mk-viii/inputs/discretes/glideslope-cancel"/>
+
+  <assembly
+    name="flap-override"
+    input="/instrumentation/mk-viii/outputs/discretes/flap-override"
+    output="/instrumentation/mk-viii/inputs/discretes/momentary-flap-override"
+    guarded="true"/>
+
+  <assembly
+    name="glideslope-cancelled"
+    input="/instrumentation/mk-viii/outputs/discretes/glideslope-cancel"/>
+
+  <assembly
+    name="inhibit"
+    output="/instrumentation/mk-viii/inputs/discretes/gpws-inhibit"
+    guarded="true"/>
+
+  <assembly
+    name="inop"
+    input="/instrumentation/mk-viii/outputs/discretes/gpws-inop"/>
+
+  <assembly
+    name="steep-approach"
+    input="/instrumentation/mk-viii/outputs/discretes/steep-approach"
+    output="/instrumentation/mk-viii/inputs/discretes/steep-approach"
+    guarded="true"/>
+
+  <assembly
+    name="terrain-fail"
+    input="/instrumentation/mk-viii/outputs/discretes/tad-inop"/>
+
+  <assembly
+    name="terrain-inhibit"
+    output="/instrumentation/mk-viii/inputs/discretes/ta-tcf-inhibit"
+    guarded="true"/>
+
+  <assembly
+    name="warning0"
+    texture="warning"
+    input="/instrumentation/mk-viii/outputs/discretes/gpws-warning"
+    output="/instrumentation/mk-viii/inputs/discretes/self-test"/>
+
+  <assembly
+    name="warning1"
+    texture="warning"
+    input="/instrumentation/mk-viii/outputs/discretes/gpws-warning"
+    output="/instrumentation/mk-viii/inputs/discretes/self-test"/>
+</assemblies>

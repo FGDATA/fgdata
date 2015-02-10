@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- flight recorder configuration -->
+<!-- environment -->
+
+<PropertyList>
+
+    <signal>
+        <type>float</type>
+        <property type="string">/environment/wind-speed-kt</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">/environment/wind-from-heading-deg</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">/environment/turbulence/magnitude-norm</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">/environment/temperature-degc</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">/environment/pressure-sea-level-inhg</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">/environment/magnetic-variation-deg</property>
+    </signal>
+    <signal>
+        <type>bool</type>
+        <property type="string">/hazards/icing/wing</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">/environment/visibility-m</property>
+    </signal>
+    
+</PropertyList>

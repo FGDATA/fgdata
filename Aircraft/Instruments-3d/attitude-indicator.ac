@@ -1,0 +1,89 @@
+AC3Db
+MATERIAL "NoName" rgb 1 1 1  amb 1 1 1  emis 0 0 0  spec 0 0 0 shi 72  trans 0
+OBJECT world
+kids 5
+OBJECT poly
+name "Background"
+texture "attitude-indicator.rgb"
+numvert 4
+-7.2e-05 -0.037166 -0.038157
+-7.2e-05 -0.037166 0.036843
+-7.2e-05 0.037834 0.036843
+-7.2e-05 0.037834 -0.038157
+numsurf 1
+SURF 0x00
+mat 0
+refs 4
+0 0.503906 0.003906
+3 0.503906 0.503906
+2 0.003906 0.503906
+1 0.003906 0.003906
+kids 0
+OBJECT poly
+name "Float"
+texture "attitude-indicator.rgb"
+numvert 4
+0.001422 -0.018106 -0.029359
+0.001422 -0.018106 0.02871
+0.001422 0.021097 0.02871
+0.001422 0.021097 -0.029359
+numsurf 1
+SURF 0x00
+mat 0
+refs 4
+0 0.875 0.003906
+3 0.875 0.253906
+2 0.503906 0.253906
+1 0.503906 0.003906
+kids 0
+OBJECT poly
+name "Scale"
+texture "attitude-indicator.rgb"
+numvert 4
+0.002915 -0.055916 -0.056907
+0.002915 -0.055916 0.055593
+0.002915 0.056584 0.055593
+0.002915 0.056584 -0.056907
+numsurf 1
+SURF 0x00
+mat 0
+refs 4
+0 1.0 0.5
+3 1.0 1.0
+2 0.5 1.0
+1 0.5 0.5
+kids 0
+OBJECT poly
+name "Face"
+texture "attitude-indicator.rgb"
+numvert 4
+0.005072 -0.037166 -0.038157
+0.005072 -0.037166 0.036843
+0.005072 0.037834 0.036843
+0.005072 0.037834 -0.038157
+numsurf 1
+SURF 0x00
+mat 0
+refs 4
+0 0.503906 0.5
+3 0.503906 1.0
+2 0.003906 1.0
+1 0.003906 0.5
+kids 0
+OBJECT poly
+name "Markings"
+texture "attitude-indicator.rgb"
+numvert 4
+0.006902 -0.018106 -0.029359
+0.006902 -0.018106 0.02871
+0.006902 0.021097 0.02871
+0.006902 0.021097 -0.029359
+numsurf 1
+SURF 0x00
+mat 0
+refs 4
+0 0.820313 0.253906
+3 0.820313 0.503906
+2 0.449219 0.503906
+1 0.449219 0.253906
+kids 0

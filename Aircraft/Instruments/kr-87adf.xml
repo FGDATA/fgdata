@@ -1,0 +1,1151 @@
+<?xml version="1.0"?>
+
+<!--
+King KR-87 ADF radio instrument.
+John Check <j4strngs@rockfish.net>
+July 2002
+
+This is an instrument configuration file for the open-source flight
+simulator FlightGear (www.flightgear.org).  The file is an XML-encoded
+FlightGear property list defining the instrument's layers and actions.
+
+Each instrument is composed of layers stacked on top of each other.
+A layer may be a texture (with transparent parts to show the layers
+underneath), text, or a special layer that switches between two
+others (say, to turn an indicator light on or off).  Each layer can
+move independently in proportion to a property value, and text
+can be generated from property values as well: all of the layer's
+movements are defined as transformations.
+
+Actions are hotspots on the instrument that will respond to a mouse
+click.  Actions always modify the values of properties, either by
+adjusting them, toggling them, or swaping them with other
+properties' values.
+-->
+
+<PropertyList>
+
+ <name>ADF Radio</name>
+ <w-base>256</w-base>
+ <h-base>52</h-base>
+
+ <layers>
+
+  <layer>
+   <name>background</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/kr-87adf.rgb</path>
+    <x1>0.0</x1>
+    <y1>0.80</y1>
+    <x2>1.0</x2>
+    <y2>1.0</y2>
+   </texture>
+  </layer>
+  
+  <layer>
+   <name>ADF annunciator</name>
+   <condition>
+    <equals>
+     <property>/instrumentation/kr-87/annunciators/adf</property>
+     <value>true</value>
+    </equals>
+   </condition>
+    <type>text</type>
+     <point-size>6</point-size>
+     <color>
+      <red>1.0</red>
+      <green>0.5</green>
+      <blue>0.0</blue>
+     </color>
+     <chunks>
+      <chunk>
+       <type>literal</type>
+       <text>ADF</text>
+      </chunk>
+     </chunks>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-110</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>3</offset>
+    </transformation>
+   </transformations>
+  </layer>
+    
+  <layer>
+   <name>ANT annunciator</name>  
+   <condition>
+    <equals>
+     <property>/instrumentation/kr-87/annunciators/ant</property>
+     <value>true</value>
+    </equals>
+   </condition>
+    <type>text</type>
+     <point-size>6</point-size>
+     <color>
+      <red>1.0</red>
+      <green>0.5</green>
+      <blue>0.0</blue>
+     </color>
+     <chunks>
+      <chunk>
+       <type>literal</type>
+       <text>ANT</text>
+      </chunk>
+     </chunks>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-110</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>3</offset>
+    </transformation>
+   </transformations>
+   </layer>
+  
+  <layer>
+   <name>Selected FRQ display</name>
+   <condition>
+    <equals>
+     <property>/instrumentation/kr-87/inputs/power-btn</property>
+     <value>true</value>
+    </equals>
+   </condition>
+   <type>text</type>
+   <font>led</font>
+   <point-size>7</point-size>
+   <color>
+    <red>1.0</red>
+    <green>0.5</green>
+    <blue>0.0</blue>
+   </color>
+   <chunks>
+    <chunk>
+     <type>number-value</type>
+     <property>/instrumentation/kr-87/outputs/selected-khz</property>
+     <format>%4.0f</format>
+    </chunk>
+   </chunks>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-85</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>3</offset>
+    </transformation>
+   </transformations>
+  </layer>
+  
+  <layer>
+   <name>BFO annunciator</name> 
+   <condition>
+    <equals>
+     <property>/instrumentation/kr-87/annunciators/bfo</property>
+     <value>true</value>
+    </equals>
+   </condition> 
+   <type>text</type>
+   <point-size>6</point-size>
+   <color>
+    <red>1.0</red>
+    <green>0.5</green>
+    <blue>0.0</blue>
+   </color>
+   <chunks>
+    <chunk>
+    <type>literal</type>
+    <text>BFO</text>
+    </chunk>
+   </chunks>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-50</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>13</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>Standby FRQ annunciator</name> 
+   <condition>
+    <equals>
+     <property>/instrumentation/kr-87/annunciators/frq</property>
+     <value>true</value>
+    </equals>
+   </condition> 
+   <type>text</type>
+   <point-size>6</point-size>
+   <color>
+    <red>1.0</red>
+    <green>0.5</green>
+    <blue>0.0</blue>
+   </color>
+   <chunks>
+    <chunk>
+    <type>literal</type>
+    <text>FRQ</text>
+    </chunk>
+   </chunks>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-45</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>0</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>Standby FRQ display</name>
+   <condition>
+    <equals>
+    <property>/instrumentation/kr-87/annunciators/frq</property>
+    <value>true</value>
+    </equals>
+    <equals>
+    <property>/instrumentation/kr-87/modes/stby</property>
+    <value>0</value>
+    </equals>
+   </condition>
+   <type>text</type>
+   <font>led</font>
+   <point-size>7</point-size>
+   <color>
+    <red>1.0</red>
+    <green>0.5</green>
+    <blue>0.0</blue>
+   </color>
+   <chunks>
+    <chunk>
+     <type>number-value</type>
+     <property>/instrumentation/kr-87/outputs/standby-khz</property>
+     <format>%4.0f</format>
+    </chunk>
+   </chunks>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-10</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>3</offset>
+    </transformation>
+   </transformations>
+  </layer>
+  
+  <layer>
+   <name>Flight Timer display</name>
+   <condition>
+    <equals>
+     <property>/instrumentation/kr-87/inputs/power-btn</property>
+     <value>true</value>
+    </equals>
+    <equals>
+    <property>/instrumentation/kr-87/modes/stby</property>
+    <value>1</value>
+    </equals>
+    <equals>
+    <property>/instrumentation/kr-87/annunciators/flt</property>
+    <value>1</value>
+    </equals>
+   </condition>
+   <type>text</type>
+   <font>led</font>
+   <point-size>7</point-size>
+   <color>
+    <red>1.0</red>
+    <green>0.5</green>
+    <blue>0.0</blue>
+   </color>
+   <chunks>
+    <chunk>
+     <type>text-value</type>
+     <property>/instrumentation/kr-87/outputs/timer-string</property>
+    </chunk>
+   </chunks>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-10</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>3</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>Elapsed Timer display</name>
+   <condition>
+    <equals>
+     <property>/instrumentation/kr-87/inputs/power-btn</property>
+     <value>true</value>
+    </equals>
+    <equals>
+    <property>/instrumentation/kr-87/modes/stby</property>
+    <value>1</value>
+    </equals>
+    <equals>
+    <property>/instrumentation/kr-87/annunciators/et</property>
+    <value>1</value>
+    </equals>
+   </condition>
+   <type>text</type>
+   <font>led</font>
+   <point-size>7</point-size>
+   <color>
+    <red>1.0</red>
+    <green>0.5</green>
+    <blue>0.0</blue>
+   </color>
+   <chunks>
+    <chunk>
+     <type>text-value</type>
+     <property>/instrumentation/kr-87/outputs/timer-string</property>
+    </chunk>
+   </chunks>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-10</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>3</offset>
+    </transformation>
+   </transformations>
+  </layer>
+  
+  
+  <layer>
+   <name>Flight Time annunciator</name> 
+   <condition>
+    <equals>
+     <property>/instrumentation/kr-87/annunciators/flt</property>
+     <value>true</value>
+    </equals>
+   </condition> 
+   <type>text</type>
+   <point-size>6</point-size>
+   <color>
+    <red>1.0</red>
+    <green>0.5</green>
+    <blue>0.0</blue>
+   </color>
+   <chunks>
+    <chunk>
+    <type>literal</type>
+    <text>FLT</text>
+    </chunk>
+   </chunks>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>40</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>13</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>Elapsed Time annunciator</name> 
+   <condition>
+    <equals>
+     <property>/instrumentation/kr-87/annunciators/et</property>
+     <value>true</value>
+    </equals>
+   </condition> 
+   <type>text</type>
+   <point-size>6</point-size>
+   <color>
+    <red>1.0</red>
+    <green>0.5</green>
+    <blue>0.0</blue>
+   </color>
+   <chunks>
+    <chunk>
+    <type>literal</type>
+    <text>ET</text>
+    </chunk>
+   </chunks>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>45</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>0</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+<!-- knobs -->
+
+ <layer>
+  <name>freq/time adjust</name>
+  <texture>
+  <path>Aircraft/Instruments/Textures/blister.rgb</path>
+  <x1>0.0</x1>
+  <y1>0.75</y1>
+  <x2>0.25</x2>
+  <y2>1.0</y2>
+  </texture>
+  <h>32</h>
+  <w>32</w>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>100</offset>
+    </transformation>
+   </transformations>
+ </layer> 
+
+  <layer>
+   <name>ident on|off|volume knob</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/blister.rgb</path>
+    <x1>0.0</x1>
+    <y1>0.75</y1>
+    <x2>0.25</x2>
+    <y2>1.0</y2>
+   </texture>
+   <w>15</w>
+   <h>15</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>70</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-16</offset>
+    </transformation>
+   </transformations>
+  </layer>
+  <layer>
+   <name>ident knob pointer</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/blister.rgb</path>
+    <x1>0.0</x1>
+    <y1>0.1640625</y1>
+    <x2>0.1</x2>
+    <y2>0.328125</y2>
+   </texture>
+   <w>2</w>
+   <h>6</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>70</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-16</offset>
+    </transformation>
+    <transformation>
+     <type>rotation</type>
+     <property>/instrumentation/kr-87/inputs/volume</property>
+     <min>0</min>
+     <max>2</max>
+     <scale>140</scale>
+     <offset>-140</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>3</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+
+<!-- button labels- this is temporary -->
+  <layer>
+   <name>ADF button label</name>
+   <type>text</type>
+   <point-size>6</point-size>
+   <color>
+    <red>0.0</red>
+    <green>0.0</green>
+    <blue>0.0</blue>
+   </color>
+   <chunks>
+    <chunk>
+     <type>literal</type>
+     <text>ADF</text>
+    </chunk>
+   </chunks>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-96</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-19</offset>
+    </transformation>
+   </transformations>
+  </layer>
+ 
+  <layer>
+   <name>BFO button label</name>
+   <type>text</type>
+   <point-size>6</point-size>
+   <color>
+    <red>0.0</red>
+    <green>0.0</green>
+    <blue>0.0</blue>
+   </color>
+   <chunks>
+    <chunk>
+     <type>literal</type>
+     <text>BFO</text>
+    </chunk>
+   </chunks>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-72</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-19</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>FRQ button label</name>
+   <type>text</type>
+   <point-size>6</point-size>
+   <color>
+    <red>0.0</red>
+    <green>0.0</green>
+    <blue>0.0</blue>
+   </color>
+   <chunks>
+    <chunk>
+     <type>literal</type>
+     <text>FRQ</text>
+    </chunk>
+   </chunks>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-45</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-19</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>FLT button label</name>
+   <type>text</type>
+   <point-size>4</point-size>
+   <color>
+    <red>0.0</red>
+    <green>0.0</green>
+    <blue>0.0</blue>
+   </color>
+   <chunks>
+    <chunk>
+     <type>literal</type>
+     <text>FLT
+/ET</text>
+    </chunk>
+   </chunks>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-16</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-15</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>SET/RST button label</name>
+   <type>text</type>
+   <point-size>4</point-size>
+   <color>
+    <red>0.0</red>
+    <green>0.0</green>
+    <blue>0.0</blue>
+   </color>
+   <chunks>
+    <chunk>
+     <type>literal</type>
+     <text>SET
+/RST</text>
+    </chunk>
+   </chunks>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>10</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-15</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+<!-- end labels -->
+
+ </layers>
+
+ <actions>
+
+ <!-- buttons -->
+  <action>
+   <name>ADF button</name>
+   <button>0</button>
+   <x>-97</x>
+   <y>-24</y>
+   <w>18</w>
+   <h>14</h>
+   <binding>
+    <command>property-toggle</command>
+    <property>/instrumentation/kr-87/inputs/adf-btn</property>
+   </binding>
+  </action>
+  
+  <action>
+   <name>BFO button</name>
+   <button>0</button>
+   <x>-73</x>
+   <y>-24</y>
+   <w>18</w>
+   <h>14</h>
+   <binding>
+    <command>property-toggle</command>
+    <property>/instrumentation/kr-87/inputs/bfo-btn</property>
+   </binding>
+  </action>
+  
+ <action>
+   <name>FRQ button</name>
+   <button>0</button>
+   <x>-45</x>
+   <y>-24</y>
+   <w>18</w>
+   <h>14</h>
+   <binding>
+    <command>property-assign</command>
+    <property>/instrumentation/kr-87/inputs/frq-btn</property>
+    <value type="bool">true</value>
+    <repeatable type="bool">false</repeatable>
+   </binding>
+   <mod-up>
+    <binding>
+     <command>property-assign</command>
+     <property>/instrumentation/kr-87/inputs/frq-btn</property>
+     <value type="bool">false</value>
+    </binding>
+   </mod-up>
+  </action>
+ 
+  <action>
+   <name>Flight timer/ Elapsed timer button</name>
+   <button>0</button>
+   <x>-20</x>
+   <y>-24</y>
+   <w>18</w>
+   <h>14</h>
+   <binding>
+    <command>property-assign</command>
+    <property>/instrumentation/kr-87/inputs/flt-et-btn</property>
+    <value type="bool">true</value>
+    <repeatable type="bool">false</repeatable>
+   </binding>
+   <mod-up>
+    <binding>
+     <command>property-assign</command>
+     <property>/instrumentation/kr-87/inputs/flt-et-btn</property>
+     <value type="bool">false</value>
+    </binding>
+   </mod-up>
+  </action>
+ 
+  <action>
+   <name>Timer set reset</name>
+   <button>0</button>
+   <x>7</x>
+   <y>-24</y>
+   <w>18</w>
+   <h>14</h>
+   <binding>
+    <command>property-assign</command>
+    <property>/instrumentation/kr-87/inputs/set-rst-btn</property>
+    <value type="bool">true</value>
+    <repeatable type="bool">false</repeatable>
+   </binding>
+   <mod-up>
+    <binding>
+     <command>property-assign</command>
+     <property>/instrumentation/kr-87/inputs/set-rst-btn</property>
+     <value type="bool">false</value>
+    </binding>
+   </mod-up>
+  </action>
+ 
+<!-- end buttons -->
+  
+  <action>
+   <name>timer set seconds down</name>
+   <button>0</button>
+   <x>89</x>
+   <y>-12</y>
+   <w>12</w>
+   <h>24</h>
+   <condition>
+    <equals>
+    <property>/instrumentation/kr-87/modes/count</property>
+    <value>2</value>
+    </equals>
+   </condition> 
+   <binding>
+    <command>property-adjust</command>
+    <property>/instrumentation/kr-87/outputs/elapsed-timer</property>
+    <step>-1</step>
+    <min>1.0</min>
+    <max>216000.0</max>
+    <wrap>0</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>timer set seconds up</name>
+   <button>0</button>
+   <x>100</x>
+   <y>-12</y>
+   <w>12</w>
+   <h>24</h>
+   <condition>
+    <equals>
+    <property>/instrumentation/kr-87/modes/count</property>
+    <value>2</value>
+    </equals>
+   </condition> 
+   <binding>
+    <command>property-adjust</command>
+    <property>/instrumentation/kr-87/outputs/elapsed-timer</property>
+    <step>1</step>
+    <min>1.0</min>
+    <max>216000.0</max>
+    <wrap>0</wrap>
+   </binding>
+  </action>
+  
+ <action>
+   <name>timer set minutes down</name>
+   <button>1</button>
+   <x>89</x>
+   <y>-12</y>
+   <w>12</w>
+   <h>24</h>
+   <condition>
+    <equals>
+    <property>/instrumentation/kr-87/modes/count</property>
+    <value>2</value>
+    </equals>
+   </condition> 
+   <binding>
+    <command>property-adjust</command>
+    <property>/instrumentation/kr-87/outputs/elapsed-timer</property>
+    <step>-60</step>
+    <min>1.0</min>
+    <max>3599.0</max>
+    <wrap>0</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>timer set minutes up</name>
+   <button>1</button>
+   <x>100</x>
+   <y>-12</y>
+   <w>12</w>
+   <h>24</h>
+   <condition>
+    <equals>
+    <property>/instrumentation/kr-87/modes/count</property>
+    <value>2</value>
+    </equals>
+   </condition> 
+   <binding>
+    <command>property-adjust</command>
+    <property>/instrumentation/kr-87/outputs/elapsed-timer</property>
+    <step>60</step>
+    <min>1.0</min>
+    <max>3599.0</max>
+    <wrap>0</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>small frequency decrease selected</name>
+   <button>0</button>
+   <x>89</x>
+   <y>-12</y>
+   <w>12</w>
+   <h>24</h>
+   <condition>
+    <and>
+     <not-equals>
+     <property>/instrumentation/kr-87/modes/count</property>
+     <value>2</value>
+     </not-equals>
+     <equals>
+      <property>/instrumentation/kr-87/modes/stby</property>
+      <value>1</value>
+     </equals>
+    </and>
+   </condition> 
+   <binding>
+    <command>property-adjust</command>
+    <property>/instrumentation/kr-87/outputs/selected-khz</property>
+    <step>-1</step>
+    <min>100</min>
+    <max>1300</max>
+    <resolution>1</resolution>
+    <wrap>1</wrap>
+   </binding>
+  </action>
+  
+  <action>
+   <name>small increase selected</name>
+   <button>0</button>
+   <x>100</x>
+   <y>-12</y>
+   <w>12</w>
+   <h>24</h>
+   <condition>
+    <and>
+     <not-equals>
+     <property>/instrumentation/kr-87/modes/count</property>
+     <value>2</value>
+     </not-equals>
+     <equals>
+      <property>/instrumentation/kr-87/modes/stby</property>
+      <value>1</value>
+     </equals>
+    </and>
+   </condition> 
+   <binding>
+    <command>property-adjust</command>
+    <property>/instrumentation/kr-87/outputs/selected-khz</property>
+    <step>1</step>
+    <min>100</min>
+    <max>1300</max>
+    <resolution>1</resolution>
+    <wrap>1</wrap>
+   </binding>
+  </action>
+  
+
+  <action>
+   <name>large decrease selected</name>
+   <button>1</button>
+   <x>89</x>
+   <y>-12</y>
+   <w>12</w>
+   <h>24</h>
+   <condition>
+    <and>
+     <not-equals>
+     <property>/instrumentation/kr-87/modes/count</property>
+     <value>2</value>
+     </not-equals>
+     <equals>
+      <property>/instrumentation/kr-87/modes/stby</property>
+      <value>1</value>
+     </equals>
+    </and>
+   </condition> 
+   <binding>
+    <command>property-adjust</command>
+    <property>/instrumentation/kr-87/outputs/selected-khz</property>
+    <step>-25</step>
+    <min>100</min>
+    <max>1300</max>
+    <resolution>1</resolution>
+    <wrap>1</wrap>
+   </binding>
+  </action>
+
+
+  <action>
+   <name>large increase selected</name>
+   <button>1</button>
+   <x>100</x>
+   <y>-12</y>
+   <w>12</w>
+   <h>24</h>
+   <condition>
+    <and>
+     <not-equals>
+     <property>/instrumentation/kr-87/modes/count</property>
+     <value>2</value>
+     </not-equals>
+     <equals>
+      <property>/instrumentation/kr-87/modes/stby</property>
+      <value>1</value>
+     </equals>
+    </and>
+   </condition> 
+   <binding>
+    <command>property-adjust</command>
+    <property>/instrumentation/kr-87/outputs/selected-khz</property>
+    <step>25</step>
+    <min>100</min>
+    <max>1300</max>
+    <resolution>1</resolution>
+    <wrap>1</wrap>
+   </binding>
+  </action>
+  
+  <action>
+   <name>small frequency decrease standby</name>
+   <button>0</button>
+   <x>89</x>
+   <y>-12</y>
+   <w>12</w>
+   <h>24</h>
+   <condition>
+    <and>
+     <not-equals>
+     <property>/instrumentation/kr-87/modes/count</property>
+     <value>2</value>
+     </not-equals>
+     <equals>
+      <property>/instrumentation/kr-87/modes/stby</property>
+      <value>0</value>
+     </equals>
+    </and>
+   </condition> 
+   <binding>
+    <command>property-adjust</command>
+    <property>/instrumentation/kr-87/outputs/standby-khz</property>
+    <step>-1</step>
+    <min>100</min>
+    <max>1300</max>
+    <resolution>1</resolution>
+    <wrap>1</wrap>
+   </binding>
+  </action>
+  
+  <action>
+   <name>small increase standby</name>
+   <button>0</button>
+   <x>100</x>
+   <y>-12</y>
+   <w>12</w>
+   <h>24</h>
+   <condition>
+    <and>
+     <not-equals>
+     <property>/instrumentation/kr-87/modes/count</property>
+     <value>2</value>
+     </not-equals>
+     <equals>
+      <property>/instrumentation/kr-87/modes/stby</property>
+      <value>0</value>
+     </equals>
+    </and>
+   </condition> 
+   <binding>
+    <command>property-adjust</command>
+    <property>/instrumentation/kr-87/outputs/standby-khz</property>
+    <step>1</step>
+    <min>100</min>
+    <max>1300</max>
+    <resolution>1</resolution>
+    <wrap>1</wrap>
+   </binding>
+  </action>
+  
+
+  <action>
+   <name>large decrease standby</name>
+   <button>1</button>
+   <x>89</x>
+   <y>-12</y>
+   <w>12</w>
+   <h>24</h>
+   <condition>
+    <and>
+     <not-equals>
+     <property>/instrumentation/kr-87/modes/count</property>
+     <value>2</value>
+     </not-equals>
+     <equals>
+      <property>/instrumentation/kr-87/modes/stby</property>
+      <value>0</value>
+     </equals>
+    </and>
+   </condition> 
+   <binding>
+    <command>property-adjust</command>
+    <property>/instrumentation/kr-87/outputs/standby-khz</property>
+    <step>-25</step>
+    <min>100</min>
+    <max>1300</max>
+    <resolution>1</resolution>
+    <wrap>1</wrap>
+   </binding>
+  </action>
+
+
+  <action>
+   <name>large increase standby</name>
+   <button>1</button>
+   <x>100</x>
+   <y>-12</y>
+   <w>12</w>
+   <h>24</h>
+   <condition>
+    <and>
+     <not-equals>
+     <property>/instrumentation/kr-87/modes/count</property>
+     <value>2</value>
+     </not-equals>
+     <equals>
+      <property>/instrumentation/kr-87/modes/stby</property>
+      <value>0</value>
+     </equals>
+    </and>
+   </condition> 
+   <binding>
+    <command>property-adjust</command>
+    <property>/instrumentation/kr-87/outputs/standby-khz</property>
+    <step>25</step>
+    <min>100</min>
+    <max>1300</max>
+    <resolution>1</resolution>
+    <wrap>1</wrap>
+   </binding>
+  </action>
+  
+  <action>
+   <name>ident volume increase</name>
+   <button>0</button>
+   <x>70</x>
+   <y>-24</y>
+   <w>8</w>
+   <h>16</h>
+   <condition>
+    <property>/instrumentation/kr-87/inputs/power-btn</property>
+   </condition>
+   <binding>
+    <command>property-adjust</command>
+    <property>/instrumentation/kr-87/inputs/volume</property>
+    <step>0.1</step>
+    <min>0</min>
+    <max>1</max>
+   </binding>
+  </action>
+  
+  <action>
+   
+   <name>ident volume decrease</name>
+   <button>0</button>
+   <x>62</x>
+   <y>-24</y>
+   <w>8</w>
+   <h>16</h>
+   <condition>
+    <and>
+     <property>/instrumentation/kr-87/inputs/power-btn</property>
+     <greater-than>
+      <property>/instrumentation/kr-87/inputs/volume</property>
+      <value>0.01</value>
+     </greater-than>
+    </and>
+   </condition>
+   <binding>
+    <command>property-adjust</command>
+    <property>/instrumentation/kr-87/inputs/volume</property>
+    <step>-0.1</step>
+    <min>0</min>
+    <max>1</max>
+   </binding>
+  </action>
+  
+  <action>
+   <name>power on</name>
+   <button>0</button>
+   <x>70</x>
+   <y>-24</y>
+   <w>8</w>
+   <h>16</h>
+   <condition>
+    <and>
+     <less-than>
+      <property>/instrumentation/kr-87/inputs/volume</property>
+      <value>0.01</value>
+     </less-than>
+     <not>
+      <property>/instrumentation/kr-87/inputs/power-btn</property>
+     </not>
+    </and>
+   </condition>
+   <binding>
+     <command>property-assign</command>
+     <property>/instrumentation/kr-87/inputs/power-btn</property>
+     <value type="bool">true</value>
+   </binding>
+  </action>
+  
+  <action>
+   <name>power off</name>
+   <button>0</button>
+   <x>62</x>
+   <y>-24</y>
+   <w>8</w>
+   <h>16</h>
+   <condition>
+    <and>
+     <less-than>
+      <property>/instrumentation/kr-87/inputs/volume</property>
+      <value>0.01</value>
+     </less-than>
+      <property>/instrumentation/kr-87/inputs/power-btn</property>
+     </and>
+   </condition>
+   <binding>
+     <command>property-assign</command>
+     <property>/instrumentation/kr-87/inputs/power-btn</property>
+     <value type="bool">false</value>
+   </binding>
+  </action>
+  
+ </actions>
+
+</PropertyList>

@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PropertyList>
+  <name>Effects/cloud</name>
+  <parameters>
+    <texture n ="0">
+    </texture>
+    <range><use>/sim/rendering/clouds3d-vis-range</use></range>   
+    <detail><use>/sim/rendering/clouds3d-detail-range</use></detail>   
+    <scattering><use>/rendering/scene/scattering</use></scattering>   
+    <terminator><use>/environment/terminator-relative-position-m</use></terminator>
+    <altitude><use>/sim/rendering/eye-altitude-m</use></altitude>
+    <cloud_self_shading><use>/environment/cloud-self-shading</use></cloud_self_shading>
+    <moonlight><use>/environment/moonlight</use></moonlight>
+    <air_pollution><use>/environment/air-pollution-norm</use></air_pollution>			
+    <visibility><use>/environment/visibility-m</use></visibility>
+  </parameters>
+  
+  <technique n="9">
+    <predicate>
+      <and>
+       <property>/sim/rendering/shaders/skydome</property>
+       <less-equal>
+        <value type="float">1.0</value>
+        <shader-language/>
+      </less-equal>
+     </and>
+    </predicate>
+    <pass n="0">
+      <!-- This is apparently not used, so maybe we'll blow it way soon. -->
+      <lighting>true</lighting>
+      <material>
+        <ambient type="vec4d">0.5 0.5 0.5 1.0</ambient>
+        <diffuse type="vec4d">0.5 0.5 0.5 1.0</diffuse>
+        <color-mode>off</color-mode>
+      </material>
+      <alpha-test>
+        <comparison>greater</comparison>
+        <reference type="float">0.01</reference>
+      </alpha-test>
+      <shade-model>smooth</shade-model>
+      <blend>
+        <source>src-alpha</source>
+        <destination>one-minus-src-alpha</destination>
+      </blend>
+      <depth>
+        <write-mask>false</write-mask>
+      </depth>
+      <render-bin>
+        <bin-number>10</bin-number>
+        <bin-name>DepthSortedBin</bin-name>
+      </render-bin>
+      <texture-unit>
+        <unit>0</unit>
+        <type>2d</type>
+        <image><use>texture[0]/image</use></image>
+        <wrap-s>clamp</wrap-s>
+        <wrap-t>clamp</wrap-t>
+      </texture-unit>
+      <program>
+        <vertex-shader>Shaders/3dcloud-ALS.vert</vertex-shader>
+        <fragment-shader>Shaders/3dcloud-ALS.frag</fragment-shader>
+        <attribute>
+          <name>usrAttr1</name>
+          <index>10</index>
+        </attribute>
+        <attribute>
+          <name>usrAttr2</name>
+          <index>11</index>
+        </attribute>
+      </program>
+      <uniform>
+        <name>baseTexture</name>
+        <type>sampler-2d</type>
+        <value type="int">0</value>
+      </uniform>
+      <uniform>
+        <name>range</name>
+        <type>float</type>
+        <value><use>range</use></value>
+      </uniform>
+      <uniform>
+        <name>detail_range</name>
+        <type>float</type>
+        <value><use>detail</use></value>
+      </uniform>
+      <uniform>
+        <name>scattering</name>
+        <type>float</type>
+        <value><use>scattering</use></value>
+      </uniform>
+      <uniform>
+        <name>terminator</name>
+        <type>float</type>
+        <value><use>terminator</use></value>
+      </uniform>
+      <uniform>
+        <name>altitude</name>
+        <type>float</type>
+        <value><use>altitude</use></value>
+      </uniform>
+      <uniform>
+        <name>cloud_self_shading</name>
+        <type>float</type>
+        <value><use>cloud_self_shading</use></value>
+      </uniform>
+      <uniform>
+        <name>moonlight</name>
+        <type>float</type>
+        <value><use>moonlight</use></value>
+      </uniform>
+      <uniform>
+        <name>air_pollution</name>
+        <type>float</type>
+        <value><use>air_pollution</use></value>
+      </uniform>
+      <uniform>
+        <name>visibility</name>
+        <type>float</type>
+        <value><use>visibility</use></value>
+      </uniform>
+      <!--<vertex-program-two-side>true</vertex-program-two-side>-->
+    </pass>
+  </technique>
+
+  <technique n="10">
+    <predicate>
+      <less-equal>
+        <value type="float">1.0</value>
+        <shader-language/>
+      </less-equal>
+    </predicate>
+    <pass n="0">
+      <!-- This is apparently not used, so maybe we'll blow it way soon. -->
+      <lighting>true</lighting>
+      <material>
+        <ambient type="vec4d">0.5 0.5 0.5 1.0</ambient>
+        <diffuse type="vec4d">0.5 0.5 0.5 1.0</diffuse>
+        <color-mode>off</color-mode>
+      </material>
+      <alpha-test>
+        <comparison>greater</comparison>
+        <reference type="float">0.01</reference>
+      </alpha-test>
+      <shade-model>smooth</shade-model>
+      <blend>
+        <source>src-alpha</source>
+        <destination>one-minus-src-alpha</destination>
+      </blend>
+      <depth>
+        <write-mask>false</write-mask>
+      </depth>
+      <render-bin>
+        <bin-number>10</bin-number>
+        <bin-name>DepthSortedBin</bin-name>
+      </render-bin>
+      <texture-unit>
+        <unit>0</unit>
+        <type>2d</type>
+        <image><use>texture[0]/image</use></image>
+        <wrap-s>clamp</wrap-s>
+        <wrap-t>clamp</wrap-t>
+      </texture-unit>
+      <program>
+        <vertex-shader>Shaders/3dcloud.vert</vertex-shader>
+        <fragment-shader>Shaders/3dcloud.frag</fragment-shader>
+        <attribute>
+          <name>usrAttr1</name>
+          <index>10</index>
+        </attribute>
+        <attribute>
+          <name>usrAttr2</name>
+          <index>11</index>
+        </attribute>
+      </program>
+      <uniform>
+        <name>baseTexture</name>
+        <type>sampler-2d</type>
+        <value type="int">0</value>
+      </uniform>
+      <uniform>
+        <name>range</name>
+        <type>float</type>
+        <value><use>range</use></value>
+      </uniform>
+      <uniform>
+        <name>detail_range</name>
+        <type>float</type>
+        <value><use>detail</use></value>
+      </uniform>
+      <uniform>
+        <name>scattering</name>
+        <type>float</type>
+        <value><use>scattering</use></value>
+      </uniform>
+      <uniform>
+        <name>terminator</name>
+        <type>float</type>
+        <value><use>terminator</use></value>
+      </uniform>
+      <uniform>
+        <name>altitude</name>
+        <type>float</type>
+        <value><use>altitude</use></value>
+      </uniform>
+      <!--<vertex-program-two-side>true</vertex-program-two-side>-->
+    </pass>
+  </technique>
+</PropertyList>

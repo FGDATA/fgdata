@@ -1,0 +1,427 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+  <name>system-failures</name>
+  <modal>false</modal>
+  <layout>vbox</layout>
+
+  <nasal>
+   <open>
+    # Code to populate the engine entries.
+    var groups = cmdarg().getChildren("group");
+    var group = groups[1].getChildren("group")[2];
+    var engines = props.globals.getNode("/engines");
+    var row = 4;
+    var engine = 0;
+    var i = 0;
+
+    group.removeChildren("checkbox");
+    group.removeChildren("input");
+    group.removeChildren("text");
+
+    # Copy in the labels.
+    var target = group.getNode("text[" ~ i ~ "]", 1);
+    props.copy(group.getNode("engine-label"), target);
+    i += 1;
+
+    target = group.getNode("text[" ~ i ~ "]", 1);
+    props.copy(group.getNode("mtbf-label"), target);
+    i += 1;
+
+    foreach (var e; engines.getChildren("engine")) {
+        var starter = e.getChild("starter");
+        var running = e.getChild("running");
+
+        (starter != nil and starter != "" and starter.getType() != "NONE")
+        or (running != nil and running != "" and running.getType() != "NONE")
+        or continue;
+
+        row = row + 1;
+
+        # Set up the label
+        target = group.getNode("text[" ~ i ~ "]", 1);
+        props.copy(group.getNode("text-template"), target);
+        target.getNode("row").setValue(row);
+
+        if (size(engines.getChildren("engine")) == 1) {
+            target.getNode("label").setValue("Engine");
+        } else {
+            # Engines are indexed from 1 in the GUI.
+            target.getNode("label").setValue("Engine " ~ (engine + 1));
+        }
+
+        # Now the checkbox
+        target = group.getNode("checkbox[" ~ i ~ "]", 1);
+        props.copy(group.getChild("checkbox-template"), target);
+        target.getNode("row").setValue(row);
+
+        var failure = "/sim/failure-manager/engines/engine[" ~ engine ~ "]/serviceable";
+        target.getNode("property").setValue(failure);
+
+        # Finally the MTBF
+        target = group.getNode("input[" ~ i ~ "]", 1);
+        props.copy(group.getChild("input-template"), target);
+        target.getNode("row").setValue(row);
+        i += 1;
+
+        var mtbf = "/sim/failure-manager/engines/engine[" ~ engine ~ "]/mtbf";
+        target.getNode("property").setValue(mtbf);
+        engine += 1;
+    }
+
+
+   </open>
+  </nasal>
+
+  <group>
+    <layout>hbox</layout>
+    <empty><stretch>1</stretch></empty>
+
+    <text>
+      <label>System Failures</label>
+    </text>
+
+    <empty><stretch>1</stretch></empty>
+
+    <button>
+      <pref-width>16</pref-width>
+      <pref-height>16</pref-height>
+      <legend></legend>
+      <keynum>27</keynum>
+      <border>2</border>
+      <binding>
+        <command>dialog-close</command>
+      </binding>
+    </button>
+  </group>
+
+  <hrule/>
+
+  <text>
+    <halign>left</halign>
+    <label>Uncheck a system to fail it, or set the Mean Time/Cycles Between Failures.</label>
+  </text>
+
+  <hrule/>
+
+  <group>
+    <layout>hbox</layout>
+    <halign>left</halign>
+
+    <group>
+      <layout>table</layout>
+      <halign>center</halign>
+      <valign>top</valign>
+
+      <text>
+        <row>0</row>
+        <col>0</col>
+        <label>System</label>
+      </text>
+
+      <text>
+        <row>0</row>
+        <col>2</col>
+        <label>MTBF (sec)</label>
+      </text>
+
+      <text>
+        <row>1</row>
+        <col>0</col>
+        <halign>right</halign>
+        <label>Vacuum System</label>
+      </text>
+
+      <checkbox>
+        <row>1</row>
+        <col>1</col>
+        <property>/sim/failure-manager/systems/vacuum/serviceable</property>
+      </checkbox>
+
+      <input>
+        <row>1</row>
+        <col>2</col>
+        <property>/sim/failure-manager/systems/vacuum/mtbf</property>
+      </input>
+
+      <text>
+        <row>2</row>
+        <col>0</col>
+        <halign>right</halign>
+        <label>Static System</label>
+      </text>
+
+      <checkbox>
+        <row>2</row>
+        <col>1</col>
+        <property>/sim/failure-manager/systems/static/serviceable</property>
+      </checkbox>
+
+      <input>
+        <row>2</row>
+        <col>2</col>
+        <property>/sim/failure-manager/systems/static/mtbf</property>
+      </input>
+
+      <text>
+        <row>3</row>
+        <col>0</col>
+        <halign>right</halign>
+        <label>Pitot System</label>
+      </text>
+
+      <checkbox>
+        <row>3</row>
+        <col>1</col>
+        <property>/sim/failure-manager/systems/pitot/serviceable</property>
+      </checkbox>
+
+      <input>
+        <row>3</row>
+        <col>2</col>
+        <property>/sim/failure-manager/systems/pitot/mtbf</property>
+      </input>
+
+      <text>
+        <row>4</row>
+        <col>0</col>
+        <halign>right</halign>
+        <label>Electrical System</label>
+      </text>
+
+      <checkbox>
+        <row>4</row>
+        <col>1</col>
+        <property>/sim/failure-manager/systems/electrical/serviceable</property>
+      </checkbox>
+
+      <input>
+        <row>4</row>
+        <col>2</col>
+        <property>/sim/failure-manager/systems/electrical/mtbf</property>
+      </input>
+
+      <text>
+        <row>5</row>
+        <col>0</col>
+        <halign>right</halign>
+        <label>Aileron</label>
+      </text>
+
+      <checkbox>
+        <row>5</row>
+        <col>1</col>
+        <property>/sim/failure-manager/controls/flight/aileron/serviceable</property>
+      </checkbox>
+
+      <input>
+        <row>5</row>
+        <col>2</col>
+        <property>/sim/failure-manager/controls/flight/aileron/mtbf</property>
+      </input>
+
+      <text>
+        <row>6</row>
+        <col>0</col>
+        <halign>right</halign>
+        <label>Elevator</label>
+      </text>
+
+      <checkbox>
+        <row>6</row>
+        <col>1</col>
+        <property>/sim/failure-manager/controls/flight/elevator/serviceable</property>
+      </checkbox>
+
+      <input>
+        <row>6</row>
+        <col>2</col>
+        <property>/sim/failure-manager/controls/flight/elevator/mtbf</property>
+      </input>
+
+      <text>
+        <row>7</row>
+        <col>0</col>
+        <halign>right</halign>
+        <label>Rudder</label>
+      </text>
+
+      <checkbox>
+        <row>7</row>
+        <col>1</col>
+        <property>/sim/failure-manager/controls/flight/rudder/serviceable</property>
+      </checkbox>
+
+      <input>
+        <row>7</row>
+        <col>2</col>
+        <property>/sim/failure-manager/controls/flight/rudder/mtbf</property>
+      </input>
+
+
+    </group>
+
+    <vrule/>
+
+    <group>
+      <layout>table</layout>
+      <halign>center</halign>
+      <valign>top</valign>
+
+      <text>
+        <row>0</row>
+        <col>0</col>
+        <label>System</label>
+      </text>
+
+      <text>
+        <row>0</row>
+        <col>2</col>
+        <label>MCBF</label>
+      </text>
+
+      <text>
+        <row>1</row>
+        <col>0</col>
+        <halign>right</halign>
+        <label>Landing Gear</label>
+      </text>
+
+      <checkbox>
+        <row>1</row>
+        <col>1</col>
+        <property>/sim/failure-manager/controls/gear/serviceable</property>
+      </checkbox>
+
+      <input>
+        <row>1</row>
+        <col>2</col>
+        <property>/sim/failure-manager/controls/gear/mcbf</property>
+      </input>
+
+      <text>
+        <row>2</row>
+        <col>0</col>
+        <halign>right</halign>
+        <label>Flaps</label>
+      </text>
+
+      <checkbox>
+        <row>2</row>
+        <col>1</col>
+        <property>/sim/failure-manager/controls/flight/flaps/serviceable</property>
+      </checkbox>
+
+      <input>
+        <row>2</row>
+        <col>2</col>
+        <property>/sim/failure-manager/controls/flight/flaps/mcbf</property>
+      </input>
+
+      <text>
+        <row>3</row>
+        <col>0</col>
+        <halign>right</halign>
+        <label>Speedbrake</label>
+      </text>
+
+      <checkbox>
+        <row>3</row>
+        <col>1</col>
+        <property>/sim/failure-manager/controls/flight/speedbrake/serviceable</property>
+      </checkbox>
+
+      <input>
+        <row>3</row>
+        <col>2</col>
+        <property>/sim/failure-manager/controls/flight/speedbrake/mcbf</property>
+      </input>
+    </group>
+
+    <vrule/>
+
+    <group>
+      <layout>table</layout>
+      <halign>center</halign>
+      <valign>top</valign>
+
+      <engine-label>
+        <row>0</row>
+        <col>0</col>
+        <label>Engine</label>
+       </engine-label>
+
+      <mtbf-label>
+        <row>0</row>
+        <col>2</col>
+        <label>MTBF</label>
+      </mtbf-label>
+
+      <text-template>
+        <row><!-- template value--></row>
+        <col>0</col>
+        <halign>right</halign>
+        <label><!-- template value--></label>
+      </text-template>
+
+      <checkbox-template>
+        <row><!-- template value--></row>
+        <col>1</col>
+        <property><!-- template value--></property>
+      </checkbox-template>
+
+      <input-template>
+        <row><!-- template value--></row>
+        <col>2</col>
+        <property><!-- template value--></property>
+      </input-template>
+
+    </group>
+  </group>
+
+  <hrule/>
+
+  <group>
+    <layout>hbox</layout>
+
+    <button>
+      <legend>OK</legend>
+      <default>true</default>
+      <equal>true</equal>
+      <binding>
+        <command>dialog-apply</command>
+      </binding>
+      <binding>
+        <command>dialog-close</command>
+      </binding>
+    </button>
+
+    <button>
+      <legend>Apply</legend>
+      <equal>true</equal>
+      <binding>
+        <command>dialog-apply</command>
+      </binding>
+    </button>
+
+    <button>
+      <legend>Refresh</legend>
+      <equal>true</equal>
+      <binding>
+        <command>dialog-update</command>
+      </binding>
+    </button>
+
+    <button>
+      <legend>Cancel</legend>
+      <equal>true</equal>
+      <key>Esc</key>
+      <binding>
+        <command>dialog-close</command>
+      </binding>
+    </button>
+
+  </group>
+
+</PropertyList>

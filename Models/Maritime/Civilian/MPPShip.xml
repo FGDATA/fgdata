@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+	<path>Maritime-Pre-Positioning-Ship.ac</path>
+
+	<animation>
+		<type>dist-scale</type>
+		<object-name>StbdLight</object-name>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>1</dep>
+			</entry>
+			<entry>
+				<ind>60000</ind>
+				<dep>100</dep>
+			</entry>
+		</interpolation>
+		<center>
+			<x-m>71.3217</x-m>
+			<y-m>15.7365</y-m>
+			<z-m>25.5846</z-m>
+		</center>
+	</animation>
+
+	<animation>
+		<type>dist-scale</type>
+		<object-name>PortLight</object-name>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>1</dep>
+			</entry>
+			<entry>
+				<ind>60000</ind>
+				<dep>100</dep>
+			</entry>
+		</interpolation>
+		<center>
+			<x-m>71.3217</x-m>
+			<y-m>-15.7365</y-m>
+			<z-m>25.5846</z-m>
+		</center>
+
+	</animation>
+
+	<animation>
+		<type>dist-scale</type>
+		<object-name>LwrSteamingLight</object-name>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>1</dep>
+			</entry>
+			<entry>
+				<ind>60000</ind>
+				<dep>100</dep>
+			</entry>
+		</interpolation>
+		<center>
+			<x-m>-123.332</x-m>
+			<y-m>0.0</y-m>
+			<z-m>24.8663</z-m>
+		</center>
+	</animation>
+
+	<animation>
+		<type>dist-scale</type>
+		<object-name>UprSteamingLight</object-name>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>1</dep>
+			</entry>
+			<entry>
+				<ind>60000</ind>
+				<dep>100</dep>
+			</entry>
+		</interpolation>
+		<center>
+			<x-m>69.5364</x-m>
+			<y-m>0.0</y-m>
+			<z-m>39.4398</z-m>
+		</center>
+	</animation>
+
+	<animation>
+		<type>dist-scale</type>
+		<object-name>SternLight</object-name>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>1</dep>
+			</entry>
+			<entry>
+				<ind>60000</ind>
+				<dep>100</dep>
+			</entry>
+		</interpolation>
+		<center>
+			<x-m>132.393</x-m>
+			<y-m>0</y-m>
+			<z-m>7.91972</z-m>
+		</center>
+	</animation>
+
+	<animation>
+		<type>range</type>
+		<min-m>0</min-m>
+		<max-m>60000</max-m>
+	</animation>	
+	
+	<animation>
+		<object-name>MPPShip</object-name>
+		<enable-hot>true</enable-hot>
+	</animation>
+
+</PropertyList>

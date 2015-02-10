@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<!--
+ This file is part of FlightGear, the free flight simulator
+ http://www.flightgear.org/
+
+ Copyright (C) 2009 Torsten Dreyer, Torsten (at) t3r _dot_ de
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation; either version 2 of the
+ License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+-->
+<PropertyList>
+  <name>MetarController:clouds:thickness</name>
+  <enable>
+    <condition>
+      <property>/environment/metar/valid</property>
+      <property>/environment/params/metar-updates-environment</property>
+    </condition>
+  </enable>
+  <input>/environment/metar/clouds/layer[0]/thickness-ft</input>
+  <output>/environment/clouds/layer[0]/thickness-ft</output>
+  <type>noise-spike</type>
+  <max-rate-of-change>8.3333</max-rate-of-change>
+</PropertyList>

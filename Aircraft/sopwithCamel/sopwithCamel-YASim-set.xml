@@ -1,0 +1,333 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+	<consumables>
+		<fuel>
+			<tank n="0">
+				<name type="string">Main</name>
+				<capacity-gal_imp>26.0</capacity-gal_imp>
+				<level-gal_imp>26.0</level-gal_imp>-->
+				<selected type="bool">1</selected>
+				<density-ppg>6.0</density-ppg>
+			</tank>
+		</fuel>
+	</consumables>
+	
+	<sim include="help.xml">
+		<description type="string">Sopwith Camel 1F.1 (YASim)</description>
+		<author type="string">AJ MacLeod, Vivian Meazza</author>
+		<status type="string">advanced production</status>
+		<rating>
+			<FDM type="int">5</FDM>
+			<systems type="int">5</systems>
+			<cockpit type="int">5</cockpit>
+			<model type="int">5</model>
+		</rating>
+
+		<flight-model>yasim</flight-model>
+		<aero>sopwithCamel1F1</aero>
+
+		<startup>
+			<splash-texture>Aircraft/sopwithCamel/splash.rgb</splash-texture>
+		</startup>
+
+		<sound>
+			<path>Aircraft/sopwithCamel/Sounds/yasim/sopwithCamel-sound.xml</path>
+		</sound>
+
+		<virtual-cockpit archive="y">true</virtual-cockpit>
+		<allow-toggle-cockpit archive="y">false</allow-toggle-cockpit>
+		<rendering>
+			<camera-group>
+				<znear type="double">0.1</znear>
+			</camera-group>
+		</rendering>
+		<model>
+			<path>Aircraft/sopwithCamel/Models/sopwithCamel-model-Y.xml</path>
+			<livery>
+				<file type="string">10sqn</file>
+				<nose-texture type="bool">false</nose-texture>
+			</livery>
+			<variant type="int" >0</variant>
+			<!--<texture-path>Aircraft/sopwithCamel/Models/Textures</texture-path>-->
+			<camel>
+				<extra-details archive="y"
+											 type="bool">true</extra-details>
+				<show-pilot archive="y"
+										type="bool">true</show-pilot>
+				<show-pennants-flight-commander archive="y"
+																				type="bool">true</show-pennants-flight-commander>
+			</camel>
+		</model>
+
+		<ai>
+			<engines>
+				<engine>
+					<smoking type="bool">true</smoking>
+				</engine>
+			</engines>
+		</ai>
+
+		<submodels>
+			<serviceable type="bool">true</serviceable>
+			<path>Aircraft/sopwithCamel/Models/camel-submodels.xml</path>
+		</submodels>
+
+		<multiplay>
+			<generic>
+				<int n="0"
+						 type="int"/>
+				<int n="1"
+						 type="int"/>
+				<float n="0"
+							 type="float"/>
+				<float n="1"
+							 type="float"/>
+				<float n="2"
+							 type="float"/>
+			</generic>
+		</multiplay>
+
+		<view n="0">
+			<internal archive="y">true</internal>
+			<config>
+				<x-offset-m archive="y">0.0</x-offset-m>
+				<!--Right-->
+				<y-offset-m archive="y">0.675</y-offset-m>
+				<!--Up0.654829-->
+				<z-offset-m archive="y">1.5749</z-offset-m>
+				<!--Back0.475-->
+
+				<pitch-offset-deg>-15</pitch-offset-deg>
+				<default-field-of-view-deg>65</default-field-of-view-deg>
+			</config>
+		</view>
+		<view n="1">
+			<config>
+				<target-z-offset-m archive="y"
+													 type="double">1.1044</target-z-offset-m>
+			</config>
+		</view>
+		<view n="2">
+			<config>
+				<target-z-offset-m archive="y"
+													 type="double">1.1044</target-z-offset-m>
+			</config>
+		</view>
+		<view n="3">
+			<config>
+				<target-z-offset-m archive="y"
+													 type="double">1.1044</target-z-offset-m>
+			</config>
+		</view>
+		<view n="4">
+			<config>
+				<target-z-offset-m archive="y"
+													 type="double">1.1044</target-z-offset-m>
+			</config>
+		</view>
+		<view n="5">
+			<config>
+				<target-z-offset-m archive="y"
+													 type="double">1.1044</target-z-offset-m>
+			</config>
+		</view>
+		<view n="6">
+			<config>
+				<target-z-offset-m archive="y"
+													 type="double">1.1044</target-z-offset-m>
+			</config>
+		</view>
+		<view n="105">
+			<name>Ground Crew View</name>
+			<type>lookfrom</type>
+			<config>
+				<internal type="bool">false</internal>
+				<from-model type="bool">false</from-model>
+				<!--<from-model-idx type="int">0</from-model-idx>-->
+				<eye-lat-deg-path>/sim/model/position/latitude-deg</eye-lat-deg-path>
+				<eye-lon-deg-path>/sim/model/position/longitude-deg</eye-lon-deg-path>
+				<eye-alt-ft-path>/sim/model/position/altitude-ft</eye-alt-ft-path>
+				<eye-roll-deg-path>/sim/tower/roll-deg</eye-roll-deg-path>
+				<eye-pitch-deg-path>/sim/tower/pitch-deg</eye-pitch-deg-path>
+				<eye-heading-deg-path>/sim/tower/heading-deg</eye-heading-deg-path>
+				<at-model type="bool">false</at-model>
+				<at-model-idx type="int">0</at-model-idx>
+				<ground-level-nearplane-m type="double">0.1f</ground-level-nearplane-m>
+
+				<!-- back -->
+				<heading-offset-deg>180</heading-offset-deg>
+				<x-offset-m>0</x-offset-m>
+				<!-- right -->
+				<y-offset-m>-0.0</y-offset-m>
+				<!-- up -->
+				<z-offset-m>-10.0</z-offset-m>
+				<!-- back -->
+				<pitch-offset-deg>0</pitch-offset-deg>
+				<default-field-of-view-deg>60</default-field-of-view-deg>
+			</config>
+		</view>
+
+		<menubar>
+			<default>
+				<menu n="10">
+					<label>Camel</label>
+					<enabled type="bool">true</enabled>
+					<item>
+						<label>Toggle extra details</label>
+						<binding>
+							<command>property-toggle</command>
+							<property>sim/model/camel/extra-details</property>
+						</binding>
+					</item>
+					<item>
+						<label>Toggle pilot model</label>
+						<binding>
+							<command>property-toggle</command>
+							<property>sim/model/camel/show-pilot</property>
+						</binding>
+					</item>
+					<item>
+						<label>Toggle pilot face mask</label>
+						<binding>
+							<command>property-toggle</command>
+							<property>sim/model/camel/show-face-mask</property>
+						</binding>
+					</item>
+					<item>
+						<label>Toggle flight-commander's pennants</label>
+						<binding>
+							<command>property-toggle</command>
+							<property>sim/model/camel/show-pennants-flight-commander</property>
+						</binding>
+					</item>
+				</menu>
+			</default>
+		</menubar>
+	</sim>
+
+	<input>
+		<keyboard include="../Generic/WalkView/walk-view-keys.xml">
+			<!-- map keys for mag switches  -->
+			<key n="123">
+				<name>{</name>
+				<desc>Mag Switch Left Toggle.</desc>
+				<binding>
+					<command>nasal</command>
+					<script>
+						camel.magneto.toggleleftMagswitch();
+					</script>
+				</binding>
+			</key>
+			<key n="125">
+				<name>}</name>
+				<desc>Mag Switch Right Toggle.</desc>
+				<binding>
+					<command>nasal</command>
+					<script>
+						camel.magneto.togglerightMagswitch();
+					</script>
+				</binding>
+			</key>
+			<!-- map keys for seat vertical adjust -->
+			<key n="21">
+				<name>CTRL-U</name>
+				<desc>Seat Default.</desc>
+				<binding>
+					<command>property-assign</command>
+					<property>/controls/seat/vertical-adjust</property>
+					<value type="double">0</value>
+				</binding>
+				<binding>
+					<condition>
+						<equals>
+							<property>sim/current-view/view-number</property>
+							<value>0</value>
+						</equals>
+					</condition>
+					<command>property-assign</command>
+					<property>sim/current-view/y-offset-m</property>
+					<value type="double">0.675</value>
+				</binding>
+			</key>
+			<key n="85">
+				<name>U</name>
+				<desc>Seat Down.</desc>
+				<binding>
+					<command>property-adjust</command>
+					<property>/controls/seat/vertical-adjust</property>
+					<step type="double">-0.01</step>
+					<min type="double">-0.05</min>
+					<max type="double">0.05</max>
+				</binding>
+				<binding>
+					<condition>
+						<equals>
+							<property>sim/current-view/view-number</property>
+							<value>0</value>
+						</equals>
+					</condition>
+					<command>property-adjust</command>
+					<property>sim/current-view/y-offset-m</property>
+					<step type="double">-0.01</step>
+					<min type="double">0.625</min>
+					<max type="double">0.725</max>
+				</binding>
+			</key>
+			<key n="117">
+				<name>u</name>
+				<desc>Seat Up.</desc>
+				<binding>
+					<command>property-adjust</command>
+					<property>controls/seat/vertical-adjust</property>
+					<step type="double">0.01</step>
+					<min type="double">-0.05</min>
+					<max type="double">0.05</max>
+				</binding>
+				<binding>
+					<condition>
+						<equals>
+							<property>sim/current-view/view-number</property>
+							<value>0</value>
+						</equals>
+					</condition>
+					<command>property-adjust</command>
+					<property>sim/current-view/y-offset-m</property>
+					<step type="double">0.01</step>
+					<min type="double">0.625</min>
+					<max type="double">0.725</max>
+				</binding>
+			</key>
+			<!-- Livery Box -->
+			<key n="108">
+				<name>l</name>
+				<desc>Show livery select dialog</desc>
+				<binding>
+					<command>nasal</command>
+					<script>aircraft.livery.dialog.toggle()</script>
+				</binding>
+			</key>
+		</keyboard>
+	</input>
+	<yasim>
+		<weights>
+			<pilot-lb type="double">200</pilot-lb>
+			<round-lb type="double">0.33</round-lb>
+		</weights>
+	</yasim>
+
+	<nasal>
+		<camel>
+			<file>Aircraft/sopwithCamel/Models/camel-utils.nas</file>
+			<file>Aircraft/sopwithCamel/Models/fuel.nas</file>
+			<file>Aircraft/sopwithCamel/Models/yawstring.nas</file>
+		</camel>
+		<walkview>
+			<file>Aircraft/Generic/WalkView/walkview.nas</file>
+		</walkview>
+		<walkviews>
+			<file>Aircraft/sopwithCamel/Models/camel-walk-views.nas</file>
+		</walkviews>
+	</nasal>
+</PropertyList>

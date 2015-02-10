@@ -1,0 +1,116 @@
+<PropertyList>
+  <config>
+    <asymmetric-buffering-flag type="bool" userarchive="y">0</asymmetric-buffering-flag>
+    <asymmetric-buffering-reduction type="double" userarchive="y">0.3</asymmetric-buffering-reduction>
+    <asymmetric-buffering-angle-deg type="double" userarchive="y">90.0</asymmetric-buffering-angle-deg>
+    <distance-to-load-tile-m type="double" userarchive="y">39000.0</distance-to-load-tile-m>
+    <distance-to-remove-tile-m type="double" userarchive="y">39500.0</distance-to-remove-tile-m>
+    <detailed-clouds-flag type="bool" userarchive="y">1</detailed-clouds-flag>
+    <dynamics-flag type="bool" userarchive="y">0</dynamics-flag>
+    <thermal-properties type="double" userarchive="y">1.0</thermal-properties>
+    <wind-model type="string" userarchive="y">constant</wind-model>
+    <buffer-flag type="bool" userarchive="y">1</buffer-flag>
+    <asymmetric-reduction type="double" userarchive="y">0.7</asymmetric-reduction>
+    <clouds-visible-range-m type="double" userarchive="y">30000.0</clouds-visible-range-m>
+    <clouds-in-dynamics-loop type="int" userarchive="y">250</clouds-in-dynamics-loop>
+    <debug-output-flag type="bool" userarchive="y">0</debug-output-flag>
+    <generate-thermal-lift-flag type="bool" userarchive="y">0</generate-thermal-lift-flag>
+    <dynamical-convection-flag type="bool" userarchive="y">0</dynamical-convection-flag>
+    <detailed-terrain-interaction-flag type="bool" userarchive="y">0</detailed-terrain-interaction-flag>
+    <realistic-visibility-flag type="bool" userarchive="y">0</realistic-visibility-flag>
+    <thread-flag type="bool" userarchive="n">1</thread-flag>
+    <presampling-flag type="bool" userarchive="y">1</presampling-flag>
+    <fps-control-flag type="bool" userarchive="y">0</fps-control-flag>
+    <target-framerate type="double" userarchive="y">25.0</target-framerate>
+    <large-scale-persistence type="double" userarchive="y">1.0</large-scale-persistence>
+    <small-scale-persistence type="double" userarchive="y">0.0</small-scale-persistence>
+    <ground-haze-factor type="double" userarchive="y">1.0</ground-haze-factor>
+    <aux-max-vis-range-m type="double" userarchive="y">11.69524</aux-max-vis-range-m>
+    <max-vis-range-m type="double" userarchive="y">120000.0</max-vis-range-m>
+    <generate-cloud-shadows type="bool" userarchive="y">0</generate-cloud-shadows>
+  </config>
+ <tmp>
+    <tile-management type="string" userarchive="y">realistic weather</tile-management>
+    <tile-type type="string" userarchive="y">High-pressure</tile-type>
+    <tile-orientation-deg type="double" userarchive="y">260.0</tile-orientation-deg>
+    <windspeed-kt type="double" userarchive="y">8.0</windspeed-kt>
+    <gust-frequency-hz type="double" userarchive="n">0.0</gust-frequency-hz>
+    <gust-relative-strength type="double" userarchive="n">0.0</gust-relative-strength>
+    <gust-angular-variation-deg type="double" userarchive="n">0.0</gust-angular-variation-deg>
+    <tile-alt-offset-ft type="double" userarchive="n">0.0</tile-alt-offset-ft>
+    <asymmetric-tile-loading-flag type="bool" userarchive="y">0</asymmetric-tile-loading-flag>
+    <FL0-wind-from-heading-deg type="double" userarchive="y">260.0</FL0-wind-from-heading-deg>
+    <FL0-windspeed-kt type="double" userarchive="y">8.0</FL0-windspeed-kt>
+    <FL50-wind-from-heading-deg type="double" userarchive="y">262.0</FL50-wind-from-heading-deg>
+    <FL50-windspeed-kt type="double" userarchive="y">11.0</FL50-windspeed-kt>
+    <FL100-wind-from-heading-deg type="double" userarchive="y">264.0</FL100-wind-from-heading-deg>
+    <FL100-windspeed-kt type="double" userarchive="y">16.0</FL100-windspeed-kt>
+    <FL180-wind-from-heading-deg type="double" userarchive="y">265.0</FL180-wind-from-heading-deg>
+    <FL180-windspeed-kt type="double" userarchive="y">24.0</FL180-windspeed-kt>
+    <FL240-wind-from-heading-deg type="double" userarchive="y">269.0</FL240-wind-from-heading-deg>
+    <FL240-windspeed-kt type="double" userarchive="y">35.0</FL240-windspeed-kt>
+    <FL300-wind-from-heading-deg type="double" userarchive="y">273.0</FL300-wind-from-heading-deg>
+    <FL300-windspeed-kt type="double" userarchive="y">45.0</FL300-windspeed-kt>
+    <FL340-wind-from-heading-deg type="double" userarchive="y">274.0</FL340-wind-from-heading-deg>
+    <FL340-windspeed-kt type="double" userarchive="y">50.0</FL340-windspeed-kt>
+    <FL390-wind-from-heading-deg type="double" userarchive="y">273.0</FL390-wind-from-heading-deg>
+    <FL390-windspeed-kt type="double" userarchive="y">56.0</FL390-windspeed-kt>
+    <FL450-wind-from-heading-deg type="double" userarchive="y">272.0</FL450-wind-from-heading-deg>
+    <FL450-windspeed-kt type="double" userarchive="y">65.0</FL450-windspeed-kt>
+    <cloud-type type="string" userarchive="n">Altocumulus</cloud-type>
+    <alt type="double" userarchive="n">12000.0</alt>
+    <nx type="int" userarchive="n">5</nx>
+    <xoffset type="double" userarchive="n">800.0</xoffset>
+    <xedge type="double" userarchive="n">0.2</xedge>
+    <ny type="int" userarchive="n">15</ny>
+    <yoffset type="double" userarchive="n">800.0</yoffset>
+    <yedge type="double" userarchive="n">0.2</yedge>
+    <dir type="double" userarchive="n">0.0</dir>
+    <tri type="double" userarchive="n">1.0</tri>
+    <rnd-pos-x type="double" userarchive="n">400.0</rnd-pos-x>
+    <rnd-pos-y type="double" userarchive="n">400.0</rnd-pos-y>
+    <rnd-alt type="double" userarchive="n">300.0</rnd-alt>
+    <conv-strength type="double" userarchive="n">1.0</conv-strength>
+    <conv-size type="double" userarchive="n">15.0</conv-size>
+    <conv-alt type="double" userarchive="n">2000.0</conv-alt>
+    <bar-alt type="double" userarchive="n">3500.0</bar-alt>
+    <bar-n type="int" userarchive="n">150</bar-n>
+    <bar-dir type="double" userarchive="n">0.0</bar-dir>
+    <bar-dist type="double" userarchive="n">5.0</bar-dist>
+    <bar-size type="double" userarchive="n">10.0</bar-size>
+    <scloud-type type="string" userarchive="n">Altocumulus</scloud-type>
+    <scloud-subtype type="string" userarchive="n">small</scloud-subtype>
+    <scloud-alt type="double" userarchive="n">5000.0</scloud-alt>
+    <scloud-dir type="double" userarchive="n">0.0</scloud-dir>
+    <layer-type type="string" userarchive="n">Nimbus</layer-type>
+    <layer-rx type="double" userarchive="n">10.0</layer-rx>
+    <layer-ry type="double" userarchive="n">10.0</layer-ry>
+    <layer-phi type="double" userarchive="n">0.0</layer-phi>
+    <layer-alt type="double" userarchive="n">3000.0</layer-alt>
+    <layer-thickness type="double" userarchive="n">500.0</layer-thickness>
+    <layer-density type="double" userarchive="n">1.0</layer-density>
+    <layer-edge type="double" userarchive="n">10.0</layer-edge>
+    <layer-rain-flag type="bool" userarchive="n">1</layer-rain-flag>
+    <layer-rain-density type="double" userarchive="n">1.0</layer-rain-density>
+    <box-x-m type="double" userarchive="n">600.0</box-x-m>
+    <box-y-m type="double" userarchive="n">600.0</box-y-m>
+    <box-alt-ft type="double" userarchive="n">300.0</box-alt-ft>
+    <box-n type="int" userarchive="n">10</box-n>
+    <box-core-fraction type="double" userarchive="n">0.4</box-core-fraction>
+    <box-core-offset type="double" userarchive="n">0.2</box-core-offset>
+    <box-core-height type="double" userarchive="n">1.4</box-core-height>
+    <box-core-n type="int" userarchive="n">3</box-core-n>
+    <box-bottom-fraction type="double" userarchive="n">0.9</box-bottom-fraction>
+    <box-bottom-thickness type="double" userarchive="n">0.2</box-bottom-thickness>
+    <box-bottom-n type="int" userarchive="n">12</box-bottom-n>
+ </tmp>
+<cloud-shadows>
+    <cloud-shadow-flag type="bool" userarchive="y">0</cloud-shadow-flag>
+    <cloud-shadow-fov-flag type="bool" userarchive="y">0</cloud-shadow-fov-flag>
+</cloud-shadows>
+</PropertyList>
+
+
+
+
+

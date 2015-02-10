@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<PropertyList>
+
+	<path>Foxtrot.ac</path>
+	<animation>
+		<type>rotate</type>
+		<object-name>Foxtrot</object-name>
+				<property>environment/rel-wind-from-carrier-hdg-degs</property>
+		<center>
+			<x-m>0.00</x-m>
+			<y-m>0.00</y-m>
+			<z-m>0.00</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>0</y>
+			<z>-1</z>
+		</axis>
+	</animation>
+
+	<effect>
+		<inherits-from>/Effects/flutter</inherits-from>
+		<parameters>
+			<speed-kt>
+				<use>/environment/Vinson/spd-kt</use>
+			</speed-kt>
+			<heading-deg>
+				<use>/environment/Vinson/hdg-deg</use>
+			</heading-deg>
+			<offset>0.05</offset>
+			<amplitude-factor>0.2</amplitude-factor>
+		</parameters>
+		<object-name>Foxtrot</object-name>
+	</effect>
+
+
+</PropertyList>

@@ -1,0 +1,22 @@
+AC3Db
+MATERIAL "DefaultWhite" rgb 1 1 1  amb 1 1 1  emis 0 0 0  spec 0.5 0.5 0.5 shi 64  trans 0
+OBJECT world
+kids 1
+OBJECT poly
+name "Plane"
+texture "kx170b-01.rgb"
+texrep 1 1
+numvert 4
+0 0.036 -0.09
+0 -0.036 -0.09
+0 -0.036 0.09
+0 0.036 0.09
+numsurf 1
+SURF 0x00
+mat 0
+refs 4
+0 0.99609375 0.92578125
+3 0.00390625 0.92578125
+2 0.00390625 0.06640625
+1 0.99609375 0.06640625
+kids 0

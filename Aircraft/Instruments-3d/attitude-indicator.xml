@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+ <path>attitude-indicator.ac</path>
+
+ <animation>
+  <type>range</type>
+  <min-m>0</min-m>
+  <max-m>3</max-m>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>Background</object-name>
+  <object-name>Scale</object-name>
+  <object-name>Float</object-name>
+  <property>/orientation/roll-deg</property>
+  <factor>1.0</factor>
+  <axis>
+   <x>1.0</x>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>translate</type>
+  <object-name>Float</object-name>
+  <property>/orientation/pitch-deg</property>
+  <factor>-0.0002</factor>
+  <min-m>-0.1</min-m>
+  <max-m>0.1</max-m>
+  <axis>
+   <z>1.0</z>
+  </axis>
+ </animation>
+
+</PropertyList>

@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<PropertyList>
+
+  <path>gpsmap196.ac</path>
+
+  <animation>
+    <object-name>gps196.body</object-name>
+    <object-name>gps196.screen</object-name>
+    <object-name>gps196.antenna</object-name>
+    <object-name>gps196.rocker.up</object-name>
+    <object-name>gps196.button.in</object-name>
+    <object-name>gps196.button.dto</object-name>
+    <object-name>gps196.button.out</object-name>
+    <object-name>gps196.button.menu</object-name>
+    <object-name>gps196.button.nrst</object-name>
+    <object-name>gps196.button.page</object-name>
+    <object-name>gps196.button.quit</object-name>
+    <object-name>gps196.rocker.down</object-name>
+    <object-name>gps196.rocker.left</object-name>
+    <object-name>gps196.button.power</object-name>
+    <object-name>gps196.rocker.right</object-name>
+    <object-name>gps196.button.enter</object-name>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>gps196.button.dto</object-name>
+    <action>
+      <button>0</button>
+      <binding>
+        <command>property-assign</command>
+        <property>instrumentation/gps196/inputs/button-dto</property>
+        <value type="bool">true</value>
+      </binding>
+      <mod-up>
+        <binding>
+        <command>property-assign</command>
+        <property>instrumentation/gps196/inputs/button-dto</property>
+        <value type="bool">false</value>
+        </binding>
+      </mod-up>
+    </action>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>gps196.button.enter</object-name>
+    <action>
+      <button>0</button>
+      <binding>
+        <command>property-assign</command>
+        <property>instrumentation/gps196/inputs/button-enter</property>
+        <value type="bool">true</value>
+      </binding>
+      <mod-up>
+        <binding>
+        <command>property-assign</command>
+        <property>instrumentation/gps196/inputs/button-enter</property>
+        <value type="bool">false</value>
+        </binding>
+      </mod-up>
+    </action>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>gps196.button.in</object-name>
+    <action>
+      <button>0</button>
+      <binding>
+        <command>property-assign</command>
+        <property>instrumentation/gps196/inputs/button-in</property>
+        <value type="bool">true</value>
+      </binding>
+      <mod-up>
+        <binding>
+        <command>property-assign</command>
+        <property>instrumentation/gps196/inputs/button-in</property>
+        <value type="bool">false</value>
+        </binding>
+      </mod-up>
+    </action>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>gps196.button.menu</object-name>
+    <action>
+      <button>0</button>
+      <binding>
+        <command>property-assign</command>
+        <property>instrumentation/gps196/inputs/button-menu</property>
+        <value type="bool">true</value>
+      </binding>
+      <mod-up>
+        <binding>
+        <command>property-assign</command>
+        <property>instrumentation/gps196/inputs/button-menu</property>
+        <value type="bool">false</value>
+        </binding>
+      </mod-up>
+    </action>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>gps196.button.nrst</object-name>
+    <action>
+      <button>0</button>
+      <binding>
+        <command>property-assign</command>
+        <property>instrumentation/gps196/inputs/button-nrst</property>
+        <value type="bool">true</value>
+      </binding>
+      <mod-up>
+        <binding>
+        <command>property-assign</command>
+        <property>instrumentation/gps196/inputs/button-nrst</property>
+        <value type="bool">false</value>
+        </binding>
+      </mod-up>
+    </action>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>gps196.button.out</object-name>
+    <action>
+      <button>0</button>
+      <binding>
+        <command>property-assign</command>
+        <property>instrumentation/gps196/inputs/button-out</property>
+        <value type="bool">true</value>
+      </binding>
+      <mod-up>
+        <binding>
+        <command>property-assign</command>
+        <property>instrumentation/gps196/inputs/button-out</property>
+        <value type="bool">false</value>
+        </binding>
+      </mod-up>
+    </action>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>gps196.button.page</object-name>
+    <action>
+      <button>0</button>
+      <binding>
+        <command>property-assign</command>
+        <property>instrumentation/gps196/inputs/button-page</property>
+        <value type="bool">true</value>
+      </binding>
+      <mod-up>
+        <binding>
+        <command>property-assign</command>
+        <property>instrumentation/gps196/inputs/button-page</property>
+        <value type="bool">false</value>
+        </binding>
+      </mod-up>
+    </action>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>gps196.button.power</object-name>
+    <action>
+      <button>0</button>
+      <binding>
+        <command>property-assign</command>
+        <property>instrumentation/gps196/inputs/button-power</property>
+        <value type="bool">true</value>
+      </binding>
+      <mod-up>
+        <binding>
+        <command>property-assign</command>
+        <property>instrumentation/gps196/inputs/button-power</property>
+        <value type="bool">false</value>
+        </binding>
+      </mod-up>
+    </action>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>gps196.button.quit</object-name>
+    <action>
+      <button>0</button>
+      <binding>
+        <command>property-assign</command>
+        <property>instrumentation/gps196/inputs/button-quit</property>
+        <value type="bool">true</value>
+      </binding>
+      <mod-up>
+        <binding>
+        <command>property-assign</command>
+        <property>instrumentation/gps196/inputs/button-quit</property>
+        <value type="bool">false</value>
+        </binding>
+      </mod-up>
+    </action>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>gps196.rocker.down</object-name>
+    <action>
+      <button>0</button>
+      <binding>
+        <command>property-assign</command>
+        <property>instrumentation/gps196/inputs/rocker-down</property>
+        <value type="bool">true</value>
+      </binding>
+      <mod-up>
+        <binding>
+        <command>property-assign</command>
+        <property>instrumentation/gps196/inputs/rocker-down</property>
+        <value type="bool">false</value>
+        </binding>
+      </mod-up>
+    </action>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>gps196.rocker.left</object-name>
+    <action>
+      <button>0</button>
+      <binding>
+        <command>property-assign</command>
+        <property>instrumentation/gps196/inputs/rocker-left</property>
+        <value type="bool">true</value>
+      </binding>
+      <mod-up>
+        <binding>
+        <command>property-assign</command>
+        <property>instrumentation/gps196/inputs/rocker-left</property>
+        <value type="bool">false</value>
+        </binding>
+      </mod-up>
+    </action>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>gps196.rocker.right</object-name>
+    <action>
+      <button>0</button>
+      <binding>
+        <command>property-assign</command>
+        <property>instrumentation/gps196/inputs/rocker-right</property>
+        <value type="bool">true</value>
+      </binding>
+      <mod-up>
+        <binding>
+        <command>property-assign</command>
+        <property>instrumentation/gps196/inputs/rocker-right</property>
+        <value type="bool">false</value>
+        </binding>
+      </mod-up>
+    </action>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>gps196.rocker.up</object-name>
+    <action>
+      <button>0</button>
+      <binding>
+        <command>property-assign</command>
+        <property>instrumentation/gps196/inputs/rocker-up</property>
+        <value type="bool">true</value>
+      </binding>
+      <mod-up>
+        <binding>
+        <command>property-assign</command>
+        <property>instrumentation/gps196/inputs/rocker-up</property>
+        <value type="bool">false</value>
+        </binding>
+      </mod-up>
+    </action>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>gps196.screen</object-name>
+    <action>
+      <button>0</button>
+      <binding>
+        <command>nasal</command>
+        <script>
+          <![CDATA[
+            io.include("Aircraft/Instruments-3d/GPSmap196/widget/gpsmap196-widget.nas");
+          ]]>
+        </script>
+      </binding>
+    </action>
+  </animation>
+
+</PropertyList>

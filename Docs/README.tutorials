@@ -1,0 +1,477 @@
+== README.tutorials ===========================================================
+
+FlightGear offers a flexible tutorial system, entirely written in the Nasal
+language. Tutorials can be started and stopped from the "Help" menu. They are
+defined in XML files. Each of them has to be loaded into /sim/tutorials/ under
+a separate tutorial[n]/ branch:
+
+  <sim>
+      <tutorials>
+          <tutorial include="Tutorials/take-off.xml"/>
+          <tutorial include="Tutorials/landing.xml"/>
+      </tutorial>
+  </sim>
+
+Alternatively, all tutorials can be defined in one file, with <tutorial> tags
+around each tutorial. This is then included like so:
+
+  <sim>
+      <tutorials include="foo-tutorials.xml"/>
+  </sim>
+
+Finally, tutorials are automatically generated from any valid checklists
+on startup.  See README.checklists for details.
+
+
+== TUTORIAL STRUCTURE =========================================================
+
+
+A tutorial has this structure, where some of the elements are described
+in detail below:
+
+
+<tutorial>
+  <name>...</name>            mandatory; short identifier, also shown in the
+                                         tutorial selection dialog
+  <description>...</description> mandatory; longer description for the dialog
+  <audio-dir>...</audio-dir>  optional; defines where to load sound samples
+  <timeofday>noon</timeofday> optional; defines daytime; any of "dawn",
+                                        "morning", "noon", "afternoon",
+                                        "evening", "dusk", "midnight", "real"
+
+  <step-time>                 optional; period between each step being executed.
+                              Default 5
+  <exit-time>                 optional; period between exit/abort conditions being
+                              checked. Default 1
+
+  <nasal>
+      ...                     optional; initial Nasal code; see below
+  </nasal>
+
+  <models>
+      ...                     optional; scenery objects; see below
+  </models>
+
+  <targets>
+      ...                     optional; targets; see below
+  </targets>
+
+  <presets>
+      ...                     optional; initial simulator state; see below
+  </presets>
+
+
+  <init>                      optional; initial settings; see below
+    <set>
+        ...                     optional; property settings; allowed multiple
+    </set>                      times
+    <view>
+        ...                     optional; view settings
+    </view>
+    <marker>
+        ...                     optional; marker coordinates
+    </marker>
+    <nasal>
+        ...                     optional; Nasal code
+    </nasal>
+  </init>
+
+  <step>                      mandatory; well, not really, but if there's not
+                              at least one <step>, then the whole tutorial
+                              won't do anything; see below for details
+
+    <message>...</message>      optional; message to be displayed/spoken when
+                                <step> is entered; allowed multiple times, in
+                                which case one is chosen at random
+
+    <audio>...</audio>          optional; file name of *.wav sample to be played;
+                                          may be used multiple times (random)
+    <set>
+        ...                     optional; allowed several times
+    </set>
+    <view>
+        ...                     optional
+    </view>
+    <marker>
+        ...                     optional
+    </marker>
+    <nasal>
+        ...                     optional; Nasal code that is executed when the
+    </nasal>                              step is entered
+
+    <wait>10</wait>             optional; wait period after initial messages etc.
+
+    <error>                     optional; allowed several times
+        <message>..</message>       optional; text displayed/spoken
+        <audio>...</audio>          optional; name of *.wav sample to be played
+
+        <condition>
+            ...                     optional, but one should be there to make sense
+        </condition>                          see $FG_ROOT/Docs/README.conditions
+
+        <nasal>
+            ...                     optional; Nasal code that is executed when the
+        </nasal>                              error condition was fulfilled
+    </error>
+
+    <exit>                      optional; defines when to leave this <step>
+        <condition>                       see $FG_ROOT/Docs/README.conditions
+            ...
+        </condition>
+
+        <nasal>
+            ...                     optional; Nasal code that is executed when the
+        </nasal>                              exit condition was met
+    </exit>
+  </step>
+
+
+  <end>                           optional; final settings & actions; see below
+      <message>...</message>          optional; multiple times (random)
+      <audio>...</audio>              optional; multiple times (random)
+      <set>
+          ...                         optional
+      </set>
+      <view>
+          ...                         optional
+      </view>
+      <nasal>
+          ...                         optional
+      </nasal>
+  </end>
+</tutorial>
+
+
+
+After the tutorial has finished initialization, it goes through all <steps>.
+For each it outputs the <message> or <audio>, optionally sets a <marker> and/or
+a <view>, then it checks all <error>s and, if an <error><condition> is fulfilled,
+outputs the respective <error><message>. If none of the <error>s occurred, then
+it checks if the <exit><condition> is true, and if so, it jumps to the next
+<step>. Otherwise the current <step> is endlessly repeated. Finally, after all
+<step>s were processed, the <end> group is executed.
+
+
+
+
+
+
+
+
+== ELEMENTS ===================================================================
+
+
+-- <nasal> --------------------------------------------------------------------
+
+Embedded Nasal is supported on the top level, in <init> in each <step>, in a
+<step>'s <error> and <exit>, and in <end>. All Nasal runs in a separate
+namespace __tutorial, so it's possible to define a function in the <init>'s
+Nasal block, and to use this function in other blocks without prefix. The
+namespace is preloaded with some functions:
+
+
+  next([n=1])      ... to switch n <step>s forward
+  previous([n=1])  ... to switch n <step>s backwards
+
+  say(what [, who="copilot [, delay=0]])
+                   ... says 'what' with voice 'copilot' after 'delay' seconds
+
+
+A Nasal group looks like this:
+
+  <nasal>
+      <script>
+          say("Hi, I'm the pilot!", "pilot");
+      </script>
+      <module>__tutorial</module>           optional; preset with __tutorial
+  </nasal>
+
+
+
+
+
+-- <models> -------------------------------------------------------------------
+
+This loads models into the scenery. It can be used to place, for example,
+a helicopter landing pad at an airport where normally none is, so that the
+tutorial can train landing. The layout is the following, with <path> being
+relative to $FG_ROOT:
+
+  <models>
+      <model>
+          <path>Models/Airport/supacat_winch.ac</path>     mandatory
+          <longitude-deg>-122.4950109</longitude-deg>      mandatory
+          <latitude-deg>37.51403798</latitude-deg>         mandatory
+          <elevation-ft>51</elevation-ft>                  mandatory
+          <heading-deg>2.488888979</heading-deg>           optional (default: 0)
+          <pitch-deg>0</pitch-deg>                         optional (default: 0)
+          <roll-deg>0</roll-deg>                           optional (default: 0)
+      </model>
+
+      <model>
+          ...                      another model
+      </model>
+  </models>
+
+The models are only removed before a new tutorial is loaded. Otherwise they
+remain in the scenery for the whole FlightGear session. They aren't permanently
+added.
+
+
+
+
+
+-- <targets> ------------------------------------------------------------------
+
+These are simple pairs of longitude/latitude under an arbitrary name (here
+"hospital" and "helipad"):
+
+  <targets>
+      <hospital>
+          <longitude-deg>-122.4950109</longitude-deg>      mandatory
+          <latitude-deg>37.51403798</latitude-deg>         mandatory
+      </hospital>
+
+      <helipad>
+          ...
+      </helipad>
+  </targets>
+
+
+The tutorial system will for each calculate how the user's aircraft is positioned
+relative to the respective target, and offer the information in this structure:
+
+  <sim>
+      <tutorials>
+          <targets>
+              <hospital>
+                  <direction-deg>12.345</direction-deg>
+                  <heading-deg>33.333</heading-deg>
+                  <distance-m>12404.932</distance-m>
+                  <eta-min>39.2358</eta-min>
+              </hospital>
+
+              <helipad>
+                  ...
+              </helipad>
+          </targets>
+      </tutorials>
+  </sim>
+
+
+Where:
+  <direction-deg> is an angle between the aircraft's velocity vector and the
+                  azimuth to the target. 0 means that the aircraft is moving
+                  right towards the target. 10 means that the target is slightly
+                  to the right, -90 means that it's exactly left, and -180 or
+                  179.9999 that it's right behind.
+
+  <heading-deg>   is the absolute heading that the aircraft would currently
+                  have to fly with in a straight line to reach the target
+
+  <distance-m>    is the distance in meters
+
+  <eta-min>       is the "Estimated Time of Arrival" given the aircraft's
+                  current speed towards the target. Positive times mean that
+                  the aircraft is getting nearer to the target and can arrive
+                  there in this time given the current speed. It will, of course,
+                  only arrive there, if <direction-deg> is zero. A negative
+                  number means that the aircraft moves away, or in other words:
+                  that in this number of minutes it will be away twice as far.
+
+
+
+
+
+-- <presets> ------------------------------------------------------------------
+
+These set the initial simulator state. All properties are optional.
+The last three entries are to define the position relative to the
+airport/runway or the longitude/latitude.
+
+  <presets>
+      <airport-id>KHAF</airport-id>
+      <on-ground>1</on-ground>
+      <runway>12</runway>
+    <!--
+      <altitude-ft>122.333</altitude-ft>
+      <latitude-deg>37.555</latitude-deg>
+      <longitude-deg>1000</longitude-deg>
+    -->
+      <heading-deg>0</heading-deg>
+      <airspeed-kt>0</airspeed-kt>
+      <glideslope-deg>0</glideslope-deg>
+      <offset-azimuth>0</offset-azimuth>
+      <offset-distance>0</offset-distance>
+  </presets>
+
+
+
+
+
+-- <set> ----------------------------------------------------------------------
+
+<set> groups can be used in <init>, <step>, and <end>. They set a <property>
+to a given <value> or to the value that a second <property> points to. They
+can also reset values that were only temporarily changed for the duration
+of the tutorial. This is desirable for properties that are saved to the
+aircraft config file or to ~/.fgfs/autosave.xml.
+
+  <set>
+      <property>/foo/bar</property>        set /foo/bar to 123
+      <value>123</value>
+  </set>
+
+  <set>
+      <property>/foo/bar</property>        set /foo/bar to value of /test
+      <property>/test</property>
+  </set>
+
+
+
+
+
+-- <view> ---------------------------------------------------------------------
+
+These groups can be used in <init>, <step>, and <end>. They smoothly move the
+view to a new view position/direction. All parameters are optional. If, for
+example, only <field-of-view> is set, then the view will only zoom in -- the
+direction and position will remain the same. This feature is meant for cockpit
+tutorials, where the pilot's view is directed to some switch or instrument.
+view-number can be used to switch between different views, i.e. to tower-view,
+copilot view etc. Default view-number is 0 (captain's view).
+
+  <view>
+      <view-number>0</view-number>                 0=captain's view, 1=copilot,...
+      <heading-offset-deg>20</heading-offset-deg>  positive is left
+      <pitch-offset-deg>-4</pitch-offset-deg>      positive is up
+      <roll-offset-deg>0</roll-offset-deg>         positive is roll right
+      <x-offset-m>0.2</x-offset-m>                 positive is move right
+      <y-offset-m>0.2</y-offset-m>                 positive is move up
+      <z-offset-m>0.2</z-offset-m>                 positive is move back
+      <field-of-view>55</field-of-view>            default: 55; smaller zooms in
+  </view>                                                       bigger zooms out
+
+
+
+
+
+-- <marker> -------------------------------------------------------------------
+
+These are supported in <init>, <step>, and <end>. They show a magenta colored
+circle at given position (relative to aircraft origin) in given size. See the
+last section for how to conveniently find the proper coordinates.
+
+  <marker>
+      <x-m>1.3</x-m>                               positive is back
+      <y-m>0.3</y-m>                               positive is to the right
+      <z-m>0.1</z-m>                               positive is up
+      <scale>1.3</scale>                           optional; default: 1
+  </marker>
+
+
+For this to work, the aircraft model needs to include the tutorial marker
+model in its animation xml file:
+
+  <PropertyList>
+      <path>lightning-f1a.ac</path>
+
+      <model>
+          <path>Models/Aircraft/marker.xml</path>
+      </model>
+
+      ...
+  </PropertyList>
+
+
+
+
+
+-- <message>/<audio> ----------------------------------------------------------
+
+Groups <step> and <end> can have one or more <message> entries, and one or
+more <audio> entries. If more are used of a kind, then the tutorial chooses
+one at random. If <audio> are available, then the contents are interpreted as
+file name of a *.wav sample, which is appended to the <audio-dir> path defined
+at the <tutorial> top level (default: "") and played by the tutorial system.
+Otherwise the <message> is handed over to the voice system, and synthesized
+to speech by the Festival speech synthesizer (if installed). In either
+case the chosen <message> is displayed on top of the screen. Neither <message>
+nor <audio> are mandatory.
+
+Because one and the same <message> string can be displayed *and* be synthesized,
+which can be problematic in some cases, there is a way to specify parts for
+either display *or* voice synthesizer:  "{<display part>|<voice part}".
+Example:
+
+  <message>Press the {No1|number one} button!</message>
+
+Here, "No1" would be displayed on the screen, but "number one" would be
+sent to the speech synthesis system. This can also be used to add
+invisible but audible exclamation marks:   "Press the button{|!}"
+
+
+
+
+
+-- <condition> ----------------------------------------------------------------
+
+These are explained in detail in $FG_ROOT/Docs/README.conditions. Here's just
+one example:
+
+  <condition>
+      <less-than>
+          <property>/foo/bar</property>
+          <value>12</value>
+      </less-than>
+  </condition>
+
+This condition is true when the value of /foo/bar is less than 12, and false
+otherwise.
+
+
+
+
+
+
+
+
+== FINDING MARKER COORDINATES =================================================
+
+If an aircraft tutorial wants to use the marker, then the aircraft animation
+file needs to include the marker model (see above). If this is done, then one
+can use the "marker-adjust" dialog to find the respective <marker> coordinates.
+Just type this into the "Help->Nasal Console" dialog:
+
+  tutorial.dialog()
+
+
+Or temporarily add a key binding to the *-set.xml file:
+
+  <key n="96">
+      <name>Backtick</name>
+      <desc>Open marker adjust dialog</desc>
+      <binding>
+          <command>dialog-show</command>
+          <dialog-name>marker-adjust</dialog-name>
+      </binding>
+  </key>
+
+
+The dialog allows to move a red cross around, which has the blinking marker
+circle in the middle. Note that ctrl- and shift-modifiers modulate the slider
+movements. Ctrl makes positioning coarser, and shift finer. The [Reset]
+button moves the marker back to aircraft origin, the [Center] button centers
+the sliders, and the [Dump] button dumps the marker coordinates to the
+terminal, for example:
+
+  <marker>
+      <x-m>1.1425</x-m>
+      <y-m>0.1994</y-m>
+      <z-m>-0.0844</z-m>
+      <scale>2.0489</scale>
+  </marker>
+
+This just needs to be copied to the tutorial XML file.
+
+

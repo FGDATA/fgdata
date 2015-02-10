@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+
+
+<PropertyList>
+	
+	 <path>taxi.ac</path>
+
+	<animation>
+		<type>select</type>
+		<object-name>light</object-name>
+	    <condition>
+	      <and>
+			<greater-than>
+				<property>/sim/time/sun-angle-rad</property>
+				<value>1.57</value>
+			</greater-than>
+			<greater-than>
+				<property>velocities/true-airspeed-kt</property>
+				<value>0</value>
+			</greater-than>
+		  </and>
+	    </condition>
+	</animation>
+	
+</PropertyList>

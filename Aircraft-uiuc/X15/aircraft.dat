@@ -1,0 +1,65 @@
+# Jeff Scott
+# North American X-15
+# rocket-powered high-speed research aircraft, data from:
+#       Flight Gear JSBsim X15.cfg file
+#       Jon Brendt's X-15 web site
+#         http://www.hal-pc.org/~jsb/X-15.html
+# 03-28-2000    file creation
+
+init Dz_cg       5.0    # [ft]
+
+geometry bw     22.36   # [ft]
+geometry cbar   10.27   # [ft]
+geometry Sw    200.0    # [ft^2]
+
+controlSurface de 35 15 # [deg]
+controlSurface da 15 15 # [deg]
+controlSurface dr 20 20 # [deg]  guess for now
+
+mass Weight   31240     # [lb]
+mass I_xx      3650     # [slug-ft^2]
+mass I_yy     80000     # [slug-ft^2]
+mass I_zz     82000     # [slug-ft^2]
+mass I_xz       590     # [slug-ft^2]
+
+
+# aircraft specs: 51090 lb at sea level
+#                 57000 lb at 45,000 ft
+#                 70000 lb at peak altitude
+engine simpleSingle 51090 # [lb]
+
+
+#CL CLo      <CLo>       # []
+CL CL_a     3.5         # [/rad]
+#CL CL_adot  <CL_adot>   # [/rad]
+#CL CL_q     <CL_q>      # [/rad]
+CL CL_de    0.54        # [/rad]
+
+CD CDo      0.095       # []
+#CD CDK                  # []
+CD CD_a     0.6         # [/rad]
+#CD CD_de    <CD_de>     # [/rad]
+
+#Cm Cmo      <Cmo>       # []
+Cm Cm_a    -1.2         # [/rad]
+Cm Cm_adot  0.0         # [/rad]
+Cm Cm_q    -6.2         # [/rad]
+Cm Cm_de   -0.9         # [/rad]
+
+CY CY_beta -1.4         # [/rad]
+#CY CY_p     <CY_p>      # [/rad]
+#CY CY_r     <CY_r>      # [/rad]
+CY CY_da    0.05        # [/rad]    sign reversed
+CY CY_dr    0.45        # [/rad]
+
+Cl Cl_beta -0.01        # [/rad]
+Cl Cl_p    -0.35        # [/rad]
+Cl Cl_r     0.04        # [/rad]
+Cl Cl_da   -0.06        # [/rad]    sign reversed
+Cl Cl_dr    0.012       # [/rad]
+
+Cn Cn_beta  0.5         # [/rad]
+Cn Cn_p     0.0         # [/rad]
+Cn Cn_r    -1.5         # [/rad]
+Cn Cn_da   -0.04        # [/rad]    sign reversed
+Cn Cn_dr   -0.3         # [/rad]

@@ -1,0 +1,384 @@
+AC3Db
+MATERIAL "ac3dmat1" rgb 1 1 1  amb 1 1 1  emis 0 0 0  spec 1 1 1  shi 100  trans 0.482
+OBJECT world
+kids 20
+OBJECT poly
+name "rect1"
+loc -0.51799 -0.06195 -1.19202e-006
+texture "contrail.png"
+crease 45.000000
+numvert 4
+0 -24.938 -25
+0 -24.938 25
+0 25.062 25
+0 25.062 -25
+numsurf 1
+SURF 0x0
+mat 0
+refs 4
+3 -0.046875 1.04687
+2 1.04687 1.04687
+1 1.04687 -0.0468746
+0 -0.046875 -0.0468746
+kids 0
+OBJECT poly
+name "rect2"
+loc -0.46411 -0.06195 -1.19202e-006
+texture "contrail.png"
+crease 45.000000
+numvert 4
+0 25.062 -25
+0 25.062 25
+0 -24.938 25
+0 -24.938 -25
+numsurf 1
+SURF 0x0
+mat 0
+refs 4
+0 -0.046875 1.04687
+1 1.04687 1.04687
+2 1.04687 -0.0468746
+3 -0.046875 -0.0468746
+kids 0
+OBJECT poly
+name "rect3"
+loc -0.410231 -0.06195 -1.19202e-006
+texture "contrail.png"
+crease 45.000000
+numvert 4
+0 -24.938 -25
+0 -24.938 25
+0 25.062 25
+0 25.062 -25
+numsurf 1
+SURF 0x0
+mat 0
+refs 4
+3 -0.046875 1.04687
+2 1.04687 1.04687
+1 1.04687 -0.0468746
+0 -0.046875 -0.0468746
+kids 0
+OBJECT poly
+name "rect4"
+loc -0.356352 -0.06195 -1.19202e-006
+texture "contrail.png"
+crease 45.000000
+numvert 4
+0 25.062 -25
+0 25.062 25
+0 -24.938 25
+0 -24.938 -25
+numsurf 1
+SURF 0x0
+mat 0
+refs 4
+0 -0.046875 1.04687
+1 1.04687 1.04687
+2 1.04687 -0.0468746
+3 -0.046875 -0.0468746
+kids 0
+OBJECT poly
+name "rect5"
+loc -0.302472 -0.06195 -1.19202e-006
+texture "contrail.png"
+crease 45.000000
+numvert 4
+0 -24.938 -25
+0 -24.938 25
+0 25.062 25
+0 25.062 -25
+numsurf 1
+SURF 0x0
+mat 0
+refs 4
+3 -0.046875 1.04687
+2 1.04687 1.04687
+1 1.04687 -0.0468746
+0 -0.046875 -0.0468746
+kids 0
+OBJECT poly
+name "rect6"
+loc -0.248593 -0.06195 -1.19202e-006
+texture "contrail.png"
+crease 45.000000
+numvert 4
+0 25.062 -25
+0 25.062 25
+0 -24.938 25
+0 -24.938 -25
+numsurf 1
+SURF 0x0
+mat 0
+refs 4
+0 -0.046875 1.04687
+1 1.04687 1.04687
+2 1.04687 -0.0468746
+3 -0.046875 -0.0468746
+kids 0
+OBJECT poly
+name "rect7"
+loc -0.194714 -0.06195 -1.19202e-006
+texture "contrail.png"
+crease 45.000000
+numvert 4
+0 -24.938 -25
+0 -24.938 25
+0 25.062 25
+0 25.062 -25
+numsurf 1
+SURF 0x0
+mat 0
+refs 4
+3 -0.046875 1.04687
+2 1.04687 1.04687
+1 1.04687 -0.0468746
+0 -0.046875 -0.0468746
+kids 0
+OBJECT poly
+name "rect8"
+loc -0.140835 -0.06195 -1.19202e-006
+texture "contrail.png"
+crease 45.000000
+numvert 4
+0 25.062 -25
+0 25.062 25
+0 -24.938 25
+0 -24.938 -25
+numsurf 1
+SURF 0x0
+mat 0
+refs 4
+0 -0.046875 1.04687
+1 1.04687 1.04687
+2 1.04687 -0.0468746
+3 -0.046875 -0.0468746
+kids 0
+OBJECT poly
+name "rect9"
+loc -0.086955 -0.06195 -1.19202e-006
+texture "contrail.png"
+crease 45.000000
+numvert 4
+0 -24.938 -25
+0 -24.938 25
+0 25.062 25
+0 25.062 -25
+numsurf 1
+SURF 0x0
+mat 0
+refs 4
+3 -0.046875 1.04687
+2 1.04687 1.04687
+1 1.04687 -0.0468746
+0 -0.046875 -0.0468746
+kids 0
+OBJECT poly
+name "rect10"
+loc -0.0330757 -0.06195 -1.19202e-006
+texture "contrail.png"
+crease 45.000000
+numvert 4
+0 25.062 -25
+0 25.062 25
+0 -24.938 25
+0 -24.938 -25
+numsurf 1
+SURF 0x0
+mat 0
+refs 4
+0 -0.046875 1.04687
+1 1.04687 1.04687
+2 1.04687 -0.0468746
+3 -0.046875 -0.0468746
+kids 0
+OBJECT poly
+name "rect11"
+loc 0.0208036 -0.06195 -1.19202e-006
+texture "contrail.png"
+crease 45.000000
+numvert 4
+0 25.062 -25
+0 25.062 25
+0 -24.938 25
+0 -24.938 -25
+numsurf 1
+SURF 0x0
+mat 0
+refs 4
+0 -0.046875 1.04687
+1 1.04687 1.04687
+2 1.04687 -0.0468746
+3 -0.046875 -0.0468746
+kids 0
+OBJECT poly
+name "rect12"
+loc 0.0746829 -0.06195 -1.19202e-006
+texture "contrail.png"
+crease 45.000000
+numvert 4
+0 -24.938 -25
+0 -24.938 25
+0 25.062 25
+0 25.062 -25
+numsurf 1
+SURF 0x0
+mat 0
+refs 4
+3 -0.046875 1.04687
+2 1.04687 1.04687
+1 1.04687 -0.0468746
+0 -0.046875 -0.0468746
+kids 0
+OBJECT poly
+name "rect13"
+loc 0.125599 -0.06195 -1.19202e-006
+texture "contrail.png"
+crease 45.000000
+numvert 4
+0 25.062 -25
+0 25.062 25
+0 -24.938 25
+0 -24.938 -25
+numsurf 1
+SURF 0x0
+mat 0
+refs 4
+0 -0.046875 1.04687
+1 1.04687 1.04687
+2 1.04687 -0.0468746
+3 -0.046875 -0.0468746
+kids 0
+OBJECT poly
+name "rect14"
+loc 0.176515 -0.06195 -1.19202e-006
+texture "contrail.png"
+crease 45.000000
+numvert 4
+0 -24.938 -25
+0 -24.938 25
+0 25.062 25
+0 25.062 -25
+numsurf 1
+SURF 0x0
+mat 0
+refs 4
+3 -0.046875 1.04687
+2 1.04687 1.04687
+1 1.04687 -0.0468746
+0 -0.046875 -0.0468746
+kids 0
+OBJECT poly
+name "rect15"
+loc 0.227431 -0.06195 -1.19202e-006
+texture "contrail.png"
+crease 45.000000
+numvert 4
+0 25.062 -25
+0 25.062 25
+0 -24.938 25
+0 -24.938 -25
+numsurf 1
+SURF 0x0
+mat 0
+refs 4
+0 -0.046875 1.04687
+1 1.04687 1.04687
+2 1.04687 -0.0468746
+3 -0.046875 -0.0468746
+kids 0
+OBJECT poly
+name "rect16"
+loc 0.278347 -0.06195 -1.19202e-006
+texture "contrail.png"
+crease 45.000000
+numvert 4
+0 -24.938 -25
+0 -24.938 25
+0 25.062 25
+0 25.062 -25
+numsurf 1
+SURF 0x0
+mat 0
+refs 4
+3 -0.046875 1.04687
+2 1.04687 1.04687
+1 1.04687 -0.0468746
+0 -0.046875 -0.0468746
+kids 0
+OBJECT poly
+name "rect17"
+loc 0.329263 -0.06195 -1.19202e-006
+texture "contrail.png"
+crease 45.000000
+numvert 4
+0 25.062 -25
+0 25.062 25
+0 -24.938 25
+0 -24.938 -25
+numsurf 1
+SURF 0x0
+mat 0
+refs 4
+0 -0.046875 1.04687
+1 1.04687 1.04687
+2 1.04687 -0.0468746
+3 -0.046875 -0.0468746
+kids 0
+OBJECT poly
+name "rect18"
+loc 0.380179 -0.06195 -1.19202e-006
+texture "contrail.png"
+crease 45.000000
+numvert 4
+0 -24.938 -25
+0 -24.938 25
+0 25.062 25
+0 25.062 -25
+numsurf 1
+SURF 0x0
+mat 0
+refs 4
+3 -0.046875 1.04687
+2 1.04687 1.04687
+1 1.04687 -0.0468746
+0 -0.046875 -0.0468746
+kids 0
+OBJECT poly
+name "rect19"
+loc 0.431095 -0.06195 -1.19202e-006
+texture "contrail.png"
+crease 45.000000
+numvert 4
+0 25.062 -25
+0 25.062 25
+0 -24.938 25
+0 -24.938 -25
+numsurf 1
+SURF 0x0
+mat 0
+refs 4
+0 -0.046875 1.04687
+1 1.04687 1.04687
+2 1.04687 -0.0468746
+3 -0.046875 -0.0468746
+kids 0
+OBJECT poly
+name "rect20"
+loc 0.48201 -0.06195 -1.19202e-006
+texture "contrail.png"
+crease 45.000000
+numvert 4
+0 -24.938 -25
+0 -24.938 25
+0 25.062 25
+0 25.062 -25
+numsurf 1
+SURF 0x0
+mat 0
+refs 4
+3 -0.046875 1.04687
+2 1.04687 1.04687
+1 1.04687 -0.0468746
+0 -0.046875 -0.0468746
+kids 0

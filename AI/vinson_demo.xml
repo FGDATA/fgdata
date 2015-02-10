@@ -1,0 +1,217 @@
+<?xml version="1.0"?>
+<PropertyList>
+	<scenario>
+
+		<name>CVN-70 - USS Vinson</name>
+
+		<description>
+			Sets up USS Vinson in an operating
+			box 60nm west of San Fransisco.
+
+			Notes:
+			USS Vinson is a highly detailed model, and may cause
+			significant degradation of the framerate.
+			max-lat, min-lat	Defines an operating box in terms of
+			the max and min lat excursions from
+			the start position
+			max-lon, min-lon	Defines an operating box in terms of
+			the max and min lon excursions from
+			the start position
+			TACAN-channel-ID	Defines a TACAN channel for display
+			purposes only
+		</description>
+
+		<entry>
+			<type>carrier</type>
+			<name>Vinson</name>
+			<callsign>Vinson</callsign>
+			<pennant-number>CVN-70</pennant-number>
+			<TACAN-channel-ID>029X</TACAN-channel-ID>
+			<model>Models/Geometry/Nimitz/vinson.xml</model>
+			<latitude>37.8</latitude>
+			<longitude>-123.6</longitude>
+			<speed>10</speed>
+			<heading>285</heading>
+			<rudder>0</rudder>
+			<turn-radius-ft>12000</turn-radius-ft>
+			<flols-pos>
+				<x-offset-m>69.84</x-offset-m>
+				<y-offset-m>-39.67</y-offset-m>
+				<z-offset-m>21.47</z-offset-m>
+			</flols-pos>
+			<parking-pos>
+				<name>cat-1</name>
+				<heading-offset-deg>-4</heading-offset-deg>
+				<x-offset-m>-3.65</x-offset-m>
+				<y-offset-m>15.2715</y-offset-m>
+				<z-offset-m>20</z-offset-m>
+			</parking-pos>
+			<parking-pos>
+				<name>cat-2</name>
+				<heading-offset-deg>-1</heading-offset-deg>
+				<x-offset-m>1.6</x-offset-m>
+				<y-offset-m>-4.6</y-offset-m>
+				<z-offset-m>20</z-offset-m>
+			</parking-pos>
+			<parking-pos>
+				<name>cat-3</name>
+				<heading-offset-deg>-4</heading-offset-deg>
+				<x-offset-m>93</x-offset-m>
+				<y-offset-m>-20.2362</y-offset-m>
+				<z-offset-m>20</z-offset-m>
+			</parking-pos>
+			<parking-pos>
+				<name>cat-4</name>
+				<heading-offset-deg>0</heading-offset-deg>
+				<x-offset-m>110</x-offset-m>
+				<y-offset-m>-29.6417</y-offset-m>
+				<z-offset-m>20</z-offset-m>
+			</parking-pos>
+			<parking-pos>
+				<name>park-1</name>
+				<heading-offset-deg>-90</heading-offset-deg>
+				<x-offset-m>54</x-offset-m>
+				<y-offset-m>26</y-offset-m>
+				<z-offset-m>20</z-offset-m>
+			</parking-pos>
+			<max-lat>0.01</max-lat>
+			<min-lat>0.05</min-lat>
+			<max-long>0.05</max-long>
+			<min-long>0.01</min-long>
+			<mp-control>false</mp-control>
+			<ai-control>true</ai-control>
+		</entry>
+
+		<parameters>
+			<turn-radius-ft>6000</turn-radius-ft>
+			<fixed-turn-radius-ft>500</fixed-turn-radius-ft>
+			<rudder-constant>0.75</rudder-constant>
+			<speed-constant>1</speed-constant>
+		</parameters>
+
+		<entry>
+			<type>escort</type>
+			<model>Models/Maritime/Military/CG-57/CG57.xml</model>
+			<name>escort</name>
+			<callsign>CG-57</callsign>
+			<turn-radius-ft alias="../../parameters/turn-radius-ft"/>
+			<fixed-turn-radius-ft alias="../../parameters/fixed-turn-radius-ft"/>
+			<rudder-constant alias="../../parameters/rudder-constant"/>
+			<speed-constant alias="../../parameters/speed-constant"/>
+			<roll-factor>2</roll-factor>
+			<station>
+				<range-nm>1.0</range-nm>
+				<brg-deg>190</brg-deg>
+				<parent>Vinson</parent>
+			</station>
+		</entry>
+
+		<entry>
+			<type>escort</type>
+			<model>Models/Maritime/Military/OliverPerryFFG.xml</model>
+			<name>Escort-2</name>
+			<callsign>Escort-1</callsign>
+			<turn-radius-ft alias="../../parameters/turn-radius-ft"/>
+			<fixed-turn-radius-ft alias="../../parameters/fixed-turn-radius-ft"/>
+			<rudder-constant alias="../../parameters/rudder-constant"/>
+			<speed-constant alias="../../parameters/speed-constant"/>
+			<update-interval-sec>180</update-interval-sec>
+			<station>
+				<range-nm>5.0</range-nm>
+				<brg-deg>330</brg-deg>
+				<deg-true>true</deg-true>
+				<range-limit-nm>0.5</range-limit-nm>
+				<parent>Vinson</parent>
+				<patrol>true</patrol>
+			</station>
+		</entry>
+
+		<entry>
+			<type>escort</type>
+			<model>Models/Maritime/Military/OliverPerryFFG.xml</model>
+			<name>Escort-3</name>
+			<callsign>Escort-2</callsign>
+			<turn-radius-ft alias="../../parameters/turn-radius-ft"/>
+			<fixed-turn-radius-ft alias="../../parameters/fixed-turn-radius-ft"/>
+			<rudder-constant alias="../../parameters/rudder-constant"/>
+			<speed-constant alias="../../parameters/speed-constant"/>
+			<update-interval-sec>180</update-interval-sec>
+			<station>
+				<range-nm>5.0</range-nm>
+				<brg-deg>285</brg-deg>
+				<deg-true>true</deg-true>
+				<range-limit-nm>0.5</range-limit-nm>
+				<parent>Vinson</parent>
+				<patrol>true</patrol>
+			</station>
+		</entry>
+
+		<entry>
+			<type>escort</type>
+			<model>Models/Maritime/Military/OliverPerryFFG.xml</model>
+			<name>Escort-4</name>
+			<callsign>Escort-3</callsign>
+			<turn-radius-ft alias="../../parameters/turn-radius-ft"/>
+			<fixed-turn-radius-ft alias="../../parameters/fixed-turn-radius-ft"/>
+			<rudder-constant alias="../../parameters/rudder-constant"/>
+			<speed-constant alias="../../parameters/speed-constant"/>
+			<update-interval-sec>180</update-interval-sec>
+			<station>
+				<range-nm>5.0</range-nm>
+				<brg-deg>240</brg-deg>
+				<deg-true>true</deg-true>
+				<range-limit-nm>0.5</range-limit-nm>
+				<parent>Vinson</parent>
+				<patrol>true</patrol>
+			</station>
+		</entry>
+
+		<entry>
+			<type>escort</type>
+			<model>Models/Maritime/Military/LPD17.xml</model>
+			<name>LPD 17</name>
+			<callsign>LPD 17</callsign>
+			<turn-radius-ft alias="../../parameters/turn-radius-ft"/>
+			<fixed-turn-radius-ft alias="../../parameters/fixed-turn-radius-ft"/>
+			<rudder-constant alias="../../parameters/rudder-constant"/>
+			<speed-constant alias="../../parameters/speed-constant"/>
+			<max-speed-kts>22</max-speed-kts>
+			<station>
+				<range-nm>2.5</range-nm>
+				<brg-deg>120</brg-deg>
+				<range-limit-nm>0.2</range-limit-nm>
+				<parent>Vinson</parent>
+			</station>
+		</entry>
+
+		<entry>
+			<type>escort</type>
+			<model>Models/Aircraft/H-60.xml</model>
+			<name>Pedro-1</name>
+			<callsign>Pedro</callsign>
+			<turn-radius-ft>200</turn-radius-ft>
+			<fixed-turn-radius-ft>200</fixed-turn-radius-ft>
+			<rudder-constant>30</rudder-constant>
+			<speed-constant>5</speed-constant>
+			<max-speed-kts>120</max-speed-kts>
+			<station>
+				<range-nm>0.1</range-nm>
+				<brg-deg>-90</brg-deg>
+				<range-limit-nm>0.01</range-limit-nm>
+				<height-ft>120</height-ft>
+				<parent>Vinson</parent>
+			</station>
+		</entry>
+
+		<entry>
+			<type>ship</type>
+			<model>Models\Maritime\Civilian\CruiseShip.xml</model>
+			<name>Cruise-1</name>
+			<turn-radius-ft>6000</turn-radius-ft>
+			<flightplan>CruiseShip.xml</flightplan>
+			<time>090000</time>
+			<repeat>1</repeat>
+		</entry>
+
+	</scenario>
+</PropertyList>

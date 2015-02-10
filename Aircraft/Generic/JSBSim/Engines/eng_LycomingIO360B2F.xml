@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ Written by Flavien BLANC
+ Modified by PAF team  - April 2012
+
+ Copyright (C) 2011-2012  Flavien BLANC  - http://equipe-flightgear.forumactif.com/u56
+ Copyright (C) 2012  Clément DE L'HAMAIDE  - http://equipe-flightgear.forumactif.com/u115
+
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation; either version 2 of the
+ License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program; if not see <http://www.gnu.org/licenses/>.
+-->
+
+<piston_engine name="Lycoming-IO-360-B-2-F">
+  <minmp unit="INHG">          12.0 </minmp> <!-- 6.0 -->
+  <maxmp unit="INHG">         28.5 </maxmp>
+  <displacement unit="IN3"> 345.80 </displacement>
+  <maxhp>        180.00 </maxhp><!-- 182 CV = 180 HP -->
+  <cycles>         4.0 </cycles>
+  <idlerpm>     500.0 </idlerpm> <!-- 700 -->
+  <maxrpm>      2700.0 </maxrpm><!-- 2700.0 puis 3250 -->
+  <maxthrottle>    1.0 </maxthrottle>  <!-- Deprecated -->
+  <minthrottle>    0.1 </minthrottle>  <!-- Deprecated -->
+  <sparkfaildrop>  0.1 </sparkfaildrop>
+  <volumetric-efficiency> 0.85 </volumetric-efficiency>
+<!-- Optional items that affect engine performance -->
+ <!-- Defining <bsfc> over-rides the built-in horsepower calculations -->
+ <!--<bsfc>           0.45 </bsfc>-->
+ <!--<stroke unit="IN">  4.375  </stroke>-->
+ <!--<bore unit="IN">    5.125 </bore>-->
+  <cylinders>         4.0  </cylinders>
+  <compression-ratio> 8.5 </compression-ratio>
+</piston_engine>

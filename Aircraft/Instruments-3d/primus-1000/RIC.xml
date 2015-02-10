@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+Author : Syd Adams
+Remote Instrument Control
+-->
+<PropertyList>
+
+<path>RIC.ac</path>
+
+    <animation>
+        <type>material</type>
+        <object-name>RIC.crs1</object-name>
+        <object-name>RIC.crs2</object-name>
+        <object-name>RIC.hdg</object-name>
+        <emission>
+            <red>0.025</red>
+            <green>0.025</green>
+            <blue>0.025</blue>
+            <factor-prop>systems/electrical/outputs/instrument-lights</factor-prop>
+        </emission>
+    </animation>
+
+</PropertyList>

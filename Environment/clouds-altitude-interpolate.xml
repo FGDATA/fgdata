@@ -1,0 +1,63 @@
+<?xml version="1.0" ?>
+<!--
+ This file is part of FlightGear, the free flight simulator
+ http://www.flightgear.org/
+
+ Copyright (C) 2009 Torsten Dreyer, Torsten (at) t3r _dot_ de
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation; either version 2 of the
+ License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+-->
+<PropertyList>
+  <params>
+    <from>environment/metar/clouds/layer[0]/elevation-ft</from>
+    <to>/environment/clouds/layer[0]/elevation-ft</to>
+  </params>
+  <name>MetarController:clouds:altitude_interpolate</name>
+  <type>exponential</type>
+  <filter-time>
+    <condition>
+      <!-- dont't interpolate to -9999 or if more than 2000ft offset -->
+      <or>
+        <less-than>
+          <property alias="../../../../../params/from"/>
+          <value>-9000</value>
+        </less-than>
+        <less-than>
+          <property alias="../../../../../params/to"/>
+          <value>-9000</value>
+        </less-than>
+        <greater-than>
+          <expression>
+            <abs>
+              <difference>
+                <property alias="../../../../../../../../params/from"/>
+                <property alias="../../../../../../../../params/to"/>
+              </difference>
+            </abs>
+          </expression>
+          <value>2000</value>
+        </greater-than>
+      </or>
+    </condition>
+    <value>0</value>
+  </filter-time>
+  
+  <filter-time>60</filter-time>
+  
+  <enable>
+    <condition>
+      <property>/environment/metar/valid</property>
+      <property>/environment/params/metar-updates-environment</property>
+    </condition>
+  </enable>
+  <input alias="../params/from"/>
+  <output alias="../params/to"/>
+</PropertyList>

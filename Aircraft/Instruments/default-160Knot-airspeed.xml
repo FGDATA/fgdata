@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+
+<!--
+Default airspeed indicator instrument.
+
+Started summer 2000 by David Megginson, david@megginson.com.
+
+This is an instrument configuration file for the open-source flight
+simulator FlightGear (www.flightgear.org).  The file is an XML-encoded
+FlightGear property list defining the instrument's layers and actions.
+
+Each instrument is composed of layers stacked on top of each other.
+A layer may be a texture (with transparent parts to show the layers
+underneath), text, or a special layer that switches between two
+others (say, to turn an indicator light on or off).  Each layer can
+move independently in proportion to a property value, and text
+can be generated from property values as well: all of the layer's
+movements are defined as transformations.
+
+Actions are hotspots on the instrument that will respond to a mouse
+click.  Actions always modify the values of properties, either by
+adjusting them, toggling them, or swaping them with other
+properties' values.
+-->
+
+<PropertyList>
+ <name>Airspeed Indicator</name>
+ <w-base>128</w-base>
+ <h-base>128</h-base>
+ <layers>
+  <layer>
+   <name>face</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/faces-2.rgb</path>
+    <x1>0</x1>
+    <y1>0.51</y1>
+    <x2>0.49</x2>
+    <y2>1.0</y2>
+   </texture>
+  </layer>
+  <layer>
+   <texture>
+    <path>Aircraft/Instruments/Textures/misc-1.rgb</path>
+    <x1>0.8</x1>
+    <y1>0.78125</y1>
+    <x2>0.8375</x2>
+    <y2>1.0</y2>
+   </texture>
+   <w>8</w>
+   <h>56</h>
+   <transformations>
+     <transformation>
+      <type>rotation</type>
+      <property>/instrumentation/airspeed-indicator/indicated-speed-kt</property>
+      <min>30.0</min>
+      <max>220.0</max>
+      <scale>1.8</scale>
+      <offset>-54.0</offset>
+<!-- 
+  Wacky interpolation table for demo only: the airspeed indicator will
+  jump ahead at 10kt, shoot very far for 30kt, then start moving
+  slowly backwards as the airspeed approaches 100kt.  Please don't
+  use this for regular flying, except perhaps as a practical joke.
+
+  DPM 2001-05-04
+-->
+<!--
+      <interpolation>
+       <entry>
+        <ind>0.0</ind>
+        <dep>0.0</dep>
+       </entry>
+       <entry>
+        <ind>10.0</ind>
+        <dep>44.0</dep>
+       </entry>
+       <entry>
+        <ind>30.0</ind>
+        <dep>269.0</dep>
+       </entry>
+       <entry>
+        <ind>100.0</ind>
+        <dep>89.0</dep>
+       </entry>
+      </interpolation>
+-->
+     </transformation>
+     <transformation>
+      <type>y-shift</type>
+      <offset>24</offset>
+     </transformation>
+   </transformations>
+  </layer>
+  <layer>
+  <name>button</name>
+  <texture>
+  <path>Aircraft/Instruments/Textures/misc-1.rgb</path>
+  <x1>0.6171875</x1>
+  <y1>0.2421875</y1>
+  <x2>0.7890625</x2>
+  <y2>0.4140625</y2>
+  </texture>
+  <w>15</w>
+  <h>15</h>
+  </layer>
+ </layers>
+</PropertyList>

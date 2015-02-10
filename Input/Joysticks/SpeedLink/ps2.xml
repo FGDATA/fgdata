@@ -1,0 +1,256 @@
+<?xml version="1.0"?>
+<!--
+************************************************************************
+* Bindings for Sony Playstation 2 DualShock Analog Controller (SCPH-1200)
+* connected via Speedlink PS2 to PC adapter SL6502 
+* (USB hardware id: 0e8f:0003, as of linux kernel 2.6.2x)
+* http://www.speedlink.com/?p=2&cat=319&pid=20205&paus=1 
+* (working link as of 29.10.2010)
+* 
+* Tested under Linux and Windows XP (32bit)
+*
+* Axis 0 (left joystick): ailerons
+* Axis 1 (left joystick): elevator
+* Axis 2: not used, or we won't have a stable rudder
+* Axis 3 (right joystick): rudder
+* Axes 4 and 5 (d-pad): view direction (6 and 7 respectively under Windows)
+* NOTE to Windows users: axis 7 is inverted and currently there is 
+* no way to fix it per OS basis.
+*
+* Buttons according to the gamepad:
+* 
+* Button 3 (square): throttle up
+* Button 2 (cross): throttle down
+* Button 1 (circle): flap down
+* Button 0 (triangle): flap up
+* Button 6 (L1): elevator trim up
+* Button 7 (R1): elevator trim down
+* Button 4 (L2): left brake only
+* Button 5 (R2): right brake only
+* Button 9 (start): gear toggle
+* Button 8 (select): currently unused
+* Button 10 (left joystick button): view change
+* Button 11 (right joystick button): parking brake toggle
+
+************************************************************************
+-->
+
+<PropertyList>
+  <name>GreenAsia Inc.    USB Joystick     </name>
+  <name>USB Joystick     </name>
+  <name>SPEED-LINK DUAL SHOCK ADAPTER</name>
+  
+  <nasal>
+    <script>
+      gui.popupTip("Enable analog mode!", 10);
+    </script>
+  </nasal>
+
+  <axis n="0">
+    <desc>Aileron</desc>
+    <binding>
+      <command>property-scale</command>
+      <property>/controls/flight/aileron</property>
+      <factor type="double">0.6</factor>
+      <squared type="bool">true</squared>
+      <dead-band type="double">0.2</dead-band>
+    </binding>
+  </axis>
+
+  <axis n="1">
+    <desc>Elevator</desc>
+    <binding>
+      <command>property-scale</command>
+      <property>/controls/flight/elevator</property>
+      <factor type="double">-0.6</factor>
+      <squared type="bool">true</squared>
+      <dead-band type="double">0.2</dead-band>
+    </binding>
+  </axis>
+
+#  <axis n="3">
+#    <desc>Rudder</desc>
+#    <binding>
+#      <command>property-scale</command>
+#      <property>/controls/flight/rudder</property>
+#      <factor type="double">0.5</factor>
+#    </binding>
+#  </axis>
+
+  <axis>
+    <desc>View direction</desc>
+    <number>
+      <windows>6</windows>
+      <unix>4</unix>
+    </number>
+    <low>
+      <repeatable>true</repeatable>
+      <binding>
+        <command>property-adjust</command>
+        <property>/sim/current-view/goal-heading-offset-deg</property>
+        <step type="double">2.0</step>
+      </binding>
+    </low>
+    <high>
+      <repeatable>true</repeatable>
+      <binding>
+        <command>property-adjust</command>
+        <property>/sim/current-view/goal-heading-offset-deg</property>
+        <step type="double">-2.0</step>
+      </binding>
+    </high>
+  </axis>
+
+  <axis>
+    <desc>View elevation</desc>
+    <number>
+      <windows>7</windows>
+      <unix>5</unix>
+    </number>
+    <low>
+      <repeatable>true</repeatable>
+      <binding>
+        <command>property-adjust</command>
+        <property>/sim/current-view/goal-pitch-offset-deg</property>
+        <step type="double">2.0</step>
+      </binding>
+    </low>
+    <high>
+      <repeatable>true</repeatable>
+      <binding>
+        <command>property-adjust</command>
+        <property>/sim/current-view/goal-pitch-offset-deg</property>
+        <step type="double">-2.0</step>
+      </binding>
+    </high>
+  </axis>
+
+  <button n="6">
+    <desc>Elevator trim up</desc>
+    <repeatable type="bool">true</repeatable>
+    <binding>
+      <command>property-adjust</command>
+      <property>/controls/flight/elevator-trim</property>
+      <step type="double">0.001</step>
+    </binding>
+  </button>
+
+  <button n="7">
+    <desc>Elevator trim down</desc>
+    <repeatable type="bool">true</repeatable>
+    <binding>
+      <command>property-adjust</command>
+      <property>/controls/flight/elevator-trim</property>
+      <step type="double">-0.001</step>
+    </binding>
+  </button>
+
+  <button n="0">
+    <desc>Flaps up</desc>
+    <repeatable>false</repeatable>
+    <binding>
+      <command>nasal</command>
+      <script>controls.flapsDown(-1)</script>
+    </binding>
+    <mod-up>
+      <binding>
+        <command>nasal</command>
+        <script>controls.flapsDown(0)</script>
+      </binding>
+    </mod-up>
+  </button>
+
+  <button n="1">
+    <desc>Flaps down</desc>
+    <binding>
+      <command>nasal</command>
+      <script>controls.flapsDown(1)</script>
+    </binding>
+    <mod-up>
+      <binding>
+        <command>nasal</command>
+        <script>controls.flapsDown(0)</script>
+      </binding>
+    </mod-up>
+  </button>
+
+  <button n="4">
+    <desc>Left brake</desc>
+    <binding>
+      <command>nasal</command>
+      <script>controls.applyBrakes(1,-1)</script>
+    </binding>
+    <mod-up>
+      <binding>
+        <command>nasal</command>
+        <script>controls.applyBrakes(0, -1)</script>
+      </binding>
+    </mod-up>
+  </button>
+
+  <button n="5">
+    <desc>Right brake</desc>
+    <binding>
+      <command>nasal</command>
+      <script>controls.applyBrakes(1,1)</script>
+    </binding>
+    <mod-up>
+      <binding>
+        <command>nasal</command>
+        <script>controls.applyBrakes(0, 1)</script>
+      </binding>
+    </mod-up>
+  </button>
+
+  <button n="9">
+    <desc>Landing gear toggle</desc>
+    <repeatable>false</repeatable>
+    <binding>
+      <command>nasal</command>
+      <script>controls.gearToggle()</script>
+    </binding>
+  </button>
+
+  <button n="3">
+    <desc>Throttle up</desc>
+    <repeatable>true</repeatable>
+    <binding>
+      <command>nasal</command>
+      <script>_ = sprintf("Throttle = %.3f", controls.adjThrottle(0.5))</script>
+    </binding>
+  </button>
+
+  <button n="2">
+    <desc>Throttle down</desc>
+    <repeatable>true</repeatable>
+    <binding>
+      <command>nasal</command>
+      <script>_ = sprintf("Throttle = %.3f", controls.adjThrottle(-0.5))</script>
+    </binding>
+  </button>
+
+  <button n="8">
+    <desc>Not used</desc>
+    <repeatable>false</repeatable>
+    <binding>
+    </binding>
+  </button>
+
+  <button n="10">
+    <desc>View</desc>
+    <repeatable>false</repeatable>
+    <binding>
+      <command>nasal</command>
+      <script>view.stepView(1)</script>
+    </binding>
+  </button>
+
+  <button n="11">
+    <desc>Parking brake toggle</desc>
+    <repeatable>false</repeatable>
+    <binding>
+      <command>property-toggle</command>
+      <property>/controls/gear/brake-parking</property>
+    </binding>
+  </button>
+</PropertyList>

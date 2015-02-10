@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+
+<!-- aoa indicator -->
+
+<PropertyList>
+
+	<path>../../../../Aircraft/Buccaneer/Models/aoa.ac</path>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>aoa-Needle1</object-name>
+		<property>orientation/alpha-deg</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>-140</dep>
+			</entry>
+			<entry>
+				<ind>10</ind>
+				<dep>0</dep>
+			</entry>
+			<entry>
+				<ind>20</ind>
+				<dep>140</dep>
+			</entry>
+		</interpolation>
+		<center>
+			<x-m>0</x-m>
+			<y-m>0</y-m>
+			<z-m>0</z-m>
+		</center>
+		<axis>
+			<x>1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>aoa-Bug1</object-name>
+		<property>sim/aoa-indexer/bug</property>
+		<factor>1</factor>
+		<center>
+			<x-m>0</x-m>
+			<y-m>0</y-m>
+			<z-m>0</z-m>
+		</center>
+		<axis>
+			<x>1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>aoa-Bug2</object-name>
+		<property>sim/aoa-indexer/bug[1]</property>
+		<factor>1</factor>
+		<center>
+			<x-m>0</x-m>
+			<y-m>0</y-m>
+			<z-m>0</z-m>
+		</center>
+		<axis>
+			<x>1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<!-- Panel Lighting -->
+	<animation>
+		<type>material</type>
+		<object-name>panel-lighting-group</object-name>
+		<emission>
+			<factor-prop>systems/electrical/outputs/panel-floodlighting</factor-prop>
+			<red>0.03125</red>
+			<green>0.0089</green>
+			<blue>0.0089</blue>
+		</emission>
+	</animation>
+
+	<animation>
+		<type>material</type>
+		<object-name>lighting-group</object-name>
+		<emission>
+			<factor-prop>systems/electrical/outputs/instrument-lighting</factor-prop>
+			<red>0.03125</red>
+			<green>0.0089</green>
+			<blue>0.0089</blue>
+		</emission>
+	</animation>
+
+	<!-- *** LoD *** -->
+	<animation>
+		<type>range</type>
+		<min-m>0</min-m>
+		<max-m>5</max-m>
+	</animation>
+
+
+</PropertyList>

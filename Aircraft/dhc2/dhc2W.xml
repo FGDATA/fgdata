@@ -1,0 +1,137 @@
+<!--
+DHC-2 Beaver
+2004 Syd Adams 
+CG = 0.350 m
+
+stall spd:
+No flaps : 60 mph (52 kt)
+Landing flaps: 45 mph (39 kt )
+Max cruise @5000 : 163 mph (141 kt)
+Econo cruise @5000 : 130 mph (112)
+-->
+
+<airplane mass="2850">
+
+    <approach speed="39" aoa="14">
+        <control-setting axis="/controls/engines/engine[0]/throttle" value="0.10"/>
+        <control-setting axis="/engines/engine[0]/mixture" value="1.0"/>
+        <control-setting axis="/controls/engines/engine[0]/propeller-pitch" value="1.0"/>
+        <control-setting axis="/controls/flight/flaps" value="0.75"/>
+    </approach>
+
+    <cruise speed="141" alt="5000">
+        <control-setting value="1.0" axis="/controls/engines/engine[0]/throttle"/>
+        <control-setting value="1.0" axis="/engines/engine[0]/mixture"/>
+        <control-setting value="1.0" axis="/controls/engines/engine[0]/propeller-pitch"/>
+        <control-setting value="0.0" axis="/controls/flight/flaps"/>
+    </cruise>
+
+    <cockpit x="-0.825" y="-0.26" z="0.70"/>
+
+    <fuselage width="1.6" ax="2.5" ay="0" az="0" bx="3.7" by="0" bz="0.0" taper="0.75" midpoint="0.25"/>
+
+    <wing x="0.0" y="0.6" z="0.6" chord="1.5875" taper="1.0" length="6.8" dihedral="4" incidence="2.0" idrag="0.8">
+        <stall width="12" aoa="14" peak="1.5"/>
+        <flap0 drag="1.4" end="0.58" lift="1.3" start="0.02"/>
+        <flap1 drag="1.1" end="0.97" lift="1.2" start="0.58"/>
+        <control-input control="FLAP0" axis="/controls/flight/flaps"/>
+        <control-input split="true" control="FLAP1" axis="/controls/flight/aileron"/>
+        <control-input split="true" control="FLAP1" axis="/controls/flight/aileron-trim"/>
+        <control-output prop="/surface-positions/flap-pos-norm" control="FLAP0"/>
+        <control-output prop="/surface-positions/left-aileron-pos-norm" side="left" control="FLAP1"/>
+        <control-output prop="/surface-positions/right-aileron-pos-norm" side="right" control="FLAP1"/>
+        <control-speed transition-time="15" control="FLAP0"/>
+    </wing>
+
+    <hstab x="-6.0" y="0.2" z="0.2"  chord="1.2" taper=".7" length="2.5">
+        <stall width="3" aoa="14" peak="1.5"/>
+        <flap0 drag="1.1" end="1" lift="1.5" start="0"/>
+        <control-input control="FLAP0" axis="/controls/flight/elevator"/>
+        <control-input control="FLAP0" axis="/controls/flight/elevator-trim"/>
+        <control-output prop="/surface-positions/elevator-pos-norm" control="FLAP0"/>
+    </hstab>
+
+    <vstab x="-5.5" y="0" z="0.2" sweep="15"  chord="3.0" taper=".2" length="2.0">
+        <stall width="5" aoa="15" peak="1.5"/>
+        <flap0 drag="1.1" end="1" lift="1.4" start="0"/>
+        <control-input control="FLAP0" axis="/controls/flight/rudder" invert="true"/>
+        <control-input control="FLAP0" axis="/controls/flight/rudder-trim" invert="true"/>
+        <control-output prop="/surface-positions/rudder-pos-norm" control="FLAP0"/>
+        <control-output prop="/controls/gear/steering" control="FLAP0"/>
+    </vstab>
+
+<!--   doors     -->
+    <vstab x="0" y="0" z="0.0" length="0.001" chord="0.001">
+        <flap0 start="0" end="1" lift="0" drag="0"/>
+        <flap1 start="0" end="1" lift="0" drag="0"/>
+        <control-input axis="controls/doors/open[0]" control="FLAP0"/>
+        <control-input axis="controls/doors/open[1]" control="FLAP1"/>
+        <control-output control="FLAP0" prop="controls/doors/position-norm[0]"/>
+        <control-output control="FLAP1" prop="controls/doors/position-norm[1]"/>
+        <control-speed control="FLAP0" transition-time="2"/>
+        <control-speed control="FLAP1" transition-time="2"/>
+    </vstab>
+
+    <vstab x="0" y="0" z="0.0" length="0.001" chord="0.001">
+        <flap0 start="0" end="1" lift="0" drag="1"/>
+        <flap1 start="0" end="1" lift="0" drag="1"/>
+        <control-input axis="controls/doors/open[2]" control="FLAP0"/>
+        <control-input axis="controls/doors/open[3]" control="FLAP1"/>
+        <control-output control="FLAP0" prop="controls/doors/position-norm[2]"/>
+        <control-output control="FLAP1" prop="controls/doors/position-norm[3]"/>
+        <control-speed control="FLAP0" transition-time="2"/>
+        <control-speed control="FLAP1" transition-time="2"/>
+    </vstab>
+
+<!--firing time-->
+    <vstab x="0" y="0" z="0.0" length="0.001" chord="0.001">
+        <flap0 start="0" end="0.5" lift="1" drag="1"/>
+        <flap1 start="0.5" end="1" lift="1" drag="1"/>
+        <control-input axis="engines/engine/running" control="FLAP0"/>
+        <control-output control="FLAP0" prop="engines/engine/firing"/>
+        <control-speed control="FLAP0" transition-time="15"/>
+    </vstab>
+
+<!--  Pratt & Whitney R-985 Wasp Junior  -->
+    <propeller moment="12" x="2.0" y="0.0" z="0.0" mass="700" radius="1.2" cruise-power="450" cruise-alt="5000" min-rpm="1600" max-rpm="2300" cruise-speed="130" cruise-rpm="2300">
+        <piston-engine eng-rpm="2300" alt="5000" eng-power="450" displacement="985" compression="6" turbo-mul="1.4" wastegate-mp="35.6"/>
+        <actionpt x="2.5" y="0.0" z="0.0"/>
+        <control-input control="THROTTLE" axis="/controls/engines/engine[0]/throttle"/>
+        <control-input control="STARTER" axis="/controls/engines/engine[0]/starter"/>
+        <control-input control="MAGNETOS" axis="/controls/engines/engine[0]/magnetos"/>
+        <control-input control="MIXTURE" axis="/engines/engine[0]/mixture"/>
+        <control-input control="ADVANCE" axis="/controls/engines/engine[0]/propeller-pitch"/>
+    </propeller>
+
+    <gear x="1.0" y="2.0" z="-1.926" compression="0.2" sfric="0.5" dfric="0.5">
+        <control-input control="BRAKE" axis="/controls/gear/brake-parking"/>
+        <control-input control="BRAKE" axis="/controls/gear/brake-left"/>
+    </gear>
+
+    <gear x="1.0" y="-2.0" z="-1.926"  compression="0.2" sfric="0.5" dfric="0.5">
+        <control-input control="BRAKE" axis="/controls/gear/brake-parking"/>
+        <control-input control="BRAKE" axis="/controls/gear/brake-right"/>
+    </gear>
+
+    <gear x="-5.79" y="0.0" z="-0.74" compression="0.2" sfric="1" dfric="1">
+        <control-input axis="/controls/gear/steering" control="STEER"/>
+    </gear>
+
+<!-- Fuel  -->
+    <tank x="0.4643" y="0" z="-0.7" capacity="210"/><!--35 gal +4.5 in-->
+    <tank x="-0.1478" y="0" z="-0.7" capacity="210"/><!--35 gal -19.6 in-->
+    <tank x="-0.666" y="0" z="-0.7" capacity="156"/><!--25 gal -40.0 in-->
+
+
+     <ballast x="-6.0" y="0.0" z="0.50" mass="-210"/>
+
+    <weight x="0.5278" y="0.0" z="-0.5" mass-prop="/sim/weight[0]/weight-lb"/>
+    <weight x="-0.38" y="0" z="-0.5" mass-prop="/sim/weight[1]/weight-lb"/>
+    <weight x="-1.8" y="0" z="-0.5" mass-prop="/sim/weight[2]/weight-lb"/>
+    <weight x="-2.6" y="0" z="-0.5" mass-prop="/sim/weight[3]/weight-lb"/>
+
+    <hitch name="aerotow" x="-6.2" y="0" z="-0.12"  force-is-calculated-by-other="1">
+        <tow length="60" weight-per-meter="0.035" elastic-constant="9000" break-force="10000" mp-auto-connect-period="1.0"/>
+        <winch max-tow-length="1000" min-tow-length="60" initial-tow-length="60"/>
+    </hitch>
+</airplane>

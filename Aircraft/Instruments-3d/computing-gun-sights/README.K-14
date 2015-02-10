@@ -1,0 +1,79 @@
+To enable full functionality of the K14 gun sight there are several things 
+that need to be done.  
+
+First change the <nasal> section of your *set.xml file so that it looks like the 
+following.  
+
+<nasal>
+   <!-- your other nasal files -->
+   <!-- the following three lines must be exactly like this -->
+   <K14>
+      <file>Aircraft/Instruments-3d/computing-gun-sights/Nasal/lead-computer.nas</file>
+   </K14>
+</nasal>
+
+Animation:
+
+For dark conditions when cabin/cockpit illumination is used all of the K14 sight 
+is illuminated in response to 
+
+<property>/controls/lighting/cabin-norm</property>
+
+If you are using a different property for your cabin/cockpit lights you will need to map your 
+lighting property to /controls/lighting/cabin-norm.
+
+Aircraft Specific Properties:
+
+See README.lead-computer
+														
+Below is an example from the P-51D using the K14A sight which needs some additional
+settings to control power and lighting for the sight.
+
+<controls>
+  <armament>
+     <gunsight>		
+		<!-- gunsight computer parameters -->
+        
+        <!-- start/stop the sight computer
+       	     the computer will be reinitialized if the power is cycled -->	
+        <computer-on type="int">0</computer-on>			 	
+        <!-- offset of guns below sight line in feet -->		
+		<z-offsetFeet type="float">3.125</z-offsetFeet>
+		<!-- average lateral offset of guns in feet relative to sight line -->
+        <y-offsetFeet type="float">0.0</y-offsetFeet>
+		<!-- elevation of guns relative to alpha in degrees -->
+        <gunElevationDegrees type="float">1.0</gunElevationDegrees>
+        <ballisticCoefficienct type="float">0.00136354</ballisticCoefficienct> <!-- 0.50 BMG -->
+        <muzzleVelocity type="float">2900.0</muzzleVelocity>  <!-- feet per second 0.50 BMG -->
+		<!-- convergence distance in feet -->
+        <gunHarminizationRangeFeet type="float">900.0</gunHarminizationRangeFeet>
+		<timeStep type="float">0.2</timeStep>  <!-- cycle rate of gun sight computer in seconds -->
+		<!-- sight computer damping factor must be between 0.3 and 1.0 -->
+		<dampingFactor type="float">1.0</dampingFactor>	
+		<gunsight-computer-initialized type="int">0</gunsight-computer-initialized>
+		<maxAzimuth type="int">170</maxAzimuth>  <!-- maximum sight deflection in mils -->
+		<maxElevation type="int">170</maxElevation>
+		
+		<!-- K14 parameters -->
+		
+		<power-on type="int">0</power-on>
+        <intensity type="float">1.0</intensity>
+		<mask-off type="int">1</mask-off>
+		<reticleSelectorPos type="int">0</reticleSelectorPos>
+		<rocketLadder type="int">1</rocketLadder>  <!-- set to 0 for K14 and 1 for other K14 models -->
+		
+		<!-- The next three are to setup the reticle to the correct starting values -->
+		<span type="int">30</span>
+		<mils type="float">0.0</mils>
+		<range type="float">1000.0</range> <!-- in feet -->
+		
+		<fixedReticleOn type="int">0</fixedReticleOn>
+		<zCenterLine type="float">0.7375</zCenterLine> <!-- sight line distance from model z axis in meters -->
+		<K14C type="int">0</K14C>  <!-- set to 1 for K14C -->
+		
+		<sunScreenDown type="int">1</sunScreenDown>
+     </gunsight>
+   ...
+</controls>
+
+ 

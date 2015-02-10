@@ -1,0 +1,55 @@
+AC3Db
+MATERIAL "NoName" rgb 1 1 1  amb 1 1 1  emis 0 0 0  spec 0 0 0 shi 72  trans 0
+OBJECT world
+kids 3
+OBJECT poly
+name "Background"
+texture "asi-260-knot.rgb"
+numvert 4
+-0.000524 0.050345 -0.05
+-0.000524 -0.049655 -0.05
+-0.000524 -0.049655 0.05
+-0.000524 0.050345 0.05
+numsurf 1
+SURF 0x00
+mat 0
+refs 4
+0 0.992188 0.996094
+3 0.519531 0.996094
+2 0.519531 0.519531
+1 0.992188 0.519531
+kids 0
+OBJECT poly
+name "Needle"
+texture "asi-260-knot.rgb"
+numvert 4
+0.002039 0.03301 -0.005
+0.002039 9.7e-05 -0.005
+0.002039 9.7e-05 0.005
+0.002039 0.03301 0.005
+numsurf 1
+SURF 0x00
+mat 0
+refs 4
+0 0.988281 0.222656
+3 0.945313 0.222656
+2 0.945313 0.054688
+1 0.988281 0.054688
+kids 0
+OBJECT poly
+name "Scale"
+texture "asi-260-knot.rgb"
+numvert 4
+0.004861 0.050345 -0.05
+0.004861 -0.049655 -0.05
+0.004861 -0.049655 0.05
+0.004861 0.050345 0.05
+numsurf 1
+SURF 0x00
+mat 0
+refs 4
+0 0.503906 1.0
+3 0.007813 1.0
+2 0.007813 0.5
+1 0.503906 0.5
+kids 0

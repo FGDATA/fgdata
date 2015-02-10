@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+
+
+<!--
+    Copyright License:  GPL
+    Usable with FlightGear
+    Property of Gerard Robin
+    but  the Fresnel Lens Optical Landing System which is copied from the Nimitz Model
+    by Vivian Meazza
+-->
+
+
+<PropertyList>
+
+ <path>hull.ac</path>
+ <texture-path>Textures</texture-path>
+
+
+	<animation>
+		<type>range</type>
+		<object-name>Hangar</object-name>
+		<max-m>5000</max-m>
+	</animation>
+
+
+
+
+
+
+</PropertyList>

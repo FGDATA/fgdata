@@ -1,0 +1,233 @@
+<?xml version="1.0"?>
+<!--
+_______________________________________ Layout _______________________________________
+
+axis 0:              aileron
+axis 1:              elevator
+axis 2:              throttle
+axis 3:              rudder
+axis 4:              unused
+axis 5:              view hat X
+axis 6:              view hat Y
+___________________________________ Customization ____________________________________
+
+If you want to change some (or all) of the bindings, the recommended way is
+to copy this file to your home directory, make your changes there, and include
+it from your personal preferences.xml file. You can use any number lower than
+1000 for n in <js-named n="0">. The lowest takes precedence in case of identical
+names. You can include such a preferences.xml file with the ~~config option,
+e.g. ~~config=$HOME/.fgfs/preferences.xml, and you can put that ~~config line
+into your personal $HOME/.fgfsrc file.
+
+<?xml version="1.0"?>
+<PropertyList>
+	<input>
+		<js-named n="100">
+			<joysticks include="your-modified-copy.xml"/>
+		</js-named>
+	</input>
+</PropertyList>
+
+____________________________________ References ______________________________________
+
+
+Joysticks:      $FG_ROOT/Docs/README.Joystick.html
+Properties:     see property browser (fgfs menu: "File"->"Browse internal properties")
+
+Nasal:          http://www.plausible.org/nasal/
+Nasal examples: $FG_ROOT/Nasal/
+
+______________________________________________________________________________________
+
+-->
+
+<PropertyList>
+	<name>Padix Co. Ltd. Trust GM-2600 Joystick</name>
+	<name>5-Axis,12-Button with POV </name>
+
+	<axis>
+		<desc>aileron</desc>
+		<number>
+			<unix>0</unix>
+		</number>
+		<binding>
+			<command>property-scale</command>
+			<property>controls/flight/aileron</property>
+			<power type="int">2</power>
+		</binding>
+	</axis>
+
+	<axis>
+		<desc>elevator</desc>
+		<number>
+			<unix>1</unix>
+		</number>
+		<binding>
+			<command>property-scale</command>
+			<property>controls/flight/elevator</property>
+			<factor type="double">-1.0</factor>
+			<power type="int">2</power>
+		</binding>
+	</axis>
+
+	<axis>
+		<desc>throttle</desc>
+		<number>
+			<unix>2</unix>
+		</number>
+		<binding>
+			<command>nasal</command>
+			<script>controls.throttleAxis()</script>
+		</binding>
+	</axis>
+
+	<axis>
+		<desc>rudder</desc>
+		<number>
+			<unix>3</unix>
+		</number>
+		<binding>
+			<command>property-scale</command>
+			<property>controls/flight/rudder</property>
+			<factor type="double">1.0</factor>
+			<power type="int">2</power>
+		</binding>
+	</axis>
+
+	<axis>
+		<desc>View Direction</desc>
+		<number>
+			<unix>5</unix>
+		</number>
+		<low>
+			<repeatable>true</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>view.panViewDir(1)</script>
+			</binding>
+		</low>
+		<high>
+			<repeatable>true</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>view.panViewDir(-1)</script>
+			</binding>
+		</high>
+	</axis>
+
+	<axis>
+		<desc>View Elevation</desc>
+		<number>
+			<unix>6</unix>
+		</number>
+		<low>
+			<repeatable>true</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>view.panViewPitch(1)</script>
+			</binding>
+		</low>
+		<high>
+			<repeatable>true</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>view.panViewPitch(-1)</script>
+			</binding>
+		</high>
+	</axis>
+
+	<button n="0">
+		<name>Trigger</name>
+		<desc>brakes</desc>
+		<repeatable type="bool">false</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>controls.applyBrakes(1)</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>controls.applyBrakes(0)</script>
+			</binding>
+		</mod-up>
+	</button>
+
+	<button n="1">
+		<name>Upper Left Button</name>
+		<desc>Look straight ahead</desc>
+		<repeatable type="bool">false</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>view.resetViewPos()</script>
+		</binding>
+		<binding>
+			<command>nasal</command>
+			<script>view.resetViewDir()</script>
+		</binding>
+	</button>
+
+	<button n="2">
+		<name>Upper Top Button</name>
+		<desc>flaps up</desc>
+		<repeatable type="bool">false</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>controls.flapsDown(-1)</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>controls.flapsDown(0)</script>
+			</binding>
+		</mod-up>
+	</button>
+
+	<button n="3">
+		<name>Lower Top Button</name>
+		<desc>flaps down</desc>
+		<repeatable type="bool">false</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>controls.flapsDown(1)</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>controls.flapsDown(0)</script>
+			</binding>
+		</mod-up>
+	</button>
+
+	<button n="4">
+		<name>Bottom Left Button</name>
+		<desc>gear down</desc>
+		<repeatable type="bool">false</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>controls.gearDown(1)</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>controls.gearDown(0)</script>
+			</binding>
+		</mod-up>
+	</button>
+
+	<button n="5">
+		<name>Bottom Right Button</name>
+		<desc>gear up</desc>
+		<repeatable type="bool">false</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>controls.gearDown(-1)</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>controls.gearDown(0)</script>
+			</binding>
+		</mod-up>
+	</button>
+
+</PropertyList>

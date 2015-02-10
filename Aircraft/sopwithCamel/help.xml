@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<PropertyList>
+	<help>
+		<title>Camel 1F1</title>
+		<key>
+			<name>s</name>
+			<desc>Start</desc>
+		</key>
+		<key>
+			<name>b</name>
+			<desc>blip switch - both magnetos OFF </desc>
+		</key>
+		<key>
+			<name>B</name>
+			<desc>toggle chocks</desc>
+		</key>
+		<key>
+			<name>{ }</name>
+			<desc>toggle left/right magneto switch</desc>
+		</key>
+		<key>
+			<name>u/U</name>
+			<desc>adjust pilot viewpoint up/down</desc>
+		</key>
+		<key>
+			<name>ctrl u</name>
+			<desc>select default pilot viewpoint </desc>
+		</key>
+		<line></line>
+		<line>Approach</line>
+		<line></line>
+		<line>speed 55 MPH IAS</line>
+		<line>throttle OPEN</line>
+		<line>Use the blip switch to control speed NOT throttle</line>
+		<line>blip switch ON/OFF as required</line>
+		<line>touchdown speed: 50-55 MPH IAS</line>
+		<line>stall speed 48 MPH IAS</line>
+	</help>
+</PropertyList>

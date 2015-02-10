@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!--automatically generated, do not edit-->
+<PropertyList>
+  <background>Aircraft/Instruments-3d/mk-viii/assembly/transparent-bg.rgb</background>
+  <w>64</w>
+  <h>64</h>
+  <instruments>
+    <instrument>
+      <x>32</x>
+      <y>32</y>
+      <w>64</w>
+      <h>64</h>
+      <w-base>64</w-base>
+      <h-base>64</h-base>
+      <actions>
+        <action>
+          <name>open guard or operate button</name>
+          <button>0</button>
+          <x>-32</x>
+          <y>-32</y>
+          <w>64</w>
+          <h>32</h>
+          <binding>
+            <command>press-cockpit-button</command>
+            <guarded>false</guarded>
+            <latching>false</latching>
+            <prefix>/controls/assemblies/caution1</prefix>
+            <discrete>/instrumentation/mk-viii/inputs/discretes/glideslope-cancel</discrete>
+          </binding>
+          <mod-up>
+            <binding>
+              <command>release-cockpit-button</command>
+              <guarded>false</guarded>
+              <latching>false</latching>
+              <prefix>/controls/assemblies/caution1</prefix>
+              <discrete>/instrumentation/mk-viii/inputs/discretes/glideslope-cancel</discrete>
+            </binding>
+          </mod-up>
+        </action>
+      </actions>
+    </instrument>
+  </instruments>
+</PropertyList>

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<path>cumulonimbus1.ac</path>
+
+	<animation>
+		<enable-hot type="bool">false</enable-hot>
+	</animation>
+
+	<effect>
+		<object-name>rect1</object-name>
+		<object-name>rect2</object-name>
+		<object-name>rect3</object-name>
+		<object-name>rect4</object-name>
+		<inherits-from>Effects/clouds-thick</inherits-from>
+	</effect>
+
+</PropertyList>

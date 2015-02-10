@@ -1,0 +1,43 @@
+# This file defines which file paths can be opened for reading and/or
+# writing using Nasal's io.open() and parsexml() functions, as well as
+# the fgcommands load, save, loadxml, and savexml. The evaluation code
+# can be found in $FG_ROOT/Nasal/io.nas.
+#
+# Empty lines and lines starting with '#' are ignored. All other entries
+# must be of the form
+#
+#   {READ|WRITE} {ALLOW|DENY} <path-pattern>
+#
+# whereby fields must be separated by exactly one space. The pattern must
+# not be quoted and may contain spaces. If a pattern starts with $FG_ROOT/
+# or $FG_HOME/, then these parts are replaced by the respective system
+# paths. See $FG_ROOT/Nasal/string.nas for the pattern syntax.
+#
+# Entries are considered from top down. If no entry matches, then file
+# access is denied. A local rules file $FG_HOME/Nasal/IOrules using the
+# same syntax takes precedence over this file. The default rules that
+# apply if there's no Nasal/IOrules file at all, or there are no rules
+# defined in it are equivalent to this:
+#
+#   READ DENY *
+#   WRITE DENY *
+#
+# Read and write access to Nasal/IOrules files, however, is *always*
+# prohibited and not configurable!
+
+READ ALLOW $FG_ROOT/*
+READ ALLOW $FG_HOME/*
+READ ALLOW $FG_AIRCRAFT/*
+READ ALLOW $FG_SCENERY/*
+
+WRITE ALLOW /tmp/*.xml
+WRITE ALLOW $FG_HOME/*.sav
+WRITE ALLOW $FG_HOME/*.log
+WRITE ALLOW $FG_HOME/cache/*
+WRITE ALLOW $FG_HOME/Export/*
+WRITE ALLOW $FG_HOME/state/*.xml
+WRITE ALLOW $FG_HOME/aircraft-data/*.xml
+WRITE ALLOW $FG_HOME/Wildfire/*.xml
+WRITE ALLOW $FG_HOME/runtime-jetways/*.xml
+WRITE ALLOW $FG_HOME/Input/Joysticks/*.xml
+

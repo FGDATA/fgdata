@@ -1,0 +1,140 @@
+<?xml version="1.0"?>
+<PropertyList>
+  <x>-20</x>
+  <y>-20</y>
+  <name>doc-browser</name>
+  <dialog-name>doc-browser</dialog-name>
+  <layout>vbox</layout>
+  <resizable>true</resizable>
+
+  <group>
+    <layout>hbox</layout>
+    <empty>
+      <stretch>1</stretch>
+    </empty>
+    <text>
+      <label>Documentation Browser</label>
+    </text>
+    <empty>
+      <stretch>1</stretch>
+    </empty>
+    <button>
+      <pref-width>16</pref-width>
+      <pref-height>16</pref-height>
+      <legend/>
+      <keynum>27</keynum>
+      <border>2</border>
+      <binding>
+        <command>dialog-close</command>
+      </binding>
+    </button>
+  </group>
+
+  <hrule/>
+
+  <group>
+    <layout>hbox</layout>
+    <list>
+      <pref-width>170</pref-width>
+      <pref-height>500</pref-height>
+      <name>filename</name>
+      <halign>fill</halign>
+      <property>/sim/gui/dialogs/doc-browser/filename</property>
+      <value>clear</value>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>filename</object-name>
+      </binding>
+      <binding>
+        <command>dialog-update</command>
+        <object-name>editfield</object-name>
+      </binding>
+    </list>
+    <textbox>
+      <name>editfield</name>
+      <halign>fill</halign>
+      <valign>fill</valign>
+      <stretch>true</stretch>
+      <pref-width>600</pref-width>
+      <pref-height>250</pref-height>
+      <padding>6</padding>
+      <slider>20</slider>
+      <editable>falsee</editable>
+      <wrap>false</wrap>
+      <font>
+        <name>FIXED_8x13</name>
+      </font>
+      <property>/sim/gui/dialogs/doc-browser/edit</property>
+    </textbox>
+  </group>
+
+  <nasal>
+    <open>
+       var self = cmdarg();
+       var dlg = props.globals.getNode("/sim/gui/dialogs/doc-browser", 1);
+       var edit = dlg.getNode("edit", 1);
+       if( !contains(globals, "__doc_browser") )
+         globals["__doc_browser"] = {};
+  
+       var path = getprop("/sim/fg-root") ~ "/Docs/";
+       # hard coded list of file names, because not all files are plain text - not even the README* files
+       # TODO: it would probably make sense to sort these files (README, introduction, properties etc)
+       var doc_files = [
+         "README",
+         "README.introduction",
+         "README.fgjs",
+         "README.xmlsyntax",
+         "README.multiscreen",
+         "README.properties",
+         "README.IO",
+         "README.logging",
+         "README.protocol",
+         "README.scenery",
+         "README.materials",
+         "README.yasim",
+         "README.JSBsim",
+         "README.submodels",
+         "README.3DClouds",
+         "README.flightrecorder",
+         "README.jsclient",
+         "README.multiplayer",
+         "README.tutorials",
+         "README.conditions",
+         "README.commands",
+         "README.digitalfilters",
+         "README.airspeed-indicator",
+         "README.hud",
+         # "README.xmlhud", deprecated?
+         "README.gui",
+         "README.layout",
+         "README.osgtext",
+         "README.wildfire",
+         "README.electrical",
+         "README.effects",
+         "README.xmlparticles",
+         "README.sound",
+         "README.xmlsound",
+         "README.xmlpanel",
+         "README.minipanel"
+       ];
+       var filename_list = self.getNode("group[1]/list");
+       var n=0;
+       # add the filenames to the list box
+       foreach(var file; doc_files)
+       {
+         filename_list.getChild("value",n,1).setValue( file );
+         n+=1;
+       }
+       var filename_property = "/sim/gui/dialogs/doc-browser/filename";
+       var update = func {
+         var file = getprop(filename_property);
+           var doc_file = path ~ file;
+           setprop("/sim/gui/dialogs/doc-browser/edit", io.readfile(doc_file));
+       }
+  
+       var listener = setlistener(filename_property, update);
+       setprop("/sim/gui/dialogs/doc-browser/filename", "README.introduction");
+    </open>
+    <close>removelistener(listener);</close>
+  </nasal>
+</PropertyList>

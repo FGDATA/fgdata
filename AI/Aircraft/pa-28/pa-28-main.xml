@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+ <description>pa-28</description>
+ <author>David Megginson, modified for AI use Brett Harrison</author>  
+ <path>Models/pa-28.ac</path>
+
+    <animation>
+    <name>propall</name>
+    <object-name>prop</object-name>
+    <object-name>propdisc</object-name>
+   </animation>
+    
+    <animation>
+    <type>select</type>
+    <object-name>propdisc</object-name>
+    <condition>
+      <greater-than>
+        <property>velocities/true-airspeed-kt</property>
+        <value>50</value>
+      </greater-than>
+    </condition>
+  </animation>
+    
+      <animation>
+    <type>select</type>
+    <object-name>prop</object-name>
+    <condition>
+      <less-than>
+        <property>velocities/true-airspeed-kt</property>
+        <value>60</value>
+      </less-than>
+    </condition>
+  </animation>
+    
+      <animation>
+    <type>spin</type>
+    <object-name>propall</object-name>
+    <property>velocities/true-airspeed-kt</property>
+    <factor> 90 </factor>
+    <center>
+      <x-m> -2.48050</x-m>
+      <y-m> 0.00000 </y-m>
+      <z-m> 1.06520 </z-m>
+    </center>
+    <axis>
+      <x> -1.000 </x>
+      <y>  0.000 </y>
+      <z>  0.000 </z>
+    </axis>
+  </animation>
+ 
+</PropertyList>

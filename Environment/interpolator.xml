@@ -1,0 +1,364 @@
+<?xml version="1.0" ?>
+<!--
+ This file is part of FlightGear, the free flight simulator
+ http://www.flightgear.org/
+
+ Copyright (C) 2009 Torsten Dreyer, Torsten (at) t3r _dot_ de
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation; either version 2 of the
+ License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+-->
+<!--
+  Interpolate the values of /environment/interpolated/* over time
+  and write the results to /environment/*, the environment of our
+  aircraft
+  All filters are enabled on /environment/config/enabled=true
+-->
+<PropertyList>
+
+  <filter>
+    <name>EnvironmentInterpolator:temperature-sea-level-degc</name>
+    <enable>
+      <property>/environment/config/enabled</property>
+    </enable>
+    <input>/environment/config/interpolated/temperature-sea-level-degc</input>
+    <output>/environment/temperature-sea-level-degc</output>
+    <type>noise-spike</type>
+    <max-rate-of-change>0.1667</max-rate-of-change>
+  </filter>
+
+  <filter>
+    <name>EnvironmentInterpolator:dewpoint-sea-level-degc</name>
+    <enable>
+      <property>/environment/config/enabled</property>
+    </enable>
+    <input>/environment/config/interpolated/dewpoint-sea-level-degc</input>
+    <output>/environment/dewpoint-sea-level-degc</output>
+    <type>noise-spike</type>
+    <max-rate-of-change>0.1667</max-rate-of-change>
+  </filter>
+
+  <filter>
+    <!--
+      transfer the interpolated QNH to the global environment
+      limit the rate of change to approx 1hpa/sec
+    -->
+    <name>EnvironmentInterpolator:pressure-sea-level-inhg</name>
+    <type>noise-spike</type>
+    <max-rate-of-change>0.03</max-rate-of-change>
+    <enable>
+      <property>/environment/config/enabled</property>
+    </enable>
+    <input>/environment/config/interpolated/pressure-sea-level-inhg</input>
+    <output>/environment/pressure-sea-level-inhg</output>
+  </filter>
+
+  <filter>
+    <name>EnvironmentInterpolator:visibility-m</name>
+    <enable>
+      <property>/environment/config/enabled</property>
+    </enable>
+    <input>
+      <condition>
+        <property>/environment/config/presets/visibility-m-override</property>
+      </condition>
+      <property>/environment/config/presets/visibility-m</property>
+    </input>
+    <input>/environment/config/interpolated/visibility-m</input>
+    <output>/environment/visibility-m</output>
+    <type>exponential</type>
+    <filter-time>2</filter-time>
+  </filter>
+
+  <!-- 
+    filter the wind vector by filtering the cartesian representation
+  -->
+  <filter>
+    <name>EnvironmentInterpolator:wind-from-north</name>
+    <enable>
+      <property>/environment/config/enabled</property>
+    </enable>
+    <input>
+      <condition>
+        <property>/environment/config/presets/wind-override</property>
+      </condition>
+      <property>/environment/config/presets/wind-from-north-fps</property>
+    </input>
+    <input>/environment/config/interpolated/wind-from-north-fps</input>
+    <output>/environment/wind-from-north-fps</output>
+    <type>noise-spike</type>
+    <max-rate-of-change>0.5</max-rate-of-change>
+  </filter>
+
+  <filter>
+    <name>EnvironmentInterpolator:wind-from-east</name>
+    <enable>
+      <property>/environment/config/enabled</property>
+    </enable>
+    <input>
+      <condition>
+        <property>/environment/config/presets/wind-override</property>
+      </condition>
+      <property>/environment/config/presets/wind-from-east-fps</property>
+    </input>
+    <input>/environment/config/interpolated/wind-from-east-fps</input>
+    <output>/environment/wind-from-east-fps</output>
+    <type>noise-spike</type>
+    <max-rate-of-change>0.5</max-rate-of-change>
+  </filter>
+
+  <filter>
+    <name>EnvironmentInterpolator:wind-from-down</name>
+    <input>
+      <expression>
+        <sum>
+          <property>/environment/thermal-lift-fps</property>
+          <property>/environment/ridge-lift-fps</property>
+          <property>/environment/local-weather-lift-fps</property>
+        </sum>
+      </expression>
+    </input>
+    <output>/environment/wind-from-down-fps</output>
+    <type>noise-spike</type>
+    <max-rate-of-change>2.0</max-rate-of-change>
+  </filter>
+
+  <filter>
+    <name>EnvironmentInterpolator:turbulence-raw-magnitude</name>
+    <enable>
+      <property>/environment/config/enabled</property>
+    </enable>
+    <input>
+      <condition>
+        <property>/environment/config/presets/turbulence-magnitude-norm-override</property>
+      </condition>
+      <property>/environment/config/presets/turbulence-magnitude-norm</property>
+    </input>
+    <input>
+      <property>/environment/config/interpolated/turbulence/magnitude-norm</property>
+    </input>
+    <output>/environment/turbulence/raw-magnitude-norm</output>
+    <type>noise-spike</type>
+    <max-rate-of-change>0.2</max-rate-of-change>
+  </filter>
+
+  <filter>
+    <name>EnvironmentInterpolator:turbulence-magnitude</name>
+    <enable>
+      <property>/environment/config/enabled</property>
+    </enable>
+    <input>
+      <expression>
+        <pow>
+          <property>/environment/turbulence/raw-magnitude-norm</property>
+          <property>/environment/turbulence/sensitivity</property>
+        </pow>
+      </expression>
+    </input>
+    <output>/environment/turbulence/magnitude-norm</output>
+    <type>gain</type>
+    <gain>1</gain>
+  </filter>
+
+  <filter>
+    <name>EnvironmentInterpolator:turbulence-rate</name>
+    <enable>
+      <property>/environment/config/enabled</property>
+    </enable>
+    <input>/environment/config/interpolated/turbulence/rate-hz</input>
+    <output>/environment/turbulence/rate-hz</output>
+    <type>exponential</type>
+    <filter-time>1</filter-time>
+  </filter>
+
+  <!-- replace weather-utility.nas -->
+  <!--
+    #this utility is a workaround for the fact that a shader uses listeners which cannot
+    # be used with a tied property
+  -->
+  <filter>
+    <name>EnvironmentInterpolator:wave:wind-from-east-fps</name>
+    <input>/environment/config/boundary/entry[0]/wind-from-east-fps</input>
+    <output>/environment/sea/surface/wind-from-east-fps</output>
+    <type>noise-spike</type>
+    <max-rate-of-change>/environment/sea/config/wind-filter-time</max-rate-of-change>
+  </filter>
+
+  <filter>
+    <name>EnvironmentInterpolator:wave:wind-from-north-fps</name>
+    <input>/environment/config/boundary/entry[0]/wind-from-north-fps</input>
+    <output>/environment/sea/surface/wind-from-north-fps</output>
+    <type>noise-spike</type>
+    <max-rate-of-change>/environment/sea/config/wind-filter-time</max-rate-of-change>
+  </filter>
+
+  <!--filter> unused?
+    <name>EnvironmentInterpolator:wave:wind-from-heading-deg</name>
+    <input>/environment/config/boundary/entry[0]/wind-from-heading-deg</input>
+    <output>/environment/sea/surface/wind-from-deg</output>
+    <type>gain</type>
+    <gain>1</gain>
+  </filter-->
+
+  <!--filter> unused?
+    <name>EnvironmentInterpolator:wave:wind-speed-kt</name>
+    <input>/environment/config/boundary/entry[0]/wind-speed-kt</input>
+    <output>/environment/sea/surface/wind-speed-kt</output>
+    <type>gain</type>
+    <gain>1</gain>
+  </filter-->
+
+  <logic>
+    <name>EnvironmentInterpolator:wave:enabled</name>
+    <input>/environment/config/enabled</input>
+    <output>/environment/sea/config/enabled</output>
+  </logic>
+
+  <filter>
+    <name>EnvironmentInterpolator:model:heading</name>
+    <input>/orientation/heading-deg</input>
+    <output>/orientation/model/heading-deg</output>
+    <type>gain</type>
+    <gain>1</gain>
+  </filter>
+
+  <filter>
+    <name>EnvironmentInterpolator:model:pitch</name>
+    <input>/orientation/pitch-deg</input>
+    <output>/orientation/model/pitch-deg</output>
+    <type>gain</type>
+    <gain>1</gain>
+  </filter>
+
+  <filter>
+    <name>EnvironmentInterpolator:model:roll</name>
+    <type>gain</type>
+    <gain>1</gain>
+    <input>/orientation/roll-deg</input>
+    <output>/orientation/model/roll-deg</output>
+  </filter>
+
+  <filter>
+    <name>EnvironmentInterpolator:wave:amp</name>
+    <type>gain</type>
+    <gain>1</gain>
+    <input>
+      <expression>
+        <sum>
+          <value>1.0</value>
+          <product>
+            <value>0.02</value>
+            <property>/environment/config/boundary/entry[0]/wind-speed-kt</property>
+          </product>
+        </sum>
+      </expression>
+    </input>
+    <output>/environment/wave/amp</output>
+    <min>1.0</min>
+    <max>2.0</max>
+  </filter>
+
+  <filter>
+    <name>EnvironmentInterpolator:wave:angle</name>
+    <type>gain</type>
+    <gain>1</gain>
+    <input>
+      <expression>
+        <sum>
+          <value>35.0</value>
+          <product>
+            <value>0.2</value>
+            <property>/environment/config/boundary/entry[0]/wind-speed-kt</property>
+          </product>
+        </sum>
+      </expression>
+    </input>
+    <output>/environment/wave/angle</output>
+  </filter>
+
+  <filter>
+    <name>EnvironmentInterpolator:wave:dangle</name>
+    <type>gain</type>
+    <gain>1</gain>
+    <input>
+      <expression>
+        <difference>
+          <value>20.0</value>
+          <product>
+            <value>0.4</value>
+            <property>/environment/config/boundary/entry[0]/wind-speed-kt</property>
+          </product>
+        </difference>
+      </expression>
+    </input>
+    <output>/environment/wave/dangle</output>
+  </filter>
+
+  <filter>
+    <name>EnvironmentInterpolator:wave:freq</name>
+    <type>gain</type>
+    <gain>1</gain>
+    <input>
+      <expression>
+        <sum>
+          <value>0.01</value>
+          <product>
+            <value>0.0008</value>
+            <property>/environment/config/boundary/entry[0]/wind-speed-kt</property>
+          </product>
+        </sum>
+      </expression>
+    </input>
+    <output>/environment/wave/freq</output>
+    <min>0.01</min>
+    <max>0.015</max>
+  </filter>
+
+  <filter>
+    <name>EnvironmentInterpolator:wave:factor</name>
+    <type>gain</type>
+    <gain>1</gain>
+    <input>
+      <expression>
+        <difference>
+          <value>0.0004</value>
+          <product>
+            <value>0.00001</value>
+            <property>/environment/config/boundary/entry[0]/wind-speed-kt</property>
+          </product>
+        </difference>
+      </expression>
+    </input>
+    <output>/environment/wave/factor</output>
+    <min>0.0001</min>
+    <max>0.0004</max>
+  </filter>
+
+  <filter>
+    <name>EnvironmentInterpolator:wave:sharp</name>
+    <type>gain</type>
+    <gain>1</gain>
+    <input>
+      <expression>
+        <sum>
+          <value>1.0</value>
+          <product>
+            <value>0.02</value>
+            <property>/environment/config/boundary/entry[0]/wind-speed-kt</property>
+          </product>
+        </sum>
+      </expression>
+    </input>
+    <output>/environment/wave/sharp</output>
+    <min>1.0</min>
+    <max>2.0</max>
+  </filter>
+
+</PropertyList>

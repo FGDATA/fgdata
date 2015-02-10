@@ -1,0 +1,32 @@
+CHECKLISTS
+
+You can create one or more checklist for an aircraft under /sim/checklists. These
+are intended to mimic the checklists of aircraft themselves, and can be found under
+the Help->Checklists menu within the simulator.
+
+Tutorials are automatically generated from checklists on startup.
+
+Each checklist is defined as a property tree under /sim/checklists/checklist[n]
+with the following tags
+
+<title>       - Name of the checklist
+<page>        - Zero or more pages for the checklist containing:
+ <item>       - One or more checklist items containing:
+  <name>      - name of the checklist item (e.g. Carb Heat), to appear on the left
+  <value>     - One or more values for the checklist item, to appear on the right 
+                hand side
+  <marker>    - A tutorial marker (displayed when the user presses the ? button)
+                This can be easily placed using the Help->Display Tutorial Marker. 
+                Contains x-m, y-m, z-m and scale tag.
+  <condition> - Optional standard FlightGear condition node that evaluates when the
+                checklist item has been completed.
+  <binding>   - Zero or more bindings to execute the checklist item.  Allows the user
+                to have their virtual co-pilot perform the action if they select the 
+                ">" button next to the checklist item.
+                
+The <page> tag may be omitted for single-page checklists, with the <item> tags 
+immediately under the <checklist[n]> node.
+
+See the c172p for an example of this in action (Aircraft/c172p/c172-checklists.xml).
+
+  

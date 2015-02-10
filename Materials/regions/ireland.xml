@@ -1,0 +1,204 @@
+<?xml version="1.0"?>
+<!-- Regional definitions for Ireland -->
+<PropertyList>
+  <name>Ireland</name>
+  <area>
+    <lon1>-11.0</lon1>
+    <lon2>-5.0</lon2>
+    <lat1>50.0</lat1>
+    <lat2>57.0</lat2>
+  </area>
+
+  <condition>
+    <equals>
+      <property>sim/startup/season</property>
+      <value>summer</value>
+    </equals>
+  </condition>
+
+  <material>
+    <effect>Effects/cropgrass</effect>
+    <name>Grassland</name>
+    <name>CropGrassCover</name>
+    <name>CropGrass</name>
+    <texture-set>
+      <texture>Terrain/iceland_grass-autumn.png</texture>
+      <texture n="11">Terrain/grass_green_hires-autumn.png</texture>
+    </texture-set>
+    <parameters>
+      <hires_overlay_bias>-0.1</hires_overlay_bias>
+    </parameters>
+    <xsize>2000</xsize>
+    <ysize>2000</ysize>
+    <light-coverage>2000000.0</light-coverage>
+    <diffuse>
+      <r>0.93</r>
+      <g>0.95</g>
+      <b>0.93</b>
+      <a>1.0</a>
+    </diffuse>
+    <specular>
+      <r>0.1</r>
+      <g>0.12</g>
+      <b>0.1</b>
+      <a>1.0</a>
+    </specular>
+    <shininess>1.2</shininess>
+    <solid>1</solid>
+    <friction-factor>0.7</friction-factor>
+    <rolling-friction>0.1</rolling-friction>
+    <bumpiness>0.3</bumpiness>
+    <load-resistance>1e30</load-resistance>
+  </material>
+
+
+    <material>
+    <name>DryCropPastureCover</name>
+    <name>DryCrop</name>
+    <texture>Terrain/cropgrass-hires-autumn.png</texture>
+    <object-mask>Terrain/cropgrass-hires.mask.png</object-mask>
+    <xsize>1800</xsize>
+    <ysize>1800</ysize>
+    <solid>1</solid>
+    <friction-factor>0.9</friction-factor>
+    <rolling-friction>0.1</rolling-friction>
+    <bumpiness>0.6</bumpiness>
+    <load-resistance>1e30</load-resistance>
+    <light-coverage>2000000.0</light-coverage>
+    <object-group include="Materials/base/farm-buildings.xml"/>
+    <wood-coverage>2000.0</wood-coverage>
+    <tree-texture>Trees/deciduous-alt.png</tree-texture>
+    <tree-varieties>8</tree-varieties>
+    <tree-range-m alias="/params/forest/tree-range-m"/>
+    <tree-height-m>15.0</tree-height-m>
+    <tree-width-m>10.0</tree-width-m>
+  </material>
+
+  <material>
+    <name>NaturalCrop</name>
+    <name>BarrenCover</name>
+    <texture-set>
+      <texture>Terrain/rock_alt.png</texture>
+      <texture n="11">Terrain/grass_green_hires-autumn.png</texture>
+    </texture-set>
+    <parameters>
+      <hires_overlay_bias>-0.05</hires_overlay_bias>
+    </parameters>
+    <xsize>2000</xsize>
+    <ysize>2000</ysize>
+    <solid>1</solid>
+    <friction-factor>0.9</friction-factor>
+    <rolling-friction>0.1</rolling-friction>
+    <bumpiness>0.6</bumpiness>
+    <load-resistance>1e30</load-resistance>
+    <light-coverage>2000000.0</light-coverage>
+  </material>
+
+
+  <material>
+    <name>Bog</name>
+    <texture-set>
+      <texture>Terrain/dry_pasture4.png</texture>
+      <texture n="11">Terrain/grass_green_hires-autumn.png</texture>
+      <texture n="12">Terrain/herbtundra.png</texture>
+    </texture-set>
+    <parameters>
+      <transition_model>0.8</transition_model>
+      <hires_overlay_bias>-0.2</hires_overlay_bias>
+      <intrinsic_wetness>0.2</intrinsic_wetness>
+    </parameters>
+    <xsize>2000</xsize>
+    <ysize>2000</ysize>
+    <solid>1</solid>
+    <light-coverage>40000000.0</light-coverage>
+    <friction-factor>0.8</friction-factor>
+    <rolling-friction>0.3</rolling-friction>
+    <bumpiness>0.2</bumpiness>
+    <load-resistance>1e30</load-resistance>
+  </material>
+
+  <material>
+    <name>ShrubCover</name>
+    <name>ShrubGrassCover</name>
+    <name>ScrubCover</name>
+    <name>Scrub</name>
+    <name>Sclerophyllous</name>
+    <name>Heath</name>
+    <texture-set>
+      <texture>Terrain/shrub1.png</texture>
+      <texture n="11">Terrain/grass_green_hires-autumn.png</texture>
+    </texture-set>
+    <xsize>2000</xsize>
+    <ysize>2000</ysize>
+    <diffuse>
+      <r>0.86</r>
+      <g>0.86</g>
+      <b>0.86</b>
+      <a>1.0</a>
+    </diffuse>
+    <specular>
+      <r>0.1</r>
+      <g>0.1</g>
+      <b>0.1</b>
+      <a>1.0</a>
+    </specular>
+    <shininess>1.2</shininess>
+    <light-coverage>20000000.0</light-coverage>
+    <wood-coverage>12000.0</wood-coverage>
+    <tree-texture>Trees/mixed-shrub.png</tree-texture>
+    <tree-varieties>8</tree-varieties>
+    <tree-range-m alias="/params/forest/tree-range-m"/>
+    <tree-height-m>2.0</tree-height-m>
+    <tree-width-m>2.0</tree-width-m>
+    <rolling-friction>0.6</rolling-friction>
+    <bumpiness>0.4</bumpiness>
+  </material>
+
+  <material>
+    <name>Dirt</name>
+    <name>OpenMining</name>
+    <name>Rock</name>
+    <name>Dump</name>
+    <texture-set>
+      <texture>Terrain/rock_alt.png</texture>
+	  <texture n="11">Terrain/grass_green_hires-autumn.png</texture>
+      <texture n="12">Terrain/herbtundra.png</texture>
+    </texture-set>
+    <parameters>
+      <transition_model>0.0</transition_model>
+	  <hires_overlay_bias>-0.15</hires_overlay_bias>
+    </parameters>
+    <xsize>1000</xsize>
+    <ysize>1000</ysize>
+    <solid>1</solid>
+    <friction-factor>0.9</friction-factor>
+    <rolling-friction>0.1</rolling-friction>
+    <bumpiness>0.3</bumpiness>
+  </material>
+
+  <material>
+    <name>MixedCrop</name>
+    <name>ComplexCrop</name>
+    <name>IrrCrop</name>
+    <name>Default</name>
+    <texture>Terrain/countryside1.ireland-autumn.png</texture>
+    <object-mask>Terrain/countryside1.green.mask.png</object-mask>
+    <xsize>2000</xsize>
+    <ysize>2000</ysize>
+    <light-coverage>2000000.0</light-coverage>
+    <solid>1</solid>
+    <friction-factor>0.9</friction-factor>
+    <rolling-friction>0.1</rolling-friction>
+    <bumpiness>0.7</bumpiness>
+    <load-resistance>1e30</load-resistance>
+    <object-group include="Materials/base/farm-buildings.xml"/>
+    <wood-coverage>1000.0</wood-coverage>
+    <tree-texture>Trees/deciduous-alt.png</tree-texture>
+    <tree-varieties>8</tree-varieties>
+    <tree-range-m alias="/params/forest/tree-range-m"/>
+    <tree-height-m>15.0</tree-height-m>
+    <tree-width-m>10.0</tree-width-m>
+  </material>
+
+
+</PropertyList>

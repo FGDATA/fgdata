@@ -1,0 +1,274 @@
+<!--
+Syd Adams
+Remote Instrument Controller  hotspots
+-->
+
+<PropertyList>
+
+    <name>RIC hotspots</name>
+    <w-base>142</w-base>
+    <h-base>38</h-base>
+    <w>142</w>
+    <h>38</h>
+
+<actions>
+
+<!--
+    <action>
+        <name>bezel outline</name>
+        <x>-71</x>
+        <y>-19</y>
+        <w>142</w>
+        <h>38</h>
+    </action>
+-->
+
+    <action>
+        <name>Center Course Needle</name>
+        <button>0</button>
+        <x>-49</x>
+        <y>-8</y>
+        <w>14</w>
+        <h>14</h>
+        <binding>
+            <command>property-assign</command>
+            <property>instrumentation/nav/radials/selected-deg</property>
+            <property>instrumentation/nav/heading-deg</property>
+        </binding>
+    </action>
+
+    <action>
+        <name>Course decrease 1</name>
+        <button>0</button>
+        <x>-59</x>
+        <y>-8</y>
+        <w>10</w>
+        <h>14</h>
+        <binding>
+            <command>property-adjust</command>
+            <property>instrumentation/nav/radials/selected-deg</property>
+            <step>-1</step>
+            <min>0</min>
+            <max>359</max>
+            <wrap>true</wrap>
+        </binding>
+    </action>
+
+    <action>
+        <name>Course decrease 10</name>
+        <button>1</button>
+        <x>-59</x>
+        <y>-8</y>
+        <w>10</w>
+        <h>14</h>
+        <binding>
+            <command>property-adjust</command>
+            <property>instrumentation/nav/radials/selected-deg</property>
+            <step>-10</step>
+            <min>0</min>
+            <max>350</max>
+            <wrap>true</wrap>
+        </binding>
+    </action>
+
+    <action>
+        <name>Course increase 1</name>
+        <button>0</button>
+        <x>-35</x>
+        <y>-8</y>
+        <w>10</w>
+        <h>14</h>
+        <binding>
+            <command>property-adjust</command>
+            <property>instrumentation/nav/radials/selected-deg</property>
+            <step>1</step>
+            <min>0</min>
+            <max>359</max>
+            <wrap>true</wrap>
+        </binding>
+    </action>
+
+    <action>
+        <name>Course increase 10</name>
+        <button>1</button>
+        <x>-35</x>
+        <y>-8</y>
+        <w>10</w>
+        <h>14</h>
+        <binding>
+            <command>property-adjust</command>
+            <property>instrumentation/nav/radials/selected-deg</property>
+            <step>10</step>
+            <min>0</min>
+            <max>350</max>
+            <wrap>true</wrap>
+        </binding>
+    </action>
+
+    <action>
+        <name>Center Heading Bug</name>
+        <button>0</button>
+        <x>-7</x>
+        <y>-8</y>
+        <w>14</w>
+        <h>14</h>
+        <binding>
+            <command>property-assign</command>
+            <property>autopilot/settings/heading-bug-deg</property>
+            <property>/orientation/heading-magnetic-deg</property>
+        </binding>
+    </action>
+
+    <action>
+        <name>Heading Bug decrease1</name>
+        <button>0</button>
+        <x>-17</x>
+        <y>-8</y>
+        <w>10</w>
+        <h>14</h>
+        <binding>
+            <command>property-adjust</command>
+            <property>autopilot/settings/heading-bug-deg</property>
+            <step>-1</step>
+            <min>0</min>
+            <max>359</max>
+            <wrap>true</wrap>
+        </binding>
+    </action>
+
+    <action>
+        <name>Heading Bug decrease10</name>
+        <button>1</button>
+        <x>-17</x>
+        <y>-8</y>
+        <w>10</w>
+        <h>14</h>
+        <binding>
+            <command>property-adjust</command>
+            <property>autopilot/settings/heading-bug-deg</property>
+            <step>-10</step>
+            <min>0</min>
+            <max>359</max>
+            <wrap>true</wrap>
+        </binding>
+    </action>
+
+    <action>
+        <name>Heading Bug increase1</name>
+        <button>0</button>
+        <x>7</x>
+        <y>-8</y>
+        <w>10</w>
+        <h>14</h>
+        <binding>
+            <command>property-adjust</command>
+            <property>autopilot/settings/heading-bug-deg</property>
+            <step>1</step>
+            <min>0</min>
+            <max>359</max>
+            <wrap>true</wrap>
+        </binding>
+    </action>
+
+    <action>
+        <name>Heading Bug increase10</name>
+        <button>1</button>
+        <x>7</x>
+        <y>-8</y>
+        <w>10</w>
+        <h>14</h>
+        <binding>
+            <command>property-adjust</command>
+            <property>autopilot/settings/heading-bug-deg</property>
+            <step>10</step>
+            <min>0</min>
+            <max>359</max>
+            <wrap>true</wrap>
+        </binding>
+    </action>
+
+    <action>
+        <name>Center Course Needle2</name>
+        <button>0</button>
+        <x>35</x>
+        <y>-8</y>
+        <w>14</w>
+        <h>14</h>
+        <binding>
+            <command>property-assign</command>
+            <property>instrumentation/nav/radials/selected-deg</property>
+            <property>instrumentation/nav/heading-deg</property>
+        </binding>
+    </action>
+
+    <action>
+        <name>Course2 decrease 1</name>
+        <button>0</button>
+        <x>25</x>
+        <y>-8</y>
+        <w>10</w>
+        <h>14</h>
+        <binding>
+            <command>property-adjust</command>
+            <property>instrumentation/nav/radials/selected-deg</property>
+            <step>-1</step>
+            <min>0</min>
+            <max>359</max>
+            <wrap>true</wrap>
+        </binding>
+    </action>
+
+    <action>
+        <name>Course2 decrease 10</name>
+        <button>1</button>
+        <x>25</x>
+        <y>-8</y>
+        <w>10</w>
+        <h>14</h>
+        <binding>
+            <command>property-adjust</command>
+            <property>instrumentation/nav/radials/selected-deg</property>
+            <step>-10</step>
+            <min>0</min>
+            <max>350</max>
+            <wrap>true</wrap>
+        </binding>
+    </action>
+
+    <action>
+        <name>Course2 increase 1</name>
+        <button>0</button>
+        <x>49</x>
+        <y>-8</y>
+        <w>10</w>
+        <h>14</h>
+        <binding>
+            <command>property-adjust</command>
+            <property>instrumentation/nav/radials/selected-deg</property>
+            <step>1</step>
+            <min>0</min>
+            <max>359</max>
+            <wrap>true</wrap>
+        </binding>
+    </action>
+
+    <action>
+        <name>Course2 increase 10</name>
+        <button>1</button>
+        <x>49</x>
+        <y>-8</y>
+        <w>10</w>
+        <h>14</h>
+        <binding>
+            <command>property-adjust</command>
+            <property>instrumentation/nav/radials/selected-deg</property>
+            <step>10</step>
+            <min>0</min>
+            <max>350</max>
+            <wrap>true</wrap>
+        </binding>
+    </action>
+
+</actions>
+
+</PropertyList>

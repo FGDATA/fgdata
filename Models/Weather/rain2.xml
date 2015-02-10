@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+ <path>rain2.ac</path>
+ 
+<animation>
+  <type>billboard</type>
+  <spherical>false</spherical>
+</animation>
+ 
+<animation>
+  <enable-hot type="bool">false</enable-hot>
+</animation>
+
+<effect>
+  <inherits-from>Effects/rain-layer</inherits-from>
+  <object-name>rect</object-name>
+</effect>
+
+</PropertyList>

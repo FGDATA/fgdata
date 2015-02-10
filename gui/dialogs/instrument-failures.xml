@@ -1,0 +1,400 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+  <name>instrument-failures</name>
+  <modal>false</modal>
+  <layout>vbox</layout>
+
+  <group>
+    <layout>hbox</layout>
+    <empty><stretch>1</stretch></empty>
+
+    <text>
+      <label>Instrument Failures</label>
+    </text>
+
+    <empty><stretch>1</stretch></empty>
+
+    <button>
+      <pref-width>16</pref-width>
+      <pref-height>16</pref-height>
+      <legend></legend>
+      <keynum>27</keynum>
+      <border>2</border>
+      <binding>
+        <command>dialog-close</command>
+      </binding>
+    </button>
+  </group>
+
+  <hrule/>
+
+  <group>
+    <layout>hbox</layout>
+    <halign>left</halign>
+    <text>
+      <label>Uncheck an instrument to fail it, or set the Mean Time Between Failures.</label>
+    </text>
+  </group>
+
+  <hrule/>
+
+  <group>
+    <layout>table</layout>
+    <halign>center</halign>
+    <text>
+      <row>0</row>
+      <col>0</col>
+      <label>Instrument</label>
+    </text>
+    <text>
+      <row>0</row>
+      <col>2</col>
+      <label>MTBF (sec)</label>
+    </text>
+
+    <text>
+      <row>0</row>
+      <col>3</col>
+      <label>  </label>
+    </text>
+    <text>
+      <row>0</row>
+      <col>4</col>
+      <label>Instrument</label>
+    </text>
+    <text>
+      <row>0</row>
+      <col>6</col>
+      <label>MTBF (sec)</label>
+    </text>
+
+    <text>
+      <row>1</row>
+      <col>0</col>
+      <halign>right</halign>
+      <label>Nav 1 CDI</label>
+    </text>
+
+    <checkbox>
+      <row>1</row>
+      <col>1</col>
+      <property>/sim/failure-manager/instrumentation/nav[0]/cdi/serviceable</property>
+    </checkbox>
+
+    <input>
+      <row>1</row>
+      <col>2</col>
+      <width>80</width>
+      <height>20</height>
+      <property>/sim/failure-manager/instrumentation/nav[0]/cdi/mtbf</property>
+    </input>
+
+    <text>
+      <row>1</row>
+      <col>4</col>
+      <halign>right</halign>
+      <label>Nav 2 CDI</label>
+    </text>
+
+    <checkbox>
+      <row>1</row>
+      <col>5</col>
+      <property>/sim/failure-manager/instrumentation/nav[1]/cdi/serviceable</property>
+    </checkbox>
+
+    <input>
+      <row>1</row>
+      <col>6</col>
+      <width>80</width>
+      <height>20</height>
+      <property>/sim/failure-manager/instrumentation/nav[1]/cdi/mtbf</property>
+    </input>
+
+    <text>
+      <row>2</row>
+      <col>0</col>
+      <halign>right</halign>
+      <label>Nav 1 GS</label>
+    </text>
+
+    <checkbox>
+      <row>2</row>
+      <col>1</col>
+      <property>/sim/failure-manager/instrumentation/nav[0]/gs/serviceable</property>
+    </checkbox>
+
+    <input>
+      <row>2</row>
+      <col>2</col>
+      <property>/sim/failure-manager/instrumentation/nav[0]/gs/mtbf</property>
+    </input>
+
+    <text>
+      <row>2</row>
+      <col>4</col>
+      <halign>right</halign>
+      <label>Nav 2 GS</label>
+    </text>
+
+    <checkbox>
+      <row>2</row>
+      <col>5</col>
+      <property>/sim/failure-manager/instrumentation/nav[1]/gs/serviceable</property>
+    </checkbox>
+
+    <input>
+      <row>2</row>
+      <col>6</col>
+      <property>/sim/failure-manager/instrumentation/nav[1]/gs/mtbf</property>
+    </input>
+
+    <text>
+      <row>3</row>
+      <col>0</col>
+      <halign>right</halign>
+      <label>DME</label>
+    </text>
+
+    <checkbox>
+      <row>3</row>
+      <col>1</col>
+      <property>/sim/failure-manager/instrumentation/dme/serviceable</property>
+    </checkbox>
+
+    <input>
+      <row>3</row>
+      <col>2</col>
+      <property>/sim/failure-manager/instrumentation/dme/mtbf</property>
+    </input>
+
+    <text>
+      <row>3</row>
+      <col>4</col>
+      <halign>right</halign>
+      <label>ADF</label>
+    </text>
+
+    <checkbox>
+      <row>3</row>
+      <col>5</col>
+      <property>/sim/failure-manager/instrumentation/adf/serviceable</property>
+    </checkbox>
+
+    <input>
+      <row>3</row>
+      <col>6</col>
+      <property>/sim/failure-manager/instrumentation/adf/mtbf</property>
+    </input>
+
+    <text>
+      <row>4</row>
+      <col>0</col>
+      <halign>right</halign>
+      <label>Airspeed Indicator</label>
+    </text>
+
+    <checkbox>
+      <row>4</row>
+      <col>1</col>
+      <property>/sim/failure-manager/instrumentation/airspeed-indicator/serviceable</property>
+    </checkbox>
+
+    <input>
+      <row>4</row>
+      <col>2</col>
+      <property>/sim/failure-manager/instrumentation/airspeed-indicator/mtbf</property>
+    </input>
+
+    <text>
+      <row>4</row>
+      <col>4</col>
+      <halign>right</halign>
+      <label>Attitude Indicator</label>
+    </text>
+
+    <checkbox>
+      <row>4</row>
+      <col>5</col>
+      <property>/sim/failure-manager/instrumentation/attitude-indicator/serviceable</property>
+    </checkbox>
+
+    <input>
+      <row>4</row>
+      <col>6</col>
+      <property>/sim/failure-manager/instrumentation/attitude-indicator/mtbf</property>
+    </input>
+
+    <text>
+      <row>5</row>
+      <col>0</col>
+      <halign>right</halign>
+      <label>Altimeter</label>
+    </text>
+
+    <checkbox>
+      <row>5</row>
+      <col>1</col>
+      <property>/sim/failure-manager/instrumentation/altimeter/serviceable</property>
+    </checkbox>
+
+    <input>
+      <row>5</row>
+      <col>2</col>
+      <property>/sim/failure-manager/instrumentation/altimeter/mtbf</property>
+    </input>
+
+    <text>
+      <row>5</row>
+      <col>4</col>
+      <halign>right</halign>
+      <label>Turn Indicator</label>
+    </text>
+
+    <checkbox>
+      <row>5</row>
+      <col>5</col>
+      <property>/sim/failure-manager/instrumentation/turn-indicator/serviceable</property>
+    </checkbox>
+
+    <input>
+      <row>5</row>
+      <col>6</col>
+      <property>/sim/failure-manager/instrumentation/turn-indicator/mtbf</property>
+    </input>
+
+    <text>
+      <row>6</row>
+      <col>0</col>
+      <halign>right</halign>
+      <label>Slip/Skid Ball</label>
+    </text>
+
+    <checkbox>
+      <row>6</row>
+      <col>1</col>
+      <property>/sim/failure-manager/instrumentation/slip-skid-ball/serviceable</property>
+    </checkbox>
+
+    <input>
+      <row>6</row>
+      <col>2</col>
+      <property>/sim/failure-manager/instrumentation/slip-skid-ball/mtbf</property>
+    </input>
+
+    <text>
+      <row>6</row>
+      <col>4</col>
+      <halign>right</halign>
+      <label>Heading Indicator</label>
+    </text>
+
+    <checkbox>
+      <row>6</row>
+      <col>5</col>
+      <property>/sim/failure-manager/instrumentation/heading-indicator/serviceable</property>
+    </checkbox>
+
+    <input>
+      <row>6</row>
+      <col>6</col>
+      <property>/sim/failure-manager/instrumentation/heading-indicator/mtbf</property>
+    </input>
+
+    <text>
+      <row>7</row>
+      <col>0</col>
+      <halign>right</halign>
+      <label>Vertical Speed Ind.</label>
+    </text>
+
+    <checkbox>
+      <row>7</row>
+      <col>1</col>
+      <property>/sim/failure-manager/instrumentation/vertical-speed-indicator/serviceable</property>
+    </checkbox>
+
+    <input>
+      <row>7</row>
+      <col>2</col>
+      <property>/sim/failure-manager/instrumentation/vertical-speed-indicator/mtbf</property>
+    </input>
+
+    <text>
+      <row>7</row>
+      <col>4</col>
+      <halign>right</halign>
+      <label>Magnetic Compass</label>
+    </text>
+
+    <checkbox>
+      <row>7</row>
+      <col>5</col>
+      <property>/sim/failure-manager/instrumentation/magnetic-compass/serviceable</property>
+    </checkbox>
+
+    <input>
+      <row>7</row>
+      <col>6</col>
+      <property>/sim/failure-manager/instrumentation/magnetic-compass/mtbf</property>
+    </input>
+  </group>
+
+  <hrule/>
+
+  <group>
+    <layout>hbox</layout>
+    <button>
+      <legend>OK</legend>
+      <default>true</default>
+      <equal>true</equal>
+      <binding>
+        <command>dialog-apply</command>
+      </binding>
+      <binding>
+        <command>nasal</command>
+        <script>
+          setprop("/instrumentation/heading-indicator-fg/serviceable",
+          getprop("/instrumentation/heading-indicator/serviceable"));
+        </script>
+      </binding>
+      <binding>
+        <command>dialog-close</command>
+      </binding>
+    </button>
+
+    <button>
+      <legend>Apply</legend>
+      <equal>true</equal>
+      <binding>
+        <command>dialog-apply</command>
+      </binding>
+      <binding>
+        <command>nasal</command>
+        <script>
+          setprop("/instrumentation/heading-indicator-fg/serviceable",
+          getprop("/instrumentation/heading-indicator/serviceable"));
+        </script>
+      </binding>
+    </button>
+
+    <button>
+      <legend>Refresh</legend>
+      <equal>true</equal>
+      <binding>
+        <command>dialog-update</command>
+      </binding>
+    </button>
+
+    <button>
+      <legend>Cancel</legend>
+      <equal>true</equal>
+      <key>Esc</key>
+      <binding>
+        <command>dialog-close</command>
+      </binding>
+    </button>
+  </group>
+
+</PropertyList>

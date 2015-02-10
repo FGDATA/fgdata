@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ This file is part of FlightGear, the free flight simulator
+ http://www.flightgear.org/
+
+ Copyright (C) 2009 Torsten Dreyer, Torsten (at) t3r _dot_ de
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation; either version 2 of the
+ License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+-->
+<PropertyList>
+  <name>After Landing Check</name>
+  <description>This is the after landing checklist. Items to be checked after landing when workload permits. Usually after the runway is vacated.</description>
+  <interval>0</interval>
+
+  <init>
+    <set>
+      <property>/sim/current-view/view-number</property>
+      <value>0</value>
+    </set>
+  </init>
+
+  <step>
+    <message>
+      ANTI ICE: off
+    </message>
+  </step>
+
+  <step>
+    <message>
+      PITOT HEAT: off
+    </message>
+  </step>
+
+  <step>
+    <message>
+      STROBE LIGHTS: off
+    </message>
+  </step>
+
+  <step>
+    <message>
+      FLAPS: up
+    </message>
+  </step>
+
+  <step>
+    <message>
+      COWL FLAPS: open
+    </message>
+  </step>
+
+</PropertyList>

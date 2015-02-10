@@ -1,0 +1,263 @@
+<?xml version="1.0"?>
+
+<!--
+_______________________________________________________________________________
+KLN89B GPS instrument.
+
+Started 2005 by David Luff, daveluff@ntlworld.com.
+
+This is an instrument configuration file for the open-source flight
+simulator FlightGear (www.flightgear.org).  The file is an XML-encoded
+FlightGear property list defining the instrument's layers and actions.
+
+Each instrument is composed of layers stacked on top of each other.
+A layer may be a texture (with transparent parts to show the layers
+underneath), text, or a special layer that switches between two
+others (say, to turn an indicator light on or off).  Each layer can
+move independently in proportion to a property value, and text
+can be generated from property values as well: all of the layer's
+movements are defined as transformations.
+
+Actions are hotspots on the instrument that will respond to a mouse
+click.  Actions always modify the values of properties, either by
+adjusting them, toggling them, or swaping them with other
+properties' values.
+-->
+
+<PropertyList>
+ <name>KLN89</name>
+ <w-base>1024</w-base>
+ <h-base>256</h-base>
+
+<!-- Layers -->
+
+ <layers>
+
+  <layer>
+   <name>background</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/kln89.rgb</path>
+    <x1>0.0</x1>
+    <x2>0.8867</x2>
+    <y1>0.4668</y1>
+    <y2>1.0</y2>
+   </texture>
+   <w>908</w>
+   <h>273</h>
+  </layer>
+  
+ <layer>
+   <name>scan-pull</name>
+   <condition>
+    <property>/instrumentation/kln89/scan-pull</property>
+   </condition>
+   <texture>
+    <path>Aircraft/Instruments/Textures/kln89.rgb</path>
+    <x1>0.005</x1>
+    <x2>0.1230</x2>
+    <y1>0.1953</y1>
+    <y2>0.4219</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>375</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-60</offset>
+    </transformation>
+   </transformations>
+   <w>117</w>
+   <h>112</h>
+  </layer>
+
+ </layers>
+
+<!-- Actions -->
+
+ <actions>
+
+  <action>
+   <name>MSG Button</name>
+   <button>0</button>
+   <x>-285</x>
+   <y>-122</y>
+   <w>50</w>
+   <h>35</h>
+  <binding>
+    <command>kln89_msg_pressed</command>
+   </binding>
+  </action>
+
+  <action>
+   <name>OBS Button</name>
+   <button>0</button>
+   <x>-200</x>
+   <y>-122</y>
+   <w>50</w>
+   <h>35</h>
+   <binding>
+    <command>kln89_obs_pressed</command>
+   </binding>
+  </action>
+
+  <action>
+   <name>ALT Button</name>
+   <button>0</button>
+   <x>-115</x>
+   <y>-122</y>
+   <w>50</w>
+   <h>35</h>
+   <binding>
+    <command>kln89_alt_pressed</command>
+   </binding>
+  </action>
+
+  <action>
+   <name>NRST Button</name>
+   <button>0</button>
+   <x>-30</x>
+   <y>-122</y>
+   <w>50</w>
+   <h>35</h>
+   <binding>
+    <command>kln89_nrst_pressed</command>
+   </binding>
+  </action>
+
+  <action>
+   <name>DTO Button</name>
+   <button>0</button>
+   <x>55</x>
+   <y>-122</y>
+   <w>50</w>
+   <h>35</h>
+   <binding>
+    <command>kln89_dto_pressed</command>
+   </binding>
+  </action>
+
+  <action>
+   <name>CLR Button</name>
+   <button>0</button>
+   <x>140</x>
+   <y>-122</y>
+   <w>50</w>
+   <h>35</h>
+   <binding>
+    <command>kln89_clr_pressed</command>
+   </binding>
+  </action>
+
+  <action>
+   <name>ENT Button</name>
+   <button>0</button>
+   <x>225</x>
+   <y>-122</y>
+   <w>50</w>
+   <h>35</h>
+   <binding>
+    <command>kln89_ent_pressed</command>
+   </binding>
+  </action>
+
+  <action>
+   <name>CRSR Button</name>
+   <button>0</button>
+   <x>340</x>
+   <y>40</y>
+   <w>70</w>
+   <h>35</h>
+   <binding>
+    <command>kln89_crsr_pressed</command>
+   </binding>
+  </action>
+  
+  <action>
+   <name>Outer Dial Clockwise</name>
+   <button>0</button>
+   <x>410</x>
+   <y>-105</y>
+   <w>35</w>
+   <h>100</h>
+   <binding>
+    <command>kln89_knob1right1</command>
+   </binding>
+  </action>
+  
+  <action>
+   <name>Outer Dial Anti-Clockwise</name>
+   <button>0</button>
+   <x>300</x>
+   <y>-105</y>
+   <w>38</w>
+   <h>100</h>
+   <binding>
+    <command>kln89_knob1left1</command>
+   </binding>
+  </action>
+  
+  <action>
+   <name>Inner Dial Clockwise</name>
+   <button>0</button>
+   <x>375</x>
+   <y>-85</y>
+   <w>35</w>
+   <h>60</h>
+   <binding>
+    <command>kln89_knob2right1</command>
+   </binding>
+  </action>
+  
+  <action>
+   <name>Inner Dial Anti-Clockwise</name>
+   <button>0</button>
+   <x>340</x>
+   <y>-85</y>
+   <w>30</w>
+   <h>60</h>
+   <binding>
+    <command>kln89_knob2left1</command>
+   </binding>
+  </action>
+  
+  <action>
+   <name>Inner Knob Toggle Scan</name>
+   <button>1</button>
+   <x>340</x>
+   <y>-110</y>
+   <w>90</w>
+   <h>90</h>
+   <binding>
+    <command>property-toggle</command>
+    <property>/instrumentation/kln89/scan-pull</property>
+   </binding>
+  </action>
+  
+  <action>
+   <name>Photocell Obscure</name>
+   <!--This action represents the user obscuring the light-sensitive photocell
+       in order to test the night-time brightness level of the display-->
+   <button>0</button>
+   <x>-408</x>
+   <y>64</y>
+   <w>40</w>
+   <h>40</h>
+   <binding>
+    <command>property-assign</command>
+    <property>/instrumentation/kln89/photocell-obscured</property>
+    <value >1</value>
+   </binding>
+   <mod-up>
+    <binding>
+     <command>property-assign</command>
+     <property>/instrumentation/kln89/photocell-obscured</property>
+     <value>0</value>
+    </binding>
+   </mod-up>
+  </action>
+
+ </actions>
+
+</PropertyList>

@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+
+
+<PropertyList>
+	
+	<path>Strobe.ac</path>
+
+	<animation>
+		<type>alpha-test</type>
+		<object-name>Strobe</object-name>
+		<alpha-factor>0.001</alpha-factor>
+	</animation>
+	
+	<animation>
+		<type>billboard</type>
+		<object-name>Strobe</object-name>
+		<spherical type="bool">true</spherical>
+	</animation>
+
+	<animation>
+		<type>range</type>
+		<min-m>0</min-m>
+		<max-m>25000</max-m>
+	</animation>
+
+	<Strobeparams>
+		<light-near>0.8</light-near>
+		<light-med>3.2</light-med>
+		<light-far>160</light-far>
+	</Strobeparams>
+
+	<animation>
+		<type>dist-scale</type>
+		<object-name>Strobe</object-name>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep alias="../../../../Strobeparams/light-near"/>
+			</entry>
+			<entry>
+				<ind>500</ind>
+				<dep alias="../../../../Strobeparams/light-med"/>
+			</entry>
+			<entry>
+				<ind>16000</ind>
+				<dep alias="../../../../Strobeparams/light-far"/>
+			</entry>
+		</interpolation>
+	</animation>
+
+</PropertyList>

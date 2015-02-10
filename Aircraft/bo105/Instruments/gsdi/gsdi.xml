@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<path>gsdi.ac</path>
+	<animation>
+		<type>translate</type>
+		<object-name>uneedle</object-name>
+		<property>instrumentation/gsdi/drift-u-kt</property>
+		<factor>0.005</factor>
+		<min-m>-0.03</min-m>
+		<max-m>0.03</max-m>
+		<axis>
+			<x>0</x>
+			<y>0</y>
+			<z>1</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>translate</type>
+		<object-name>vneedle</object-name>
+		<property>instrumentation/gsdi/drift-v-kt</property>
+		<factor>0.005</factor>
+		<min-m>-0.03</min-m>
+		<max-m>0.03</max-m>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+</PropertyList>

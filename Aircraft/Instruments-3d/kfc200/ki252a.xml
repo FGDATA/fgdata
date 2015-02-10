@@ -1,0 +1,171 @@
+<?xml version="1.0"?>
+<!--
+KING KI-525A Pictorial Indicator
+Syd Adams
+-->
+
+<PropertyList>
+
+    <path>ki252a.ac</path>
+    
+    <animation>
+        <type>material</type>
+        <object-name>kfc-hdgbug</object-name>
+        <object-name>kfc-crs</object-name>
+        <object-name>kfc-crs.001</object-name>
+        <object-name>To-flag</object-name>
+        <object-name>From-flag</object-name>
+        <object-name>Compass</object-name>
+        <object-name>nav-warning</object-name>
+        <object-name>hdg-warning</object-name>
+        <object-name>GSneedle</object-name>
+        <object-name>KI252A.back</object-name>
+        <object-name>CRSknob</object-name>
+        <object-name>HDGknob</object-name>
+        <emission>
+            <red>0.028</red>
+            <green>0.014</green>
+            <blue>0.007</blue>
+            <factor-prop>systems/electrical/outputs/instrument-lights</factor-prop>
+        </emission>
+    </animation>
+    
+<!-- 	KI-525A 	-->	
+    
+    <animation>
+        <type>rotate</type>
+        <object-name>kfc-hdgbug</object-name>
+        <property>autopilot/internal/fdm-heading-bug-error-deg</property>
+        <axis>
+            <x>-1.0</x>
+            <y>0.0</y>
+            <z>0.0</z>
+        </axis>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>kfc-crs</object-name>
+        <object-name>kfc-crs.001</object-name>
+        <object-name>To-flag</object-name>
+        <object-name>From-flag</object-name>
+        <object-name>Compass</object-name>
+        <property>instrumentation/heading-indicator/indicated-heading-deg</property>
+        <axis>
+            <x>1.0</x>
+            <y>0.0</y>
+            <z>0.0</z>
+        </axis>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>kfc-crs</object-name>
+        <object-name>kfc-crs.001</object-name>
+        <object-name>To-flag</object-name>
+        <object-name>From-flag</object-name>
+        <property>instrumentation/nav/radials/selected-deg</property>
+        <axis>
+            <x>-1.0</x>
+            <y>0.0</y>
+            <z>0.0</z>
+        </axis>
+    </animation>
+ 
+    <animation>
+        <type>translate</type>
+        <object-name>kfc-crs.001</object-name>
+        <property>instrumentation/nav/heading-needle-deflection</property>
+        <interpolation>
+            <entry><ind>-10.0</ind><dep>-0.018</dep></entry>
+            <entry><ind>0.0</ind><dep>0.0</dep></entry>
+            <entry><ind>10.0</ind><dep>0.018</dep></entry>
+        </interpolation>
+        <axis>
+            <x>0.0</x>
+            <y>1.0</y>
+            <z>0.0</z>
+        </axis>
+    </animation>
+
+    <animation>
+        <type>translate</type>
+        <object-name>GSneedle</object-name>
+        <property>instrumentation/nav/gs-needle-deflection-norm</property>
+        <interpolation>
+            <entry><ind>-1</ind><dep>-0.0085</dep></entry>
+            <entry><ind>-0.5</ind><dep>-0.0085</dep></entry>
+            <entry><ind>0.0</ind><dep>0.0</dep></entry>
+            <entry><ind>1.0</ind><dep>0.0162</dep></entry>
+        </interpolation>
+        <axis>
+            <x>0.0</x>
+            <y>0.0</y>
+            <z>1.0</z>
+        </axis>
+    </animation>
+ 
+    <animation>
+        <type>select</type>
+        <object-name>To-flag</object-name>
+        <condition>
+            <equals>
+                <property>instrumentation/nav/to-flag</property>
+                <value>true</value>
+            </equals>
+        </condition>
+    </animation>
+ 
+    <animation>
+        <type>select</type>
+        <object-name>From-flag</object-name>
+        <condition>
+            <equals>
+                <property>instrumentation/nav/from-flag</property>
+                <value>true</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>nav-warning</object-name>
+        <condition>
+            <or>
+                <not>
+                    <property>instrumentation/nav/in-range</property>
+                </not>
+                <less-than>
+                <property>systems/electrical/outputs/nav</property>
+                <value>0.2</value>
+            </less-than>
+            </or>
+        </condition>
+        </animation>
+        
+    <animation>
+        <type>select</type>
+        <object-name>hdg-warning</object-name>
+        <condition>
+            <less-than>
+                <property>systems/electrical/outputs/nav</property>
+                <value>0.2</value>
+            </less-than>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>GSneedle</object-name>
+        <condition>
+            <and>
+                <property>instrumentation/nav/has-gs</property>
+                <less-than>
+                    <property>instrumentation/nav/gs-distance</property>
+                    <value>30000.0</value>
+                </less-than>
+            </and>
+        </condition>
+    </animation>
+ 
+</PropertyList>

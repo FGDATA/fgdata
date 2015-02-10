@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+<path>oiltemp-gauge.ac</path>
+
+    <animation>
+        <type>material</type>
+        <object-name>TMPgauge.face</object-name>
+        <object-name>Oiltempneedle</object-name>
+        <object-name>OilPSIneedle</object-name>
+        <object-name>FuelPSIneedle</object-name>
+         <emission>
+            <red>0.5</red>
+            <green>0.2</green>
+            <blue>0.0</blue>
+            <factor-prop>/systems/electrical/outputs/instrument-lights-norm</factor-prop>
+        </emission>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>Oiltempneedle</object-name>
+        <property>/engines/engine/oil-temp-c</property>
+        <interpolation>
+            <entry><ind>0</ind><dep>0</dep></entry>
+            <entry><ind>100</ind><dep>180</dep></entry>
+        </interpolation>
+        <axis>
+            <x>-1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+        <center>
+            <x-m>0</x-m>
+            <y-m>0</y-m>
+            <z-m>0</z-m>
+        </center>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>OilPSIneedle</object-name>
+        <property>engines/engine/oil-pressure-psi</property>
+        <factor>140.0</factor>
+        <axis>
+            <x>-1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+        <center>
+            <x-m>0</x-m>
+            <y-m>-0.007</y-m>
+            <z-m>-0.015</z-m>
+        </center>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>FuelPSIneedle</object-name>
+        <property>engines/engine/fuel-psi-norm</property>
+        <factor>-180</factor>
+        <axis>
+            <x>-1.0</x>
+            <y>0.0</y>
+            <z>0</z>
+        </axis>
+        <center>
+            <x-m>0</x-m>
+            <y-m>0.007</y-m>
+            <z-m>-0.015</z-m>
+        </center>
+    </animation>
+
+</PropertyList>

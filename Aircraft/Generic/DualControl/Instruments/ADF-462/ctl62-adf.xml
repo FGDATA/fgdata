@@ -1,0 +1,420 @@
+<?xml version="1.0"?>
+<!-- CTL 62 ADF Control for ADF-462 receiver
+Active and preset displayed +
+4 frequency memory storage
+2.375"W x 2.625"H
+Freq. range 190.0 - 1800.0 (normal) 
+Strap option 2179.0 - 2185.0
+ 500 khz spacing
+Syd Adams
+
+Adapted for dual control by Anders Gidenstam
+
+NOTE: ctl62.nas MUST be loaded as Nasal module ADF462.
+ -->
+
+<PropertyList>
+
+ <!-- Overlay these for the second etc radio. -->
+ <params>
+  <serviceable>instrumentation/adf[0]/serviceable</serviceable>
+  <electrical-supply>systems/electrical/outputs/adf[0]</electrical-supply>
+  <volume-norm>instrumentation/adf[0]/volume-norm</volume-norm>
+  <selected-freq-khz>instrumentation/adf[0]/frequencies/selected-khz</selected-freq-khz>
+  <standby-freq-khz>instrumentation/adf[0]/frequencies/standby-khz</standby-freq-khz>
+  <swap-script>ADF462.swap(0);</swap-script>
+  <small-inc-script>ADF462.adjust_frequency(0,  1.0);</small-inc-script>
+  <small-dec-script>ADF462.adjust_frequency(0, -1.0);</small-dec-script>
+  <big-inc-script>ADF462.adjust_frequency(0,  10.0);</big-inc-script>
+  <big-dec-script>ADF462.adjust_frequency(0, -10.0);</big-dec-script>
+
+  <lighting-norm>controls/lighting/panel-norm</lighting-norm>
+ </params>
+
+ <path>ctl62.ac</path>
+
+ <animation>
+  <type>select</type>
+  <object-name>freq.002</object-name>
+  <object-name>freq.003</object-name>
+  <object-name>freq.dec</object-name>
+  <object-name>freq.004</object-name>
+  <object-name>freq.005</object-name>
+  <condition>
+   <and>
+    <property alias="../../../../params/serviceable"/>
+    <greater-than>
+     <property alias="../../../../../params/electrical-supply"/>
+     <value>1</value>
+    </greater-than>
+   </and>
+  </condition>
+ </animation>
+
+ <animation>
+  <type>select</type>
+  <object-name>stby.002</object-name>
+  <object-name>stby.003</object-name>
+  <object-name>stby.dec</object-name>
+  <object-name>stby.004</object-name>
+  <object-name>stby.005</object-name>
+  <condition>
+   <and>
+    <property alias="../../../../params/serviceable"/>
+    <greater-than>
+     <property alias="../../../../../params/electrical-supply"/>
+     <value>1</value>
+    </greater-than>
+   </and>
+  </condition>
+ </animation>
+
+ <animation>
+  <type>select</type>
+  <object-name>freq.001</object-name>
+  <condition>
+   <and>
+    <property alias="../../../../params/serviceable"/>
+    <greater-than>
+     <property alias="../../../../../params/electrical-supply"/>
+     <value>1</value>
+    </greater-than>
+    <greater-than>
+     <property alias="../../../../../params/selected-freq-khz"/>
+     <value>999.5</value>
+    </greater-than>
+   </and>
+  </condition>
+ </animation>
+
+ <animation>
+  <type>select</type>
+  <object-name>stby.001</object-name>
+  <condition>
+   <and>
+    <property alias="../../../../params/serviceable"/>
+    <greater-than>
+     <property alias="../../../../../params/electrical-supply"/>
+     <value>1</value>
+    </greater-than>
+    <greater-than>
+     <property alias="../../../../../params/standby-freq-khz"/>
+     <value>999.5</value>
+    </greater-than>
+   </and>
+  </condition>
+ </animation>
+
+ <animation>
+  <type>select</type>
+  <object-name>mem.annun</object-name>
+  <condition>
+   <and>
+    <property alias="../../../../params/serviceable"/>
+    <greater-than>
+     <property alias="../../../../../params/electrical-supply"/>
+     <value>1</value>
+    </greater-than>
+   </and>
+  </condition>
+ </animation>
+
+ <animation>
+  <type>select</type>
+  <object-name>CTL-62.xfr</object-name>
+  <condition>
+   <and>
+    <property alias="../../../../params/serviceable"/>
+    <greater-than>
+     <property alias="../../../../../params/electrical-supply"/>
+     <value>1</value>
+    </greater-than>
+   </and>
+  </condition>
+ </animation>
+
+ <animation>
+  <type>select</type>
+  <object-name>CTL-62.mem</object-name>
+  <condition>
+   <and>
+    <property alias="../../../../params/serviceable"/>
+    <greater-than>
+     <property alias="../../../../../params/electrical-supply"/>
+     <value>1</value>
+    </greater-than>
+   </and>
+  </condition>
+ </animation>
+
+ <!--    Active Frequency   -->
+ <animation>
+  <type>textranslate</type>
+  <object-name>freq.001</object-name>
+  <property alias="../../params/selected-freq-khz"/>
+  <factor>0.0001</factor>
+  <step>1000</step>
+  <bias>0.05</bias>
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>textranslate</type>
+  <object-name>freq.002</object-name>
+  <property alias="../../params/selected-freq-khz"/>
+  <factor>0.001</factor>
+  <step>100</step>
+  <bias>0.05</bias>
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>textranslate</type>
+  <object-name>freq.003</object-name>
+  <property alias="../../params/selected-freq-khz"/>
+  <factor>0.01</factor>
+  <step>10</step>
+  <bias>0.05</bias>
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>textranslate</type>
+  <object-name>freq.004</object-name>
+  <property alias="../../params/selected-freq-khz"/>
+  <factor>0.1</factor>
+  <step>1</step>
+  <bias>0.05</bias>
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>textranslate</type>
+  <object-name>freq.005</object-name>
+  <property alias="../../params/selected-freq-khz"/>
+  <factor>1.0</factor>
+  <step>0.1</step>
+  <bias>0.05</bias>
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+ <!--    Preselected Frequency     -->
+ <animation>
+  <type>textranslate</type>
+  <object-name>stby.001</object-name>
+  <property alias="../../params/standby-freq-khz"/>
+  <factor>0.0001</factor>
+  <step>1000</step>
+  <bias>0.05</bias>
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>textranslate</type>
+  <object-name>stby.002</object-name>
+  <property alias="../../params/standby-freq-khz"/>
+  <factor>0.001</factor>
+  <step>100</step>
+  <bias>0.05</bias>
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>textranslate</type>
+  <object-name>stby.003</object-name>
+  <property alias="../../params/standby-freq-khz"/>
+  <factor>0.01</factor>
+  <step>10</step>
+  <bias>0.05</bias>
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>textranslate</type>
+  <object-name>stby.004</object-name>
+  <property alias="../../params/standby-freq-khz"/>
+  <factor>0.1</factor>
+  <step>1</step>
+  <bias>0.05</bias>
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>textranslate</type>
+  <object-name>stby.005</object-name>
+  <property alias="../../params/standby-freq-khz"/>
+  <factor>1.0</factor>
+  <step>0.1</step>
+  <bias>0.05</bias>
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+ <!--    OSG hotspots    -->
+ <animation>
+  <type>pick</type>
+  <object-name>CTL-62.xfr</object-name>
+  <action>
+   <button>0</button>
+   <repeatable>false</repeatable>
+   <binding>
+    <command>nasal</command>
+    <script alias="../../../../params/swap-script"/>
+   </binding>
+  </action>
+ </animation>
+
+ <animation>
+  <type>knob</type>
+  <object-name>CTL-62.pwr</object-name>
+  <property alias="../../params/serviceable"/>
+  <interpolation>
+   <entry><ind>0</ind><dep>0</dep></entry>
+   <entry><ind>1.0</ind><dep>30</dep></entry>
+  </interpolation>
+  <center>
+   <x-m>0.0</x-m>
+   <y-m>-0.014</y-m>
+   <z-m>-0.018</z-m>
+  </center>
+  <axis>
+   <x>-1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+  <action>
+   <binding>
+    <command>property-toggle</command>
+    <property alias="../../../../params/serviceable"/>
+    <value type="bool">0</value>
+    <value type="bool">1</value>
+   </binding>
+  </action>
+ </animation>
+
+ <animation>
+  <type>knob</type>
+  <object-name>CTL-62.vol</object-name>
+  <property alias="../../params/volume-norm"/>
+  <factor>300</factor>
+  <center>
+   <x-m>0.0</x-m>
+   <y-m>-0.0138</y-m>
+   <z-m>-0.0183</z-m>
+  </center>
+  <axis>
+   <x>-1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+  <action>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/volume-norm"/>
+    <factor type="double">0.02</factor>
+    <min type="double">0.0</min>
+    <max type="double">1.0</max>
+   </binding>
+  </action>
+ </animation>
+
+ <animation>
+  <type>knob</type>
+  <object-name>freq.knob.small</object-name>
+  <increase>
+   <binding>
+    <command>nasal</command>
+    <script alias="../../../../params/small-inc-script"/>
+   </binding>
+  </increase>
+  <decrease>
+   <binding>
+    <command>nasal</command>
+    <script alias="../../../../params/small-dec-script"/>
+   </binding>
+  </decrease>
+ </animation>
+
+ <animation>
+  <type>knob</type>
+  <object-name>freq.knob.large</object-name>
+  <increase>
+   <binding>
+    <command>nasal</command>
+    <script alias="../../../../params/big-inc-script"/>
+   </binding>
+  </increase>
+  <decrease>
+   <binding>
+    <command>nasal</command>
+    <script alias="../../../../params/big-dec-script"/>
+   </binding>
+  </decrease>
+ </animation>
+
+ <animation>
+  <type>material</type>
+  <object-name>freq.knob.small</object-name>
+  <object-name>freq.knob.large</object-name>
+  <object-name>CTL-62.vol</object-name>
+  <object-name>act.btn</object-name>
+  <object-name>sto.btn</object-name>
+  <object-name>test.btn</object-name>
+  <emission>
+   <factor-prop alias="../../../params/lighting-norm"/>
+   <red>0.4</red>
+   <green>0.4</green>
+   <blue>0.4</blue>
+  </emission>
+ </animation>
+ <animation>
+  <type>material</type>
+  <object-name>CTL-62</object-name>
+  <emission>
+   <factor-prop alias="../../../params/lighting-norm"/>
+   <red>0.15</red>
+   <green>0.15</green>
+   <blue>0.15</blue>
+  </emission>
+ </animation>
+
+</PropertyList>

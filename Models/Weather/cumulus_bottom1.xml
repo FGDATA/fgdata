@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<path>cumulus_bottom1.ac</path>
+
+	<animation>
+		<object-name>rect</object-name>
+		<enable-hot type="bool">false</enable-hot>
+	</animation>
+
+	<effect>
+		<inherits-from>Effects/clouds-layered</inherits-from>
+		<object-name>rect</object-name>
+	</effect>
+
+</PropertyList>

@@ -1,0 +1,294 @@
+<?xml version="1.0"?>
+
+<!-- NTPS Default Aircraft HUD -->
+
+<PropertyList>
+ <name>NTPS Default Aircraft Hud</name>
+
+ <enable3d>true</enable3d>
+
+ <ladder>
+  <name>Pitch Ladder</name>
+  <type>pitch</type>
+  <!-- <type>climb-dive</type> -->
+  <x>-60</x>
+  <y>-90</y>
+  <width>120</width>
+  <height>180</height>
+  <roll-input>
+   <property>/orientation/roll-deg</property>
+  </roll-input>
+  <pitch-input>
+   <property>/orientation/pitch-deg</property>
+  </pitch-input>
+
+  <compression-factor>11</compression-factor>
+  <display-span>30.0</display-span>
+  <divisions>5.0</divisions>
+  <screen-hole>50</screen-hole>
+  <zero-bar-overlength>50</zero-bar-overlength>
+  <tick-length>5</tick-length>
+  <enable-dive-bar-angle>true</enable-dive-bar-angle>
+  <lbl-pos>0</lbl-pos>
+  <glide-slope>0.0</glide-slope>
+  <enable-dynamic-origin>true</enable-dynamic-origin>
+  <enable-zenith>true</enable-zenith>
+  <enable-nadir>true</enable-nadir>
+  <enable-fuselage-ref-line>false</enable-fuselage-ref-line>
+  <enable-target-spot>false</enable-target-spot>
+  <enable-target-markers>true</enable-target-markers>
+  <enable-velocity-vector>true</enable-velocity-vector>
+  <enable-drift-marker>false</enable-drift-marker>
+  <enable-alpha-bracket>false</enable-alpha-bracket>
+  <enable-energy-marker>false</enable-energy-marker>
+  <enable-climb-dive-marker>false</enable-climb-dive-marker>
+  <enable-glide-slope-marker>false</enable-glide-slope-marker>
+  <enable-energy-worm>false</enable-energy-worm>
+  <enable-waypoint-marker>false</enable-waypoint-marker>
+ </ladder>
+
+ <tape>
+  <name>Gyrocompass</name>
+  <input>
+   <property>/orientation/heading-deg</property>
+   <factor>0.1</factor>
+  </input>
+
+  <x>-100</x>
+  <y>170</y>
+  <width>200</width>
+  <height>28</height>
+
+  <display-span>4.0</display-span>
+  <modulo>36</modulo>
+
+  <option>top</option>
+  <label-gap-width>22</label-gap-width>
+
+  <major-divisions>1</major-divisions>
+  <minor-divisions>0.5</minor-divisions>
+  <tick-bottom>false</tick-bottom>
+  <tick-top>false</tick-top>
+  <tick-right>false</tick-right>
+  <tick-left>false</tick-left>
+  <cap-bottom>false</cap-bottom>
+  <cap-top>false</cap-top>
+  <cap-right>false</cap-right>
+  <cap-left>false</cap-left>
+  <marker-offset>0.0</marker-offset>
+  <enable-pointer>true</enable-pointer>
+  <pointer-type>fixed</pointer-type>
+  <tick-type>line</tick-type>
+  <tick-length>variable</tick-length>
+ </tape>
+
+ <label>
+  <name>Heading</name>
+  <x>-9</x>
+  <y>189</y>
+  <width>18</width>
+  <height>10</height>
+  <halign>center</halign>
+  <format>%03.0f</format>
+  <box>true</box>
+  <!--option>bottom</option>
+  <pointer-width>7</pointer-width-->
+  <input>
+   <property>/orientation/heading-deg</property>
+  </input>
+ </label>
+
+ <tape>
+  <name>Altitude MSL less than 500 ft</name>
+
+  <condition>
+   <less-than>
+    <property>/position/altitude-agl-ft</property>
+    <value>500.0</value>
+   </less-than>
+  </condition>
+
+  <input>
+   <property>/position/altitude-ft</property>
+   <min>-0.5</min>
+   <factor>0.001</factor>
+  </input>
+
+  <x>180</x>
+  <y>-100</y>
+  <width>35</width>
+  <height>202</height>
+
+  <option>right</option>
+  <option>vertical</option>
+  <label-gap-width>11</label-gap-width>
+
+  <major-divisions>0.1</major-divisions>
+  <minor-divisions>0.02</minor-divisions>
+  <display-span>0.4</display-span>
+  <format>%0.1f</format>
+
+  <tick-bottom>false</tick-bottom>
+  <tick-top>false</tick-top>
+  <tick-right>false</tick-right>
+  <tick-left>false</tick-left>
+  <cap-bottom>false</cap-bottom>
+  <cap-top>false</cap-top>
+  <cap-right>false</cap-right>
+  <cap-left>false</cap-left>
+  <marker-offset>0.0</marker-offset>
+  <enable-pointer>false</enable-pointer>
+  <pointer-type>fixed</pointer-type>
+  <tick-type>line</tick-type>
+  <tick-length>variable</tick-length>
+
+ </tape>
+
+ <tape>
+  <name>Altitude MSL greater-than-or-equal-to 500 ft</name>
+
+  <condition>
+    <greater-than-equals>
+      <property>/position/altitude-agl-ft</property>
+      <value>500.0</value>
+    </greater-than-equals>
+  </condition>
+
+  <input>
+   <property>/position/altitude-ft</property>
+   <min>-0.5</min>
+   <factor>0.001</factor>
+  </input>
+
+  <x>180</x>
+  <y>-100</y>
+  <width>35</width>
+  <height>202</height>
+
+  <option>right</option>
+  <option>vertical</option>
+  <label-gap-width>11</label-gap-width>
+
+  <major-divisions>0.5</major-divisions>
+  <minor-divisions>0.1</minor-divisions>
+  <display-span>2.5</display-span>
+  <format>%0.1f</format>
+
+  <tick-bottom>false</tick-bottom>
+  <tick-top>false</tick-top>
+  <tick-right>false</tick-right>
+  <tick-left>false</tick-left>
+  <cap-bottom>false</cap-bottom>
+  <cap-top>false</cap-top>
+  <cap-right>false</cap-right>
+  <cap-left>false</cap-left>
+  <marker-offset>0.0</marker-offset>
+  <enable-pointer>false</enable-pointer>
+  <pointer-type>fixed</pointer-type>
+  <tick-type>line</tick-type>
+  <tick-length>variable</tick-length>
+
+ </tape>
+
+ <label>
+  <name>Altitude</name>
+  <width>28</width>
+  <height>10</height>
+  <x>197</x>
+  <y>-5</y>
+  <halign>left</halign>
+  <format>%.0f0</format>
+  <box>true</box>
+  <option>left</option>
+  <pointer-width>10</pointer-width>
+  <pointer-length>5</pointer-length>
+  <input>
+   <property>/position/altitude-ft</property>
+   <factor>0.1</factor>
+  </input>
+ </label>
+
+ <tape>
+  <name>KIAS</name>
+
+  <input>
+   <property>/velocities/airspeed-kt</property>
+   <min>0.0</min>
+   <factor>0.1</factor>
+  </input>
+
+  <x>-215</x>
+  <y>-100</y>
+  <width>35</width>
+  <height>200</height>
+
+  <option>left</option>
+  <option>vertical</option>
+  <label-gap-width>11</label-gap-width>
+
+  <major-divisions>5</major-divisions>
+  <minor-divisions>1</minor-divisions>
+  <display-span>20.0</display-span>
+  <tick-bottom>false</tick-bottom>
+  <tick-top>false</tick-top>
+  <tick-right>false</tick-right>
+  <tick-left>false</tick-left>
+  <cap-bottom>false</cap-bottom>
+  <cap-top>false</cap-top>
+  <cap-right>false</cap-right>
+  <cap-left>false</cap-left>
+  <marker-offset>0.0</marker-offset>
+  <enable-pointer>false</enable-pointer>
+  <pointer-type>fixed</pointer-type>
+  <tick-type>line</tick-type>
+  <tick-length>variable</tick-length>
+ </tape>
+
+ <label>
+  <name>Speed</name>
+  <width>23</width>
+  <height>10</height>
+  <x>-220</x>
+  <y>-5</y>
+  <halign>right</halign>
+  <format>%.0f</format>
+  <box>true</box>
+  <option>right</option>
+  <pointer-width>10</pointer-width>
+  <pointer-length>5</pointer-length>
+  <input>
+   <property>/velocities/airspeed-kt</property>
+  </input>
+ </label>
+
+ <turn-bank-indicator>
+  <name>Turn Bank Indicator</name>
+  <x>-125</x>
+  <y>-190</y>
+  <width>250</width>
+  <height>250</height>
+  <bank-input>
+   <property>/orientation/roll-deg</property>
+  </bank-input>
+  <sideslip-input>
+   <property>/orientation/side-slip-deg</property>
+  </sideslip-input>
+  <bank-scale>true</bank-scale>
+  <option>bottom</option>
+ </turn-bank-indicator>
+
+ <aiming-reticle>
+  <x>-9</x>
+  <y>-9</y>
+  <width>18</width> <!-- defines the diameter of the constant/inner circle -->
+  <height>18</height>
+  <!-- <active-condition> -->
+   <!-- <property>/aim/active</property> -->
+  <!-- </active-condition> -->
+  <!-- <diameter-input> -->
+   <!-- defines the diameter of the adjustable/outer circle -->
+   <!-- <property>2</property> -->
+  <!-- </diameter-input> -->
+ </aiming-reticle>
+
+</PropertyList>

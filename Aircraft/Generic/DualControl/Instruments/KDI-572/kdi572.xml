@@ -1,0 +1,228 @@
+<?xml version="1.0"?>
+<!--
+Author : Syd Adams
+KDI-572 DME Indicator
+-->
+<PropertyList>
+
+    <path>dme.ac</path>
+
+    <animation>
+        <type>select</type>
+        <object-name>dmeface</object-name>
+        <condition>
+            <and>
+                <greater-than>
+                    <property>systems/electrical/outputs/dme</property>
+                    <value>8</value>
+                </greater-than>
+                <greater-than>
+                    <property>instrumentation/dme/switch-position</property>
+                    <value>0</value>
+                </greater-than>
+            </and>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>DME.nm</object-name>
+        <object-name>DME.nm1</object-name>
+        <object-name>DME.nm2</object-name>
+        <object-name>DME.nm3</object-name>
+        <object-name>DME.kt1</object-name>
+        <object-name>DME.kt2</object-name>
+        <object-name>DME.kt3</object-name>
+        <object-name>DME.mn1</object-name>
+        <object-name>DME.mn2</object-name>
+        <condition>
+            <and>
+                <greater-than>
+                    <property>systems/electrical/outputs/dme</property>
+                    <value>8</value>
+                </greater-than>
+                <property>instrumentation/dme/in-range</property>
+            </and>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>DMEswitch</object-name>
+        <property>instrumentation/dme/switch-position</property>
+        <interpolation>
+            <entry>
+            <ind>0</ind><dep>0.0</dep>
+            </entry>
+            <entry>
+            <ind>1</ind><dep>35.0</dep>
+            </entry>
+            <entry>
+            <ind>2</ind><dep>90.0</dep>
+            </entry>
+            <entry>
+            <ind>3</ind><dep>150.0</dep>
+            </entry>
+        </interpolation>
+        <axis>
+            <x>-1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+        <center>
+            <x-m>0</x-m>
+            <y-m>0</y-m>
+            <z-m>-0.010</z-m>
+        </center>
+    </animation>
+
+    <!-- distance-->
+
+    <animation>
+        <type>textranslate</type>
+        <object-name>DME.nm1</object-name>
+        <property>instrumentation/dme/indicated-distance-nm</property>
+        <factor>0.01</factor>
+        <step>10</step>
+        <axis>
+            <x>1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+    </animation>
+
+    <animation>
+        <type>textranslate</type>
+        <object-name>DME.nm2</object-name>
+        <property>instrumentation/dme/indicated-distance-nm</property>
+        <factor>0.1</factor>
+        <step>1</step>
+        <axis>
+            <x>1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+    </animation>
+
+    <animation>
+        <type>textranslate</type>
+        <object-name>DME.nm3</object-name>
+        <property>instrumentation/dme/indicated-distance-nm</property>
+        <factor>1.0</factor>
+        <step>0.1</step>
+        <axis>
+            <x>1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+    </animation>
+
+    <!-- speed-->
+
+    <animation>
+        <type>textranslate</type>
+        <object-name>DME.kt1</object-name>
+        <property>instrumentation/dme/indicated-ground-speed-kt</property>
+        <factor>0.001</factor>
+        <step>100</step>
+        <axis>
+            <x>1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+    </animation>
+
+    <animation>
+        <type>textranslate</type>
+        <object-name>DME.kt2</object-name>
+        <property>instrumentation/dme/indicated-ground-speed-kt</property>
+        <factor>0.01</factor>
+        <step>10</step>
+        <axis>
+            <x>1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+    </animation>
+
+    <animation>
+        <type>textranslate</type>
+        <object-name>DME.kt3</object-name>
+        <property>instrumentation/dme/indicated-ground-speed-kt</property>
+        <factor>0.1</factor>
+        <step>1</step>
+        <axis>
+            <x>1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+    </animation>
+
+    <!-- time-->
+
+    <animation>
+        <type>textranslate</type>
+        <object-name>DME.mn1</object-name>
+        <property>instrumentation/dme/indicated-time-min</property>
+        <factor>0.01</factor>
+        <step>10</step>
+        <axis>
+            <x>1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+    </animation>
+
+    <animation>
+        <type>textranslate</type>
+        <object-name>DME.mn2</object-name>
+        <property>instrumentation/dme/indicated-time-min</property>
+        <factor>0.1</factor>
+        <step>1</step>
+        <axis>
+            <x>1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+    </animation>
+
+ <!-- Pick animations -->
+
+ <animation>
+  <type>pick</type>
+  <object-name>DMEswitch</object-name>
+  <action>
+   <button>0</button>
+   <repeatable>false</repeatable>
+   <binding>
+    <command>nasal</command>
+    <script>KDI572.dme_step(1)</script>
+   </binding>
+  </action>
+  <action>
+   <button>1</button>
+   <repeatable>false</repeatable>
+   <binding>
+    <command>nasal</command>
+    <script>KDI572.dme_step(-1)</script>
+   </binding>
+  </action>
+  <action>
+   <button>3</button>
+   <repeatable>false</repeatable>
+   <binding>
+    <command>nasal</command>
+    <script>KDI572.dme_step(-1)</script>
+   </binding>
+  </action>
+  <action>
+   <button>4</button>
+   <repeatable>false</repeatable>
+   <binding>
+    <command>nasal</command>
+    <script>KDI572.dme_step(1)</script>
+   </binding>
+  </action>
+ </animation>
+
+</PropertyList>

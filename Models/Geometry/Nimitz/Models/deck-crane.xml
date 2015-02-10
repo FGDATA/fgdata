@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+  <!-- Deck Crane -->
+  <PropertyList> 
+    <path>deck-crane.ac</path>
+	 <model> 
+      <path>Models/Geometry/Nimitz/Models/beacon.xml</path>
+      <offsets> 
+        <x-m>3.43</x-m>
+        <y-m>-0.99</y-m>
+        <z-m>3.28</z-m>
+      </offsets>
+    </model>
+    <!-- *** LoD *** -->
+    <animation> 
+      <type>range</type>
+      <max-m>5000</max-m>
+    </animation>
+  </PropertyList>

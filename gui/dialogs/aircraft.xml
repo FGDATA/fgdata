@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+ <name>aircraft</name>
+ <width>250</width>
+ <height>95</height>
+ <modal>true</modal>
+
+ <text>
+  <x>10</x>
+  <y>65</y>
+  <label>Select aircraft</label>
+ </text>
+
+ <select>
+  <x>10</x>
+  <y>40</y>
+  <width>230</width>
+  <height>25</height>
+  <property>/sim/aircraft</property>
+  <selection>/sim/aircraft-types</selection>
+ </select>
+
+ <button>
+   <x>65</x>
+   <y>10</y>
+   <legend>OK</legend>
+   <default>true</default>
+   <equal>true</equal>
+   <binding>
+    <command>dialog-apply</command>
+   </binding>
+   <binding>
+    <command>load-aircraft</command>
+   </binding>
+   <binding>
+    <command>dialog-close</command>
+   </binding>
+  </button>
+
+ <button>
+  <x>125</x>
+  <y>10</y>
+  <legend>Cancel</legend>
+  <equal>true</equal>
+  <key>Esc</key>
+  <binding>
+   <command>dialog-close</command>
+  </binding>
+ </button>
+
+</PropertyList>

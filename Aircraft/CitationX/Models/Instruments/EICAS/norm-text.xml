@@ -1,0 +1,444 @@
+<!--
+Syd Adams
+Primus 2000 EICAS
+-->
+
+<PropertyList>
+
+    <name>EICAS norm text</name>
+     <w-base>200</w-base>
+    <h-base>240</h-base>
+
+    <layers>
+
+<!-- Fuel -->
+
+            <layer>
+                <name>LH fflow</name>
+                <type>text</type>
+                <font>arial_black</font>
+                <point-size>5</point-size>
+                <color>
+                    <red>0.1</red>
+                    <green>0.9</green>
+                    <blue>0.4</blue>
+                </color>
+                <chunks>
+                    <chunk>
+                        <type>number-value</type>
+                        <property>engines/engine/fuel-flow_pph</property>
+                        <format>%04.0f</format>
+                    </chunk>
+                </chunks>
+                <transformations>
+                    <transformation>
+                        <type>x-shift</type>
+                        <offset>15</offset>
+                    </transformation>
+                    <transformation>
+                        <type>y-shift</type>
+                        <offset>34</offset>
+                    </transformation>
+                </transformations>
+            </layer>
+
+            <layer>
+                <name>RH fflow</name>
+                <type>text</type>
+                <font>arial_black</font>
+                <point-size>5</point-size>
+                <color>
+                    <red>0.1</red>
+                    <green>0.9</green>
+                    <blue>0.4</blue>
+                </color>
+                <chunks>
+                    <chunk>
+                        <type>number-value</type>
+                        <property>engines/engine[1]/fuel-flow_pph</property>
+                        <format>%04.0f</format>
+                    </chunk>
+                </chunks>
+                <transformations>
+                    <transformation>
+                        <type>x-shift</type>
+                        <offset>67</offset>
+                    </transformation>
+                    <transformation>
+                        <type>y-shift</type>
+                        <offset>34</offset>
+                    </transformation>
+                </transformations>
+            </layer>
+
+            <layer>
+                <name>total fuel</name>
+                <type>text</type>
+                <font>arial_black</font>
+                <point-size>5</point-size>
+                <color>
+                    <red>0.1</red>
+                    <green>0.9</green>
+                    <blue>0.4</blue>
+                </color>
+                <chunks>
+                    <chunk>
+                        <type>number-value</type>
+                        <property>consumables/fuel/total-fuel-lbs</property>
+                        <format>%05.0f</format>
+                    </chunk>
+                </chunks>
+                <transformations>
+                    <transformation>
+                        <type>x-shift</type>
+                        <offset>37</offset>
+                    </transformation>
+                    <transformation>
+                        <type>y-shift</type>
+                        <offset>22</offset>
+                    </transformation>
+                </transformations>
+            </layer>
+
+            <layer>
+                <name>LH fuel</name>
+                <type>text</type>
+                <font>arial_black</font>
+                <point-size>5</point-size>
+                <color>
+                    <red>0.1</red>
+                    <green>0.9</green>
+                    <blue>0.4</blue>
+                </color>
+                <chunks>
+                    <chunk>
+                        <type>number-value</type>
+                        <property>consumables/fuel/tank/level-lbs</property>
+                        <format>%04.0f</format>
+                    </chunk>
+                </chunks>
+                <transformations>
+                    <transformation>
+                        <type>x-shift</type>
+                        <offset>16</offset>
+                    </transformation>
+                    <transformation>
+                        <type>y-shift</type>
+                        <offset>2</offset>
+                    </transformation>
+                </transformations>
+            </layer>
+
+            <layer>
+                <name>RH fuel</name>
+                <type>text</type>
+                <font>arial_black</font>
+                <point-size>5</point-size>
+                <color>
+                    <red>0.1</red>
+                    <green>0.9</green>
+                    <blue>0.4</blue>
+                </color>
+                <chunks>
+                    <chunk>
+                        <type>number-value</type>
+                        <property>consumables/fuel/tank[1]/level-lbs</property>
+                        <format>%04.0f</format>
+                    </chunk>
+                </chunks>
+                <transformations>
+                    <transformation>
+                        <type>x-shift</type>
+                        <offset>68</offset>
+                    </transformation>
+                    <transformation>
+                        <type>y-shift</type>
+                        <offset>2</offset>
+                    </transformation>
+                </transformations>
+            </layer>
+
+            <layer>
+                <name>Ctr fuel</name>
+                <type>text</type>
+                <font>arial_black</font>
+                <point-size>5</point-size>
+                <color>
+                    <red>0.1</red>
+                    <green>0.9</green>
+                    <blue>0.4</blue>
+                </color>
+                <chunks>
+                    <chunk>
+                        <type>number-value</type>
+                        <property>consumables/fuel/tank[2]/level-lbs</property>
+                        <format>%04.0f</format>
+                    </chunk>
+                </chunks>
+                <transformations>
+                    <transformation>
+                        <type>x-shift</type>
+                        <offset>42</offset>
+                    </transformation>
+                    <transformation>
+                        <type>y-shift</type>
+                        <offset>8</offset>
+                    </transformation>
+                </transformations>
+            </layer>
+
+<!-- Electricl-->
+
+
+            <layer>
+                <name>DC volts</name>
+                <type>text</type>
+                <font>arial_black</font>
+                <point-size>5</point-size>
+                <color>
+                    <red>0.1</red>
+                    <green>0.9</green>
+                    <blue>0.4</blue>
+                </color>
+                <chunks>
+                    <chunk>
+                        <type>number-value</type>
+                        <property>systems/electrical/bus-volts</property>
+                        <format>%02.0f</format>
+                    </chunk>
+                    <chunk>
+                        <type>literal</type>
+                        <text>                </text>
+                    </chunk>
+                    <chunk>
+                        <type>number-value</type>
+                        <property>systems/electrical/bus-volts</property>
+                        <format>%02.0f</format>
+                    </chunk>
+                </chunks>
+                <transformations>
+                    <transformation>
+                        <type>x-shift</type>
+                        <offset>20</offset>
+                    </transformation>
+                    <transformation>
+                        <type>y-shift</type>
+                        <offset>-23</offset>
+                    </transformation>
+                </transformations>
+            </layer>
+
+            <layer>
+                <name>DC amps</name>
+                <type>text</type>
+                <font>arial_black</font>
+                <point-size>5</point-size>
+                <color>
+                    <red>0.1</red>
+                    <green>0.9</green>
+                    <blue>0.4</blue>
+                </color>
+                <chunks>
+                    <chunk>
+                        <type>number-value</type>
+                        <property>systems/electrical/bus-volts</property>
+                        <scale>3.04</scale>
+                        <format>%03.0f</format>
+                    </chunk>
+                    <chunk>
+                        <type>literal</type>
+                        <text>             </text>
+                    </chunk>
+                    <chunk>
+                        <type>number-value</type>
+                        <property>systems/electrical/bus-volts</property>
+                        <scale>3.04</scale>
+                        <format>%03.0f</format>
+                    </chunk>
+                </chunks>
+                <transformations>
+                    <transformation>
+                        <type>x-shift</type>
+                        <offset>18</offset>
+                    </transformation>
+                    <transformation>
+                        <type>y-shift</type>
+                        <offset>-33</offset>
+                    </transformation>
+                </transformations>
+            </layer>
+
+<!-- Engines-->
+
+            <layer>
+                <name>Fan1</name>
+                <type>text</type>
+                <font>arial_black</font>
+                <point-size>5</point-size>
+                <color>
+                    <red>0.1</red>
+                    <green>0.9</green>
+                    <blue>0.4</blue>
+                </color>
+                <chunks>
+                    <chunk>
+                        <type>number-value</type>
+                        <property>engines/engine/fan</property>
+                        <format>%03.1f</format>
+                    </chunk>
+                </chunks>
+                <transformations>
+                    <transformation>
+                        <type>x-shift</type>
+                        <offset>-90</offset>
+                    </transformation>
+                    <transformation>
+                        <type>y-shift</type>
+                        <offset>11</offset>
+                    </transformation>
+                </transformations>
+            </layer>
+
+            <layer>
+                <name>Fan2</name>
+                <type>text</type>
+                <font>arial_black</font>
+                <point-size>5</point-size>
+                <color>
+                    <red>0.1</red>
+                    <green>0.9</green>
+                    <blue>0.4</blue>
+                </color>
+                <chunks>
+                    <chunk>
+                        <type>number-value</type>
+                        <property>engines/engine[1]/fan</property>
+                        <format>%03.1f</format>
+                    </chunk>
+                </chunks>
+                <transformations>
+                    <transformation>
+                        <type>x-shift</type>
+                        <offset>-64</offset>
+                    </transformation>
+                    <transformation>
+                        <type>y-shift</type>
+                        <offset>11</offset>
+                    </transformation>
+                </transformations>
+            </layer>
+
+
+            <layer>
+                <name>Turbines</name>
+                <type>text</type>
+                <font>arial_black</font>
+                <point-size>5</point-size>
+                <color>
+                    <red>0.1</red>
+                    <green>0.9</green>
+                    <blue>0.4</blue>
+                </color>
+                <chunks>
+                    <chunk>
+                        <type>number-value</type>
+                        <property>engines/engine/turbine</property>
+                        <format>%3.0f</format>
+                    </chunk>
+                    <chunk>
+                        <type>literal</type>
+                        <text>         </text>
+                    </chunk>
+                    <chunk>
+                        <type>number-value</type>
+                        <property>engines/engine[1]/turbine</property>
+                        <format>%3.0f</format>
+                    </chunk>
+                </chunks>
+                <transformations>
+                    <transformation>
+                        <type>x-shift</type>
+                        <offset>-90</offset>
+                    </transformation>
+                    <transformation>
+                        <type>y-shift</type>
+                        <offset>0</offset>
+                    </transformation>
+                </transformations>
+            </layer>
+
+            <layer>
+                <name>Fan Limit</name>
+                <type>text</type>
+                <font>arial_black</font>
+                <point-size>5</point-size>
+            <color>
+                <red>0.39</red>
+                <green>0.75</green>
+                <blue>0.85</blue>
+            </color>
+                <chunks>
+                    <chunk>
+                        <type>number-value</type>
+                        <property>controls/engines/N1-limit</property>
+                        <format>%3.0f</format>
+                    </chunk>
+                </chunks>
+                <transformations>
+                    <transformation>
+                        <type>x-shift</type>
+                        <offset>-76</offset>
+                    </transformation>
+                    <transformation>
+                        <type>y-shift</type>
+                        <offset>86</offset>
+                    </transformation>
+                </transformations>
+            </layer>
+
+<!-- TEMP -->
+
+            <layer>
+                <name>RAT celcius</name>
+                <type>text</type>
+                <font>arial_black</font>
+                <point-size>5</point-size>
+                <color>
+                <red>0.39</red>
+                <green>0.75</green>
+                <blue>0.85</blue>
+                </color>
+                <chunks>
+                    <chunk>
+                        <type>number-value</type>
+                        <property>environment/temperature-degc</property>
+                        <format>%3.0f  C*</format>
+                    </chunk>
+                </chunks>
+                <transformations>
+                    <transformation>
+                        <type>x-shift</type>
+                        <offset>-18</offset>
+                    </transformation>
+                    <transformation>
+                        <type>y-shift</type>
+                        <offset>1</offset>
+                    </transformation>
+                </transformations>
+            </layer>
+
+    </layers>
+
+    <actions>
+
+        <!--action>
+            <name>bezel outline</name>
+            <button>0</button>
+            <x>-128</x>
+            <y>-128</y>
+            <w>256</w>
+            <h>256</h>
+        </action-->
+    </actions>
+
+</PropertyList>

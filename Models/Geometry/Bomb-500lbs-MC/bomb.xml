@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+
+<!-- M64 500 lb. Bomb wrapper, by Dave Culp -->
+
+<PropertyList>
+
+ <path>bomb-500lbs-mc.ac</path>
+
+	<nasal>
+		<load>
+			var path = cmdarg();
+			var name_node = path.getNode("name",1);
+			print("LOAD " ~ name_node.getValue() ~ " " ~ path.getPath());
+
+			var loopid = 0;
+			var force_path_node = path.getNode("force/path",1);
+			var elapsed_time_node = path.getNode("sim/time/elapsed-sec",1);
+			var pch_node = path.getNode("orientation/pitch-deg", 1);
+			var hdg_node = path.getNode("orientation/hdg-deg", 1);
+			var aero_stab_node  = path.getNode("controls/aero-stabilized", 1);
+			var slaved_node = path.getNode("controls/slave-to-ac", 1);
+			var invisible_node = path.getNode("controls/invisible", 1);
+			var load_node = props.globals.getNode("sim/stores/load-bombs",1);
+
+			elapsed_time_node.setDoubleValue(0);
+
+			var station = substr(name_node.getValue(), 16);
+			print ("station", station);
+			var control_node = props.globals.getNode("controls/armament/station[" ~ station ~ "]/jettison-all",1);
+			var control_all_node = props.globals.getNode("/controls/armament/jettison-all",1);
+			var parent_pch_node = props.globals.getNode("/orientation/pitch-deg", 1);
+			var parent_hdg_node = props.globals.getNode("/orientation/heading-deg", 1);
+
+			control_node.setBoolValue(0);
+			control_all_node.setBoolValue(0);
+
+			aero_stab_node.setBoolValue(1);
+
+			pch_node.setDoubleValue(parent_pch_node.getValue());
+			hdg_node.setDoubleValue(parent_hdg_node.getValue());
+
+			var loop = func(id) {
+			id == loopid or return;
+
+			pch_node.setDoubleValue(parent_pch_node.getValue());
+			hdg_node.setDoubleValue(parent_hdg_node.getValue());
+
+			if(load_node.getValue() == 0){
+			#print("unload bombs");
+			invisible_node.setBoolValue(1);
+			settimer(func { loop(id) },0);
+			return;
+			} elsif (control_all_node.getValue() == 1 or control_node.getValue() == 1){
+			#print("bombs unslaved");
+			slaved_node.setBoolValue(0);
+			aero_stab_node.setBoolValue(1);
+			} else {
+			#print("bombs slaved");
+			slaved_node.setBoolValue(1);
+			invisible_node.setBoolValue(0);
+			aero_stab_node.setBoolValue(0);
+			elapsed_time_node.setBoolValue(0);
+			}
+
+			settimer(func { loop(id) },0);
+			}
+
+			loop(loopid);
+
+		</load>
+		<unload>
+			print("UNLOAD Bomb 500lbs MC ", path.getPath());
+			loopid += 1;
+		</unload>
+	</nasal>
+
+ <animation>
+  <enable-hot type="bool">false</enable-hot>
+ </animation>
+
+
+ <!-- *** LoD *** -->
+ <animation>
+  <type>range</type>
+  <min-m>0</min-m>
+  <max-m>2000</max-m>
+ </animation>
+
+
+</PropertyList>

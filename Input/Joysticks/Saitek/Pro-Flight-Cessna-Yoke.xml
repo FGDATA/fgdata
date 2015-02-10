@@ -1,0 +1,601 @@
+<?xml version="1.0"?>
+<!-- Saitek Pro Flight Cessna Yoke
+     
+     Copyright (C) 2012  Stuart Buchanan
+     This file is released under the GPL license.
+
+  Controls:
+  Axis 0: Aileron
+  Axis 1: Elevator
+  Axis 2: Throttle
+  Axis 3: Prop
+  Axis 4: Mixture
+  Axis 5/6 (Coolie Hat): View direction 
+  Button 0 (left button): PTT
+  Button 1 (right button): Reset View
+  Button 2/3 (left four-way forwards/back): Angle of view
+  Button 4/5 (right vertical two-way): Elevator Trim
+  Button 6/7 (right horizontal two-way): Rudder Trim
+  Button 11/12 (left four-way left/right): View
+  Button 13/14 (left hand quadrant buttons): Flaps Up/Down
+  Buttons 15/16 (middle quadrant buttons): Gear Up/Down
+  Buttons 17/18 (right quandrant buttons): Spoilers Up/Down
+  Button 19 (Throttle < 0): Reverse Thrust
+  Button 20 (Prop < 0): Propellor Beta
+  Button 21 (Mixture <0) : Cut-off
+  Buttons 23/24/25 (right hand selector switch): View direction Sensitivity
+
+-->
+<PropertyList>
+    <name>Saitek Saitek Pro Flight Cessna Yoke</name>
+    <name>Saitek  Pro Flight Cessna Yoke</name>
+    <name>Saitek Pro Flight Cessna Yoke</name>
+    <name>Mad Catz Pro Flight Cessna Yoke</name>
+    <name>ProFlight Cessna Yoke</name>
+    <name>Pro Flight Cessna Yoke</name>
+    
+    <axis n="0">
+	<name>Yoke lepft/right</name>
+        <desc>Aileron</desc>
+        <binding>
+            <command>property-scale</command>
+            <property>/controls/flight/aileron</property>
+        </binding>
+    </axis>
+    <axis n="1">
+	<name>Yoke forward/backwards</name>
+        <desc>Elevator</desc>
+        <binding>
+            <command>property-scale</command>
+            <property>/controls/flight/elevator</property>
+            <factor type="double">-1.0</factor>
+        </binding>
+    </axis>
+    <!-- Throttle Quadrant -->
+    <axis n="2">
+	<name>Black Lever</name>
+        <desc>Throttle</desc>
+        <binding>
+            <command>nasal</command>
+            <script>controls.throttleAxis()</script>
+        </binding>
+    </axis>
+    <axis>
+        <number>
+            <unix>3</unix>
+            <windows>4</windows>
+        </number>
+	<name>Blue lever</name>
+        <desc>Propellor Pitch</desc>
+        <binding>
+            <command>nasal</command>
+            <script>controls.propellerAxis()</script>
+        </binding>
+    </axis>
+    <axis>
+        <number>
+            <unix>4</unix>
+            <windows>3</windows>
+        </number>
+	<name>Red lever</name>
+        <desc>Mixture</desc>
+        <binding>
+            <command>nasal</command>
+            <script>controls.mixtureAxis()</script>
+        </binding>
+    </axis>
+    <!-- Coolie Hat -->
+    <axis>
+        <number>
+            <unix>5</unix>
+            <windows>6</windows>
+        </number>
+	<name>Coolie hat left/right</name>
+        <desc>View Heading</desc>
+        <low>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>nasal</command>
+                <script>
+                  var yoke = getprop("/devices/status/yoke/offset");
+                  var offset = getprop("/sim/current-view/goal-heading-offset-deg");
+                  setprop("/sim/current-view/goal-heading-offset-deg", offset + yoke);
+                 </script>
+            </binding>
+        </low>
+        <high>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>nasal</command>
+                <script>
+                  var yoke = getprop("/devices/status/yoke/offset");
+                  var offset = getprop("/sim/current-view/goal-heading-offset-deg");
+                  setprop("/sim/current-view/goal-heading-offset-deg", offset - yoke);
+                 </script>
+            </binding>
+        </high>
+    </axis>
+    <axis>
+        <number>
+            <unix>6</unix>
+        </number>
+	<name>Coolie hat up/down</name>
+        <desc>View Elevation</desc>
+        <low>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>nasal</command>
+                <script>
+                  var yoke = getprop("/devices/status/yoke/offset");
+                  var offset = getprop("/sim/current-view/goal-pitch-offset-deg");
+                  setprop("/sim/current-view/goal-pitch-offset-deg", offset + yoke);
+                 </script>
+            </binding>
+        </low>
+        <high>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>nasal</command>
+                <script>
+                  var yoke = getprop("/devices/status/yoke/offset");
+                  var offset = getprop("/sim/current-view/goal-pitch-offset-deg");
+                  setprop("/sim/current-view/goal-pitch-offset-deg", offset - yoke);
+                 </script>
+            </binding>
+        </high>
+    </axis>
+    <axis>
+        <number>
+            <windows>7</windows>
+        </number>
+	<name>Coolie hat up/down</name>
+        <desc>View Elevation</desc>
+        <low>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>nasal</command>
+                <script>
+                  var yoke = getprop("/devices/status/yoke/offset");
+                  var offset = getprop("/sim/current-view/goal-pitch-offset-deg");
+                  setprop("/sim/current-view/goal-pitch-offset-deg", offset - yoke);
+                 </script>
+            </binding>
+        </low>
+        <high>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>nasal</command>
+                <script>
+                  var yoke = getprop("/devices/status/yoke/offset");
+                  var offset = getprop("/sim/current-view/goal-pitch-offset-deg");
+                  setprop("/sim/current-view/goal-pitch-offset-deg", offset + yoke);
+                 </script>
+            </binding>
+        </high>
+    </axis>
+        
+    <!-- Buttons on the Yoke -->
+
+    <!-- Red Button on left stalk -->
+    <button n="0">
+        <name>Red button</name>
+        <desc>Push To Talk (FGCom)</desc>
+        <binding>
+            <command>nasal</command>
+            <script>controls.ptt(1)</script>
+        </binding>
+        <mod-up>
+            <binding>
+                <command>nasal</command>
+                <script>controls.ptt(0)</script>
+            </binding>
+        </mod-up>
+    </button>
+
+    <!-- Black button on right stalk -->
+    <button n="1">
+	<name>Black button</name>
+	<desc>Reset view</desc>
+	<repeatable>false</repeatable>
+	<binding>
+            <command>nasal</command>
+	    <script>
+        	setprop("/sim/current-view/view-number", 0);
+	        setprop("/sim/current-view/goal-pitch-offset-deg", getprop("/sim/view[0]/config/pitch-offset-deg"));
+	        setprop("/sim/current-view/goal-heading-offset-deg", 0.0);
+        	#setprop("/sim/current-view/field-of-view", getprop("/sim/view/config/default-field-of-view-deg"));
+      	    </script>
+        </binding>
+  </button>
+
+    <!-- Left hand four-way switch -->
+    <button n="2">
+	<name>Left rocker switch up</name>
+	<desc>View Decrease</desc>
+	<repeatable>true</repeatable>
+	<binding>
+      	    <command>nasal</command>
+            <script>view.decrease(0.75)</script>
+    	</binding>
+    </button>
+
+    <button n="3">
+	<name>Left rocker switch down</name>	
+	<desc>View Increase</desc>
+	<repeatable>true</repeatable>
+	<binding>
+	    <command>nasal</command>
+	    <script>view.increase(0.75)</script>
+        </binding>
+    </button>
+
+    <!-- Right hand vertical two-way switch -->
+    <button n="4"> 
+	<name>Right vertical rocker switch up</name>
+        <desc>Elevator trim up</desc>
+        <repeatable>true</repeatable>
+        <binding>
+            <command>nasal</command>
+            <script>controls.elevatorTrim(1)</script>
+        </binding>
+    </button>
+    <button n="5">
+	<name>Right vertical rocker switch down</name>
+        <desc>Elevator trim down</desc>
+        <repeatable>true</repeatable>
+        <binding>
+            <command>nasal</command>
+            <script>controls.elevatorTrim(-1)</script>
+        </binding>
+    </button>
+
+    <!-- Right hand horizontal two-way switch -->
+    <button n="6"> 
+	<name>Right horizontal rocker switch right</name>
+        <desc>Rudder trim right</desc>
+        <repeatable>true</repeatable>
+        <binding>
+            <command>nasal</command>
+            <script>controls.rudderTrim(-1)</script>
+        </binding>
+    </button>
+    <button n="7">
+	<name>Right horizontal rocker switch left</name>
+        <desc>Rudder trim left</desc>
+        <repeatable>true</repeatable>
+        <binding>
+            <command>nasal</command>
+            <script>controls.rudderTrim(1)</script>
+        </binding>
+    </button>
+
+    <!-- Left four-way switch - horizontal -->
+    <button n="11">
+	<name>Right rocker switch left</name>
+        <desc>View Cycle Backwards</desc>
+        <repeatable>false</repeatable>
+	<binding>
+	    <command>nasal</command>
+      	    <script>view.stepView(-1)</script>
+	</binding>
+    </button>
+
+    <button n="12">
+	<name>Right rocker switch right</name>
+	<desc>View Cycle Forwards</desc>
+	<repeatable>false</repeatable>
+	<binding>
+	    <command>nasal</command>
+            <script>view.stepView(1)</script>
+	</binding>
+    </button>
+ 
+    <!-- Buttons on the throttle Quadrant -->
+    <button n="13"> <!-- Labled as T1 -->
+	<name>T1</name>
+        <desc>Flaps up</desc>
+        <repeatable>false</repeatable>
+        <binding>
+            <command>nasal</command>
+            <script>controls.flapsDown(-1)</script>
+        </binding>
+        <mod-up>
+            <binding>
+                <command>nasal</command>
+                <script>controls.flapsDown(0)</script>
+            </binding>
+        </mod-up>
+    </button>
+    <button n="14"> <!-- Labled as T2 -->
+	<name>T2</name>
+        <desc>Flaps down</desc>
+        <repeatable>false</repeatable>
+        <binding>
+            <command>nasal</command>
+            <script>controls.flapsDown(1)</script>
+        </binding>
+        <mod-up>
+            <binding>
+                <command>nasal</command>
+                <script>controls.flapsDown(0)</script>
+            </binding>
+        </mod-up>
+    </button>
+    <button n="15"> <!-- Labled as T3 -->
+	<name>T3</name>
+        <desc>Gear up</desc>
+        <repeatable>false</repeatable>
+        <binding>
+            <command>nasal</command>
+            <script>controls.gearDown(-1)</script>
+        </binding>
+        <mod-up>
+            <binding>
+                <command>nasal</command>
+                <script>controls.gearDown(0)</script>
+            </binding>
+        </mod-up>
+    </button>
+    <button n="16"> <!-- Labled as T4 -->
+	<name>T4</name>
+        <desc>Gear down</desc>
+        <repeatable>false</repeatable>
+        <binding>
+            <command>nasal</command>
+            <script>controls.gearDown(1)</script>
+        </binding>
+        <mod-up>
+            <binding>
+                <command>nasal</command>
+                <script>controls.gearDown(0)</script>
+            </binding>
+        </mod-up>
+    </button>
+    <button n="17"> <!-- Labled as T5 -->
+	<name>T5</name>
+        <desc>Retract Spoilers</desc>
+        <repeatable>false</repeatable>
+        <binding>
+            <command>nasal</command>
+            <script>controls.stepSpoilers(-1)</script>
+        </binding>
+        <mod-up>
+            <binding>
+                <command>nasal</command>
+                <script>controls.stepSpoilers(0)</script>
+            </binding>
+        </mod-up>
+    </button>
+    
+    <button n="18"> <!-- Labled as T6 -->
+	<name>T6</name>
+        <desc>Deploy Spoilers</desc>
+        <repeatable>false</repeatable>
+        <binding>
+            <command>nasal</command>
+            <script>controls.stepSpoilers(1)</script>
+        </binding>
+        <mod-up>
+            <binding>
+                <command>nasal</command>
+                <script>controls.stepSpoilers(0)</script>
+            </binding>
+        </mod-up>
+    </button>
+
+    <button n="19"> <!-- Power < 0 -->
+	<name>Throttle pushed below 0</name>
+        <desc>Thrust reverser/beta</desc>
+        <repeatable>false</repeatable>
+        <binding>
+            <command>property-assign</command>
+            <property>/controls/engines/engine[0]/reverser</property>
+            <value>true</value>
+        </binding>
+        <binding>
+            <command>property-assign</command>
+            <property>/controls/engines/engine[1]/reverser</property>
+            <value>true</value>
+        </binding>
+        <binding>
+            <command>property-assign</command>
+            <property>/controls/engines/engine[2]/reverser</property>
+            <value>true</value>
+        </binding>
+        <binding>
+            <command>property-assign</command>
+            <property>/controls/engines/engine[3]/reverser</property>
+            <value>true</value>
+        </binding>
+	<binding>
+            <command>property-assign</command>
+            <property>/engines/engine[0]/reverse-thrust</property>
+            <value>1</value>
+        </binding>
+	<binding>
+            <command>property-assign</command>
+            <property>/engines/engine[1]/reverse-thrust</property>
+            <value>1</value>
+        </binding>
+	<binding>
+            <command>property-assign</command>
+            <property>/engines/engine[2]/reverse-thrust</property>
+            <value>1</value>
+        </binding>
+	<binding>
+            <command>property-assign</command>
+            <property>/engines/engine[3]/reverse-thrust</property>
+            <value>1</value>
+        </binding>
+        <mod-up>
+	        <binding>
+        	    <command>property-assign</command>
+	            <property>/controls/engines/engine[0]/reverser</property>
+        	    <value>false</value>
+	        </binding>
+	        <binding>
+        	    <command>property-assign</command>
+	            <property>/controls/engines/engine[1]/reverser</property>
+        	    <value>false</value>
+	        </binding>
+	        <binding>
+        	    <command>property-assign</command>
+	            <property>/controls/engines/engine[2]/reverser</property>
+        	    <value>false</value>
+	        </binding>
+	        <binding>
+        	    <command>property-assign</command>
+	            <property>/controls/engines/engine[3]/reverser</property>
+        	    <value>false</value>
+	        </binding>
+	        <binding>
+        	    <command>property-assign</command>
+	            <property>/engines/engine[0]/reverse-thrust</property>
+        	    <value>0</value>
+	        </binding>
+	        <binding>
+        	    <command>property-assign</command>
+	            <property>/engines/engine[1]/reverse-thrust</property>
+        	    <value>0</value>
+	        </binding>
+	        <binding>
+        	    <command>property-assign</command>
+	            <property>/engines/engine[2]/reverse-thrust</property>
+        	    <value>0</value>
+	        </binding>
+	        <binding>
+        	    <command>property-assign</command>
+	            <property>/engines/engine[3]/reverse-thrust</property>
+        	    <value>0</value>
+	        </binding>
+        </mod-up>
+    </button>
+
+    <button n="20"> <!-- Propeller < 0 -->
+	<name>Propeller pushed below 0</name>
+        <desc>Feather Prop</desc>
+        <repeatable>false</repeatable>
+        <binding>
+            <command>property-assign</command>
+            <property>/controls/engines/engine[0]/propeller-feather</property>
+            <value>true</value>
+        </binding>
+        <binding>
+            <command>property-assign</command>
+            <property>/controls/engines/engine[1]/propeller-feather</property>
+            <value>true</value>
+        </binding>
+        <binding>
+            <command>property-assign</command>
+            <property>/controls/engines/engine[2]/propeller-feather</property>
+            <value>true</value>
+        </binding>
+        <binding>
+            <command>property-assign</command>
+            <property>/controls/engines/engine[3]/propeller-feather</property>
+            <value>true</value>
+        </binding>
+        <mod-up>
+	        <binding>
+        	    <command>property-assign</command>
+	            <property>/controls/engines/engine[0]/propeller-feather</property>
+        	    <value>false</value>
+	        </binding>
+	        <binding>
+        	    <command>property-assign</command>
+	            <property>/controls/engines/engine[1]/propeller-feather</property>
+        	    <value>false</value>
+	        </binding>
+	        <binding>
+        	    <command>property-assign</command>
+	            <property>/controls/engines/engine[2]/propeller-feather</property>
+        	    <value>false</value>
+	        </binding>
+	        <binding>
+        	    <command>property-assign</command>
+	            <property>/controls/engines/engine[3]/propeller-feather</property>
+        	    <value>false</value>
+	        </binding>
+        </mod-up>
+    </button>
+
+    <button n="21"> <!-- Mixture < 0 -->
+	<name>Mixture pushed below 0</name>
+        <desc>Engine cut-off</desc>
+        <repeatable>false</repeatable>
+        <binding>
+            <command>property-assign</command>
+            <property>/controls/engines/engine[0]/cutoff</property>
+            <value>true</value>
+        </binding>
+        <binding>
+            <command>property-assign</command>
+            <property>/controls/engines/engine[1]/cutoff</property>
+            <value>true</value>
+        </binding>
+        <binding>
+            <command>property-assign</command>
+            <property>/controls/engines/engine[2]/cutoff</property>
+            <value>true</value>
+        </binding>
+        <binding>
+            <command>property-assign</command>
+            <property>/controls/engines/engine[3]/cutoff</property>
+            <value>true</value>
+        </binding>
+        <mod-up>
+	        <binding>
+        	    <command>property-assign</command>
+	            <property>/controls/engines/engine[0]/cutoff</property>
+        	    <value>false</value>
+	        </binding>
+	        <binding>
+        	    <command>property-assign</command>
+	            <property>/controls/engines/engine[1]/cutoff</property>
+        	    <value>false</value>
+	        </binding>
+	        <binding>
+        	    <command>property-assign</command>
+	            <property>/controls/engines/engine[2]/cutoff</property>
+        	    <value>false</value>
+	        </binding>
+	        <binding>
+        	    <command>property-assign</command>
+	            <property>/controls/engines/engine[3]/cutoff</property>
+        	    <value>false</value>
+	        </binding>
+        </mod-up>
+    </button>
+
+    <button n="22">
+	<name>Yoke mode switch left</name>
+        <desc>Coolie hat sensitivity low</desc>
+        <repeatable type="bool">false</repeatable>
+        <binding>
+            <command>property-assign</command>
+            <property>/devices/status/yoke/offset</property>
+            <value>1</value>
+        </binding>
+    </button>
+    <button n="23">
+	<name>Yoke mode switch middle</name>
+        <desc>Coolie hat sensitivity medium</desc>
+        <repeatable type="bool">false</repeatable>
+        <binding>
+            <command>property-assign</command>
+            <property>/devices/status/yoke/offset</property>
+            <value>5</value>
+        </binding>
+    </button>
+    <button n="24">
+        <name>Yoke mode switch right</name>
+        <desc>Coolie hat sensitivity high</desc>
+        <repeatable type="bool">false</repeatable>
+        <binding>
+            <command>property-assign</command>
+            <property>/devices/status/yoke/offset</property>
+            <value>10</value>
+        </binding>
+    </button>
+
+</PropertyList>

@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Maintainer: Dave Perry -->
+<PropertyList>
+
+ <name>CH PRODUCTS CH FLIGHT SIM YOKE USB </name>
+ <name>CH FLIGHT SIM YOKE USB </name>
+ <name>CH Flight Sim Yoke USB</name>
+
+ <axis n="0">
+  <desc>Aileron</desc>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/aileron</property>
+   <power>2.0</power>
+  </binding>
+ </axis>
+
+ <axis n="1">
+  <desc>Elevator</desc>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/elevator</property>
+   <factor type="double">-1.0</factor>
+   <power>2.0</power>
+  </binding>
+ </axis>
+
+ <axis n="2">
+  <desc>Throttle</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.throttleAxis()</script>
+  </binding>
+ </axis>
+
+ <axis>
+  <desc>Mixture</desc>
+  <number>
+    <unix>3</unix>
+    <mac>3</mac>
+    <windows>4</windows>
+  </number>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/engines/engine[0]/mixture</property>
+   <offset type="double">-1.0</offset>
+   <factor type="double">-0.5</factor>
+  </binding>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/engines/engine[1]/mixture</property>
+   <offset type="double">-1.0</offset>
+   <factor type="double">-0.5</factor>
+  </binding>
+ </axis>
+
+ <axis>
+  <desc>Propeller</desc>
+  <number>
+    <unix>4</unix>
+    <mac>4</mac>
+    <windows>3</windows>
+  </number>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/engines/engine[0]/propeller-pitch</property>
+   <offset type="double">-1.0</offset>
+   <factor type="double">-0.5</factor>
+  </binding>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/engines/engine[1]/propeller-pitch</property>
+   <offset type="double">-1.0</offset>
+   <factor type="double">-0.5</factor>
+  </binding>
+ </axis>
+
+ <axis>
+  <desc>View Direction</desc>
+  <number>
+    <unix>5</unix>
+    <mac>5</mac>
+    <windows>6</windows>
+  </number>
+  <low>
+   <repeatable>true</repeatable>
+   <binding>
+    <command>property-adjust</command>
+    <property>/sim/current-view/goal-heading-offset-deg</property>
+    <step type="double">2.0</step>
+   </binding>
+  </low>
+  <high>
+   <repeatable>true</repeatable>
+   <binding>
+    <command>property-adjust</command>
+    <property>/sim/current-view/goal-heading-offset-deg</property>
+    <step type="double">-2.0</step>
+   </binding>
+  </high>
+ </axis>
+
+ <axis>
+  <desc>View Elevation</desc>
+  <number>
+    <unix>6</unix>
+    <mac>6</mac>
+    <windows>7</windows>
+  </number>
+  <low>
+   <repeatable>true</repeatable>
+   <binding>
+    <command>property-adjust</command>
+    <property>/sim/current-view/goal-pitch-offset-deg</property>
+    <step type="double">2.0</step>
+   </binding>
+  </low>
+  <high>
+   <repeatable>true</repeatable>
+   <binding>
+    <command>property-adjust</command>
+    <property>/sim/current-view/goal-pitch-offset-deg</property>
+    <step type="double">-2.0</step>
+   </binding>
+  </high>
+ </axis>
+
+ <button n="0">
+  <desc>Reset View</desc>
+  <binding>
+   <command>nasal</command>
+   <script>view.resetView()</script>
+  </binding>
+ </button>
+
+ <button n="1">
+  <desc>Cycle View</desc>
+  <repeatable>false</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>view.stepView(1)</script>
+  </binding>
+ </button>
+
+ <button n="2">
+  <desc>Rudder Trim Left</desc>
+  <repeatable>true</repeatable>
+  <binding>
+   <command>property-adjust</command>
+   <property>/controls/flight/rudder-trim</property>
+   <step>-0.001</step>
+  </binding>
+ </button>
+
+ <button n="3">
+  <desc>Rudder Trim Right</desc>
+  <repeatable>true</repeatable>
+  <binding>
+   <command>property-adjust</command>
+   <property>/controls/flight/rudder-trim</property>
+   <step>0.001</step>
+  </binding>
+ </button>
+
+ <button n="4">
+  <desc>Gear up</desc>
+  <repeatable>false</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.gearDown(-1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.gearDown(0)</script>
+   </binding>
+  </mod-up>
+ </button>
+
+ <button n="5">
+  <desc>Gear down</desc>
+  <repeatable>false</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.gearDown(1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.gearDown(0)</script>
+   </binding>
+  </mod-up>
+ </button>
+
+ <button n="6">
+  <desc>Flaps up</desc>
+  <repeatable>false</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.flapsDown(-1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.flapsDown(0)</script>
+   </binding>
+  </mod-up>
+ </button>
+
+ <button n="7">
+  <desc>Flaps down</desc>
+  <repeatable>false</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.flapsDown(1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.flapsDown(0)</script>
+   </binding>
+  </mod-up>
+ </button>
+
+ <button n="8">
+  <desc>Increase Engine Boost</desc>
+  <repeatable>true</repeatable>
+   <binding>
+    <command>property-adjust</command>
+    <property>/controls/engines/engine[0]/boost</property>
+    <step type="double">+0.01</step>
+   </binding>
+   <binding>
+    <command>property-adjust</command>
+    <property>/controls/engines/engine[1]/boost</property>
+    <step type="double">+0.01</step>
+   </binding>
+ </button>
+
+ <button n="9">
+  <desc>Decrease Engine Boost</desc>
+  <repeatable>true</repeatable>
+   <binding>
+    <command>property-adjust</command>
+    <property>/controls/engines/engine[0]/boost</property>
+    <step type="double">-0.01</step>
+   </binding>
+   <binding>
+    <command>property-adjust</command>
+    <property>/controls/engines/engine[1]/boost</property>
+    <step type="double">-0.01</step>
+   </binding>
+ </button>
+
+ <button n="10">
+  <desc>Elevator Trim down</desc>
+  <repeatable>true</repeatable>
+  <binding>
+   <command>property-adjust</command>
+   <property>/controls/flight/elevator-trim</property>
+   <step>0.0025</step>
+  </binding>
+ </button>
+
+ <button n="11">
+  <desc>Elevator Trim up</desc>
+  <repeatable>true</repeatable>
+  <binding>
+   <command>property-adjust</command>
+   <property>/controls/flight/elevator-trim</property>
+   <step>-0.0025</step>
+  </binding>
+ </button>
+
+</PropertyList>

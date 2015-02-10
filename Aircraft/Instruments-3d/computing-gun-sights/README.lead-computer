@@ -1,0 +1,81 @@
+Lead Computer Configuration:
+
+The following properties will need to be set to configure the lead computer for your aircraft.
+
+These are set in the aircraft's *set.xml file in the section where you are setting initialization values 
+for various properties.  This MUST happen before the nasal section in the *set.xml file.
+
+The following five values can be found in the submodels.xml configuration file where the guns 
+ballistics are configured.
+
+/controls/armament/gunsight/z-gunOffsetFeet = Gun position on z axis relative to the sight line in feet.  
+                                              
+Will = <z-offset>offset value</z-offset> + distance from aircraft center line to sight line height in feet.
+
+/controls/armament/gunsight/y-gunOffsetFeet = Gun position on y axis relative to the sight line in feet.
+                                              
+Will = <y-offset>abs value</y-offset> if the guns are equally distributed about the aircraft center line
+set this to 0.  If this value in non-zero this is in feet.
+ 
+/controls/armament/gunsight/gunElevationDegrees = <pitch-offset>gun pitch setting</pitch-offset> in degrees.
+
+/controls/armament/gunsight/ballisticCoefficienct = <eda>xxxxx</eda>
+
+/controls/armament/gunsight/muzzleVelocity = <speed>xxxxx</speed> = In feet per second
+
+Additional parameters need to be set that are not in the submodels.xml file.
+
+/controls/armament/gunsight/gunHarminizationRangeFeet = Range where the sight and the bullet 
+                                                        path cross is straight and level flight in feet.
+                                                                  
+/controls/armament/gunsight/timeStep = The computer cycle time in seconds.  
+
+This will typically be values between 0.5 and 0.05.  These correspond to 
+lead computer update frequencies of 2 to 20 times per second.  Use a slower update
+rate for older purely mechanical gun sights and faster rates for newer fully 
+digital gun sights.  Slower rates will tend to make the gun sight lag.
+
+/controls/armament/gunsight/dampingFactor = The computer damping factor adjustment.
+
+The optimum dampingFactor is 1.0.  Lower values will make the reticle less stable and
+prone to over shoot and jitter.  However using lower values may result in a more
+accurate simulation of older mechanical gun sights which were under damped.  Modern 
+gun sights will be well damped and for those this should be set to 1.0.  This value is 
+capped by the lead computer and values above 1.0 will result in 1.0 being used and 
+values below 0.3 will result in 0.3 being used.
+
+/controls/armament/gunsight/MaxAzimuth and /controls/armament/gunsight/MaxElevation = The
+maximum deflection of the sight reticle in mils.  Used to limit the movement of the reticle
+to the mechanical limits of sight being simulated.
+
+Lead Computer Input Values:
+
+/controls/armament/gunsight/range = The range to the target in feet.  
+
+With radar ranging this value will be constantly changing. Internally the lead computer 
+also uses this data to calculate the rate at which the range changes (IE. how fast 
+the target is being closed in on).
+
+/controls/armament/gunsight/computer-on = 0 to turn the lead computer off and 1 to start the
+lead computer.  Cycling power will reinitialize the lead computer.
+
+Lead Computer Output:
+
+/controls/armament/gunsight/azimuth and /controls/armament/gunsight/elevation = Deflection
+needed to hit the target in mils.  1 mil = 1 foot at a 1000 foot range.  These values are
+used to drive the sight reticle animation.  This is usually done by applying these to a 
+factor that is then using the resulting product to move the reticle in the animation code.
+
+Including the Lead Computer in the Aircraft's Set File:
+
+For the lead computer to function it needs to be added to the aircrafts *set.xml file's nasal section.
+
+This will look something like this. 
+
+<nasal>
+   <!-- your other nasal files -->
+   <!-- the following three lines must be exactly like this -->
+   <name of you gun sight>
+      <file>Aircraft/Instruments-3d/computing-gun-sights/Nasal/lead-computer.nas</file>
+   </name of your gun sight>
+</nasal>

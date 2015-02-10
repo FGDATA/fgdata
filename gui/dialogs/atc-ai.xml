@@ -1,0 +1,258 @@
+<?xml version="1.0"?>
+
+<!-- General ATC/AI options -->
+
+<PropertyList>
+	<name>atc-ai</name>
+	<modal>false</modal>
+	<layout>vbox</layout>
+
+	<text>
+		<label>ATC/AI Options</label>
+	</text>
+
+	<hrule/>
+
+	<group>
+		<layout>hbox</layout>
+		<empty>
+			<pref-width>10</pref-width>
+		</empty>
+
+		<group>
+			<layout>vbox</layout>
+
+			<checkbox>
+				<halign>left</halign>
+				<label>Enable ATC</label>
+				<property>/sim/atc/enabled</property>
+			</checkbox>
+
+			<checkbox>
+				<halign>left</halign>
+				<label>Enable AI traffic</label>
+				<property>/sim/traffic-manager/enabled</property>
+			</checkbox>
+
+		</group>
+
+		<empty>
+			<stretch>true</stretch>
+		</empty>
+	</group>
+
+	<hrule/>
+
+	<!-- AI Carrier options -->
+
+	<text>
+		<halign>left</halign>
+		<label>AI Carrier</label>
+		<color>
+			<red>0.5</red>
+			<green>0.5</green>
+			<blue>0.5</blue>
+			<alpha>1</alpha>
+		</color>
+	</text>
+
+	<group>
+		<layout>hbox</layout>
+		<empty>
+			<pref-width>10</pref-width>
+		</empty>
+
+		<group>
+			<layout>vbox</layout>
+
+			<radio>
+				<halign>left</halign>
+				<label>Turn to launch course</label>
+				<property>/ai/models/carrier/controls/turn-to-launch-hdg</property>
+				<live>true</live>
+				<binding>
+					<command>dialog-apply</command>
+				</binding>
+				<binding>
+					<command>nasal</command>
+					<script>
+						var v = getprop("/ai/models/carrier/controls/turn-to-launch-hdg");
+						foreach (var c; props.globals.getNode("/ai/models").getChildren("carrier")){
+						c.getNode("controls/turn-to-launch-hdg").setBoolValue(v);
+						c.getNode("controls/turn-to-recovery-hdg").setBoolValue(0);
+						c.getNode("controls/turn-to-base-course").setBoolValue(0);
+						}
+					</script>
+				</binding>
+			</radio>
+			
+			<radio>
+				<halign>left</halign>
+				<label>Turn to recovery course</label>
+				<property>/ai/models/carrier/controls/turn-to-recovery-hdg</property>
+				<live>true</live>
+				<binding>
+					<command>dialog-apply</command>
+				</binding>
+				<binding>
+					<command>nasal</command>
+					<script>
+						var v = getprop("/ai/models/carrier/controls/turn-to-recovery-hdg");
+						foreach (var c; props.globals.getNode("/ai/models").getChildren("carrier")){
+						c.getNode("controls/turn-to-recovery-hdg").setBoolValue(v);
+						c.getNode("controls/turn-to-launch-hdg").setBoolValue(0);
+						c.getNode("controls/turn-to-base-course").setBoolValue(0);
+						}
+					</script>
+				</binding>
+			</radio>
+
+			<radio>
+				<halign>left</halign>
+				<label>Turn to base course</label>
+				<property>/ai/models/carrier/controls/turn-to-base-course</property>
+				<live>true</live>
+				<binding>
+					<command>dialog-apply</command>
+				</binding>
+				<binding>
+					<command>nasal</command>
+					<script>
+						var v = getprop("/ai/models/carrier/controls/turn-to-base-course");
+						foreach (var c; props.globals.getNode("/ai/models").getChildren("carrier")){
+						c.getNode("controls/turn-to-base-course").setBoolValue(v);
+						c.getNode("controls/turn-to-recovery-hdg").setBoolValue(0);
+						c.getNode("controls/turn-to-launch-hdg").setBoolValue(0);
+						}
+					</script>
+				</binding>
+			</radio>
+
+			<checkbox>
+				<halign>left</halign>
+				<label>Operate Deck Elevators</label>
+				<property>/ai/models/carrier/controls/elevators</property>
+				<binding>
+					<command>dialog-apply</command>
+				</binding>
+				<binding>
+					<command>nasal</command>
+					<script>
+						var v = getprop("/ai/models/carrier/controls/elevators");
+						foreach (var c; props.globals.getNode("/ai/models").getChildren("carrier"))
+							c.getNode("controls/elevators").setBoolValue(v);
+					</script>
+				</binding>
+			</checkbox>
+
+			<checkbox>
+				<halign>left</halign>
+				<label>Enable LSO Communications</label>
+				<property>/sim/current-view/lso-commentary</property>
+				<binding>
+					<command>dialog-apply</command>
+				</binding>
+			</checkbox>
+
+			<checkbox>
+				<halign>left</halign>
+				<label>Enable Deck Park</label>
+				<property>/sim/current-view/deck-park</property>
+				<binding>
+					<command>dialog-apply</command>
+				</binding>
+			</checkbox>
+
+			<checkbox>
+				<halign>left</halign>
+				<label>Deck Lights</label>
+				<property>/ai/models/carrier/controls/lighting/deck-lights</property>
+				<binding>
+					<command>dialog-apply</command>
+				</binding>
+				<binding>
+					<command>nasal</command>
+					<script>
+						var v = getprop("/ai/models/carrier/controls/lighting/deck-lights");
+						foreach (var c; props.globals.getNode("/ai/models").getChildren("carrier"))
+							c.getNode("controls/lighting/deck-lights",1).setBoolValue(v);
+					</script>
+				</binding>
+			</checkbox>
+
+			<text>
+				<halign>left</halign>
+				<label>Discrete Flightdeck Floodlights (Red)</label>
+			</text>
+
+			<slider>
+				<halign>left</halign>
+				<width>75</width>
+				<height>25</height>
+				<property>/ai/models/carrier/controls/lighting/flood-lights-red-norm</property>
+				<binding>
+					<command>nasal</command>
+					<script>
+						var v = getprop("/ai/models/carrier/controls/lighting/flood-lights-red-norm");
+						foreach (var c; props.globals.getNode("/ai/models").getChildren("carrier"))
+							c.getNode("controls/lighting/flood-lights-red-norm",1).setDoubleValue(v);
+					</script>
+				</binding>
+			</slider>
+
+		</group>
+
+		<empty>
+			<stretch>true</stretch>
+		</empty>
+	</group>
+
+	<group>
+		<layout>hbox</layout>
+		<default-padding>6</default-padding>
+		<empty>
+			<stretch>true</stretch>
+		</empty>
+
+		<button>
+			<legend>OK</legend>
+			<default>true</default>
+			<equal>true</equal>
+			<binding>
+				<command>dialog-apply</command>
+			</binding>
+			<binding>
+				<command>dialog-close</command>
+			</binding>
+		</button>
+
+		<button>
+			<legend>Apply</legend>
+			<equal>true</equal>
+			<binding>
+				<command>dialog-apply</command>
+			</binding>
+		</button>
+
+		<button>
+			<legend>Reset</legend>
+			<equal>true</equal>
+			<binding>
+				<command>dialog-update</command>
+			</binding>
+		</button>
+
+		<button>
+			<legend>Cancel</legend>
+			<equal>true</equal>
+			<key>Esc</key>
+			<binding>
+				<command>dialog-close</command>
+			</binding>
+		</button>
+
+		<empty>
+			<stretch>true</stretch>
+		</empty>
+	</group>
+</PropertyList>

@@ -1,0 +1,174 @@
+<?xml version="1.0"?>
+
+<!--
+************************************************************************
+* Bindings for Microsoft SideWinder Joystick.
+*
+*
+* Axis 0: ailerons
+* Axis 1: elevator
+* Axis 2: throttle
+*
+* Button 1: all brakes
+* Button 2: left brake only
+* Button 3: right brake only
+* Button 4: elevator trim down  .. can switch 4 and 5 to reverse
+* Button 5: elevator trim up    .. to your own preferences.
+* Button 6: flap up             ...   Same with
+* Button 7: flap down           ...   the flaps.
+
+* Button 6: aileron           ... hmmm.. see if this works
+* Button 7: aileron           ... to trim the ailerons
+************************************************************************
+$Id$
+-->
+
+<PropertyList>
+
+ <name>Microsoft SideWinder Joystick</name>
+
+ <axis n="0">
+  <desc>Aileron</desc>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/aileron</property>
+   <squared type="bool">true</squared>
+  </binding>
+ </axis>
+
+ <axis n="1">
+  <desc>Elevator</desc>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/elevator</property>
+   <factor type="double">-1.0</factor>
+   <squared type="bool">true</squared>
+  </binding>
+ </axis>
+
+ <axis n="2">
+  <desc>Throttle</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.throttleAxis()</script>
+  </binding>
+ </axis>
+
+ <button n="1">
+  <desc>Brakes</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.applyBrakes(1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.applyBrakes(0)</script>
+   </binding>
+  </mod-up>
+ </button>
+
+
+ <button n="2">
+  <desc>Left brake</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.applyBrakes(1, -1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.applyBrakes(0, -1)</script>
+   </binding>
+  </mod-up>
+ </button>
+
+ <button n="3">
+  <desc>Right brake</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.applyBrakes(1, 1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.applyBrakes(0, 1)</script>
+   </binding>
+  </mod-up>
+ </button>
+
+ <button n="4">
+  <desc>Elevator trim down</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>property-adjust</command>
+   <property>/controls/flight/elevator-trim</property>
+   <step type="double">-0.002</step>
+  </binding>
+ </button>
+
+ <button n="5">
+  <desc>Elevator trim up</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>property-adjust</command>
+   <property>/controls/flight/elevator-trim</property>
+   <step type="double">0.002</step>
+  </binding>
+ </button>
+
+<!--
+
+ <button n="6">
+  <desc>Flaps up</desc>
+  <repeatable>false</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.flapsDown(-1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.flapsDown(0)</script>
+   </binding>
+  </mod-up>
+ </button>
+
+ <button n="7">
+  <desc>Flaps down</desc>
+  <repeatable>false</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.flapsDown(1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.flapsDown(0)</script>
+   </binding>
+  </mod-up>
+ </button>
+
+-->
+
+ <button n="6">
+  <desc>Aileron trimFlaps right</desc>
+  <repeatable>true</repeatable>
+  <binding>
+   <command>property-adjust</command>
+   <property>/controls/flight/aileron-trim</property>
+   <step type="double">-0.002</step>
+  </binding>
+ </button>
+
+ <button n="7">
+  <desc>Aileron trim right</desc>
+  <repeatable>true</repeatable>
+  <binding>
+   <command>property-adjust</command>
+   <property>/controls/flight/aileron-trim</property>
+   <step type="double">0.002</step>
+  </binding>
+ </button>
+ 
+</PropertyList>

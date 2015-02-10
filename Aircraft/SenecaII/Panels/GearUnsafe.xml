@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+
+<!--
+-->
+
+<PropertyList>
+
+  <name>GearUnsafe</name>
+  <w-base>300</w-base>
+  <h-base>300</h-base>
+  
+  <params>
+  </params>
+  
+  <layers>
+    <layer>
+      <name>LightOn</name>
+      <w>300</w>
+      <h>300</h>
+      <texture>
+        <path>Aircraft/SenecaII/Panels/Textures/GearUnsafe.png</path>
+        <x1>0.5</x1>
+        <x2>1.0</x2>
+        <y1>0.0</y1>
+        <y2>1.0</y2>
+      </texture>
+      <condition>
+        <property>gear/in-transit</property>
+      </condition>
+    </layer>
+
+    <layer>
+      <name>LightOff</name>
+      <w>300</w>
+      <h>300</h>
+      <texture>
+        <path>Aircraft/SenecaII/Panels/Textures/GearUnsafe.png</path>
+        <x1>0.0</x1>
+        <x2>0.5</x2>
+        <y1>0.0</y1>
+        <y2>1.0</y2>
+      </texture>
+      <condition>
+        <not>
+          <property>gear/in-transit</property>
+        </not>
+      </condition>
+    </layer>
+
+  </layers>
+
+</PropertyList>

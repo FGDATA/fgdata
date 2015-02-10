@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+    <path>Dragonfly.ac</path>
+  
+   <offsets>
+    <z-m>.13</z-m>   
+  </offsets>
+  
+    <model>
+        <path>Banner.xml</path>
+        <name>Banner</name>
+        <condition>
+		      <greater-than>
+		        <property>velocities/true-airspeed-kt</property>
+		        <value>79</value>
+		      </greater-than>
+		</condition>
+        <offsets>
+            <x-m>3.65</x-m>
+            <y-m>0</y-m>
+            <z-m>-0.124</z-m>
+            <pitch-deg>0</pitch-deg>
+        </offsets>
+    </model>
+
+    <animation>
+        <type>spin</type>
+        <object-name>Prop</object-name>
+        <property>velocities/true-airspeed-kt</property>
+        <factor>10</factor>
+        <axis>
+            <x>1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+        <center>
+            <x-m>1.88819</x-m>
+            <y-m>0</y-m>
+            <z-m>1.567793</z-m>
+        </center>
+    </animation>
+	
+    <animation>
+        <type>select</type>
+        <object-name>PropBlades</object-name>
+		<condition>
+		      <less-than>
+		        <property>velocities/true-airspeed-kt</property>
+		        <value>1000</value>
+		      </less-than>
+		</condition>
+    </animation>
+
+</PropertyList>

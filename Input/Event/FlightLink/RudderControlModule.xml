@@ -1,0 +1,41 @@
+<PropertyList>
+
+  <name>Flight Link, Inc. Flight Link Rudder Control Module</name>
+  <debug-events type="bool">false</debug-events>
+  <grab type="bool">true</grab>
+
+  <event>
+    <desc>Brake left</desc>
+    <name>abs-x-rotate</name>
+    <binding>
+      <command>property-scale</command>
+      <property>/controls/gear/brake-left</property>
+      <offset>-1.0</offset>
+      <factor>-1.0</factor>
+    </binding>
+  </event>
+
+  <event>
+    <desc>Brake right</desc>
+    <name>abs-y-rotate</name>
+    <binding>
+      <command>property-scale</command>
+      <property>/controls/gear/brake-right</property>
+      <offset>-1.0</offset>
+      <factor>-1.0</factor>
+    </binding>
+  </event>
+
+  <event>
+    <desc>Rudder</desc>
+    <name>abs-z-translate</name>
+    <binding>
+      <command>property-scale</command>
+      <property>/controls/flight/rudder</property>
+      <offset>-0.5</offset>
+      <factor>-2.0</factor>
+      <power type="double">1.0</power>
+    </binding>
+
+  </event>
+</PropertyList>

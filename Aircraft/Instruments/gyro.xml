@@ -1,0 +1,420 @@
+<?xml version="1.0"?>
+
+<!--
+Default gyro compass instrument.
+
+Started summer 2000 by David Megginson, david@megginson.com.
+
+This is an instrument configuration file for the open-source flight
+simulator FlightGear (www.flightgear.org).  The file is an XML-encoded
+FlightGear property list defining the instrument's layers and actions.
+
+Each instrument is composed of layers stacked on top of each other.
+A layer may be a texture (with transparent parts to show the layers
+underneath), text, or a special layer that switches between two
+others (say, to turn an indicator light on or off).  Each layer can
+move independently in proportion to a property value, and text
+can be generated from property values as well: all of the layer's
+movements are defined as transformations.
+
+Actions are hotspots on the instrument that will respond to a mouse
+click.  Actions always modify the values of properties, either by
+adjusting them, toggling them, or swaping them with other
+properties' values.
+-->
+
+<PropertyList>
+
+ <name>Gyro Compass</name>
+ <w-base>128</w-base>
+ <h-base>128</h-base>
+
+ <params>
+ <dg-style>/sim/instrument-options/dg/style</dg-style>
+ </params>
+ 
+ <layers>
+
+  <layer>
+   <name>compass rose</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/faces-1.rgb</path>
+    <x1>0.0</x1>
+    <y1>0.515625</y1>
+    <x2>0.484375</x2>
+    <y2>1.0</y2>
+   </texture>
+   <w>110</w>
+   <h>110</h>
+   <transformations>
+    <transformation>
+     <type>rotation</type>
+     <property>/instrumentation/heading-indicator/indicated-heading-deg</property>
+     <scale>-1.0</scale>
+    </transformation>
+   </transformations>
+  </layer>
+<!-- fix misc.rgb -->
+  <layer>
+   <name>heading bug</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/misc-1.rgb</path>
+    <x1>0.9375</x1>
+    <y1>0.4375</y1>
+    <x2>1.0</x2>
+    <y2>0.5</y2>
+   </texture>
+   <w>16</w>
+   <h>16</h>
+   <transformations>
+    <transformation>
+     <type>rotation</type>
+     <property>/autopilot/settings/heading-bug-deg</property>
+    </transformation>
+    <transformation>
+     <type>rotation</type>
+     <property>/instrumentation/heading-indicator/indicated-heading-deg</property>
+     <scale>-1.0</scale>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>50</offset>
+    </transformation>
+   </transformations>
+  </layer>
+  <!-- style A -->
+  <layer>
+   <name>fixed center</name>
+   <condition>
+    <equals>
+    <property alias="../../../../../params/dg-style"/>
+    <value>0</value>
+    </equals>
+   </condition> 
+   <texture>
+    <path>Aircraft/Instruments/Textures/gyro-fronts.rgb</path>
+    <x1>0.50390625</x1>
+    <y1>0.5078125</y1>
+    <x2>0.9765625</x2>
+    <y2>0.98046875</y2>
+   </texture>
+   <w>105</w>
+   <h>105</h>
+   <transformations>
+    <transformation>
+    <type>x-shift</type>
+    <offset>-1.5</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-1.5</offset>
+    </transformation>
+   </transformations>
+  </layer>
+  <!-- style B -->
+  <layer>
+   <name>fixed center</name>
+   <condition>
+    <equals>
+    <property alias="../../../../../params/dg-style"/>
+    <value>1</value>
+    </equals>
+   </condition> 
+   <texture>
+    <path>Aircraft/Instruments/Textures/gyro-fronts.rgb</path>
+    <x1>0.0</x1>
+    <y1>0.0</y1>
+    <x2>0.49609375</x2>
+    <y2>0.49609375</y2>
+   </texture>
+   <w>110</w>
+   <h>110</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-1</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-1</offset>
+    </transformation>
+   </transformations>
+  </layer>
+ 
+  <layer>
+   <name>glare shield</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/bezel1.rgb</path>
+    <x1>0.5</x1>
+    <y1>0.0</y1>
+    <x2>1.0</x2>
+    <y2>0.5</y2>
+   </texture>
+  <w>128</w>
+  <h>128</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>2</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-2</offset>
+    </transformation>
+    </transformations>
+  </layer>
+
+  <layer>
+   <name>Heading Knob</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/blister.rgb</path>
+    <x1>0.25</x1>
+    <y1>0.75</y1>
+    <x2>0.5</x2>
+    <y2>1.0</y2>
+   </texture>
+   <h>24</h>
+   <w>24</w>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>45</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-45</offset>
+    </transformation>
+    <transformation>
+     <type>rotation</type>
+     <property>/autopilot/settings/heading-bug-deg</property>
+     <scale>5.0</scale>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>Heading label</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/misc-1.rgb</path>
+    <x1>0.0078125</x1>
+    <y1>0.5</y1>
+    <x2>0.1640625</x2>
+    <y2>0.6640625</y2>
+   </texture>
+   <w>15</w>
+   <h>15</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>45</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-45</offset>
+    </transformation>
+    <transformation>
+     <type>rotation</type>
+     <property>/autopilot/settings/heading-bug-deg</property>
+     <scale>5.0</scale>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>OBS Knob</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/blister.rgb</path>
+    <x1>0.25</x1>
+    <y1>0.75</y1>
+    <x2>0.5</x2>
+    <y2>1.0</y2>
+   </texture>
+   <h>24</h>
+   <w>24</w>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-45</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-45</offset>
+    </transformation>
+    <transformation>
+     <type>rotation</type>
+     <property>/instrumentation/heading-indicator/indicated-heading-deg</property>
+     <scale>5.0</scale>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>OBS label</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/misc-1.rgb</path>
+    <x1>0.0078125</x1>
+    <y1>0.66015625</y1>
+    <x2>0.1640625</x2>
+    <y2>0.82421875</y2>
+   </texture>
+   <w>15</w>
+   <h>15</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-45</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-45</offset>
+    </transformation>
+    <transformation>
+     <type>rotation</type>
+     <property>/instrumentation/heading-indicator/indicated-heading-deg</property>
+     <scale>5.0</scale>
+    </transformation>
+   </transformations>
+  </layer>
+ </layers>
+
+ <actions>
+
+  <action>
+   <name></name>
+   <button>0</button>
+   <x>-56</x>
+   <y>-56</y>
+   <w>10</w>
+   <h>24</h>
+   <binding>
+    <command>property-adjust</command>
+    <property>/instrumentation/heading-indicator/offset-deg</property>
+    <step>-1</step>
+    <min>0</min>
+    <max>360</max>
+    <wrap>true</wrap>
+   </binding>
+  </action>
+  
+  <action>
+   <name></name>
+   <button>1</button>
+   <x>-56</x>
+   <y>-56</y>
+   <w>10</w>
+   <h>24</h>
+   <binding>
+    <command>property-adjust</command>
+    <property>/instrumentation/heading-indicator/offset-deg</property>
+    <step>-5</step>
+    <min>0</min>
+    <max>360</max>
+    <wrap>1</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name></name>
+   <button>0</button>
+   <x>-46</x>
+   <y>-56</y>
+   <w>10</w>
+   <h>24</h>
+   <binding>
+    <command>property-adjust</command>
+    <property>/instrumentation/heading-indicator/offset-deg</property>
+    <step>1</step>
+    <min>0</min>
+    <max>360</max>
+    <wrap>1</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name></name>
+   <button>1</button>
+   <x>-46</x>
+   <y>-56</y>
+   <w>10</w>
+   <h>24</h>
+   <binding>
+    <command>property-adjust</command>
+    <property>/instrumentation/heading-indicator/offset-deg</property>
+    <step>5</step>
+    <min>0</min>
+    <max>360</max>
+    <wrap>1</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name></name>
+   <button>0</button>
+   <x>36</x>
+   <y>-56</y>
+   <w>10</w>
+   <h>24</h>
+   <binding>
+    <command>property-adjust</command>
+    <property>/autopilot/settings/heading-bug-deg</property>
+    <step>-1</step>
+    <min>0</min>
+    <max>360</max>
+    <wrap>1</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name></name>
+   <button>1</button>
+   <x>36</x>
+   <y>-56</y>
+   <w>10</w>
+   <h>24</h>
+   <binding>
+    <command>property-adjust</command>
+    <property>/autopilot/settings/heading-bug-deg</property>
+    <step>-5</step>
+    <min>0</min>
+    <max>360</max>
+    <wrap>1</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name></name>
+   <button>0</button>
+   <x>46</x>
+   <y>-56</y>
+   <w>10</w>
+   <h>24</h>
+   <binding>
+    <command>property-adjust</command>
+    <property>/autopilot/settings/heading-bug-deg</property>
+    <step>1</step>
+    <min>0</min>
+    <max>360</max>
+    <wrap>1</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name></name>
+   <button>1</button>
+   <x>46</x>
+   <y>-56</y>
+   <w>10</w>
+   <h>24</h>
+   <binding>
+    <command>property-adjust</command>
+    <property>/autopilot/settings/heading-bug-deg</property>
+    <step>5</step>
+    <min>0</min>
+    <max>360</max>
+    <wrap>1</wrap>
+   </binding>
+  </action>
+
+ </actions>
+
+</PropertyList>

@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+
+<!-- Golden Gate Arrival to KSFO, left base to Runway 28L                  
+     The arrival can be found at http://www.airnav.com/airport/KSFO 
+     Format:                                                         
+       <name>       Waypoint name.  When a waypoint named END is reached
+                    the AI airplane will delete itself.                                       
+       <lat>        latitude, degrees (-90 to 90)                                    
+       <lon>        Longitude, degrees (-180 to 180)                                   
+       <alt>        altitude above sea level, feet                                       
+       <crossat>    Crossing altitude, feet                              
+       <ktas>       Knots true airspeed
+       <on-ground>  set true if on the ground
+       <gear-down>  set true for gear down, false for gear up
+       <flaps-down> set true for flaps down, false for flaps up
+-->
+ 
+<PropertyList>
+
+ <flightplan>
+
+  <wpt>
+   <name>ENI</name>  <!-- mendocino VOR, 112.3 -->
+   <lat>39.053167</lat>
+   <lon>-123.274167</lon>
+   <alt>26000.0</alt>
+   <ktas>380</ktas>
+  </wpt>
+
+  <wpt>
+   <name>PYE</name>  <!-- point reyes VOR, 113.7 -->
+   <lat>38.079667</lat>
+   <lon>-122.867833</lon>
+   <crossat>20000.0</crossat>
+   <ktas>350</ktas>
+  </wpt>
+
+  <wpt>
+   <name>LOZIT</name>
+   <lat>37.899333</lat>
+   <lon>-122.673167</lon>
+   <crossat>11000.0</crossat>
+   <ktas>260</ktas>
+  </wpt>
+ 
+  <wpt>
+   <name>SFO</name>
+   <lat>37.6195</lat>
+   <lon>-122.373833</lon>
+   <crossat>8000.0</crossat>
+   <ktas>210</ktas>
+  </wpt>
+
+  <wpt>
+   <name>base</name>
+   <lat>37.45337</lat>
+   <lon>-122.1932</lon>
+   <crossat>5000.0</crossat>
+   <ktas>200</ktas>
+  </wpt>
+
+  <wpt>
+   <name>dogleg</name>
+   <lat>37.49</lat>
+   <lon>-122.0813</lon>
+   <crossat>4000.0</crossat>
+   <ktas>180</ktas>
+  </wpt>
+
+  <wpt>
+   <name>HEMAN</name>
+   <lat>37.53337</lat>
+   <lon>-122.17219</lon>
+   <crossat>3200.0</crossat>
+   <ktas>170</ktas>
+  </wpt>
+
+  <wpt>
+   <name>OAKDUE</name>
+   <lat>37.56996</lat>
+   <lon>-122.259008</lon>
+   <crossat>1800.0</crossat>
+   <ktas>140</ktas>
+  </wpt>
+
+  <wpt>
+   <name>28L</name>
+   <lat>37.611707</lat>
+   <lon>-122.35834</lon>
+   <crossat>13.0</crossat>
+   <ktas>20</ktas>
+   <on-ground>true</on-ground>
+  </wpt>
+
+  <wpt>
+   <name>END</name>
+   <lat>37.625288</lat>
+   <lon>-122.390717</lon>
+   <crossat>6.0</crossat>
+  </wpt>
+
+  <wpt>
+   <name>EOF</name>
+  </wpt>
+
+ </flightplan>
+
+</PropertyList>

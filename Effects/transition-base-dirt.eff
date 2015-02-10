@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PropertyList>
+    <name>Effects/transition-base-dirt</name>
+    <inherits-from>Effects/transition</inherits-from>
+    <parameters>
+		<texture n="3">
+		    <image>Textures/Terrain/dirt3.dds</image>
+			<type>2d</type>
+		    <filter>linear-mipmap-linear</filter>
+		    <wrap-s>repeat</wrap-s>
+		    <wrap-t>repeat</wrap-t>
+		    <internal-format>normalized</internal-format>
+		</texture>
+		<transitions type="float">1.0</transitions>
+		<inverse type="float">0.0</inverse>
+    </parameters>
+</PropertyList>

@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<PropertyList>
+
+    <path>shadow.ac</path>
+
+        <animation>
+            <type>select</type>
+            <object-name>shadow</object-name>
+            <condition>
+                <and>
+                    <less-than>
+                        <property>position/gear-agl-ft</property>
+                        <value>1000</value>
+                    </less-than>
+                    <greater-than>
+                        <property>rendering/scene/ambient/blue</property>
+                        <value>0.25</value>
+                    </greater-than>
+                 </and>
+            </condition>
+        </animation>
+
+        <animation>
+            <type>rotate</type>
+            <object-name>shadow</object-name>
+            <property>orientation/pitch-deg</property>
+            <axis>
+                <x>0</x>
+                <y>-1</y>
+                <z>0</z>
+            </axis>
+        </animation>
+
+        <animation>
+            <type>rotate</type>
+            <object-name>shadow</object-name>
+            <property>orientation/roll-deg</property>
+            <axis>
+                <x>1</x>
+                <y>0</y>
+                <z>0</z>
+            </axis>
+        </animation>
+
+        <animation>
+            <type>translate</type>
+            <object-name>shadow</object-name>
+            <property>position/altitude-agl-ft</property>
+            <factor>0.3048</factor>
+            <axis>
+                <x>0</x>
+                <y>0</y>
+                <z>-1</z>
+            </axis>
+        </animation>
+
+    <animation>
+        <type>material</type>
+        <object-name>shadow</object-name>
+        <transparency>
+            <alpha-prop>rendering/scene/diffuse/blue</alpha-prop>
+            <factor>0.5</factor>
+            <offset>0</offset>
+        </transparency>
+    </animation>
+
+</PropertyList>

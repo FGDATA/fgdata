@@ -1,0 +1,411 @@
+<?xml version="1.0"?>
+<!--
+Author : Syd Adams
+Primus 2000 EICAS
+-->
+<PropertyList>
+
+<path>eicas.ac</path>
+
+   <panel>
+        <path>Aircraft/CitationX/Models/Instruments/EICAS/EICAS-panel.xml</path>
+        <bottom-left>
+            <x-m>0.003</x-m>
+            <y-m>-0.076</y-m>
+            <z-m>-0.077</z-m>
+        </bottom-left>
+        <bottom-right>
+            <x-m>0.003</x-m>
+            <y-m>0.076</y-m>
+            <z-m>-0.077</z-m>
+        </bottom-right>
+        <top-left>
+            <x-m>0.003</x-m>
+            <y-m>-0.076</y-m>
+            <z-m>0.106</z-m>
+        </top-left>
+    </panel>
+
+<animation>
+    <type>select</type>
+    <object-name>EICAS.norm</object-name>
+    <object-name>Flapneedle</object-name>
+    <object-name>STABneedle</object-name>
+    <object-name>LH-N1</object-name>
+    <object-name>RH-N1</object-name>
+    <object-name>LH-ITT</object-name>
+    <object-name>RH-ITT</object-name>
+    <object-name>oiltemp.001</object-name>
+    <object-name>oiltemp.002</object-name>
+    <object-name>oilpsi.001</object-name>
+    <object-name>oilpsi.002</object-name>
+            <condition>
+                <and>
+                    <property>instrumentation/primus1000/eicas/serviceable</property>
+                    <greater-than>
+                        <property>systems/electrical/outputs/efis</property>
+                        <value>15</value>
+                    </greater-than>
+                </and>
+            </condition>
+</animation>
+
+
+<animation>
+    <type>select</type>
+    <object-name>gear0.annun</object-name>
+    <condition>
+        <and>
+            <equals>
+            <property>gear/gear[0]/position-norm</property>
+            <value>1.0</value>
+            </equals>
+            <greater-than>
+                <property>systems/electrical/outputs/efis</property>
+                <value>15</value>
+            </greater-than>
+        </and>
+    </condition>
+</animation>
+
+<animation>
+    <type>select</type>
+    <object-name>gear1.annun</object-name>
+    <condition>
+        <and>
+            <equals>
+                <property>gear/gear[1]/position-norm</property>
+                <value>1.0</value>
+            </equals>
+            <greater-than>
+                <property>systems/electrical/outputs/efis</property>
+                <value>15</value>
+            </greater-than>
+        </and>
+    </condition>
+</animation>
+
+<animation>
+    <type>select</type>
+    <object-name>gear2.annun</object-name>
+    <condition>
+        <and>
+            <equals>
+                <property>gear/gear[2]/position-norm</property>
+                <value>1.0</value>
+            </equals>
+            <greater-than>
+                <property>systems/electrical/outputs/efis</property>
+                <value>15</value>
+            </greater-than>
+        </and>
+    </condition>
+</animation>
+
+<animation>
+    <type>rotate</type>
+    <object-name>Flapneedle</object-name>
+    <property>surface-positions/flap-pos-norm</property>
+    <interpolation>
+        <entry>
+            <ind>0.0</ind><dep>0.0</dep>
+        </entry>
+        <entry>
+            <ind>1.0</ind><dep>70.0</dep>
+        </entry>
+    </interpolation>
+    <center>
+        <x-m>0.003</x-m>
+        <y-m>-0.070</y-m>
+        <z-m>-0.042</z-m>
+    </center>
+    <axis>
+        <x>-1.0</x>
+        <y>0</y>
+        <z>0.0</z>
+    </axis>
+</animation>
+
+<animation>
+    <type>rotate</type>
+    <object-name>STABneedle</object-name>
+    <property>controls/flight/elevator-trim</property>
+    <interpolation>
+        <entry>
+            <ind>-1.0</ind><dep>0.0</dep>
+        </entry>
+        <entry>
+            <ind>1.0</ind><dep>180.0</dep>
+        </entry>
+    </interpolation>
+    <center>
+        <x-m>0.003</x-m>
+        <y-m>-0.051</y-m>
+        <z-m>-0.011</z-m>
+    </center>
+    <axis>
+        <x>-1.0</x>
+        <y>0</y>
+        <z>0.0</z>
+    </axis>
+</animation>
+ 
+<animation>
+    <type>translate</type>
+    <object-name>oiltemp.001</object-name>
+    <property>engines/engine[0]/oilt-norm</property>
+    <interpolation>
+        <entry>
+            <ind>0.0</ind><dep>0.0</dep>
+        </entry>
+        <entry>
+            <ind>1.0</ind><dep>0.020</dep>
+        </entry>
+    </interpolation>
+    <axis>
+        <x>0.0</x>
+        <y>0.0</y>
+        <z>1.0</z>
+    </axis>
+</animation>
+
+<animation>
+    <type>textranslate</type>
+    <object-name>oiltemp.001</object-name>
+    <property>engines/engine[0]/oilt-norm</property>
+    <interpolation>
+        <entry>
+            <ind>0.0</ind><dep>0.0</dep>
+        </entry>
+        <entry>
+            <ind>1.0</ind><dep>0.0812</dep>
+        </entry>
+    </interpolation>
+    <axis>
+        <x>0.0</x>
+        <y>1.0</y>
+        <z>0.0</z>
+    </axis>
+</animation>
+
+<animation>
+    <type>translate</type>
+    <object-name>oiltemp.002</object-name>
+    <property>engines/engine[1]/oilt-norm</property>
+    <interpolation>
+        <entry>
+            <ind>0.0</ind><dep>0.0</dep>
+        </entry>
+        <entry>
+            <ind>1.0</ind><dep>0.020</dep>
+        </entry>
+    </interpolation>
+    <axis>
+        <x>0.0</x>
+        <y>0.0</y>
+        <z>1.0</z>
+    </axis>
+</animation>
+
+<animation>
+    <type>textranslate</type>
+    <object-name>oiltemp.002</object-name>
+    <property>engines/engine[1]/oilt-norm</property>
+    <interpolation>
+        <entry>
+            <ind>0.0</ind><dep>0.0</dep>
+        </entry>
+        <entry>
+            <ind>1.0</ind><dep>0.0812</dep>
+        </entry>
+    </interpolation>
+    <axis>
+        <x>0.0</x>
+        <y>1.0</y>
+        <z>0.0</z>
+    </axis>
+</animation>
+
+<animation>
+    <type>translate</type>
+    <object-name>oilpsi.001</object-name>
+    <property>engines/engine[0]/oilp-norm</property>
+    <interpolation>
+        <entry>
+            <ind>0.0</ind><dep>0.0</dep>
+        </entry>
+        <entry>
+            <ind>1.0</ind><dep>0.0190</dep>
+        </entry>
+    </interpolation>
+    <axis>
+        <x>0.0</x>
+        <y>0.0</y>
+        <z>1.0</z>
+    </axis>
+</animation>
+
+<animation>
+    <type>textranslate</type>
+    <object-name>oilpsi.001</object-name>
+    <property>engines/engine[0]/oilt-norm</property>
+    <interpolation>
+        <entry>
+            <ind>0.0</ind><dep>0.0</dep>
+        </entry>
+        <entry>
+            <ind>1.0</ind><dep>0.0781</dep>
+        </entry>
+    </interpolation>
+    <axis>
+        <x>0.0</x>
+        <y>1.0</y>
+        <z>0.0</z>
+    </axis>
+</animation>
+
+<animation>
+    <type>translate</type>
+    <object-name>oilpsi.002</object-name>
+    <property>engines/engine[1]/oilp-norm</property>
+    <interpolation>
+        <entry>
+            <ind>0.0</ind><dep>0.0</dep>
+        </entry>
+        <entry>
+            <ind>1.0</ind><dep>0.0190</dep>
+        </entry>
+    </interpolation>
+    <axis>
+        <x>0.0</x>
+        <y>0.0</y>
+        <z>1.0</z>
+    </axis>
+</animation>
+
+<animation>
+    <type>textranslate</type>
+    <object-name>oilpsi.002</object-name>
+    <property>engines/engine[1]/oilt-norm</property>
+    <interpolation>
+        <entry>
+            <ind>0.0</ind><dep>0.0</dep>
+        </entry>
+        <entry>
+            <ind>1.0</ind><dep>0.0781</dep>
+        </entry>
+    </interpolation>
+    <axis>
+        <x>0.0</x>
+        <y>1.0</y>
+        <z>0.0</z>
+    </axis>
+</animation>
+
+<animation>
+    <type>textranslate</type>
+    <object-name>LH-N1</object-name>
+    <property>engines/engine[0]/fan</property>
+    <interpolation>
+        <entry>
+            <ind>0.0</ind><dep>0.0</dep>
+        </entry>
+        <entry>
+            <ind>30.0</ind><dep>-0.0031</dep>
+        </entry>
+        <entry>
+            <ind>50.0</ind><dep>-0.0547</dep>
+        </entry>
+        <entry>
+            <ind>90.0</ind><dep>-0.1550</dep>
+        </entry>
+        <entry>
+            <ind>110.0</ind><dep>-0.2537</dep>
+        </entry>
+    </interpolation>
+    <axis>
+        <x>0.0</x>
+        <y>1.0</y>
+        <z>0.0</z>
+    </axis>
+</animation>
+
+<animation>
+    <type>textranslate</type>
+    <object-name>RH-N1</object-name>
+    <property>engines/engine[1]/fan</property>
+    <interpolation>
+        <entry>
+            <ind>0.0</ind><dep>0.0</dep>
+        </entry>
+        <entry>
+            <ind>30.0</ind><dep>-0.0031</dep>
+        </entry>
+        <entry>
+            <ind>50.0</ind><dep>-0.0547</dep>
+        </entry>
+        <entry>
+            <ind>90.0</ind><dep>-0.1550</dep>
+        </entry>
+        <entry>
+            <ind>110.0</ind><dep>-0.2537</dep>
+        </entry>
+    </interpolation>
+    <axis>
+        <x>0.0</x>
+        <y>1.0</y>
+        <z>0.0</z>
+    </axis>
+</animation>
+
+<animation>
+    <type>textranslate</type>
+    <object-name>RH-ITT</object-name>
+    <property>engines/engine[1]/itt-celcius</property>
+    <interpolation>
+        <entry>
+            <ind>0.0</ind><dep>0.0</dep>
+        </entry>
+        <entry>
+            <ind>100.0</ind><dep>0.0</dep>
+        </entry>
+        <entry>
+            <ind>800.0</ind><dep>0.1362</dep>
+        </entry>
+        <entry>
+            <ind>925</ind><dep>0.2350</dep>
+        </entry>
+    </interpolation>
+    <axis>
+        <x>0.0</x>
+        <y>-1.0</y>
+        <z>0.0</z>
+    </axis>
+</animation>
+
+<animation>
+    <type>textranslate</type>
+    <object-name>LH-ITT</object-name>
+    <property>engines/engine[0]/itt-celcius</property>
+    <interpolation>
+        <entry>
+            <ind>0.0</ind><dep>0.0</dep>
+        </entry>
+        <entry>
+            <ind>100.0</ind><dep>0.0</dep>
+        </entry>
+        <entry>
+            <ind>800.0</ind><dep>0.1362</dep>
+        </entry>
+        <entry>
+            <ind>925</ind><dep>0.2350</dep>
+        </entry>
+    </interpolation>
+    <axis>
+        <x>0.0</x>
+        <y>-1.0</y>
+        <z>0.0</z>
+    </axis>
+</animation>
+
+</PropertyList>

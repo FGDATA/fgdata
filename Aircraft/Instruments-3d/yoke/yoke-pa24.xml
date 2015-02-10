@@ -1,0 +1,66 @@
+<?xml version="1.0" ?> 
+  <PropertyList> 
+    <path>Yoke-pa24.ac</path> 
+
+ <animation>
+  <type>select</type>
+  <group-name>Yoke-pa24</group-name>
+  <condition>
+   <not>
+    <property>sim/model/hide-yoke</property>
+   </not>
+  </condition>
+ </animation>
+
+ <animation>
+  <type>material</type>
+  <object-name>emblem</object-name>
+  <emission>
+   <red>0.2</red>
+   <green>0.04</green>
+   <blue>0.00002</blue>
+   <factor-prop>sim/model/material/instruments/factor</factor-prop>
+  </emission>
+ </animation>
+
+ <animation>
+  <type>material</type>
+  <object-name>shaft</object-name>
+  <object-name>Yoke-pa24</object-name>
+  <emission>
+   <red>0.025</red>
+   <green>0.01</green>
+   <blue>0.0000025</blue>
+   <factor-prop>sim/model/material/instruments/factor</factor-prop>
+  </emission>
+ </animation>
+
+ <animation>
+  <type>translate</type>
+  <group-name>Yoke-pa24</group-name>
+  <property>controls/flight/elevator_in</property>
+  <factor>-0.09</factor>
+  <axis>
+   <x>1.0</x>
+   <y>0.0</y>
+   <z>0.0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <group-name>Yoke-pa24</group-name>
+  <property>controls/flight/aileron_in</property>
+  <factor>-80.0</factor>
+  <axis>
+   <x>1.0</x>
+   <y>0.0</y>
+   <z>0.0</z>
+  </axis>
+  <center>
+   <x-m>0</x-m>
+   <y-m>0</y-m>
+   <z-m>0</z-m>
+  </center>
+ </animation>
+</PropertyList>

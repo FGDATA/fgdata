@@ -1,0 +1,176 @@
+<?xml version="1.0"?>
+<!-- KI 206 
+Bendix/King VOR / LOC / Glideslope Indicator
+Syd Adams
+Anders Gidenstam (pick animations) 
+-->
+<PropertyList>
+
+ <path>Aircraft/Instruments-3d/ki206/ki206.ac</path>
+ <texture-path>Aircraft/Instruments-3d/ki206/</texture-path>
+ <animation>
+  <type>material</type>
+  <object-name>KI206.gsflag</object-name>
+  <object-name>KI206.toflag</object-name>
+  <object-name>KI206.fromflag</object-name>
+  <object-name>KI206.navflag</object-name>
+  <object-name>KI206.face</object-name>
+  <object-name>KI206card</object-name>
+  <object-name>KI206.locneedle</object-name>
+  <object-name>KI206.gsneedle</object-name>
+  <object-name>KI206.knob</object-name>
+  <emission>
+   <red>0.8</red>
+   <green>0.4</green>
+   <blue>0.2</blue>
+   <factor-prop>/systems/electrical/outputs/instrument-lights</factor-prop>
+  </emission>
+ </animation>
+
+ <animation>
+  <type>select</type>
+  <object-name>KI206.navflag</object-name>
+  <condition>
+   <or>
+    <not>
+     <property>instrumentation/nav[0]/data-is-valid</property>
+    </not>
+    <less-than>	
+     <property>systems/electrical/outputs/nav[0]</property>
+     <value>0.1</value>	
+    </less-than>		
+    <not>
+     <property>instrumentation/nav[0]/in-range</property>
+    </not>
+   </or>
+  </condition>
+ </animation>
+	
+ <animation>
+  <type>select</type>
+  <object-name>KI206.gsflag</object-name>
+  <condition>
+   <or>
+    <not>
+     <property>instrumentation/nav[0]/has-gs</property>
+    </not>
+    <less-than>	
+     <property>systems/electrical/outputs/nav[0]</property>
+     <value>0.1</value>	
+    </less-than>
+    <greater-than>
+     <property>instrumentation/nav[0]/in-range</property>
+     <value>30000</value>
+    </greater-than>
+   </or>
+  </condition>
+ </animation>
+
+ <animation>
+  <type>select</type>
+  <object-name>KI206.toflag</object-name>
+  <condition>
+   <property>instrumentation/nav[0]/to-flag</property>
+  </condition>
+ </animation>
+
+ <animation>
+  <type>select</type>
+  <object-name>KI206.fromflag</object-name>
+  <condition>
+   <property>instrumentation/nav[0]/from-flag</property>
+  </condition>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>KI206card</object-name>
+  <property>instrumentation/nav[0]/radials/selected-deg</property>
+  <axis>
+   <x>1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>translate</type>
+  <object-name>KI206.locneedle</object-name>
+  <property>instrumentation/nav[0]/heading-needle-deflection</property>
+  <interpolation>
+   <entry><ind>-10.0</ind><dep>-0.0113</dep></entry>
+   <entry><ind>0.0</ind><dep>0.0</dep></entry>
+   <entry><ind>10.0</ind><dep>0.0113</dep></entry>
+  </interpolation>
+  <axis>
+   <x>0.0</x>
+   <y>1.0</y>
+   <z>0.0</z>
+  </axis>
+ </animation>
+ 
+ <animation>
+  <type>translate</type>
+  <object-name>KI206.gsneedle</object-name>
+  <property>instrumentation/nav[0]/gs-needle-deflection</property>
+  <interpolation>
+   <entry><ind>-9999.0</ind><dep>-0.0113</dep></entry>
+   <entry><ind>-10.0</ind><dep>-0.0113</dep></entry>
+   <entry><ind>0.0</ind><dep>0.0</dep></entry>
+   <entry><ind>10.0</ind><dep>0.0113</dep></entry>
+   <entry><ind>9999.0</ind><dep>0.0113</dep></entry>
+  </interpolation>
+  <axis>
+   <x>0.0</x>
+   <y>0.0</y>
+   <z>1.0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>pick</type>
+  <object-name>KI206.knob</object-name>
+  <visible>true</visible>
+  <action>
+   <name>click</name>
+   <button>0</button>
+   <repeatable>true</repeatable>
+   <interval-sec>0.1</interval-sec>
+   <binding>
+    <command>nasal</command>
+    <script>KI206.adjust_radial(0, 1.0);</script>
+   </binding>
+  </action>
+  <action>
+   <name>click</name>
+   <button>1</button>
+   <repeatable>true</repeatable>
+   <interval-sec>0.1</interval-sec>
+   <binding>
+    <command>nasal</command>
+    <script>KI206.adjust_radial(0, -1.0);</script>
+   </binding>
+  </action>
+  <action>
+   <name>click</name>
+   <button>3</button>
+   <repeatable>false</repeatable>
+   <interval-sec>0.1</interval-sec>
+   <binding>
+    <command>nasal</command>
+    <script>KI206.adjust_radial(0, -1.0);</script>
+   </binding>
+  </action>
+  <action>
+   <name>click</name>
+   <button>4</button>
+   <repeatable>false</repeatable>
+   <interval-sec>0.1</interval-sec>
+   <binding>
+    <command>nasal</command>
+    <script>KI206.adjust_radial(0, 1.0);</script>
+   </binding>
+  </action>
+ </animation>
+
+</PropertyList>

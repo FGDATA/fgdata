@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+ <path>asi-260-knot.ac</path>
+
+ <animation>
+  <type>range</type>
+  <min-m>0</min-m>
+  <max-m>3</max-m>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>Needle</object-name>
+  <property>/velocities/airspeed-kt</property>
+  <interpolation>
+  <entry><ind>  10</ind><dep>    3</dep></entry>
+  <entry><ind>  40</ind><dep>   13</dep></entry>
+  <entry><ind>  60</ind><dep>   35</dep></entry>
+  <entry><ind>  80</ind><dep>   63</dep></entry>
+  <entry><ind> 100</ind><dep>   93</dep></entry>
+  <entry><ind> 120</ind><dep>  125</dep></entry>
+  <entry><ind> 140</ind><dep>  163</dep></entry>
+  <entry><ind> 160</ind><dep>  195</dep></entry>
+  <entry><ind> 180</ind><dep>  225</dep></entry>
+  <entry><ind> 200</ind><dep>  252</dep></entry>
+  <entry><ind> 230</ind><dep>  295</dep></entry>
+  <entry><ind> 260</ind><dep>  340</dep></entry>
+  </interpolation>
+  <axis>
+   <x>-1.0</x>
+  </axis>
+ </animation>
+
+</PropertyList>

@@ -1,0 +1,166 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<name>tutorial</name>
+	<layout>vbox</layout>
+	<resizable>true</resizable>
+	<default-padding>3</default-padding>
+
+	<group>
+		<layout>hbox</layout>
+		<default-padding>1</default-padding>
+
+		<empty><stretch>true</stretch></empty>
+
+		<text>
+			<label>Select Tutorial</label>
+		</text>
+
+		<empty><stretch>true</stretch></empty>
+
+		<button>
+			<legend></legend>
+			<key>Esc</key>
+			<pref-width>16</pref-width>
+			<pref-height>16</pref-height>
+			<border>2</border>
+			<binding>
+				<command>dialog-close</command>
+			</binding>
+		</button>
+	</group>
+
+	<hrule/>
+
+	<nasal>
+		<open>
+			var list = cmdarg().getNode("group[2]/group/list");
+			var node = props.globals.getNode("/sim/tutorials", 1);
+			var tut = node.getChildren("tutorial");
+			var current = node.getNode("current-tutorial", 1);
+
+			# fill listbox
+			list.removeChildren("value");
+			forindex (var i; tut) {
+				var name = tut[i].getNode("name");
+				if (name == nil) {
+					die("tutorial #" ~ i ~ " has no &lt;name>");
+				}
+				name = name.getValue();
+				list.getChild("value", i, 1).setValue(name);
+			}
+
+			var select = func {
+				var name = current.getValue();
+				foreach (var t; tut) {
+					if (t.getNode("name").getValue() == name) {
+						setprop("/sim/tutorials/current-description",
+							string.trim(t.getNode("description").getValue()));
+						break;
+					}
+				}
+				fgcommand("dialog-update", props.Node.new({"object-name": "textbox",
+						"dialog-name": "tutorial"}));
+			}
+
+			if (current.getType() == "NONE" or current.getValue() == "") {
+				current.setValue(tut[0].getNode("name").getValue());
+				select();
+			}
+		</open>
+	</nasal>
+
+	<group>
+		<layout>hbox</layout>
+		<default-padding>0</default-padding>
+		<empty><pref-width>7</pref-width></empty>
+
+		<text>
+			<halign>left</halign>
+			<label></label>
+			<property>/sim/tutorials/current-tutorial</property>
+			<live>1</live>
+		</text>
+
+		<empty><stretch>true</stretch></empty>
+	</group>
+
+	<group>
+		<layout>hbox</layout>
+		<valign>fill</valign>
+		<stretch>true</stretch>
+
+		<textbox>
+			<name>textbox</name>
+			<halign>fill</halign>
+			<valign>fill</valign>
+			<stretch>true</stretch>
+			<pref-width>600</pref-width>
+			<pref-height>480</pref-height>
+			<slider>20</slider>
+			<wrap>true</wrap>
+			<editable>false</editable>
+			<live>1</live>
+			<property>/sim/tutorials/current-description</property>
+		</textbox>
+
+		<group>
+			<layout>vbox</layout>
+
+			<list>
+				<name>list</name>
+				<halign>fill</halign>
+				<valign>fill</valign>
+				<stretch>true</stretch>
+				<pref-width>170</pref-width>
+				<pref-height>400</pref-height>
+				<property>/sim/tutorials/current-tutorial</property>
+				<binding>
+					<command>dialog-apply</command>
+					<object-name>list</object-name>
+				</binding>
+				<binding>
+					<command>nasal</command>
+					<script>select()</script>
+				</binding>
+			</list>
+
+			<button>
+				<legend>Start Tutorial</legend>
+				<equal>true</equal>
+				<default>true</default>
+				<binding>
+					<command>nasal</command>
+					<script>
+						setprop("/nasal/tutorial/enabled",1); # load module on demand
+						tutorial.startTutorial();
+					</script>
+				</binding>
+				<binding>
+					<command>dialog-close</command>
+				</binding>
+			</button>
+
+			<button>
+				<legend>Stop Tutorial</legend>
+				<equal>true</equal>
+				<binding>
+					<command>nasal</command>
+					<script>tutorial.stopTutorial()</script>
+				</binding>
+				<enable>
+					<property>/sim/tutorials/running</property>
+				</enable>
+			</button>
+
+			<button>
+				<legend>Cancel</legend>
+				<equal>true</equal>
+				<binding>
+					<command>dialog-close</command>
+				</binding>
+			</button>
+
+		</group>
+	</group>
+</PropertyList>

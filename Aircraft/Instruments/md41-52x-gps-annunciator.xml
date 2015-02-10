@@ -1,0 +1,350 @@
+<?xml version="1.0"?>
+
+<!--
+_______________________________________________________________________________
+MD41-52x series GPS annunciator for KLN89 (and similar) GPS units.
+
+Started 2005 by David Luff, daveluff@ntlworld.com.
+
+This is an instrument configuration file for the open-source flight
+simulator FlightGear (www.flightgear.org).  The file is an XML-encoded
+FlightGear property list defining the instrument's layers and actions.
+
+Each instrument is composed of layers stacked on top of each other.
+A layer may be a texture (with transparent parts to show the layers
+underneath), text, or a special layer that switches between two
+others (say, to turn an indicator light on or off).  Each layer can
+move independently in proportion to a property value, and text
+can be generated from property values as well: all of the layer's
+movements are defined as transformations.
+
+Actions are hotspots on the instrument that will respond to a mouse
+click.  Actions always modify the values of properties, either by
+adjusting them, toggling them, or swaping them with other
+properties' values.
+-->
+
+<PropertyList>
+ <name>MD41</name>
+ <w-base>256</w-base>
+ <h-base>256</h-base>
+
+<!-- Layers -->
+
+ <layers>
+
+  <layer>
+   <name>background</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/md41-52x-gps-annunciator.rgb</path>
+    <x1>0.0</x1>
+    <x2>0.6094</x2>
+    <y1>0.0</y1>
+    <y2>0.2383</y2>
+   </texture>
+   <w>156</w>
+   <h>62</h>
+  </layer>
+  
+  <layer>
+   <name>nav-annunciation</name>
+   <condition>
+    <or>
+     <not>
+      <property>/instrumentation/nav[0]/slaved-to-gps</property>
+     </not>
+     <property>/instrumentation/gps-annunciator/lamp-test</property>
+    </or>
+   </condition>
+   <texture>
+    <path>Aircraft/Instruments/Textures/md41-52x-gps-annunciator.rgb</path>
+    <x1>0.6211</x1>
+    <x2>0.7109</x2>
+    <y1>0.0742</y1>
+    <y2>0.1172</y2>
+   </texture>
+  <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-45</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>18</offset>
+    </transformation>
+   </transformations>
+   <w>23</w>
+   <h>11</h>
+  </layer>
+  
+  <layer>
+   <name>gps-annunciation</name>
+    <condition>
+     <or>
+      <property>/instrumentation/nav[0]/slaved-to-gps</property>
+      <property>/instrumentation/gps-annunciator/lamp-test</property>
+     </or>
+    </condition>
+   <texture>
+    <path>Aircraft/Instruments/Textures/md41-52x-gps-annunciator.rgb</path>
+    <x1>0.6211</x1>
+    <x2>0.7148</x2>
+    <y1>0.0234</y1>
+    <y2>0.0625</y2>
+   </texture>
+  <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-46</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>9</offset>
+    </transformation>
+   </transformations>
+   <w>23</w>
+   <h>11</h>
+  </layer>
+  
+  <layer>
+   <name>approach-arm-annunciation</name>
+    <condition>
+     <or>
+      <property>/instrumentation/gps/approach-arm</property>
+      <property>/instrumentation/gps-annunciator/lamp-test</property>
+     </or>
+    </condition>
+   <texture>
+    <path>Aircraft/Instruments/Textures/md41-52x-gps-annunciator.rgb</path>
+    <x1>0.6133</x1>
+    <x2>0.7148</x2>
+    <y1>0.1719</y1>
+    <y2>0.2188</y2>
+   </texture>
+  <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-16</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>18</offset>
+    </transformation>
+   </transformations>
+   <w>26</w>
+   <h>12</h>
+  </layer>
+  
+  <layer>
+   <name>approach-active-annunciation</name>
+    <condition>
+     <or>
+      <property>/instrumentation/gps/approach-active</property>
+      <property>/instrumentation/gps-annunciator/lamp-test</property>
+     </or>
+    </condition>
+   <texture>
+    <path>Aircraft/Instruments/Textures/md41-52x-gps-annunciator.rgb</path>
+    <x1>0.6094</x1>
+    <x2>0.7266</x2>
+    <y1>0.125</y1>
+    <y2>0.1719</y2>
+   </texture>
+  <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-15</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>9</offset>
+    </transformation>
+   </transformations>
+   <w>30</w>
+   <h>12</h>
+  </layer>
+  
+ <layer>
+   <name>obs-mode-annunciation</name>
+    <condition>
+     <or>
+      <property>/instrumentation/gps/obs-mode</property>
+      <property>/instrumentation/gps-annunciator/lamp-test</property>
+     </or>
+    </condition>
+   <texture>
+    <path>Aircraft/Instruments/Textures/md41-52x-gps-annunciator.rgb</path>
+    <x1>0.7383</x1>
+    <x2>0.8398</x2>
+    <y1>0.125</y1>
+    <y2>0.1680</y2>
+   </texture>
+  <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>15</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>19</offset>
+    </transformation>
+   </transformations>
+   <w>26</w>
+   <h>11</h>
+  </layer>
+
+ <layer>
+   <name>leg-mode-annunciation</name>
+    <condition>
+     <or>
+      <property>/instrumentation/gps/leg-mode</property>
+      <property>/instrumentation/gps-annunciator/lamp-test</property>
+     </or>
+    </condition>
+   <texture>
+    <path>Aircraft/Instruments/Textures/md41-52x-gps-annunciator.rgb</path>
+    <x1>0.7383</x1>
+    <x2>0.8398</x2>
+    <y1>0.0742</y1>
+    <y2>0.1172</y2>
+   </texture>
+  <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>15</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>10</offset>
+    </transformation>
+   </transformations>
+   <w>26</w>
+   <h>11</h>
+  </layer>
+  
+  <layer>
+   <name>message-alert-annunciation</name>
+    <condition>
+     <or>
+      <property>/instrumentation/gps/message-alert</property>
+      <property>/instrumentation/gps-annunciator/lamp-test</property>
+     </or>
+    </condition>
+   <texture>
+    <path>Aircraft/Instruments/Textures/md41-52x-gps-annunciator.rgb</path>
+    <x1>0.7383</x1>
+    <x2>0.8398</x2>
+    <y1>0.1758</y1>
+    <y2>0.2188</y2>
+   </texture>
+  <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>45</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>19</offset>
+    </transformation>
+   </transformations>
+   <w>26</w>
+   <h>11</h>
+  </layer>
+  
+ <layer>
+   <name>waypoint-alert-annunciation</name>
+    <condition>
+     <or>
+      <property>/instrumentation/gps/waypoint-alert</property>
+      <property>/instrumentation/gps-annunciator/lamp-test</property>
+     </or>
+    </condition>
+   <texture>
+    <path>Aircraft/Instruments/Textures/md41-52x-gps-annunciator.rgb</path>
+    <x1>0.7383</x1>
+    <x2>0.8398</x2>
+    <y1>0.0234</y1>
+    <y2>0.0664</y2>
+   </texture>
+  <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>45</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>10</offset>
+    </transformation>
+   </transformations>
+   <w>26</w>
+   <h>11</h>
+  </layer>
+
+ </layers>
+
+<!-- Actions -->
+
+ <actions>
+
+  <action>
+   <name>NAV-GPS Button</name>
+   <button>0</button>
+   <x>-57</x>
+   <y>-25</y>
+   <w>22</w>
+   <h>22</h>
+   <binding>
+    <command>property-toggle</command>
+	<property>/instrumentation/nav[0]/slaved-to-gps</property>
+   </binding>
+  </action>
+  
+  <action>
+   <name>GPS-APR Button</name>
+   <button>0</button>
+   <x>-26</x>
+   <y>-25</y>
+   <w>22</w>
+   <h>22</h>
+   <binding>
+    <command>kln89_gps_apr_pressed</command>
+   </binding>
+  </action>
+  
+  <action>
+   <name>OBS-LEG Button</name>
+   <button>0</button>
+   <x>3</x>
+   <y>-25</y>
+   <w>22</w>
+   <h>22</h>
+   <binding>
+    <command>kln89_obs_pressed</command>
+   </binding>
+  </action>
+
+  <action>
+   <name>Lamp-Test</name>
+   <button>0</button>
+   <x>60</x>
+   <y>-6</y>
+   <w>15</w>
+   <h>15</h>
+   <binding>
+    <command>property-assign</command>
+    <property>/instrumentation/gps-annunciator/lamp-test</property>
+    <value type="bool">true</value>
+    <repeatable type="bool">false</repeatable>
+   </binding>
+  <mod-up>
+    <binding>
+     <command>property-assign</command>
+     <property>/instrumentation/gps-annunciator/lamp-test</property>
+     <value type="bool">false</value>
+    </binding>
+   </mod-up>
+  </action>
+
+ </actions>
+
+</PropertyList>

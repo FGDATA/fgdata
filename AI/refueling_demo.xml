@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+	<scenario>
+
+		<description>
+			The following scenario puts an aerial tanker in orbit over
+			KSFO at 3000 ft AGL. The tanker uses the 737 model,
+			but you can use any model (a KC-135 model can be
+			found at:
+			http://home.comcast.net/~davidculp2/hangar/hangar.html).
+			The center of the orbit is actually west of KSFO, and the
+			eastern edge of the orbit passes over the airport.  Note
+			that AI aircraft do not react to wind, therefore your speed
+			and bank angle will have to vary along the orbit since
+			your "user" aircraft *does* react to the wind.
+
+			I recommend using the T-38 as your airplane for four
+			reasons: (1) it has a radar screen which may be needed
+			to find the tanker;  (2) it has the speed to catch the
+			tanker; (3) it uses a JSBSim FDM, which means it can
+			onload fuel; (4) it has a green light added to the
+			instrument panel, between the fuel gauges, which comes
+			on when you are in the refueling envelope.
+
+			Right now the air refueling envelope is very loose, and I
+			plan on tightening it up in the future.  Currently no
+			aerodynamic effects of refueling are modeled
+			(i.e downwash, bow wave, vortices).
+
+			Dave Culp,  davidculp2 at comcast.net
+		</description>
+
+		<entry>
+			<name>Tanker-1</name>
+			<callsign>ESSO2</callsign>
+			<type>tanker</type>
+			<class>tanker</class>
+			<TACAN-channel-ID>041X</TACAN-channel-ID>
+			<model>Models/Geometry/KC135/KC135.xml</model>
+			<latitude>37.61633</latitude>
+			<longitude>-122.38334</longitude>
+			<altitude>3000</altitude>
+			<heading>020</heading>
+			<speed>280</speed>
+			<roll>-15</roll>
+		</entry>
+
+		<entry>
+			<name>Wingman-Tanking</name>
+			<type>wingman</type>
+			<model>AI/Aircraft/f16/Models/f16-Wingman.xml</model>
+			<life>-1</life>
+			<repeat>false</repeat>
+			<count>1</count>
+			<x-offset>-74.65</x-offset>
+			<y-offset>0</y-offset>
+			<z-offset>-18.3</z-offset>
+			<yaw-offset>0</yaw-offset>
+			<pitch-offset>0</pitch-offset>
+			<roll-offset>0</roll-offset>
+			<formate>true</formate>
+			<parent>Tanker-1</parent>
+		</entry>
+
+	</scenario>
+
+</PropertyList>

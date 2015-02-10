@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<name>devel-extensions</name>
+	<modal>false</modal>
+	<layout>vbox</layout>
+
+	<text>
+		<label>Configure Development Extensions</label>
+	</text>
+
+	<hrule/>
+
+	<group>
+		<layout>vbox</layout>
+		<halign>center</halign>
+
+		<checkbox>
+			<halign>left</halign>
+			<label>Enable development dialog widgets (HUD and rendering dialog)</label>
+			<property>/sim/gui/devel-widgets</property>
+			<binding>
+				<command>dialog-apply</command>
+			</binding>
+		</checkbox>
+
+		<checkbox>
+			<halign>left</halign>
+			<label>Enable '/'-key property handler (see $FG_ROOT/Nasal/prop_key_handler.nas)</label>
+			<property>/sim/input/property-key-handler</property>
+			<binding>
+				<command>dialog-apply</command>
+			</binding>
+		</checkbox>
+	</group>
+	<button>
+		<legend>New Canvas Map</legend>
+		<binding>
+			<command>nasal</command>
+			<script>canvas.MapStructure_selfTest();</script>
+		</binding>
+	</button>
+
+	<button>
+		<legend>Close</legend>
+		<default>true</default>
+		<key>Esc</key>
+		<binding>
+			<command>dialog-apply</command>
+		</binding>
+		<binding>
+			<command>dialog-close</command>
+		</binding>
+	</button>
+</PropertyList>

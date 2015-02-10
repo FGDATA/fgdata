@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<PropertyList>
+
+  <path>tank.ac</path>
+
+  <animation>
+    <object-name>tank</object-name>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>tank</object-name>
+    <condition>
+      <not>
+        <property>sim/model/hide-cargo</property>
+      </not>
+    </condition>
+  </animation>
+
+</PropertyList>
+

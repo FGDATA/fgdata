@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PropertyList>
+	<name>Effects/ambient</name>
+	<parameters>
+		<ambient-occlusion type="bool"><use>/sim/rendering/rembrandt/ambient-occlusion</use></ambient-occlusion>
+		<ambient-occlusion-strength type="float"><use>/sim/rendering/rembrandt/ambient-occlusion-strength</use></ambient-occlusion-strength>
+	</parameters>
+	<technique n="11">
+		<pass>
+			<lighting>false</lighting>
+			<depth>
+				<enabled>false</enabled>
+			</depth>
+			<render-bin>
+				<bin-number>0</bin-number>
+				<bin-name>RenderBin</bin-name>
+			</render-bin>
+			<texture-unit>
+				<unit>0</unit>
+				<type>buffer</type>
+				<name>depth</name>
+			</texture-unit>
+			<texture-unit>
+				<unit>1</unit>
+				<type>buffer</type>
+				<name>normal</name>
+			</texture-unit>
+			<texture-unit>
+				<unit>2</unit>
+				<type>buffer</type>
+				<name>diffuse</name>
+			</texture-unit>
+			<texture-unit>
+				<unit>3</unit>
+				<type>buffer</type>
+				<name>spec-emis</name>
+			</texture-unit>
+			<texture-unit>
+				<unit>4</unit>
+				<type>buffer</type>
+				<name>ao-3</name>
+			</texture-unit>
+			<program>
+				<vertex-shader>Shaders/fullscreen.vert</vertex-shader>
+				<fragment-shader>Shaders/ambient.frag</fragment-shader>
+			</program>
+			<uniform>
+				<name>depth_tex</name>
+				<type>sampler-2d</type>
+				<value type="int">0</value>
+			</uniform>
+			<uniform>
+				<name>normal_tex</name>
+				<type>sampler-2d</type>
+				<value type="int">1</value>
+			</uniform>
+			<uniform>
+				<name>color_tex</name>
+				<type>sampler-2d</type>
+				<value type="int">2</value>
+			</uniform>
+			<uniform>
+				<name>spec_emis_tex</name>
+				<type>sampler-2d</type>
+				<value type="int">3</value>
+			</uniform>
+			<uniform>
+				<name>ao_tex</name>
+				<type>sampler-2d</type>
+				<value type="int">4</value>
+			</uniform>
+			<uniform>
+				<name>ambientOcclusion</name>
+				<type>bool</type>
+				<value><use>ambient-occlusion</use></value>
+			</uniform>
+			<uniform>
+				<name>ambientOcclusionStrength</name>
+				<type>float</type>
+				<value><use>ambient-occlusion-strength</use></value>
+			</uniform>
+			<!-- The following uniforms are automatically defined and initialized :
+				- fg_SunAmbientColor
+				- fg_SunDiffuseColor
+				- fg_SunSpecularColor
+				- fg_SunDirection
+				- fg_ProjectionMatrixInverse
+				- fg_ViewMatrixInverse
+				- fg_ViewMatrix
+				- fg_Planes
+			-->
+		</pass>
+	</technique>
+</PropertyList>

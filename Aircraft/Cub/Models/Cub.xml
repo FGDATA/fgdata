@@ -1,0 +1,750 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+ <path>Cub.ac</path>
+
+<!-- Register transparent objects for Rembrandt effects -->
+ <effect>
+   <inherits-from>Effects/model-transparent</inherits-from>
+   <object-name>screen</object-name>
+   <object-name>window_top</object-name>
+   <object-name>window_rear_l_0</object-name>
+   <object-name>window_rear_r_0</object-name>
+   <object-name>window_l_0</object-name>
+   <object-name>window_r_0</object-name>
+   <object-name>propeller_fast</object-name>
+   <object-name>propeller_slow</object-name>
+ </effect>
+   
+
+<!--  INSTRUMENTS  ***************************************************  -->
+
+ <!-- panel models -->
+ <model>
+  <path>Aircraft/Cub/Models/alt.xml</path>
+  <offsets>
+   <x-m>-0.172</x-m>
+   <y-m> 0.095</y-m>
+   <z-m>-0.46</z-m>
+  </offsets>
+ </model>
+
+ <model>
+  <path>Aircraft/Cub/Models/compass.xml</path>
+  <offsets>
+   <x-m>-0.165</x-m>
+   <y-m> 0.0</y-m>
+   <z-m>-0.45</z-m>
+  </offsets>
+ </model>
+
+ <model>
+  <path>Aircraft/Cub/Models/asi.xml</path>
+  <offsets>
+   <x-m>-0.172</x-m>
+   <y-m> -0.095</y-m>
+   <z-m>-0.46</z-m>
+  </offsets>
+ </model>
+
+ <model>
+  <path>Aircraft/Cub/Models/tach.xml</path>
+  <offsets>
+   <x-m>-0.172</x-m>
+   <y-m> -0.19</y-m>
+   <z-m>-0.46</z-m>
+  </offsets>
+ </model>
+
+ <model>
+  <path>Aircraft/Cub/Models/oil.xml</path>
+  <offsets>
+   <x-m>-0.172</x-m>
+   <y-m> 0.19</y-m>
+   <z-m>-0.46</z-m>
+  </offsets>
+ </model>
+
+<!--  fuel gauge: the stick in front of windscreen  -->
+  
+ <animation>
+        <type>translate</type>
+        <object-name>fuel_gauge</object-name>
+        <property>consumables/fuel/total-fuel-gals</property>
+        <factor>0.01</factor>
+     <center>
+        <x-m>-0.597</x-m>
+        <y-m>0.0</y-m>
+        <z-m>-0.185</z-m>
+    </center>        
+    <axis>
+         <x>0.0</x>
+         <y>0.0</y>
+         <z>1.0</z>
+       </axis>
+    </animation>
+
+ <!-- Despite being a single-sided mesh, the screen still seems opaque from
+     inside the aircraft, so we fudge it -->
+  <animation>
+    <type>select</type>
+    <object-name>screen</object-name>
+    <condition>
+      <not-equals>
+        <property>sim/current-view/view-number</property>
+        <value>0</value>
+      </not-equals>
+    </condition>
+  </animation>
+<!--  BASIC AIRCRAFT FEATURES  **********************************************************  -->
+
+<!-- propeller -->
+
+  <animation>
+    <type>select</type>
+    <object-name>propeller</object-name>
+    <condition>
+      <less-than>
+        <property>engines/engine[0]/rpm</property>
+        <value>300</value>
+      </less-than>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>propeller_slow</object-name>
+    <condition>
+      <less-than>
+        <property>engines/engine/rpm</property>
+        <value>1500</value>
+      </less-than>
+      <greater-than>
+        <property>engines/engine[0]/rpm</property>
+        <value>200</value>
+      </greater-than>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>propeller_fast</object-name>
+    <condition>
+      <greater-than>
+        <property>engines/engine[0]/rpm</property>
+        <value>1500</value>
+      </greater-than>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>spin</type>
+    <object-name>propeller</object-name>
+    <object-name>propeller_slow</object-name>
+    <object-name>propeller_fast</object-name>
+    <property>engines/engine[0]/rpm</property>
+    <factor>-1</factor>
+    <center>
+   <x-m>-1.39</x-m>
+   <y-m>0</y-m>
+   <z-m>-0.508</z-m>
+  </center>
+   <axis>
+    <x>1.0</x>
+    <y>0.0</y>
+    <z>0.0</z>
+   </axis>
+  </animation>
+
+<!--  control surfaces   -->
+
+ <animation>
+  <type>rotate</type>
+  <object-name>aileron_l</object-name>
+  <property>surface-positions/left-aileron-pos-norm</property>
+  <factor>-18.0</factor>
+  <axis>
+    <x1-m>1.219</x1-m>
+    <y1-m>-2.350</y1-m>
+    <z1-m>0.059</z1-m>
+    <x2-m>1.219</x2-m>
+    <y2-m>-4.473</y2-m>
+    <z2-m>0.090</z2-m>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>aileron_r</object-name>
+  <property>surface-positions/right-aileron-pos-norm</property>
+  <factor>18.0</factor>
+  <axis>
+    <x1-m>1.219</x1-m>
+    <y1-m>2.324</y1-m>
+    <z1-m>0.061</z1-m>
+    <x2-m>1.219</x2-m>
+    <y2-m>4.438</y2-m>
+    <z2-m>0.095</z2-m>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>elevator</object-name>
+  <property>surface-positions/elevator-pos-norm</property>
+  <interpolation>
+   <entry>
+    <ind>-1</ind>
+    <dep>-29</dep>
+   </entry>
+   <entry>
+    <ind>1</ind>
+    <dep>34</dep>
+   </entry>
+  </interpolation>
+  <center>
+   <x-m>4.892</x-m>
+   <y-m>0.0</y-m>
+   <z-m>-0.198</z-m>
+  </center>
+  <axis>
+   <x>0.0</x>
+   <y>1.0</y>
+   <z>0.0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>rudder</object-name>
+  <property>surface-positions/rudder-pos-norm</property>
+  <factor>30.0</factor>
+  <center>
+   <x-m>4.895</x-m>
+   <y-m>0.0</y-m>
+   <z-m>0.29</z-m>
+  </center>
+  <axis>
+   <x>0.0</x>
+   <y>0.0</y>
+   <z>1.0</z>
+  </axis>
+</animation>
+
+<!-- gear  -->
+
+ <animation>
+        <name>LWheel</name>
+        <object-name>wheel_hub_l</object-name>
+        <object-name>tyre_l</object-name>
+  </animation>
+
+<animation>
+        <name>RWheel</name>
+        <object-name>wheel_hub_r</object-name>
+        <object-name>tyre_r</object-name>
+  </animation>
+
+ <animation>
+        <type>spin</type>
+        <object-name>LWheel</object-name>
+        <property>gear/gear[0]/rollspeed-ms</property>
+        <factor>15</factor>
+        <axis>
+            <x>0</x>
+            <y>-1</y>
+            <z>0</z>
+        </axis>
+        <center>
+            <x-m>0.030</x-m>
+            <y-m>-0.906</y-m>
+            <z-m>-1.599</z-m>
+        </center>
+    </animation>
+
+<animation>
+        <type>spin</type>
+        <object-name>RWheel</object-name>
+        <property>gear/gear[0]/rollspeed-ms</property>
+        <factor>15</factor>
+        <axis>
+            <x>0</x>
+            <y>-1</y>
+            <z>0</z>
+        </axis>
+         <center>
+            <x-m>0.030</x-m>
+            <y-m>0.906</y-m>
+            <z-m>-1.599</z-m>
+        </center>
+    </animation>
+
+<animation>
+      <type>rotate</type>
+      <object-name>tail_wheel</object-name>
+      <property>surface-positions/rudder-pos-norm</property>
+      <factor>20.0</factor>
+      <center>
+        <x-m>5.05</x-m>
+        <y-m>0.0</y-m>
+        <z-m>0.572</z-m>
+     </center>
+     <axis>
+       <x>0.0</x>
+       <y>0.0</y>
+       <z>1.0</z>
+    </axis>
+</animation>
+
+<!--  INTERNAL EFFECTS  *************************************************  -->
+
+ <!-- door and window  -->
+
+ <animation>
+  <type>rotate</type>
+  <object-name>door</object-name>
+  <property>controls/door[0]</property>
+  <factor>-130.0</factor>
+  <center>
+   <x-m>0.17</x-m>
+   <y-m>0.352</y-m>
+   <z-m>-0.823</z-m>
+  </center>
+  <axis>
+   <x>1.00</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+<animation>
+  <type>rotate</type>
+  <object-name>door_handle</object-name>
+  <property>controls/door[0]</property>
+  <factor>-130</factor>
+  <center>
+   <x-m>0.17</x-m>
+   <y-m>0.352</y-m>
+   <z-m>-0.823</z-m>
+  </center>
+  <axis>
+   <x>1.00</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+<animation>
+  <type>pick</type>
+  <object-name>door_handle</object-name>
+  <action>
+    <button>0</button>
+    <repeatable>false</repeatable>
+    <binding>
+      <command>nasal</command>
+      <script>
+       if(getprop("controls/door[0]") > 0) {
+         interpolate("controls/door[0]", 0, 1);
+       } else {
+         interpolate("controls/door[0]", 1, 1);
+       }
+      </script>
+    </binding>
+  </action>    
+</animation>
+
+<animation>
+  <type>rotate</type>
+  <object-name>door_handle</object-name>
+  <property>controls/door[0]</property>
+  <factor>90</factor>
+  <center>
+   <x-m>0.415</x-m>
+   <y-m>0.345</y-m>
+   <z-m>-0.521</z-m>
+  </center>
+  <axis>
+   <x>0</x>
+   <y>1.00</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+<animation>
+  <type>pick</type>
+  <object-name>FuelCutoff</object-name>
+  <action>
+    <button>0</button>
+    <repeatable>false</repeatable>
+    <binding>
+      <command>property-toggle</command>
+      <property>consumables/fuel/tank/selected</property>
+    </binding>
+  </action>    
+</animation>
+
+<animation>
+  <type>translate</type>
+  <object-name>FuelCutoff</object-name>
+  <property>consumables/fuel/tank/selected</property>
+  <factor>-0.06</factor>
+  <axis>
+   <x>1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+
+ <animation>
+  <type>rotate</type>
+  <object-name>window_r</object-name>
+  <property>controls/door[0]</property>
+  <factor>89</factor>
+  <center>
+   <x-m>0.55</x-m>
+   <y-m>0.352</y-m>
+   <z-m>-0.025</z-m>
+  </center>
+  <axis>
+   <x>1.00</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+<animation>
+  <type>rotate</type>
+  <object-name>trim_handle</object-name>
+  <property>controls/flight/elevator-trim</property>
+  <factor>500</factor>
+  <center>
+    <x-m>0.414</x-m>
+    <y-m>0.0</y-m>
+    <z-m>-0.804</z-m>
+  </center>
+  <axis>
+    <y>1</y>
+  </axis>
+</animation>
+
+
+<!-- pilot (and safety belts)  -->
+
+  <model>
+    <name>pilot</name>
+    <path>Aircraft/Cub/Models/Pilot/pilot.xml</path>
+    <offsets>
+      <x-m>0.617</x-m>
+      <y-m>0.0</y-m>
+      <z-m>-0.776</z-m>
+    </offsets>
+  </model>
+
+  <!--  animation>
+    <type>select</type>
+    <object-name>pilot</object-name>
+    <object-name>pilot_belt</object-name>
+    <condition>
+      <not-equals>
+        <property>sim/current-view/view-number</property>
+        <value>0</value>
+      </not-equals>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>copilot_belt</object-name>
+    <condition>
+      <not-equals>
+        <property>sim/current-view/name</property>
+        <value>Co-Pilot View</value>
+      </not-equals>
+    </condition>
+  </animation  -->
+
+<!-- joysticks  -->
+
+ <animation>
+  <type>rotate</type>
+  <object-name>stick_front</object-name>
+  <property>controls/flight/elevator</property>
+  <factor>-8</factor>
+  <center>
+   <x-m>-0.050</x-m>
+   <y-m>0.00</y-m>
+   <z-m>-1.135</z-m>
+  </center>
+  <axis>
+   <x>0.0</x>
+   <y>1.0</y>
+   <z>0.0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>stick_front</object-name>
+  <property>controls/flight/aileron</property>
+  <factor>-8</factor>
+  <center>
+   <x-m>-0.050</x-m>
+   <y-m>0.00</y-m>
+   <z-m>-1.135</z-m>
+  </center>
+  <axis>
+   <x>1.0</x>
+   <y>0.0</y>
+   <z>0.0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>stick_back</object-name>
+  <property>controls/flight/elevator</property>
+  <factor>-8</factor>
+  <center>
+   <x-m>0.655</x-m>
+   <y-m>0.00</y-m>
+   <z-m>-1.135</z-m>
+  </center>
+  <axis>
+   <x>0.0</x>
+   <y>1.0</y>
+   <z>0.0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>stick_back</object-name>
+  <property>controls/flight/aileron</property>
+  <factor>-8</factor>
+  <center>
+   <x-m>0.655</x-m>
+   <y-m>0.00</y-m>
+   <z-m>-1.135</z-m>
+  </center>
+  <axis>
+   <x>1.0</x>
+   <y>0.0</y>
+   <z>0.0</z>
+  </axis>
+ </animation>
+
+<!-- throttle    -->
+
+ <animation>
+  <type>rotate</type>
+  <object-name>throttle_front</object-name>
+  <property>controls/engines/engine/throttle</property>
+  <factor>36</factor>
+  <center>
+   <x-m>0.058</x-m>
+   <y-m>-0.332</y-m>
+   <z-m>-0.582</z-m>
+  </center>
+  <axis>
+   <x>0.0</x>
+   <y>-1.0</y>
+   <z>0.0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>throttle_back</object-name>
+  <property>controls/engines/engine/throttle</property>
+  <factor>36</factor>
+  <center>
+   <x-m>0.718</x-m>
+   <y-m>-0.332</y-m>
+   <z-m>-0.582</z-m>
+  </center>
+  <axis>
+   <x>0.0</x>
+   <y>-1.0</y>
+   <z>0.0</z>
+  </axis>
+ </animation>
+
+<!-- rudder pedals; front only and just token movement -->
+
+<animation>
+  <type>rotate</type>
+  <object-name>rudderpedal_l</object-name>
+  <property>surface-positions/rudder-pos-norm</property>
+  <factor>15</factor>
+  <center>
+   <x-m>-0.563</x-m>
+   <y-m>-0.256</y-m>
+   <z-m>-1.050</z-m>
+  </center>
+  <axis>
+   <x>0.0</x>
+   <y>1.0</y>
+   <z>0.0</z>
+  </axis>
+ </animation>
+
+<animation>
+  <type>rotate</type>
+  <object-name>rudderpedal_r</object-name>
+  <property>surface-positions/rudder-pos-norm</property>
+  <factor>15</factor>
+  <center>
+   <x-m>-0.563</x-m>
+   <y-m>-0.256</y-m>
+   <z-m>-1.050</z-m>
+  </center>
+  <axis>
+   <x>0.0</x>
+   <y>-1.0</y>
+   <z>0.0</z>
+  </axis>
+ </animation>
+
+
+
+<!--  EXTERNAL EFFECTS **********************************************************  -->
+
+<!-- suspension left gear-->
+
+ <animation>
+        <name>LGear</name>
+        <object-name>wheel_hub_l</object-name>
+        <object-name>tyre_l</object-name>
+        <object-name>axle_l</object-name>
+        <object-name>wheel_strut_l</object-name>
+        <object-name>suspension_lower_l</object-name>
+  </animation> 
+
+ <animation>
+    <type>rotate</type>
+    <object-name>LGear</object-name>
+    <property>gear/gear[1]/compression-norm</property>
+    <factor>-5.0</factor>
+    <center>
+      <x-m>0.300</x-m>
+      <y-m>-0.360</y-m>
+      <z-m>-1.175</z-m>
+    </center>
+    <axis>
+      <x>1.0</x>
+      <y>0.0</y>
+      <z>0.0</z>
+    </axis>
+  </animation>
+
+<!-- suspension right gear-->
+
+ <animation>
+        <name>RGear</name>
+        <object-name>wheel_hub_r</object-name>
+        <object-name>tyre_r</object-name>
+        <object-name>axle_r</object-name>
+        <object-name>wheel_strut_r</object-name>
+        <object-name>suspension_lower_r</object-name>
+  </animation> 
+
+ <animation>
+    <type>rotate</type>
+    <object-name>RGear</object-name>
+    <property>gear/gear[1]/compression-norm</property>
+    <factor>-4.8</factor>
+    <center>
+      <x-m>0.300</x-m>
+      <y-m>0.360</y-m>
+      <z-m>-1.175</z-m>
+    </center>
+    <axis>
+      <x>-1.0</x>
+      <y>0.0</y>
+      <z>0.0</z>
+    </axis>
+  </animation>
+
+
+<!-- water spray (tyre smoke if you want it)-->
+
+  <model>
+    <path>Aircraft/Generic/Effects/rain-port.xml</path>
+    <name>rain-port</name>
+    <offsets>
+      <x-m>0.1</x-m>
+      <y-m>-0.9</y-m>
+      <z-m>-1.85</z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <path>Aircraft/Generic/Effects/rain-stbd.xml</path>
+    <name>rain-stbd</name>
+    <offsets>
+      <x-m>0.1</x-m>
+      <y-m>0.9</y-m>
+      <z-m>-1.85</z-m>
+    </offsets>
+  </model>
+
+ <!--model>
+    <path>Aircraft/Cub/Models/Effects/tyre-smoke-port.xml</path>
+    <name>tyre-smoke-port</name>
+    <offsets>
+      <x-m>0.1</x-m>
+      <y-m>-0.9</y-m>
+      <z-m>-1.85</z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <path>Aircraft/Cub/Models/Effects/tyre-smoke-stbd.xml</path>
+    <name>tyre-smoke-stbd</name>
+    <offsets>
+      <x-m>0.1</x-m>
+      <y-m>0.9</y-m>
+      <z-m>-1.85</z-m>
+    </offsets>
+  </model    -->
+
+
+<!-- exhaust smoke; just a little pollution -->
+
+<model>
+ <path>Aircraft/Cub/Models/Effects/exhaustsmoke.xml</path>
+  <offsets>
+   <x-m>-0.25</x-m>
+   <y-m>0.25</y-m>
+   <z-m>-1.25</z-m>
+  <heading-deg>0</heading-deg>
+   <roll-deg>    0 </roll-deg>
+   <pitch-deg>   0 </pitch-deg>
+ </offsets>
+</model>
+
+
+<!-- registration (Fr - immatriculation)   -->
+
+  <model>
+    <path>Aircraft/Cub/Models/Immat/immat.xml</path>
+    <offsets>
+      <x-m> 0.0 </x-m>
+      <y-m> 0.0 </y-m>
+      <z-m> 0.0 </z-m>
+      <roll-deg>    0.0 </roll-deg>
+      <pitch-deg>   0.0 </pitch-deg>
+      <heading-deg> 0.0 </heading-deg>
+    </offsets>
+  </model>
+
+<!--  ground shadow  -->
+
+ <model>
+  <path>Aircraft/Cub/Models/Effects/shadow.xml</path>
+ </model>
+
+
+</PropertyList>

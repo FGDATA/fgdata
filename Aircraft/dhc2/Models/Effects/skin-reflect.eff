@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PropertyList>
+	<name>skin-reflect</name>
+	<inherits-from>Effects/model-combined-deferred</inherits-from>
+
+	<parameters>
+		<!-- Normal Map -->
+		<normalmap-enabled type="int">1</normalmap-enabled>
+		<normalmap-dds type="int">0</normalmap-dds>
+		<texture n="2">
+			<image>Aircraft/dhc2/Models/Effects/normals.png</image>
+		</texture>
+
+		<!-- Light Map -->
+		<lightmap-enabled type="int">1</lightmap-enabled>
+		<lightmap-multi type="int">0</lightmap-multi>
+		<lightmap-factor type="float" n="0"><use>/controls/lighting/beacon-light</use></lightmap-factor>
+		<lightmap-color type="vec3d" n="0">0.95 0.08 0.05</lightmap-color>
+		<lightmap-factor type="float" n="1">0.0</lightmap-factor>
+		<lightmap-color type="vec3d" n="1"> 0.0 1.0 0.0 </lightmap-color>
+		<lightmap-factor type="float" n="2">0.0</lightmap-factor>
+		<lightmap-color type="vec3d" n="2">0.0 0.0 1.0 </lightmap-color>
+		<lightmap-factor type="float" n="3">0.0</lightmap-factor>
+		<lightmap-color type="vec3d" n="3">0.0 0.0 0.0 </lightmap-color>
+		<texture n="3">
+			<image>Aircraft/dhc2/Models/Effects/Lightmap.png</image>
+			<filter>linear-mipmap-linear</filter>
+			<wrap-s>clamp</wrap-s>
+			<wrap-t>clamp</wrap-t>
+			<internal-format>normalized</internal-format>
+		</texture>
+
+		<!-- Reflection environment -->
+		<texture n="4">
+			<image>Aircraft/dhc2/Models/Effects/reflect.png</image>
+			<filter>linear-mipmap-linear</filter>
+			<wrap-s>repeat</wrap-s>
+			<wrap-t>repeat</wrap-t>
+			<internal-format>normalized</internal-format>
+		</texture>
+
+		<texture n="5">
+			<type>cubemap</type>
+			<images>
+				<positive-x>Aircraft/dhc2/Models/Effects/fgfs-sky/1.png</positive-x>
+				<negative-x>Aircraft/dhc2/Models/Effects/fgfs-sky/4.png</negative-x>
+				<positive-y>Aircraft/dhc2/Models/Effects/fgfs-sky/2.png</positive-y>
+				<negative-y>Aircraft/dhc2/Models/Effects/fgfs-sky/3.png</negative-y>
+				<positive-z>Aircraft/dhc2/Models/Effects/fgfs-sky/6.png</positive-z>
+				<negative-z>Aircraft/dhc2/Models/Effects/fgfs-sky/5.png</negative-z>
+			</images>
+		</texture>
+
+		<!-- Reflection -->
+		<reflection-enabled type="int">1</reflection-enabled>
+		<reflect-map-enabled type="int">1</reflect-map-enabled>
+		<reflection-dynamic type="int">1</reflection-dynamic>
+		<reflection-fresnel type="float">0.1</reflection-fresnel>
+		<reflection-rainbow type="float">0.05</reflection-rainbow>
+		<reflection-noise type="float">0.1</reflection-noise>
+		<reflection-correction type="float">0.05</reflection-correction>
+		<ambient-correction type="float">0.2</ambient-correction>
+	</parameters>
+
+<!-- ####################
+### NORMALMAP INCLUDE ###
+######################### -->
+  <generate>
+    <tangent type="int">6</tangent>
+    <binormal type="int">7</binormal>
+  </generate>
+
+   <technique n="4">
+	   <pass>
+		   <program>
+			   <attribute>
+				   <name>tangent</name>
+				   <index>6</index>
+			   </attribute>
+			   <attribute>
+				   <name>binormal</name>
+				   <index>7</index>
+			   </attribute>
+		   </program>
+	   </pass>
+   </technique>
+
+  <technique n="7">
+    <pass>
+      <program>
+        <attribute>
+          <name>tangent</name>
+          <index>6</index>
+        </attribute>
+        <attribute>
+          <name>binormal</name>
+          <index>7</index>
+        </attribute>
+      </program>
+    </pass>
+  </technique>
+
+  <technique n="9">
+    <pass>
+      <program>
+        <attribute>
+	  <name>tangent</name>
+	  <index>6</index>
+        </attribute>
+        <attribute>
+	  <name>binormal</name>
+	  <index>7</index>
+        </attribute>
+      </program>
+    </pass>
+  </technique>
+<!-- ########################
+### END NORMALMAP INCLUDE ###
+############################# -->
+
+</PropertyList>

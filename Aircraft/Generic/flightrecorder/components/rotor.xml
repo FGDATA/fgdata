@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- flight recorder configuration -->
+<!-- flightrecorder properties for a single rotor (YASim).
+  Usage
+  <signals include="Aircraft/Generic/flight-recorder/components/rotor.xml">
+     <property-path type="string">/rotor/main</property-path>
+  </signals>
+-->
+
+<PropertyList>
+
+    <signal>
+        <type>float</type>
+        <property type="string">roll-deg</property>
+        <interpolation type="string">angular-deg</interpolation>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">rpm</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">stall</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">torque</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">yaw-deg</property>
+        <interpolation type="string">angular-deg</interpolation>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">cone-deg</property>
+        <interpolation type="string">angular-deg</interpolation>
+    </signal>
+
+</PropertyList>

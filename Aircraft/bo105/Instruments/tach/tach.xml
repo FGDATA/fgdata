@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<path>tach.ac</path>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>TurbineNeedle1</object-name>
+		<property>engines/engine[0]/n2-pct</property>
+		<interpolation>
+			<entry><ind>0</ind><dep>35</dep></entry>
+			<entry><ind>50</ind><dep>151</dep></entry>
+			<entry><ind>100</ind><dep>267</dep></entry>
+			<entry><ind>140</ind><dep>360</dep></entry>
+		</interpolation>
+		<axis>
+			<x>-1</x>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>TurbineNeedle2</object-name>
+		<property>engines/engine[1]/n2-pct</property>
+		<interpolation>
+			<entry><ind>0</ind><dep>35</dep></entry>
+			<entry><ind>50</ind><dep>151</dep></entry>
+			<entry><ind>100</ind><dep>267</dep></entry>
+			<entry><ind>140</ind><dep>360</dep></entry>
+		</interpolation>
+		<axis>
+			<x>-1</x>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>RotorNeedle</object-name>
+		<property>rotors/main/rpm</property>
+		<interpolation>
+			<entry><ind>0</ind><dep>35</dep></entry>
+			<entry><ind>221</ind><dep>151</dep></entry>
+			<entry><ind>442</ind><dep>267</dep></entry>
+			<entry><ind>619</ind><dep>360</dep></entry>
+		</interpolation>
+		<axis>
+			<x>-1</x>
+		</axis>
+	</animation>
+</PropertyList>
+

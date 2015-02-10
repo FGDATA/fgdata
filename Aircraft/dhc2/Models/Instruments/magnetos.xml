@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+    <path>magnetos.ac</path>
+
+
+    <animation>
+        <type>rotate</type>
+        <object-name>Magnetos</object-name>
+        <property>controls/engines/engine/magnetos</property>
+        <interpolation>
+            <entry><ind> 0</ind><dep> 0</dep></entry>
+            <entry><ind> 1</ind><dep> 27</dep></entry>
+            <entry><ind> 2</ind><dep> 58</dep></entry>
+            <entry><ind> 3</ind><dep> 82</dep></entry>
+        </interpolation>
+        <axis>
+            <x>-1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+        <center>
+            <x-m>0</x-m>
+            <y-m>0</y-m>
+            <z-m>0.013</z-m>
+        </center>
+    </animation>
+
+    <animation>
+        <type>pick</type>
+        <object-name>Mag.labelLH</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-adjust</command>
+                <property>controls/engines/engine[0]/magnetos</property>
+                <step>1</step>
+                <min>0</min>
+                <max>4</max>
+                <wrap>0</wrap>
+            </binding>
+            <binding>
+                <command>property-toggle</command>
+                <property>sim/sound/switch</property>
+            </binding>
+        </action>
+    </animation>
+
+    <animation>
+        <type>pick</type>
+        <object-name>Mag.labelRH</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-adjust</command>
+                <property>controls/engines/engine[0]/magnetos</property>
+                <step>-1</step>
+                <min>0</min>
+                <max>4</max>
+                <wrap>0</wrap>
+            </binding>
+            <binding>
+                <command>property-toggle</command>
+                <property>sim/sound/switch</property>
+            </binding>
+        </action>
+    </animation>
+
+</PropertyList>

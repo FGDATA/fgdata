@@ -1,0 +1,327 @@
+<!--
+    ************************************************************************
+    A6M2 'Zero'
+    Dec 2006 Syd Adams and Tat Nishioka
+    ************************************************************************
+  -->
+
+<PropertyList>
+  <sim>
+    <status>development</status>
+    <startup>
+      <splash-texture>Aircraft/A6M2/splash1.rgb</splash-texture>
+    </startup>
+
+    <model>
+      <path>Aircraft/A6M2/Models/a6m2-anim.xml</path>
+      <A6M2>
+	<livery>
+	  <variant type="string">Gray</variant>
+        </livery>
+      </A6M2>
+    </model> 
+
+    <fuel-fraction>0.80</fuel-fraction>
+
+    <virtual-cockpit archive="y">true</virtual-cockpit>
+    <allow-toggle-cockpit archive="y">true</allow-toggle-cockpit>
+
+    <sound>
+      <path>Aircraft/A6M2/a6m2-sound.xml</path>
+    </sound>
+
+    <systems>
+      <electrical>
+        <path></path>
+      </electrical>
+    </systems>
+
+    <tutorials include="a6m2-tutorial.xml"></tutorials>
+    
+    <view n="0">
+      <internal archive="y">true</internal>
+      <config>
+	<x-offset-m archive="y" type="double">0.0</x-offset-m>
+	<y-offset-m archive="y" type="double">0.84</y-offset-m>
+	<z-offset-m archive="y" type="double">0.7</z-offset-m>
+	<pitch-offset-deg>-13.0</pitch-offset-deg>
+      </config>
+    </view>
+    
+    <chase-distance-m>-18</chase-distance-m>
+
+    <hud>
+      <enable3d n="1">false</enable3d>
+    </hud>
+    
+    <help>
+      <title>A6M2 Model 21</title>
+      <line></line>
+      <text>
+        1. Start the engine
+           Pull the stick (down cursor for several times) to avoid kissing to the ground.
+           Start engine by hitting 'Shift-]' three times, and then press 's'.
+
+        2. Taxing
+           Release the parking brake (shift-b).
+           Slowly opens the throttle (page-up) and runs slowly (at around 10 - 15 knows)
+           Apply rudder (and brake if needed) to control the direction.
+           Note that the Engine RPM must be lower than 2000 rpm on the ground to avoid overheating.
+
+        3. Take Off
+           Check the propeller pitch is low (rear-most; N or shift-N adjust the pitch lever)
+           Gradually apply full throttle, and then use rudder to run straight ahead.
+           pull the stick slowly at around 80-90 knots.
+           Retract the gears (g key) when above 10 ft.
+
+        4. Climb
+           Adjust slottle and climb pitch so Zero flys at 90 - 100 knots.
+           Check that the climbs rate is at around 800-1000 m / min.
+           Use aileron trim and rudder trim to keep the speed and climb rate.
+
+        5. Cruise (3,000m - 4,000m, i.e. approx. 9,850ft - 13,100ft  high) 
+           Adjust all trims to their neutral positions.
+           Push the stick (up cursor) to level the aircraft.
+           Close the throttle so it flies at 115 - 140 knots.
+           Disable auto air mixture control(ACM) by Ctrl-K, 
+           and then manually adjust mixture by M and Shift-M to optimize the gas milage.
+           135kt @ 10500 ft gives you the best gas milage.
+
+        6. Descent / Dive
+           Push the stick a bit. Never exceed 330 kt.
+           Apply Low Propeller pitch for diving.
+        
+        7. Final Approach / Landing
+           Put the gear down 
+           Apply flap and fly at 70 kt. Keep glideslope at 3 degree.
+           Gently flare right before touch down and touch down with three gears at the same time.
+           Apply rudder to counteract the cross wind
+
+       To Be Continued.... (someday) 
+           
+      </text>
+      <line></line>
+      <key>
+	<name>Ctrl-B</name>
+	<desc>Toggle Engine Boost (2 stages - Yasim only)</desc>
+      </key>
+      <key>
+        <name>Ctrl-D</name>
+        <desc>Open / Close Canopy</desc>
+      </key>
+      <key>
+	<name>Ctrl-E/Ctrl-F</name>
+	<desc>aileron trim left/right</desc>
+      </key>
+      <key>
+	<name>Ctrl-Shift-E/Ctrl-Shift-F</name>
+	<desc>rudder trim left/right</desc>
+      </key>
+      <key>
+	<name>CTRL-L</name>
+	<desc>Toggle Tailwheel Lock</desc>
+      </key>
+      <key>
+	<name>CTRL-M</name>
+	<desc>Toggle Auto Mixture Control (AMC) - default is enabled</desc>
+      </key>
+      <key>
+	<name>CTRL-O</name>
+	<desc>Toggle Seat Position for Landing</desc>
+      </key>
+      <key>
+	<name>C</name>
+	<desc>Catapult Launch</desc>
+      </key>
+      <key>
+	<name>O/o</name>
+	<desc>Down/up Hook</desc>
+      </key>
+      <key>
+	<name>L</name>
+	<desc>Engage Launch bar</desc>
+      </key>
+      <key>
+        <name>l</name>
+        <desc>Open Livery Dialog</desc>
+      </key>
+    </help>
+  </sim>
+
+  <engines>
+    <engine>
+      <rpm type="double">700</rpm>
+      <!-- fake unimplemented settings -->
+      <fuel-pump-psi type="double">36</fuel-pump-psi>
+      <oil-pressure-psi type="double">75</oil-pressure-psi>
+    </engine>
+  </engines>
+
+  <instrumentation>
+    <altimeter>
+      <indicated-altitude-m type="double">0</indicated-altitude-m>
+    </altimeter>
+    <magnetic-compass>
+      <correction-deg type="double">0</correction-deg>
+    </magnetic-compass>
+  </instrumentation> 
+  
+  <controls>
+    <engines>
+      <engine>
+        <propeller-feather type="bool">false</propeller-feather>
+        <propeller-pitch type="double">1.0</propeller-pitch>
+      </engine>
+    </engines>
+    <canopy>
+      <enabled type="bool">true</enabled>
+      <position-norm>0.0</position-norm>
+      <opened type="double" >0.0</opened>
+    </canopy>
+    <gear>
+      <brake-parking>1</brake-parking>
+    </gear>
+  </controls>
+  
+  <input>
+    <keyboard include="../../Input/Keyboard/carrier-bindings.xml">
+      <key n="2">
+        <name>Ctrl-B</name>
+        <desc>Toggle engine boost.</desc>
+        <binding>
+          <command>property-adjust</command>
+          <property>/controls/engines/engine[0]/boost</property>
+          <step type="double">0.33</step>
+          <min type="double">0.0</min>
+          <max type="double">1.5</max>
+        </binding>
+        <binding>
+          <condition>
+            <greater-than>
+              <property>/controls/engines/engine[0]/boost</property>
+              <value type="double">1.0001</value>
+            </greater-than>
+          </condition>
+          <command>property-assign</command>
+          <property>/controls/engines/engine[0]/boost</property>
+          <value type="double">0.0</value>
+        </binding>
+        <binding>        
+          <condition>    
+            <greater-than>         
+              <property>/controls/engines/engine[0]/boost</property>       
+              <value type="double">0.6</value>    
+            </greater-than>        
+          </condition>   
+          <command>property-assign</command>     
+          <property>/controls/engines/engine[0]/boost</property>         
+          <value type="double">1.0</value>       
+        </binding>
+      </key>
+      <key n="4">
+        <name>Ctrl-D</name>
+        <desc>Open/close canopy</desc>
+        <binding>
+          <command>property-toggle</command>
+          <property>controls/canopy/opened</property>
+        </binding>
+      </key>
+
+      <key n="5">
+        <name>Ctrl-E</name>
+        <desc>Adjust aileron trim to the left</desc>
+        <repeatable type="bool">true</repeatable>
+        <binding>
+          <command>property-adjust</command>
+          <property>/controls/flight/aileron-trim</property>
+          <step type="double">-0.001</step>
+        </binding>
+        <mod-shift>
+         <desc>Adjust rudder trim to the left</desc>
+         <repeatable type="bool">true</repeatable>
+         <binding>
+           <command>property-adjust</command>
+           <property>/controls/flight/rudder-trim</property>
+           <step type="double">-0.001</step>
+         </binding>
+        </mod-shift>
+      </key>
+
+      <key n="6">
+       <name>Ctrl-F</name>
+        <desc>Adjust aileron trim to the right</desc>
+        <repeatable type="bool">true</repeatable>
+        <binding>
+         <command>property-adjust</command>
+         <property>/controls/flight/aileron-trim</property>
+         <step type="double">0.001</step>
+        </binding>
+        <mod-shift>
+         <desc>Adjust rudder trim to the right</desc>
+         <repeatable type="bool">true</repeatable>
+         <binding>
+           <command>property-adjust</command>
+           <property>/controls/flight/rudder-trim</property>
+           <step type="double">0.001</step>
+         </binding>
+        </mod-shift>
+      </key>
+
+      <key n="11">
+        <name>Ctrl-K</name>
+        <desc>Toggle Auto Micture Control</desc>
+        <binding> 
+          <command>property-toggle</command>
+          <property>controls/engines/engine/manual-mixture-control</property>
+        </binding>
+      </key>
+
+      <key n="12"> 
+        <name>Ctrl-L</name>
+        <desc>Toggle Tailwheel Lock.</desc>
+        <binding> 
+          <command>property-toggle</command>
+          <property>controls/gear/tailwheel-lock</property>
+        </binding>
+      </key>
+
+      <key n="15">
+        <name>Ctrl-O</name>
+        <desc>Toggle Seat Position for Landing</desc>
+        <binding> 
+          <command>nasal</command>
+          <script>
+            var view_num = getprop("/sim/current-view/view-number");
+            if (view_num == 0) {
+              var status = getprop("/sim/view/seat-pos");
+              if (status != 1) {
+                setprop("/sim/current-view/y-offset-m", 0.94);
+                setprop("/sim/current-view/z-offset-m", 0.69);
+                setprop("/sim/current-view/pitch-offset-deg", -8.6);
+                setprop("/sim/view/seat-pos", 1);
+              } else {
+                setprop("/sim/current-view/y-offset-m", 0.84);
+                setprop("/sim/current-view/z-offset-m", 0.7);
+                setprop("/sim/current-view/pitch-offset-deg", -13.0);
+                setprop("/sim/view/seat-pos", 0);
+              }
+            }
+          </script>
+        </binding>
+      </key>
+
+
+      <key n="108">
+        <name>l</name>
+        <desc>Show livery select dialog</desc>
+        <binding>
+          <command>nasal</command>
+          <script>aircraft.livery.dialog.toggle()</script>
+        </binding>
+      </key>
+    </keyboard>
+  </input>
+  
+</PropertyList>
+
+

@@ -1,0 +1,140 @@
+<PropertyList>
+    <name>FMS Navigation</name>
+    <description>FMS how to</description>
+
+    <init>
+        <set>
+            <property>sim/current-view/view-number</property>
+            <value>0</value>
+        </set>
+        <set>
+            <property>autopilot/locks/passive-mode</property>
+            <value>1</value>
+        </set>
+        <set>
+            <property>instrumentation/flightdirector/lnav</property>
+            <value>0</value>
+        </set>
+        <set>
+            <property>instrumentation/flightdirector/vnav</property>
+            <value>0</value>
+        </set>
+    </init>
+
+    <step>
+        <message>
+            Open Autopilot/Route-manager dialog{|.}
+            Enter one or more destination airports{|.}
+        </message>
+        <view>
+            <heading-offset-deg>0</heading-offset-deg>
+            <pitch-offset-deg>-12</pitch-offset-deg>
+            <field-of-view>55</field-of-view>
+        </view>
+        <error>
+            <message>
+                Enter one or more destination airports{|.}
+            </message>
+            <condition>
+                <equals>
+                    <property>autopilot/route-manager/route/num</property>
+                    <value>0</value>
+                </equals>
+            </condition>
+        </error>
+        <exit>
+            <condition>
+                <greater-than>
+                    <property>autopilot/route-manager/route/num</property>
+                    <value>0</value>
+                </greater-than>
+            </condition>
+        </exit>
+    </step>
+
+    <step>
+        <message>
+            Press FMS button{|.}
+            NAV uses nav radio inputs for navigation{|.}
+            The knobs display pointers to selected nav bearings{|.}
+        </message>
+        <view>
+            <heading-offset-deg>0.35</heading-offset-deg>
+            <pitch-offset-deg>-18.32</pitch-offset-deg>
+            <field-of-view>12.7</field-of-view>
+        </view>
+        <error>
+            <message>
+                Press FMS button{|.}
+                NAV uses nav radio inputs for navigation{|.}
+                The knobs display pointers to selected nav bearings{|.}
+            </message>
+            <condition>
+                <not-equals>
+                    <property>instrumentation/primus1000/fms-mode</property>
+                    <value>FMS</value>
+                </not-equals>
+            </condition>
+        </error>
+        <exit>
+            <condition>
+                <equals>
+                    <property>instrumentation/primus1000/fms-mode</property>
+                    <value>FMS</value>
+                </equals>
+            </condition>
+        </exit>
+    </step>
+
+    <step>
+        <message>
+            Press NAV and VNAV button{|.}
+            Once above 500 AGL , press AP to engage autopilot{|.}
+        </message>
+        <view>
+            <heading-offset-deg>335.74</heading-offset-deg>
+            <pitch-offset-deg>-9.89</pitch-offset-deg>
+            <field-of-view>12.7</field-of-view>
+        </view>
+        <error>
+            <message>
+            Press NAV and VNAV button{|.}
+            Once above 500 AGL , press AP to engage autopilot{|.}
+            </message>
+            <condition>
+                <not-equals>
+                    <property>instrumentation/flightdirector/LAT-annun</property>
+                    <value>LNAV</value>
+                </not-equals>
+                <not-equals>
+                    <property>instrumentation/flightdirector/VRT-annun</property>
+                    <value>VNAV</value>
+                </not-equals>
+            </condition>
+        </error>
+        <exit>
+            <condition>
+                <equals>
+                    <property>instrumentation/flightdirector/LAT-annun</property>
+                    <value>LNAV</value>
+                </equals>
+                <equals>
+                    <property>instrumentation/flightdirector/VRT-annun</property>
+                    <value>VNAV</value>
+                </equals>
+            </condition>
+        </exit>
+    </step>
+
+    <end>
+        <message>Still under construction ,{|.}
+        Some modes may not operate correctly{|.}
+        </message>
+        <view>
+            <heading-offset-deg>0</heading-offset-deg>
+            <pitch-offset-deg>-12</pitch-offset-deg>
+            <field-of-view>55</field-of-view>
+        </view>
+    </end>
+
+</PropertyList>

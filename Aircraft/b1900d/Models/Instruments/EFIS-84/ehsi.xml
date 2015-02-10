@@ -1,0 +1,421 @@
+<?xml version="1.0"?>
+<PropertyList>
+
+    <path>ehsi.ac</path>
+
+    <animation>
+        <type>texrotate</type>
+        <object-name>ehsi.rose</object-name>
+        <property>orientation/heading-magnetic-deg</property>
+        <axis>
+            <x>0</x>
+            <y>0</y>
+            <z>-1</z>
+        </axis>
+        <center>
+            <x>0.25</x>
+            <y>0.75</y>
+        </center>
+    </animation>
+
+
+    <animation>
+        <type>rotate</type>
+        <object-name>ehsi.crs</object-name>
+        <object-name>ehsi.crs1</object-name>
+        <object-name>to-flag</object-name>
+        <object-name>from-flag</object-name>
+        <property>instrumentation/fgc-65/internal/offsets/crs1-brg</property>
+        <axis>
+            <x>-1.0</x>
+            <y>0.0</y>
+            <z>0.0</z>
+        </axis>
+        <center>
+            <x-m>0</x-m>
+            <y-m>0</y-m>
+            <z-m>-0.0045</z-m>
+        </center>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>to-flag</object-name>
+        <condition>
+            <property>instrumentation/nav/to-flag</property>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>from-flag</object-name>
+        <condition>
+            <property>instrumentation/nav/from-flag</property>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>gs.ptr</object-name>
+        <condition>
+            <property>instrumentation/nav/gs-in-range</property>
+        </condition>
+    </animation>
+
+
+    <animation>
+        <type>translate</type>
+        <object-name>ehsi.crs1</object-name>
+        <property>instrumentation/nav/heading-needle-deflection-norm</property>
+        <factor>0.014</factor>
+        <axis>
+            <x>0.0</x>
+            <y>1.0</y>
+            <z>0.0</z>
+        </axis>
+        <center>
+            <x-m>0</x-m>
+            <y-m>0</y-m>
+            <z-m>-0.0045</z-m>
+        </center>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>ehsi.hdgbug</object-name>
+        <property>instrumentation/fgc-65/internal/offsets/hdg-bug</property>
+        <axis>
+            <x>-1.0</x>
+            <y>0.0</y>
+            <z>0.0</z>
+        </axis>
+        <center>
+            <x-m>0</x-m>
+            <y-m>0</y-m>
+            <z-m>-0.0045</z-m>
+        </center>
+    </animation>
+
+    <animation>
+        <type>translate</type>
+        <object-name>gs.ptr</object-name>
+        <property>instrumentation/nav/gs-needle-deflection-norm</property>
+        <factor>0.0195</factor>
+        <axis>
+            <x>0.0</x>
+            <y>0.0</y>
+            <z>1.0</z>
+        </axis>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>loc1</object-name>
+        <condition>
+            <and>
+                <property>instrumentation/nav/nav-loc</property>
+                <not>
+                    <property>instrumentation/nav/slaved-to-gps</property>
+                </not>
+            </and>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>vor1</object-name>
+        <condition>
+            <and>
+                <not>
+                <property>instrumentation/nav/nav-loc</property>
+                </not>
+                <not>
+                    <property>instrumentation/nav/slaved-to-gps</property>
+                </not>
+            </and>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>lnv1</object-name>
+        <condition>
+            <property>instrumentation/nav/slaved-to-gps</property>
+        </condition>
+    </animation>
+
+    <text>
+        <name>crs</name>
+        <offsets>
+            <x-m>0.0001</x-m>
+            <y-m>0.028</y-m>
+            <z-m>-0.039</z-m>
+        </offsets>
+        <alignment>left-center</alignment>
+        <axis-alignment>yz-plane</axis-alignment>
+        <type type="string">number-value</type>
+        <property>instrumentation/nav/radials/selected-deg</property>
+        <format>%03.0f</format>
+        <font>condensed.txf</font>
+        <character-size>0.005</character-size>
+        <character-aspect-ratio type="double">1.2</character-aspect-ratio>
+        <font-resolution>
+            <width type="int">32</width>
+            <height type="int">32</height>
+        </font-resolution>
+    </text>
+
+    <text>
+        <name>ID</name>
+        <offsets>
+            <x-m>0.0001</x-m>
+            <y-m>-0.039</y-m>
+            <z-m>0.030</z-m>
+        </offsets>
+        <alignment>left-center</alignment>
+        <axis-alignment>yz-plane</axis-alignment>
+        <type type="string">text-value</type>
+        <property>instrumentation/nav/nav-id</property>
+        <font>condensed.txf</font>
+        <character-size>0.004</character-size>
+        <character-aspect-ratio type="double">1.1</character-aspect-ratio>
+        <font-resolution>
+            <width type="int">32</width>
+            <height type="int">32</height>
+        </font-resolution>
+    </text>
+
+    <text>
+        <name>gps-ID</name>
+        <offsets>
+            <x-m>0.0001</x-m>
+            <y-m>-0.039</y-m>
+            <z-m>0.030</z-m>
+        </offsets>
+        <alignment>left-center</alignment>
+        <axis-alignment>yz-plane</axis-alignment>
+        <type type="string">text-value</type>
+        <property>instrumentation/gps/wp/wp[1]/ID</property>
+        <font>condensed.txf</font>
+        <character-size>0.004</character-size>
+        <character-aspect-ratio type="double">1.1</character-aspect-ratio>
+        <font-resolution>
+            <width type="int">32</width>
+            <height type="int">32</height>
+        </font-resolution>
+    </text>
+
+    <text>
+        <name>dme</name>
+        <offsets>
+            <x-m>0.0001</x-m>
+            <y-m>-0.041</y-m>
+            <z-m>0.025</z-m>
+        </offsets>
+        <alignment>left-center</alignment>
+        <axis-alignment>yz-plane</axis-alignment>
+        <type type="string">number-value</type>
+        <property>instrumentation/dme/indicated-distance-nm</property>
+        <format>%3.1f</format>
+        <font>condensed.txf</font>
+        <character-size>0.005</character-size>
+        <character-aspect-ratio type="double">1.2</character-aspect-ratio>
+        <font-resolution>
+            <width type="int">32</width>
+            <height type="int">32</height>
+        </font-resolution>
+    </text>
+
+    <text>
+        <name>dme-inop</name>
+        <offsets>
+            <x-m>0.0001</x-m>
+            <y-m>-0.041</y-m>
+            <z-m>0.025</z-m>
+        </offsets>
+        <alignment>left-center</alignment>
+        <axis-alignment>yz-plane</axis-alignment>
+        <type type="string">literal</type>
+        <text>- - -</text>
+        <font>condensed.txf</font>
+        <character-size>0.005</character-size>
+        <character-aspect-ratio type="double">1.2</character-aspect-ratio>
+        <font-resolution>
+            <width type="int">32</width>
+            <height type="int">32</height>
+        </font-resolution>
+    </text>
+
+    <text>
+        <name>gps-dst</name>
+        <offsets>
+            <x-m>0.0001</x-m>
+            <y-m>-0.041</y-m>
+            <z-m>0.025</z-m>
+        </offsets>
+        <alignment>left-center</alignment>
+        <axis-alignment>yz-plane</axis-alignment>
+        <type type="string">number-value</type>
+        <property>instrumentation/gps/wp/wp[1]/distance-nm</property>
+        <format>%3.1f</format>
+        <font>condensed.txf</font>
+        <character-size>0.005</character-size>
+        <character-aspect-ratio type="double">1.2</character-aspect-ratio>
+        <font-resolution>
+            <width type="int">32</width>
+            <height type="int">32</height>
+        </font-resolution>
+    </text>
+
+    <text>
+        <name>navdata</name>
+        <offsets>
+            <x-m>0.0001</x-m>
+            <y-m>0.035</y-m>
+            <z-m>0.032</z-m>
+        </offsets>
+        <alignment>left-center</alignment>
+        <axis-alignment>yz-plane</axis-alignment>
+        <type type="string">text-value</type>
+        <property>instrumentation/efis/unit/nav-data</property>
+        <font>condensed.txf</font>
+        <character-size>0.004</character-size>
+        <character-aspect-ratio type="double">1.2</character-aspect-ratio>
+        <font-resolution>
+            <width type="int">32</width>
+            <height type="int">32</height>
+        </font-resolution>
+    </text>
+
+    <text>
+        <name>gspd</name>
+        <offsets>
+            <x-m>0.0001</x-m>
+            <y-m>0.035</y-m>
+            <z-m>0.027</z-m>
+        </offsets>
+        <alignment>left-center</alignment>
+        <axis-alignment>yz-plane</axis-alignment>
+        <type type="string">number-value</type>
+        <property>velocities/groundspeed-kt</property>
+        <format>%3.0f</format>
+        <font>condensed.txf</font>
+        <character-size>0.005</character-size>
+        <character-aspect-ratio type="double">1.2</character-aspect-ratio>
+        <font-resolution>
+            <width type="int">32</width>
+            <height type="int">32</height>
+        </font-resolution>
+    </text>
+
+    <text>
+        <name>wind</name>
+        <offsets>
+            <x-m>0.0001</x-m>
+            <y-m>0.035</y-m>
+            <z-m>0.027</z-m>
+        </offsets>
+        <alignment>left-center</alignment>
+        <axis-alignment>yz-plane</axis-alignment>
+        <type type="string">number-value</type>
+        <property>environment/wind-speed-kt</property>
+        <format>%3.0f</format>
+        <font>condensed.txf</font>
+        <character-size>0.005</character-size>
+        <character-aspect-ratio type="double">1.2</character-aspect-ratio>
+        <font-resolution>
+            <width type="int">32</width>
+            <height type="int">32</height>
+        </font-resolution>
+    </text>
+
+    <animation>
+        <type>select</type>
+        <object-name>ID</object-name>
+        <condition>
+            <not>
+                <property>instrumentation/nav/slaved-to-gps</property>
+            </not>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>dme-inop</object-name>
+        <condition>
+            <and>
+                <not>
+                    <property>instrumentation/nav/dme-in-range</property>
+                </not>
+                <not>
+                    <property>instrumentation/nav/slaved-to-gps</property>
+                </not>
+            </and>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>dme</object-name>
+        <condition>
+            <and>
+                <property>instrumentation/nav/dme-in-range</property>
+                <not>
+                    <property>instrumentation/nav/slaved-to-gps</property>
+                </not>
+            </and>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>gps-ID</object-name>
+        <object-name>gps-dst</object-name>
+        <condition>
+            <property>instrumentation/nav/slaved-to-gps</property>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>gspd</object-name>
+        <condition>
+            <equals>
+                <property>instrumentation/efis/unit/nav-data</property>
+                <value>GSP</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>wind</object-name>
+        <condition>
+            <equals>
+                <property>instrumentation/efis/unit/nav-data</property>
+                <value>WIND</value>
+            </equals>
+        </condition>
+    </animation>
+
+
+    <animation>
+        <name>white</name>
+        <type>material</type>
+        <object-name>crs</object-name>
+        <object-name>dme-inop</object-name>
+        <object-name>dme</object-name>
+        <object-name>gps-dst</object-name>
+        <object-name>ID</object-name>
+        <object-name>gps-ID</object-name>
+        <object-name>navdata</object-name>
+        <object-name>gspd</object-name>
+        <object-name>wind</object-name>
+        <emission>
+            <red>0.8</red>
+            <green>0.8</green>
+            <blue>0.8</blue>
+        </emission>
+    </animation>
+
+</PropertyList>

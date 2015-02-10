@@ -1,0 +1,151 @@
+<?xml version="1.1"?>
+
+<!--
+************************************************************************
+YASim aerodynamic model for a Piper J3C-65 with Continental A-65-8 (0-170-3).
+Started 2002-08-15 by David Megginson.
+
+This aerodynamic model is based on three-views, unauthoritative
+performance data, and wild guesses.  These sites provided particularly
+useful information or were simply fun to visit:
+
+Performance data taken in 2002 from (broken link):
+  http://www.marss.com/cub.htm
+Weight and balance taken in 2002 from (broken link):
+  http://www.danford.net/balance.htm
+Fun paper model and information:
+  https://www.fiddlersgreen.net/models/Aircraft/Piper-Cub.html
+The real thing:
+  http://www.legend.aero
+
+
+The reference datum for measurements is the leading edge of the wing,
+since it is what the weight-and-balance site above uses.
+************************************************************************
+-->
+
+<!-- 
+  680lb empty weight.
+ -->
+<!-- FIXME: this includes the engine; is that correct? -->
+<airplane mass="680">
+
+<!-- Approach configuration -->
+<approach speed="52" aoa="8" fuel="1.0">
+  <control-setting axis="/controls/engines/engine[0]/throttle" value="0.2"/>
+  <control-setting axis="/controls/engines/engine[0]/mixture" value="1.0"/>
+  <solve-weight idx="0" weight="200.0"/>
+  <solve-weight idx="1" weight="200.0"/>
+</approach>
+
+<!-- Cruise configuration -->
+<cruise speed="64" alt="0" fuel="1.0">
+  <control-setting axis="/controls/engines/engine[0]/throttle" value="0.75"/>
+  <control-setting axis="/controls/engines/engine[0]/mixture" value="1.0"/>
+  <control-setting axis="/controls/flight/elevator-trim" value="0.0"/>
+  <solve-weight idx="0" weight="200.0"/>
+  <solve-weight idx="1" weight="200.0"/>
+</cruise>
+
+<!-- pilot's eyepoint -->
+<cockpit x="-0.23" y="0" z="-0.30"/>
+
+<fuselage ax="1.37" ay="0" az="-0.71" bx="-4.81" by="0" bz="-0.65"
+          width="0.71" taper="0.16" midpoint="0.17"/>
+
+<!--
+  I treat it as a perfectly rectangular wing for now.  Note that
+  the dihedral is exaggerated to simulate hull-interference effects
+  on a high-wing aircraft; once YASim models that properly, the
+  angle should be reduced to something like 2 degrees.
+
+  Note that the J-3 Cub has no flaps.  With a stall speed of 25kt, who
+  needs them?  From what I've read, the ailerons add lots of drag.
+-->
+<wing x="-0.80" y="0.42" z="0.0" taper="1.0" incidence="2" twist="-3"
+      length="4.87" chord="1.60" sweep="0" dihedral="5" camber="0.1">
+  <stall aoa="18" width="4" peak="1.5"/>
+  <flap0 start=".31" end="0.85" lift="1.5" drag="1.4"/>
+  <control-input axis="/controls/flight/aileron" control="FLAP0" split="true"/>
+  <control-input axis="/controls/flight/aileron-trim" control="FLAP0" split="true"/>
+  <control-output control="FLAP0" side="left"
+		  prop="/surface-positions/left-aileron-pos-norm"/>
+  <control-output control="FLAP0" side="right"
+		  prop="/surface-positions/right-aileron-pos-norm"/>
+</wing>
+
+<hstab x="-4.87" y="0.05" z="-0.42" taper="0.8" effectiveness="1.24"
+       length="1.49" chord="1.13" sweep="0">
+  <stall aoa="16" width="4" peak="1.5"/>
+  <flap0 start="0" end="1" lift="1.4" drag="1.2"/>
+  <control-input axis="/controls/flight/elevator" control="FLAP0"/>
+<!-- Elevator trim moves the entire stabilizer, so is particularly effective -->
+  <control-input axis="/controls/flight/elevator-trim" control="FLAP0" src0="-1.0" src1="1.0" dst0="-2.0" dst1="2.0"/>
+  <control-output control="FLAP0" prop="/surface-positions/elevator-pos-norm"/>
+</hstab>
+
+<!-- rudder has to be able to counteract aileron drag -->
+<vstab x="-4.87" y="0" z="-0.65" taper="0.38" effectiveness="2.0"
+       length="1.31" chord="1.37" sweep="0" incidence="1.5">
+  <stall aoa="16" width="4" peak="1.5"/>
+  <flap0 start="0" end="1" lift="2.0" drag="1.2"/>
+  <control-input axis="/controls/flight/rudder" control="FLAP0" invert="true"/>
+  <control-input axis="/controls/flight/rudder-trim" control="FLAP0" invert="true"/>
+  <control-output control="FLAP0" prop="/surface-positions/rudder-pos-norm"
+		  min="1" max="-1"/>
+</vstab>
+
+<!-- FIXME: engine mass (just a guess; it's a small engine) -->
+<propeller radius="0.90"
+	   cruise-speed="64" cruise-rpm="2000"
+           cruise-alt="1000" cruise-power="48"
+           takeoff-power="65" takeoff-rpm="2300"
+           x="0.945" y="0" z="-0.65" mass="198.3" moment="4">
+  <actionpt x="1.31" y="0" z="-0.65"/>
+  <control-input axis="/controls/engines/engine[0]/throttle" control="THROTTLE"/>
+  <control-input axis="/controls/engines/engine[0]/starter" control="STARTER"/>
+  <control-input axis="/controls/engines/engine[0]/magnetos" control="MAGNETOS"/>
+  <control-input axis="/controls/engines/engine[0]/mixture" control="MIXTURE"/> 
+  <!-- Continental A-65-8 (0-170-3) of 65hp --> 
+  <piston-engine eng-power="65" eng-rpm="2300" displacement="171" compression="6.3"/>
+          
+</propeller>
+
+<gear x="-5.155" y="0" z="-0.785" compression="0.05"> <!-- tailwheel  -->
+  <control-input axis="/controls/flight/rudder" control="STEER"
+                 src0="-1.0" src1="1.0"
+                 dst0="0.5" dst1="-0.5"/>
+</gear>
+
+<gear x="0.03" y="0.910" z="-1.852" compression="0.02"> <!-- left main -->
+  <control-input axis="/controls/gear/brake-left" control="BRAKE" split="true"/>
+  <control-input axis="/controls/gear/brake-parking" control="BRAKE" split="true"/>
+</gear>
+
+<gear x="0.03" y="-0.910" z="-1.852" compression="0.02"> <!-- right main -->
+  <control-input axis="/controls/gear/brake-right" control="BRAKE" split="true"/>
+  <control-input axis="/controls/gear/brake-parking" control="BRAKE" split="true"/>
+</gear>
+
+<!-- There's just one 12-gallon tank, right behind the engine (!!!) -->
+<tank x="0.45" y="0" z="-0.89" capacity="72"/> 
+
+<!--
+  Note the tandem seating; the x values (arms) come from the
+  weight-and-balance page cited at the start.
+-->
+
+<ballast x="-4.0" y="0" z="-0.70" mass="-175"/>
+
+<!-- pilot -->
+<weight x="-0.91" y="0" z="-0.70" mass-prop="/yasim/Cub/pilot-lb"/>
+
+<!-- passenger -->
+<weight x="-0.23" y="0" z="-0.70" mass-prop="/yasim/Cub/passenger-lb"/>
+
+<!-- hitch -->
+<hitch name="aerotow" x="-5.0" y="0" z="-0.65"  force-is-calculated-by-other="1">
+  <tow length="60" weight-per-meter="0.035" elastic-constant="9000" break-force="10000" mp-auto-connect-period="1.0"/>
+  <winch max-tow-length="1000" min-tow-length="60" initial-tow-length="60"/>
+</hitch>
+</airplane>

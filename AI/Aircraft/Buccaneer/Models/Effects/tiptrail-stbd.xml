@@ -1,0 +1,137 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+	<particlesystem>
+		<name>tiptrail-s</name>
+		<type>trail</type>
+		<texture>continous_smoke.rgb</texture>
+		<emissive>false</emissive>
+		<lighting>true</lighting>
+		<pass>true</pass>
+
+		<offsets>
+			<x-m>13.2422</x-m>
+			<y-m>6.54678</y-m>
+			<z-m>0.26987</z-m>
+		</offsets>
+
+		<condition>
+			<and>
+				<greater-than>
+					<property>/environment/relative-humidity</property>
+					<value>98</value>
+				</greater-than>
+				<greater-than>
+					<property>/environment/temperature-degc</property>
+					<value>0</value>
+				</greater-than>
+				<greater-than>
+					<property>/velocities/airspeed-kt</property>
+					<value>180</value>
+				</greater-than>
+				<or>
+					<less-than>
+						<property>/surface-positions/right-aileron-pos-norm</property>
+						<value>-0.01</value>
+					</less-than>
+					<greater-than>
+						<property>/surface-positions/right-aileron-pos-norm</property>
+						<value>0.01</value>
+					</greater-than>
+				</or>
+			</and>
+		</condition>
+
+		<attach>world</attach>
+
+		<placer>
+			<type>point</type>
+		</placer>
+
+		<shooter>
+			<theta-min-deg>89</theta-min-deg>
+			<theta-max-deg>91</theta-max-deg>
+			<phi-min-deg>-1</phi-min-deg>
+			<phi-max-deg>1</phi-max-deg>
+			<speed-mps>
+				<value>0</value>
+				<spread>0</spread>
+			</speed-mps>
+			<rotation-speed>
+				<x-max-deg-sec>0</x-max-deg-sec>
+				<x-min-deg-sec>0</x-min-deg-sec>
+				<y-max-deg-sec>0</y-max-deg-sec>
+				<y-min-deg-sec>0</y-min-deg-sec>
+				<z-max-deg-sec>0</z-max-deg-sec>
+				<z-min-deg-sec>0</z-min-deg-sec>
+			</rotation-speed>
+		</shooter>
+
+		<counter>
+			<particles-per-sec>
+				<property>/velocities/airspeed-kt</property>
+				<factor>1</factor>
+				<offset>75</offset>
+				<!--<value>600</value>-->
+				<spread>10</spread>
+			</particles-per-sec>
+		</counter>
+
+		<align>billboard</align>
+
+		<particle>
+			<start>
+				<color>
+					<red>
+						<value>1.0</value>
+					</red>
+					<green>
+						<value>1.0</value>
+					</green>
+					<blue>
+						<value>1.0</value>
+					</blue>
+					<alpha>
+						<value>0.10</value>
+					</alpha>
+				</color>
+				<size>
+					<value>0.20</value>
+				</size>
+			</start>
+			<end>
+				<color>
+					<red>
+						<value>0.75</value>
+					</red>
+					<green>
+						<value>0.75</value>
+					</green>
+					<blue>
+						<value>0.75</value>
+					</blue>
+					<alpha>
+						<value>0.05</value>
+					</alpha>
+				</color>
+				<size>
+					<value>0.5</value>
+				</size>
+			</end>
+			<life-sec>
+				<value>0.3</value>
+			</life-sec>
+			<mass-kg>0.01</mass-kg>
+			<radius-m>0.1</radius-m>
+		</particle>
+
+		<program>
+			<fluid>air</fluid>
+			<gravity>true</gravity>
+			<wind>true</wind>
+		</program>
+
+	</particlesystem>
+
+</PropertyList>

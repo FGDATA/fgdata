@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PropertyList>
+	<name>Effects/light-point</name>
+	<parameters></parameters>
+	<technique n="10">
+		<pass>
+			<depth>
+				<enabled type="bool">false</enabled>
+				<write-mask type="bool">false</write-mask>
+			</depth>
+			<cull-face>front</cull-face>
+			<render-bin>
+				<bin-number>2</bin-number>
+				<bin-name>RenderBin</bin-name>
+			</render-bin>
+			<blend>
+				<source>one</source>
+				<destination>one</destination>
+			</blend>
+			<texture-unit>
+				<unit>0</unit>
+				<type>buffer</type>
+				<name>depth</name>
+			</texture-unit>
+			<texture-unit>
+				<unit>1</unit>
+				<type>buffer</type>
+				<name>normal</name>
+			</texture-unit>
+			<texture-unit>
+				<unit>2</unit>
+				<type>buffer</type>
+				<name>diffuse</name>
+			</texture-unit>
+			<texture-unit>
+				<unit>3</unit>
+				<type>buffer</type>
+				<name>spec-emis</name>
+			</texture-unit>
+			<program>
+				<vertex-shader>Shaders/light-spot.vert</vertex-shader>
+				<fragment-shader>Shaders/light-point.frag</fragment-shader>
+				<fragment-shader>Shaders/gbuffer-functions.frag</fragment-shader>
+				<attribute>
+					<name>attenuation</name>
+					<index>12</index>
+				</attribute>
+			</program>
+			<uniform>
+				<name>depth_tex</name>
+				<type>sampler-2d</type>
+				<value type="int">0</value>
+			</uniform>
+			<uniform>
+				<name>normal_tex</name>
+				<type>sampler-2d</type>
+				<value type="int">1</value>
+			</uniform>
+			<uniform>
+				<name>color_tex</name>
+				<type>sampler-2d</type>
+				<value type="int">2</value>
+			</uniform>
+			<uniform>
+				<name>spec_emis_tex</name>
+				<type>sampler-2d</type>
+				<value type="int">3</value>
+			</uniform>
+			<uniform>
+				<name>LightPosition</name>
+				<type>float-vec4</type>
+				<value type="vec4d"><use>position</use></value>
+				<positioned type="bool">true</positioned>
+			</uniform>
+			<uniform>
+				<name>Ambient</name>
+				<type>float-vec4</type>
+				<value type="vec4d"><use>ambient</use></value>
+			</uniform>
+			<uniform>
+				<name>Diffuse</name>
+				<type>float-vec4</type>
+				<value type="vec4d"><use>diffuse</use></value>
+			</uniform>
+			<uniform>
+				<name>Specular</name>
+				<type>float-vec4</type>
+				<value type="vec4d"><use>specular</use></value>
+			</uniform>
+			<uniform>
+				<name>Attenuation</name>
+				<type>float-vec3</type>
+				<value type="vec3d"><use>attenuation</use></value>
+			</uniform>
+			<uniform>
+				<name>Near</name>
+				<type>float</type>
+				<value type="float"><use>near</use></value>
+			</uniform>
+			<uniform>
+				<name>Far</name>
+				<type>float</type>
+				<value type="float"><use>far</use></value>
+			</uniform>
+		</pass>
+	</technique>
+</PropertyList>

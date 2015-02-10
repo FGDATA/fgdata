@@ -1,0 +1,68 @@
+<PropertyList>
+
+ <path>light.ac</path>
+
+<animation>
+   <type>light</type>
+   <light-type>spot</light-type>
+   <name>Landinglights</name>
+   <object-name>LightCone</object-name>
+   <nopreview/>
+   <position>
+     <x>0</x>
+     <y>0.0</y>
+     <z>0</z>
+   </position>
+   <direction>
+     <x>-1</x>
+     <y>0.0</y>
+     <z>0</z>
+   </direction>
+   <ambient>
+     <r>2</r>
+     <g>2</g>
+     <b>2</b>
+     <a>1.0</a>
+   </ambient>
+   <diffuse>
+     <r>2</r>
+     <g>2</g>
+     <b>2</b>
+     <a>1.0</a>
+   </diffuse>
+   <specular>
+     <r>0.7</r>
+     <g>0.7</g>
+     <b>0.7</b>
+     <a>1.0</a>
+   </specular>
+   <attenuation>
+     <c>1.0</c>
+     <l>0.002</l>
+     <q>0.00005</q>
+   </attenuation>
+   <exponent>30.0</exponent>
+   <cutoff>450</cutoff>
+   <near-m>0.1</near-m>
+   <far-m>500</far-m>
+ </animation>
+
+<animation>
+   <type>select</type>
+   <object-name>LightCone</object-name>
+   <condition>
+      <and>
+         <greater-than>
+            <property>/sim/rendering/shaders/lights</property>
+            <value>3.0</value>
+         </greater-than>
+         <or>
+            <property>systems/electrical/outputs/lights/landing-lights</property>
+            <property>systems/electrical/outputs/lights/landing-lights[1]</property>
+            <property>systems/electrical/outputs/lights/taxi-lights</property>
+        </or>
+      </and>
+   </condition>
+</animation>
+
+</PropertyList>

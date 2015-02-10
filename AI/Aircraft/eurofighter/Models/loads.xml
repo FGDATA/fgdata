@@ -1,0 +1,1072 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	
+	<!--back-->
+	<!--right -->
+	<!--up -->
+
+
+	<!-- pylons -->
+	<model>
+		<name>pylons</name>
+		<path>Aircraft/eurofighter/Models/pylons.ac</path>
+		<offsets>
+			<x-m>0</x-m>
+			<y-m>0</y-m>
+			<z-m>0</z-m>
+			<pitch-deg>0.0</pitch-deg>
+		</offsets>
+	</model>
+
+<!--station left 1 -->
+  <animation>
+    <type>select</type>
+    <object-name>pylon1.L</object-name>      
+    <condition>
+        <not-equals>
+          <property>sim/weight[0]/selected</property>
+          <value>none</value>
+        </not-equals>
+    </condition>
+  </animation>
+	<model>
+		<name>left AIM 9 pos 1</name>
+		<path>Aircraft/eurofighter/Models/AIM9.ac</path>
+		<offsets>
+			<x-m>10.362</x-m>
+			<y-m>-4.661</y-m>
+			<z-m>-0.641</z-m>
+			<pitch-deg>-0.865</pitch-deg>
+		</offsets>
+	</model>	
+  <animation>
+    <type>select</type>
+    <object-name>left AIM 9 pos 1</object-name>      
+    <condition>
+      <and>
+        <equals>
+          <property>sim/weight[0]/selected</property>
+          <value>AIM-9 Sidewinder</value>
+        </equals>
+        <equals>
+          <property>controls/armament/station[0]/release</property>
+          <value>false</value>
+        </equals>
+      </and>
+    </condition>
+  </animation>
+
+<!-- station left 2 -->
+  <animation>
+    <type>select</type>
+    <object-name>pylon2.L</object-name>      
+    <condition>
+        <not-equals>
+          <property>sim/weight[1]/selected</property>
+          <value>none</value>
+        </not-equals>
+    </condition>
+  </animation>
+	<model>
+		<name>left AIM 9 pos 2</name>
+		<path>Aircraft/eurofighter/Models/AIM9.ac</path>
+		<offsets>
+			<x-m>9.536</x-m>
+			<y-m>-3.802</y-m>
+			<z-m>-0.641</z-m>
+			<pitch-deg>-0.865</pitch-deg>
+		</offsets>
+	</model>	
+  <animation>
+    <type>select</type>
+    <object-name>left AIM 9 pos 2</object-name>      
+    <condition>
+      <and>
+        <equals>
+          <property>sim/weight[1]/selected</property>
+          <value>AIM-9 Sidewinder</value>
+        </equals>
+        <equals>
+          <property>controls/armament/station[1]/release</property>
+          <value>false</value>
+        </equals>
+      </and>
+    </condition>
+  </animation>
+	<model>
+		<name>left AMRAAM pos 2</name>
+		<path>Aircraft/eurofighter/Models/AIM120.ac</path>
+		<offsets>
+			<x-m>9.536</x-m>
+			<y-m>-3.802</y-m>
+			<z-m>-0.66</z-m>
+			<pitch-deg>-0.865</pitch-deg>
+			<roll-deg>45</roll-deg>
+		</offsets>
+	</model>	
+  <animation>
+    <type>select</type>
+    <object-name>left AMRAAM pos 2</object-name>      
+    <condition>
+      <and>
+        <equals>
+          <property>sim/weight[1]/selected</property>
+          <value>AMRAAM</value>
+        </equals>
+        <equals>
+          <property>controls/armament/station[1]/release</property>
+          <value>false</value>
+        </equals>
+      </and>
+    </condition>
+  </animation>
+	<model>
+		<name>left GBU pos 2</name>
+		<path>Aircraft/eurofighter/Models/gbu16.ac</path>
+		<offsets>
+			<x-m>9.536</x-m>
+			<y-m>-3.802</y-m>
+			<z-m>-0.775</z-m>
+			<pitch-deg>-0.865</pitch-deg>
+		</offsets>
+	</model>
+  <animation>
+    <type>select</type>
+    <object-name>left GBU pos 2</object-name>      
+    <condition>
+      <and>
+        <equals>
+          <property>sim/weight[1]/selected</property>
+          <value>GBU-16</value>
+        </equals>
+        <equals>
+          <property>controls/armament/station[1]/release</property>
+          <value>false</value>
+        </equals>
+      </and>
+    </condition>
+  </animation>
+	<model>
+		<name>left ALARM pos 2</name>
+		<path>Aircraft/eurofighter/Models/alarm.ac</path>
+		<offsets>
+			<x-m>9.536</x-m>
+			<y-m>-3.802</y-m>
+			<z-m>-0.675</z-m>
+			<pitch-deg>-0.865</pitch-deg>
+		</offsets>
+	</model>
+  <animation>
+    <type>select</type>
+    <object-name>left ALARM pos 2</object-name>      
+    <condition>
+      <and>
+        <equals>
+          <property>sim/weight[1]/selected</property>
+          <value>ALARM</value>
+        </equals>
+        <equals>
+          <property>controls/armament/station[1]/release</property>
+          <value>false</value>
+        </equals>
+      </and>
+    </condition>
+  </animation>	
+	
+
+<!-- station left 3 -->
+  <animation>
+    <type>select</type>
+    <object-name>pylon3.L</object-name>      
+    <condition>
+        <not-equals>
+          <property>sim/weight[2]/selected</property>
+          <value>none</value>
+        </not-equals>
+    </condition>
+  </animation>
+	<model>
+		<name>left Tank</name>
+		<path>Aircraft/eurofighter/Models/tank1500.ac</path>
+		<offsets>
+			<x-m>8.727</x-m>
+			<y-m>-2.824</y-m>
+			<z-m>-0.78</z-m>
+			<pitch-deg>-1.74</pitch-deg>
+		</offsets>
+	</model>	
+  <animation>
+    <type>select</type>
+    <object-name>left Tank</object-name>      
+    <condition>
+      <and>
+        <equals>
+          <property>sim/weight[2]/selected</property>
+          <value>1500 l Droptank</value>
+        </equals>
+        <equals>
+          <property>controls/armament/station[2]/release</property>
+          <value>false</value>
+        </equals>
+      </and>
+    </condition>
+  </animation>
+
+	<model>
+		<name>left small Tank</name>
+		<path>Aircraft/eurofighter/Models/tank1000.ac</path>
+		<offsets>
+			<x-m>8.727</x-m>
+			<y-m>-2.824</y-m>
+			<z-m>-0.8</z-m>
+			<pitch-deg>-1.74</pitch-deg>
+		</offsets>
+	</model>	
+  <animation>
+    <type>select</type>
+    <object-name>left small Tank</object-name>      
+    <condition>
+      <and>
+        <equals>
+          <property>sim/weight[2]/selected</property>
+          <value>1000 l Droptank</value>
+        </equals>
+        <equals>
+          <property>controls/armament/station[2]/release</property>
+          <value>false</value>
+        </equals>
+      </and>
+    </condition>
+  </animation>
+
+	<model>
+		<name>left AIM 9 pos 3</name>
+		<path>Aircraft/eurofighter/Models/AIM9.ac</path>
+		<offsets>
+			<x-m>8.571</x-m>
+			<y-m>-2.824</y-m>
+			<z-m>-0.641</z-m>
+			<pitch-deg>-0.865</pitch-deg>
+		</offsets>
+	</model>	
+  <animation>
+    <type>select</type>
+    <object-name>left AIM 9 pos 3</object-name>      
+    <condition>
+      <and>
+        <equals>
+          <property>sim/weight[2]/selected</property>
+          <value>AIM-9 Sidewinder</value>
+        </equals>
+        <equals>
+          <property>controls/armament/station[2]/release</property>
+          <value>false</value>
+        </equals>
+      </and>
+    </condition>
+  </animation>
+	<model>
+		<name>left AMRAAM pos 3</name>
+		<path>Aircraft/eurofighter/Models/AIM120.ac</path>
+		<offsets>
+			<x-m>8.571</x-m>
+			<y-m>-2.824</y-m>
+			<z-m>-0.66</z-m>
+			<pitch-deg>-0.865</pitch-deg>
+			<roll-deg>45</roll-deg>
+		</offsets>
+	</model>	
+  <animation>
+    <type>select</type>
+    <object-name>left AMRAAM pos 3</object-name>      
+    <condition>
+      <and>
+        <equals>
+          <property>sim/weight[2]/selected</property>
+          <value>AMRAAM</value>
+        </equals>
+        <equals>
+          <property>controls/armament/station[2]/release</property>
+          <value>false</value>
+        </equals>
+      </and>
+    </condition>
+  </animation>
+	<model>
+		<name>left ALARM pos 3</name>
+		<path>Aircraft/eurofighter/Models/alarm.ac</path>
+		<offsets>
+			<x-m>8.571</x-m>
+			<y-m>-2.824</y-m>
+			<z-m>-0.775</z-m>
+			<pitch-deg>-0.865</pitch-deg>
+		</offsets>
+	</model>
+  <animation>
+    <type>select</type>
+    <object-name>left ALARM pos 3</object-name>      
+    <condition>
+      <and>
+        <equals>
+          <property>sim/weight[2]/selected</property>
+          <value>ALARM</value>
+        </equals>
+        <equals>
+          <property>controls/armament/station[2]/release</property>
+          <value>false</value>
+        </equals>
+      </and>
+    </condition>
+  </animation>	
+	<model>
+		<name>left GBU pos 3</name>
+		<path>Aircraft/eurofighter/Models/gbu16.ac</path>
+		<offsets>
+			<x-m>8.571</x-m>
+			<y-m>-2.824</y-m>
+			<z-m>-0.783</z-m>
+			<pitch-deg>-0.865</pitch-deg>
+		</offsets>
+	</model>	
+  <animation>
+    <type>select</type>
+    <object-name>left GBU pos 3</object-name>      
+    <condition>
+      <and>
+        <equals>
+          <property>sim/weight[2]/selected</property>
+          <value>GBU-16</value>
+        </equals>
+        <equals>
+          <property>controls/armament/station[2]/release</property>
+          <value>false</value>
+        </equals>
+      </and>
+    </condition>
+  </animation>	
+<!-- station left 4 -->
+  <animation>
+    <type>select</type>
+    <object-name>pylon4.L</object-name>      
+    <condition>
+        <not-equals>
+          <property>sim/weight[3]/selected</property>
+          <value>none</value>
+        </not-equals>
+    </condition>
+  </animation>
+	<model>
+		<name>left AIM 9 pos 4</name>
+		<path>Aircraft/eurofighter/Models/AIM9.ac</path>
+		<offsets>
+			<x-m>7.376</x-m>
+			<y-m>-1.739</y-m>
+			<z-m>-0.641</z-m>
+			<pitch-deg>-0.865</pitch-deg>
+		</offsets>
+	</model>	
+  <animation>
+    <type>select</type>
+    <object-name>left AIM 9 pos 4</object-name>      
+    <condition>
+      <and>
+        <equals>
+          <property>sim/weight[3]/selected</property>
+          <value>AIM-9 Sidewinder</value>
+        </equals>
+        <equals>
+          <property>controls/armament/station[3]/release</property>
+          <value>false</value>
+        </equals>
+      </and>
+    </condition>
+  </animation>
+	<model>
+		<name>left AMRAAM pos 4</name>
+		<path>Aircraft/eurofighter/Models/AIM120.ac</path>
+		<offsets>
+			<x-m>7.376</x-m>
+			<y-m>-1.739</y-m>
+			<z-m>-0.66</z-m>
+			<pitch-deg>-0.865</pitch-deg>
+			<roll-deg>45</roll-deg>
+		</offsets>
+	</model>	
+  <animation>
+    <type>select</type>
+    <object-name>left AMRAAM pos 4</object-name>      
+    <condition>
+      <and>
+        <equals>
+          <property>sim/weight[3]/selected</property>
+          <value>AMRAAM</value>
+        </equals>
+        <equals>
+          <property>controls/armament/station[3]/release</property>
+          <value>false</value>
+        </equals>
+      </and>
+    </condition>
+  </animation>
+	<model>
+		<name>left ALARM pos 4</name>
+		<path>Aircraft/eurofighter/Models/alarm.ac</path>
+		<offsets>
+			<x-m>7.376</x-m>
+			<y-m>-1.739</y-m>
+			<z-m>-0.775</z-m>
+			<pitch-deg>-0.865</pitch-deg>
+		</offsets>
+	</model>
+  <animation>
+    <type>select</type>
+    <object-name>left ALARM pos 4</object-name>      
+    <condition>
+      <and>
+        <equals>
+          <property>sim/weight[3]/selected</property>
+          <value>ALARM</value>
+        </equals>
+        <equals>
+          <property>controls/armament/station[3]/release</property>
+          <value>false</value>
+        </equals>
+      </and>
+    </condition>
+  </animation>
+	<model>
+		<name>left GBU pos 4</name>
+		<path>Aircraft/eurofighter/Models/gbu16.ac</path>
+		<offsets>
+			<x-m>7.376</x-m>
+			<y-m>-1.739</y-m>
+			<z-m>-0.817</z-m>
+			<pitch-deg>-0.865</pitch-deg>
+		</offsets>
+	</model>
+  <animation>
+    <type>select</type>
+    <object-name>left GBU pos 4</object-name>      
+    <condition>
+      <and>
+        <equals>
+          <property>sim/weight[3]/selected</property>
+          <value>GBU-16</value>
+        </equals>
+        <equals>
+          <property>controls/armament/station[3]/release</property>
+          <value>false</value>
+        </equals>
+      </and>
+    </condition>
+  </animation>	
+
+<!-- center station -->
+  <animation>
+    <type>select</type>
+    <object-name>pylon.C</object-name>      
+    <condition>
+        <not-equals>
+          <property>sim/weight[4]/selected</property>
+          <value>none</value>
+        </not-equals>
+    </condition>
+  </animation>
+	<model>
+		<name>center tank</name>
+		<path>Aircraft/eurofighter/Models/tank1000.ac</path>
+		<offsets>
+			<x-m>9.449</x-m>
+			<y-m>0.0</y-m>
+			<z-m>-1.014</z-m>
+			<pitch-deg>-0.865</pitch-deg>
+		</offsets>
+	</model>
+  <animation>
+    <type>select</type>
+    <object-name>center tank</object-name>      
+    <condition>
+      <and>
+        <equals>
+          <property>sim/weight[4]/selected</property>
+          <value>1000 l Droptank</value>
+        </equals>
+        <equals>
+          <property>controls/armament/station[4]/release</property>
+          <value>false</value>
+        </equals>
+      </and>
+    </condition>
+  </animation>			
+
+
+<!--station right 1 -->
+  <animation>
+    <type>select</type>
+    <object-name>pylon1.R</object-name>      
+    <condition>
+        <not-equals>
+          <property>sim/weight[8]/selected</property>
+          <value>none</value>
+        </not-equals>
+    </condition>
+  </animation>
+	<model>
+		<name>right AIM 9 pos 1</name>
+		<path>Aircraft/eurofighter/Models/AIM9.ac</path>
+		<offsets>
+			<x-m>10.362</x-m>
+			<y-m>4.661</y-m>
+			<z-m>-0.641</z-m>
+			<pitch-deg>-0.865</pitch-deg>
+		</offsets>
+	</model>	
+  <animation>
+    <type>select</type>
+    <object-name>right AIM 9 pos 1</object-name>      
+    <condition>
+      <and>
+        <equals>
+          <property>sim/weight[8]/selected</property>
+          <value>AIM-9 Sidewinder</value>
+        </equals>
+        <equals>
+          <property>controls/armament/station[8]/release</property>
+          <value>false</value>
+        </equals>
+      </and>
+    </condition>
+  </animation>
+<!-- station right 2 -->
+  <animation>
+    <type>select</type>
+    <object-name>pylon2.R</object-name>      
+    <condition>
+        <not-equals>
+          <property>sim/weight[7]/selected</property>
+          <value>none</value>
+        </not-equals>
+    </condition>
+  </animation>
+	<model>
+		<name>right AIM 9 pos 2</name>
+		<path>Aircraft/eurofighter/Models/AIM9.ac</path>
+		<offsets>
+			<x-m>9.536</x-m>
+			<y-m>3.802</y-m>
+			<z-m>-0.641</z-m>
+			<pitch-deg>-0.865</pitch-deg>
+		</offsets>
+	</model>	
+  <animation>
+    <type>select</type>
+    <object-name>right AIM 9 pos 2</object-name>      
+    <condition>
+      <and>
+        <equals>
+          <property>sim/weight[7]/selected</property>
+          <value>AIM-9 Sidewinder</value>
+        </equals>
+        <equals>
+          <property>controls/armament/station[7]/release</property>
+          <value>false</value>
+        </equals>
+      </and>
+    </condition>
+  </animation>
+	<model>
+		<name>right AMRAAM pos 2</name>
+		<path>Aircraft/eurofighter/Models/AIM120.ac</path>
+		<offsets>
+			<x-m>9.536</x-m>
+			<y-m>3.802</y-m>
+			<z-m>-0.66</z-m>
+			<pitch-deg>-0.865</pitch-deg>
+			<roll-deg>45</roll-deg>
+		</offsets>
+	</model>	
+  <animation>
+    <type>select</type>
+    <object-name>right AMRAAM pos 2</object-name>      
+    <condition>
+      <and>
+        <equals>
+          <property>sim/weight[7]/selected</property>
+          <value>AMRAAM</value>
+        </equals>
+        <equals>
+          <property>controls/armament/station[7]/release</property>
+          <value>false</value>
+        </equals>
+      </and>
+    </condition>
+  </animation>
+	<model>
+		<name>right ALARM pos 2</name>
+		<path>Aircraft/eurofighter/Models/alarm.ac</path>
+		<offsets>
+			<x-m>9.536</x-m>
+			<y-m>3.802</y-m>
+			<z-m>-0.675</z-m>
+			<pitch-deg>-0.865</pitch-deg>
+		</offsets>
+	</model>
+  <animation>
+    <type>select</type>
+    <object-name>right ALARM pos 2</object-name>      
+    <condition>
+      <and>
+        <equals>
+          <property>sim/weight[7]/selected</property>
+          <value>ALARM</value>
+        </equals>
+        <equals>
+          <property>controls/armament/station[7]/release</property>
+          <value>false</value>
+        </equals>
+      </and>
+    </condition>
+  </animation>	
+	<model>
+		<name>right GBU pos 2</name>
+		<path>Aircraft/eurofighter/Models/gbu16.ac</path>
+		<offsets>
+			<x-m>9.536</x-m>
+			<y-m>3.802</y-m>
+			<z-m>-0.775</z-m>
+			<pitch-deg>-0.865</pitch-deg>
+		</offsets>
+	</model>
+  <animation>
+    <type>select</type>
+    <object-name>right GBU pos 2</object-name>      
+    <condition>
+      <and>
+        <equals>
+          <property>sim/weight[7]/selected</property>
+          <value>GBU-16</value>
+        </equals>
+        <equals>
+          <property>controls/armament/station[7]/release</property>
+          <value>false</value>
+        </equals>
+      </and>
+    </condition>
+  </animation>	
+
+<!-- station right 3 -->
+  <animation>
+    <type>select</type>
+    <object-name>pylon3.R</object-name>      
+    <condition>
+        <not-equals>
+          <property>sim/weight[6]/selected</property>
+          <value>none</value>
+        </not-equals>
+    </condition>
+  </animation>
+	<model>
+		<name>right Tank</name>
+		<path>Aircraft/eurofighter/Models/tank1500.ac</path>
+		<offsets>
+			<x-m>8.727</x-m>
+			<y-m>2.824</y-m>
+			<z-m>-0.78</z-m>
+			<pitch-deg>-1.74</pitch-deg>
+		</offsets>
+	</model>	
+  <animation>
+    <type>select</type>
+    <object-name>right Tank</object-name>      
+    <condition>
+      <and>
+        <equals>
+          <property>sim/weight[6]/selected</property>
+          <value>1500 l Droptank</value>
+        </equals>
+        <equals>
+          <property>controls/armament/station[6]/release</property>
+          <value>false</value>
+        </equals>
+      </and>
+    </condition>
+  </animation>
+
+	<model>
+		<name>right small Tank</name>
+		<path>Aircraft/eurofighter/Models/tank1000.ac</path>
+		<offsets>
+			<x-m>8.727</x-m>
+			<y-m>2.824</y-m>
+			<z-m>-0.8</z-m>
+			<pitch-deg>-1.74</pitch-deg>
+		</offsets>
+	</model>	
+  <animation>
+    <type>select</type>
+    <object-name>right small Tank</object-name>      
+    <condition>
+      <and>
+        <equals>
+          <property>sim/weight[6]/selected</property>
+          <value>1000 l Droptank</value>
+        </equals>
+        <equals>
+          <property>controls/armament/station[6]/release</property>
+          <value>false</value>
+        </equals>
+      </and>
+    </condition>
+  </animation>
+
+
+	<model>
+		<name>right AIM 9 pos 3</name>
+		<path>Aircraft/eurofighter/Models/AIM9.ac</path>
+		<offsets>
+			<x-m>8.571</x-m>
+			<y-m>2.824</y-m>
+			<z-m>-0.641</z-m>
+			<pitch-deg>-0.865</pitch-deg>
+		</offsets>
+	</model>	
+  <animation>
+    <type>select</type>
+    <object-name>right AIM 9 pos 3</object-name>      
+    <condition>
+      <and>
+        <equals>
+          <property>sim/weight[6]/selected</property>
+          <value>AIM-9 Sidewinder</value>
+        </equals>
+        <equals>
+          <property>controls/armament/station[6]/release</property>
+          <value>false</value>
+        </equals>
+      </and>
+    </condition>
+  </animation>
+	<model>
+		<name>right AMRAAM pos 3</name>
+		<path>Aircraft/eurofighter/Models/AIM120.ac</path>
+		<offsets>
+			<x-m>8.571</x-m>
+			<y-m>2.824</y-m>
+			<z-m>-0.66</z-m>
+			<pitch-deg>-0.865</pitch-deg>
+			<roll-deg>45</roll-deg>
+		</offsets>
+	</model>	
+  <animation>
+    <type>select</type>
+    <object-name>right AMRAAM pos 3</object-name>      
+    <condition>
+      <and>
+        <equals>
+          <property>sim/weight[6]/selected</property>
+          <value>AMRAAM</value>
+        </equals>
+        <equals>
+          <property>controls/armament/station[6]/release</property>
+          <value>false</value>
+        </equals>
+      </and>
+    </condition>
+  </animation>
+	<model>
+		<name>right ALARM pos 3</name>
+		<path>Aircraft/eurofighter/Models/alarm.ac</path>
+		<offsets>
+			<x-m>8.571</x-m>
+			<y-m>2.824</y-m>
+			<z-m>-0.775</z-m>
+			<pitch-deg>-0.865</pitch-deg>
+		</offsets>
+	</model>
+  <animation>
+    <type>select</type>
+    <object-name>right ALARM pos 3</object-name>      
+    <condition>
+      <and>
+        <equals>
+          <property>sim/weight[6]/selected</property>
+          <value>ALARM</value>
+        </equals>
+        <equals>
+          <property>controls/armament/station[6]/release</property>
+          <value>false</value>
+        </equals>
+      </and>
+    </condition>
+  </animation>	
+	<model>
+		<name>right GBU pos 3</name>
+		<path>Aircraft/eurofighter/Models/gbu16.ac</path>
+		<offsets>
+			<x-m>8.571</x-m>
+			<y-m>2.824</y-m>
+			<z-m>-0.783</z-m>
+			<pitch-deg>-0.865</pitch-deg>
+		</offsets>
+	</model>	
+  <animation>
+    <type>select</type>
+    <object-name>right GBU pos 3</object-name>      
+    <condition>
+      <and>
+        <equals>
+          <property>sim/weight[6]/selected</property>
+          <value>GBU-16</value>
+        </equals>
+        <equals>
+          <property>controls/armament/station[6]/release</property>
+          <value>false</value>
+        </equals>
+      </and>
+    </condition>
+  </animation>	
+<!-- station right 4 -->
+  <animation>
+    <type>select</type>
+    <object-name>pylon4.R</object-name>      
+    <condition>
+        <not-equals>
+          <property>sim/weight[5]/selected</property>
+          <value>none</value>
+        </not-equals>
+    </condition>
+  </animation>
+	<model>
+		<name>right AIM 9 pos 4</name>
+		<path>Aircraft/eurofighter/Models/AIM9.ac</path>
+		<offsets>
+			<x-m>7.376</x-m>
+			<y-m>1.739</y-m>
+			<z-m>-0.641</z-m>
+			<pitch-deg>-0.865</pitch-deg>
+		</offsets>
+	</model>	
+  <animation>
+    <type>select</type>
+    <object-name>right AIM 9 pos 4</object-name>      
+    <condition>
+      <and>
+        <equals>
+          <property>sim/weight[5]/selected</property>
+          <value>AIM-9 Sidewinder</value>
+        </equals>
+        <equals>
+          <property>controls/armament/station[5]/release</property>
+          <value>false</value>
+        </equals>
+      </and>
+    </condition>
+  </animation>
+	<model>
+		<name>right AMRAAM pos 4</name>
+		<path>Aircraft/eurofighter/Models/AIM120.ac</path>
+		<offsets>
+			<x-m>7.376</x-m>
+			<y-m>1.739</y-m>
+			<z-m>-0.66</z-m>
+			<pitch-deg>-0.865</pitch-deg>
+			<roll-deg>45</roll-deg>
+		</offsets>
+	</model>	
+  <animation>
+    <type>select</type>
+    <object-name>right AMRAAM pos 4</object-name>      
+    <condition>
+      <and>
+        <equals>
+          <property>sim/weight[5]/selected</property>
+          <value>AMRAAM</value>
+        </equals>
+        <equals>
+          <property>controls/armament/station[5]/release</property>
+          <value>false</value>
+        </equals>
+      </and>
+    </condition>
+  </animation>
+	<model>
+		<name>right ALARM pos 4</name>
+		<path>Aircraft/eurofighter/Models/alarm.ac</path>
+		<offsets>
+			<x-m>7.376</x-m>
+			<y-m>1.739</y-m>
+			<z-m>-0.775</z-m>
+			<pitch-deg>-0.865</pitch-deg>
+		</offsets>
+	</model>
+  <animation>
+    <type>select</type>
+    <object-name>right ALARM pos 4</object-name>      
+    <condition>
+      <and>
+        <equals>
+          <property>sim/weight[5]/selected</property>
+          <value>ALARM</value>
+        </equals>
+        <equals>
+          <property>controls/armament/station[5]/release</property>
+          <value>false</value>
+        </equals>
+      </and>
+    </condition>
+  </animation>
+	<model>
+		<name>right GBU pos 4</name>
+		<path>Aircraft/eurofighter/Models/gbu16.ac</path>
+		<offsets>
+			<x-m>7.376</x-m>
+			<y-m>1.739</y-m>
+			<z-m>-0.817</z-m>
+			<pitch-deg>-0.865</pitch-deg>
+		</offsets>
+	</model>
+  <animation>
+    <type>select</type>
+    <object-name>right GBU pos 4</object-name>      
+    <condition>
+      <and>
+        <equals>
+          <property>sim/weight[5]/selected</property>
+          <value>GBU-16</value>
+        </equals>
+        <equals>
+          <property>controls/armament/station[5]/release</property>
+          <value>false</value>
+        </equals>
+      </and>
+    </condition>
+  </animation>	
+
+
+<!-- fuselage AIM-120 -->
+	<model>
+		<name>front left AIM 120</name>
+		<path>Aircraft/eurofighter/Models/AIM120.ac</path>
+		<offsets>
+			<x-m>6.793</x-m>
+			<y-m>-0.882</y-m>
+			<z-m>-0.777</z-m>
+			<pitch-deg>-4.789</pitch-deg>
+			<roll-deg>79.784</roll-deg>
+		</offsets>
+	</model>	
+  <animation>
+    <type>select</type>
+    <object-name>front left AIM 120</object-name>      
+    <condition>
+      <and>
+        <equals>
+          <property>sim/weight[9]/selected</property>
+          <value>AMRAAM</value>
+        </equals>
+        <equals>
+          <property>controls/armament/station[9]/release</property>
+          <value>false</value>
+        </equals>
+      </and>
+    </condition>
+  </animation>	
+	<model>
+		<name>rear left AIM 120</name>
+		<path>Aircraft/eurofighter/Models/AIM120.ac</path>
+		<offsets>
+			<x-m>11.627</x-m>
+			<y-m>-0.979</y-m>
+			<z-m>-0.616</z-m>
+			<roll-deg>-10.148</roll-deg>
+			<pitch-deg>-4.847</pitch-deg>
+			<heading-deg>-0.012</heading-deg>
+		</offsets>
+	</model>
+  <animation>
+    <type>select</type>
+    <object-name>rear left AIM 120</object-name>      
+    <condition>
+      <and>
+        <equals>
+          <property>sim/weight[10]/selected</property>
+          <value>AMRAAM</value>
+        </equals>
+        <equals>
+          <property>controls/armament/station[10]/release</property>
+          <value>false</value>
+        </equals>
+      </and>
+    </condition>
+  </animation>		
+	<model>
+		<name>front right AIM 120</name>
+		<path>Aircraft/eurofighter/Models/AIM120.ac</path>
+		<offsets>
+			<x-m>6.793</x-m>
+			<y-m>0.882</y-m>
+			<z-m>-0.777</z-m>
+			<pitch-deg>-4.789</pitch-deg>
+			<roll-deg>-79.784</roll-deg>
+		</offsets>
+	</model>	
+  <animation>
+    <type>select</type>
+    <object-name>front right AIM 120</object-name>      
+    <condition>
+      <and>
+        <equals>
+          <property>sim/weight[11]/selected</property>
+          <value>AMRAAM</value>
+        </equals>
+        <equals>
+          <property>controls/armament/station[11]/release</property>
+          <value>false</value>
+        </equals>
+      </and>
+    </condition>
+  </animation>	
+	<model>
+		<name>rear right AIM 120</name>
+		<path>Aircraft/eurofighter/Models/AIM120.ac</path>
+		<offsets>
+			<x-m>11.627</x-m>
+			<y-m>0.979</y-m>
+			<z-m>-0.616</z-m>
+			<roll-deg>10.148</roll-deg>
+			<pitch-deg>-4.847</pitch-deg>
+			<heading-deg>0.012</heading-deg>
+		</offsets>
+	</model>
+  <animation>
+    <type>select</type>
+    <object-name>rear right AIM 120</object-name>      
+    <condition>
+      <and>
+        <equals>
+          <property>sim/weight[12]/selected</property>
+          <value>AMRAAM</value>
+        </equals>
+        <equals>
+          <property>controls/armament/station[12]/release</property>
+          <value>false</value>
+        </equals>
+      </and>
+    </condition>
+  </animation>
+
+
+	<!-- pylons -->
+	<model>
+		<name>pylons</name>
+		<path>Aircraft/eurofighter/Models/pylons.ac</path>
+		<offsets>
+			<x-m>0</x-m>
+			<y-m>0</y-m>
+			<z-m>0</z-m>
+			<pitch-deg>0.0</pitch-deg>
+		</offsets>
+	</model>
+
+</PropertyList>

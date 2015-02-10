@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<PropertyList include="SenecaII-base.xml">
+    <sim>
+        <author>Torsten Dreyer</author>
+        <description>PA34-200T Seneca II (no 3d model, 2d panel only)</description>
+        <aircraft-version>1.0</aircraft-version>
+        <status>production</status>
+        <flight-model>jsb</flight-model>
+        <aero>SenecaII-jsbsim</aero>
+        <model>
+            <path>Aircraft/SenecaII/Models/nothing.ac</path>
+        </model>
+        <panel>
+            <path>Aircraft/SenecaII/Panels/ifr-panel.xml</path>
+            <visibility>true</visibility>
+        </panel>
+        <rendering>
+          <camera-group>
+            <camera>
+              <window>
+                <name type="string">Panel</name>
+                <host-name type="string"></host-name>
+                <display>0</display>
+                <screen>0</screen>
+                <fullscreen type = "bool">false</fullscreen>
+              </window>
+              <view>
+                <heading-deg type = "double">0</heading-deg>
+              </view>
+              <frustum>
+                <top>0.133</top>
+                <bottom>-0.133</bottom>
+                <left>-.1668</left>
+                <right>.1668</right>
+                <near>0.4</near>
+                <far>120000.0</far>
+              </frustum>
+            </camera>
+            <camera>
+              <window>
+                <name type="string">StraightAhead</name>
+                <host-name type="string"></host-name>
+                <display>0</display>
+                <screen>1</screen>
+                <fullscreen type = "bool">true</fullscreen>
+              </window>
+              <view>
+                <heading-deg type = "double">0.0</heading-deg>
+                <pitch-deg type = "double">10.0</pitch-deg>
+              </view>
+              <frustum>
+                <top>0.133</top>
+                <bottom>-0.133</bottom>
+                <left>-.1668</left>
+                <right>.1668</right>
+                <near>0.4</near>
+                <far>120000.0</far>
+              </frustum>
+            </camera>
+            <gui>
+              <window>
+                <name type="string">Panel</name>
+              </window>
+            </gui>
+          </camera-group>
+        </rendering>
+    </sim>
+</PropertyList>

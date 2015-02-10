@@ -1,0 +1,161 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<!-- possible font names:
+		"default", "FIXED_8x13", "FIXED_9x15", "TIMES_10", "TIMES_24",
+		"HELVETICA_10", "HELVETICA_12", "HELVETICA_14", "HELVETICA_18",
+		"SANS_12B", and all font file names from $FG_ROOT/Fonts/, such as
+		"helvetica_bold.txf". "size" and "slant" take only effect on
+		texture fonts.
+	-->
+
+	<fonts>
+		<gui>
+			<name type="string">Helvetica.txf</name>
+			<size type="float">15</size>
+			<slant type="float">0</slant>
+		</gui>
+
+		<splash>
+			<name type="string">HELVETICA_18</name>
+<!--
+			<size type="float">19</size>
+			<slant type="float">0</slant>
+-->
+		</splash>
+
+		<message-display>
+			<name type="string">SANS_12B</name>
+		</message-display>
+	</fonts>
+
+	<colors>
+		<!-- default colors for all GUI objects -->
+		<background>
+			<red type="float">0.8</red>
+			<green type="float">0.8</green>
+			<blue type="float">0.9</blue>
+			<alpha type="float">0.85</alpha>
+		</background>
+
+		<foreground>
+			<red type="float">0.8</red>
+			<green type="float">0.8</green>
+			<blue type="float">0.9</blue>
+			<alpha type="float">0.85</alpha>
+		</foreground>
+
+		<highlight>
+			<red type="float">1.0</red>
+			<green type="float">1.0</green>
+			<blue type="float">1.0</blue>
+			<alpha type="float">1.0</alpha>
+		</highlight>
+
+		<label>
+			<red type="float">0.0</red>
+			<green type="float">0.0</green>
+			<blue type="float">0.0</blue>
+			<alpha type="float">1.0</alpha>
+		</label>
+
+		<legend>
+			<red type="float">0.0</red>
+			<green type="float">0.0</green>
+			<blue type="float">0.0</blue>
+			<alpha type="float">1.0</alpha>
+		</legend>
+
+		<misc>
+			<red type="float">0.0</red>
+			<green type="float">0.0</green>
+			<blue type="float">0.0</blue>
+			<alpha type="float">1.0</alpha>
+		</misc>
+
+		<!-- GUI object specific colors -->
+		<hrule>
+			<red type="float">0.0</red>
+			<green type="float">0.0</green>
+			<blue type="float">0.0</blue>
+			<alpha type="float">1.0</alpha>
+		</hrule>
+
+		<vrule>
+			<red type="float">0.0</red>
+			<green type="float">0.0</green>
+			<blue type="float">0.0</blue>
+			<alpha type="float">1.0</alpha>
+		</vrule>
+
+		<checkbox-foreground>
+			<red type="float">0.8</red>
+			<green type="float">0.7</green>
+			<blue type="float">0.7</blue>
+			<alpha type="float">1.0</alpha>
+		</checkbox-foreground>
+
+		<checkbox-highlight>		<!-- box frame -->
+			<red type="float">1</red>
+			<green type="float">0.9</green>
+			<blue type="float">0.9</blue>
+			<alpha type="float">1.0</alpha>
+		</checkbox-highlight>
+
+		<radio-foreground>
+			<red type="float">0.8</red>
+			<green type="float">0.7</green>
+			<blue type="float">0.7</blue>
+			<alpha type="float">1.0</alpha>
+		</radio-foreground>
+
+		<radio-highlight>
+			<red type="float">1</red>
+			<green type="float">0.9</green>
+			<blue type="float">0.9</blue>
+			<alpha type="float">1.0</alpha>
+		</radio-highlight>
+
+		<input-background>
+			<red type="float">0.4</red>
+			<green type="float">0.3</green>
+			<blue type="float">0.3</blue>
+			<alpha type="float">1.0</alpha>
+		</input-background>
+
+		<input-foreground>
+			<red type="float">0.8</red>
+			<green type="float">0.7</green>
+			<blue type="float">0.7</blue>
+			<alpha type="float">1.0</alpha>
+		</input-foreground>
+
+		<input-highlight>
+			<red type="float">1.0</red>
+			<green type="float">0.9</green>
+			<blue type="float">0.9</blue>
+			<alpha type="float">1.0</alpha>
+		</input-highlight>
+
+		<input-misc>			<!-- cursor -->
+			<red type="float">0.1</red>
+			<green type="float">0.1</green>
+			<blue type="float">1.0</blue>
+			<alpha type="float">1.0</alpha>
+		</input-misc>
+
+		<!-- splash screen colors -->
+
+		<splash-font>
+			<red type="float">1.0</red>
+			<green type="float">0.9</green>
+			<blue type="float">0.0</blue>
+		</splash-font>
+
+		<splash-screen>
+			<red type="float">0.0</red>
+			<green type="float">0.0</green>
+			<blue type="float">0.0</blue>
+		</splash-screen>
+	</colors>
+</PropertyList>

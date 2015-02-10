@@ -1,0 +1,268 @@
+<?xml version="1.0"?>
+<!-- REGIONAL DEFINITION US SOUTHWEST -->
+<PropertyList>
+  <name>US South-west</name>
+  <area>
+    <lon1>-124.0</lon1>
+    <lat1>32.0</lat1>
+    <lon2>-104.0</lon2>
+    <lat2>42</lat2>
+  </area>
+
+  <condition>
+   <equals>
+    <property>sim/startup/season</property>
+    <value>summer</value>
+   </equals>
+  </condition>
+
+  <material>
+    <name>pa_shoulder</name>
+    <texture>Runway/pa_shoulder2.png</texture>
+    <parameters>
+      <uvstretch>8.0</uvstretch>
+    </parameters>
+  </material>
+
+  <material>
+    <name>pa_shoulder_f</name>
+    <texture>Runway/pa_shoulder_f2.png</texture>
+    <parameters>
+      <uvstretch>8.0</uvstretch>
+    </parameters>
+  </material>
+
+  <material>
+    <effect>Effects/airfield</effect>
+    <name>Grass</name>
+    <name>Airport</name>
+    <name>AirportKeep</name>
+    <name>Greenspace</name>
+    <texture-set>
+      <texture>Terrain/gravel_red.png</texture>
+      <texture n="13">Terrain/gravel_red.png</texture>
+      <texture n="14">Terrain/grass_dry2.png</texture>
+    </texture-set>
+    <parameters>
+      <grit_alpha>0.4</grit_alpha>
+      <use_overlay>1</use_overlay>
+      <overlay_bias>-0.1</overlay_bias>
+    </parameters>
+    <xsize>125</xsize>
+    <ysize>125</ysize>
+    <light-coverage>4000000.0</light-coverage>
+    <diffuse>
+    <r>0.93</r>
+    <g>0.95</g>
+    <b>0.93</b>
+    <a>1.0</a>
+   </diffuse>
+   <specular>
+     <r>0.1</r>
+     <g>0.12</g>
+     <b>0.1</b>
+     <a>1.0</a>
+   </specular>
+   <shininess>1.2</shininess>
+   <solid>1</solid>
+   <friction-factor>0.7</friction-factor>
+   <rolling-friction>0.1</rolling-friction>
+   <bumpiness>0.1</bumpiness>
+   <load-resistance>1e30</load-resistance>
+ </material>
+
+  <material>
+    <effect>Effects/landmass-scrub</effect>
+    <name>ShrubCover</name>
+    <name>ShrubGrassCover</name>
+    <name>ScrubCover</name>
+    <name>Scrub</name>
+    <name>Sclerophyllous</name>
+	<name>Landmass</name>
+	<name>SomeSort</name>
+	<name>Default</name>
+	<name>GrassCover</name>
+    <name>BareTundraCover</name>
+    <name>MixedTundraCover</name>
+    <name>Cemetery</name>
+    <texture-set>
+      <texture>Terrain/shrub-hawaii.png</texture>
+      <texture n="11">Terrain/sand_hires_red.png</texture>
+      <texture n="12">Terrain/rock_red.png</texture>
+	  <texture n="13">Terrain/rock_red.png</texture>
+      <texture n="14">Terrain/grain_texture.png</texture>
+      <!--<texture n="15">Terrain/airport_grass2.png</texture>-->
+	  <texture n="15">Terrain/grass_hires.png</texture>
+    </texture-set>
+	<parameters>
+	  <rock_strata>1</rock_strata>
+	</parameters>
+    <xsize>2000</xsize>
+    <ysize>2000</ysize>
+    <diffuse>
+      <r>0.86</r>
+      <g>0.86</g>
+      <b>0.86</b>
+      <a>1.0</a>
+    </diffuse>
+    <specular>
+      <r>0.1</r>
+      <g>0.1</g>
+      <b>0.1</b>
+      <a>1.0</a>
+    </specular>
+    <shininess>1.2</shininess>
+    <light-coverage>20000000.0</light-coverage>
+    <wood-coverage>12000.0</wood-coverage>
+    <tree-texture>Trees/mixed-shrub.png</tree-texture>
+    <tree-varieties>8</tree-varieties>
+    <tree-range-m alias="/params/forest/tree-range-m"/>
+    <tree-height-m>2.0</tree-height-m>
+    <tree-width-m>2.0</tree-width-m>
+    <rolling-friction>0.6</rolling-friction>
+    <bumpiness>0.4</bumpiness>
+  </material>
+
+  <material>
+    <effect>Effects/cropgrass</effect>
+    <name>Grassland</name>
+	<texture-set>
+     <texture>Terrain/dry_pasture4.png</texture>
+	 <texture n="13">Terrain/rock_red.png</texture>
+	 <texture n="12">Terrain/rock_red.png</texture>
+	</texture-set>
+	<parameters>
+	  <rock_strata>1</rock_strata>
+	</parameters>
+    <xsize>2000</xsize>
+    <ysize>2000</ysize>
+    <light-coverage>2000000.0</light-coverage>
+    <diffuse>
+      <r>0.93</r>
+      <g>0.95</g>
+      <b>0.93</b>
+      <a>1.0</a>
+    </diffuse>
+    <specular>
+      <r>0.1</r>
+      <g>0.12</g>
+      <b>0.1</b>
+      <a>1.0</a>
+    </specular>
+    <shininess>1.2</shininess>
+    <solid>1</solid>
+    <friction-factor>0.7</friction-factor>
+    <rolling-friction>0.1</rolling-friction>
+    <bumpiness>0.3</bumpiness>
+    <load-resistance>1e30</load-resistance>
+    <wood-coverage>150000.0</wood-coverage>
+    <tree-texture>Trees/mixed.png</tree-texture>
+    <tree-varieties>8</tree-varieties>
+    <tree-range-m alias="/params/forest/tree-range-m"/>
+    <tree-height-m>20.0</tree-height-m>
+    <tree-width-m>12.0</tree-width-m>
+  </material>
+
+  <material>
+    <effect>Effects/forest</effect>
+    <name>DeciduousBroadCover</name>
+    <name>DeciduousForest</name>
+    <name>Bog</name>
+    <name>Heath</name>
+	<texture-set>
+     <texture>Terrain/deciduous-hires-autumn.png</texture>
+	 <texture n="12">Terrain/rock_alt.png</texture>
+	</texture-set>
+    <xsize>2000</xsize>
+    <ysize>2000</ysize>
+    <light-coverage>10000000.0</light-coverage>
+    <wood-coverage>4000.0</wood-coverage>
+    <tree-texture>Trees/deciduous.png</tree-texture>
+    <tree-varieties>8</tree-varieties>
+    <tree-range-m alias="/params/forest/tree-range-m"/>
+    <tree-height-m>25.0</tree-height-m>
+    <tree-width-m>15.0</tree-width-m>
+    <rolling-friction>1</rolling-friction>
+    <bumpiness>0.85</bumpiness>
+  </material>
+
+  <material>
+    <name>EvergreenBroadCover</name>
+    <name>EvergreenForest</name>
+    <effect>Effects/forest</effect>
+	<texture-set>
+    <texture>Terrain/forest1a.png</texture>
+	<texture n="11">Terrain/grass_hires.png</texture>
+	<texture n="12">Terrain/rock_alt.png</texture>
+	</texture-set>
+	<parameters>
+	  <rock_strata>0</rock_strata>
+	</parameters>
+    <xsize>2000</xsize>
+    <ysize>2000</ysize>
+    <light-coverage>10000000.0</light-coverage>
+    <wood-coverage>4000.0</wood-coverage>
+    <tree-texture>Trees/coniferous.png</tree-texture>
+    <tree-varieties>8</tree-varieties>
+    <tree-range-m alias="/params/forest/tree-range-m"/>
+    <tree-height-m>25.0</tree-height-m>
+    <tree-width-m>18.0</tree-width-m>
+    <rolling-friction>1</rolling-friction>
+    <bumpiness>1</bumpiness>
+  </material>
+
+  <material>
+    <effect>Effects/crop</effect>
+    <name>IrrCropPastureCover</name>
+    <name>IrrCrop</name>
+    <name>Orchard</name>
+    <name>Olives</name>
+    <name>Vineyard</name>
+    <name>Rice</name>
+	<texture-set>
+		<texture>Terrain/irrcrop1.png</texture>
+		<texture n="13">Terrain/rock_red.png</texture>
+	</texture-set>
+    <object-mask>Terrain/irrcrop1.mask.png</object-mask>
+    <xsize>2000</xsize>
+    <ysize>2000</ysize>
+    <light-coverage>2000000.0</light-coverage>
+    <solid>1</solid>
+    <friction-factor>0.9</friction-factor>
+    <rolling-friction>0.3</rolling-friction>
+    <bumpiness>0.6</bumpiness>
+    <load-resistance>1e30</load-resistance>
+    <object-group include="Materials/base/farm-buildings.xml"/>
+    <wood-coverage>10000.0</wood-coverage>
+    <tree-texture>Trees/mixed.png</tree-texture>
+    <tree-varieties>8</tree-varieties>
+    <tree-range-m alias="/params/forest/tree-range-m"/>
+    <tree-height-m>20.0</tree-height-m>
+    <tree-width-m>12.0</tree-width-m>
+  </material>
+
+  <material>
+    <effect>Effects/forest</effect>
+    <name>MixedForestCover</name>
+    <name>MixedForest</name>
+    <name>RainForest</name>
+	<texture-set>
+     <texture>Terrain/mixedforest-hires-autumn.png</texture>
+	 <texture n="11">Terrain/grass_hires.png</texture>
+	 <texture n="12">Terrain/rock_alt.png</texture>
+	</texture-set>
+    <xsize>2000</xsize>
+    <ysize>2000</ysize>
+    <light-coverage>5000000.0</light-coverage>
+    <wood-coverage>4000.0</wood-coverage>
+    <tree-texture>Trees/mixed.png</tree-texture>
+    <tree-varieties>8</tree-varieties>
+    <tree-range-m alias="/params/forest/tree-range-m"/>
+    <tree-height-m>25.0</tree-height-m>
+    <tree-width-m>15.0</tree-width-m>
+    <rolling-friction>1</rolling-friction>
+    <bumpiness>0.95</bumpiness>
+  </material>
+
+
+</PropertyList>

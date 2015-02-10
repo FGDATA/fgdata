@@ -1,0 +1,65 @@
+AC3Db
+MATERIAL "ac3dmat1" rgb 1 1 1  amb 1 1 1  emis 0 0 0  spec 0 0 0  shi 10  trans 0
+OBJECT world
+kids 1
+OBJECT group
+name "ManifoldPressure"
+loc 0.001 0.00512875 -2.24787e-10
+kids 3
+OBJECT poly
+name "Face"
+loc -0.001 -0.00512875 -2.40874e-10
+texture "Faces3.rgb"
+crease 45.000000
+numvert 4
+0 -0.0375 -0.0375
+0 -0.0375 0.0375
+0 0.0375 0.0375
+0 0.0375 -0.0375
+numsurf 1
+SURF 0x0
+mat 0
+refs 4
+3 1.00014 1.00039
+2 0.499863 1.00039
+1 0.499863 0.499607
+0 1.00014 0.499607
+kids 0
+OBJECT poly
+name "Left"
+loc -0.0005 0.00256438 1.20437e-10
+texture "Faces3.rgb"
+crease 45.000000
+numvert 4
+0 -0.0240925 -0.00261672
+0 -0.0240925 0.00261672
+0 0.0231309 0.00261672
+0 0.0231309 -0.00261672
+numsurf 1
+SURF 0x0
+mat 0
+refs 4
+3 0.647815 0.446681
+2 0.594338 0.446681
+1 0.594338 0.0319057
+0 0.647815 0.0319057
+kids 0
+OBJECT poly
+name "Right"
+loc 0 0.00256438 1.20437e-10
+texture "Faces3.rgb"
+crease 45.000000
+numvert 4
+0 0.0231309 -0.00261672
+0 0.0231309 0.00261672
+0 -0.0240925 0.00261672
+0 -0.0240925 -0.00261672
+numsurf 1
+SURF 0x0
+mat 0
+refs 4
+0 0.718845 0.446412
+1 0.665368 0.446412
+2 0.665368 0.0316362
+3 0.718845 0.0316362
+kids 0

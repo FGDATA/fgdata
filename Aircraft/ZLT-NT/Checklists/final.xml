@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<!--
+  Zeppelin NT-07 airship for FlightGear.
+
+  Copyright (C) 2012 - 2013  Anders Gidenstam  (anders(at)gidenstam.org)
+  This file is licensed under the GPL license version 2 or later.
+-->
+<PropertyList>
+ <!-- Disclaimer: These instructions are derived only from common
+      sense together with certain data from the certificate of
+      airworthiness and have no connection whatsoever to any
+      instructions for the real Zeppelin NT.
+ -->
+ <title>Final Check</title>
+
+ <item>
+  <name>Envelope Pressure</name>
+  <value>Check (between 300 Pa and 600 Pa)</value>
+  <condition>
+   <and>
+    <greater-than>
+     <property>instrumentation/envelope-pressure-indicator/indicated-gas-pressure-psf</property>
+     <value>6.265</value>
+    </greater-than>
+    <less-than>
+     <property>instrumentation/envelope-pressure-indicator/indicated-gas-pressure-psf</property>
+     <value>12.532</value>
+    </less-than>
+   </and>
+  </condition>
+ </item>
+
+ <item>
+  <name>Static heaviness</name>
+  <value>Check (between 882 lbs and -441 lbs)</value>
+  <condition>
+   <and>
+    <greater-than>
+     <property>fdm/jsbsim/static-condition/net-lift-lbs</property>
+     <value>-882.0</value>
+    </greater-than>
+    <less-than>
+     <property>fdm/jsbsim/static-condition/net-lift-lbs</property>
+     <value>441.0</value>
+    </less-than>
+   </and>
+  </condition>
+ </item>
+
+ <item>
+  <name>Center of Gravity</name>
+  <value>Check (between 1344.5 in and 1374.0 in)</value>
+  <condition>
+   <and>
+    <greater-than>
+     <property>fdm/jsbsim/inertia/cg-x-in</property>
+     <value>1344.5</value>
+    </greater-than>
+    <less-than>
+     <property>fdm/jsbsim/inertia/cg-x-in</property>
+     <value>1374.0</value>
+    </less-than>
+   </and>
+  </condition>
+ </item>
+
+ <item>
+  <name>Engine Swivel</name>
+  <value>As needed</value>
+ </item>
+
+ <item>
+  <name>Thrust</name>
+  <value>As needed</value>
+ </item>
+
+ <item>
+  <name>Mixture</name>
+  <value>Rich</value>
+  <condition>
+   <and>
+    <greater-than>
+     <property>controls/engines/engine[0]/mixture</property>
+     <value>0.90</value>
+    </greater-than>
+    <greater-than>
+     <property>controls/engines/engine[1]/mixture</property>
+     <value>0.90</value>
+    </greater-than>
+    <greater-than>
+     <property>controls/engines/engine[2]/mixture</property>
+     <value>0.90</value>
+    </greater-than>
+   </and>
+  </condition>
+  <binding>
+   <command>nasal</command>
+   <script>
+     interpolate("controls/engines/engine[0]/mixture", 1.0, 5.0);
+     interpolate("controls/engines/engine[1]/mixture", 1.0, 5.0);
+     interpolate("controls/engines/engine[2]/mixture", 1.0, 5.0);
+   </script>
+  </binding>
+ </item>
+
+ <item>
+  <name>Engine Speed</name>
+  <value>2600 - 2700 RPM</value>
+  <condition>
+   <and>
+    <greater-than>
+     <property>engines/engine[0]/rpm</property>
+     <value>2600.0</value>
+    </greater-than>
+    <less-than>
+     <property>engines/engine[0]/rpm</property>
+     <value>2700.0</value>
+    </less-than>
+    <greater-than>
+     <property>engines/engine[1]/rpm</property>
+     <value>2600.0</value>
+    </greater-than>
+    <less-than>
+     <property>engines/engine[1]/rpm</property>
+     <value>2700.0</value>
+    </less-than>
+    <greater-than>
+     <property>engines/engine[2]/rpm</property>
+     <value>2600.0</value>
+    </greater-than>
+    <less-than>
+     <property>engines/engine[2]/rpm</property>
+     <value>2700.0</value>
+    </less-than>
+   </and>
+  </condition>
+  <binding>
+   <command>nasal</command>
+   <script>
+     interpolate("controls/engines/engine[0]/throttle", 1.0, 10.0);
+     interpolate("controls/engines/engine[1]/throttle", 1.0, 10.0);
+     interpolate("controls/engines/engine[2]/throttle", 1.0, 10.0);
+   </script>
+  </binding>
+ </item>
+
+</PropertyList>

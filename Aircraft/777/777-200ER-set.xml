@@ -1,0 +1,154 @@
+<PropertyList include="777-set-common.xml">
+
+    <sim n="0">
+        <description>Boeing 777-200ER</description>
+        <aero>777-200ER</aero>
+        <max-payload type="double">341000</max-payload>
+        <startup>
+            <splash-texture>Aircraft/777/splash-200ER.png</splash-texture>
+        </startup>
+
+        <model n="0">
+            <path>Aircraft/777/Models/777-200ER.xml</path>
+            <livery>
+                <file type="string">BA</file>
+                <texture>Liveries-200/paint1.png</texture>
+            </livery>
+            <door>
+                <position-x-m type="float">-18.30</position-x-m>
+                <position-y-m type="float"> -2.95</position-y-m>
+                <position-z-m type="float"> -0.42</position-z-m>
+                <jetway-hood-deg type="float">3</jetway-hood-deg>
+            </door>
+            <door>
+                <position-x-m type="float">-7.67</position-x-m>
+                <position-y-m type="float"> -2.95</position-y-m>
+                <position-z-m type="float"> -0.42</position-z-m>
+                <jetway-hood-deg type="float">3</jetway-hood-deg>
+            </door>
+        </model>
+        <view n="0">
+            <config n="0">
+                <z-offset-m type="double">-22.84</z-offset-m>
+            </config>
+        </view>
+        <view n="100">
+            <config n="0">
+                <z-offset-m type="double">-22.84</z-offset-m>
+            </config>
+        </view>
+        <view n="101">
+            <config n="0">
+                <z-offset-m type="double">-22.84</z-offset-m>
+            </config>
+        </view>
+        <view n="102">
+            <config n="0">
+                <z-offset-m type="double">-22.46</z-offset-m>
+            </config>
+        </view>
+        <view n="103">
+            <config n="0">
+            <z-offset-m type="double">-7.109888889</z-offset-m>
+            </config>
+        </view>
+        <view n="104">
+            <config n="0">
+            <z-offset-m type="double">-21.5</z-offset-m>
+            </config>
+        </view>
+        <view n="105">
+            <config n="0">
+            <z-offset-m type="double">-21.66375</z-offset-m>
+            </config>
+        </view>
+        <view n="106">
+            <config n="0">
+            <z-offset-m type="double">-21.74</z-offset-m>
+            </config>
+        </view>
+        <view n="107">
+            <config n="0">
+            <z-offset-m type="double">-22.31125</z-offset-m>
+            </config>
+        </view>
+        <view n="108">
+            <config n="0">
+            <z-offset-m type="double">-22.31125</z-offset-m>
+            </config>
+        </view>
+        <view n="111">
+            <config n="0">
+            <z-offset-m type="double">35.38240741</z-offset-m>
+            </config>
+        </view>
+        <view n="112">
+            <config n="0">
+            <z-offset-m type="double">-22.62777778</z-offset-m>
+            </config>
+        </view>
+        <view n="113">
+            <config n="0">
+            <z-offset-m type="double">-22.62777778</z-offset-m>
+            </config>
+        </view>
+        <view n="114">
+            <config n="0">
+            <z-offset-m type="double">-22.31125</z-offset-m>
+            </config>
+        </view>
+        <view n="115">
+            <config n="0">
+            <z-offset-m type="double">-22.31125</z-offset-m>
+            </config>
+        </view>
+
+       <menubar n="0">
+            <default n="0">
+                <menu n="100">
+                    <label>777-200ER</label>
+                </menu>
+            </default>
+        </menubar>
+
+        <tutorials>
+            <tutorial include="Tutorials/200/777-cockpit-overview.xml"/>
+            <tutorial include="Tutorials/200/777-cockpit-pfd.xml"/>
+            <tutorial include="Tutorials/200/777-cockpit-autopilot.xml"/>
+            <tutorial include="Tutorials/200/777-preflight.xml"/>
+            <tutorial include="Tutorials/200/777-pushback-startup.xml"/>
+            <tutorial include="Tutorials/200/777-takeoff.xml"/>
+            <!-- <tutorial include="Tutorials/200/777-approach-landing.xml"/> -->
+        </tutorials>
+
+        <weight n="1">
+            <!--  328 pax max @ 180 lbs-->
+            <name>Pax/Baggage</name>
+            <weight-lb type="double">44840</weight-lb>
+            <max-lb type="double">131000</max-lb>
+            <min-lb type="double">0</min-lb>
+        </weight>
+        <aircraft-operator>BAW</aircraft-operator>
+    </sim>
+
+    <instrumentation n="0">
+        <cdu n="0">
+            <ident>
+                <model>777-200ER</model>
+                <engines>RR Trent 895</engines>
+            </ident>
+        </cdu>
+    </instrumentation>
+
+    <autopilot n="0">
+        <constant>
+            <flare-base type="double">0.2</flare-base>
+            <flch-thrust type="double">0.77</flch-thrust>
+            <descent-profile-high-base type="double">0.18</descent-profile-high-base>
+            <descent-profile-high-rate type="double">-0.00096774</descent-profile-high-rate>
+            <descent-profile-low-base type="double">0.13</descent-profile-low-base>
+            <descent-profile-low-rate type="double">-0.00029032</descent-profile-low-rate>
+        </constant>
+    </autopilot>
+
+</PropertyList>

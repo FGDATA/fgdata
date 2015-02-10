@@ -1,0 +1,187 @@
+<?xml version="1.0" ?>
+<!--
+ This file is part of FlightGear, the free flight simulator
+ http://www.flightgear.org/
+
+ Copyright (C) 2009 Torsten Dreyer, Torsten (at) t3r _dot_ de
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation; either version 2 of the
+ License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+-->
+<PropertyList>
+    <path>FuelOilAmps.ac</path>
+    <params>
+      <amps>systems/electrical/bus[0]/element[1]/i</amps>
+      <cht>engines/engine[0]/cht-degf</cht>
+      <ot>engines/engine[0]/oil-temperature-degf</ot>
+      <op>engines/engine[0]/oil-pressure-psi</op>
+      <fuel>consumables/fuel/tank[0]/level-gal_us</fuel>
+    </params>
+
+    <animation>
+        <type>material</type>
+        <object-name>FuelOilAmps</object-name>
+        <emission>
+            <red-prop>/sim/model/instrument-lighting/emission/red</red-prop>
+            <green-prop>/sim/model/instrument-lighting/emission/green</green-prop>
+            <blue-prop>/sim/model/instrument-lighting/emission/blue</blue-prop>
+            <factor-prop>/controls/lighting/instruments-norm</factor-prop>
+        </emission>
+    </animation>
+    
+    <animation>
+        <type>noshadow</type>
+    </animation>
+    <animation>
+        <type>range</type>
+        <min-m>0</min-m>
+        <max-m>10</max-m>
+    </animation>
+    
+    <animation>
+        <type>rotate</type>
+        <object-name>AltAmps</object-name>
+        <property alias="../../params/amps"/>
+        <interpolation>
+            <entry>
+                <ind>-70</ind>
+                <dep>-60</dep>
+            </entry>
+            <entry>
+                <ind>0</ind>
+                <dep>0</dep>
+            </entry>
+        </interpolation>
+        <axis>
+            <x>1.0</x>
+            <y>0.0</y>
+            <z>0.0</z>
+        </axis>
+        <center>
+            <x-m>0.001</x-m>
+            <y-m>-0.08</y-m>
+            <z-m>-0.02411</z-m>
+        </center>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>CHT</object-name>
+        <property alias="../../params/cht"/>
+        <interpolation>
+            <entry>
+                <ind>200</ind>
+                <dep>0</dep>
+            </entry>
+            <entry>
+                <ind>460</ind>
+                <dep>-60</dep>
+            </entry>
+        </interpolation>
+        <axis>
+            <x>1.0</x>
+            <y>0.0</y>
+            <z>0.0</z>
+        </axis>
+        <center>
+            <x-m>0.001</x-m>
+            <y-m>-0.04</y-m>
+            <z-m>-0.02411</z-m>
+        </center>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>OT</object-name>
+        <property alias="../../params/ot"/>
+        <interpolation>
+            <entry>
+                <ind>75</ind>
+                <dep>0</dep>
+            </entry>
+            <entry>
+                <ind>180</ind>
+                <dep>-35</dep>
+            </entry>
+            <entry>
+                <ind>240</ind>
+                <dep>-60</dep>
+            </entry>
+        </interpolation>
+        <axis>
+            <x>1.0</x>
+            <y>0.0</y>
+            <z>0.0</z>
+        </axis>
+        <center>
+            <x-m>0.001</x-m>
+            <y-m>0.00</y-m>
+            <z-m>-0.02411</z-m>
+        </center>
+    </animation>
+    <animation>
+        <type>rotate</type>
+        <object-name>OP</object-name>
+        <property alias="../../params/op"/>
+        <interpolation>
+            <entry>
+                <ind>10</ind>
+                <dep>0</dep>
+            </entry>
+            <entry>
+                <ind>30</ind>
+                <dep>-15</dep>
+            </entry>
+            <entry>
+                <ind>80</ind>
+                <dep>-45</dep>
+            </entry>
+            <entry>
+                <ind>100</ind>
+                <dep>-60</dep>
+            </entry>
+        </interpolation>
+        <axis>
+            <x>1.0</x>
+            <y>0.0</y>
+            <z>0.0</z>
+        </axis>
+        <center>
+            <x-m>0.001</x-m>
+            <y-m>0.04</y-m>
+            <z-m>-0.02411</z-m>
+        </center>
+    </animation>
+    <animation>
+        <type>rotate</type>
+        <object-name>FUEL</object-name>
+        <property alias="../../params/fuel"/>
+        <interpolation>
+            <entry>
+                <ind>0</ind>
+                <dep>0</dep>
+            </entry>
+            <entry>
+                <ind>61.5</ind>
+                <dep>-60</dep>
+            </entry>
+        </interpolation>
+        <axis>
+            <x>1.0</x>
+            <y>0.0</y>
+            <z>0.0</z>
+        </axis>
+        <center>
+            <x-m>0.001</x-m>
+            <y-m>0.08</y-m>
+            <z-m>-0.02411</z-m>
+        </center>
+    </animation>
+</PropertyList>

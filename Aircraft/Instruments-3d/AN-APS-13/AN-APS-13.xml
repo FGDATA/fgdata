@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<PropertyList>
+
+ <path>AN-APS-13.ac</path>
+
+    <animation>
+        <type>range</type>
+        <min-m>0</min-m>
+        <max-m>7</max-m>
+    </animation>
+
+ <animation>
+  <type>material</type>
+  <object-name>APS-13-plate</object-name>
+  <object-name>aps-13-lamp</object-name>
+  <object-name>aps-13-power-sw</object-name>
+  <object-name>aps-13-test-sw-plate</object-name>
+  <object-name>asp-13-audio</object-name>
+  <object-name>aps-13-test-sw</object-name>
+  <object-name>aps-13-cable-hole</object-name>
+  <emission>
+    <factor-prop>controls/lighting/cabin-norm</factor-prop>
+    <red>0.25</red>
+    <green>0.12</green>
+    <blue>0.12</blue>
+  </emission>
+ </animation>
+
+</PropertyList>

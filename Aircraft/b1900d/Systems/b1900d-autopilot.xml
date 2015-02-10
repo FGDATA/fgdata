@@ -1,0 +1,555 @@
+<?xml version="1.0"?>
+<!--FGC-65  -->
+
+<PropertyList>
+
+    <filter>
+        <name>heading bug</name>
+        <debug>false</debug>
+        <type>gain</type>
+        <input>
+            <property>instrumentation/fgc-65/settings/hdg</property>
+            <offset>
+                <property>orientation/heading-magnetic-deg</property>
+                <scale>-1.0</scale>
+            </offset>
+        </input>
+        <output>instrumentation/fgc-65/internal/offsets/hdg-bug</output>
+        <period>
+            <min>-180</min>
+            <max>180</max>
+        </period>
+        <gain>1.0</gain>
+    </filter>
+
+    <filter>
+        <name>nav1 heading </name>
+        <debug>false</debug>
+        <type>gain</type>
+        <input>
+            <property>instrumentation/nav[0]/heading-deg</property>
+            <offset>
+                <property>orientation/heading-deg</property>
+                <scale>-1.0</scale>
+            </offset>
+        </input>
+        <output>instrumentation/fgc-65/internal/offsets/nav1-brg</output>
+        <period>
+            <min>-180</min>
+            <max>180</max>
+        </period>
+        <gain>1.0</gain>
+    </filter>
+
+    <filter>
+        <name>nav2 heading </name>
+        <debug>false</debug>
+        <type>gain</type>
+        <input>
+            <property>instrumentation/nav[1]/heading-deg</property>
+            <offset>
+                <property>orientation/heading-deg</property>
+                <scale>-1.0</scale>
+            </offset>
+        </input>
+        <output>instrumentation/fgc-65/internal/offsets/nav2-brg</output>
+        <period>
+            <min>-180</min>
+            <max>180</max>
+        </period>
+        <gain>1.0</gain>
+    </filter>
+
+    <filter>
+        <name>crs1 heading </name>
+        <debug>false</debug>
+        <type>gain</type>
+        <input>
+            <property>instrumentation/nav[0]/radials/selected-deg</property>
+            <offset>
+                <property>orientation/heading-magnetic-deg</property>
+                <scale>-1.0</scale>
+            </offset>
+        </input>
+        <output>instrumentation/fgc-65/internal/offsets/crs1-brg</output>
+        <period>
+            <min>-180</min>
+            <max>180</max>
+        </period>
+        <gain>1.0</gain>
+    </filter>
+
+    <filter>
+        <name>crs2 heading </name>
+        <debug>false</debug>
+        <type>gain</type>
+        <input>
+            <property>instrumentation/nav[1]/radials/selected-deg</property>
+            <offset>
+                <property>orientation/heading-magnetic-deg</property>
+                <scale>-1.0</scale>
+            </offset>
+        </input>
+        <output>instrumentation/fgc-65/internal/offsets/crs2-brg</output>
+        <period>
+            <min>-180</min>
+            <max>180</max>
+        </period>
+        <gain>1.0</gain>
+    </filter>
+
+    <filter>
+        <name>vbar pitch</name>
+        <debug>false</debug>
+        <type>gain</type>
+        <input>
+            <property>instrumentation/fgc-65/internal/fd/pitch</property>
+            <offset>
+                <property>orientation/pitch-deg</property>
+                <scale>-1</scale>
+            </offset>
+        </input>
+        <output>instrumentation/fgc-65/internal/fd/vbar-pitch</output>
+        <period>
+            <min>-30</min>
+            <max>30</max>
+        </period>
+        <gain>1.0</gain>
+    </filter>
+
+    <filter>
+        <name>vbar roll</name>
+        <debug>false</debug>
+        <type>gain</type>
+        <input>
+            <property>instrumentation/fgc-65/internal/fd/roll</property>
+            <offset>
+                <property>orientation/roll-deg</property>
+                <scale>-1</scale>
+            </offset>
+        </input>
+        <output>instrumentation/fgc-65/internal/fd/vbar-roll</output>
+        <period>
+            <min>-30</min>
+            <max>30</max>
+        </period>
+        <gain>1.0</gain>
+    </filter>
+
+<!--
+
+
+                                               Lateral
+
+
+-->
+
+    <pi-simple-controller>
+        <name>ROLL</name>
+        <debug>false</debug>
+        <enable>
+            <condition>
+                <equals>
+                    <property>instrumentation/fgc-65/internal/lateral</property>
+                    <value>ROLL</value>
+                </equals>
+            </condition>
+        </enable>
+        <input>
+            <property>/orientation/roll-deg</property>
+        </input>
+        <reference>
+            <property>instrumentation/fgc-65/settings/roll</property>
+        </reference>
+        <output>
+            <property>instrumentation/fgc-65/internal/fd/roll</property>
+        </output>
+        <config>
+            <Kp>0.5</Kp>
+            <Ki>0.0</Ki>
+            <min>
+                <property>instrumentation/fgc-65/app-65a/BANK</property>
+                <scale>-30.0</scale>
+            </min>
+            <max>
+                <property>instrumentation/fgc-65/app-65a/BANK</property>
+                <scale>30.0</scale>
+            </max>
+        </config>
+    </pi-simple-controller>
+
+    <pi-simple-controller>
+        <name>Heading Hold</name>
+        <debug>false</debug>
+        <enable>
+            <condition>
+                <equals>
+                    <property>instrumentation/fgc-65/internal/lateral</property>
+                    <value>HDG</value>
+                </equals>
+            </condition>
+        </enable>
+        <input>
+            <property>instrumentation/fgc-65/internal/offsets/hdg-bug</property>
+        </input>
+        <reference>
+            <value>0.0</value>
+        </reference>
+        <output>
+            <property>instrumentation/fgc-65/internal/fd/roll</property>
+        </output>
+        <config>
+            <Kp>-1.0</Kp>
+            <Ki>0.0</Ki>
+            <min>
+                <property>instrumentation/fgc-65/app-65a/BANK</property>
+                <scale>-25.0</scale>
+            </min>
+            <max>
+                <property>instrumentation/fgc-65/app-65a/BANK</property>
+                <scale>25.0</scale>
+            </max>
+        </config>
+    </pi-simple-controller>
+
+    <pi-simple-controller>
+        <name>Nav1 Hold</name>
+        <debug>false</debug>
+        <enable>
+            <condition>
+                <property>instrumentation/fgc-65/internal/nav-active</property>
+            </condition>
+        </enable>
+        <input>
+            <property>instrumentation/fgc-65/internal/offsets/crs1-brg</property>
+            <offset>
+                <property>instrumentation/nav/heading-needle-deflection-norm</property>
+                <scale>45.0</scale>
+            </offset>
+        </input>
+        <reference>
+            <value>0</value>
+        </reference>
+        <output>
+            <property>instrumentation/fgc-65/internal/fd/roll</property>
+        </output>
+        <config>
+            <Kp>-1.0</Kp>
+            <Ki>0</Ki>
+            <min>
+                <property>instrumentation/fgc-65/app-65a/BANK</property>
+                <scale>-25.0</scale>
+            </min>
+            <max>
+                <property>instrumentation/fgc-65/app-65a/BANK</property>
+                <scale>25.0</scale>
+            </max>
+        </config>
+    </pi-simple-controller>
+
+    <pi-simple-controller>
+        <name>ILS Hold</name>
+        <debug>false</debug>
+        <enable>
+            <property>instrumentation/fgc-65/internal/appr-active</property>
+        </enable>
+        <input>
+            <property>instrumentation/fgc-65/internal/offsets/crs1-brg</property>
+            <offset>
+                <property>instrumentation/nav/heading-needle-deflection-norm</property>
+                <scale>30.0</scale>
+            </offset>
+        </input>
+        <reference>
+            <value>0</value>
+        </reference>
+        <output>
+            <property>instrumentation/fgc-65/internal/fd/roll</property>
+        </output>
+        <config>
+            <Kp>-1.0</Kp>
+            <Ki>0</Ki>
+            <min>
+                <property>instrumentation/fgc-65/app-65a/BANK</property>
+                <scale>-15.0</scale>
+            </min>
+            <max>
+                <property>instrumentation/fgc-65/app-65a/BANK</property>
+                <scale>15.0</scale>
+            </max>
+        </config>
+    </pi-simple-controller>
+
+    <pid-controller>
+        <name>Aileron Control</name>
+        <debug>false</debug>
+        <input>
+            <property>orientation/roll-deg</property>
+        </input>
+        <reference>
+            <property>instrumentation/fgc-65/internal/fd/roll</property>
+        </reference>
+        <output>
+            <property>controls/flight/aileron-filter</property>
+        </output>
+        <config>
+            <Kp>0.015</Kp>
+            <beta>1.0</beta>
+            <alpha>0.1</alpha>
+            <gamma>0.0</gamma>
+            <Ti>10.0</Ti>
+            <Td>0.01</Td>
+            <min>
+                <value>-0.9</value>
+            </min>
+            <max>
+                <value>0.9</value>
+            </max>
+        </config>
+    </pid-controller>
+
+<filter>
+        <name>aileron filter</name>
+        <debug>false</debug>
+        <feedback-if-disabled>false</feedback-if-disabled>
+        <initialize-to>output</initialize-to>
+        <enable>
+            <condition>
+                <equals>
+                    <property>instrumentation/fgc-65/app-65a/AP</property>
+                    <value>AP</value>
+                </equals>
+            </condition>
+         </enable>
+        <input>
+            <property>controls/flight/aileron-filter</property>
+        </input>
+        <output>controls/flight/aileron-trim</output>
+        <type>noise-spike</type>
+        <max-rate-of-change>0.2</max-rate-of-change>
+        <min>-1</min>
+        <max>1</max>
+    </filter>
+
+<!--
+
+
+                         Pitch Axis Modes
+
+
+-->
+
+   <pi-simple-controller>
+        <name>Pitch</name>
+        <debug>false</debug>
+        <enable>
+            <condition>
+                <equals>
+                    <property>instrumentation/fgc-65/internal/vertical</property>
+                    <value>PITCH</value>
+                </equals>
+            </condition>
+        </enable>
+        <input>
+            <property>instrumentation/attitude-indicator/indicated-pitch-deg</property>
+        </input>
+        <reference>
+            <property>instrumentation/fgc-65/settings/pitch</property>
+        </reference>
+        <output>
+            <property>instrumentation/fgc-65/internal/fd/pitch</property>
+        </output>
+        <config>
+            <Kp>1</Kp>
+            <Ki>0.0</Ki>
+            <min>-15.0</min>
+            <max>30.0</max>
+        </config>
+    </pi-simple-controller>
+
+    <pi-simple-controller>
+        <name>Altitude Hold Stage 1</name>
+        <debug>false</debug>
+        <enable>
+            <condition>
+                <equals>
+                    <property>instrumentation/fgc-65/internal/vertical</property>
+                    <value>ALT</value>
+                </equals>
+            </condition>
+        </enable>
+        <input>
+            <property>instrumentation/altimeter/indicated-altitude-ft</property>
+        </input>
+        <reference>
+            <property>instrumentation/fgc-65/settings/alt</property>
+        </reference>
+        <output>
+            <property>instrumentation/fgc-65/internal/climb-fps</property>
+        </output>
+        <config>
+            <Kp>1.0</Kp>
+            <Ki>0.0</Ki>
+            <min>-33.33</min>
+            <max>50</max>
+        </config>
+    </pi-simple-controller>
+
+    <pid-controller>
+        <name>Altitude Hold Stage 2</name>
+        <debug>false</debug>
+        <enable>
+        <condition>
+                <equals>
+                    <property>instrumentation/fgc-65/internal/vertical</property>
+                    <value>ALT</value>
+                </equals>
+            </condition>
+        </enable>
+        <input>
+            <property>/velocities/vertical-speed-fps</property>
+        </input>
+        <reference>
+            <property>instrumentation/fgc-65/internal/climb-fps</property>
+        </reference>
+        <output>
+            <property>instrumentation/fgc-65/internal/fd/pitch</property>
+        </output>
+        <config>
+            <Kp>1</Kp>
+            <beta>1.0</beta>
+            <alpha>0.1</alpha>
+            <gamma>0.0</gamma>
+            <Ti>30.0</Ti>
+            <Td>0.00001</Td>
+            <min>-10.0</min>
+            <max>20.0</max>
+        </config>
+    </pid-controller>
+
+    <pi-simple-controller>
+        <name>Glideslope Hold</name>
+        <debug>false</debug>
+        <enable>
+            <condition>
+                <equals>
+                    <property>instrumentation/fgc-65/internal/vertical</property>
+                    <value>GS</value>
+                </equals>
+            </condition>
+        </enable>
+        <input>
+            <property>/velocities/vertical-speed-fps</property>
+        </input>
+        <reference>
+            <property>/instrumentation/nav[0]/gs-rate-of-climb</property>
+        </reference>
+        <output>
+            <property>instrumentation/fgc-65/internal/fd/pitch</property>
+        </output>
+        <config>
+            <Kp>1.0</Kp>
+            <Ki>0.0</Ki>
+             <min>-1</min>
+            <max>1</max>
+        </config>
+    </pi-simple-controller>
+
+<pid-controller>
+    <name>Vertical Speed Hold</name>
+    <debug>false</debug>
+    <enable>
+            <condition>
+                <equals>
+                    <property>instrumentation/fgc-65/internal/vertical</property>
+                    <value>VS</value>
+                </equals>
+            </condition>
+        </enable>
+        <input>
+            <property>/autopilot/internal/vert-speed-fpm</property>
+        </input>
+        <reference>
+            <property>instrumentation/fgc-65/settings/vs</property>
+        </reference>
+        <output>
+            <property>instrumentation/fgc-65/internal/fd/pitch</property>
+        </output>
+    <config>
+      <Kp>0.01</Kp>
+      <beta>1.0</beta>
+      <alpha>0.1</alpha>
+      <gamma>0.0</gamma>
+      <Ti>10.0</Ti>
+      <Td>0.00001</Td>
+      <min>-10</min>
+      <max>30</max>
+    </config>
+  </pid-controller>
+
+    <pid-controller>
+        <name>IAS</name>
+        <debug>false</debug>
+        <enable>
+            <condition>
+                <equals>
+                    <property>instrumentation/fgc-65/internal/vertical</property>
+                    <value>IAS</value>
+                </equals>
+            </condition>
+        </enable>
+        <input>
+            <property>instrumentation/airspeed-indicator/indicated-speed-kt</property>
+        </input>
+        <reference>
+            <property>instrumentation/fgc-65/settings/ias</property>
+        </reference>
+        <output>
+            <property>instrumentation/fgc-65/internal/fd/pitch</property>
+        </output>
+        <config>
+            <Kp>-1.0</Kp>
+            <beta>1.0</beta>
+            <alpha>0.1</alpha>
+            <gamma>0.0</gamma>
+            <Ti>10.0</Ti>
+            <Td>0.0</Td>
+             <min>-1</min>
+            <max>1</max>
+        </config>
+    </pid-controller>
+
+    <pid-controller>
+        <name>Elevator Trim Control</name>
+        <debug>false</debug>
+        <enable>
+            <condition>
+                <equals>
+                    <property>instrumentation/fgc-65/app-65a/AP</property>
+                    <value>AP</value>
+                </equals>
+            </condition>
+         </enable>
+        <input>
+            <prop>orientation/pitch-deg</prop>
+        </input>
+        <reference>
+            <prop>instrumentation/fgc-65/internal/fd/pitch</prop>
+        </reference>
+        <output>
+            <prop>controls/flight/elevator-trim</prop>
+        </output>
+        <config>
+            <Kp>-0.015</Kp>
+            <beta>1.0</beta>
+            <alpha>0.1</alpha>
+            <gamma>0.0</gamma>
+            <Ti>10.0</Ti>
+            <Td>0.00001</Td>
+            <min>-1</min>
+            <max>1</max>
+        </config>
+    </pid-controller>
+
+</PropertyList>
+

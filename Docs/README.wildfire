@@ -1,0 +1,138 @@
+Cellular Automata based wildfire for FlightGear/CVS
+---------------------------------------------------
+
+Copyright (C) 2008 - 2009  Anders Gidenstam
+
+ *  These programs are free software; you can redistribute them and/or modify
+ *  them under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program; if not, write to the Free Software
+ *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+Usage
+-----
+
+A fire is started by calling wild_fire.ignite(pos) where pos is a
+valid geo.Coord instance.
+
+Example: starting fires by ctrl+shift+click:
+
+Put this Nasal fragment somewhere where it is run at startup.
+(E.g. in a <nasal><MyStuff><script>...</script></MyStuff></nasal>
+block in preferences.xml.)
+
+setlistener("/sim/signals/click", func {
+  if (__kbd.shift.getBoolValue()) {
+    if (__kbd.ctrl.getBoolValue()) {
+      var click_pos = geo.click_position();
+      wildfire.ignite(click_pos);
+    }
+  }
+});
+
+
+Configuration properties
+-----------------------
+
+These properties can be set at runtime, in preferences.xml or in any
+other way supported by FlightGear.
+
+/environment/wildfire/enabled : bool
+  Enables/disables the whole WildFire module.
+  On disable the current state is lost. Can be used to reset WildFire.
+
+/environment/wildfire/share-events : bool
+  Enables/disables sending and receiving of fire events over the
+  multiplayer network.
+
+/environment/wildfire/fire-on-crash : bool
+  If true a fire will start if the aircraft crashes.
+
+/environment/wildfire/report-score : bool
+  Report the result of fire fighting.
+
+/environment/wildfire/models/enabled : bool
+  Enables/disables rendering of the 3d models.
+  (That is, fire, smoke, soot and foam.)
+
+/environment/wildfire/save-on-exit : bool
+  If set the current log of Wildfire events is saved in
+  ~/.fgfs/Wildfire/fire_log.xml .
+
+/environment/wildfire/restore-on-startup : bool
+  If set Wildfire will load and execute the events in
+  ~/.fgfs/Wildfire/fire_log.xml . This recreates the fire state
+  as it where when the log was saved.
+  NOTE: A long event log or one that covers a long period of time will take
+  a a lot of time to recreate.
+  Storing and reloading of the CA state, as opposed to the event log, is not
+  supported yet.
+
+
+API
+---
+
+ignite : func (pos, source=1)
+     pos    - fire location    : geo.Coord
+     source - broadcast event? : {0, 1}
+
+   Start a fire.
+
+
+resolve_water_drop : func (pos, radius, volume, source=1)
+     pos    - drop location    : geo.Coord
+     radius - drop radius m    : double
+     volume - Not used         : double
+     source - broadcast event? : {0, 1}
+
+  Extinguishes any fires in the cells within r of pos and
+  makes the cells nonflammable.
+
+resolve_retardant_drop : func (pos, radius, volume, source=1) {
+     pos    - drop location    : geo.Coord
+     radius - drop radius m    : double
+     volume - Not used         : double
+     source - broadcast event? : {0, 1}
+
+  Identical to resolve_water_drop.
+
+resolve_foam_drop : func (pos, radius, volume, source=1) {
+     pos    - drop location    : geo.Coord
+     radius - drop radius m    : double
+     volume - Not used         : double
+     source - broadcast?       : {0, 1}
+
+  Extinguishes any fires in the cells within r of pos and
+  makes the cells nonflammable and foamy.
+
+load_event_log : func (filename, skip_ahead_until=-1)
+     filename         - getprop("/sim/fg-home") ~ "/Wildfire/" ~ filename
+     skip_ahead_until - skip from last event to this time : double (epoch)
+                        fast forward from skip_ahead_until
+                        to current time.
+       x < last event   - fast forward all the way to current time (use 0).
+                          NOTE: Can be VERY time consuming.
+       -1               - skip to current time.
+
+  Loads an event log.
+  The skip_ahead_until argument can be used for synchronizing a restored
+  fire state among multiple players.
+
+save_event_log : func (filename)
+     filename         - getprop("/sim/fg-home") ~ "/Wildfire/" ~ filename
+
+  Saves an event log.
+
+print_score = func
+  Print a summary of the current wildfire state.
+
+
+/Anders

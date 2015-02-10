@@ -1,0 +1,255 @@
+<?xml version="1.0"?>
+
+<!--
+ati.xml
+
+airspeed indicator from C172-S
+
+Martin Dressler dr@musicabona.cz
+Jan 26 2003
+
+
+-->
+
+<PropertyList>
+
+ <name>C172-S Airspeed indicator</name>
+ <w-base>512</w-base>
+ <h-base>512</h-base>
+ 
+ <layers>
+ 
+  <layer>
+   <name>TAS alt</name>
+   <w>288</w>
+   <h>176</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/misc2.rgb</path>
+    <x1>0.0</x1>
+    <x2>0.5625</x2>
+    <y1>0.0</y1>
+    <y2>0.34375</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>rotation</type>
+     <property>/instrumentation/airspeed-indicator/tas-offset-deg</property>
+     <min>-70</min>
+     <max>22</max>
+     <scale>1.0</scale>
+     <offset>0</offset>
+    </transformation>
+    <transformation>
+     <type>x-shift</type>
+     <offset>42</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>98</offset>
+    </transformation>
+   </transformations>
+  </layer>
+				  
+  <layer>
+   <name>Backplate</name>
+   <w>512</w>
+   <h>512</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/asi2.rgb</path>
+    <x1>0.0</x1>
+    <x2>1.0</x2>
+    <y1>0.0</y1>
+    <y2>1.0</y2>
+   </texture>
+  </layer>
+
+  <layer>
+   <name>TAS speed</name>
+   <w>304</w>
+   <h>108</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/misc2.rgb</path>
+    <x1>0.0</x1>
+    <x2>0.59375</x2>
+    <y1>0.34375</y1>
+    <y2>0.5546875</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>rotation</type>
+     <property>/instrumentation/airspeed-indicator/tas-offset-deg</property>
+     <min>-70</min>
+     <max>22</max>
+     <scale>1.0</scale>
+     <offset>0</offset>
+    </transformation>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-5</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-182</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>foreground</name>
+   <w>512</w>
+   <h>512</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/asi1.rgb</path>
+    <x1>0.0</x1>
+    <x2>1.0</x2>
+    <y1>0.0</y1>
+    <y2>1.0</y2>
+   </texture>
+  </layer>
+
+  <layer>
+   <name>Knob</name>
+   <w>96</w>
+   <h>96</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/misc1.rgb</path>
+    <x1>0.515625</x1>
+    <x2>0.703125</x2>
+    <y1>0.5</y1>
+    <y2>0.6875</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-170</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-164</offset>
+    </transformation>
+    <transformation>
+     <type>rotation</type>
+     <property>/instrumentation/airspeed-indicator/tas-offset-deg</property>
+     <min>-70</min>
+     <max>22</max>
+     <scale>1.0</scale>
+     <offset>0</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>Needle</name>
+   <w>56</w>
+   <h>272</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/misc1.rgb</path>
+    <x1>0.71875</x1>
+    <x2>0.828125</x2>
+    <y1>0.46875</y1>
+    <y2>1.0</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>rotation</type>
+     <property>/instrumentation/airspeed-indicator/indicated-speed-kt</property>
+     <min>0.0</min>
+     <max>210.0</max>
+     <scale>1.0</scale>
+     <interpolation>
+      <entry><ind>   0</ind><dep>  0.0</dep></entry>
+      <entry><ind>  10</ind><dep>  3.0</dep></entry>
+      <entry><ind>  40</ind><dep> 31.1</dep></entry>
+      <entry><ind>  60</ind><dep> 71.7</dep></entry>
+      <entry><ind>  80</ind><dep>118.0</dep></entry>
+      <entry><ind> 100</ind><dep>165.3</dep></entry>
+      <entry><ind> 120</ind><dep>206.6</dep></entry>
+      <entry><ind> 140</ind><dep>238.3</dep></entry>
+      <entry><ind> 160</ind><dep>267.7</dep></entry>
+      <entry><ind> 180</ind><dep>293.1</dep></entry>
+      <entry><ind> 200</ind><dep>319.2</dep></entry>
+      <entry><ind> 210</ind><dep>331.6</dep></entry>
+     </interpolation>
+     <offset>0</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>57</offset>
+    </transformation>
+   </transformations>
+  </layer>
+ 
+ </layers>
+
+ <actions>
+  <action>
+   <name>fine lower</name>
+   <button>0</button>
+   <x>-218</x>
+   <y>-212</y>
+   <w>48</w>
+   <h>96</h>
+   <binding>
+    <command>property-adjust</command>
+    <property>/instrumentation/airspeed-indicator/tas-offset-deg</property>
+    <step>0.1</step>
+    <min>-70</min>
+    <max>22</max>
+    <wrap>false</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>coarse lower</name>
+   <button>1</button>
+   <x>-218</x>
+   <y>-212</y>
+   <w>48</w>
+   <h>96</h>
+   <binding>
+    <command>property-adjust</command>
+    <property>/instrumentation/airspeed-indicator/tas-offset-deg</property>
+    <step>3.5</step>
+    <min>-70</min>
+    <max>22</max>
+    <wrap>false</wrap>
+   </binding>
+  </action>
+						      
+  <action>
+   <name>fine raise</name>
+   <button>0</button>
+   <x>-170</x>
+   <y>-212</y>
+   <w>48</w>
+   <h>96</h>
+   <binding>
+    <command>property-adjust</command>
+    <property>/instrumentation/airspeed-indicator/tas-offset-deg</property>
+    <step>-0.1</step>
+    <min>-70</min>
+    <max>22</max>
+    <wrap>false</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>coarse raise</name>
+   <button>1</button>
+   <x>-170</x>
+   <y>-212</y>
+   <w>48</w>
+   <h>96</h>
+   <binding>
+    <command>property-adjust</command>
+    <property>/instrumentation/airspeed-indicator/tas-offset-deg</property>
+    <step>-3.5</step>
+    <min>-70</min>
+    <max>22</max>
+    <wrap>false</wrap>
+   </binding>
+  </action>
+  
+ </actions>
+
+</PropertyList>

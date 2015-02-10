@@ -1,0 +1,847 @@
+<?xml version="1.0"?>
+<!--
+  Zeppelin NT07 airship for FlightGear.
+
+  Copyright (C) 2008 - 2014  Anders Gidenstam  (anders(at)gidenstam.org)
+  This file is licensed under the GPL license v2 or later.
+-->
+<PropertyList>
+
+ <!-- The hull. -->
+ <path>ZLT-NT.ac</path>
+ <offsets>
+  <!-- x/y/z == back/right/up -->
+  <x-m> 0.0 </x-m>
+  <y-m> 0.0 </y-m>
+  <z-m> 0.0 </z-m>
+ </offsets>
+
+ <!-- Rembrandt transparency markup. -->
+ <effect>
+  <inherits-from>Effects/model-transparent</inherits-from>
+  <object-name>window.1</object-name>
+  <object-name>window.2</object-name>
+  <object-name>window.3</object-name>
+  <object-name>window.4</object-name>
+  <object-name>window.5</object-name>
+  <object-name>window.7</object-name>
+  <object-name>Propeller.Fast.1</object-name>
+  <object-name>Propeller.Fast.2</object-name>
+  <object-name>Propeller.Fast.3</object-name>
+  <object-name>Propeller.Fast.4</object-name>
+  <object-name>Propeller.Slow.1</object-name>
+  <object-name>Propeller.Slow.2</object-name>
+  <object-name>Propeller.Slow.3</object-name>
+  <object-name>Propeller.Slow.4</object-name>
+ </effect>
+
+ <!-- Livery selection =====================================================-->
+ <animation>
+  <type>material</type>
+  <object-name>hull</object-name>
+  <property-base>sim/model/livery</property-base>
+  <texture-prop>texture</texture-prop>
+  <texture>Liveries/Classic-envelope.png</texture>
+ </animation>
+
+ <model>
+  <name>Car interior</name>
+  <path>Aircraft/ZLT-NT/Models/interior.xml</path>
+  <offsets>
+   <!-- x/y/z == back/right/up -->
+   <x-m> 0.00 </x-m>
+   <y-m> 0.00 </y-m>
+   <z-m> 0.00 </z-m>
+  </offsets>
+ </model>
+
+ <!-- Navigation lights ====================================================-->
+ <model>
+  <name>Bow navigation light</name>
+  <path>Aircraft/ZLT-NT/Models/Lights/WhiteLight.xml</path>
+  <offsets>
+   <!-- x/y/z == back/right/up -->
+   <x-m> 0.40 </x-m>
+   <y-m> 0.00 </y-m>
+   <z-m> 0.40 </z-m>
+  </offsets>
+ </model>
+ <model>
+  <name>Left navigation light</name>
+  <path>Aircraft/ZLT-NT/Models/Lights/RedLight.xml</path>
+  <offsets>
+   <!-- x/y/z == back/right/up -->
+   <x-m> 26.40 </x-m>
+   <y-m> -8.74 </y-m>
+   <z-m> -3.50 </z-m>
+  </offsets>
+ </model>
+ <model>
+  <name>Right navigation light</name>
+  <path>Aircraft/ZLT-NT/Models/Lights/GreenLight.xml</path>
+  <offsets>
+   <!-- x/y/z == back/right/up -->
+   <x-m> 26.40 </x-m>
+   <y-m>  8.74 </y-m>
+   <z-m> -3.50 </z-m>
+  </offsets>
+ </model>
+ <model>
+  <name>Tail navigation light</name>
+  <path>Aircraft/ZLT-NT/Models/Lights/WhiteLight.xml</path>
+  <offsets>
+   <!-- x/y/z == back/right/up -->
+   <x-m> 74.70 </x-m>
+   <y-m>  0.00 </y-m>
+   <z-m>  0.30 </z-m>
+  </offsets>
+ </model>
+
+ <!-- Beacon and strobe ====================================================-->
+ <model>
+  <name>Beacon</name>
+  <path>Aircraft/ZLT-NT/Models/Lights/Beacon.xml</path>
+  <offsets>
+   <!-- x/y/z == back/right/up -->
+   <x-m> 24.00 </x-m>
+   <y-m>  0.40 </y-m>
+   <z-m> -9.20 </z-m>
+  </offsets>
+ </model>
+ <model>
+  <name>Strobe</name>
+  <path>Aircraft/ZLT-NT/Models/Lights/Strobe.xml</path>
+  <offsets>
+   <!-- x/y/z == back/right/up -->
+   <x-m> 63.50 </x-m>
+   <y-m>  0.00 </y-m>
+   <z-m>  9.15 </z-m>
+  </offsets>
+ </model>
+
+ <!-- Control surface animations ===========================================-->
+ <animation>
+  <type>rotate</type>
+  <object-name>upper_rudder</object-name>
+  <property>surface-positions/rudder-pos-norm</property>
+  <factor>20</factor>
+  <center>
+   <x-m> 64.725 </x-m>
+   <y-m>  0.0   </y-m>
+   <z-m>  0.0   </z-m>
+  </center>
+  <axis>
+   <x> 0.0 </x>
+   <y> 0.0 </y>
+   <z> 1.0 </z>
+  </axis>
+ </animation>
+ <animation>
+  <type>rotate</type>
+  <object-name>left_rudder</object-name>
+  <property>surface-positions/elevator-pos-norm</property>
+  <factor>-20</factor>
+  <center>
+   <x-m> 64.725 </x-m>
+   <y-m> -3.879 </y-m>
+   <z-m> -1.809 </z-m>
+  </center>
+  <axis>
+   <x> 0.0     </x>
+   <y>-0.06648 </y>
+   <z>-0.03100 </z>
+  </axis>
+ </animation>
+ <animation>
+  <type>rotate</type>
+  <object-name>right_rudder</object-name>
+  <property>surface-positions/elevator-pos-norm</property>
+  <factor>20</factor>
+  <center>
+   <x-m> 64.725 </x-m>
+   <y-m>  3.879 </y-m>
+   <z-m> -1.809 </z-m>
+  </center>
+  <axis>
+   <x> 0.0     </x>
+   <y> 0.06648 </y>
+   <z>-0.03100 </z>
+  </axis>
+ </animation>
+
+ <!-- Engine tilt animations ===============================================-->
+ <animation>
+  <name>Left_engine</name>
+  <object-name>left_propeller</object-name>
+  <object-name>Propeller.1</object-name>
+  <object-name>Propeller.Slow.1</object-name>
+  <object-name>Propeller.Fast.1</object-name>
+ </animation>
+ <animation>
+  <type>rotate</type>
+  <object-name>Left_engine</object-name>
+  <property>fdm/jsbsim/propulsion/engine[0]/pitch-angle-rad</property>
+  <factor>57.296</factor>
+  <center>
+   <x-m> 26.40 </x-m>
+   <y-m> -8.53 </y-m>
+   <z-m> -3.50 </z-m>
+  </center>
+  <axis>
+   <x> 0.0 </x>
+   <y> 1.0 </y>
+   <z> 0.0 </z>
+  </axis>
+ </animation>
+
+ <animation>
+  <name>Right_engine</name>
+  <object-name>right_propeller</object-name>
+  <object-name>Propeller.2</object-name>
+  <object-name>Propeller.Slow.2</object-name>
+  <object-name>Propeller.Fast.2</object-name>
+ </animation>
+ <animation>
+  <type>rotate</type>
+  <object-name>Right_engine</object-name>
+  <property>fdm/jsbsim/propulsion/engine[1]/pitch-angle-rad</property>
+  <factor>57.296</factor>
+  <center>
+   <x-m> 26.40 </x-m>
+   <y-m>  8.53 </y-m>
+   <z-m> -3.50 </z-m>
+  </center>
+  <axis>
+   <x> 0.0 </x>
+   <y> 1.0 </y>
+   <z> 0.0 </z>
+  </axis>
+ </animation>
+
+ <animation>
+  <name>Rear_engine</name>
+  <object-name>aft_main_propeller</object-name>
+  <object-name>Propeller.3</object-name>
+  <object-name>Propeller.Slow.3</object-name>
+  <object-name>Propeller.Fast.3</object-name>
+ </animation>
+ <animation>
+  <type>rotate</type>
+  <object-name>Rear_engine</object-name>
+  <property>fdm/jsbsim/propulsion/engine[2]/pitch-angle-rad</property>
+  <factor>57.296</factor>
+  <center>
+   <x-m> 74.30 </x-m>
+   <y-m>  0.00 </y-m>
+   <z-m> -0.20 </z-m>
+  </center>
+  <axis>
+   <x> 0.0 </x>
+   <y> 1.0 </y>
+   <z> 0.0 </z>
+  </axis>
+ </animation>
+
+ <animation>
+  <name>Rear_aux_engine</name>
+  <object-name>Propeller.4</object-name>
+  <object-name>Propeller.Slow.4</object-name>
+  <object-name>Propeller.Fast.4</object-name>
+ </animation>
+
+ <!-- Propeller animations =================================================-->
+ <animation>
+  <type>select</type>
+  <object-name>Propeller.1</object-name>
+  <condition>
+   <less-than>
+    <property>engines/engine[0]/rpm</property>
+    <value>200</value>
+   </less-than>
+  </condition>
+ </animation>
+ <animation>
+  <type>select</type>
+  <object-name>Propeller.Slow.1</object-name>
+  <condition>
+   <and>
+    <greater-than>
+     <property>engines/engine[0]/rpm</property>
+     <value>190</value>
+    </greater-than>
+    <less-than>
+     <property>engines/engine[0]/rpm</property>
+     <value>1200</value>
+    </less-than>
+   </and>
+  </condition>
+ </animation>
+ <animation>
+  <type>select</type>
+  <object-name>Propeller.Fast.1</object-name>
+  <condition>
+   <greater-than>
+    <property>engines/engine[0]/rpm</property>
+    <value>1200</value>
+   </greater-than>
+  </condition>
+ </animation>
+ <animation>
+  <type>spin</type>
+  <object-name>Propeller.1</object-name>
+  <property>engines/engine[0]/rpm</property>
+  <factor>-0.46</factor>
+  <center>
+   <x-m>25.50</x-m>
+   <y-m>-8.53</y-m>
+   <z-m>-3.50</z-m>
+  </center>
+  <axis>
+   <x>1.0</x>
+   <y>0.0</y>
+   <z>0.0</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>spin</type>
+  <object-name>Propeller.Slow.1</object-name>
+  <property>engines/engine[0]/rpm</property>
+  <factor>-0.046</factor>
+  <center>
+   <x-m>25.50</x-m>
+   <y-m>-8.53</y-m>
+   <z-m>-3.50</z-m>
+  </center>
+  <axis>
+   <x>1.0</x>
+   <y>0.0</y>
+   <z>0.0</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>spin</type>
+  <object-name>Propeller.Fast.1</object-name>
+  <property>engines/engine[0]/rpm</property>
+  <factor>-0.00046</factor>
+  <center>
+   <x-m>25.50</x-m>
+   <y-m>-8.53</y-m>
+   <z-m>-3.50</z-m>
+  </center>
+  <axis>
+   <x>1.0</x>
+   <y>0.0</y>
+   <z>0.0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>select</type>
+  <object-name>Propeller.2</object-name>
+  <condition>
+   <less-than>
+    <property>engines/engine[1]/rpm</property>
+    <value>200</value>
+   </less-than>
+  </condition>
+ </animation>
+ <animation>
+  <type>select</type>
+  <object-name>Propeller.Slow.2</object-name>
+  <condition>
+   <and>
+    <greater-than>
+     <property>engines/engine[1]/rpm</property>
+     <value>190</value>
+    </greater-than>
+    <less-than>
+     <property>engines/engine[1]/rpm</property>
+     <value>1200</value>
+    </less-than>
+   </and>
+  </condition>
+ </animation>
+ <animation>
+  <type>select</type>
+  <object-name>Propeller.Fast.2</object-name>
+  <condition>
+   <greater-than>
+    <property>engines/engine[1]/rpm</property>
+    <value>1200</value>
+   </greater-than>
+  </condition>
+ </animation>
+ <animation>
+  <type>spin</type>
+  <object-name>Propeller.2</object-name>
+  <property>engines/engine[1]/rpm</property>
+  <factor>-0.46</factor>
+  <center>
+   <x-m>25.50</x-m>
+   <y-m> 8.53</y-m>
+   <z-m>-3.50</z-m>
+  </center>
+  <axis>
+   <x>1.0</x>
+   <y>0.0</y>
+   <z>0.0</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>spin</type>
+  <object-name>Propeller.Slow.2</object-name>
+  <property>engines/engine[1]/rpm</property>
+  <factor>-0.046</factor>
+  <center>
+   <x-m>25.50</x-m>
+   <y-m> 8.53</y-m>
+   <z-m>-3.50</z-m>
+  </center>
+  <axis>
+   <x>1.0</x>
+   <y>0.0</y>
+   <z>0.0</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>spin</type>
+  <object-name>Propeller.Fast.2</object-name>
+  <property>engines/engine[1]/rpm</property>
+  <factor>-0.00046</factor>
+  <center>
+   <x-m>25.50</x-m>
+   <y-m> 8.53</y-m>
+   <z-m>-3.50</z-m>
+  </center>
+  <axis>
+   <x>1.0</x>
+   <y>0.0</y>
+   <z>0.0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>select</type>
+  <object-name>Propeller.3</object-name>
+  <condition>
+   <less-than>
+    <property>engines/engine[2]/rpm</property>
+    <value>200</value>
+   </less-than>
+  </condition>
+ </animation>
+ <animation>
+  <type>select</type>
+  <object-name>Propeller.Slow.3</object-name>
+  <condition>
+   <and>
+    <greater-than>
+     <property>engines/engine[2]/rpm</property>
+     <value>190</value>
+    </greater-than>
+    <less-than>
+     <property>engines/engine[2]/rpm</property>
+     <value>1200</value>
+    </less-than>
+   </and>
+  </condition>
+ </animation>
+ <animation>
+  <type>select</type>
+  <object-name>Propeller.Fast.3</object-name>
+  <condition>
+   <greater-than>
+    <property>engines/engine[2]/rpm</property>
+    <value>1200</value>
+   </greater-than>
+  </condition>
+ </animation>
+ <animation>
+  <type>spin</type>
+  <object-name>Propeller.3</object-name>
+  <property>engines/engine[2]/rpm</property>
+  <factor>-0.46</factor>
+  <center>
+   <x-m>75.10</x-m>
+   <y-m> 0.00</y-m>
+   <z-m> 0.00</z-m>
+  </center>
+  <axis>
+   <x>1.0</x>
+   <y>0.0</y>
+   <z>0.0</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>spin</type>
+  <object-name>Propeller.Slow.3</object-name>
+  <property>engines/engine[2]/rpm</property>
+  <factor>-0.046</factor>
+  <center>
+   <x-m>75.10</x-m>
+   <y-m> 0.00</y-m>
+   <z-m> 0.00</z-m>
+  </center>
+  <axis>
+   <x>1.0</x>
+   <y>0.0</y>
+   <z>0.0</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>spin</type>
+  <object-name>Propeller.Fast.3</object-name>
+  <property>engines/engine[2]/rpm</property>
+  <factor>-0.00046</factor>
+  <center>
+   <x-m>75.10</x-m>
+   <y-m> 0.00</y-m>
+   <z-m> 0.00</z-m>
+  </center>
+  <axis>
+   <x>1.0</x>
+   <y>0.0</y>
+   <z>0.0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>select</type>
+  <object-name>Propeller.4</object-name>
+  <condition>
+   <less-than>
+    <property>engines/engine[3]/rpm</property>
+    <value>200</value>
+   </less-than>
+  </condition>
+ </animation>
+ <animation>
+  <type>select</type>
+  <object-name>Propeller.Slow.4</object-name>
+  <condition>
+   <and>
+    <greater-than>
+     <property>engines/engine[3]/rpm</property>
+     <value>190</value>
+    </greater-than>
+    <less-than>
+     <property>engines/engine[3]/rpm</property>
+     <value>1200</value>
+    </less-than>
+   </and>
+  </condition>
+ </animation>
+ <animation>
+  <type>select</type>
+  <object-name>Propeller.Fast.4</object-name>
+  <condition>
+   <greater-than>
+    <property>engines/engine[3]/rpm</property>
+    <value>1200</value>
+   </greater-than>
+  </condition>
+ </animation>
+ <animation>
+  <type>spin</type>
+  <object-name>Propeller.4</object-name>
+  <property>engines/engine[3]/rpm</property>
+  <factor>-1</factor>
+  <center>
+   <x-m>73.64</x-m>
+   <y-m> 0.00</y-m>
+   <z-m> 0.20</z-m>
+  </center>
+  <axis>
+   <x>0.0</x>
+   <y>1.0</y>
+   <z>0.0</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>spin</type>
+  <object-name>Propeller.Slow.4</object-name>
+  <property>engines/engine[3]/rpm</property>
+  <factor>-0.1</factor>
+  <center>
+   <x-m>73.64</x-m>
+   <y-m> 0.00</y-m>
+   <z-m> 0.20</z-m>
+  </center>
+  <axis>
+   <x>0.0</x>
+   <y>1.0</y>
+   <z>0.0</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>spin</type>
+  <object-name>Propeller.Fast.4</object-name>
+  <property>engines/engine[3]/rpm</property>
+  <factor>-0.001</factor>
+  <center>
+   <x-m>73.64</x-m>
+   <y-m> 0.00</y-m>
+   <z-m> 0.20</z-m>
+  </center>
+  <axis>
+   <x>0.0</x>
+   <y>1.0</y>
+   <z>0.0</z>
+  </axis>
+ </animation>
+
+ <!-- Landing gear animation ===============================================-->
+ <!-- Main gear -->
+ <animation>
+  <name>Main landing gear</name>
+  <object-name>mlg_strut</object-name>
+  <object-name>mlg_strut2</object-name>
+  <object-name>mlg_damper</object-name>
+  <object-name>mlg_hub</object-name>
+  <object-name>mlg_tyre</object-name>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>Main landing gear</object-name>
+  <property>fdm/jsbsim/gear/unit[0]/steering-angle-deg</property>
+  <center>
+   <x-m> 19.65 </x-m>
+   <y-m>  0.00 </y-m>
+   <z-m>  0.00 </z-m>
+  </center>
+  <axis>
+   <x>0.0</x>
+   <y>0.0</y>
+   <z>1.0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <name>Main landing gear leg</name>
+  <object-name>mlg_strut2</object-name>
+  <object-name>mlg_hub</object-name>
+  <object-name>mlg_tyre</object-name>
+ </animation>
+
+ <!--
+   %% Interpolation table for leg rotation due to compression.
+   r=0.8/0.3048
+   h=r*cos(30*pi/180)
+   c=(0:0.5:1.1*h)'
+   alfa_deg=180/pi*acos((h-c)/r) - 30
+ -->
+ <animation>
+  <type>rotate</type>
+  <object-name>Main landing gear leg</object-name>
+  <property>gear/gear[0]/compression-ft</property>
+  <interpolation>
+   <entry>
+    <ind>0</ind>
+    <dep>0</dep>
+   </entry>
+   <entry>
+    <ind>0.50</ind>
+    <dep>17.5</dep>
+   </entry>
+   <entry>
+    <ind>1.00</ind>
+    <dep>31.0</dep>
+   </entry>
+   <entry>
+    <ind>1.50</ind>
+    <dep>42.9</dep>
+   </entry>
+   <entry>
+    <ind>2.00</ind>
+    <dep>54.0</dep>
+   </entry>
+   <entry>
+    <ind>2.50</ind>
+    <dep>65.0</dep>
+   </entry>
+  </interpolation>  
+  <center>
+   <x-m> 19.937 </x-m>
+   <y-m>  0.000 </y-m>
+   <z-m> -9.665 </z-m>
+  </center>
+  <axis>
+   <x>0.0</x>
+   <y>1.0</y>
+   <z>0.0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>translate</type>
+  <object-name>mlg_damper</object-name>
+  <property>gear/gear[0]/compression-ft</property>
+  <factor>0.3048</factor>
+  <axis>
+   <x>0.0</x>
+   <y>0.0</y>
+   <z>1.0</z>
+  </axis>
+ </animation>
+
+ <!-- tail gear -->
+ <animation>
+  <name>Tail landing gear</name>
+  <object-name>tlg_strut</object-name>
+  <object-name>tlg_strut2</object-name>
+  <object-name>tlg_damper</object-name>
+  <object-name>tlg_hub</object-name>
+  <object-name>tlg_tyre</object-name>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>Tail landing gear</object-name>
+  <property>fdm/jsbsim/gear/unit[1]/steering-angle-deg</property>
+  <center>
+   <x-m> 59.00 </x-m>
+   <y-m>  0.00 </y-m>
+   <z-m>  0.00 </z-m>
+  </center>
+  <axis>
+   <x>0.0</x>
+   <y>0.0</y>
+   <z>1.0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <name>Tail landing gear leg</name>
+  <object-name>tlg_strut2</object-name>
+  <object-name>tlg_hub</object-name>
+  <object-name>tlg_tyre</object-name>
+ </animation>
+
+ <!--
+   %% Interpolation table for leg rotation due to compression.
+   r=0.64/0.3048
+   h=r*cos(30*pi/180)
+   c=(0:0.5:1.1*h)'
+   alfa_deg=180/pi*acos((h-c)/r) - 30
+ -->
+ <animation>
+  <type>rotate</type>
+  <object-name>Tail landing gear leg</object-name>
+  <property>gear/gear[1]/compression-ft</property>
+  <interpolation>
+   <entry>
+    <ind>0</ind>
+    <dep>0</dep>
+   </entry>
+   <entry>
+    <ind>0.50</ind>
+    <dep>21.1</dep>
+   </entry>
+   <entry>
+    <ind>1.00</ind>
+    <dep>37.1</dep>
+   </entry>
+   <entry>
+    <ind>1.50</ind>
+    <dep>51.3</dep>
+   </entry>
+   <entry>
+    <ind>2.00</ind>
+    <dep>65.0</dep>
+   </entry>
+  </interpolation>  
+  <center>
+   <x-m> 59.212 </x-m>
+   <y-m>  0.000 </y-m>
+   <z-m> -7.084 </z-m>
+  </center>
+  <axis>
+   <x>0.0</x>
+   <y>1.0</y>
+   <z>0.0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>translate</type>
+  <object-name>tlg_damper</object-name>
+  <property>gear/gear[1]/compression-ft</property>
+  <factor>0.3048</factor>
+  <axis>
+   <x>0.0</x>
+   <y>0.0</y>
+   <z>1.0</z>
+  </axis>
+ </animation>
+
+ <!-- LOD for the model as a whole =========================================-->
+ <animation>
+  <type>range</type>
+  <min-m>0</min-m>
+  <max-m>15000</max-m>
+ </animation>
+
+ <nasal>
+  <load>
+##############################################################################
+# The on-load Nasal is not executed when this file is loaded as the user
+# aircraft.
+##############################################################################
+var rplayer = cmdarg();
+print("LOAD ZLT-NT", rplayer.getPath());
+
+# Set up property aliases for animations.
+rplayer.getNode("fdm/jsbsim/propulsion/engine[0]/pitch-angle-rad", 1).
+  alias(rplayer.getNode("sim/multiplay/generic/float[0]"));
+rplayer.getNode("fdm/jsbsim/propulsion/engine[1]/pitch-angle-rad", 1).
+  alias(rplayer.getNode("sim/multiplay/generic/float[1]"));
+rplayer.getNode("fdm/jsbsim/propulsion/engine[2]/pitch-angle-rad", 1).
+  alias(rplayer.getNode("sim/multiplay/generic/float[2]"));
+
+# Set up livery support.
+var livery_update =
+  aircraft.livery_update.new("Aircraft/ZLT-NT/Models/Liveries", 10);
+
+# Beacon, strobe and nav lights.
+var beacon =
+  aircraft.light.new(rplayer.initNode("sim/model/lights/beacon", 0, "BOOL"),
+                     [0.05, 1.2],
+                     rplayer.initNode("controls/lighting/beacon", 1, "BOOL"));
+var strobe =
+  aircraft.light.new(rplayer.initNode("sim/model/lights/strobe", 0, "BOOL"),
+                     [0.05, 3],
+                     rplayer.initNode("controls/lighting/strobe", 1, "BOOL"));
+
+############################################################
+# Load the needed modules if it hasn't been done yet.
+if (!contains(globals, "ZLTNT")) {
+  var file = "Aircraft/ZLT-NT/Systems/mp-network.nas";
+  io.load_nasal(resolvepath(file), "ZLTNT");
+
+  # Use the minimal remote_mooring instead of mooring.
+  ZLTNT.mooring = ZLTNT.remote_mooring;
+  # Initialize scenario network as observer.
+  ZLTNT.mp_network_init(0);
+  print("LOAD ZLT-NT", rplayer.getPath(), " initialized mp-network.");
+}
+##############################################################################
+  </load>
+  <unload>
+##############################################################################
+var rplayer = cmdarg();
+print("UNLOAD ZLT-NT ", rplayer.getPath());
+
+# Stop the livery support.
+livery_update.stop();
+beacon.del();
+strobe.del();
+
+# The mast truck is removed automatically. However, the the ZLTNT module
+# itself should be shut down if this was its last user.
+
+##############################################################################
+  </unload>
+ </nasal>
+
+</PropertyList>

@@ -1,0 +1,69 @@
+AC3Db
+MATERIAL "ac3dmat12" rgb 0.267 0.267 0.267  amb 0.267 0.267 0.267  emis 0 0 0  spec 0.2 0.2 0.2  shi 10  trans 0
+MATERIAL "ac3dmat9" rgb 0 0 1  amb 0 0 1  emis 0.165 0.165 0.969  spec 0.8 0.8 0.8  shi 100  trans 0
+OBJECT world
+kids 1
+OBJECT group
+name "Deck-Edge-Light"
+loc 0 -2.54891e-06 -0.000241279
+kids 2
+OBJECT poly
+name "Housing"
+loc 0 -2.43449e-09 1.78989e-09
+crease 61.000000
+numvert 5
+0.2 -0.0999564 0.1
+-0.2 -0.0999564 0.1
+-0.100008 0.1 0.1
+0.100008 0.1 0.1
+0 -0.1 -0.1
+numsurf 3
+SURF 0x10
+mat 0
+refs 3
+3 0.75 1
+0 1 0.5
+4 0.5 0.5
+SURF 0x10
+mat 0
+refs 3
+2 0.25 1
+3 0.75 1
+4 0.5 0.5
+SURF 0x10
+mat 0
+refs 3
+1 0 0.5
+2 0.25 1
+4 0.5 0.5
+kids 0
+OBJECT poly
+name "Light"
+loc 0 -2.43449e-09 1.78989e-09
+crease 61.000000
+numvert 5
+0 -0.1 -0.1
+0.100008 0.1 0.1
+-0.100008 0.1 0.1
+-0.2 -0.0999564 0.1
+0.2 -0.0999564 0.1
+numsurf 3
+SURF 0x10
+mat 1
+refs 3
+0 0.5 0.5
+4 1 0.5
+1 0.75 1
+SURF 0x10
+mat 1
+refs 3
+0 0.5 0.5
+1 0.75 1
+2 0.25 1
+SURF 0x10
+mat 1
+refs 3
+0 0.5 0.5
+2 0.25 1
+3 0 0.5
+kids 0

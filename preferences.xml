@@ -1,0 +1,1268 @@
+<?xml version="1.0"?>
+<!--
+************************************************************************
+Global defaults for FlightGear property values.
+
+Started September 2000 by David Megginson, david@megginson.com
+************************************************************************
+-->
+<PropertyList>
+  <local-weather include="Environment/local-weather-defaults.xml"/>
+  <!-- General simulation preferences -->
+  <sim>
+    <!-- show-aircraft option: show ALL aircraft regardless by default -->
+    <aircraft-min-status>all</aircraft-min-status>
+    <!-- don't reset the simulator when the aircraft hits the ground -->
+    <reset-on-crash type="bool">false</reset-on-crash>
+    <!-- Limit the time we need to spend in simulation loops to 1 second -->
+    <max-simtime-per-frame type="double">1.0</max-simtime-per-frame>
+    <session type="int" userarchive="y">0</session>
+    <paths>
+      <screenshot-dir type="string" userarchive="y"/>
+      <!-- defaults to current working dir -->
+      <validate>
+        <read type="string"/>
+        <write type="string"/>
+      </validate>
+    </paths>
+    <intl include="Translations/locale.xml"/>
+    <aircraft>c172p</aircraft>
+    <virtual-cockpit type="bool">false</virtual-cockpit>
+    <presets preserve="y">
+      <airport-id>KSFO</airport-id>
+      <runway/>
+      <trim type="bool">true</trim>
+    </presets>
+    <startup>
+      <xsize type="int" preserve="y">1024</xsize>
+      <ysize type="int" preserve="y">768</ysize>
+      <splash-screen type="bool">true</splash-screen>
+      <splash-progress type="bool">true</splash-progress>
+      <splash-title>
+        <!-- -->
+      </splash-title>
+      <fullscreen type="bool" preserve="y">false</fullscreen>
+      <units>feet</units>
+      <save-on-exit type="bool" userarchive="y">true</save-on-exit>
+      <restore-defaults type="bool">false</restore-defaults>
+      <!--  help viewer; only used under Unix -->
+      <terminal-ansi-colors type="bool">true</terminal-ansi-colors>
+      <season type="string" preserve="y">summer</season>
+    </startup>
+    <rendering>
+      <materials-file>Materials/regions/materials.xml</materials-file>
+      <rembrandt>
+        <enabled type="bool">false</enabled>
+        <renderer>default-pipeline</renderer>
+        <show-buffers type="bool" userarchive="y">false</show-buffers>
+        <ambient-occlusion type="bool" userarchive="y">false</ambient-occlusion>
+        <ambient-occlusion-strength type="float" userarchive="y">0.6</ambient-occlusion-strength>
+        <ambient-occlusion-buffers type="bool">true</ambient-occlusion-buffers>
+        <bloom type="bool" userarchive="y">true</bloom>
+        <bloom-strength type="float" userarchive="y">0.6</bloom-strength>
+        <bloom-buffers type="bool">true</bloom-buffers>
+        <night-vision type="bool">false</night-vision>
+        <cinema>
+          <vignette type="bool">false</vignette>
+          <inner-circle type="float" userarchive="y">0.8</inner-circle>
+          <outer-circle type="float" userarchive="y">1.3</outer-circle>
+          <color-shift type="bool">false</color-shift>
+          <red-shift>
+            <x type="float" userarchive="y">.393</x>
+            <y type="float" userarchive="y">.769</y>
+            <z type="float" userarchive="y">.189</z>
+          </red-shift>
+          <green-shift>
+            <x type="float" userarchive="y">.349</x>
+            <y type="float" userarchive="y">.686</y>
+            <z type="float" userarchive="y">.168</z>
+          </green-shift>
+          <blue-shift>
+            <x type="float" userarchive="y">.272</x>
+            <y type="float" userarchive="y">.534</y>
+            <z type="float" userarchive="y">.131</z>
+          </blue-shift>
+          <distortion type="bool">false</distortion>
+          <distortion-factor>
+            <x type="float" userarchive="y">0.0</x>
+            <y type="float" userarchive="y">0.0</y>
+            <z type="float" userarchive="y">1.0</z>
+          </distortion-factor>
+          <color-fringe type="bool">false</color-fringe>
+          <color-fringe-factor type="float" userarchive="y">1.0</color-fringe-factor>
+          <film-wear type="bool">false</film-wear>
+        </cinema>
+        <exposure type="float" userarchive="y">1.0</exposure>
+        <use-color-for-depth type="bool">false</use-color-for-depth>
+        <no-16bit-buffer type="bool">false</no-16bit-buffer>
+        <debug-buffer n="0">
+          <enabled type="bool" userarchive="y">false</enabled>
+          <name userarchive="y"/>
+        </debug-buffer>
+        <debug-buffer n="1">
+          <enabled type="bool" userarchive="y">true</enabled>
+          <name userarchive="y">spec-emis</name>
+        </debug-buffer>
+        <debug-buffer n="2">
+          <enabled type="bool" userarchive="y">true</enabled>
+          <name userarchive="y">normal</name>
+        </debug-buffer>
+        <debug-buffer n="3">
+          <enabled type="bool" userarchive="y">true</enabled>
+          <name userarchive="y">diffuse</name>
+        </debug-buffer>
+        <debug>
+          <lighting>
+            <sky type="bool">true</sky>
+            <ambient type="bool">true</ambient>
+            <sunlight type="bool">true</sunlight>
+            <lights type="bool">true</lights>
+            <fog type="bool">true</fog>
+            <debug type="bool">false</debug>
+            <transparent type="bool">false</transparent>
+          </lighting>
+        </debug>
+      </rembrandt>
+      <debug type="bool">false</debug>
+      <realism type="int">5</realism>
+      <filtering type="int">8</filtering>
+      <shaders>
+        <custom-settings type="bool" userarchive="y">false</custom-settings>
+        <generic type="float" userarchive="y">1.0</generic>
+        <landmass type="float" userarchive="y">1.0</landmass>
+        <model type="float" userarchive="y">1.0</model>
+        <contrails type="float" userarchive="y">1.0</contrails>
+        <crop type="float" userarchive="y">1.0</crop>
+        <skydome type="bool" userarchive="y">false</skydome>
+        <transition type="float" userarchive="y">1.0</transition>
+        <urban type="float" userarchive="y">1.0</urban>
+        <water type="float" userarchive="y">1.0</water>
+        <wind-effects type="float" userarchive="y">0.0</wind-effects>
+        <forest type="float" userarchive="y">0.0</forest>
+        <lights type="float" userarchive="y">1.0</lights>
+        <quality-level-internal type="float" userarchive="y">1.0</quality-level-internal>
+      </shaders>
+      <mie type="float" userarchive="y">0.003</mie>
+      <rayleigh type="float" userarchive="y">0.0003</rayleigh>
+      <dome-density type="float" userarchive="y">0.5</dome-density>
+      <!--
+			<multithreading-mode>AutomaticSelection</multithreading-mode>
+     Uncomment the above element to select OSG multi-threading mode.
+     This may improve performance on multi-core, multi-CPU
+     and/or multi-GPU systems. The recommended setting is AutomaticSelection.
+     The alternatives are
+       AutomaticSelection
+       DrawThreadPerContext
+       CullDrawThreadPerContext
+       CullThreadPerCameraDrawThreadPerContext
+   -->
+      <plod-minimum-expiry-time-secs type="double" userarchive="y">180.0</plod-minimum-expiry-time-secs>
+      <static-lod>
+        <detailed type="double" userarchive="y">1500</detailed>
+        <rough type="double" userarchive="y">9000</rough>
+        <bare type="double" userarchive="y">30000</bare>
+        <!--
+          ai-range-mode-pixel: true=use pixel size on screen, false=use distance from eyepoint 
+          With /sim/rendering/static-lod/ai-range-mode-pixel set to true
+          /sim/rendering/static-lod/ai-detailed now contains the minimum size of the
+          model on the screen to be displayed. Values of 10-50 seem to make some sense.
+        -->
+        <ai-range-mode-pixel type="bool" userarchive="y">true</ai-range-mode-pixel>
+        <ai-detailed type="double" userarchive="y">30</ai-detailed>
+        <!-- ai-bare type="double" userarchive="y">10000</ai-bare -->
+        <ai-interior type="double" userarchive="y">50</ai-interior>
+      </static-lod>
+      <random-objects type="bool" userarchive="y">true</random-objects>
+      <random-vegetation type="bool" userarchive="y">true</random-vegetation>
+      <vegetation-density type="double" userarchive="y">1.0</vegetation-density>
+      <random-buildings type="bool" userarchive="y">false</random-buildings>
+      <building-density type="double" userarchive="y">1.0</building-density>
+      <horizon-effect type="bool" userarchive="y">false</horizon-effect>
+      <point-sprites type="bool" userarchive="y">true</point-sprites>
+      <enhanced-lighting type="bool" userarchive="y">false</enhanced-lighting>
+      <distance-attenuation type="bool" userarchive="y">false</distance-attenuation>
+      <particles type="bool" userarchive="y">true</particles>
+      <precipitation-gui-enable type="bool" userarchive="y">false</precipitation-gui-enable>
+      <precipitation-enable type="bool" userarchive="y">false</precipitation-enable>
+      <precipitation-aircraft-enable type="bool">true</precipitation-aircraft-enable>
+      <precipitation>
+        <!-- streaks coloring and transparency -->
+        <min-light type="float">0.35</min-light>
+        <streak-brightness-nearmost-layer type="float">0.9</streak-brightness-nearmost-layer>
+        <streak-brightness-farmost-layer type="float">0.5</streak-brightness-farmost-layer>
+        <!-- streak period as a function of the speed, decreases with speed -->
+        <streak-period-max type="float">2.5</streak-period-max>
+        <streak-period-change-per-kt type="float">0.005</streak-period-change-per-kt>
+        <streak-period-min type="float">1.0</streak-period-min>
+        <!-- streak length as a function of the speed, increases with speed -->
+        <streak-length-min type="float">0.03</streak-length-min>
+        <streak-length-change-per-kt type="float">0.0005</streak-length-change-per-kt>
+        <streak-length-max type="float">0.1</streak-length-max>
+        <!-- # of rain streaks at the 100.0% precipitation density -->
+        <streak-count-min type="int">40</streak-count-min>
+        <!-- lightest rain -->
+        <streak-count-max type="int">190</streak-count-max>
+        <!-- heaviest rain -->
+        <!-- numbers over MAX_RAIN_SLICE in simgear/environment/visual_enviro.cxx
+         will be ignored in the current implementation.  -->
+        <!-- the precipitation cone geometry -->
+        <cone-base-radius type="float">15.0</cone-base-radius>
+        <cone-height type="float">30.0</cone-height>
+      </precipitation>
+      <lightning-enable type="bool" userarchive="y">false</lightning-enable>
+      <specular-highlight type="bool" userarchive="y">false</specular-highlight>
+      <bump-mapping type="bool" userarchive="y">false</bump-mapping>
+      <clouds3d-enable type="bool" userarchive="y">false</clouds3d-enable>
+      <clouds3d-vis-range type="float" userarchive="y">10000.0</clouds3d-vis-range>
+      <clouds3d-detail-range type="float" userarchive="y">10000.0</clouds3d-detail-range>
+      <clouds3d-density type="float" userarchive="y">0.25</clouds3d-density>
+      <!-- legacy property to control drawing 'out the window', i.e
+            non-cockpit + aircraft elements. Use draw-mask instead. -->
+      <draw-otw type="bool">true</draw-otw>
+      <draw-mask>
+        <terrain type="bool">true</terrain>
+        <models type="bool">true</models>
+        <aircraft type="bool">true</aircraft>
+        <clouds type="bool">true</clouds>
+      </draw-mask>
+      <shadows-ac type="bool" userarchive="y">false</shadows-ac>
+      <shadows-ac-transp type="bool" userarchive="y">false</shadows-ac-transp>
+      <shadows-ai type="bool" userarchive="y">false</shadows-ai>
+      <shadows-to type="bool" userarchive="y">false</shadows-to>
+      <shadows-debug type="bool" userarchive="y">false</shadows-debug>
+      <shadows>
+        <enabled type="bool" userarchive="y">true</enabled>
+        <debug type="bool" userarchive="y">false</debug>
+        <map-size type="int" userarchive="y">2048</map-size>
+        <num-cascades type="int" userarchive="y">4</num-cascades>
+        <cascade-far-m n="0" type="float" userarchive="y">2.0</cascade-far-m>
+        <cascade-far-m n="1" type="float" userarchive="y">8.0</cascade-far-m>
+        <cascade-far-m n="2" type="float" userarchive="y">32.0</cascade-far-m>
+        <cascade-far-m n="3" type="float" userarchive="y">128.0</cascade-far-m>
+        <filtering type="int" userarchive="y">1</filtering>
+      </shadows>
+      <shader-experimental type="bool" userarchive="y">false</shader-experimental>
+      <shader-effects type="bool" userarchive="y">true</shader-effects>
+      <fps-display type="bool" userarchive="y">false</fps-display>
+      <frame-latency-display type="bool" userarchive="y">false</frame-latency-display>
+      <on-screen-statistics type="int">0</on-screen-statistics>
+      <glide-slope-tunnel type="bool" userarchive="y">false</glide-slope-tunnel>
+      <redout>
+        <enabled type="bool" userarchive="y">true</enabled>
+        <parameters>
+          <blackout-onset-g type="double">3.5</blackout-onset-g>
+          <blackout-complete-g type="double">5</blackout-complete-g>
+          <redout-onset-g type="double">-2</redout-onset-g>
+          <redout-complete-g type="double">-4</redout-complete-g>
+        </parameters>
+      </redout>
+      <headshake>
+        <enabled type="bool" userarchive="y">false</enabled>
+        <rate-m-g type="double">0.005</rate-m-g>
+      </headshake>
+      <osg-displaysettings>
+        <eye-separation type="double" userarchive="y">0.05</eye-separation>
+        <screen-distance type="double" userarchive="y">0.5</screen-distance>
+        <stereo-mode type="string" userarchive="y">OFF</stereo-mode>
+      </osg-displaysettings>
+      <osg-notify-level type="string" userarchive="y">warn</osg-notify-level>
+      <cache type="bool">true</cache>
+      <use-vbos type="bool">false</use-vbos>
+      <terrain>
+        <simplifier>
+          <enabled-near type="bool">false</enabled-near>
+          <enabled-far type="bool">false</enabled-far>
+          <ratio type="double">0.01</ratio>
+          <max-error type="double">3000.0</max-error>
+          <max-length type="double">1000.0</max-length>
+        </simplifier>
+      </terrain>
+      <!-- OSG default is 300, but this means we burn lots of memory on no-longer
+             visible trees / random buildings -->
+      <max-paged-lod type="int">16</max-paged-lod>
+      <als-secondary-lights>
+        <use-searchlight type="bool">false</use-searchlight>
+        <use-landing-light type="bool">false</use-landing-light>
+        <use-alt-landing-light type="bool">false</use-alt-landing-light>
+        <landing-light1-offset-deg type="float">0.0</landing-light1-offset-deg>
+        <landing-light2-offset-deg type="float">0.0</landing-light2-offset-deg>
+      </als-secondary-lights>
+    </rendering>
+    <model-hz type="int">120</model-hz>
+    <navdb>
+      <localizers>
+        <auto-align type="bool">true</auto-align>
+        <auto-align-threshold-deg type="double">5.0</auto-align-threshold-deg>
+      </localizers>
+    </navdb>
+    <sound>
+      <volume type="float" userarchive="y">0.8</volume>
+      <enabled type="bool" userarchive="y">true</enabled>
+      <atc>
+        <enabled type="bool" userarchive="y">true</enabled>
+        <external-view type="bool" userarchive="y">true</external-view>
+        <volume type="float" userarchive="y">0.6</volume>
+      </atc>
+      <avionics>
+        <enabled type="bool" userarchive="y">true</enabled>
+        <external-view type="bool" userarchive="y">true</external-view>
+        <volume type="float" userarchive="y">0.6</volume>
+      </avionics>
+      <chatter>
+        <enabled type="bool" userarchive="y">false</enabled>
+        <volume type="float" userarchive="y">0.6</volume>
+      </chatter>
+      <effects>
+        <enabled type="bool" userarchive="y">true</enabled>
+        <volume type="float" userarchive="y">0.6</volume>
+      </effects>
+      <device-name type="string" userarchive="y"/>
+      <voice type="bool">true</voice>
+      <voices>
+        <host type="string" write="n">localhost</host>
+        <port type="string" write="n">1314</port>
+        <enabled type="bool">false</enabled>
+        <atc alias="/sim/sound/voices/voice[0]/text"/>
+        <approach alias="/sim/sound/voices/voice[0]/text"/>
+        <ground alias="/sim/sound/voices/voice[0]/text"/>
+        <pilot alias="/sim/sound/voices/voice[1]/text"/>
+        <copilot alias="/sim/sound/voices/voice[2]/text"/>
+        <ai-plane alias="/sim/sound/voices/voice[3]/text"/>
+        <voice>
+          <desc>ATC/Approach/Ground</desc>
+          <text type="string"/>
+          <volume type="double">1.0</volume>
+          <pitch type="double">100.0</pitch>
+          <speed type="double">1.0</speed>
+          <preamble type="string"/>
+          <festival type="bool">true</festival>
+          <htsvoice type="string">cmu_us_arctic_slt.htsvoice</htsvoice>
+        </voice>
+        <voice>
+          <desc>Pilot</desc>
+          <text type="string"/>
+          <volume type="double">1.0</volume>
+          <pitch type="double">100.0</pitch>
+          <speed type="double">1.0</speed>
+          <preamble type="string">(voice_us2_mbrola)</preamble>
+          <festival type="bool">true</festival>
+          <htsvoice type="string">cstr_uk_female-1.0.htsvoice</htsvoice>
+        </voice>
+        <voice>
+          <desc>Copilot/Instructor</desc>
+          <text type="string"/>
+          <volume type="double">1.0</volume>
+          <pitch type="double">100.0</pitch>
+          <speed type="double">1.0</speed>
+          <preamble type="string">(voice_en1_mbrola)</preamble>
+          <festival type="bool">true</festival>
+          <htsvoice type="string">cmu_us_arctic_slt.htsvoice</htsvoice>
+        </voice>
+        <voice>
+          <desc>AI-Plane</desc>
+          <text type="string"/>
+          <volume type="double">1.0</volume>
+          <pitch type="double">100.0</pitch>
+          <speed type="double">1.0</speed>
+          <preamble type="string">(voice_don_diphone)</preamble>
+          <festival type="bool">true</festival>
+          <htsvoice type="string">cmu_us_arctic_slt.htsvoice</htsvoice>
+        </voice>
+      </voices>
+      <aimodels>
+        <enabled type="bool" userarchive="y">false</enabled>
+        <volume type="float" userarchive="y">0.6</volume>
+      </aimodels>
+    </sound>
+    <speed-up type="double">1.0</speed-up>
+    <current-view>
+      <field-of-view type="double">55.0</field-of-view>
+      <field-of-view-compensation type="bool" userarchive="y">false</field-of-view-compensation>
+      <aspect-ratio-multiplier type="double">1.0</aspect-ratio-multiplier>
+      <dynamic-view type="bool" userarchive="y">false</dynamic-view>
+    </current-view>
+    <panel>
+      <path>Aircraft/Generic/Panels/generic-vfr-panel.xml</path>
+      <visibility type="bool" userarchive="y">false</visibility>
+      <jitter type="bool">false</jitter>
+      <hide-nonzero-view type="bool" userarchive="y">true</hide-nonzero-view>
+      <hide-nonzero-heading-offset type="bool" userarchive="y">true</hide-nonzero-heading-offset>
+    </panel>
+    <panel_2>
+      <path>Aircraft/Generic/Panels/generic-trans-mini-panel.xml</path>
+    </panel_2>
+    <hud>
+      <path n="1">Huds/default.xml</path>
+      <path n="2">Huds/NTPS.xml</path>
+      <path n="3">Huds/minimal.xml</path>
+      <!-- new HUD -->
+      <visibility n="1" type="bool">false</visibility>
+      <!-- new HUD -->
+      <font>
+        <name type="string">Helvetica.txf</name>
+        <size type="float">8</size>
+      </font>
+      <current-color type="int">0</current-color>
+      <palette>
+        <color n="0">
+          <!-- day -->
+          <transparent type="bool">true</transparent>
+          <antialiased type="bool">true</antialiased>
+          <brightness type="float">0.85</brightness>
+          <alpha type="float">0.85</alpha>
+          <red type="float">0.38</red>
+          <green type="float">1.0</green>
+          <blue type="float">0.22</blue>
+        </color>
+        <color n="1">
+          <!-- night -->
+          <transparent type="bool">false</transparent>
+          <antialiased type="bool">false</antialiased>
+          <brightness type="float">0.75</brightness>
+          <alpha type="float">0.67</alpha>
+          <red type="float">0.9</red>
+          <green type="float">0.1</green>
+          <blue type="float">0.1</blue>
+        </color>
+      </palette>
+    </hud>
+    <lon-lat-format type="int" userarchive="y">2</lon-lat-format>
+    <systems>
+      <path>Aircraft/Generic/generic-systems.xml</path>
+      <autopilot>
+        <name>generic autopilot</name>
+        <path>Aircraft/Generic/generic-autopilot.xml</path>
+      </autopilot>
+      <autopilot>
+        <name>autopilot helpers</name>
+        <path>Aircraft/Generic/generic-autopilot-helper.xml</path>
+      </autopilot>
+      <property-rule>
+        <name>Environment METAR Interpolation Rule</name>
+        <path>Environment/metarinterpolator.xml</path>
+      </property-rule>
+      <property-rule>
+        <name>Environment Interpolation Rule</name>
+        <path>Environment/interpolator.xml</path>
+      </property-rule>
+      <property-rule>
+        <name>Local Weather Rules </name>
+        <path>Environment/local-weather-rules.xml</path>
+      </property-rule>
+    </systems>
+    <instrumentation>
+      <path>Aircraft/Generic/generic-instrumentation.xml</path>
+    </instrumentation>
+    <instrument-options>
+      <nav n="0">
+        <has-gs-needle type="bool">true</has-gs-needle>
+        <needles-pivot type="bool">true</needles-pivot>
+      </nav>
+      <nav n="1">
+        <has-gs-needle type="bool">false</has-gs-needle>
+        <needles-pivot type="bool">true</needles-pivot>
+      </nav>
+      <hsi n="0">
+        <has-gs-needle type="bool">true</has-gs-needle>
+      </hsi>
+      <dg>
+        <style type="int">0</style>
+      </dg>
+    </instrument-options>
+    <input>
+      <property-key-handler type="bool" userarchive="y">false</property-key-handler>
+    </input>
+    <chase-distance-m type="double">-25.0</chase-distance-m>
+    <allow-toggle-cockpit type="bool">false</allow-toggle-cockpit>
+    <!-- "tower" positioned to right of runway at KSFO -->
+    <tower>
+      <longitude-deg type="double">-122.23045</longitude-deg>
+      <latitude-deg type="double">37.37027</latitude-deg>
+      <altitude-ft type="double">150</altitude-ft>
+      <roll-deg type="double">0</roll-deg>
+      <pitch-deg type="double">0</pitch-deg>
+      <heading-deg type="double">0</heading-deg>
+      <auto-position type="bool" userarchive="y">true</auto-position>
+    </tower>
+    <view-name-popup type="bool" userarchive="y">true</view-name-popup>
+    <view>
+      <name>Cockpit View</name>
+      <enabled type="bool" userarchive="y">true</enabled>
+      <type>lookfrom</type>
+      <internal type="bool">false</internal>
+      <config>
+        <from-model type="bool">true</from-model>
+        <from-model-idx type="int">0</from-model-idx>
+        <ground-level-nearplane-m type="double">0.5f</ground-level-nearplane-m>
+        <default-field-of-view-deg type="double">55.0</default-field-of-view-deg>
+        <default-pitch-deg type="double">0</default-pitch-deg>
+        <default-heading-deg type="double">0</default-heading-deg>
+        <front-direction-deg type="double">0</front-direction-deg>
+        <front-left-direction-deg type="double">45</front-left-direction-deg>
+        <left-direction-deg type="double">90</left-direction-deg>
+        <back-left-direction-deg type="double">135</back-left-direction-deg>
+        <back-direction-deg type="double">180</back-direction-deg>
+        <back-right-direction-deg type="double">225</back-right-direction-deg>
+        <right-direction-deg type="double">270</right-direction-deg>
+        <front-right-direction-deg type="double">315</front-right-direction-deg>
+        <dynamic-view type="bool">true</dynamic-view>
+        <limits>
+          <enabled type="bool">true</enabled>
+          <left>
+            <heading-max-deg type="double">140</heading-max-deg>
+            <x-offset-max-m type="double">0.15</x-offset-max-m>
+            <x-offset-threshold-deg type="double">65</x-offset-threshold-deg>
+          </left>
+          <right>
+            <heading-max-deg type="double">140</heading-max-deg>
+            <x-offset-max-m type="double">0.15</x-offset-max-m>
+            <x-offset-threshold-deg type="double">65</x-offset-threshold-deg>
+          </right>
+        </limits>
+      </config>
+    </view>
+    <view>
+      <name>Helicopter View</name>
+      <enabled type="bool" userarchive="y">true</enabled>
+      <type>lookat</type>
+      <config>
+        <from-model type="bool">false</from-model>
+        <from-model-idx type="int">0</from-model-idx>
+        <eye-lat-deg-path>/position/latitude-deg</eye-lat-deg-path>
+        <eye-lon-deg-path>/position/longitude-deg</eye-lon-deg-path>
+        <eye-alt-ft-path>/position/altitude-ft</eye-alt-ft-path>
+        <eye-heading-deg-path>/orientation/heading-deg</eye-heading-deg-path>
+        <at-model type="bool">true</at-model>
+        <at-model-idx type="int">0</at-model-idx>
+        <at-model-heading-damping type="double">0.0</at-model-heading-damping>
+        <target-z-offset-m type="double">0</target-z-offset-m>
+        <ground-level-nearplane-m type="double">0.5f</ground-level-nearplane-m>
+        <default-field-of-view-deg type="double">55.0</default-field-of-view-deg>
+        <x-offset-m type="double">0</x-offset-m>
+        <y-offset-m type="double">0</y-offset-m>
+        <z-offset-m alias="/sim/chase-distance-m"/>
+      </config>
+    </view>
+    <view>
+      <name>Chase View</name>
+      <enabled type="bool" userarchive="y">true</enabled>
+      <type>lookat</type>
+      <config>
+        <from-model type="bool">false</from-model>
+        <from-model-idx type="int">0</from-model-idx>
+        <eye-lat-deg-path>/position/latitude-deg</eye-lat-deg-path>
+        <eye-lon-deg-path>/position/longitude-deg</eye-lon-deg-path>
+        <eye-alt-ft-path>/position/altitude-ft</eye-alt-ft-path>
+        <eye-pitch-deg-path>/orientation/pitch-deg</eye-pitch-deg-path>
+        <eye-roll-deg-path>/orientation/roll-deg</eye-roll-deg-path>
+        <eye-heading-deg-path>/orientation/heading-deg</eye-heading-deg-path>
+        <at-model type="bool">true</at-model>
+        <at-model-idx type="int">0</at-model-idx>
+        <at-model-roll-damping type="double">1.8</at-model-roll-damping>
+        <at-model-pitch-damping type="double">1.8</at-model-pitch-damping>
+        <at-model-heading-damping type="double">1.8</at-model-heading-damping>
+        <target-z-offset-m type="double">0</target-z-offset-m>
+        <ground-level-nearplane-m type="double">0.5f</ground-level-nearplane-m>
+        <default-field-of-view-deg type="double">55.0</default-field-of-view-deg>
+        <x-offset-m type="double">0</x-offset-m>
+        <y-offset-m type="double">5</y-offset-m>
+        <z-offset-m alias="/sim/chase-distance-m"/>
+      </config>
+    </view>
+    <view>
+      <name>Tower View</name>
+      <enabled type="bool" userarchive="y">true</enabled>
+      <type>lookat</type>
+      <config>
+        <eye-lat-deg-path>/sim/tower/latitude-deg</eye-lat-deg-path>
+        <eye-lon-deg-path>/sim/tower/longitude-deg</eye-lon-deg-path>
+        <eye-alt-ft-path>/sim/tower/altitude-ft</eye-alt-ft-path>
+        <eye-roll-deg-path>/sim/tower/roll-deg</eye-roll-deg-path>
+        <eye-pitch-deg-path>/sim/tower/pitch-deg</eye-pitch-deg-path>
+        <eye-heading-deg-path>/sim/tower/heading-deg</eye-heading-deg-path>
+        <at-model type="bool">true</at-model>
+        <at-model-idx type="int">0</at-model-idx>
+        <ground-level-nearplane-m type="double">10.0f</ground-level-nearplane-m>
+        <default-field-of-view-deg type="double">55.0</default-field-of-view-deg>
+        <x-offset-m type="double">0</x-offset-m>
+        <y-offset-m type="double">0</y-offset-m>
+        <z-offset-m type="double">0</z-offset-m>
+      </config>
+    </view>
+    <view>
+      <name>Tower View Look From</name>
+      <enabled type="bool" userarchive="y">true</enabled>
+      <type>lookfrom</type>
+      <config>
+        <eye-lat-deg-path>/sim/tower/latitude-deg</eye-lat-deg-path>
+        <eye-lon-deg-path>/sim/tower/longitude-deg</eye-lon-deg-path>
+        <eye-alt-ft-path>/sim/tower/altitude-ft</eye-alt-ft-path>
+        <eye-roll-deg-path>/sim/tower/roll-deg</eye-roll-deg-path>
+        <eye-pitch-deg-path>/sim/tower/pitch-deg</eye-pitch-deg-path>
+        <eye-heading-deg-path>/sim/tower/heading-deg</eye-heading-deg-path>
+        <ground-level-nearplane-m type="double">10.0f</ground-level-nearplane-m>
+        <default-field-of-view-deg type="double">55.0</default-field-of-view-deg>
+        <x-offset-m type="double">0</x-offset-m>
+        <y-offset-m type="double">0</y-offset-m>
+        <z-offset-m type="double">0</z-offset-m>
+      </config>
+    </view>
+    <view>
+      <name>Chase View Without Yaw</name>
+      <enabled type="bool" userarchive="y">true</enabled>
+      <type>lookat</type>
+      <config>
+        <from-model type="bool">false</from-model>
+        <from-model-idx type="int">0</from-model-idx>
+        <eye-lat-deg-path>/position/latitude-deg</eye-lat-deg-path>
+        <eye-lon-deg-path>/position/longitude-deg</eye-lon-deg-path>
+        <eye-alt-ft-path>/position/altitude-ft</eye-alt-ft-path>
+        <at-model type="bool">true</at-model>
+        <at-model-idx type="int">0</at-model-idx>
+        <ground-level-nearplane-m type="double">0.5f</ground-level-nearplane-m>
+        <default-field-of-view-deg type="double">55.0</default-field-of-view-deg>
+        <x-offset-m type="double">25</x-offset-m>
+        <y-offset-m type="double">2</y-offset-m>
+        <z-offset-m alias="/sim/chase-distance-m"/>
+      </config>
+    </view>
+    <view>
+      <name>Fly-By View</name>
+      <enabled type="bool" userarchive="y">true</enabled>
+      <type>lookat</type>
+      <config>
+        <eye-lon-deg-path>/sim/viewer/longitude-deg</eye-lon-deg-path>
+        <eye-lat-deg-path>/sim/viewer/latitude-deg</eye-lat-deg-path>
+        <eye-alt-ft-path>/sim/viewer/altitude-ft</eye-alt-ft-path>
+        <at-model type="bool">true</at-model>
+        <at-model-idx type="int">0</at-model-idx>
+        <ground-level-nearplane-m type="double">0.5f</ground-level-nearplane-m>
+        <default-field-of-view-deg type="double">55.0</default-field-of-view-deg>
+      </config>
+    </view>
+    <view>
+      <name>Model View</name>
+      <enabled type="bool" userarchive="y">true</enabled>
+      <type>lookat</type>
+      <config>
+        <from-model type="bool">false</from-model>
+        <from-model-idx type="int">0</from-model-idx>
+        <eye-lat-deg-path>/sim/viewer/eye/latitude-deg</eye-lat-deg-path>
+        <eye-lon-deg-path>/sim/viewer/eye/longitude-deg</eye-lon-deg-path>
+        <eye-alt-ft-path>/sim/viewer/eye/altitude-ft</eye-alt-ft-path>
+        <eye-heading-deg-path>/sim/viewer/eye/heading-deg</eye-heading-deg-path>
+        <eye-pitch-deg-path>/sim/viewer/eye/pitch-deg</eye-pitch-deg-path>
+        <eye-roll-deg-path>/sim/viewer/eye/roll-deg</eye-roll-deg-path>
+        <at-model type="bool">false</at-model>
+        <at-model-idx type="int">0</at-model-idx>
+        <target-lat-deg-path>/sim/viewer/target/latitude-deg</target-lat-deg-path>
+        <target-lon-deg-path>/sim/viewer/target/longitude-deg</target-lon-deg-path>
+        <target-alt-ft-path>/sim/viewer/target/altitude-ft</target-alt-ft-path>
+        <target-heading-deg-path>/sim/viewer/target/heading-deg</target-heading-deg-path>
+        <target-pitch-deg-path>/sim/viewer/target/pitch-deg</target-pitch-deg-path>
+        <target-roll-deg-path>/sim/viewer/target/roll-deg</target-roll-deg-path>
+        <target-x-offset-m type="double">0</target-x-offset-m>
+        <target-y-offset-m type="double">0</target-y-offset-m>
+        <target-z-offset-m type="double">0</target-z-offset-m>
+        <ground-level-nearplane-m type="double">0.5f</ground-level-nearplane-m>
+        <default-field-of-view-deg type="double">55.0</default-field-of-view-deg>
+        <x-offset-m type="double">0</x-offset-m>
+        <y-offset-m type="double">0</y-offset-m>
+        <z-offset-m type="double">100</z-offset-m>
+        <heading-offset-deg type="double">0</heading-offset-deg>
+        <pitch-offset-deg type="double">0</pitch-offset-deg>
+        <roll-offset-deg type="double">0</roll-offset-deg>
+      </config>
+    </view>
+    <menubar>
+      <visibility type="bool" userarchive="y">true</visibility>
+      <default include="gui/menubar.xml"/>
+      <autovisibility>
+        <enabled type="bool" userarchive="y">false</enabled>
+        <edge-size type="int">5</edge-size>
+      </autovisibility>
+    </menubar>
+    <gui preserve="y">
+      <current-style type="int" userarchive="y">1</current-style>
+      <style n="0" include="gui/styles/classic.xml"/>
+      <style n="1" include="gui/styles/anthrax.xml"/>
+      <devel-widgets type="bool" userarchive="y">false</devel-widgets>
+    </gui>
+    <mouse>
+      <hide-cursor type="bool" userarchive="y">true</hide-cursor>
+      <right-button-mode-cycle-enabled type="bool" userarchive="y">false</right-button-mode-cycle-enabled>
+      <cycle-mode-popup type="bool" userarchive="y">true</cycle-mode-popup>
+      <cursor-timeout-sec type="double" userarchive="y">10.0</cursor-timeout-sec>
+      <click-shows-tooltip type="bool" userarchive="y">true</click-shows-tooltip>
+      <tooltip-delay-msec type="int" userarchive="y">800</tooltip-delay-msec>
+      <tooltips-enabled type="bool" userarchive="y">true</tooltips-enabled>
+      <drag-sensitivity type="double" userarchive="y">1.0</drag-sensitivity>
+      <invert-mouse-wheel type="bool" userarchive="y">false</invert-mouse-wheel>
+      <skip-flight-controls-mode type="bool" userarchive="y">false</skip-flight-controls-mode>
+    </mouse>
+    <replay>
+      <duration type="double">90</duration>
+      <view type="int">1</view>
+      <looped type="bool" userarchive="y">true</looped>
+      <buffer>
+        <!-- replay buffer configuration -->
+        <!-- 1st buffer level: short term -->
+        <high-res-time type="double">60.0</high-res-time>
+        <!-- 60 seconds -->
+        <!-- short term sample rate is as every frame (fixed) -->
+        <!-- 2nd buffer level: medium term -->
+        <medium-res-sample-dt type="double">0.5</medium-res-sample-dt>
+        <medium-res-time type="double">600.0</medium-res-time>
+        <!-- 10 mins -->
+        <!-- 3rd buffer level: long term -->
+        <low-res-sample-dt type="double">5.0</low-res-sample-dt>
+        <low-res-time type="double">3600.0</low-res-time>
+        <!-- 1 h -->
+      </buffer>
+      <tape-directory type="string" userarchive="y"/>
+    </replay>
+    <airport>
+      <runways>
+        <start-offset-m type="double">5.0</start-offset-m>
+        <search>
+          <length-weight type="double">0.01</length-weight>
+          <width-weight type="double">0.01</width-weight>
+          <surface-weight type="double">10</surface-weight>
+          <deviation-weight type="double">1</deviation-weight>
+        </search>
+      </runways>
+    </airport>
+    <atc>
+      <enabled type="bool">true</enabled>
+      <runway type="string" preserve="y"/>
+    </atc>
+    <atis>
+      <voice type="string" preserve="y">default</voice>
+      <concise-reports type="bool" preserve="y">false</concise-reports>
+      <random-notams type="bool" preserve="y">true</random-notams>
+      <announce-ils-frequency type="bool" preserve="y">false</announce-ils-frequency>
+    </atis>
+    <traffic-manager>
+      <enabled type="bool" userarchive="y">true</enabled>
+      <heuristics type="bool">true</heuristics>
+      <datafile type="string"/>
+      <instantaneous-action type="bool">false</instantaneous-action>
+      <dumpdata type="bool">false</dumpdata>
+      <proportion type="double">1.0</proportion>
+    </traffic-manager>
+    <ai>
+      <enabled type="bool">true</enabled>
+      <scenarios-enabled type="bool" userarchive="y">true</scenarios-enabled>
+      <scenario>nimitz_demo</scenario>
+      <groundnet-cache type="bool">true</groundnet-cache>
+      <tankers include="AI/tankers.xml"/>
+    </ai>
+    <multiplay preserve="y">
+      <chat type="string" preserve="y">Hello</chat>
+      <transmission-freq-hz type="string" preserve="y">118500000</transmission-freq-hz>
+      <chat-display type="bool" userarchive="y">true</chat-display>
+      <chat-menu include="ATC/chat-menu-entries.xml"/>
+      <write-message-log type="bool" preserve="y">false</write-message-log>
+      <freeze-on-replay type="bool" preserve="y">true</freeze-on-replay>
+      <default-model type="string" preserve="y">Models/Geometry/glider.ac</default-model>
+      <callsign type="string" userarchive="y">callsign</callsign>
+      <selected-server type="string" userarchive="y"/>
+      <txhost type="string" preserve="y"/>
+    </multiplay>
+    <user>
+      <callsign type="string" preserve="y">Golf Foxtrot Sierra</callsign>
+    </user>
+    <performance-monitor>
+      <enabled type="bool" userarchive="n" preserve="y">false</enabled>
+      <interval-s type="double" userarchive="n" preserve="y">1.0</interval-s>
+    </performance-monitor>
+    <!-- animated jetway options -->
+    <jetways>
+      <enable-editor type="bool">false</enable-editor>
+      <interact-with-multiplay type="bool" userarchive="y">true</interact-with-multiplay>
+      <debug type="bool">false</debug>
+    </jetways>
+    <terrasync preserve="y">
+      <enabled type="bool" userarchive="y">false</enabled>
+      <use-built-in-svn type="bool" userarchive="y">true</use-built-in-svn>
+      <use-svn type="bool" userarchive="n">true</use-svn>
+      <svn-server userarchive="y">http://terrascenery.googlecode.com/svn/trunk/data/Scenery</svn-server>
+      <svn-data-server userarchive="y">http://fgfs.goneabitbursar.com/fgfsai/trunk</svn-data-server>
+      <rsync-server userarchive="n">scenery.flightgear.org::Scenery</rsync-server>
+      <scenery-dir userarchive="y">
+        <!-- INTENTIONALLY LEFT BLANK! Do NOT edit.
+				This (empty) value is the initial/default value only. Actual data is stored/read from
+				$HOME/.fgfs/autosave.xml. Use command-line option "terrasync-dir", GUI-dialog, or
+				property browser to configure actual directory. -->
+      </scenery-dir>
+      <ext-svn-utility type="string">svn</ext-svn-utility>
+      <!-- use absolute path if "svn"
+				 isn't on system PATH (external SVN only)-->
+      <max-errors type="int">10</max-errors>
+      <!-- abort when too many errors occurred, or -1=don't abort -->
+    </terrasync>
+    <flight-recorder>
+      <default-config type="string">/Aircraft/Generic/flightrecorder/generic-piston-propeller-4.xml</default-config>
+    </flight-recorder>
+    <realism>
+      <dme-fallback-to-loc type="bool">false</dme-fallback-to-loc>
+    </realism>
+    <frame-rate-throttle-hz type="double" userarchive="y">0</frame-rate-throttle-hz>
+    <history>
+      <enabled type="bool">true</enabled>
+    </history>
+    <fgcom>
+      <enabled type="bool" userarchive="y">false</enabled>
+      <server type="string" userarchive="y">fgcom.flightgear.org</server>
+      <show-messages type="bool" userarchive="y">false</show-messages>
+      <speaker-level type="double" userarchive="y">1.0</speaker-level>
+      <silence-threshold type="double" userarchive="y">-35.0</silence-threshold>
+      <register>
+        <enabled type="bool" userarchive="y">false</enabled>
+        <username type="string" userarchive="y">guest</username>
+        <password type="string" userarchive="y">guest</password>
+      </register>
+    </fgcom>
+    <http include="httpd-settings.xml"/>
+    <tile-cache>
+      <enable type="bool">false</enable>
+    </tile-cache>
+    <time>
+      <warp-easing type="bool">true</warp-easing>
+      <warp-easing-method type="string">swing</warp-easing-method>
+      <warp-easing-duration-secs type="double">10</warp-easing-duration-secs>
+    </time>
+  </sim>
+  <!-- mouse mode -->
+  <devices>
+    <status>
+      <mice>
+        <mouse n="0">
+          <mode type="int">0</mode>
+        </mouse>
+      </mice>
+    </status>
+  </devices>
+  <!-- Position -->
+  <position>
+    <altitude-ft type="double">-9999</altitude-ft>
+  </position>
+  <!-- Velocities -->
+  <velocities>
+    <speed-north-fps type="double">0.0</speed-north-fps>
+    <speed-east-fps type="double">0.0</speed-east-fps>
+    <speed-down-fps type="double">0.0</speed-down-fps>
+  </velocities>
+  <!-- Orientation -->
+  <orientation>
+    <heading-deg type="double">270</heading-deg>
+    <roll-deg type="double">0.0</roll-deg>
+    <pitch-deg type="double">0.424</pitch-deg>
+  </orientation>
+  <!-- Environment -->
+  <environment include="Environment/environment.xml"/>
+  <controls>
+    <flight>
+      <aileron type="double">0.0</aileron>
+      <aileron-trim type="double">0.0</aileron-trim>
+      <elevator type="double">0.0</elevator>
+      <elevator-trim type="double">0.0</elevator-trim>
+      <rudder type="double">0.0</rudder>
+      <rudder-trim type="double">0.0</rudder-trim>
+      <flaps type="double">0.0</flaps>
+      <flaps-serviceable type="bool">true</flaps-serviceable>
+    </flight>
+    <engines>
+      <engine n="0">
+        <starter type="bool">false</starter>
+        <magnetos type="int">0</magnetos>
+        <throttle type="double">0.0</throttle>
+        <mixture type="double">1.0</mixture>
+        <condition type="double">1.0</condition>
+        <propeller-pitch type="double">1.0</propeller-pitch>
+        <faults>
+          <serviceable type="bool">true</serviceable>
+          <left-magneto-serviceable type="bool">true</left-magneto-serviceable>
+          <right-magneto-serviceable type="bool">true</right-magneto-serviceable>
+          <spark-plugs-serviceable type="bool">true</spark-plugs-serviceable>
+          <oil-pressure-status type="bool">false</oil-pressure-status>
+          <fuel-pump-serviceable type="bool">true</fuel-pump-serviceable>
+        </faults>
+      </engine>
+      <engine n="1">
+        <starter type="bool">false</starter>
+        <magnetos type="int">0</magnetos>
+        <throttle type="double">0.0</throttle>
+        <mixture type="double">1.0</mixture>
+        <condition type="double">1.0</condition>
+        <propeller-pitch type="double">1.0</propeller-pitch>
+        <faults>
+          <serviceable type="bool">true</serviceable>
+          <left-magneto-serviceable type="bool">true</left-magneto-serviceable>
+          <right-magneto-serviceable type="bool">true</right-magneto-serviceable>
+          <spark-plugs-serviceable type="bool">true</spark-plugs-serviceable>
+          <oil-pressure-status type="bool">false</oil-pressure-status>
+          <fuel-pump-serviceable type="bool">true</fuel-pump-serviceable>
+        </faults>
+      </engine>
+      <engine n="2">
+        <starter type="bool">false</starter>
+        <magnetos type="int">0</magnetos>
+        <throttle type="double">0.0</throttle>
+        <mixture type="double">1.0</mixture>
+        <condition type="double">1.0</condition>
+        <propeller-pitch type="double">1.0</propeller-pitch>
+        <faults>
+          <serviceable type="bool">true</serviceable>
+          <left-magneto-serviceable type="bool">true</left-magneto-serviceable>
+          <right-magneto-serviceable type="bool">true</right-magneto-serviceable>
+          <spark-plugs-serviceable type="bool">true</spark-plugs-serviceable>
+          <oil-pressure-status type="bool">false</oil-pressure-status>
+          <fuel-pump-serviceable type="bool">true</fuel-pump-serviceable>
+        </faults>
+      </engine>
+      <engine n="3">
+        <starter type="bool">false</starter>
+        <magnetos type="int">0</magnetos>
+        <throttle type="double">0.0</throttle>
+        <mixture type="double">1.0</mixture>
+        <condition type="double">1.0</condition>
+        <propeller-pitch type="double">1.0</propeller-pitch>
+        <faults>
+          <serviceable type="bool">true</serviceable>
+          <left-magneto-serviceable type="bool">true</left-magneto-serviceable>
+          <right-magneto-serviceable type="bool">true</right-magneto-serviceable>
+          <spark-plugs-serviceable type="bool">true</spark-plugs-serviceable>
+          <oil-pressure-status type="bool">false</oil-pressure-status>
+          <fuel-pump-serviceable type="bool">true</fuel-pump-serviceable>
+        </faults>
+      </engine>
+    </engines>
+    <gear>
+      <brake-left type="double">0.0</brake-left>
+      <brake-right type="double">0.0</brake-right>
+      <brake-parking type="double">0.0</brake-parking>
+      <gear-down type="bool">true</gear-down>
+    </gear>
+    <lighting>
+      <taxi-light type="bool">true</taxi-light>
+      <landing-lights type="bool">true</landing-lights>
+      <nav-lights type="bool">true</nav-lights>
+      <beacon type="bool">true</beacon>
+      <strobe type="bool">false</strobe>
+    </lighting>
+    <anti-ice>
+      <pitot-heat type="bool">false</pitot-heat>
+      <engine n="0">
+        <carb-heat type="bool">false</carb-heat>
+      </engine>
+      <engine n="1">
+        <carb-heat type="bool">false</carb-heat>
+      </engine>
+      <engine n="2">
+        <carb-heat type="bool">false</carb-heat>
+      </engine>
+      <engine n="3">
+        <carb-heat type="bool">false</carb-heat>
+      </engine>
+    </anti-ice>
+  </controls>
+  <!-- User input devices -->
+  <input>
+    <keyboard include="keyboard.xml">
+      <multikey include="Input/Keyboard/multikey.xml"/>
+    </keyboard>
+    <joysticks include="joysticks.xml"/>
+    <mice include="mice.xml"/>
+  </input>
+  <instrumentation>
+    <!-- Radio settings -->
+    <comm n="0">
+      <frequencies>
+        <selected-mhz type="double">120.500</selected-mhz>
+        <standby-mhz type="double">118.850</standby-mhz>
+      </frequencies>
+      <volume type="double">0.6</volume>
+      <serviceable type="bool">true</serviceable>
+      <ptt type="int">0</ptt>
+    </comm>
+    <comm n="1">
+      <frequencies>
+        <selected-mhz type="double">118.300</selected-mhz>
+        <standby-mhz type="double">133.775</standby-mhz>
+      </frequencies>
+      <volume type="double">0.6</volume>
+      <serviceable type="bool">true</serviceable>
+      <ptt type="int">0</ptt>
+    </comm>
+    <nav n="0">
+      <frequencies>
+        <selected-mhz type="double">115.80</selected-mhz>
+        <standby-mhz type="double">111.70</standby-mhz>
+      </frequencies>
+      <radials>
+        <selected-deg type="double">280.0</selected-deg>
+      </radials>
+      <serviceable type="bool">true</serviceable>
+      <cdi>
+        <serviceable type="bool">true</serviceable>
+      </cdi>
+      <gs>
+        <serviceable type="bool">true</serviceable>
+      </gs>
+      <to-from>
+        <serviceable type="bool">true</serviceable>
+      </to-from>
+      <slaved-to-gps type="bool">false</slaved-to-gps>
+    </nav>
+    <nav n="1">
+      <frequencies>
+        <selected-mhz type="double">116.80</selected-mhz>
+        <standby-mhz type="double">113.90</standby-mhz>
+      </frequencies>
+      <radials>
+        <selected-deg type="double">029.0</selected-deg>
+      </radials>
+      <serviceable type="bool">true</serviceable>
+      <cdi>
+        <serviceable type="bool">true</serviceable>
+      </cdi>
+      <gs>
+        <serviceable type="bool">true</serviceable>
+      </gs>
+      <to-from>
+        <serviceable type="bool">true</serviceable>
+      </to-from>
+      <slaved-to-gps type="bool">false</slaved-to-gps>
+    </nav>
+    <transponder>
+      <inputs>
+        <serviceable type="bool">true</serviceable>
+      </inputs>
+    </transponder>
+    <marker-beacon>
+      <volume type="double">0.3</volume>
+    </marker-beacon>
+    <!-- Instruments -->
+    <airspeed-indicator>
+      <serviceable type="bool" archive="y">true</serviceable>
+    </airspeed-indicator>
+    <attitude-indicator>
+      <config>
+        <!-- true if this AI can tumble -->
+        <tumble-flag type="bool" archive="y">false</tumble-flag>
+      </config>
+      <caged-flag type="bool" archive="y">false</caged-flag>
+      <serviceable type="bool" archive="y">true</serviceable>
+      <spin type="double" archive="y">0.0</spin>
+      <tumble-norm type="double" archive="y">0.0</tumble-norm>
+      <indicated-pitch-deg type="double">0.0</indicated-pitch-deg>
+      <indicated-roll-deg type="double">0.0</indicated-roll-deg>
+    </attitude-indicator>
+    <altimeter>
+      <serviceable type="bool" archive="y">true</serviceable>
+      <setting-inhg type="double" archive="y">29.92</setting-inhg>
+    </altimeter>
+    <turn-indicator>
+      <serviceable type="bool" archive="y">true</serviceable>
+    </turn-indicator>
+    <slip-skid-ball>
+      <serviceable type="bool" archive="y">true</serviceable>
+    </slip-skid-ball>
+    <heading-indicator>
+      <serviceable type="bool" archive="y">true</serviceable>
+      <spin type="double" archive="y">0.0</spin>
+    </heading-indicator>
+    <vertical-speed-indicator>
+      <serviceable type="bool" archive="y">true</serviceable>
+    </vertical-speed-indicator>
+    <magnetic-compass>
+      <serviceable type="bool" archive="y">true</serviceable>
+    </magnetic-compass>
+    <dme n="0">
+      <serviceable type="bool" archive="y">true</serviceable>
+      <switch-position type="int" archive="y">1</switch-position>
+      <frequencies>
+        <source>/instrumentation/nav[0]/frequencies/selected-mhz</source>
+      </frequencies>
+    </dme>
+    <gps>
+      <serviceable type="bool" archive="y">true</serviceable>
+      <message-alert type="bool">false</message-alert>
+      <waypoint-alert type="bool">false</waypoint-alert>
+      <leg-mode type="bool">true</leg-mode>
+      <obs-mode type="bool">false</obs-mode>
+      <approach-arm type="bool">false</approach-arm>
+      <approach-active type="bool">false</approach-active>
+      <cdi-deflection type="double">0</cdi-deflection>
+      <approach-active type="bool">false</approach-active>
+
+      <!-- default configuration -->
+      <config>
+          <follow-leg-track-to-fix type="bool">false</follow-leg-track-to-fix>
+      </config>
+    </gps>
+    <kln89>
+      <scan-pull type="bool" archive="y">false</scan-pull>
+    </kln89>
+    <clock>
+      <serviceable type="bool" archive="y">true</serviceable>
+      <offset-sec type="long" archive="y">0</offset-sec>
+    </clock>
+    <adf n="0">
+      <frequencies>
+        <selected-khz type="int">379</selected-khz>
+        <standby-khz type="int">341</standby-khz>
+      </frequencies>
+      <serviceable type="bool" archive="y">true</serviceable>
+      <indicated-bearing-deg type="double">90</indicated-bearing-deg>
+      <error-deg type="double">2</error-deg>
+      <mode>adf</mode>
+      <rotation-deg type="double">0</rotation-deg>
+      <volume-norm type="double">0.5</volume-norm>
+    </adf>
+    <adf n="1">
+      <frequencies>
+        <selected-khz type="int">379</selected-khz>
+        <standby-khz type="int">341</standby-khz>
+      </frequencies>
+      <serviceable type="bool" archive="y">true</serviceable>
+      <indicated-bearing-deg type="double">90</indicated-bearing-deg>
+      <error-deg type="double">2</error-deg>
+      <mode>adf</mode>
+      <rotation-deg type="double">0</rotation-deg>
+      <volume-norm type="double">0.5</volume-norm>
+    </adf>
+    <kr-87>
+      <inputs>
+        <rotation-deg type="double">0</rotation-deg>
+      </inputs>
+      <outputs>
+        <selected-khz type="double">379.0</selected-khz>
+        <standby-khz type="double">341.0</standby-khz>
+      </outputs>
+    </kr-87>
+    <gps-annunciator>
+      <lamp-test type="bool">false</lamp-test>
+    </gps-annunciator>
+    <tacan n="0">
+      <serviceable type="bool" archive="y">true</serviceable>
+      <switch-position type="int" archive="y">1</switch-position>
+      <frequencies>
+        <selected-channel n="1">0</selected-channel>
+        <selected-channel n="2">2</selected-channel>
+        <selected-channel n="3">9</selected-channel>
+        <selected-channel n="4">Y</selected-channel>
+      </frequencies>
+    </tacan>
+  </instrumentation>
+  <systems>
+    <pitot>
+      <serviceable type="bool" archive="y">true</serviceable>
+    </pitot>
+    <static>
+      <serviceable type="bool" archive="y">true</serviceable>
+      <pressure-inhg type="double" archive="y">29.92</pressure-inhg>
+    </static>
+    <electrical>
+      <serviceable type="bool" archive="y">true</serviceable>
+    </electrical>
+    <vacuum>
+      <serviceable type="bool" archive="y">true</serviceable>
+    </vacuum>
+    <vacuum>
+      <serviceable type="bool" archive="y">true</serviceable>
+    </vacuum>
+    <refuel>
+      <serviceable type="bool" archive="y">true</serviceable>
+      <contact-radius-m type="double">76</contact-radius-m>
+      <report-contact type="bool">false</report-contact>
+      <max-fuel-transfer-lbs-min type="double">6000</max-fuel-transfer-lbs-min>
+    </refuel>
+  </systems>
+  <autopilot>
+    <internal>
+      <ft type="double">0.1</ft>
+    </internal>
+    <route-manager>
+      <min-lock-altitude-agl-ft type="double">300</min-lock-altitude-agl-ft>
+    </route-manager>
+    <settings>
+        <!-- values as per
+        http://en.wikipedia.org/wiki/Aircraft_approach_category
+        Default to category C on the assumption people using the route-manager
+        which cares about this will be flying larger aircraft, not smaller.
+        -->
+        <icao-aircraft-category type="string">C</icao-aircraft-category>
+    </settings>
+  </autopilot>
+  <logging>
+    <log n="0">
+      <enabled type="bool">false</enabled>
+      <interval-ms type="long">1000</interval-ms>
+      <filename>fg_log.csv</filename>
+      <delimiter>,</delimiter>
+      <entry n="0">
+        <enabled type="bool">false</enabled>
+        <title>Longitude</title>
+        <property>/position/longitude-deg</property>
+      </entry>
+      <entry n="1">
+        <enabled type="bool">false</enabled>
+        <title>Latitude</title>
+        <property>/position/latitude-deg</property>
+      </entry>
+      <entry n="2">
+        <enabled type="bool">false</enabled>
+        <title>Altitude</title>
+        <property>/position/altitude-ft</property>
+      </entry>
+      <entry n="3">
+        <enabled type="bool">false</enabled>
+        <title>Roll</title>
+        <property>/orientation/roll-deg</property>
+      </entry>
+      <entry n="4">
+        <enabled type="bool">false</enabled>
+        <title>Pitch</title>
+        <property>/orientation/pitch-deg</property>
+      </entry>
+      <entry n="5">
+        <enabled type="bool">false</enabled>
+        <title>Heading</title>
+        <property>/orientation/heading-deg</property>
+      </entry>
+    </log>
+  </logging>
+  <nasal>
+    <tutorial>
+      <enabled type="bool" userarchive="n">false</enabled>
+    </tutorial>
+    <atc-chatter>
+      <enabled type="bool" userarchive="n">false</enabled>
+    </atc-chatter>
+    <local_weather>
+      <enabled type="bool" userarchive="y">false</enabled>
+    </local_weather>
+    <jetways>
+      <enabled type="bool" userarchive="y">false</enabled>
+    </jetways>
+    <jetways_edit>
+      <enabled type="bool" userarchive="n">false</enabled>
+    </jetways_edit>
+    <performance_monitor>
+      <enabled type="bool" userarchive="n">false</enabled>
+    </performance_monitor>
+  </nasal>
+  <scenery>
+    <share-events type="bool" userarchive="y">false</share-events>
+    <events type="string"/>
+  </scenery>
+  <earthview>
+    <cloudsphere-flag type="bool" userarchive="y">true</cloudsphere-flag>
+    <cloud-shadow-flag type="bool" userarchive="y"/>
+    <mrd-flag type="bool" userarchive="y"/>
+    <cloudsphere-angle type="double" userarchive="y">0.0</cloudsphere-angle>
+  </earthview>
+</PropertyList>
+<!-- end of preferences.xml -->

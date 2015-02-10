@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<!-- Attitude -->
+<PropertyList>
+	<path>../../../../Aircraft/Buccaneer/Instruments/attitude_rb.ac</path>
+	<animation>
+		<type>rotate</type>
+		<object-name>roll_marker</object-name>
+		<!--<property>orientation/roll-deg</property>-->
+		<property>/instrumentation/master-reference-gyro/indicated-roll-deg</property>
+		<axis>
+			<x>1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>indicator_disk_black</object-name>
+		<condition>
+			<greater-than>
+				<property>/systems/electrical/outputs/MRG</property>
+				<value>27</value>
+			</greater-than>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>texmultiple</type>
+		<object-name>face</object-name>
+		<transform>
+			<property>/instrumentation/master-reference-gyro/indicated-pitch-deg</property>
+			<subtype>textranslate</subtype>
+			<factor>0.00278</factor>
+			<!--<max>0.045</max>
+      <min>-0.045</min>-->
+			<axis>
+				<x>0</x>
+				<y>1</y>
+				<z>0</z>
+			</axis>
+		</transform>
+		<transform>
+			<property>/instrumentation/master-reference-gyro/indicated-roll-deg</property>
+			<subtype>texrotate</subtype>
+			<min>-360.0</min>
+			<max>360.0</max>
+			<center>
+				<x>0.5</x>
+				<y>0.5</y>
+			</center>
+			<axis>
+				<x>0</x>
+				<y>0</y>
+				<z>-1</z>
+			</axis>
+		</transform>
+	</animation>
+
+	<!-- Panel Lighting -->
+	<animation>
+		<type>material</type>
+		<object-name>panel-lighting-group</object-name>
+		<emission>
+			<factor-prop>/systems/electrical/outputs/panel-floodlighting</factor-prop>
+			<red>0.03125</red>
+			<green>0.0089</green>
+			<blue>0.0089</blue>
+		</emission>
+	</animation>
+
+	<animation>
+		<type>material</type>
+		<object-name>lighting-group</object-name>
+		<emission>
+			<factor-prop>/systems/electrical/outputs/instrument-lighting</factor-prop>
+			<red>0.03125</red>
+			<green>0.0089</green>
+			<blue>0.0089</blue>
+		</emission>
+	</animation>
+	
+	<!--<animation>
+		<type>material</type>
+		<emission>
+			<factor-prop>/sim/model/buccaneer/controls/ILS_day_night_switch</factor-prop>
+			<red>0.03125</red>
+			<green>0.0089</green>
+			<blue>0.0089</blue>
+		</emission>
+	</animation>-->
+
+
+	<!-- *** LoD *** -->
+	<animation>
+		<type>range</type>
+		<min-m>0</min-m>
+		<max-m>5</max-m>
+	</animation>
+
+</PropertyList>

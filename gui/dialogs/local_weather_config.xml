@@ -1,0 +1,389 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+ <!-- Weather config -->
+
+ <name>local_weather_config</name>
+ <width>400</width>
+ <height>440</height>
+ <modal>false</modal>
+
+
+<checkbox>
+   <x>5</x>
+   <y>400</y>
+   <width>15</width>
+   <height>15</height>
+   <label>Enable local weather module</label>
+   <property>/nasal/local_weather/enabled</property>
+   <binding>
+    <command>dialog-apply</command>
+   </binding>
+</checkbox>
+
+<text>
+  <x>5</x>
+  <y>370</y>
+  <label>Tile creation settings </label>
+</text>
+
+<text>
+   <x>60</x>
+   <y>345</y>
+   <label>loading distance</label>
+</text>
+
+<text>
+   <x>10</x>
+   <y>325</y>
+   <label>25 km</label>
+</text>
+
+<slider>
+   <x>60</x>
+   <y>325</y>
+   <width>100</width>
+   <height>20</height>
+   <min>29000.0</min>
+   <max>55000.0</max>
+   <property>/local-weather/config/distance-to-load-tile-m</property>
+   <binding>
+     <command>dialog-apply</command>
+   </binding>
+</slider>
+
+<text>
+   <x>170</x>
+   <y>325</y>
+   <label>55 km</label>
+</text>
+
+
+<checkbox>
+   <x>250</x>
+   <y>355</y>
+   <width>15</width>
+   <height>15</height>
+   <label>asymmetric range</label>
+   <property>/local-weather/tmp/asymmetric-tile-loading-flag</property>
+   <binding>
+    <command>dialog-apply</command>
+   </binding>
+</checkbox>
+
+<text>
+   <x>220</x>
+   <y>325</y>
+   <label>0.5</label>
+</text>
+
+<slider>
+   <x>250</x>
+   <y>325</y>
+   <width>100</width>
+   <height>20</height>
+   <min>0.5</min>
+   <max>1.0</max>
+   <property>/local-weather/config/asymmetric-reduction</property>
+   <binding>
+     <command>dialog-apply</command>
+   </binding>
+</slider>
+
+<text>
+   <x>360</x>
+   <y>325</y>
+   <label>1.0</label>
+</text>
+
+<text>
+  <x>5</x>
+  <y>285</y>
+  <label>Cloud buffering settings</label>
+</text>
+
+
+<text>
+   <x>60</x>
+   <y>265</y>
+   <label>visible range</label>
+</text>
+
+<text>
+   <x>10</x>
+   <y>245</y>
+   <label>15 km</label>
+</text>
+
+<slider>
+   <x>60</x>
+   <y>245</y>
+   <width>100</width>
+   <height>20</height>
+   <min>15000.0</min>
+   <max>45000.0</max>
+   <property>/local-weather/config/clouds-visible-range-m</property>
+   <binding>
+     <command>dialog-apply</command>
+   </binding>
+</slider>
+
+<text>
+   <x>170</x>
+   <y>245</y>
+   <label>45 km</label>
+</text>
+
+
+<checkbox>
+   <x>250</x>
+   <y>275</y>
+   <width>15</width>
+   <height>15</height>
+   <label>asymmetric buffering</label>
+   <property>/local-weather/config/asymmetric-buffering-flag</property>
+   <binding>
+    <command>dialog-apply</command>
+   </binding>
+</checkbox>
+
+<text>
+   <x>220</x>
+   <y>245</y>
+   <label>0.2</label>
+</text>
+
+<slider>
+   <x>250</x>
+   <y>245</y>
+   <width>100</width>
+   <height>20</height>
+   <min>0.2</min>
+   <max>1.0</max>
+   <property>/local-weather/config/asymmetric-buffering-reduction</property>
+   <binding>
+     <command>dialog-apply</command>
+   </binding>
+</slider>
+
+<text>
+   <x>360</x>
+   <y>245</y>
+   <label>1.0</label>
+</text>
+
+
+<text>
+   <x>170</x>
+   <y>215</y>
+   <label>angle:</label>
+</text>
+
+<text>
+   <x>220</x>
+   <y>215</y>
+   <label>0.0</label>
+</text>
+
+<slider>
+   <x>250</x>
+   <y>215</y>
+   <width>100</width>
+   <height>20</height>
+   <min>0.0</min>
+   <max>180.0</max>
+   <property>/local-weather/config/asymmetric-buffering-angle-deg</property>
+   <binding>
+     <command>dialog-apply</command>
+   </binding>
+</slider>
+
+<text>
+   <x>360</x>
+   <y>215</y>
+   <label>180</label>
+</text>
+
+<checkbox>
+   <x>30</x>
+   <y>185</y>
+   <width>15</width>
+   <height>15</height>
+   <label>tie range to framerate</label>
+   <property>/local-weather/config/fps-control-flag</property>
+   <binding>
+    <command>dialog-apply</command>
+   </binding>
+</checkbox>
+
+<text>
+   <x>200</x>
+   <y>180</y>
+   <label>10 fps</label>
+</text>
+
+<slider>
+   <x>250</x>
+   <y>180</y>
+   <width>100</width>
+   <height>20</height>
+   <min>10.0</min>
+   <max>40.0</max>
+   <property>/local-weather/config/target-framerate</property>
+   <binding>
+     <command>dialog-apply</command>
+   </binding>
+</slider>
+
+<text>
+   <x>355</x>
+   <y>180</y>
+   <label>40 fps</label>
+</text>
+
+
+
+<text>
+  <x>5</x>
+  <y>150</y>
+  <label>Weather dynamics settings</label>
+</text>
+
+
+<text>
+   <x>55</x>
+   <y>130</y>
+   <label>max. clouds in loop</label>
+</text>
+
+<text>
+   <x>10</x>
+   <y>110</y>
+   <label>100</label>
+</text>
+
+<slider>
+   <x>60</x>
+   <y>110</y>
+   <width>100</width>
+   <height>20</height>
+   <min>100</min>
+   <max>400</max>
+   <property>/local-weather/config/clouds-in-dynamics-loop</property>
+   <binding>
+     <command>dialog-apply</command>
+   </binding>
+</slider>
+
+<text>
+   <x>170</x>
+   <y>110</y>
+   <label>400</label>
+</text>
+
+<text>
+  <x>5</x>
+  <y>80</y>
+  <label>Weather pattern scales</label>
+</text>
+
+
+<text>
+   <x>15</x>
+   <y>45</y>
+   <label>small</label>
+</text>
+
+<text>
+   <x>78</x>
+   <y>60</y>
+   <label>airmass</label>
+</text>
+
+<slider>
+   <x>60</x>
+   <y>45</y>
+   <width>100</width>
+   <height>20</height>
+   <min>0.5</min>
+   <max>2.0</max>
+   <property>/local-weather/config/large-scale-persistence</property>
+   <binding>
+     <command>dialog-apply</command>
+   </binding>
+</slider>
+
+<text>
+   <x>165</x>
+   <y>45</y>
+   <label>large</label>
+</text>
+
+
+<text>
+   <x>205</x>
+   <y>45</y>
+   <label>small</label>
+</text>
+
+<text>
+   <x>257</x>
+   <y>60</y>
+   <label>cloud patterns</label>
+</text>
+
+<slider>
+   <x>250</x>
+   <y>45</y>
+   <width>100</width>
+   <height>20</height>
+   <min>0.0</min>
+   <max>1.0</max>
+   <property>/local-weather/config/small-scale-persistence</property>
+   <binding>
+     <command>dialog-apply</command>
+   </binding>
+</slider>
+
+<text>
+   <x>355</x>
+   <y>45</y>
+   <label>large</label>
+</text>
+
+
+<group>
+  <x>10</x>
+  <y>10</y>
+
+  <button>
+   <x>0</x>
+   <y>0</y>
+   <legend>OK</legend>
+   <equal>true</equal>
+   <binding>
+    <command>dialog-apply</command>
+   </binding>
+   <binding>
+    <command>dialog-close</command>
+   </binding>
+  </button>
+
+
+  <button>
+   <x>135</x>
+   <y>0</y>
+   <legend>Cancel</legend>
+   <equal>true</equal>
+   <key>Esc</key>
+   <binding>
+    <command>dialog-close</command>
+   </binding>
+  </button>
+
+
+ </group>
+
+
+</PropertyList>

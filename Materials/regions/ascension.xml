@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<PropertyList>
+  <name>Ascension Island</name>
+  <area>
+    <lon1>-14.9</lon1>
+    <lon2>-13.6</lon2>
+    <lat1>-8.5</lat1>
+    <lat2>-7.4</lat2>
+  </area>
+
+  <condition>
+    <equals>
+      <property>sim/startup/season</property>
+      <value>summer</value>
+    </equals>
+  </condition>
+
+  <material>
+    <name>Scrub</name>
+    <texture-set>
+     <texture>Terrain/lava1.png</texture>
+     <texture n="12">Terrain/deciduous-hires.png</texture>
+     <texture n="11">Terrain/lava_drylake.png</texture>
+     <texture n="13">Terrain/rocks-lava.png</texture>
+     <texture n="15">Terrain/tundra-hawaii.png</texture>
+    </texture-set>
+    <parameters>
+     <dot_density>0.3</dot_density>
+     <transition_model>0.7</transition_model>
+     <hires_overlay_bias>-0.1</hires_overlay_bias>
+    </parameters>
+    <xsize>2000</xsize>
+    <ysize>2000</ysize>
+    <light-coverage>10000000.0</light-coverage>
+    <wood-coverage>50000.0</wood-coverage>
+    <tree-texture>Trees/tropical-alt.png</tree-texture>
+    <tree-varieties>8</tree-varieties>
+    <tree-range-m alias="/params/forest/tree-range-m"/>
+    <tree-height-m>20.0</tree-height-m>
+    <tree-width-m>12.0</tree-width-m>
+    <shininess>2.5</shininess>
+    <rolling-friction>0.1</rolling-friction>
+    <friction-factor>0.7</friction-factor>
+    <bumpiness>0.1</bumpiness>
+  </material>
+
+  <material>
+    <name>Grass</name>
+    <name>Airport</name>
+    <name>AirportKeep</name>
+    <name>Greenspace</name>
+    <texture>Terrain/lava3.png</texture>
+    <xsize>125</xsize>
+    <ysize>125</ysize>
+    <light-coverage>4000000.0</light-coverage>
+    <diffuse>
+     <r>0.93</r>
+     <g>0.95</g>
+     <b>0.93</b>
+     <a>1.0</a>
+    </diffuse>
+    <specular>
+     <r>0.1</r>
+     <g>0.12</g>
+     <b>0.1</b>
+     <a>1.0</a>
+    </specular>
+    <shininess>1.2</shininess>
+    <solid>1</solid>
+    <friction-factor>0.7</friction-factor>
+    <rolling-friction>0.1</rolling-friction>
+    <bumpiness>0.1</bumpiness>
+    <load-resistance>1e30</load-resistance>
+  </material>
+
+
+
+</PropertyList>

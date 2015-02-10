@@ -1,0 +1,153 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<path>RP-3.ac</path>
+
+	<nasal>
+		<load>
+			var path = cmdarg();
+			var name_node = path.getNode("name",1);
+			print("LOAD " ~ name_node.getValue() ~ " " ~ path.getPath());
+
+			var loopid = 0;
+			var force_path_node = path.getNode("force/path",1);
+			var elapsed_time_node = path.getNode("sim/time/elapsed-sec",1);
+			var pch_node = path.getNode("orientation/pitch-deg", 1);
+			var hdg_node = path.getNode("orientation/hdg-deg", 1);
+			var force_stab_node = path.getNode("controls/force-stabilized", 1);
+			var aero_stab_node  = path.getNode("controls/aero-stabilized", 1);
+			var smoke_node  = path.getNode("controls/smoke", 1);
+			var slaved_node = path.getNode("controls/slave-to-ac", 1);
+			var invisible_node = path.getNode("controls/invisible", 1);
+			var load_node = props.globals.getNode("sim/stores/load-RP-3-60",1);
+
+			elapsed_time_node.setBoolValue(0);
+			pch_node.setDoubleValue(0);
+			hdg_node.setDoubleValue(0);
+
+
+			var station = substr(name_node.getValue(), 11);
+			var control_node = props.globals.getNode("controls/armament/station[" ~ station ~ "]/release-all",1);
+			var control_all_node = props.globals.getNode("/controls/armament/release-all",1);
+			var parent_pch_node = props.globals.getNode("/orientation/pitch-deg", 1);
+			var parent_hdg_node = props.globals.getNode("/orientation/hdg-deg", 1);
+
+			control_node.setBoolValue(0);
+			control_all_node.setBoolValue(0);
+
+			#pch_node.setDoubleValue(parent_pch_node.getValue());
+			#hdg_node.setDoubleValue(parent_hdg_node.getValue());
+
+			var force_path = force_path_node.getValue();
+
+			var force_lb_node = props.globals.getNode(force_path,1).getChild("force-lb",0,1);
+			var force_azimuth_deg_node = props.globals.getNode(force_path,1).getChild("force-azimuth-deg",0,1);
+			var force_elevation_deg_node =props.globals.getNode(force_path,1).getChild("force-elevation-deg",0,1);
+
+			force_lb_node.setDoubleValue(0);
+			force_elevation_deg_node.setDoubleValue(pch_node.getValue());
+			force_azimuth_deg_node.setDoubleValue(hdg_node.getValue());
+
+			smoke_node.setBoolValue(0);
+			force_stab_node.setBoolValue(0);
+			aero_stab_node.setBoolValue(0);
+
+			var loop = func(id) {
+			id == loopid or return;
+
+			force_elevation_deg_node.setDoubleValue(pch_node.getValue());
+			force_azimuth_deg_node.setDoubleValue(hdg_node.getValue());
+
+			#			print ("all ", control_all_node.getValue()," "," pair ", control_node.getValue());
+
+			if(load_node.getValue() == 0){
+			#print("unload RP3-60");
+			invisible_node.setBoolValue(1);
+			smoke_node.setBoolValue(0);
+			settimer(func { loop(id) },0);
+			return;
+			}elsif (control_all_node.getValue() == 1 or control_node.getValue() == 1){
+			#print("RP3-60 unslaved");
+			slaved_node.setBoolValue(0);
+
+			if(elapsed_time_node.getValue() > 0 and elapsed_time_node.getValue() &lt; 0.333){
+			force_stab_node.setBoolValue(1);
+			aero_stab_node.setBoolValue(0);
+			force_lb_node.setDoubleValue(1500);
+			smoke_node.setBoolValue(1);
+			} elsif (elapsed_time_node.getValue() >= 0.333 and elapsed_time_node.getValue() &lt; 3.0){
+			#print("RP3-60 boost");
+			force_stab_node.setBoolValue(0);
+			aero_stab_node.setBoolValue(1);
+			force_lb_node.setDoubleValue(1500);
+			smoke_node.setBoolValue(1);
+			} else {
+			#print("RP3-60 coast or never launched");
+			force_stab_node.setBoolValue(0);
+			aero_stab_node.setBoolValue(1);
+			force_lb_node.setDoubleValue(0);
+			smoke_node.setBoolValue(0);
+			}
+
+			} else {
+			#print("RP3-60 slaved");
+			slaved_node.setBoolValue(1);
+			invisible_node.setBoolValue(0);
+			aero_stab_node.setBoolValue(0);
+			force_stab_node.setBoolValue(0);
+			smoke_node.setBoolValue(0);
+			elapsed_time_node.setBoolValue(0);
+			force_lb_node.setDoubleValue(0);
+			}
+
+			#print("pitch ", force_elevation_deg_node.getValue(), " hdg ", force_azimuth_deg_node.getValue(),
+			#" force ", force_lb_node.getValue());
+
+			settimer(func { loop(id) },0);
+			}
+
+			loop(loopid);
+
+		</load>
+		<unload>
+			print("UNLOAD AI 3Inch RP 60lbs", path.getPath());
+			loopid += 1;
+		</unload>
+	</nasal>
+
+	<animation>
+		<enable-hot type="bool">false</enable-hot>
+	</animation>
+
+	<model>
+		<path>Models/Geometry/RP-3/exhaust-smoke.xml</path>
+		<name>Smoke</name>
+		<offsets>
+			<x-m>1</x-m>
+			<y-m>0</y-m>
+			<z-m>0</z-m>
+		</offsets>
+	</model>
+
+	<animation>
+		<type>select</type>>
+		<object-name>Smoke</object-name>
+		<condition>
+			<equals>
+				<property>controls/smoke</property>
+				<value>1</value>
+			</equals>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>select</type>>
+		<object-name>Rail Assmbly</object-name>
+	</animation>
+
+	<animation>
+		<type>select</type>>
+		<object-name>Shot-25lbs</object-name>
+	</animation>
+
+</PropertyList>

@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+
+<!-- Based on the Porte departure at KSFO, left turnout to WAGES                  
+     The departure can be found at http://www.airnav.com/airport/KSFO 
+     Format:                                                         
+       <name>       Waypoint name.  When a waypoint named END is reached
+                    the AI airplane will delete itself.                                       
+       <lat>        latitude, degrees (-90 to 90)                                    
+       <lon>        Longitude, degrees (-180 to 180)                                   
+       <alt>        altitude above sea level, feet                                       
+       <crossat>    Crossing altitude, feet                              
+       <ktas>       Knots true airspeed
+       <on-ground>  set true if on the ground
+       <gear-down>  set true for gear down, false for gear up
+       <flaps-down> set true for flaps down, false for flaps up
+-->
+
+<PropertyList>
+
+  <flightplan>
+
+    <wpt>
+      <name>southern limit</name>
+      <lat>37.608134</lat>
+      <lon>-122.470712</lon>
+      <alt>8500</alt>
+      <ktas>280</ktas>
+    </wpt>
+
+    <wpt>
+      <name>northern limit</name>
+      <lat>39.608134</lat>
+      <lon>-122.470712</lon>
+      <alt>8500</alt>
+      <ktas>280</ktas>
+    </wpt>
+
+    <wpt>
+      <name>southern limit</name>
+      <lat>37.608134</lat>
+      <lon>-122.470712</lon>
+      <alt>8500</alt>
+      <ktas>280</ktas>
+    </wpt>
+
+    <wpt>
+      <name>northern limit</name>
+      <lat>39.608134</lat>
+      <lon>-122.470712</lon>
+      <alt>8500</alt>
+      <ktas>280</ktas>
+    </wpt>
+
+    <wpt>
+      <name>southern limit</name>
+      <lat>37.608134</lat>
+      <lon>-122.470712</lon>
+      <alt>8500</alt>
+      <ktas>280</ktas>
+    </wpt>
+
+    <wpt>
+      <name>northern limit</name>
+      <lat>39.608134</lat>
+      <lon>-122.470712</lon>
+      <alt>8500</alt>
+      <ktas>280</ktas>
+    </wpt>
+
+    <wpt>
+      <name>southern limit</name>
+      <lat>37.608134</lat>
+      <lon>-122.470712</lon>
+      <alt>8500</alt>
+      <ktas>280</ktas>
+    </wpt>
+
+    <wpt>
+      <name>END</name>
+      <lat>38.608134</lat>
+      <lon>-122.470712</lon>
+      <alt>8500</alt>
+      <ktas>280</ktas>
+    </wpt>
+
+    <wpt>
+      <name>EOF</name>
+    </wpt>
+
+  </flightplan>
+
+</PropertyList>

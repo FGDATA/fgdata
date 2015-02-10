@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+ <path>tach.ac</path>
+
+ <animation>
+  <type>material</type>
+  <object-name>Face</object-name>
+  <object-name>Needle</object-name>
+  <emission>
+   <red>1.0</red>
+   <green>0.2</green>
+   <blue>0.0</blue>
+   <factor-prop>/sim/model//material/instruments/factor</factor-prop>
+  </emission>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>Needle</object-name>
+  <property>/engines/engine[0]/rpm</property>
+  <interpolation>
+   <entry><ind>  0.0</ind><dep>-128.6 </dep></entry>     
+   <entry><ind>  0.1</ind><dep>-123.85</dep></entry>     
+   <entry><ind>  500.0</ind><dep> -92.85</dep></entry>     
+   <entry><ind> 1000.0</ind><dep> -57.1 </dep></entry>     
+   <entry><ind> 1500.0</ind><dep> -21.1 </dep></entry>     
+   <entry><ind> 2000.0</ind><dep>  15.4 </dep></entry>     
+   <entry><ind> 2500.0</ind><dep>  51.4 </dep></entry>     
+   <entry><ind> 3000.0</ind><dep>  87.4 </dep></entry>     
+   <entry><ind> 3500.0</ind><dep> 123.4 </dep></entry>     
+  </interpolation>
+  <axis>
+   <x>-1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+</PropertyList>
+
+

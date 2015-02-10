@@ -1,0 +1,182 @@
+<?xml version="1.0"?>
+
+<!--
+Oil temp/pressure gauge for Cessna172.
+
+October 2000 John Check <j4strngs@rockfish.net>
+________________________________________________________________________________
+
+This is an instrument configuration file for the open-source flight
+simulator FlightGear (www.flightgear.org).  The file is an XML-encoded
+FlightGear property list defining the instrument's layers and actions.
+
+Each instrument is composed of layers stacked on top of each other.
+A layer may be a texture (with transparent parts to show the layers
+underneath), text, or a special layer that switches between two
+others (say, to turn an indicator light on or off).  Each layer can
+move independently in proportion to a property value, and text
+can be generated from property values as well: all of the layer's
+movements are defined as transformations.
+
+Actions are hotspots on the instrument that will respond to a mouse
+click.  Actions always modify the values of properties, either by
+adjusting them, toggling them, or swaping them with other
+properties' values.
+-->
+
+<PropertyList>
+ <name>Oil Temp/Pressure Gauge</name>
+ <w-base>120</w-base>
+ <h-base>120</h-base>
+
+ <params>
+  <engine-oil-temp-select>/engines/engine[0]/oil-temperature-degf</engine-oil-temp-select>
+  <engine-oil-press-select>/engines/engine[0]/oil-pressure-psi</engine-oil-press-select>
+ </params>
+ 
+ <layers>
+
+  <layer>
+   <name>gauge face</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/vac-amp-oil.rgb</path>
+    <x1>0.5078125</x1>
+    <y1>0.484375</y1>
+    <x2>1.0</x2>
+    <y2>0.9609375</y2>
+   </texture>
+   <w>110</w>
+   <h>110</h>
+  </layer>
+
+  <layer>
+   <name>temperature needle</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/misc-1.rgb</path>
+    <x1>0.8</x1>
+    <y1>0.78125</y1>
+    <x2>0.8375</x2>
+    <y2>1.0</y2>
+   </texture>
+   <w>6</w>
+   <h>36</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-46</offset>
+    </transformation>
+    <transformation>
+     <type>rotation</type>
+     <property alias="../../../../../params/engine-oil-temp-select"/>
+     <min>75.0</min>
+     <max>245.0</max>
+     <scale>-0.6</scale>
+     <offset>180</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>19</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>pressure needle</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/misc-1.rgb</path>
+    <x1>0.8</x1>
+    <y1>0.78125</y1>
+    <x2>0.8375</x2>
+    <y2>1.0</y2>
+   </texture>
+   <w>6</w>
+   <h>36</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>46</offset>
+    </transformation>
+    <transformation>
+     <type>rotation</type>
+     <property alias="../../../../../params/engine-oil-press-select"/>
+     <min>0.0</min>
+     <max>115.0</max>
+     <scale>1.0</scale>
+     <offset>-150</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>19</offset>
+    </transformation>
+   </transformations>
+  </layer>
+ <layer>
+    <name>bezel</name>
+     <texture>
+     <path>Aircraft/Instruments/Textures/bezel.rgb</path>
+      <x1>0.0</x1>
+      <y1>0.0</y1>
+      <x2>1.0</x2>
+      <y2>1.0</y2>
+     </texture>
+     <transformations>
+      <transformation>
+       <type>y-shift</type>
+       <offset>0</offset>
+      </transformation>
+     <transformation>
+     <type>x-shift</type>
+     <offset>-0</offset>
+     </transformation>
+     </transformations>
+     <w>120</w>
+     <h>120</h>
+  </layer>
+
+  <layer>
+   <name>gauge labels</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/vac-amp-oil.rgb</path>
+    <x1>0.515625</x1>
+    <y1>0.0</y1>
+    <x2>1.0</x2>
+    <y2>0.4575</y2>
+   </texture>
+   <transformations>
+    <transformation>
+    <type>y-shift</type>
+    <offset>0</offset>
+    </transformation>
+    <transformation>
+    <type>x-shift</type>
+    <offset>-0</offset>
+    </transformation>
+   </transformations>
+   <w>102</w>
+   <h>102</h>
+  </layer>
+  <layer>
+   <name>glare shield</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/bezel1.rgb</path>
+    <x1>0.5</x1>
+    <y1>0.0</y1>
+    <x2>1.0</x2>
+    <y2>0.5</y2>
+   </texture>
+  <w>114</w>
+  <h>114</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>2</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-2</offset>
+    </transformation>
+    </transformations>
+  </layer>
+ </layers>
+
+</PropertyList>

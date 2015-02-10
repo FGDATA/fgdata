@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+	<path>moffett-tower.ac</path>
+
+	<animation>
+		<type>select</type>
+		<object-name>lights-0</object-name>
+		<condition>
+			<greater-than>
+				<property>/sim/time/sun-angle-rad</property>
+				<value>1.62</value>
+			</greater-than>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>lights-1</object-name>
+		<condition>
+			<greater-than>
+				<property>/sim/time/sun-angle-rad</property>
+				<value>1.55</value>
+			</greater-than>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>lights-2</object-name>
+		<condition>
+			<greater-than>
+				<property>/sim/time/sun-angle-rad</property>
+				<value>1.57</value>
+			</greater-than>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>red-light</object-name>
+		<condition>
+			<greater-than>
+				<property>/sim/time/sun-angle-rad</property>
+				<value>1.56</value>
+			</greater-than>
+		</condition>
+	</animation>
+	<animation>
+		<type>translate</type>
+		<object-name>red-light</object-name>
+		<offset-m>28.08</offset-m>
+		<axis>
+			<x>2.81</x>
+			<y>-12.77</y>
+			<z>24.85</z>
+		</axis>
+	</animation>
+	<animation>
+		<type>billboard</type>
+		<object-name>red-light</object-name>
+		<spherical type="bool">true</spherical>
+	</animation>
+	<animation>
+		<type>dist-scale</type>
+		<object-name>red-light</object-name>
+		<interpolation>
+			<entry><ind>0</ind><dep>0.1</dep></entry>
+			<entry><ind>500</ind><dep>0.2</dep></entry>
+			<entry><ind>16000</ind><dep>3</dep></entry>
+		</interpolation>
+	</animation>
+
+	<animation>
+		<type>range</type>
+		<object-name>moffett-tower</object-name>
+		<min-m>0</min-m>
+		<max-m>13000</max-m>
+	</animation>
+</PropertyList>

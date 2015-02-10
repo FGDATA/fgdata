@@ -1,0 +1,1074 @@
+<PropertyList>
+
+<path>boeing.ac</path>
+
+<animation>
+	<name>texturedCDU</name>
+	<object-name>CDU</object-name>
+ 	<object-name>Btn.A</object-name>
+	<object-name>Btn.B</object-name>
+	<object-name>Btn.C</object-name>
+	<object-name>Btn.D</object-name>
+	<object-name>Btn.E</object-name>
+	<object-name>Btn.F</object-name>
+	<object-name>Btn.G</object-name>
+	<object-name>Btn.H</object-name>
+	<object-name>Btn.I</object-name>
+	<object-name>Btn.J</object-name>
+	<object-name>Btn.K</object-name>
+	<object-name>Btn.L</object-name>
+	<object-name>Btn.M</object-name>
+	<object-name>Btn.N</object-name>
+	<object-name>Btn.O</object-name>
+	<object-name>Btn.P</object-name>
+	<object-name>Btn.Q</object-name>
+	<object-name>Btn.R</object-name>
+	<object-name>Btn.S</object-name>
+	<object-name>Btn.T</object-name>
+	<object-name>Btn.U</object-name>
+	<object-name>Btn.V</object-name>
+	<object-name>Btn.W</object-name>
+	<object-name>Btn.X</object-name>
+	<object-name>Btn.Y</object-name>
+	<object-name>Btn.Z</object-name>
+	<object-name>Btn.zero</object-name>
+	<object-name>Btn.num1</object-name>
+	<object-name>Btn.num2</object-name>
+	<object-name>Btn.num3</object-name>
+	<object-name>Btn.num4</object-name>
+	<object-name>Btn.num5</object-name>
+	<object-name>Btn.num6</object-name>
+	<object-name>Btn.num7</object-name>
+	<object-name>Btn.num8</object-name>
+	<object-name>Btn.num9</object-name>
+	<object-name>Btn.period</object-name>
+	<object-name>Btn.plusminus</object-name>
+	<object-name>Btn.sp</object-name>
+	<object-name>Btn.slash</object-name>
+	<object-name>Btn.del</object-name>
+	<object-name>Btn.clr</object-name>
+	<object-name>Btn.init-ref</object-name>
+	<object-name>Btn.rte</object-name>
+	<object-name>Btn.dep-arr</object-name>
+	<object-name>Btn.altn</object-name>
+	<object-name>Btn.vnav</object-name>
+	<object-name>Btn.fix</object-name>
+	<object-name>Btn.legs</object-name>
+	<object-name>Btn.hold</object-name>
+	<object-name>Btn.fmc-comm</object-name>
+	<object-name>Btn.prog</object-name>
+	<object-name>Btn.exec</object-name>
+	<object-name>Btn.menu</object-name>
+	<object-name>Btn.nav-rad</object-name>
+	<object-name>Btn.prev-page</object-name>
+	<object-name>Btn.next-page</object-name>
+	<object-name>Btn.side.l.1</object-name>
+	<object-name>Btn.side.l.2</object-name>
+	<object-name>Btn.side.l.3</object-name>
+	<object-name>Btn.side.l.4</object-name>
+	<object-name>Btn.side.l.5</object-name>
+	<object-name>Btn.side.l.6</object-name>
+	<object-name>Btn.side.r.1</object-name>
+	<object-name>Btn.side.r.2</object-name>
+	<object-name>Btn.side.r.3</object-name>
+	<object-name>Btn.side.r.4</object-name>
+	<object-name>Btn.side.r.5</object-name>
+	<object-name>Btn.side.r.6</object-name>
+</animation> 
+
+<animation> 
+	<type>material</type> 
+	<texture alias="../../texture"/> 
+	<object-name>texturedCDU</object-name>
+</animation>
+
+<effect>
+	<inherits-from>Effects/model-combined-deferred</inherits-from>
+	<parameters>
+		<lightmap-enabled type="int">1</lightmap-enabled>
+		<lightmap-factor><use>instrumentation/cdu/brightness-norm</use></lightmap-factor>
+		<texture n="3">
+			<image>Aircraft/Instruments-3d/cdu2/boeing-lightmap.png</image>
+		</texture>
+	</parameters>
+	<object-name>CDU</object-name>
+ 	<object-name>Btn.A</object-name>
+	<object-name>Btn.B</object-name>
+	<object-name>Btn.C</object-name>
+	<object-name>Btn.D</object-name>
+	<object-name>Btn.E</object-name>
+	<object-name>Btn.F</object-name>
+	<object-name>Btn.G</object-name>
+	<object-name>Btn.H</object-name>
+	<object-name>Btn.I</object-name>
+	<object-name>Btn.J</object-name>
+	<object-name>Btn.K</object-name>
+	<object-name>Btn.L</object-name>
+	<object-name>Btn.M</object-name>
+	<object-name>Btn.N</object-name>
+	<object-name>Btn.O</object-name>
+	<object-name>Btn.P</object-name>
+	<object-name>Btn.Q</object-name>
+	<object-name>Btn.R</object-name>
+	<object-name>Btn.S</object-name>
+	<object-name>Btn.T</object-name>
+	<object-name>Btn.U</object-name>
+	<object-name>Btn.V</object-name>
+	<object-name>Btn.W</object-name>
+	<object-name>Btn.X</object-name>
+	<object-name>Btn.Y</object-name>
+	<object-name>Btn.Z</object-name>
+	<object-name>Btn.zero</object-name>
+	<object-name>Btn.num1</object-name>
+	<object-name>Btn.num2</object-name>
+	<object-name>Btn.num3</object-name>
+	<object-name>Btn.num4</object-name>
+	<object-name>Btn.num5</object-name>
+	<object-name>Btn.num6</object-name>
+	<object-name>Btn.num7</object-name>
+	<object-name>Btn.num8</object-name>
+	<object-name>Btn.num9</object-name>
+	<object-name>Btn.period</object-name>
+	<object-name>Btn.plusminus</object-name>
+	<object-name>Btn.sp</object-name>
+	<object-name>Btn.slash</object-name>
+	<object-name>Btn.del</object-name>
+	<object-name>Btn.clr</object-name>
+	<object-name>Btn.init-ref</object-name>
+	<object-name>Btn.rte</object-name>
+	<object-name>Btn.dep-arr</object-name>
+	<object-name>Btn.altn</object-name>
+	<object-name>Btn.vnav</object-name>
+	<object-name>Btn.fix</object-name>
+	<object-name>Btn.legs</object-name>
+	<object-name>Btn.hold</object-name>
+	<object-name>Btn.fmc-comm</object-name>
+	<object-name>Btn.prog</object-name>
+	<object-name>Btn.exec</object-name>
+	<object-name>Btn.menu</object-name>
+	<object-name>Btn.nav-rad</object-name>
+	<object-name>Btn.prev-page</object-name>
+	<object-name>Btn.next-page</object-name>
+	<object-name>Btn.side.l.1</object-name>
+	<object-name>Btn.side.l.2</object-name>
+	<object-name>Btn.side.l.3</object-name>
+	<object-name>Btn.side.l.4</object-name>
+	<object-name>Btn.side.l.5</object-name>
+	<object-name>Btn.side.l.6</object-name>
+	<object-name>Btn.side.r.1</object-name>
+	<object-name>Btn.side.r.2</object-name>
+	<object-name>Btn.side.r.3</object-name>
+	<object-name>Btn.side.r.4</object-name>
+	<object-name>Btn.side.r.5</object-name>
+	<object-name>Btn.side.r.6</object-name>
+</effect>
+
+<animation>
+	<type>material</type>
+	<object-name>CDUscreen</object-name>
+	<emission>	
+		<red>1</red>
+		<green>1</green>
+		<blue>1</blue>
+		<factor-prop>instrumentation/cdu/display-brightness-norm</factor-prop>
+	</emission>
+</animation>
+
+<animation>
+	<type>select</type>
+	<object-name>Btn.exec.lit</object-name>
+	<condition><property>instrumentation/cdu/can-exec</property></condition>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.side.l.1</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable> 
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.lsk('L1');</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.side.r.1</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.lsk('R1');</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.side.l.2</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.lsk('L2');</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.side.r.2</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.lsk('R2');</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.side.l.3</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.lsk('L3');</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.side.r.3</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.lsk('R3');</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.side.l.4</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.lsk('L4');</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.side.r.4</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.lsk('R4');</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.side.l.5</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.lsk('L5');</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.side.r.5</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.lsk('R5');</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.side.l.6</object-name>
+	<action>
+		<button>0</button>
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.lsk('L6');</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.side.r.6</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>  
+				<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.lsk('R6');</script>
+		</binding>
+
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.init-ref</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.displayPageByTag('index');</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.exec</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.button_exec();</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.rte</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.button_route();</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.altn</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.displayPageByTag('cruise');</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.nav-rad</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.displayPageByTag('climb');</script>
+		</binding>
+	</action>
+</animation>
+ 
+<animation>
+	<type>pick</type>
+	<object-name>Btn.dep-arr</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.button_dep_arr();</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.vnav</object-name>
+	<action>
+		<button>0</button>
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.displayPageByTag('descent');</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.fix</object-name>
+	<action>
+		<button>0</button>
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.displayPageByTag('fix');</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.prog</object-name>
+	<action>
+		<button>0</button>
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.displayPageByTag('progress');</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.legs</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.button_legs();</script>
+		</binding>
+	</action>
+</animation>
+ 
+<animation>
+	<type>pick</type>
+	<object-name>Btn.menu</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.displayPageByTag('menu');</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.prev-page</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.prev_page();</script>
+		</binding>
+		
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.next-page</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.next_page();</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.zero</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.input('0');</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.num1</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.input('1');</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.num2</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.input('2');</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.num3</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.input('3');</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.num4</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.input('4');</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.num5</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.input('5');</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.num6</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.input('6');</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.num7</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.input('7');</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.num8</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.input('8');</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.num9</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.input('9');</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.A</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.input('A');</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.B</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.input('B');</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.C</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.input('C');</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.D</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.input('D');</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.E</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.input('E');</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.F</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.input('F');</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.G</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.input('G');</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.H</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.input('H');</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.I</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.input('I');</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.J</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.input('J');</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.K</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.input('K');</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.L</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.input('L');</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.M</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.input('M');</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.N</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.input('N');</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.O</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.input('O');</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.P</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.input('P');</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.Q</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.input('Q');</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.R</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.input('R');</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.S</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.input('S');</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.T</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.input('T');</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.U</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.input('U');</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.V</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.input('V');</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.W</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.input('W');</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.X</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.input('X');</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.Y</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.input('Y');</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.Z</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.input('Z');</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.period</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.input('.');</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.plusminus</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.plusminus();</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.sp</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.input(' ');</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.slash</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.input('/');</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.del</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.delete();</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>Btn.clr</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>Boeing.cdu.clear();</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>Boeing.cdu.clearRelease();</script>
+			</binding>
+		</mod-up>
+	</action>
+</animation>
+
+<animation>
+	<type>knob</type>
+	<object-name>KNOB.Brightness</object-name>
+	<value>0.0</value>
+	<action>
+		<binding>
+			<command>property-adjust</command>
+			<property>instrumentation/cdu/display-brightness-norm</property>
+            <factor>0.05</factor>
+            <min>0</min>
+            <max>1</max>                
+            <wrap>false</wrap>     
+		</binding>
+	</action>
+</animation>
+	
+</PropertyList>

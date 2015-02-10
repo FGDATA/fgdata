@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- b1900d custom flight recorder configuration
+     Thorsten Brehm, November 2012
+-->
+
+<PropertyList>
+    <!-- selected active flight recorder configuration for replay system -->
+    <replay-config type="int">0</replay-config>
+
+    <config n="0" include="/Aircraft/Generic/flightrecorder/generic-turboprop-2.xml">
+       <name type="string">B1900D Flight Recorder</name>
+       <signals>  <!-- some additional custom properties -->
+         <signal>
+           <type>bool</type><property type="string">/controls/electric/engine[0]/generator</property>
+         </signal>
+         <signal>
+           <type>bool</type><property type="string">/controls/electric/engine[1]/generator</property>
+         </signal>
+         <signal>
+           <type>bool</type><property type="string">/controls/electric/avionics-switch</property>
+         </signal>
+         <signal>
+           <type>bool</type><property type="string">/controls/electric/battery-switch</property>
+         </signal>
+         <signal>
+           <type>bool</type><property type="string">/controls/electric/inverter-switch</property>
+         </signal>
+         <signal>
+           <type>bool</type><property type="string">/controls/lighting/instrument-lights</property>
+         </signal>
+         <signal>
+           <type>bool</type><property type="string">/controls/lighting/nav-lights</property>
+         </signal>
+         <signal>
+           <type>bool</type><property type="string">/controls/lighting/taxi-lights</property>
+         </signal>
+         <signal>
+           <type>bool</type><property type="string">/controls/lighting/landing-lights</property>
+         </signal>
+         <signal>
+           <type>bool</type><property type="string">/controls/lighting/landing-lights[1]</property>
+         </signal>
+         <signal>
+           <type>bool</type><property type="string">/controls/lighting/beacon</property>
+         </signal>
+         <signal>
+           <type>bool</type><property type="string">/controls/lighting/strobe</property>
+         </signal>
+         <signal>
+           <type>bool</type><property type="string">/controls/engines/engine[0]/cutoff</property>
+         </signal>
+         <signal>
+           <type>bool</type><property type="string">/controls/engines/engine[1]/cutoff</property>
+         </signal>
+         <signal>
+           <type>bool</type><property type="string">/controls/electric/RH-AC-bus</property>
+         </signal>
+         <signal>
+           <type>bool</type><property type="string">/controls/electric/LH-AC-bus</property>
+         </signal>
+         <signal>
+           <type>float</type><property type="string">/velocities/groundspeed-kt</property>
+         </signal>
+         <signal>
+           <type>float</type><property type="string">/gear/gear/caster-angle-deg</property><interpolation type="string">angular-deg</interpolation>
+         </signal>
+         <signal>
+           <type>float</type><property type="string">/gear/gear/compression-m</property>
+         </signal>
+         <signal>
+           <type>float</type><property type="string">/gear/gear[1]/compression-m</property>
+         </signal>
+         <signal>
+           <type>float</type><property type="string">/gear/gear[2]/compression-m</property>
+         </signal>
+         <signal>
+           <type>int16</type><property type="string">/instrumentation/adf/frequencies/selected-khz</property>
+         </signal>
+         <signal>
+           <type>float</type><property type="string">/engines/engine[0]/torque-ftlb</property>
+         </signal>
+         <signal>
+           <type>float</type><property type="string">/engines/engine[1]/torque-ftlb</property>
+         </signal>
+       </signals>
+    </config>
+
+</PropertyList>
+

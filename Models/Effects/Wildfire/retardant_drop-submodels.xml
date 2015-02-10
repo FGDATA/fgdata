@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<!-- (C) 2012 - 2013  Anders Gidenstam.
+     Distribution: GPL v2 or later.
+-->
+<PropertyList>
+
+ <!-- Overlay these to set the trigger and signal properties. -->
+ <params>
+  <trigger>controls/armament/trigger</trigger>
+  <signal>/sim/ai/aircraft/impact/retardant</signal>
+ </params>
+
+ <!--
+  To inform the Wildfire system about a retardant impact the aircraft
+  -set file must load this submodel file and install a handler for the
+  impact signal. The handler could look similar to the following script:
+
+  <nasal>
+   ...
+   <wildfire_retardant>
+    <script><![CDATA[
+######################################################################
+var resolve_impact = func (n) {
+    #print("Retardant impact!");
+    var node = props.globals.getNode(n.getValue());
+    var pos  = geo.Coord.new().set_latlon
+                   (node.getNode("impact/latitude-deg").getValue(),
+                    node.getNode("impact/longitude-deg").getValue(),
+                    node.getNode("impact/elevation-m").getValue());
+    # The arguments are: position, radius and volume (currently unused).
+    wildfire.resolve_retardant_drop(pos, 10, 0);
+}
+setlistener("/sim/ai/aircraft/impact/retardant", resolve_impact);
+print("Wildfire integration ... initialized.");
+######################################################################
+]]>
+    </script>
+   </wildfire_retardant>
+  </nasal>
+ -->
+
+ <!--=========================================================================
+  Fire retardant marker.
+ -->
+ <submodel>
+  <name>Retardant marker</name>
+  <model>Models/Geometry/null.ac</model>
+  <trigger alias="../../params/trigger"/>
+  <speed>16</speed>
+  <repeat>true</repeat>
+  <delay>0.5</delay>
+  <count>-1</count>
+  <x-offset>  0.0 </x-offset>
+  <y-offset>  0.0  </y-offset>
+  <z-offset> -1.0 </z-offset>
+  <yaw-offset>0</yaw-offset>
+  <pitch-offset>-90</pitch-offset>
+  <wind>true</wind>
+  <eda>1.0</eda>
+  <cd>1.50</cd>
+  <weight>1.0</weight>
+  <impact>true</impact>
+  <impact-reports alias="../../params/signal"/>
+ </submodel>
+
+</PropertyList>

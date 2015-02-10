@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+ <scenario>
+  <name>Sailboat at KSFO (San Francisco)</name>
+  <description>
+     This scenario puts a sailboat in the bay just east
+     of KSFO.  The &lt;rudder&gt; tag works similarly to the
+     &lt;bank&gt; tag for AI aircraft, except that the ship will
+     turn but not bank (i.e. will not heel).  Use small
+     values for &lt;rudder&gt; for best effect.
+
+     Dave Culp, davidculp2 at comcast.net
+  </description>
+
+  <entry>
+   <type>ship</type>
+   <model>Models/Geometry/sailboat1/sailboat.xml</model>
+   <latitude>37.63</latitude>
+   <longitude>-122.34</longitude>
+   <speed>6.0</speed>
+   <rudder>3.0</rudder>
+  </entry>
+
+ </scenario>
+
+</PropertyList>

@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+
+<!-- Jet Pipe Temperature -->
+
+<PropertyList>
+
+	<path>../../../../Aircraft/Buccaneer/Instruments/exh.ac</path>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>jpt-Needle1</object-name>
+		<property>/engines/engine[0]/egt-degf</property>
+		<interpolation>
+			<entry>
+				<ind>32</ind>
+				<dep>-120</dep>
+			</entry>
+			<entry>
+				<ind>752</ind>
+				<dep>0</dep>
+			</entry>
+			<entry>
+				<ind>1472</ind>
+				<dep>120</dep>
+			</entry>
+		</interpolation>
+		<center>
+			<x-m>0</x-m>
+			<y-m>0</y-m>
+			<z-m>0</z-m>
+		</center>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<!-- Panel Lighting -->
+	<animation>
+		<type>material</type>
+		<object-name>face</object-name>
+		<object-name>bezelinside</object-name>
+		<object-name>jpt-Needle1</object-name>
+		<emission>
+			<factor-prop>/systems/electrical/outputs/instrument-lighting</factor-prop>
+			<red>0.03125</red>
+			<green>0.0089</green>
+			<blue>0.0089</blue>
+		</emission>
+	</animation>
+
+	<!-- *** LoD *** -->
+	<animation>
+		<type>range</type>
+		<min-m>0</min-m>
+		<max-m>5</max-m>
+	</animation>
+</PropertyList>

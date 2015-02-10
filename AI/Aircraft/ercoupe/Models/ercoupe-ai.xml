@@ -1,0 +1,265 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+ <path>ercoupe.ac</path>
+ 
+ <offsets>
+    <z-m>.80</z-m>
+ </offsets>
+
+ <!-- Airframe -->
+ <animation>
+  <type>select</type>
+  <object-name>Propeller</object-name>
+  <condition>
+   <less-than>
+    <property>velocities/true-airspeed-kt</property>
+    <value>101</value>
+   </less-than>
+  </condition>
+ </animation>
+
+ <animation>
+  <type>select</type>
+  <object-name>Propeller.Slow</object-name>
+  <condition>
+   <and>
+    <greater-than>
+     <property>velocities/true-airspeed-kt</property>
+     <value>0</value>
+    </greater-than>
+    <less-than>
+     <property>velocities/true-airspeed-kt</property>
+     <value>16</value>
+    </less-than>
+   </and>
+  </condition>
+ </animation>
+
+ <animation>
+  <type>select</type>
+  <object-name>Propeller.Fast</object-name>
+  <condition>
+   <greater-than>
+    <property>velocities/true-airspeed-kt</property>
+    <value>15</value>
+   </greater-than>
+  </condition>
+ </animation>
+ 
+  <animation>
+  <type>spin</type>
+  <object-name>Propeller</object-name>
+  <property>velocities/true-airspeed-kt</property>
+  <factor>-50</factor>
+  <center>
+   <x-m>-1.949</x-m>
+   <y-m>0</y-m>
+   <z-m>0.447</z-m>
+  </center>
+  <axis>
+   <x>1.0</x>
+   <y>0.0</y>
+   <z>0.0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>spin</type>
+  <object-name>Propeller.Slow</object-name>
+  <property>velocities/true-airspeed-kt</property>
+  <factor>-10</factor>
+  <center>
+   <x-m>-1.949</x-m>
+   <y-m>0</y-m>
+   <z-m>0.447</z-m>
+  </center>
+  <axis>
+   <x>1.0</x>
+   <y>0.0</y>
+   <z>0.0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>spin</type>
+  <object-name>Propeller.Fast</object-name>
+  <property>velocities/true-airspeed-kt</property>
+  <factor>-0.001</factor>
+  <center>
+   <x-m>-1.949</x-m>
+   <y-m>0</y-m>
+   <z-m>0.447</z-m>
+  </center>
+  <axis>
+   <x>1.0</x>
+   <y>0.0</y>
+   <z>0.0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>spin</type>
+  <object-name>NoseWheel</object-name>
+  <condition>
+	<less-than>
+		<property>velocities/true-airspeed-kt</property>
+		<value>71</value>
+	</less-than>
+  </condition>
+  <factor>15.6</factor> <!-- Wheel circumference 1.979 m -->
+  <center>
+   <x-m>-1.46442</x-m>
+   <y-m>0.001</y-m>
+   <z-m>-0.612418</z-m>
+  </center>
+  <axis>
+   <x> 0.0</x>
+   <y>-1.0</y>
+   <z> 0.0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>spin</type>
+  <object-name>LeftWheel</object-name>
+  <condition>
+	<less-than>
+		<property>velocities/true-airspeed-kt</property>
+		<value>71</value>
+	</less-than>
+  </condition>
+  <factor>12.3</factor> <!-- Wheel circumference 2.513 m -->
+  <center>
+   <x-m>-0.046786</x-m>
+   <y-m>-1.07103</y-m>
+   <z-m>-0.567522</z-m>
+  </center>
+  <axis>
+   <x> 0.0</x>
+   <y>-1.0</y>
+   <z> 0.0</z>
+  </axis>
+  </animation>
+
+ <animation>
+  <type>spin</type>
+  <object-name>RightWheel</object-name>
+  <condition>
+	<less-than>
+		<property>velocities/true-airspeed-kt</property>
+		<value>71</value>
+	</less-than>
+  </condition>
+  <factor>12.3</factor> <!-- Wheel circumference 2.513 m -->
+  <center>
+   <x-m>-0.046786</x-m>
+   <y-m>-1.07103</y-m>
+   <z-m>-0.567522</z-m>
+  </center>
+  <axis>
+   <x> 0.0</x>
+   <y>-1.0</y>
+   <z> 0.0</z>
+  </axis>
+  </animation>
+<!--
+ <animation>
+  <type>select</type>
+  <object-name>LeftNavLightOn</object-name>
+  <object-name>RightNavLightOn</object-name>
+  <object-name>RearNavLightOn</object-name>
+  <condition>
+      <and>
+		<greater-than>
+			<property>/sim/time/sun-angle-rad</property>
+			<value>1.57</value>
+		</greater-than>
+		<greater-than>
+			<property>velocities/true-airspeed-kt</property>
+			<value>0</value>
+		</greater-than>
+	  </and>
+  </condition>
+ </animation>
+
+ <animation>
+  <name>BeaconFlasher</name>
+  <type>timed</type>
+  <object-name>BeaconOff</object-name>
+  <object-name>BeaconOn</object-name>
+  <duration-sec>1.0</duration-sec>
+ </animation>
+
+ <animation>
+  <type>select</type>
+  <object-name>BeaconFlasher</object-name>
+  <condition>
+      <and>
+		<greater-than>
+			<property>/sim/time/sun-angle-rad</property>
+			<value>1.57</value>
+		</greater-than>
+		<greater-than>
+			<property>velocities/true-airspeed-kt</property>
+			<value>0</value>
+		</greater-than>
+	  </and>
+  </condition>
+ </animation>
+-->
+ <!--
+ <animation>
+  <type>translate</type>
+  <object-name>LeftFlap</object-name>
+  <object-name>RightFlap</object-name>
+  <property>surface-positions/flap-pos-norm</property>
+  <factor>0.15</factor>
+  <axis>
+   <x>1.0</x>
+   <y>0.0</y>
+   <z>0.2</z>
+  </axis>
+ </animation>
+ -->
+ <!--
+ <animation>
+  <type>rotate</type>
+  <object-name>LeftFlap</object-name>
+  <property>surface-positions/flap-pos-norm</property>
+  <factor>30</factor>
+  <center>
+   <x-m>0.76</x-m>
+   <y-m>-0.53</y-m>
+   <z-m>0.32</z-m>
+  </center>
+  <axis>
+   <x>0.0</x>
+   <y>1.0</y>
+   <z>-0.1</z>
+  </axis>
+ </animation>
+ -->
+ <!--
+ <animation>
+  <type>rotate</type>
+  <object-name>RightFlap</object-name>
+  <property>surface-positions/flap-pos-norm</property>
+  <factor>30</factor>
+  <center>
+   <x-m>0.76</x-m>
+   <y-m>-0.53</y-m>
+   <z-m>0.32</z-m>
+  </center>
+  <axis>
+   <x>0.0</x>
+   <y>1.0</y>
+   <z>0.1</z>
+  </axis>
+ </animation>
+ -->
+ 
+</PropertyList>
+
+

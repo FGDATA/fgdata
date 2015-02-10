@@ -1,0 +1,127 @@
+<?xml version="1.0"?>
+<!-- KI 206 
+Bendix/King VOR / LOC / Glideslope Indicator
+Syd Adams
+-->
+<PropertyList>
+
+    <path>ki206.ac</path>
+    
+    <animation>
+        <type>material</type>
+        <object-name>KI206.gsflag</object-name>
+        <object-name>KI206.toflag</object-name>
+        <object-name>KI206.fromflag</object-name>
+        <object-name>KI206.navflag</object-name>
+        <object-name>KI206.face</object-name>
+        <object-name>KI206card</object-name>
+        <object-name>KI206.locneedle</object-name>
+        <object-name>KI206.gsneedle</object-name>
+        <object-name>KI206.knob</object-name>
+        <emission>
+            <red>0.028</red>
+            <green>0.014</green>
+            <blue>0.007</blue>
+            <factor-prop>systems/electrical/outputs/instrument-lights</factor-prop>
+        </emission>
+    </animation>
+    
+    <animation>
+        <type>select</type>
+        <object-name>KI206.navflag</object-name>
+        <condition>
+            <or>
+                <not>
+                    <property>instrumentation/nav/data-is-valid</property>
+                </not>
+                <less-than>	
+                            <property>systems/electrical/outputs/nav</property>
+                    <value>0.1</value>	
+                </less-than>		
+                <not>	
+                            <property>instrumentation/nav/in-range</property>
+                </not>
+            </or>
+        </condition>
+    </animation>
+    
+    <animation>
+        <type>select</type>
+        <object-name>KI206.gsflag</object-name>
+        <condition>
+            <or>
+                <not>
+                    <property>instrumentation/nav/has-gs</property>
+                        </not>
+                <less-than>	
+                            <property>systems/electrical/outputs/nav</property>
+                    <value>0.1</value>	
+                </less-than>
+                <greater-than>
+                    <property>instrumentation/nav/in-range</property>
+                    <value>30000</value>
+                </greater-than>
+            </or>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>KI206.toflag</object-name>
+        <condition>
+            <property>instrumentation/nav/to-flag</property>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>KI206.fromflag</object-name>
+        <condition>
+            <property>instrumentation/nav/from-flag</property>
+                </condition>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>KI206card</object-name>
+        <property>instrumentation/altimeter/indicated-heading-deg</property>
+        <axis>
+            <x>1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+    </animation>
+
+    <animation>
+        <type>translate</type>
+        <object-name>KI206.locneedle</object-name>
+        <property>instrumentation/nav/heading-needle-deflection</property>
+        <interpolation>
+            <entry><ind>-10.0</ind><dep>-0.0113</dep></entry>
+            <entry><ind>0.0</ind><dep>0.0</dep></entry>
+            <entry><ind>10.0</ind><dep>0.0113</dep></entry>
+        </interpolation>
+        <axis>
+            <x>0.0</x>
+            <y>1.0</y>
+            <z>0.0</z>
+        </axis>
+    </animation>
+ 
+    <animation>
+        <type>translate</type>
+        <object-name>KI206.gsneedle</object-name>
+        <property>instrumentation/nav/gs-needle-deflection-norm</property>
+        <interpolation>
+            <entry><ind>-1.0</ind><dep>-0.0113</dep></entry>
+            <entry><ind>0.0</ind><dep>0.0</dep></entry>
+            <entry><ind>1.0</ind><dep>0.0113</dep></entry>
+        </interpolation>
+        <axis>
+            <x>0.0</x>
+            <y>0.0</y>
+            <z>1.0</z>
+        </axis>
+    </animation>
+ 
+</PropertyList>

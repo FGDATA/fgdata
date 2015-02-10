@@ -1,0 +1,229 @@
+<?xml version="1.0"?>
+<!--
+KAS 297 ALTITUDE SELECTOR 
+Syd Adams
+
+*** requires kfc200.nas to run ***
+-->
+<PropertyList>
+
+    <path>kas297.ac</path>
+    
+    <animation>
+        <type>material</type>
+        <object-name>Arm.btn</object-name>
+        <object-name>Set.knob</object-name>
+        <emission>
+            <red>0.028</red>
+            <green>0.014</green>
+            <blue>0.007</blue>
+            <factor-prop>systems/electrical/outputs/instrument-lights</factor-prop>
+        </emission>
+    </animation>
+    
+    <animation>
+        <type>select</type>
+        <object-name>altmsg</object-name>
+        <object-name>altmsg.001</object-name>
+        <object-name>altmsg.002</object-name>
+        <object-name>altmsg.003</object-name>
+        <object-name>altmsg.004</object-name>
+        <condition>
+            <greater-than>
+                <property>systems/electrical/volts</property>
+                <value>1</value>
+            </greater-than>
+        </condition>
+    </animation>
+    
+    
+    <animation>
+        <type>select</type>
+        <object-name>Alert.msg</object-name>
+        <condition>
+            <and>
+                <property>/instrumentation/kfc200/alt-alert</property>
+                <greater-than>
+                    <property>systems/electrical/volts</property>
+                    <value>1</value>
+                </greater-than>
+            </and>	
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>Arm.msg</object-name>
+        <condition>
+            <and>
+                <equals>
+                    <property>/instrumentation/kfc200/vnav</property>
+                    <value>1</value>
+                </equals>
+                <greater-than>
+                    <property>systems/electrical/volts</property>
+                    <value>1</value>
+                </greater-than>
+            </and>
+        </condition>
+    </animation>
+
+<!--    Altitude Select    -->
+
+    <animation>
+        <type>textranslate</type>
+        <object-name>altmsg</object-name>
+        <property>instrumentation/kfc200/alt-preset</property>
+        <factor>0.00001</factor>
+        <step>10000</step>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+    </animation>
+ 
+    <animation>
+        <type>textranslate</type>
+        <object-name>altmsg.001</object-name>
+        <property>instrumentation/kfc200/alt-preset</property>
+        <factor>0.0001</factor>
+        <step>1000</step>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+    </animation>
+ 
+     <animation>
+        <type>textranslate</type>
+        <object-name>altmsg.002</object-name>
+        <property>instrumentation/kfc200/alt-preset</property>
+        <factor>0.001</factor>
+        <step>100</step>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+    </animation>
+ 
+    <animation>
+        <type>textranslate</type>
+        <object-name>altmsg.003</object-name>
+        <property>instrumentation/kfc200/alt-preset</property>
+        <factor>0.01</factor>
+        <step>10</step>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+    </animation>
+ 
+    <animation>
+        <type>textranslate</type>
+        <object-name>altmsg.004</object-name>
+        <property>instrumentation/kfc200/alt-preset</property>
+        <factor>0.1</factor>
+        <step>1</step>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+    </animation>
+
+    <!-- OSG animations 
+
+    <animation>
+        <type>pick</type>
+        <object-name>Alt.decrease</object-name>
+        <action>
+            <button>0</button>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>property-adjust</command>
+                <property>instrumentation/kfc200/alt-preset</property>
+                <step>-100</step>
+                <min>0.0</min>
+                <max>99999.0</max>
+                <wrap>false</wrap>
+            </binding>
+        </action>
+    </animation>
+    
+    <animation>
+        <type>pick</type>
+        <object-name>Alt.decrease</object-name>
+        <action>
+            <button>1</button>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>property-adjust</command>
+                <property>instrumentation/kfc200/alt-preset</property>
+                <step>-1000</step>
+                <min>0.0</min>
+                <max>99999.0</max>
+                <wrap>false</wrap>
+            </binding>
+        </action>
+    </animation>
+    
+    <animation>
+        <type>pick</type>
+        <object-name>Alt.increase</object-name>
+        <action>
+            <button>0</button>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>property-adjust</command>
+                <property>instrumentation/kfc200/alt-preset</property>
+                <step>100</step>
+                <min>0.0</min>
+                <max>99999.0</max>
+                <wrap>false</wrap>
+            </binding>
+        </action>
+    </animation>
+    
+    <animation>
+        <type>pick</type>
+        <object-name>Alt.increase</object-name>
+        <action>
+            <button>1</button>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>property-adjust</command>
+                <property>instrumentation/kfc200/alt-preset</property>
+                <step>1000</step>
+                <min>0.0</min>
+                <max>99999.0</max>
+                <wrap>false</wrap>
+            </binding>
+        </action>
+    </animation>
+
+    <animation>
+        <type>pick</type>
+        <object-name>Alt.arm</object-name>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+            <command>nasal</command>
+            <script>
+                if(getprop("instrumentation/kfc200/vnav")!= 1){
+                setprop("instrumentation/kfc200/vnav",1);
+                setprop("autopilot/settings/target-altitude-ft",getprop("instrumentation/kfc200/alt-preset"));
+                }else{
+                setprop("instrumentation/kfc200/vnav",0);
+                }
+            </script>
+        </binding>
+        </action>
+    </animation>
+-->
+
+</PropertyList>

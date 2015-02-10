@@ -1,0 +1,65 @@
+AC3Db
+MATERIAL "AutoWhite" rgb 1 1 1  amb 1 1 1  emis 0 0 0  spec 0 0 0  shi 64  trans 0
+OBJECT world
+kids 2
+OBJECT poly
+name "box"
+loc 0.0633183 4.88137 0.0114689
+texture "renovated-apartment.rgb"
+texrep 5 1
+texoff 0.23 0
+numvert 8
+-23.5131 -4.70399 -5
+-23.5131 4.70399 -5
+23.5131 4.70399 -5
+23.5131 -4.70399 -5
+-23.5131 -4.70399 5
+-23.5131 4.70399 5
+23.5131 4.70399 5
+23.5131 -4.70399 5
+numsurf 4
+SURF 0x0
+mat 0
+refs 4
+0 0 0
+1 0 1
+2 1 1
+3 1 0
+SURF 0x0
+mat 0
+refs 4
+6 1 1
+7 1 0
+3 1 0
+2 1 1
+SURF 0x0
+mat 0
+refs 4
+7 1 0
+6 1 1
+5 0 1
+4 0 0
+SURF 0x0
+mat 0
+refs 4
+4 0 0
+5 0 1
+1 0 1
+0 0 0
+kids 0
+OBJECT poly
+loc -7.34851 0.242408 0.294969
+numvert 4
+-16.1013 9.34295 -5.28349
+30.9249 9.34295 -5.28349
+-16.1013 9.34295 4.7165
+30.9249 9.34295 4.7165
+numsurf 1
+SURF 0x0
+mat 0
+refs 4
+0 0 1
+2 0 1
+3 1 1
+1 1 1
+kids 0

@@ -1,0 +1,198 @@
+<?xml version="1.0"?>
+<!--
+    KFC-200 FlightDirector / Autopilot Controller
+    Syd Adams    
+-->
+
+<PropertyList>
+
+    <path>fd-control.ac</path>
+    
+    <animation>
+        <type>material</type>
+        <object-name>FDbase</object-name>
+        <emission>
+            <red>0.028</red>
+            <green>0.014</green>
+            <blue>0.007</blue>
+            <factor-prop>systems/electrical/outputs/instrument-lights</factor-prop>
+        </emission>
+    </animation>
+<!--
+    <animation>
+        <type>pick</type>
+        <object-name>Pitch.down</object-name>
+        <condition>
+            <not-equals>
+                <property>/autopilot/locks/altitude</property>
+                <value></value>
+            </not-equals>
+        </condition>
+        <action>
+            <button>0</button>
+            <repeatable>true</repeatable>
+            <interval-sec>0.1</interval-sec>
+            <binding>
+                <command>property-adjust</command>
+                <property>/autopilot/settings/target-pitch-deg</property>
+                <step>-0.05</step>
+                <min>-15.0</min>
+                <max>15.0</max>
+                <wrap>false</wrap>
+            </binding>
+        </action>
+    </animation>
+    
+    <animation>
+        <type>pick</type>
+        <object-name>Pitch.up</object-name>
+        <condition>
+            <not-equals>
+                <property>/autopilot/locks/altitude</property>
+                <value></value>
+            </not-equals>
+        </condition>
+        <action>
+            <button>0</button>
+            <repeatable>true</repeatable>
+            <interval-sec>0.1</interval-sec>
+            <binding>
+                <command>property-adjust</command>
+                <property>/autopilot/settings/target-pitch-deg</property>
+                <step>0.05</step>
+                <min>-15.0</min>
+                <max>15.0</max>
+                <wrap>false</wrap>
+            </binding>
+        </action>
+    </animation>
+    
+    <animation>
+        <type>pick</type>
+        <object-name>HDG.btn</object-name>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    if(getprop("/instrumentation/kfc200/fdmode") != "hdg"){
+                    setprop("/instrumentation/kfc200/fdmode","hdg");}
+                    else{setprop("/instrumentation/kfc200/fdmode","off");}
+                </script>
+            </binding>
+        </action>
+    </animation>
+
+    <animation>
+        <type>pick</type>
+        <object-name>FD.btn</object-name>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-toggle</command>
+                <property>/instrumentation/kfc200/fd-on</property>
+            </binding>
+        </action>
+    </animation>
+    
+    <animation>
+        <type>pick</type>
+        <object-name>ALT.btn</object-name>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    if(getprop("/instrumentation/kfc200/fdmodeV") != "alt-arm"){
+                    setprop("/instrumentation/kfc200/fdmodeV","alt-arm");}
+                    else{setprop("/instrumentation/kfc200/fdmodeV","off");}
+                </script>
+            </binding>
+        </action>
+    </animation>
+    
+    <animation>
+        <type>pick</type>
+        <object-name>NAV.btn</object-name>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    if(getprop("/instrumentation/kfc200/fdmode") != "nav-arm"){
+                    setprop("/instrumentation/kfc200/fdmode","nav-arm");}
+                    else{setprop("/instrumentation/kfc200/fdmode","off");}
+                </script>
+            </binding>
+        </action>
+    </animation>
+    
+    <animation>
+        <type>pick</type>
+        <object-name>BC.btn</object-name>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    if(getprop("/instrumentation/kfc200/fdmode") != "bc"){
+                    setprop("/instrumentation/kfc200/fdmode","bc");}
+                    else{setprop("/instrumentation/kfc200/fdmode","off");}
+                </script>
+            </binding>
+        </action>
+    </animation>
+
+    <animation>
+        <type>pick</type>
+        <object-name>APPR.btn</object-name>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    if(getprop("/instrumentation/kfc200/fdmode") != "appr"){
+                    setprop("/instrumentation/kfc200/fdmode","appr");}
+                    else{setprop("/instrumentation/kfc200/fdmode","off");}
+                </script>
+            </binding>
+        </action>
+    </animation>
+
+    <animation>
+        <type>pick</type>
+        <object-name>APtoggle</object-name>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-toggle</command>
+                <property>/autopilot/locks/passive-mode</property>
+            </binding>
+        </action>
+    </animation>
+-->
+    <animation>
+        <type>rotate</type>
+        <object-name>APtoggle</object-name>
+        <property>/autopilot/locks/passive-mode</property>
+        <factor>40</factor>
+        <axis>
+            <x>0.0</x>
+            <y>1.0</y>
+            <z>0.0</z>
+        </axis>
+        <center>
+            <x-m>0.002</x-m>
+            <y-m>0.046</y-m>
+            <z-m>0.002</z-m>
+        </center>
+    </animation>
+
+</PropertyList>

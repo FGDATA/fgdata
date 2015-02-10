@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+	<path>H-60.ac</path>
+	<!-- 0.00358407	0.645677	0.000336107
+	-0.00420573	0.79441	0.000321504
+	-0.0264778	0.643522	-0.00108892
+	-0.0342676	0.792255	-0.00110352-->
+
+	<animation>
+		<type>rotate</type>
+		<object-name>Rotor</object-name>
+		<object-name>Rotor-Shaft</object-name>
+		<property>/sim/time/elapsed-sec</property>
+		<factor>1000</factor>
+		<axis>
+			<x1-m>-0.0264778</x1-m>
+			<y1-m>0.0</y1-m>
+			<z1-m>0.643522</z1-m>
+			<x2-m>-0.0342676</x2-m>
+			<y2-m>0.0</y2-m>
+			<z2-m>0.792255</z2-m>
+		</axis>
+	</animation>
+	<!--9.89369	0.641302	0.0193272
+	9.89369	0.660408	-0.125795-->
+
+	<animation>
+	<type>rotate</type>
+	<object-name>Tail-Rotor</object-name>
+	<property>/sim/time/elapsed-sec</property>
+	<factor>-1500</factor>
+	<!-- 9.89736	0.723054	-0.410085
+	9.89718	0.638745	-0.18482-->
+	<axis>
+		<x1-m>9.89369</x1-m>
+		<y1-m>-0.0193272</y1-m>
+		<z1-m>0.641302</z1-m>
+		<x2-m>9.89369</x2-m>
+		<y2-m>0.125795</y2-m>
+		<z2-m>0.660408</z2-m>
+	</axis>
+</animation>
+
+	<animation>
+		<type>range</type>
+		<min-m>0</min-m>
+		<max-m>14000</max-m>
+	</animation>
+
+</PropertyList>

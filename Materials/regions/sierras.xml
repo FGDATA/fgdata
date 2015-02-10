@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<PropertyList>
+  <name>Sierras</name>
+  <area>
+    <lon1>-116.0</lon1>
+    <lat1>32.0</lat1>
+    <lon2>-104.0</lon2>
+    <lat2>42</lat2>
+  </area>
+
+  <condition>
+   <equals>
+    <property>sim/startup/season</property>
+    <value>summer</value>
+   </equals>
+  </condition>
+
+  <material include="Materials/base/runway_effect.xml">
+  <name>pa_shoulder</name>
+    <texture>Runway/pa_shoulder2.png</texture>
+    <parameters>
+     <uvstretch>8.0</uvstretch>
+    </parameters>
+  </material>
+
+  <material include="Materials/base/runway_effect.xml">
+  <name>pa_shoulder_f</name>
+    <texture>Runway/pa_shoulder_f2.png</texture>
+    <parameters>
+     <uvstretch>8.0</uvstretch>
+    </parameters>
+  </material>
+
+  <material>
+    <name>EvergreenBroadCover</name>
+    <name>EvergreenForest</name>
+    <effect>Effects/forest</effect>
+	<texture-set>
+    <texture>Terrain/forest1a.png</texture>
+	<texture n="12">Terrain/rock_red.png</texture>
+	<texture n="13">Terrain/rock_red.png</texture>
+	</texture-set>
+	<parameters>
+	  <rock_strata>1</rock_strata>
+	</parameters>
+    <xsize>2000</xsize>
+    <ysize>2000</ysize>
+    <light-coverage>10000000.0</light-coverage>
+    <wood-coverage>4000.0</wood-coverage>
+    <tree-texture>Trees/coniferous.png</tree-texture>
+    <tree-varieties>8</tree-varieties>
+    <tree-range-m alias="/params/forest/tree-range-m"/>
+    <tree-height-m>25.0</tree-height-m>
+    <tree-width-m>18.0</tree-width-m>
+    <rolling-friction>1</rolling-friction>
+    <bumpiness>1</bumpiness>
+  </material>
+
+</PropertyList>

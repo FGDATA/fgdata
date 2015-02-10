@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<name>message</name>
+	<modal>false</modal>
+	<layout>vbox</layout>
+	<default-padding>6</default-padding>
+
+	<group-template>
+		<enabled>false</enabled>
+		<layout>hbox</layout>
+		<default-padding>0</default-padding>
+		<text>
+			<label>MESSAGE</label>
+		</text>
+		<empty><stretch>1</stretch></empty>
+	</group-template>
+
+	<group>
+		<layout>hbox</layout>
+		<default-padding>8</default-padding>
+		<group>
+			<layout>vbox</layout>
+			<default-padding>0</default-padding>
+		</group>
+	</group>
+
+	<button>
+		<legend>OK</legend>
+		<default>true</default>
+		<key>Esc</key>
+		<binding>
+			<command>dialog-close</command>
+		</binding>
+	</button>
+
+	<nasal>
+		<open>
+			var self = cmdarg();
+			var dlgname = self.getNode("name").getValue();
+			var dlg = props.globals.getNode("/sim/gui/dialogs/" ~ dlgname, 1);
+			var msg = dlg.getNode("message", 1).getValue();
+			var textgroup = self.getNode("group-template");
+
+			self.getNode("group/group").removeChildren("group");
+
+			var lines = split("\n", msg);
+			forindex (var i; lines) {
+				var target = self.getNode("group/group").getChild("group", i, 1);
+				props.copy(textgroup, target);
+				target.getNode("text/label").setValue(lines[i]);
+				target.getNode("enabled").setValue(1);
+			}
+		</open>
+
+		<close>
+			dlg.getParent().removeChild(dlg.getName(), dlg.getIndex());
+		</close>
+	</nasal>
+</PropertyList>

@@ -1,0 +1,265 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+    <name>flight-recorder-save</name>
+    <layout>vbox</layout>
+    <resizable>true</resizable>
+	<default-padding>3</default-padding>
+	<nasal>
+		<open><![CDATA[
+		var setdefault = func (prop, value) { if (getprop(prop) == nil) setprop(prop, value);}
+		setdefault("/sim/gui/dialogs/flightrecorder/start-time", "00:00:00");
+		setdefault("/sim/gui/dialogs/flightrecorder/stop-time", "99:00:00");
+		setdefault("/sim/gui/dialogs/flightrecorder/save-all", 1);
+		setdefault("/sim/gui/dialogs/flightrecorder/author-name", "");
+		props.globals.getNode("/sim/gui/dialogs/flightrecorder/author-name", 1).setAttribute("userarchive", 1);
+		]]></open>
+	</nasal>
+    <!-- titlebar -->
+    <group>
+        <layout>hbox</layout>
+        <empty><stretch>1</stretch></empty>
+
+        <text>
+            <label>Save Flight Recorder Tape</label>
+        </text>
+
+        <empty><stretch>1</stretch></empty>
+
+        <button>
+            <pref-width>16</pref-width>
+            <pref-height>16</pref-height>
+            <legend></legend>
+            <keynum>27</keynum>
+            <border>2</border>
+            <binding>
+                <command>dialog-close</command>
+            </binding>
+        </button>
+    </group>
+    <hrule/>
+
+    <!-- main dialog area -->
+
+    <group>
+        <layout>table</layout>
+
+        <text>
+            <row>0</row><col>0</col>
+            <label>Tape Directory:</label>
+            <halign>left</halign>
+			<valign>top</valign>
+        </text>
+		<text>
+			<row>0</row><col>1</col>
+			<halign>left</halign>
+			<valign>top</valign>
+			<label>MMMMMMMMMMMMMMMMM</label>
+			<stretch>1</stretch>
+			<format>%s</format>
+			<property>/sim/replay/tape-directory</property>
+			<live>true</live>
+			<color>
+				<red>0.7</red>
+				<green>0.7</green>
+				<blue>0.7</blue>
+				<alpha>1</alpha>
+			</color>
+        </text>
+        <button>
+			<equal>false</equal>
+            <row>0</row><col>2</col>
+            <legend>Change</legend>
+			<halign>left</halign>
+			<valign>top</valign>
+            <binding>
+                <command>nasal</command>
+				<script>
+					#var set_tapedir_sel = nil;
+					#var set_tapedir = func {
+						#if (set_tapedir_sel == nil)
+					var set_tapedir_sel = gui.DirSelector.new(
+								func(result) { setprop("/sim/replay/tape-directory", result.getValue()); },
+								"Select Tape Directory", "Ok", getprop("/sim/replay/tape-directory"));
+					set_tapedir_sel.open();
+					#}
+				</script>
+            </binding>
+        </button>
+		<text>
+			<row>1</row><col>0</col>
+			<label>Author/Pilot:</label>
+			<halign>left</halign>
+		</text>
+		<input>
+            <row>1</row><col>1</col>
+			<halign>fill</halign>
+			<length>30</length>
+			<width>200</width>
+			<stretch>true</stretch>
+            <property>/sim/gui/dialogs/flightrecorder/author-name</property>
+		</input>
+
+<!--
+		<text>
+			<row>1</row><col>0</col>
+			<label>Quality:</label>
+			<halign>left</halign>
+		</text>
+        <combo>
+            <name>quality</name>
+            <halign>left</halign>
+            <row>1</row><col>1</col>
+            <pref-width>100</pref-width>
+            <property>/sim/gui/dialogs/flightrecorder/quality</property>
+            <editable>false</editable>
+            <value>maximum</value>
+            <value>medium</value>
+            <value>low</value>
+        </combo>
+
+		<text>
+			<row>2</row><col>0</col>
+			<label>Time Range:</label>
+			<halign>left</halign>
+		</text>
+
+		<group>
+			<row>2</row><col>1</col><colspan>2</colspan>
+			<layout>hbox</layout>
+			<checkbox>
+		        <row>4</row><col>0</col>
+				<property>/sim/gui/dialogs/flightrecorder/save-all</property>
+				<label>All</label>
+				<name>save-all</name>
+				<binding>
+					<command>dialog-apply</command>
+					<object-name>save-all</object-name>
+				</binding>
+			</checkbox>
+			<text>
+				<label>From:</label>
+				<halign>right</halign>
+				<enable>
+					<not>
+						<property>/sim/gui/dialogs/flightrecorder/save-all</property>
+					</not>
+				</enable>
+			</text>
+			<input>
+				<halign>left</halign>
+				<width>50</width>
+				<property>/sim/gui/dialogs/flightrecorder/start-time</property>
+				<enable>
+					<not>
+						<property>/sim/gui/dialogs/flightrecorder/save-all</property>
+					</not>
+				</enable>
+			</input>
+			<text>
+				<label>To:</label>
+				<halign>right</halign>
+				<enable>
+					<not>
+						<property>/sim/gui/dialogs/flightrecorder/save-all</property>
+					</not>
+				</enable>
+			</text>
+			<input>
+				<halign>left</halign>
+				<width>50</width>
+				<property>/sim/gui/dialogs/flightrecorder/stop-time</property>
+				<enable>
+					<not>
+						<property>/sim/gui/dialogs/flightrecorder/save-all</property>
+					</not>
+				</enable>
+			</input>
+			<empty><stretch>1</stretch></empty>
+		</group>
+-->
+        <text>
+            <row>5</row>
+            <col>0</col>
+			<colspan>3</colspan>
+            <label>Description:</label>
+            <halign>left</halign>
+            <valign>top</valign>
+        </text>
+	</group>
+
+	<group>
+        <layout>vbox</layout>
+		<stretch>10</stretch>
+		<halign>fill</halign>
+		<valign>fill</valign>
+		<textbox>
+		    <wrap>false</wrap>
+		    <live>false</live>
+		    <name>description-string</name>
+			<halign>fill</halign>
+			<valign>fill</valign>
+		    <stretch>1</stretch>
+		    <pref-width>550</pref-width>
+		    <pref-height>200</pref-height>
+		    <editable>true</editable>
+			<top-line>1</top-line>
+		    <property>/sim/gui/dialogs/flightrecorder/description-string</property>
+		    <binding>
+		      <command>dialog-apply</command>
+		      <object-name>description-string</object-name>
+		    </binding>
+		  </textbox>
+    </group>
+
+	<!-- button area -->
+	<hrule/>
+	<group>
+		<layout>hbox</layout>
+		<default-padding>10</default-padding>
+		<empty><stretch>true</stretch></empty>
+
+		<button>
+			<legend>Save</legend>
+			<equal>true</equal>
+			<binding>
+				<command>dialog-apply</command>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>
+					var descr     = getprop("/sim/gui/dialogs/flightrecorder/description-string");
+					var author    = getprop("/sim/gui/dialogs/flightrecorder/author-name");
+					var quality   = getprop("/sim/gui/dialogs/flightrecorder/quality");
+					var rangeall  = getprop("/sim/gui/dialogs/flightrecorder/save-all");
+					var starttime = getprop("/sim/gui/dialogs/flightrecorder/start-time");
+					var stoptime  = getprop("/sim/gui/dialogs/flightrecorder/stop-time");
+					if (rangeall)
+					{
+						starttime="";stoptime="";
+					}
+					var Config = props.Node.new({
+						"user-data":{ "description": descr, "author-name": author },
+						"tape-data": { "quality": quality, "start": starttime, "stop": stoptime }
+						});
+					fgcommand("save-tape", Config);
+				</script>
+			</binding>
+			<binding>
+				<command>dialog-close</command>
+			</binding>
+        </button>
+
+        <button>
+          <legend>Cancel</legend>
+          <default>true</default>
+          <equal>true</equal>
+          <binding>
+            <command>dialog-close</command>
+          </binding>
+        </button>
+
+        <empty><stretch>true</stretch></empty>
+    </group>
+
+</PropertyList>

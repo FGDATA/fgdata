@@ -1,0 +1,112 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+ <path>winter-4110.ac</path>
+
+ <animation>
+  <type>material</type>
+  <object-name>alt-face</object-name>
+  <object-name>alt-face-press</object-name>
+  <object-name>needle-m</object-name>
+  <object-name>needle-km</object-name>
+  <object-name>needle.001-m</object-name>
+  <object-name>needle.001-km</object-name>
+  <emission>
+	  <red>0.028</red>
+	  <green>0.014</green>
+	  <blue>0.007</blue>
+	  <factor-prop>systems/electrical/outputs/instrument-lights</factor-prop>
+        </emission>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>needle-km</object-name>
+  <object-name>needle.001-km</object-name>
+  <property>/instrumentation/altimeter/indicated-altitude-ft</property>
+  <factor>0.010973</factor>
+  <axis>
+   <x>-1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>needle-m</object-name>
+  <object-name>needle.001-m</object-name>
+  <property>/instrumentation/altimeter/indicated-altitude-ft</property>
+  <factor>0.10973</factor>
+  <axis>
+   <x>-1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+ <animation>
+   <type>rotate</type>
+   <object-name>alt-face-press</object-name>
+   <property>/instrumentation/altimeter/setting-inhg</property>
+   <interpolation>
+     <entry>
+       <ind>28.05</ind>
+       <dep>0.0</dep>
+     </entry>
+     <entry>
+       <ind>31.01</ind>
+       <dep>282</dep>
+     </entry>
+      </interpolation>
+   <axis>
+     <x>-1</x>
+     <y>0</y>
+     <z>0</z>
+   </axis>
+ </animation>
+
+  <!--             Altimeter              -->  
+
+ <animation>
+  <type>pick</type>
+  <object-name>knob</object-name>
+  <action>
+    <name>increase calibrate fine</name>
+    <button>0</button>
+    <button>3</button>
+    <repeatable>true</repeatable>
+    <binding>
+      <command>property-adjust</command>
+      <property>/instrumentation/altimeter/setting-inhg</property>
+      <step>0.01</step>
+      <min>28.05</min>
+      <max>31.01</max>
+      <wrap>false</wrap>
+    </binding>
+  </action>
+  </animation>
+  
+  <animation>
+  <type>pick</type>
+  <object-name>knob</object-name>
+  <action>
+    <name>decrease calibrate fine</name>
+    <button>1</button>
+    <button>4</button>
+    <repeatable>true</repeatable>
+    <binding>
+      <command>property-adjust</command>
+      <property>/instrumentation/altimeter/setting-inhg</property>
+      <step>-0.01</step>
+      <min>28.05</min>
+      <max>31.01</max>
+      <wrap>false</wrap>
+    </binding>
+  </action>
+  </animation>
+
+</PropertyList>
+
+

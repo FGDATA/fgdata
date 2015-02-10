@@ -1,0 +1,297 @@
+<?xml version="1.0"?>
+
+
+<PropertyList>
+    <name>multiplayer</name>
+    <layout>vbox</layout>
+    <resizable>false</resizable>
+
+    <nasal>
+        <open><![CDATA[
+            if ((getprop("/sim/multiplay/selected-server") == nil) or 
+                (getprop("/sim/multiplay/selected-server") == "" )   ){
+                var tx = getprop("/sim/multiplay/txhost");
+                var dlg = cmdarg();
+                var servers = cmdarg().getChildren("group")[1].getChildren("combo")[0].getChildren("value");
+                foreach (var s; servers) {
+                    var server = s.getValue();
+                    var host = split(" ", server)[0];
+                    if (host == tx) {
+                        setprop("/sim/multiplay/selected-server", server);
+                    }
+                }
+            }
+            
+            var servers = props.globals.getNode("/sim/gui/dialogs/multiplay/servers", 1);
+            var updateServers = func {
+                servers.removeChildren("value");                
+                # get the results list from the server
+                var serverlist = props.globals.getNode("/sim/multiplay/server-list", 1);
+            
+                var i=0;
+                foreach (var s; serverlist.getChildren("server")) {
+                    
+                    if (!s.getNode("online").getBoolValue()) {
+                      continue; # skip offline servers
+                    }
+                  
+                # label is name and location, for the moment
+                # should we include the number of users? or wait until we
+                # have a better UI toolkit?
+                    var nm = s.getNode("hostname").getValue() ~ " - " ~ s.getNode("location").getValue();
+                    servers.getNode("value[" ~ i ~ "]", 1).setValue(nm);
+                    i += 1;
+                }
+
+                gui.dialog_update("multiplayer", "host");
+            }
+            
+            var static_serverList = [
+                    ['mpserver01.flightgear.org', 'Frankfurt, Germany'],
+                    ['mpserver02.flightgear.org', 'Kansas, USA'],
+                    ['mpserver03.flightgear.org', 'Germany'],
+                    ['mpserver04.flightgear.org', 'United Kingdom'],
+                    ['mpserver05.flightgear.org', 'Chicago, USA'],
+                    ['mpserver07.flightgear.org', 'Wisconsin, USA'],
+                    ['mpserver08.flightgear.org', 'Frankfurt am Main, Germany'],
+                    ['mpserver09.flightgear.org', 'Koln, Germany'],
+                    ['mpserver10.flightgear.org', 'Montpellier, France'],
+                    ['mpserver11.flightgear.org', 'Vilnius, Lithuania'],
+                    ['mpserver12.flightgear.org', 'Amsterdam, Netherlands'],
+                    ['mpserver13.flightgear.org', 'Grenoble, France']
+                ];
+                
+            var updateServersFailed = func {
+                debug.dump("Failed to retrieve server list!");
+    
+                servers.removeChildren("value"); 
+                var i=0;
+                foreach (var s; static_serverList) {
+                # create the node the PUI combo
+                    var nm = s[0] ~ " - " ~ s[1];
+                    servers.getNode("value[" ~ i ~ "]", 1).setValue(nm);
+                    i += 1;
+                }
+                
+                gui.dialog_update("multiplayer", "host");
+            }
+            
+            # listen for results arriving  
+            setlistener("/sim/multiplay/got-servers", updateServers);
+            setlistener("/sim/multiplay/get-servers-failure", updateServersFailed);
+            
+            fgcommand("xmlhttprequest",  props.Node.new({
+              "url" : "http://liveries.flightgear.org/mpstatus/mpservers.xml",
+              "targetnode" : "/sim/multiplay/server-list",
+              "complete" : "/sim/multiplay/got-servers",
+              "failure" : "/sim/multiplay/get-servers-failure"
+            }));
+            ]]>
+        </open>
+        
+        <close>
+        </close>
+    </nasal>
+    
+    <!-- titlebar -->
+    <group>
+        <layout>hbox</layout>
+        <empty><stretch>1</stretch></empty>
+
+        <text>
+            <label>Multiplayer Settings</label>
+        </text>
+
+        <empty><stretch>1</stretch></empty>
+
+        <button>
+            <pref-width>16</pref-width>
+            <pref-height>16</pref-height>
+            <legend></legend>
+            <keynum>27</keynum>
+            <border>2</border>
+            <binding>
+                <command>dialog-close</command>
+            </binding>
+        </button>
+    </group>
+    <hrule/>
+
+    <!-- main dialog area -->
+    <group>
+        <layout>table</layout>
+        <halign>center</halign>
+
+        <text>
+            <row>0</row>
+            <col>0</col>
+            <label>Options:</label>
+            <halign>right</halign>
+        </text>
+        <checkbox>
+            <row>0</row>
+            <col>1</col>
+            <colspan>2</colspan>
+            <halign>left</halign>
+            <name>hide-replay</name>
+            <label>Hide replay sessions over MP (less annoying to other players)</label>
+            <property>/sim/multiplay/freeze-on-replay</property>
+            <binding>
+                <command>dialog-apply</command>
+                <object-name>hide-replay</object-name>
+            </binding>
+        </checkbox>
+
+        <checkbox>
+            <row>1</row>
+            <col>1</col>
+            <colspan>2</colspan>
+            <halign>left</halign>
+            <name>ai-traffic</name>
+            <label>Show AI Traffic (mixing MP and AI traffic may be confusing)</label>
+            <property>/sim/traffic-manager/enabled</property>
+            <binding>
+                <command>dialog-apply</command>
+                <object-name>ai-traffic</object-name>
+            </binding>
+        </checkbox>
+
+        <text>
+          <row>2</row><col>0</col>
+          <halign>right</halign>
+          <label>Callsign:</label>
+        </text>
+        <input>
+          <row>2</row><col>1</col>
+          <halign>left</halign>
+          <property>/sim/multiplay/callsign</property>
+          <enable>
+            <not>
+              <property>/sim/multiplay/online</property>
+            </not>
+          </enable>
+        </input>
+
+        <text>
+          <row>3</row><col>0</col>
+          <halign>right</halign>
+          <label>Server:</label>
+        </text>
+        <combo>
+            <name>host</name>
+            <halign>left</halign>
+            <row>3</row><col>1</col>
+            <colspan>2</colspan>
+            <pref-width>350</pref-width>
+            <property>/sim/multiplay/selected-server</property>
+            <editable>false</editable>
+            
+            <properties>/sim/gui/dialogs/multiplay/servers</properties>
+        </combo>
+
+        <!-- status area -->
+        <text>
+            <visible>
+                <not><property>/sim/multiplay/online</property></not>
+            </visible>
+            <row>5</row>
+            <col>1</col>
+            <halign>left</halign>
+            <label>Not connected</label>
+        </text>
+
+        <text>
+            <visible>
+                <property>/sim/multiplay/online</property>
+            </visible>
+            <row>5</row>
+            <col>1</col>
+            <halign>left</halign>
+            <label>MMMMMMMMMMMMMMMMM</label>
+            <format>Connected to %s</format>
+            <property>/sim/multiplay/txhost</property>
+            <live>true</live>
+        </text>
+    </group>
+
+    <!-- button area -->
+    <hrule/>
+    <group>
+        <layout>hbox</layout>
+        <default-padding>10</default-padding>
+        <empty><stretch>true</stretch></empty>
+
+        <button>
+          <legend>Connect</legend>
+          <equal>true</equal>
+          <enable>
+            <not>
+              <property>/sim/multiplay/online</property>
+            </not>
+          </enable>
+          <binding>
+            <command>dialog-apply</command>
+          </binding>
+          <binding>
+            <command>nasal</command>
+            <script>
+              var server = getprop("/sim/multiplay/selected-server");
+              # Get the server name by splitting on the space between
+              # the hostname and the comment.
+              server = split(" ", server)[0];
+              setprop("/sim/multiplay/txhost", server);
+
+              # Standard port is 5000
+              setprop("/sim/multiplay/txport", 5000);
+              setprop("/sim/multiplay/rxport", 5000);
+            </script> 
+          </binding>
+          <binding>
+            <command>reinit</command>
+            <subsystem>mp</subsystem>
+          </binding>
+        </button>
+
+        <button>
+          <legend>Disconnect</legend>
+          <equal>true</equal>
+          <enable>
+            <property>/sim/multiplay/online</property>
+          </enable>
+          <binding>
+            <command>dialog-apply</command>
+          </binding>
+          <binding>
+            <command>nasal</command>
+            <script>
+              setprop("/sim/multiplay/txhost", "");
+            </script> 
+          </binding>
+          <binding>
+            <command>reinit</command>
+            <subsystem>mp</subsystem>
+          </binding>
+        </button>
+
+        <button>
+            <row>1</row><col>2</col>
+            <legend>Server Status</legend>
+            <binding>
+                <command>open-browser</command>
+                <path>http://mpmap01.flightgear.org/mpstatus/</path>
+            </binding>
+        </button>
+
+        <button>
+          <legend>Close</legend>
+          <default>true</default>
+          <equal>true</equal>
+          <binding>
+            <command>dialog-close</command>
+          </binding>
+        </button>
+
+        <empty><stretch>true</stretch></empty>
+    </group>
+    
+</PropertyList>

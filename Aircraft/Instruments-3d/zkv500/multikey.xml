@@ -1,0 +1,125 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+  <multikey>
+	<key n="103">
+          <name>g</name>
+          <desc>GPS ZKV500</desc>
+          <key n="112">
+            <name>p</name>
+            <desc>Power knob</desc>
+            <key n="94">
+              <name>^</name>
+              <desc>turn right power knob</desc>
+              <no-exit/>
+              <binding>
+                <command>nasal</command>
+                <script>zkv500.power_knob(1)</script>
+              </binding>
+            </key>
+            <key n="95">
+              <name>_</name>
+              <desc>turn left power knob</desc>
+              <no-exit/>
+              <binding>
+                <command>nasal</command>
+                <script>zkv500.power_knob(-1)</script>
+              </binding>
+            </key>
+          </key>
+          <key n="109">
+            <name>m</name>
+            <desc>Mode knob</desc>
+            <key n="94">
+              <name>^</name>
+              <desc>turn right mode knob</desc>
+              <no-exit/>
+              <binding>
+                <command>nasal</command>
+                <script>zkv500.select_mode(1)</script>
+              </binding>
+            </key>
+            <key n="95">
+              <name>_</name>
+              <desc>turn left mode knob</desc>
+              <no-exit/>
+              <binding>
+                <command>nasal</command>
+                <script>zkv500.select_mode(-1)</script>
+              </binding>
+            </key>
+          </key>
+          <key n="108">
+            <name>l</name>
+            <desc>Upper left knob</desc>
+            <key n="94">
+              <name>^</name>
+              <desc>turn right upper left knob</desc>
+              <no-exit/>
+              <binding>
+                <command>nasal</command>
+                <script>zkv500.left_knob(1)</script>
+              </binding>
+            </key>
+            <key n="95">
+              <name>_</name>
+              <desc>turn left upper left knob</desc>
+              <no-exit/>
+              <binding>
+                <command>nasal</command>
+                <script>zkv500.left_knob(-1)</script>
+              </binding>
+            </key>
+          </key>
+          <key n="114">
+            <name>r</name>
+            <desc>Upper right knob</desc>
+            <key n="94">
+              <name>^</name>
+              <desc>turn right upper right knob</desc>
+              <no-exit/>
+              <binding>
+                <command>nasal</command>
+                <script>zkv500.right_knob(1)</script>
+              </binding>
+            </key>
+            <key n="95">
+              <name>_</name>
+              <desc>turn left upper right knob</desc>
+              <no-exit/>
+              <binding>
+                <command>nasal</command>
+                <script>zkv500.right_knob(-1)</script>
+              </binding>
+            </key>
+          </key>
+          <key n="101">
+            <name>e</name>
+            <desc>Enter button</desc>
+            <no-exit/>
+            <binding>
+              <command>nasal</command>
+              <script>zkv500.enter_button()</script>
+            </binding>
+          </key>
+          <key n="120">
+            <name>x</name>
+            <desc>Escape button</desc>
+            <no-exit/>
+            <binding>
+              <command>nasal</command>
+              <script>zkv500.escape_button()</script>
+            </binding>
+          </key>
+          <key n="115">
+            <name>s</name>
+            <desc>Start button</desc>
+            <no-exit/>
+            <binding>
+              <command>nasal</command>
+              <script>zkv500.start_button()</script>
+            </binding>
+          </key>
+        </key>
+    </multikey>
+</PropertyList>

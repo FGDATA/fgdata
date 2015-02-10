@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+ <path>mast.ac</path>
+ <offsets>
+  <!-- x/y/z == back/right/up -->
+  <x-m>  0.0 </x-m>
+  <y-m>  0.0 </y-m>
+  <z-m> -1.524 </z-m>
+ </offsets>
+
+ <model>
+  <name>Crew chief</name>
+  <path>Aircraft/ZLT-NT/Models/GroundCrew/crew.xml</path>
+  <overlay>
+   <params>
+    <right-shoulder-joint-deg>sim/model/crew-chief/right-shoulder-joint-deg</right-shoulder-joint-deg>
+    <left-shoulder-joint-deg>sim/model/crew-chief/left-shoulder-joint-deg</left-shoulder-joint-deg>
+    <right-elbow-joint-deg>sim/model/crew-chief/right-elbow-joint-deg</right-elbow-joint-deg>
+    <left-elbow-joint-deg>sim/model/crew-chief/left-elbow-joint-deg</left-elbow-joint-deg>
+   </params>
+  </overlay>
+  <offsets>
+   <!-- x/y/z == back/right/up -->
+   <x-m> 0.00</x-m>
+   <y-m>-5.00</y-m>
+   <z-m> 1.45</z-m>
+   <heading-deg>180.0</heading-deg>
+  </offsets>
+ </model>
+
+ <model>
+  <name>Windsock</name>
+  <path>Models/Airport/windsock.xml</path>
+  <offsets>
+   <!-- x/y/z == back/right/up -->
+   <x-m>  0.45 </x-m>
+   <y-m> -5.16 </y-m>
+   <z-m>  2.00 </z-m>
+   <heading-deg>0.0</heading-deg>
+  </offsets>
+ </model>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>Crew chief</object-name>
+  <object-name>Windsock</object-name>
+  <property>/environment/wind-from-heading-deg</property>
+  <offset-deg>0.0</offset-deg>
+  <factor>-1</factor>
+  <axis>
+   <x>0.0</x>
+   <y>0.0</y>
+   <z>1.0</z>
+  </axis>
+  <center>
+   <x-m>0.0</x-m>
+   <y-m>0.0</y-m>
+   <z-m>0.0</z-m>
+  </center>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>Windsock</object-name>
+  <property>/environment/wind-from-heading-deg</property>
+  <offset-deg>0.0</offset-deg>
+  <factor>1</factor>
+  <axis>
+   <x>0.0</x>
+   <y>0.0</y>
+   <z>1.0</z>
+  </axis>
+  <center>
+   <x-m> 0.45</x-m>
+   <y-m>-5.16</y-m>
+   <z-m> 0.00</z-m>
+  </center>
+ </animation>
+
+ <animation>
+  <type>scale</type>
+  <object-name>Windsock</object-name>
+  <property>/constants/zero</property>
+  <x-factor>0.0</x-factor>
+  <x-offset>0.2</x-offset>
+  <y-factor>0.0</y-factor>
+  <y-offset>0.2</y-offset>
+  <z-factor>0.0</z-factor>
+  <z-offset>0.2</z-offset>
+  <center>
+   <x-m> 0.45</x-m>
+   <y-m>-5.16</y-m>
+   <z-m> 2.00</z-m>
+  </center>
+ </animation>
+
+ <animation>
+  <enable-hot type="bool">false</enable-hot>
+ </animation>
+
+ <animation>
+  <type>range</type>
+  <min-m>0</min-m>
+  <max-m>5000</max-m>
+ </animation>
+
+</PropertyList>

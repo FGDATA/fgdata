@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<path>cumulus_small3.ac</path>
+
+	<animation>
+		<type>material</type>
+		<object-name>rect1</object-name>
+		<object-name>rect2</object-name>
+		<emission>
+			<factor>0.5</factor>
+			<red-prop>/rendering/scene/diffuse/red</red-prop>
+			<green-prop>/rendering/scene/diffuse/green</green-prop>
+			<blue-prop>/rendering/scene/diffuse/blue</blue-prop>
+		</emission>
+	</animation>
+
+
+	<animation>
+		<type>rotate</type>
+		<property>orientation/theta-deg</property>
+		<factor>1.0</factor>
+		<axis>
+			<x>1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<property>orientation/phi-deg</property>
+		<factor>1.0</factor>
+		<axis>
+			<x>0</x>
+			<y>0</y>
+			<z>1</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<object-name>rect1</object-name>
+		<object-name>rect2</object-name>
+		<enable-hot type="bool">false</enable-hot>
+	</animation>
+
+	<effect>
+		<inherits-from>Effects/cloud-models</inherits-from>
+		<object-name>rect1</object-name>
+		<object-name>rect2</object-name>
+	</effect>
+
+</PropertyList>

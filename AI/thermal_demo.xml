@@ -1,0 +1,216 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+ <scenario>
+  <name>Thermals above KSFO (San Francisco)</name>
+  <description>
+     The &lt;height&gt; tag defines the upper limit of the thermal.
+     AI thermals have some limitations, i.e. they don't lean
+     downwind, they are only cylindrical in shape, they don't
+     interact with the terrain or weather. They work with JSBSim and
+     YASim. Try using the sgs233 model or the Bocian for a good
+     demonstration.
+
+     Dave Culp, davidculp2 at comcast.net
+     updated by Heiko Schulz, Heiko.H.Schulz@gmyx.net
+  </description>
+ 
+<!-- ########################################## -->
+<!-- THERMALS                                   -->
+<!-- ########################################## -->
+
+  <entry>
+   <!-- Location:  tower at KSFO -->
+   <type>thermal</type>
+   <latitude>37.61633</latitude>
+   <longitude>-122.38334</longitude>
+   <strength-fps>13.49</strength-fps>
+   <diameter-ft>4800.0</diameter-ft>
+   <height-msl>6000</height-msl>
+   <model>Models/Geometry/thermalcap.xml</model>
+  </entry>
+
+  <entry>
+   <!-- Location:  Oracle campus -->
+   <type>thermal</type>
+   <latitude>37.531</latitude>
+   <longitude>-122.2639</longitude>
+   <strength-fps>13.49</strength-fps>
+   <diameter-ft>4800.0</diameter-ft>
+   <height-msl>6000</height-msl>
+   <model>Models/Geometry/thermalcap.xml</model>
+  </entry>
+
+  <entry>
+   <!-- Location:  Stadium (Candlestick Park) -->
+   <type>thermal</type>
+   <latitude>37.7157</latitude>
+   <longitude>-122.3838</longitude>
+   <strength-fps>13.49</strength-fps>
+   <diameter-ft>4800.0</diameter-ft>
+   <height-msl>6000</height-msl>
+   <model>Models/Geometry/thermalcap.xml</model>
+  </entry>
+
+  <entry>
+   <!-- Location:  Downtown San Francisco -->
+   <type>thermal</type>
+   <latitude>37.79</latitude>
+   <longitude>-122.397</longitude>
+   <strength-fps>13.49</strength-fps>
+   <diameter-ft>4800.0</diameter-ft>
+   <height-msl>6000</height-msl>
+   <model>Models/Geometry/thermalcap.xml</model>
+  </entry>
+
+  <entry>
+   <!-- Location:  West San Francisco -->
+   <type>thermal</type>
+   <latitude>37.757</latitude>
+   <longitude>-122.478</longitude>
+   <strength-fps>13.49</strength-fps>
+   <diameter-ft>4800.0</diameter-ft>
+   <height-msl>6000</height-msl>
+   <model>Models/Geometry/thermalcap.xml</model>
+  </entry>
+
+  <entry>
+   <!-- Location:  KOAK -->
+   <type>thermal</type>
+   <latitude>37.72021</latitude>
+   <longitude>-122.21745</longitude>
+   <strength-fps>13.49</strength-fps>
+   <diameter-ft>4800.0</diameter-ft>
+   <height-msl>6000</height-msl>
+   <model>Models/Geometry/thermalcap.xml</model>
+  </entry>
+
+  <entry>
+   <!-- Location:  Oakland Shipyards -->
+   <type>thermal</type>
+   <latitude>37.80577</latitude>
+   <longitude>-122.30173</longitude>
+   <strength-fps>13.49</strength-fps>
+   <diameter-ft>4800.0</diameter-ft>
+   <height-msl>6000</height-msl>
+   <model>Models/Geometry/thermalcap.xml</model>
+  </entry>
+
+  <entry>
+   <!-- Location:  ? -->
+   <type>thermal</type>
+   <latitude>37.4112</latitude>
+   <longitude>-122.09064</longitude>
+   <strength-fps>13.49</strength-fps>
+   <diameter-ft>4800.0</diameter-ft>
+   <height-msl>6000</height-msl>
+   <model>Models/Geometry/thermalcap.xml</model>
+  </entry>
+
+  <entry>
+   <!-- Location:  ? -->
+   <type>thermal</type>
+   <latitude>37.4269</latitude>
+   <longitude>-121.9278</longitude>
+   <strength-fps>13.49</strength-fps>
+   <diameter-ft>4800.0</diameter-ft>
+   <height-msl>6000</height-msl>
+   <model>Models/Geometry/thermalcap.xml</model>
+  </entry>
+
+  <entry>
+   <!-- Location:  ? -->
+   <type>thermal</type>
+   <latitude>37.55953</latitude>
+   <longitude>-122.03683</longitude>
+   <strength-fps>13.49</strength-fps>
+   <diameter-ft>4800.0</diameter-ft>
+   <height-msl>6000</height-msl>
+   <model>Models/Geometry/thermalcap.xml</model>
+  </entry>
+
+  <entry>
+   <!-- Location:  ? -->
+   <type>thermal</type>
+   <latitude>37.5715</latitude>
+   <longitude>-122.33306</longitude>
+   <strength-fps>6</strength-fps>
+   <diameter-ft>10000.0</diameter-ft>
+   <height-msl>6000</height-msl>
+   <model>Models/Geometry/thermalcap.xml</model>
+  </entry>
+
+<!-- ########################################## -->
+<!-- SINKS                                      -->
+<!-- ########################################## -->
+
+  <entry>
+   <!-- Location:  ? -->
+   <type>thermal</type>
+   <latitude>37.6036</latitude>
+   <longitude>-122.3477</longitude>
+   <strength-fps>-5</strength-fps>
+   <diameter-ft>10000.0</diameter-ft>
+   <height-msl>6000</height-msl>
+   <model>Models/Geometry/null.ac</model>
+  </entry>
+
+  <entry>
+   <!-- Location:  ? -->
+   <type>thermal</type>
+   <latitude>37.6971</latitude>
+   <longitude>-122.37445</longitude>
+   <strength-fps>-5</strength-fps>
+   <diameter-ft>10000.0</diameter-ft>
+   <height-msl>6000</height-msl>
+   <model>Models/Geometry/null.ac</model>
+  </entry>
+
+  <entry>
+   <!-- Location:  ? -->
+   <type>thermal</type>
+   <latitude>37.794041</latitude>
+   <longitude>-122.36</longitude>
+   <strength-fps>-5</strength-fps>
+   <diameter-ft>10000.0</diameter-ft>
+   <height-msl>6000</height-msl>
+   <model>Models/Geometry/null.ac</model>
+  </entry>
+
+  <entry>
+   <!-- Location:  ? -->
+   <type>thermal</type>
+   <latitude>37.47733</latitude>
+   <longitude>-122.0978</longitude>
+   <strength-fps>-5</strength-fps>
+   <diameter-ft>10000.0</diameter-ft>
+   <height-msl>6000</height-msl>
+   <model>Models/Geometry/null.ac</model>
+  </entry>
+
+  <entry>
+   <!-- Location:  ? -->
+   <type>thermal</type>
+   <latitude>37.6768</latitude>
+   <longitude>-122.29464</longitude>
+   <strength-fps>-5</strength-fps>
+   <diameter-ft>10000.0</diameter-ft>
+   <height-msl>6000</height-msl>
+   <model>Models/Geometry/null.ac</model>
+  </entry>
+
+  <entry>
+   <!-- Location:  ? -->
+   <type>thermal</type>
+   <latitude>37.6368</latitude>
+   <longitude>-122.1859</longitude>
+   <strength-fps>-5</strength-fps>
+   <diameter-ft>10000.0</diameter-ft>
+   <height-msl>6000</height-msl>
+   <model>Models/Geometry/null.ac</model>
+  </entry>
+
+ </scenario>
+
+</PropertyList>

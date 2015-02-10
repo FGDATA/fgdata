@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<PropertyList>
+  <description>Boeing 717</description>
+  <author>Brett Harrison</author>
+  <path>Models/717.ac</path>
+
+       <animation>
+		<type>select</type>
+		<object-name>gear</object-name>
+		<condition>
+			<less-than>
+				<property>velocities/true-airspeed-kt</property>
+				<value>155</value>
+			</less-than>
+		</condition>
+	</animation>
+  
+</PropertyList>

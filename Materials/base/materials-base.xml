@@ -1,0 +1,489 @@
+<?xml version="1.0"?>
+<!--
+  FlightGear Materials File. See Docs/README.materials for details.
+
+  This file contains material definitions and settings shared across
+  all material definition file. It is intended to be included within
+  materials.xml etc. using an include="Materials/materials-base.xml"
+  attribute
+
+-->
+
+<PropertyList>
+
+ <!--
+Shared parameters for various materials.
+-->
+ <params>
+  <forest>
+    <!-- Maximum distance from which all trees are visible. -->
+    <!-- Some trees will be visible to twice this range  -->
+    <tree-range-m>8000</tree-range-m>
+  </forest>
+  <building>     
+    <!-- Maximum distance from which all buildings are visible -->
+    <!-- Some buildings will be visible to twice this range. -->
+    <building-range-m>10000</building-range-m>
+  </building>  
+ </params>
+
+ <!-- Signage -->
+
+<material n="1000">
+  <name>lf_sng_solid_yellow</name>
+  <effect>Effects/lfeat</effect>
+  <texture>Runway/lf_sng_solid_yellow.png</texture>
+</material>
+
+<material n="1001">
+  <name>lf_sng_broken_yellow</name>
+  <effect>Effects/lfeat</effect>
+  <texture>Runway/lf_sng_broken_yellow.png</texture>
+</material>
+
+<material n="1002">
+  <name>lf_dbl_solid_yellow</name>
+  <effect>Effects/lfeat</effect>
+  <texture>Runway/lf_dbl_solid_yellow.png</texture>
+</material>
+
+<material n="1003">
+  <name>lf_runway_hold</name>
+  <effect>Effects/lfeat</effect>
+  <texture>Runway/lf_runway_hold.png</texture>
+</material>
+
+<material n="1004">
+  <name>lf_sng_broken_yellow</name>
+  <effect>Effects/lfeat</effect>
+  <texture>Runway/lf_sng_broken_yellow.png</texture>
+</material>
+
+<material n="1005">
+  <name>lf_ils_hold</name>
+  <effect>Effects/lfeat</effect>
+  <texture>Runway/lf_ils_hold.png</texture>
+</material>
+
+<material n="1006">
+  <name>lf_safetyzone_centerline</name>
+  <effect>Effects/lfeat</effect>
+  <texture>Runway/lf_safetyzone_centerline.png</texture>
+</material>
+
+<material n="1007">
+  <name>lf_sng_lane_queue</name>
+  <effect>Effects/lfeat</effect>
+  <texture>Runway/lf_sng_lane_queue.png</texture>
+</material>
+
+<material n="1008">
+  <name>lf_dbl_lane_queue</name>
+  <effect>Effects/lfeat</effect>
+  <texture>Runway/lf_dbl_lane_queue.png</texture>
+</material>
+
+<material n="1009">
+  <name>lf_sng_solid_yellow_border</name>
+  <effect>Effects/lfeat</effect>
+  <texture>Runway/lf_sng_solid_yellow_border.png</texture>
+</material>
+
+<material n="1010">
+  <name>lf_sng_broken_yellow_border</name>
+  <effect>Effects/lfeat</effect>
+  <texture>Runway/lf_sng_broken_yellow_border.png</texture>
+</material>
+
+<material n="1011">
+  <name>lf_dbl_solid_yellow_border</name>
+  <effect>Effects/lfeat</effect>
+  <texture>Runway/lf_dbl_solid_yellow_border.png</texture>
+</material>
+
+<material n="1012">
+  <name>lf_runway_hold_border</name>
+  <effect>Effects/lfeat</effect>
+  <texture>Runway/lf_runway_hold_border.png</texture>
+</material>
+
+<material n="1013">
+  <name>lf_other_hold_border</name>
+  <effect>Effects/lfeat</effect>
+  <texture>Runway/lf_other_hold_border.png</texture>
+</material>
+
+<material n="1014">
+  <name>lf_other_hold</name>
+  <effect>Effects/lfeat</effect>
+  <texture>Runway/lf_other_hold.png</texture>
+</material>
+
+<material n="1015">
+  <name>lf_ils_hold_border</name>
+  <effect>Effects/lfeat</effect>
+  <texture>Runway/lf_ils_hold_border.png</texture>
+</material>
+
+<material n="1016">
+  <name>lf_safetyzone_centerline_border</name>
+  <effect>Effects/lfeat</effect>
+  <texture>Runway/lf_safetyzone_centerline_border.png</texture>
+</material>
+
+<material n="1017">
+  <name>lf_sng_lane_queue_border</name>
+  <effect>Effects/lfeat</effect>
+  <texture>Runway/lf_sng_lane_queue_border.png</texture>
+</material>
+
+<material n="1018">
+  <name>lf_dbl_lane_queue_border</name>
+  <effect>Effects/lfeat</effect>
+  <texture>Runway/lf_dbl_lane_queue_border.png</texture>
+</material>
+
+<material n="1019">
+  <name>lf_sng_solid_white</name>
+  <effect>Effects/lfeat</effect>
+  <texture>Runway/lf_sng_solid_white.png</texture>
+</material>
+
+<material n="1020">
+  <name>lf_checkerboard_white</name>
+  <effect>Effects/lfeat</effect>
+  <texture>Runway/lf_checkerboard_white.png</texture>
+</material>
+
+<material n="1021">
+  <name>lf_broken_white</name>
+  <effect>Effects/lfeat</effect>
+  <texture>Runway/lf_broken_white.png</texture>
+</material>
+
+<!-- Lights -->
+
+<material n="1101">
+  <name>RUNWAY_LIGHTS</name>
+  <emissive>
+    <r>0.92157</r>
+    <g>0.92157</g>
+    <b>0.76471</b>
+    <a>1.0</a>
+  </emissive>
+</material>
+
+<material n="1102">
+  <name>RWY_LIGHTS</name>
+  <emissive>
+    <r>0.92157</r>
+    <g>0.92157</g>
+    <b>0.76471</b>
+    <a>1.0</a>
+  </emissive>
+</material>
+
+<material n="1103">
+  <name>RWY_WHITE_LIGHTS</name>
+  <emissive>
+    <r>0.92157</r>
+    <g>0.92157</g>
+    <b>0.76471</b>
+    <a>1.0</a>
+  </emissive>
+</material>
+
+<material n="1104">
+  <name>RWY_WHITE_MEDIUM_LIGHTS</name>
+  <emissive>
+    <r>0.92157</r>
+    <g>0.92157</g>
+    <b>0.76471</b>
+    <a>0.80392</a>
+  </emissive>
+</material>
+
+<material n="1105">
+  <name>RWY_WHITE_LOW_LIGHTS</name>
+  <emissive>
+    <r>0.92157</r>
+    <g>0.92157</g>
+    <b>0.76471</b>
+    <a>0.60784</a>
+  </emissive>
+</material>
+
+<material n="1106">
+  <name>RWY_SEQUENCED_LIGHTS</name>
+  <emissive>
+    <r>0.92157</r>
+    <g>0.92157</g>
+    <b>0.76471</b>
+    <a>1.0</a>
+  </emissive>
+</material>
+
+<material n="1107">
+  <name>RWY_REIL_LIGHTS</name>
+  <emissive>
+    <r>0.92157</r>
+    <g>0.92157</g>
+    <b>0.76471</b>
+    <a>1.0</a>
+  </emissive>
+</material>
+
+<material n="1108">
+  <name>RWY_YELLOW_LIGHTS</name>
+  <name>RWY_YELLOW_PULSE_LIGHTS</name>
+  <name>RWY_GUARD_LIGHTS</name>
+  <emissive>
+    <r>0.92157</r>
+    <g>0.84314</g>
+    <b>0.078431</b>
+    <a>1.0</a>
+  </emissive>
+</material>
+
+<material n="1109">
+  <name>RWY_YELLOW_MEDIUM_LIGHTS</name>
+  <emissive>
+    <r>0.92157</r>
+    <g>0.84314</g>
+    <b>0.078431</b>
+    <a>0.80392</a>
+  </emissive>
+</material>
+
+<material n="1110">
+  <name>RWY_YELLOW_LOW_LIGHTS</name>
+  <emissive>
+    <r>0.92157</r>
+    <g>0.84314</g>
+    <b>0.078431</b>
+    <a>0.60784</a>
+  </emissive>
+</material>
+
+<material n="1111">
+  <name>RWY_RED_LIGHTS</name>
+  <emissive>
+    <r>0.92157</r>
+    <g>0.35294</g>
+    <b>0.35294</b>
+    <a>1.0</a>
+  </emissive>
+</material>
+
+<material n="1112">
+  <name>RWY_RED_MEDIUM_LIGHTS</name>
+  <emissive>
+    <r>0.92157</r>
+    <g>0.35294</g>
+    <b>0.35294</b>
+    <a>0.80392</a>
+  </emissive>
+</material>
+
+<material n="1113">
+  <name>RWY_RED_LOW_LIGHTS</name>
+  <emissive>
+    <r>0.92157</r>
+    <g>0.35294</g>
+    <b>0.35294</b>
+    <a>0.60784</a>
+  </emissive>
+</material>
+
+<material n="1114">
+  <name>RWY_GREEN_LIGHTS</name>
+  <emissive>
+    <r>0.078431</r>
+    <g>0.92157</g>
+    <b>0.078431</b>
+    <a>1.0</a>
+  </emissive>
+</material>
+
+<material n="1115">
+  <name>RWY_GREEN_MEDIUM_LIGHTS</name>
+  <emissive>
+    <r>0.078431</r>
+    <g>0.92157</g>
+    <b>0.078431</b>
+    <a>0.80392</a>
+  </emissive>
+</material>
+
+<material n="1116">
+  <name>RWY_GREEN_LOW_LIGHTS</name>
+  <emissive>
+    <r>0.078431</r>
+    <g>0.92157</g>
+    <b>0.078431</b>
+    <a>0.60784</a>
+  </emissive>
+</material>
+
+<material n="1117">
+  <name>RWY_GREEN_TAXIWAY_LIGHTS</name>
+  <emissive>
+    <r>0.078431</r>
+    <g>0.92157</g>
+    <b>0.078431</b>
+    <a>0.60784</a>
+  </emissive>
+</material>
+
+<material n="1118">
+  <name>RWY_BLUE_TAXIWAY_LIGHTS</name>
+  <emissive>
+    <r>0.35294</r>
+    <g>0.35294</g>
+    <b>0.92157</b>
+    <a>0.80392</a>
+  </emissive>
+</material>
+
+<material n="1119">
+  <name>RWY_VASI_LIGHTS</name>
+  <emissive>
+    <r>0.92157</r>
+    <g>0.92157</g>
+    <b>0.76471</b>
+    <a>1.0</a>
+  </emissive>
+</material>
+
+<!-- Shared material definitions -->
+
+<material n="2001">
+  <name>Unknown</name>
+  <texture>Terrain/unknown.png</texture>
+  <xsize>1000</xsize>
+  <ysize>1000</ysize>
+  <rolling-friction>0.1</rolling-friction>
+  <bumpiness>0.1</bumpiness>
+</material>
+
+<material n="2002">
+  <name>PackIce</name>
+  <texture>Terrain/packice1.png</texture>
+  <texture>Terrain/packice2.png</texture>
+  <xsize>2000</xsize>
+  <ysize>2000</ysize>
+  <shininess>1.5</shininess>
+  <rolling-friction>0.005</rolling-friction>
+  <friction-factor>0.2</friction-factor>
+  <bumpiness>0.3</bumpiness>
+</material>
+
+<material n="2003">
+  <name>Glacier</name>
+  <name>PolarIce</name>
+  <effect>Effects/glacier</effect>
+  <texture-set>
+   <texture>Terrain/glacier3.png</texture>
+   <texture n="11">Terrain/snow2.png</texture>
+   <texture n="12">Terrain/glacier1.png</texture>
+  </texture-set>
+  <xsize>2000</xsize>
+  <ysize>2000</ysize>
+  <shininess>1.5</shininess>
+  <rolling-friction>0.1</rolling-friction>
+  <friction-factor>0.2</friction-factor>
+  <bumpiness>0.5</bumpiness>
+</material>
+
+<material n="2004">
+  <name>SnowCover</name>
+  <texture>Terrain/snow1.png</texture>
+  <texture>Terrain/snow2.png</texture>
+  <texture>Terrain/snow3.png</texture>
+  <texture>Terrain/snow4.png</texture>
+  <xsize>2000</xsize>
+  <ysize>2000</ysize>
+  <shininess>1.2</shininess>
+  <rolling-friction>0.15</rolling-friction>
+  <friction-factor>0.3</friction-factor>
+  <bumpiness>0.1</bumpiness>
+</material>
+
+<material n="2007">
+  <name>Lava</name>
+  <name>Burnt</name>
+  <texture>Terrain/lava1.png</texture>
+  <texture>Terrain/lava2.png</texture>
+  <texture>Terrain/lava3.png</texture>
+  <xsize>2000</xsize>
+  <ysize>2000</ysize>
+  <solid>1</solid>
+  <friction-factor>0.9</friction-factor>
+  <rolling-friction>0.1</rolling-friction>
+  <bumpiness>0.3</bumpiness>
+</material>
+
+<material n="2008">
+  <name>Asphalt</name>
+  <texture>Terrain/asphalt.png</texture>
+  <xsize>400</xsize>
+  <ysize>400</ysize>
+  <solid>1</solid>
+  <friction-factor>1.0</friction-factor>
+  <rolling-friction>0.02</rolling-friction>
+  <bumpiness>0.01</bumpiness>
+  <load-resistance>1e10</load-resistance>
+</material>
+
+<material n="2009">
+  <name>Freeway</name>
+  <name>Road</name>
+  <texture>Terrain/asphalt.png</texture>
+  <xsize>400</xsize>
+  <ysize>400</ysize>
+  <light-coverage>10000.0</light-coverage>
+  <solid>1</solid>
+  <friction-factor>1.0</friction-factor>
+  <rolling-friction>0.02</rolling-friction>
+  <bumpiness>0.01</bumpiness>
+  <load-resistance>1e10</load-resistance>
+</material>
+
+<material n="2010">
+  <name>Railroad</name>
+  <name>Transport</name>
+  <name>Gravel</name>
+  <texture>Terrain/gravel.png</texture>
+  <xsize>400</xsize>
+  <ysize>400</ysize>
+  <light-coverage>1000000.0</light-coverage>
+  <solid>1</solid>
+  <friction-factor>0.5</friction-factor>
+  <rolling-friction>0.04</rolling-friction>
+  <bumpiness>0.5</bumpiness>
+  <load-resistance>1e10</load-resistance>
+</material>
+
+<!-- Taxiway signs -->
+    <material n="2100">
+        <name>signcase</name>
+        <texture>Signs/signs_case.png</texture>
+        <effect>Effects/terrain-default</effect>
+        <ambient>
+            <r>1.0</r>
+            <g>1.0</g>
+            <b>1.0</b>
+        </ambient>
+        <glyph>
+            <name>cover1</name>
+            <left>0.000</left>
+            <right>0.625</right>
+        </glyph>
+        <glyph>
+            <name>cover2</name>
+            <left>0.625</left>
+            <right>0.000</right>
+        </glyph>
+    </material>
+
+</PropertyList>

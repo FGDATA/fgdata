@@ -1,0 +1,382 @@
+<?xml version="1.0"?>
+<!-- Port Coaming Panel -->
+<PropertyList>
+	<path>../../../../Aircraft/Buccaneer/Instruments/port_coaming_panel.ac</path>
+
+	<!-- Tail flap pos indicator -->
+	<animation>
+		<type>rotate</type>
+		<object-name>tailflap-disk</object-name>
+		<property>/surface-positions/tail-flaps-pos-norm</property>
+		<factor>-180</factor>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+		<center>
+			<x-m>-0.00915176</x-m>
+			<y-m>0.0266537</y-m>
+			<z-m>-0.00271117</z-m>
+		</center>
+	</animation>
+
+	<!-- Flaps pos indicator -->
+	<animation>
+		<type>rotate</type>
+		<object-name>flap-disk</object-name>
+		<property>/surface-positions/flap-pos-norm</property>
+		<factor>180</factor>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+		<center>
+			<x-m>-0.009149</x-m>
+			<y-m>0.000781615</y-m>
+			<z-m>-0.0346665</z-m>
+		</center>
+	</animation>
+
+	<!-- Aileron droop indicator -->
+	<animation>
+		<type>rotate</type>
+		<object-name>aildroop-disk</object-name>
+		<property>/controls/flight/aileron-droop</property>
+		<factor>180</factor>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+		<center>
+			<x-m>-0.009149</x-m>
+			<y-m>0.0260966</y-m>
+			<z-m>-0.0346665</z-m>
+		</center>
+	</animation>
+
+	<!-- Flags -->
+	<animation>
+		<type>select</type>
+		<object-name>flap-disk-off</object-name>
+		<object-name>aildroop-disk-off</object-name>
+		<object-name>tailflap-disk-off</object-name>
+		<condition>
+			<less-than>
+				<property>/systems/electrical/outputs/flight-instruments</property>
+				<value>113</value>
+			</less-than>
+		</condition>
+	</animation>
+	
+	 <!--Blow Indicator Port-->
+	<animation>
+		<type>rotate</type>
+		<object-name>blind1-p</object-name>
+		<property>/systems/air-bleed/shut-off-valves/shut-off-valve[0]/pos-norm</property>
+		<interpolation>
+			<entry>
+				<ind>0.20</ind>
+				<dep>-120</dep>
+			</entry>
+			<entry>
+				<ind>0.21</ind>
+				<dep>0</dep>
+			</entry>
+			<entry>
+				<ind>0.48</ind>
+				<dep>0</dep>
+			</entry>
+			<entry>
+				<ind>0.49</ind>
+				<dep>120</dep>
+			</entry>
+		</interpolation>
+		<!---0.0073183	0.00060291	0.0175447-->
+
+		<center>
+			<x-m>-0.0073183</x-m>
+			<y-m>-0.0175447</y-m>
+			<z-m>0</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>0</y>
+			<z>-1</z>
+		</axis>
+	</animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>blind2-p</object-name>
+		<property>/systems/air-bleed/shut-off-valves/shut-off-valve[0]/pos-norm</property>
+		<interpolation>
+			<entry>
+				<ind>0.20</ind>
+				<dep>-120</dep>
+			</entry>
+			<entry>
+				<ind>0.21</ind>
+				<dep>0</dep>
+			</entry>
+			<entry>
+				<ind>0.48</ind>
+				<dep>0</dep>
+			</entry>
+			<entry>
+				<ind>0.49</ind>
+				<dep>120</dep>
+			</entry>
+		</interpolation>
+		<!---0.0073183	0.00060291	0.0141437-->
+		<center>
+			<x-m>-0.0073183</x-m>
+			<y-m>-0.0141437</y-m>
+			<z-m>0</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>0</y>
+			<z>-1</z>
+		</axis>
+	</animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>blind3-p</object-name>
+		<property>/systems/air-bleed/shut-off-valves/shut-off-valve[0]/pos-norm</property>
+		<interpolation>
+			<entry>
+				<ind>0.20</ind>
+				<dep>-120</dep>
+			</entry>
+			<entry>
+				<ind>0.21</ind>
+				<dep>0</dep>
+			</entry>
+			<entry>
+				<ind>0.48</ind>
+				<dep>0</dep>
+			</entry>
+			<entry>
+				<ind>0.49</ind>
+				<dep>120</dep>
+			</entry>
+		</interpolation>
+		<!---0.0073183	0.00060291	0.0107297-->
+
+		<center>
+			<x-m>-0.0073183</x-m>
+			<y-m>-0.0107297</y-m>
+			<z-m>0</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>0</y>
+			<z>-1</z>
+		</axis>
+	</animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>blind4-p</object-name>
+		<property>/systems/air-bleed/shut-off-valves/shut-off-valve[0]/pos-norm</property>
+		<interpolation>
+			<entry>
+				<ind>0.20</ind>
+				<dep>-120</dep>
+			</entry>
+			<entry>
+				<ind>0.21</ind>
+				<dep>0</dep>
+			</entry>
+			<entry>
+				<ind>0.48</ind>
+				<dep>0</dep>
+			</entry>
+			<entry>
+				<ind>0.49</ind>
+				<dep>120</dep>
+			</entry>
+		</interpolation>
+		<!---0.0073183	0.00060291	0.00730193-->
+
+		<center>
+			<x-m>-0.0073183</x-m>
+			<y-m>-0.00730193</y-m>
+			<z-m>0</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>0</y>
+			<z>-1</z>
+		</axis>
+	</animation>
+
+	
+
+	<!--Blow Indicator Stbd-->
+	<animation>
+		<type>rotate</type>
+		<object-name>blind1-s</object-name>
+		<property>/systems/air-bleed/shut-off-valves/shut-off-valve[1]/pos-norm</property>
+		<interpolation>
+			<entry>
+				<ind>0.20</ind>
+				<dep>-120</dep>
+			</entry>
+			<entry>
+				<ind>0.21</ind>
+				<dep>0</dep>
+			</entry>
+			<entry>
+				<ind>0.48</ind>
+				<dep>0</dep>
+			</entry>
+			<entry>
+				<ind>0.49</ind>
+				<dep>120</dep>
+			</entry>
+		</interpolation>
+<!-- -0.0073183	0.00060291	-0.00124129-->
+		<center>
+			<x-m>-0.0073183</x-m>
+			<y-m>0.00124129</y-m>
+			<z-m>0</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>0</y>
+			<z>-1</z>
+		</axis>
+	</animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>blind2-s</object-name>
+		<property>/systems/air-bleed/shut-off-valves/shut-off-valve[1]/pos-norm</property>
+		<interpolation>
+			<entry>
+				<ind>0.20</ind>
+				<dep>-120</dep>
+			</entry>
+			<entry>
+				<ind>0.21</ind>
+				<dep>0</dep>
+			</entry>
+			<entry>
+				<ind>0.48</ind>
+				<dep>0</dep>
+			</entry>
+			<entry>
+				<ind>0.49</ind>
+				<dep>120</dep>
+			</entry>
+		</interpolation>
+		<!---0.0073183	0.00060291	-0.00464129-->
+
+		<center>
+			<x-m>-0.0073183</x-m>
+			<y-m>0.00464129</y-m>
+			<z-m>0</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>0</y>
+			<z>-1</z>
+		</axis>
+	</animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>blind3-s</object-name>
+		<property>/systems/air-bleed/shut-off-valves/shut-off-valve[1]/pos-norm</property>
+		<interpolation>
+			<entry>
+				<ind>0.20</ind>
+				<dep>-120</dep>
+			</entry>
+			<entry>
+				<ind>0.21</ind>
+				<dep>0</dep>
+			</entry>
+			<entry>
+				<ind>0.48</ind>
+				<dep>0</dep>
+			</entry>
+			<entry>
+				<ind>0.49</ind>
+				<dep>120</dep>
+			</entry>
+		</interpolation>
+		<!---0.0073183	0.00060291	-0.00805531-->
+
+		<center>
+			<x-m>-0.0073183</x-m>
+			<y-m>0.00805531</y-m>
+			<z-m>0</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>0</y>
+			<z>-1</z>
+		</axis>
+	</animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>blind4-s</object-name>
+		<property>/systems/air-bleed/shut-off-valves/shut-off-valve[1]/pos-norm</property>
+		<interpolation>
+			<entry>
+				<ind>0.20</ind>
+				<dep>-120</dep>
+			</entry>
+			<entry>
+				<ind>0.21</ind>
+				<dep>0</dep>
+			</entry>
+			<entry>
+				<ind>0.48</ind>
+				<dep>0</dep>
+			</entry>
+			<entry>
+				<ind>0.49</ind>
+				<dep>120</dep>
+			</entry>
+		</interpolation>
+		<!---0.0073183	0.00060291	-0.0114873-->
+
+		<center>
+			<x-m>-0.0073183</x-m>
+			<y-m>0.0114873</y-m>
+			<z-m>0</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>0</y>
+			<z>-1</z>
+		</axis>
+	</animation>
+	
+	<!-- Panel Lighting -->
+	<animation>
+		<type>material</type>
+		<object-name>lighting-group</object-name>
+		<emission>
+			<factor-prop>/systems/electrical/outputs/instrument-lighting</factor-prop>
+			<red>0.03125</red>
+			<green>0.0089</green>
+			<blue>0.0089</blue>
+		</emission>
+	</animation>
+
+	<!-- Noshadow -->
+	<animation>
+		<type>noshadow</type>
+	</animation>
+
+	<!-- *** LoD *** -->
+	<animation>
+		<type>range</type>
+		<min-m>0</min-m>
+		<max-m>5</max-m>
+	</animation>
+
+</PropertyList>

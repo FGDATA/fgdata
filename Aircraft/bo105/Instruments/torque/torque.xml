@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<path>torque.ac</path>
+	<animation>
+		<type>rotate</type>
+		<object-name>Lneedle</object-name>
+		<property>sim/model/bo105/torque-pct</property>
+		<interpolation>
+			<entry><ind>0</ind><dep>-205</dep></entry>
+			<entry><ind>60</ind><dep>-90</dep></entry>
+			<entry><ind>120</ind><dep>25</dep></entry>
+		</interpolation>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>Rneedle</object-name>
+		<property>sim/model/bo105/torque-pct</property>
+		<interpolation>
+			<entry><ind>0</ind><dep>-205</dep></entry>
+			<entry><ind>60</ind><dep>-90</dep></entry>
+			<entry><ind>120</ind><dep>25</dep></entry>
+		</interpolation>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+</PropertyList>

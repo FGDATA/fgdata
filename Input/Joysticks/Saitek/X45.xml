@@ -1,0 +1,336 @@
+<?xml version="1.0"?>
+<!--
+Only a few stick controls have been mapped here:
+ + "Rocker" switch:     Rudder
+ + Top rotary dial:     Mixture
+ + Bottom rotary dial:  Prop Advance
+ + Top stick hat:       Elevator & Aileron trim
+ + Bottom stick hat:    View direction
+ + Top throttle hat:    Flaps & Rudder trim
+ + Stick button "A":    Gear toggle
+ + Stick button "C":    Reset view (hackish)
+
+Linux/Windows/Mac Axis Numbers:
+  0   	Roll (positive == right) 
+  1  	Pitch (positive == down/back/nose-up)
+  2/5/5 top "rotary dial" on the throttle (positive == CCW)
+  3   	Rocker switch ("rudder" control) on the throttle (positive == right)
+  4/2/2 Throttle (positive == back/down/idle)
+  5/4/4 Bottom "rotary dial" on the throttle (positive == CW)
+  	Strange this axis doesn't seem to exist on Mac OS X!
+  6/6/6 Lower right hat horizontal axis (positive == right)
+  7/7/7 Lower right hat vertical axis (positive == down (Mac positive is UP))
+
+Button Numbers (Identical b/w Linux/Windows/Mac):
+ 0  Trigger
+ 1  Stick top "A" switch
+ 2  Stick top "B" switch
+ 3  Stick top "launch/fire" switch
+ 4  Throttle "D" switch
+ 5  Throttle "mouse" switch (tiny black thumb button)
+ 6  Stick "pinkie" switch
+ 7  Stick front "C" switch
+ 8  -+                                left position   ("M1")
+ 9   +- Throttle "mode" 3-way switch: middle position ("M2")
+10  -+                                right position  ("M3")
+11  -+                                left position
+12   +- Throttle "Aux" 3-way switch:  middle position
+13  -+                                right position
+14  Upper left hat in "up" position
+15  Upper left hat in "right" position
+16  Upper left hat in "down" position
+17  Upper left hat in "left" position
+18  Throttle forefinger hat in "up/back" position
+19  Throttle forefinger hat in "right" position
+20  Throttle forefinger hat in "down/forward" position
+21  Throttle forefinger hat in "left" position
+22  Throttle thumb hat in "up" position
+23  Throttle thumb hat in "right" position
+24  Throttle thumb hat in "down" position
+25  Throttle thumb hat in "left" position
+
+$Id$
+-->
+<PropertyList>
+ <name>Saitek X45</name>
+ <name>Saitek Saitek X45</name>
+ <name>Saitek X45 Flight Controller</name>
+ <name>Saitek X45 Flight Controller USB</name>
+ <name>Saitek X45 Flight Control Stick </name>
+ <name>Saitek Saitek X45 Flight Control Stick </name>
+
+ <axis n="0">
+  <desc>Aileron</desc>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/aileron</property>
+   <squared type="bool">true</squared>
+  </binding>
+ </axis>
+
+ <axis n="1">
+  <desc>Elevator</desc>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/elevator</property>
+   <factor type="double">-1.0</factor>
+   <squared type="bool">true</squared>
+  </binding>
+ </axis>
+
+ <axis n="3">
+  <desc>Rudder</desc>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/rudder</property>
+  </binding>
+
+  <binding>
+   <command>nasal</command>
+   <script><![CDATA[
+    # In mode 3 (taxiing), map the wheelbrakes
+    if(getprop("/input/joysticks/js[0]/saitek-x45-mode") == 3) {
+        val = cmdarg().getNode("setting").getValue();
+        setprop("/controls/gear/brake-left", 0);
+        setprop("/controls/gear/brake-right", 0);
+        if(val > 0) { setprop("/controls/gear/brake-right", val); }
+        else        { setprop("/controls/gear/brake-left", -val); }
+    }
+   ]]></script>
+  </binding>
+ </axis>
+
+ <!-- View Direction Hat -->
+
+ <axis n="6">
+  <number>
+   <unix>6</unix>
+   <mac>6</mac>
+   <windows>6</windows>
+  </number>
+  <desc>View Direction</desc>
+  <low>
+   <repeatable>true</repeatable>
+   <binding>
+    <command>nasal</command>
+    <script>view.panViewDir(1)</script>
+   </binding>
+  </low>
+  <high>
+   <repeatable>true</repeatable>
+   <binding>
+    <command>nasal</command>
+    <script>view.panViewDir(-1)</script>
+   </binding>
+  </high>
+ </axis>
+
+ <axis>
+  <desc>View Elevation</desc>
+  <number>
+   <unix>7</unix>
+   <mac>7</mac>
+   <windows>7</windows>
+  </number>
+  <low>
+   <repeatable>true</repeatable>
+   <binding>
+    <command>nasal</command>
+    <script>view.panViewPitch(1)</script>
+   </binding>
+  </low>
+  <high>
+   <repeatable>true</repeatable>
+   <binding>
+    <command>nasal</command>
+    <script>view.panViewPitch(-1)</script>
+   </binding>
+  </high>
+ </axis>
+
+ <axis>
+  <desc>Throttle</desc>
+  <number>
+   <unix>4</unix>
+   <mac>2</mac>
+   <windows>2</windows>
+  </number>
+  <binding>
+   <command>nasal</command>
+   <script>controls.throttleAxis()</script>
+  </binding>
+ </axis>
+
+ <axis>
+  <desc>Mixture</desc>
+  <number>
+   <unix>2</unix>
+   <mac>5</mac>
+   <windows>5</windows>
+  </number>
+  <binding>
+   <command>nasal</command>
+   <script>controls.mixtureAxis()</script>
+  </binding>
+ </axis>
+
+ <axis>
+  <desc>Propeller Advance</desc>
+  <number>
+   <unix>5</unix>
+   <mac>4</mac>
+   <windows>4</windows>
+  </number>
+  <binding>
+   <command>nasal</command>
+   <script>controls.propellerAxis(-1)</script>
+  </binding>
+ </axis>
+
+ <button n="7">
+  <desc>Reset View</desc>
+  <binding>
+   <command>nasal</command>
+   <script>view.resetView()</script>
+  </binding>
+ </button>
+
+ <button n="0">
+  <desc>Brakes</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.applyBrakes(1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.applyBrakes(0)</script>
+   </binding>
+  </mod-up>
+ </button>
+
+ <!-- Gear toggle on button A -->
+
+ <button n="1">
+  <desc>Landing Gear Up/Down Toggle</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.gearToggle()</script>
+  </binding>
+ </button>
+
+<!-- mode switch (buttons 8-10) -->
+
+ <button n="8">
+  <desc>Mode 1</desc>
+  <binding>
+   <command>nasal</command>
+   <script>setprop("/input/joysticks/js[0]/saitek-x45-mode", 1)</script>
+  </binding>
+ </button>
+
+ <button n="9">
+  <desc>Mode 2</desc>
+  <binding>
+   <command>nasal</command>
+   <script>setprop("/input/joysticks/js[0]/saitek-x45-mode", 2)</script>
+  </binding>
+ </button>
+
+ <button n="10">
+  <desc>Mode 3</desc>
+  <binding>
+   <command>nasal</command>
+   <script>setprop("/input/joysticks/js[0]/saitek-x45-mode", 3)</script>
+  </binding>
+ </button>
+
+ <!-- Trim (upper) hat on the stick -->
+
+ <button n="14">
+  <desc>Elevator trim down</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.elevatorTrim(1)</script>
+  </binding>
+ </button>
+
+ <button n="15">
+  <desc>Aileron trim right</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.aileronTrim(1)</script>
+  </binding>
+ </button>
+
+ <button n="16">
+  <desc>Elevator trim up</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.elevatorTrim(-1)</script>
+  </binding>
+ </button>
+
+ <button n="17">
+  <desc>Aileron trim left</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.aileronTrim(-1)</script>
+  </binding>
+ </button>
+
+ <!-- Flap control on the throttle upper hat -->
+
+ <button n="18">
+  <desc>Decrease flaps</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.flapsDown(-1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.flapsDown(0)</script>
+   </binding>
+  </mod-up>
+ </button>
+
+ <button n="20">
+  <desc>Increase flaps</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.flapsDown(1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.flapsDown(0)</script>
+   </binding>
+  </mod-up>
+ </button>
+
+ <!-- Rudder trim on the flap hat -->
+
+ <button n="19">
+  <desc>Rudder trim right</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.rudderTrim(1)</script>
+  </binding>
+ </button>
+
+ <button n="21">
+  <desc>Rudder trim left</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.rudderTrim(-1)</script>
+  </binding>
+ </button>
+
+</PropertyList>

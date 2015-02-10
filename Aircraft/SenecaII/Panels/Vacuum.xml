@@ -1,0 +1,155 @@
+<?xml version="1.0"?>
+
+<!--
+Vacuum.xml
+
+Gyro Pressure indicator for a SenecaII
+
+Torsten Dreyer torsten@t3r.de
+
+-->
+
+<PropertyList>
+
+    <name>Gyro Pressure Indicator</name>
+    <w-base>512</w-base>
+    <h-base>512</h-base>
+
+    <params>
+        <left>instrumentation/vacuum/inoperative[0]</left>
+        <right>instrumentation/vacuum/inoperative[1]</right>
+        <value>instrumentation/vacuum/suction-inhg</value>
+    </params>
+
+    <layers>
+
+        <layer>
+            <name>Face</name>
+            <w>440</w>
+            <h>440    </h>
+            <texture>
+                <path>Aircraft/SenecaII/Panels/Textures/Vacuum.png</path>
+                <x1>0.0</x1>
+                <x2>1.0</x2>
+                <y1>0.0</y1>
+                <y2>1.0</y2>
+            </texture>
+        </layer>
+
+        <layer>
+            <name>L/H Flag</name>
+            <condition>
+                <property alias="../../../../params/left"/>
+            </condition>
+            <w>44</w>
+            <h>44</h>
+            <texture>
+                <path>Aircraft/SenecaII/Panels/Textures/VacuumFlag.png</path>
+                <x1>0.0</x1>
+                <x2>1.0</x2>
+                <y1>0.0</y1>
+                <y2>1.0</y2>
+            </texture>
+            <transformations>
+              <transformation>
+                <type>y-shift</type>
+                <offset>-115</offset>
+              </transformation>
+              <transformation>
+                <type>x-shift</type>
+                <offset>-80</offset>
+              </transformation>
+            </transformations>
+        </layer>
+
+        <layer>
+            <name>R/H Flag</name>
+            <condition>
+                <property alias="../../../../params/right"/>
+            </condition>
+            <w>44</w>
+            <h>44    </h>
+            <texture>
+                <path>Aircraft/SenecaII/Panels/Textures/VacuumFlag.png</path>
+                <x1>0.0</x1>
+                <x2>1.0</x2>
+                <y1>0.0</y1>
+                <y2>1.0</y2>
+            </texture>
+            <transformations>
+              <transformation>
+                <type>y-shift</type>
+                <offset>-115</offset>
+              </transformation>
+              <transformation>
+                <type>x-shift</type>
+                <offset>80</offset>
+              </transformation>
+            </transformations>
+        </layer>
+
+        <layer>
+            <name>Needle</name>
+            <w>44</w>
+            <h>256</h>
+
+            <texture>
+                <path>Aircraft/Instruments/Textures/misc1.rgb</path>
+                <x1>0.71875</x1>
+                <x2>0.828125</x2>
+                <y1>0.46875</y1>
+                <y2>1.0</y2>
+            </texture>
+
+            <transformations>
+                <transformation>
+                    <type>y-shift</type>
+                    <offset>0</offset>
+                </transformation>
+                <transformation>
+                    <type>rotation</type>
+                    <property alias="../../../../../params/value"/>
+                    <scale>1.0</scale>
+                    <interpolation>
+                        <entry>
+                            <ind>0</ind>
+                            <dep>-90</dep>
+                        </entry>
+                        <entry>
+                            <ind>3.5</ind>
+                            <dep>-45</dep>
+                        </entry>
+                        <entry>
+                            <ind>6.5</ind>
+                            <dep>45</dep>
+                        </entry>
+                        <entry>
+                            <ind>15</ind>
+                            <dep>90</dep>
+                        </entry>
+                    </interpolation>
+                    <offset>0</offset>
+                </transformation>
+                <transformation>
+                    <type>y-shift</type>
+                    <offset>90</offset>
+                </transformation>
+            </transformations>
+        </layer>
+
+        <layer>
+            <name>Ring</name>
+            <w>512</w>
+            <h>512</h>
+            <texture>
+                <path>Aircraft/SenecaII/Panels/Textures/Ring.rgb</path>
+                <x1>0.0</x1>
+                <x2>1.0</x2>
+                <y1>0.0</y1>
+                <y2>1.0</y2>
+            </texture>
+        </layer>
+
+    </layers>
+
+</PropertyList>

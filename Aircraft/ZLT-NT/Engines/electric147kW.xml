@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!--
+
+  Zeppelin NT-07 airship flight model for JSBSim.
+
+    Copyright (C) 2008  Anders Gidenstam  (anders(at)gidenstam.org)
+    This file is licensed under the GPL license version 2 or later.
+-->
+<electric_engine name="electric">
+ <!-- This engine is used to drive the aft side-thruster.
+      In the real ship that thruster is powered by the aft main engine.
+ -->
+ <power unit="WATTS">  147000.0 </power>
+</electric_engine>

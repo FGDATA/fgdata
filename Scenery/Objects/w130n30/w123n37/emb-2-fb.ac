@@ -1,0 +1,1980 @@
+AC3Db
+MATERIAL "Material" rgb 1 1 1 amb 1 1 1 emis 0.1 0.1 0.1 spec 1 1 1 shi 72 trans 0
+MATERIAL "Material.001" rgb 0.3 0.3 0.3 amb 0.3 0.3 0.3 emis 0.1 0.1 0.1 spec 1 1 1 shi 72 trans 0
+MATERIAL "Material.002" rgb 0.5 0.5 0.5 amb 0.5 0.5 0.5 emis 0.1 0.1 0.1 spec 1 1 1 shi 72 trans 0
+OBJECT world
+kids 2
+OBJECT group
+name "Detailed"
+kids 75
+OBJECT poly
+name "Plane<u4v27>"
+texture "emb-cell-1.rgb"
+texrep 1 1
+numvert 8
+37 11.52 -4
+37 11.52 0
+-17 11.52 0
+-17 11.52 -4
+-17 114.5 -4
+-17 114.5 0
+37 114.5 0
+37 114.5 -4
+numsurf 2
+SURF 0x00
+mat 0
+refs 4
+0 4.0 0.0
+7 4.0 27.0
+6 0.0 27.0
+1 0.0 0.0
+SURF 0x00
+mat 0
+refs 4
+2 4.0 0.0
+5 4.0 27.0
+4 0.0 27.0
+3 0.0 0.0
+kids 0
+OBJECT poly
+name "Plane.001<u4v27>"
+texture "emb-cell-1.rgb"
+texrep 1 1
+numvert 8
+37 11.52 -9
+37 11.52 -5
+-21 11.52 -5
+-21 11.52 -9
+-21 114.500008 -9
+-21 114.500008 -5
+37 114.500008 -5
+37 114.500008 -9
+numsurf 2
+SURF 0x00
+mat 0
+refs 4
+0 4.0 0.0
+7 4.0 27.0
+6 0.0 27.0
+1 0.0 0.0
+SURF 0x00
+mat 0
+refs 4
+2 4.0 0.0
+5 4.0 27.0
+4 0.0 27.0
+3 0.0 0.0
+kids 0
+OBJECT poly
+name "Plane.002"
+numvert 8
+36 3.84 -5
+36 3.84 -4
+-16 3.84 -4
+-16 3.84 -5
+-16 115.5 -5
+-16 115.5 -4
+36 115.5 -4
+36 115.5 -5
+numsurf 5
+SURF 0x00
+mat 1
+refs 4
+0 0.0 1.0
+1 0.0 0.0
+2 1.0 0.0
+3 1.0 1.0
+SURF 0x00
+mat 1
+refs 4
+0 0.0 1.0
+7 0.0 0.0
+6 1.0 0.0
+1 1.0 1.0
+SURF 0x00
+mat 1
+refs 4
+1 0.0 1.0
+6 0.0 0.0
+5 1.0 0.0
+2 1.0 1.0
+SURF 0x00
+mat 1
+refs 4
+2 0.0 1.0
+5 0.0 0.0
+4 1.0 0.0
+3 1.0 1.0
+SURF 0x00
+mat 1
+refs 4
+7 0.0 1.0
+0 0.0 0.0
+3 1.0 0.0
+4 1.0 1.0
+kids 0
+OBJECT poly
+name "Plane.003<u4v29>"
+texture "emb-cell-1.rgb"
+texrep 1 1
+numvert 8
+35 11.52 -14
+35 11.52 -10
+-22 11.52 -10
+-22 11.52 -14
+-22 122.160004 -14
+-22 122.160004 -10
+35 122.160004 -10
+35 122.160004 -14
+numsurf 2
+SURF 0x00
+mat 0
+refs 4
+0 4.0 0.0
+7 4.0 29.0
+6 0.0 29.0
+1 0.0 0.0
+SURF 0x00
+mat 0
+refs 4
+2 4.0 0.0
+5 4.0 29.0
+4 0.0 29.0
+3 0.0 0.0
+kids 0
+OBJECT poly
+name "Plane.004<u4v29>"
+texture "emb-cell-1.rgb"
+texrep 1 1
+numvert 8
+35 11.52 -19
+35 11.52 -15
+-26 11.52 -15
+-26 11.52 -19
+-26 122.160004 -19
+-26 122.160004 -15
+35 122.160004 -15
+35 122.160004 -19
+numsurf 2
+SURF 0x00
+mat 0
+refs 4
+0 4.0 0.0
+7 4.0 29.0
+6 0.0 29.0
+1 0.0 0.0
+SURF 0x00
+mat 0
+refs 4
+2 4.0 0.0
+5 4.0 29.0
+4 0.0 29.0
+3 0.0 0.0
+kids 0
+OBJECT poly
+name "Plane.005<u4v27>"
+texture "emb-cell-1.rgb"
+texrep 1 1
+numvert 8
+37 11.52 -24
+37 11.52 -20
+-27 11.52 -20
+-27 11.52 -24
+-27 114.500008 -24
+-27 114.500008 -20
+37 114.500008 -20
+37 114.500008 -24
+numsurf 2
+SURF 0x00
+mat 0
+refs 4
+0 4.0 0.0
+7 4.0 27.0
+6 0.0 27.0
+1 0.0 0.0
+SURF 0x00
+mat 0
+refs 4
+2 4.0 0.0
+5 4.0 27.0
+4 0.0 27.0
+3 0.0 0.0
+kids 0
+OBJECT poly
+name "Plane.006<u4v27>"
+texture "emb-cell-1.rgb"
+texrep 1 1
+numvert 8
+37 11.52 -29
+37 11.52 -25
+-22 11.52 -25
+-22 11.52 -29
+-22 114.5 -29
+-22 114.5 -25
+37 114.5 -25
+37 114.5 -29
+numsurf 2
+SURF 0x00
+mat 0
+refs 4
+0 4.0 0.0
+7 4.0 27.0
+6 0.0 27.0
+1 0.0 0.0
+SURF 0x00
+mat 0
+refs 4
+2 4.0 0.0
+5 4.0 27.0
+4 0.0 27.0
+3 0.0 0.0
+kids 0
+OBJECT poly
+name "Plane.007"
+numvert 8
+36 3.84 -25
+36 3.84 -24
+-21 3.84 -24
+-21 3.84 -25
+-21 115.5 -25
+-21 115.5 -24
+36 115.5 -24
+36 115.5 -25
+numsurf 5
+SURF 0x00
+mat 1
+refs 4
+0 0.0 1.0
+1 1.0 1.0
+2 1.0 0.0
+3 0.0 0.0
+SURF 0x00
+mat 1
+refs 4
+0 0.0 1.0
+7 1.0 1.0
+6 1.0 0.0
+1 0.0 0.0
+SURF 0x00
+mat 1
+refs 4
+1 0.0 1.0
+6 1.0 1.0
+5 1.0 0.0
+2 0.0 0.0
+SURF 0x00
+mat 1
+refs 4
+2 0.0 1.0
+5 1.0 1.0
+4 1.0 0.0
+3 0.0 0.0
+SURF 0x00
+mat 1
+refs 4
+7 1.0 0.0
+0 0.0 0.0
+3 0.0 1.0
+4 1.0 1.0
+kids 0
+OBJECT poly
+name "Plane.008"
+numvert 8
+34 3.84 -20
+34 3.84 -19
+-25 3.84 -19
+-25 3.84 -20
+-25 115.500008 -20
+-25 115.500008 -19
+34 115.500008 -19
+34 115.500008 -20
+numsurf 5
+SURF 0x00
+mat 1
+refs 4
+0 0.0 1.0
+1 0.0 0.0
+2 1.0 0.0
+3 1.0 1.0
+SURF 0x00
+mat 1
+refs 4
+0 0.0 1.0
+7 0.0 0.0
+6 1.0 0.0
+1 1.0 1.0
+SURF 0x00
+mat 1
+refs 4
+1 0.0 1.0
+6 0.0 0.0
+5 1.0 0.0
+2 1.0 1.0
+SURF 0x00
+mat 1
+refs 4
+2 0.0 1.0
+5 0.0 0.0
+4 1.0 0.0
+3 1.0 1.0
+SURF 0x00
+mat 1
+refs 4
+7 0.0 1.0
+0 0.0 0.0
+3 1.0 0.0
+4 1.0 1.0
+kids 0
+OBJECT poly
+name "Plane.009"
+numvert 12
+34 11.52 -15
+34 11.52 -14
+-21 11.52 -14
+-21 11.52 -15
+-21 126 -15
+-21 126 -14
+34 126 -14
+34 126 -15
+-21 3.84 -15
+-21 3.84 -14
+34 3.84 -14
+34 3.84 -15
+numsurf 9
+SURF 0x00
+mat 1
+refs 4
+0 0.0 1.0
+7 1.0 1.0
+6 1.0 0.0
+1 0.0 0.0
+SURF 0x00
+mat 1
+refs 4
+1 0.0 1.0
+6 1.0 1.0
+5 1.0 0.0
+2 0.0 0.0
+SURF 0x00
+mat 1
+refs 4
+2 0.0 1.0
+5 1.0 1.0
+4 1.0 0.0
+3 0.0 0.0
+SURF 0x00
+mat 1
+refs 4
+7 1.0 0.0
+0 0.0 0.0
+3 0.0 1.0
+4 1.0 1.0
+SURF 0x00
+mat 1
+refs 4
+3 0.0 1.0
+0 0.0 0.0
+11 1.0 0.0
+8 1.0 1.0
+SURF 0x00
+mat 1
+refs 4
+2 0.0 1.0
+3 0.0 0.0
+8 1.0 0.0
+9 1.0 1.0
+SURF 0x00
+mat 1
+refs 4
+1 0.0 1.0
+2 0.0 0.0
+9 1.0 0.0
+10 1.0 1.0
+SURF 0x00
+mat 1
+refs 4
+0 0.0 1.0
+1 0.0 0.0
+10 1.0 0.0
+11 1.0 1.0
+SURF 0x00
+mat 1
+refs 4
+11 0.0 1.0
+10 1.0 1.0
+9 1.0 0.0
+8 0.0 0.0
+kids 0
+OBJECT poly
+name "Plane.010"
+numvert 8
+34 3.84 -10
+34 3.84 -9
+-20 3.84 -9
+-20 3.84 -10
+-20 115.500008 -10
+-20 115.500008 -9
+34 115.500008 -9
+34 115.500008 -10
+numsurf 5
+SURF 0x00
+mat 1
+refs 4
+0 0.0 1.0
+1 0.0 0.0
+2 1.0 0.0
+3 1.0 1.0
+SURF 0x00
+mat 1
+refs 4
+0 0.0 1.0
+7 0.0 0.0
+6 1.0 0.0
+1 1.0 1.0
+SURF 0x00
+mat 1
+refs 4
+1 0.0 1.0
+6 0.0 0.0
+5 1.0 0.0
+2 1.0 1.0
+SURF 0x00
+mat 1
+refs 4
+2 0.0 1.0
+5 0.0 0.0
+4 1.0 0.0
+3 1.0 1.0
+SURF 0x00
+mat 1
+refs 4
+7 0.0 1.0
+0 0.0 0.0
+3 1.0 0.0
+4 1.0 1.0
+kids 0
+OBJECT poly
+name "Plane.011<u54v27>"
+texture "emb-cell-1.rgb"
+texrep 1 1
+numvert 4
+37 114.5 0
+-17 114.5 0
+-17 11.52 0
+37 11.52 0
+numsurf 1
+SURF 0x00
+mat 0
+refs 4
+3 54.0 0.0
+0 54.0 27.0
+1 0.0 27.0
+2 0.0 0.0
+kids 0
+OBJECT poly
+name "Plane.012<u58v27>"
+texture "emb-cell-1.rgb"
+texrep 1 1
+numvert 4
+37 114.500008 -5
+-21 114.500008 -5
+-21 11.52 -5
+37 11.52 -5
+numsurf 1
+SURF 0x00
+mat 0
+refs 4
+3 58.0 0.0
+0 58.0 27.0
+1 0.0 27.0
+2 0.0 0.0
+kids 0
+OBJECT poly
+name "Plane.013<u58v27>"
+texture "emb-cell-1.rgb"
+texrep 1 1
+numvert 4
+37 114.500008 -9
+-21 114.500008 -9
+-21 11.52 -9
+37 11.52 -9
+numsurf 1
+SURF 0x00
+mat 0
+refs 4
+0 0.0 27.0
+3 0.0 0.0
+2 58.0 0.0
+1 58.0 27.0
+kids 0
+OBJECT poly
+name "Plane.014<u57v29>"
+texture "emb-cell-1.rgb"
+texrep 1 1
+numvert 4
+35 122.160004 -10
+-22 122.160004 -10
+-22 11.52 -10
+35 11.52 -10
+numsurf 1
+SURF 0x00
+mat 0
+refs 4
+3 57.0 0.0
+0 57.0 29.0
+1 0.0 29.0
+2 0.0 0.0
+kids 0
+OBJECT poly
+name "Plane.015<u57v29>"
+texture "emb-cell-1.rgb"
+texrep 1 1
+numvert 4
+35 122.160004 -14
+-22 122.160004 -14
+-22 11.52 -14
+35 11.52 -14
+numsurf 1
+SURF 0x00
+mat 0
+refs 4
+0 0.0 29.0
+3 0.0 0.0
+2 57.0 0.0
+1 57.0 29.0
+kids 0
+OBJECT poly
+name "Plane.016<u61v29>"
+texture "emb-cell-1.rgb"
+texrep 1 1
+numvert 4
+35 122.160004 -19
+-26 122.160004 -19
+-26 11.52 -19
+35 11.52 -19
+numsurf 1
+SURF 0x00
+mat 0
+refs 4
+0 0.0 29.0
+3 0.0 0.0
+2 61.0 0.0
+1 61.0 29.0
+kids 0
+OBJECT poly
+name "Plane.017<u61v29>"
+texture "emb-cell-1.rgb"
+texrep 1 1
+numvert 4
+35 122.160004 -15
+-26 122.160004 -15
+-26 11.52 -15
+35 11.52 -15
+numsurf 1
+SURF 0x00
+mat 0
+refs 4
+3 60.875 0.0
+0 60.875 29.0
+1 0.0 29.0
+2 0.0 0.0
+kids 0
+OBJECT poly
+name "Plane.018<u64v27>"
+texture "emb-cell-1.rgb"
+texrep 1 1
+numvert 4
+37 114.500008 -24
+-27 114.500008 -24
+-27 11.52 -24
+37 11.52 -24
+numsurf 1
+SURF 0x00
+mat 0
+refs 4
+0 0.0 27.0
+3 0.0 0.0
+2 64.0 0.0
+1 64.0 27.0
+kids 0
+OBJECT poly
+name "Plane.019<u64v27>"
+texture "emb-cell-1.rgb"
+texrep 1 1
+numvert 4
+37 114.500008 -20
+-27 114.500008 -20
+-27 11.52 -20
+37 11.52 -20
+numsurf 1
+SURF 0x00
+mat 0
+refs 4
+3 64.0 0.0
+0 64.0 27.0
+1 0.0 27.0
+2 0.0 0.0
+kids 0
+OBJECT poly
+name "Plane.020<u59v27>"
+texture "emb-cell-1.rgb"
+texrep 1 1
+numvert 4
+37 114.5 -29
+-22 114.5 -29
+-22 11.52 -29
+37 11.52 -29
+numsurf 1
+SURF 0x00
+mat 0
+refs 4
+0 0.0 27.0
+3 0.0 0.0
+2 59.0 0.0
+1 59.0 27.0
+kids 0
+OBJECT poly
+name "Plane.021<u59v27>"
+texture "emb-cell-1.rgb"
+texrep 1 1
+numvert 4
+37 114.5 -25
+-22 114.5 -25
+-22 11.52 -25
+37 11.52 -25
+numsurf 1
+SURF 0x00
+mat 0
+refs 4
+3 59.0 0.0
+0 59.0 27.0
+1 0.0 27.0
+2 0.0 0.0
+kids 0
+OBJECT poly
+name "Plane.022<u54v27>"
+texture "emb-cell-1.rgb"
+texrep 1 1
+numvert 4
+37 114.5 -4
+-17 114.5 -4
+-17 11.52 -4
+37 11.52 -4
+numsurf 1
+SURF 0x00
+mat 0
+refs 4
+0 0.0 27.0
+3 0.0 0.0
+2 54.0 0.0
+1 54.0 27.0
+kids 0
+OBJECT poly
+name "Plane.023"
+numvert 4
+37 115.5 -29
+37 115.5 -25
+-22 115.5 -25
+-22 115.5 -29
+numsurf 1
+SURF 0x00
+mat 1
+refs 4
+0 0.0 1.0
+3 0.0 0.0
+2 1.0 0.0
+1 1.0 1.0
+kids 0
+OBJECT poly
+name "Plane.024"
+numvert 4
+37 115.500008 -24
+37 115.500008 -20
+-27 115.500008 -20
+-27 115.500008 -24
+numsurf 1
+SURF 0x00
+mat 1
+refs 4
+0 0.0 1.0
+3 0.0 0.0
+2 1.0 0.0
+1 1.0 1.0
+kids 0
+OBJECT poly
+name "Plane.025"
+numvert 4
+35 126 -19
+35 126 -15
+-26 126 -15
+-26 126 -19
+numsurf 1
+SURF 0x00
+mat 1
+refs 4
+0 0.0 1.0
+3 0.0 0.0
+2 1.0 0.0
+1 1.0 1.0
+kids 0
+OBJECT poly
+name "Plane.026"
+numvert 4
+35 126 -14
+35 126 -10
+-22 126 -10
+-22 126 -14
+numsurf 1
+SURF 0x00
+mat 1
+refs 4
+0 0.0 1.0
+3 0.0 0.0
+2 1.0 0.0
+1 1.0 1.0
+kids 0
+OBJECT poly
+name "Plane.027"
+numvert 4
+37 115.500008 -9
+37 115.500008 -5
+-21 115.500008 -5
+-21 115.500008 -9
+numsurf 1
+SURF 0x00
+mat 1
+refs 4
+0 0.0 1.0
+3 0.0 0.0
+2 1.0 0.0
+1 1.0 1.0
+kids 0
+OBJECT poly
+name "Plane.028"
+numvert 4
+37 115.5 -4
+37 115.5 0
+-17 115.5 0
+-17 115.5 -4
+numsurf 1
+SURF 0x00
+mat 1
+refs 4
+0 0.0 1.0
+3 0.0 0.0
+2 1.0 0.0
+1 1.0 1.0
+kids 0
+OBJECT poly
+name "Plane.029"
+numvert 4
+36 115.5 -25
+36 115.5 -24
+-21 115.5 -24
+-21 115.5 -25
+numsurf 1
+SURF 0x00
+mat 1
+refs 4
+0 0.0 1.0
+3 0.0 0.0
+2 1.0 0.0
+1 1.0 1.0
+kids 0
+OBJECT poly
+name "Plane.030"
+numvert 4
+34 115.500008 -20
+34 115.500008 -19
+-25 115.500008 -19
+-25 115.500008 -20
+numsurf 1
+SURF 0x00
+mat 1
+refs 4
+0 0.0 1.0
+3 0.0 0.0
+2 1.0 0.0
+1 1.0 1.0
+kids 0
+OBJECT poly
+name "Plane.031"
+numvert 4
+34 126 -15
+34 126 -14
+-21 126 -14
+-21 126 -15
+numsurf 1
+SURF 0x00
+mat 1
+refs 4
+0 0.0 1.0
+3 0.0 0.0
+2 1.0 0.0
+1 1.0 1.0
+kids 0
+OBJECT poly
+name "Plane.032"
+numvert 4
+34 115.500008 -10
+34 115.500008 -9
+-20 115.500008 -9
+-20 115.500008 -10
+numsurf 1
+SURF 0x00
+mat 1
+refs 4
+0 0.0 1.0
+3 0.0 0.0
+2 1.0 0.0
+1 1.0 1.0
+kids 0
+OBJECT poly
+name "Plane.033"
+numvert 4
+36 115.5 -5
+36 115.5 -4
+-16 115.5 -4
+-16 115.5 -5
+numsurf 1
+SURF 0x00
+mat 1
+refs 4
+0 0.0 1.0
+3 0.0 0.0
+2 1.0 0.0
+1 1.0 1.0
+kids 0
+OBJECT poly
+name "Plane.034<u1v1>"
+texture "emb-top-1.rgb"
+texrep 1 1
+numvert 8
+38 0 -30
+38 0 30
+-28 0 30
+-28 0 -30
+-28 7.7 -30
+-28 7.7 30
+38 7.7 30
+38 7.7 -30
+numsurf 2
+SURF 0x00
+mat 0
+refs 4
+0 1.0 1.0
+1 1.0 0.0
+2 0.0 0.0
+3 0.0 1.0
+SURF 0x00
+mat 0
+refs 4
+7 0.0 0.0
+4 1.0 0.0
+5 1.0 1.0
+6 0.0 1.0
+kids 0
+OBJECT poly
+name "Plane.035"
+numvert 4
+38 7.7 -30
+-28 7.7 -30
+-28 0 -30
+38 0 -30
+numsurf 1
+SURF 0x00
+mat 0
+refs 4
+0 0.0 1.0
+3 0.0 0.0
+2 1.0 0.0
+1 1.0 1.0
+kids 0
+OBJECT poly
+name "Plane.036"
+numvert 4
+38 7.7 30
+-28 7.7 30
+-28 0 30
+38 0 30
+numsurf 1
+SURF 0x00
+mat 0
+refs 4
+3 0.0 1.0
+0 0.0 0.0
+1 1.0 0.0
+2 1.0 1.0
+kids 0
+OBJECT poly
+name "Plane.037"
+numvert 4
+-28 7.7 30
+-28 7.7 -30
+-28 0 -30
+-28 0 30
+numsurf 1
+SURF 0x00
+mat 0
+refs 4
+3 0.0 1.0
+0 0.0 0.0
+1 1.0 0.0
+2 1.0 1.0
+kids 0
+OBJECT poly
+name "Plane.038"
+numvert 4
+38 7.7 -30
+38 7.7 30
+38 0 30
+38 0 -30
+numsurf 1
+SURF 0x00
+mat 0
+refs 4
+3 0.0 1.0
+0 0.0 0.0
+1 1.0 0.0
+2 1.0 1.0
+kids 0
+OBJECT poly
+name "Plane.039<u4v2>"
+texture "emb-cell-2.rgb"
+texrep 1 1
+numvert 8
+37 3.84 -29
+37 3.84 -25
+-22 3.84 -25
+-22 3.84 -29
+-22 11.52 -29
+-22 11.52 -25
+37 11.52 -25
+37 11.52 -29
+numsurf 3
+SURF 0x00
+mat 0
+refs 4
+5 0.0 0.0
+4 4.0 0.0
+3 4.0 2.0
+2 0.0 2.0
+SURF 0x00
+mat 0
+refs 4
+1 4.0 2.0
+0 0.0 2.0
+7 0.0 0.0
+6 4.0 0.0
+SURF 0x00
+mat 0
+refs 4
+0 4.0 2.0
+1 4.0 0.0
+2 0.0 0.0
+3 0.0 2.0
+kids 0
+OBJECT poly
+name "Plane.040<u59v2>"
+texture "emb-cell-2.rgb"
+texrep 1 1
+numvert 4
+-22 3.84 -29
+37 3.84 -29
+37 11.52 -29
+-22 11.52 -29
+numsurf 1
+SURF 0x00
+mat 0
+refs 4
+1 59.0 2.0
+0 0.0 2.0
+3 0.0 0.0
+2 59.0 0.0
+kids 0
+OBJECT poly
+name "Plane.041<u59v2>"
+texture "emb-cell-2.rgb"
+texrep 1 1
+numvert 4
+-22 3.84 -25
+37 3.84 -25
+37 11.52 -25
+-22 11.52 -25
+numsurf 1
+SURF 0x00
+mat 0
+refs 4
+0 59.0 2.0
+1 0.0 2.0
+2 0.0 0.0
+3 59.0 0.0
+kids 0
+OBJECT poly
+name "Plane.042<u64v2>"
+texture "emb-cell-2.rgb"
+texrep 1 1
+numvert 4
+-27 3.84 -24
+37 3.84 -24
+37 11.52 -24
+-27 11.52 -24
+numsurf 1
+SURF 0x00
+mat 0
+refs 4
+1 64.0 2.0
+0 0.0 2.0
+3 0.0 0.0
+2 64.0 0.0
+kids 0
+OBJECT poly
+name "Plane.043<u4v2>"
+texture "emb-cell-2.rgb"
+texrep 1 1
+numvert 8
+37 3.84 -24
+37 3.84 -20
+-27 3.84 -20
+-27 3.84 -24
+-27 11.52 -24
+-27 11.52 -20
+37 11.52 -20
+37 11.52 -24
+numsurf 3
+SURF 0x00
+mat 0
+refs 4
+5 0.0 0.0
+4 4.0 0.0
+3 4.0 2.0
+2 0.0 2.0
+SURF 0x00
+mat 0
+refs 4
+1 0.0 0.0
+0 4.0 0.0
+7 4.0 2.0
+6 0.0 2.0
+SURF 0x00
+mat 0
+refs 4
+0 0.0 0.0
+1 4.0 0.0
+2 4.0 2.0
+3 0.0 2.0
+kids 0
+OBJECT poly
+name "Plane.044<u64v2>"
+texture "emb-cell-2.rgb"
+texrep 1 1
+numvert 4
+-27 3.84 -20
+37 3.84 -20
+37 11.52 -20
+-27 11.52 -20
+numsurf 1
+SURF 0x00
+mat 0
+refs 4
+0 64.0 2.0
+1 0.0 2.0
+2 0.0 0.0
+3 64.0 0.0
+kids 0
+OBJECT poly
+name "Plane.045<u67v2>"
+texture "emb-cell-2.rgb"
+texrep 1 1
+numvert 4
+-26 3.84 -19
+35 3.84 -19
+35 11.52 -19
+-26 11.52 -19
+numsurf 1
+SURF 0x00
+mat 0
+refs 4
+1 67.0 2.0
+0 0.0 2.0
+3 0.0 0.0
+2 67.0 0.0
+kids 0
+OBJECT poly
+name "Plane.046<u4v2>"
+texture "emb-cell-2.rgb"
+texrep 1 1
+numvert 8
+35 3.84 -19
+35 3.84 -15
+-26 3.84 -15
+-26 3.84 -19
+-26 11.52 -19
+-26 11.52 -15
+35 11.52 -15
+35 11.52 -19
+numsurf 3
+SURF 0x00
+mat 0
+refs 4
+5 0.0 0.0
+4 4.0 0.0
+3 4.0 2.0
+2 0.0 2.0
+SURF 0x00
+mat 0
+refs 4
+1 4.0 2.0
+0 0.0 2.0
+7 0.0 0.0
+6 4.0 0.0
+SURF 0x00
+mat 0
+refs 4
+0 0.0 0.0
+1 4.0 0.0
+2 4.0 2.0
+3 0.0 2.0
+kids 0
+OBJECT poly
+name "Plane.047<u61v2>"
+texture "emb-cell-2.rgb"
+texrep 1 1
+numvert 4
+-26 3.84 -15
+35 3.84 -15
+35 11.52 -15
+-26 11.52 -15
+numsurf 1
+SURF 0x00
+mat 0
+refs 4
+0 61.0 2.0
+1 0.0 2.0
+2 0.0 0.0
+3 61.0 0.0
+kids 0
+OBJECT poly
+name "Plane.048<u57v2>"
+texture "emb-cell-2.rgb"
+texrep 1 1
+numvert 4
+-22 3.84 -14
+35 3.84 -14
+35 11.52 -14
+-22 11.52 -14
+numsurf 1
+SURF 0x00
+mat 0
+refs 4
+1 57.0 2.0
+0 0.0 2.0
+3 0.0 0.0
+2 57.0 0.0
+kids 0
+OBJECT poly
+name "Plane.049<u4v2>"
+texture "emb-cell-2.rgb"
+texrep 1 1
+numvert 8
+35 3.84 -14
+35 3.84 -10
+-22 3.84 -10
+-22 3.84 -14
+-22 11.52 -14
+-22 11.52 -10
+35 11.52 -10
+35 11.52 -14
+numsurf 3
+SURF 0x00
+mat 0
+refs 4
+5 0.0 0.0
+4 4.0 0.0
+3 4.0 2.0
+2 0.0 2.0
+SURF 0x00
+mat 0
+refs 4
+1 0.0 0.0
+0 4.0 0.0
+7 4.0 2.0
+6 0.0 2.0
+SURF 0x00
+mat 0
+refs 4
+0 0.0 0.0
+1 4.0 0.0
+2 4.0 2.0
+3 0.0 2.0
+kids 0
+OBJECT poly
+name "Plane.050<u57v2>"
+texture "emb-cell-2.rgb"
+texrep 1 1
+numvert 4
+-22 3.84 -10
+35 3.84 -10
+35 11.52 -10
+-22 11.52 -10
+numsurf 1
+SURF 0x00
+mat 0
+refs 4
+0 57.0 2.0
+1 0.0 2.0
+2 0.0 0.0
+3 57.0 0.0
+kids 0
+OBJECT poly
+name "Plane.051<u58v2>"
+texture "emb-cell-2.rgb"
+texrep 1 1
+numvert 4
+-21 3.84 -9
+37 3.84 -9
+37 11.52 -9
+-21 11.52 -9
+numsurf 1
+SURF 0x00
+mat 0
+refs 4
+1 58.0 2.0
+0 0.0 2.0
+3 0.0 0.0
+2 58.0 0.0
+kids 0
+OBJECT poly
+name "Plane.052<u4v2>"
+texture "emb-cell-2.rgb"
+texrep 1 1
+numvert 8
+37 3.84 -9
+37 3.84 -5
+-21 3.84 -5
+-21 3.84 -9
+-21 11.52 -9
+-21 11.52 -5
+37 11.52 -5
+37 11.52 -9
+numsurf 3
+SURF 0x00
+mat 0
+refs 4
+5 0.0 0.0
+4 4.0 0.0
+3 4.0 2.0
+2 0.0 2.0
+SURF 0x00
+mat 0
+refs 4
+1 4.0 2.0
+0 0.0 2.0
+7 0.0 0.0
+6 4.0 0.0
+SURF 0x00
+mat 0
+refs 4
+0 0.0 0.0
+1 4.0 0.0
+2 4.0 2.0
+3 0.0 2.0
+kids 0
+OBJECT poly
+name "Plane.053<u58v2>"
+texture "emb-cell-2.rgb"
+texrep 1 1
+numvert 4
+-21 3.84 -5
+37 3.84 -5
+37 11.52 -5
+-21 11.52 -5
+numsurf 1
+SURF 0x00
+mat 0
+refs 4
+0 58.0 2.0
+1 0.0 2.0
+2 0.0 0.0
+3 58.0 0.0
+kids 0
+OBJECT poly
+name "Plane.054<u4v2>"
+texture "emb-cell-2.rgb"
+texrep 1 1
+numvert 8
+37 3.84 -4
+37 3.84 0
+-17 3.84 0
+-17 3.84 -4
+-17 11.52 -4
+-17 11.52 0
+37 11.52 0
+37 11.52 -4
+numsurf 3
+SURF 0x00
+mat 0
+refs 4
+5 0.0 0.0
+4 4.0 0.0
+3 4.0 2.0
+2 0.0 2.0
+SURF 0x00
+mat 0
+refs 4
+1 4.0 2.0
+0 0.0 2.0
+7 0.0 0.0
+6 4.0 0.0
+SURF 0x00
+mat 0
+refs 4
+0 0.0 1.0
+1 0.0 0.0
+2 1.0 0.0
+3 1.0 1.0
+kids 0
+OBJECT poly
+name "Plane.055<u54v2>"
+texture "emb-cell-2.rgb"
+texrep 1 1
+numvert 4
+-17 3.84 -4
+37 3.84 -4
+37 11.52 -4
+-17 11.52 -4
+numsurf 1
+SURF 0x00
+mat 0
+refs 4
+1 54.0 2.0
+0 0.0 2.0
+3 0.0 0.0
+2 54.0 0.0
+kids 0
+OBJECT poly
+name "Plane.056<u54v2>"
+texture "emb-cell-2.rgb"
+texrep 1 1
+numvert 4
+-17 3.84 0
+37 3.84 0
+37 11.52 0
+-17 11.52 0
+numsurf 1
+SURF 0x00
+mat 0
+refs 4
+0 54.0 2.0
+1 0.0 2.0
+2 0.0 0.0
+3 54.0 0.0
+kids 0
+OBJECT poly
+name "Plane.039<u59v1>"
+texture "emb-cell-2.rgb"
+texrep 1 1
+numvert 4
+37 115.5 -29
+-22 115.5 -29
+-22 114.5 -29
+37 114.5 -29
+numsurf 1
+SURF 0x00
+mat 0
+refs 4
+1 59.0 1.0
+0 0.0 1.0
+3 0.0 0.0
+2 59.0 0.0
+kids 0
+OBJECT poly
+name "Plane.040<u4v1>"
+texture "emb-cell-2.rgb"
+texrep 1 1
+numvert 8
+-22 115.5 -29
+-22 115.5 -25
+37 115.5 -25
+37 115.5 -29
+37 114.5 -29
+37 114.5 -25
+-22 114.5 -25
+-22 114.5 -29
+numsurf 2
+SURF 0x00
+mat 0
+refs 4
+1 4.0 1.0
+0 0.0 1.0
+7 0.0 0.0
+6 4.0 0.0
+SURF 0x00
+mat 0
+refs 4
+5 0.0 0.0
+4 4.0 0.0
+3 4.0 1.0
+2 0.0 1.0
+kids 0
+OBJECT poly
+name "Plane.041<u59v1>"
+texture "emb-cell-2.rgb"
+texrep 1 1
+numvert 4
+37 115.5 -25
+-22 115.5 -25
+-22 114.5 -25
+37 114.5 -25
+numsurf 1
+SURF 0x00
+mat 0
+refs 4
+0 59.0 1.0
+1 0.0 1.0
+2 0.0 0.0
+3 59.0 0.0
+kids 0
+OBJECT poly
+name "Plane.042<u64v1>"
+texture "emb-cell-2.rgb"
+texrep 1 1
+numvert 4
+37 115.500008 -24
+-27 115.500008 -24
+-27 114.500008 -24
+37 114.500008 -24
+numsurf 1
+SURF 0x00
+mat 0
+refs 4
+1 64.0 1.0
+0 0.0 1.0
+3 0.0 0.0
+2 64.0 0.0
+kids 0
+OBJECT poly
+name "Plane.043<u4v1>"
+texture "emb-cell-2.rgb"
+texrep 1 1
+numvert 8
+-27 115.500008 -24
+-27 115.500008 -20
+37 115.500008 -20
+37 115.500008 -24
+37 114.500008 -24
+37 114.500008 -20
+-27 114.500008 -20
+-27 114.500008 -24
+numsurf 2
+SURF 0x00
+mat 0
+refs 4
+1 4.0 1.0
+0 0.0 1.0
+7 0.0 0.0
+6 4.0 0.0
+SURF 0x00
+mat 0
+refs 4
+5 0.0 0.0
+4 4.0 0.0
+3 4.0 1.0
+2 0.0 1.0
+kids 0
+OBJECT poly
+name "Plane.044<u64v1>"
+texture "emb-cell-2.rgb"
+texrep 1 1
+numvert 4
+37 115.500008 -20
+-27 115.500008 -20
+-27 114.500008 -20
+37 114.500008 -20
+numsurf 1
+SURF 0x00
+mat 0
+refs 4
+0 64.0 1.0
+1 0.0 1.0
+2 0.0 0.0
+3 64.0 0.0
+kids 0
+OBJECT poly
+name "Plane.045<u61v1>"
+texture "emb-cell-2.rgb"
+texrep 1 1
+numvert 4
+35 126 -19
+-26 126 -19
+-26 122.160004 -19
+35 122.160004 -19
+numsurf 1
+SURF 0x00
+mat 0
+refs 4
+1 61.0 1.0
+0 0.0 1.0
+3 0.0 0.0
+2 61.0 0.0
+kids 0
+OBJECT poly
+name "Plane.046<u4v1>"
+texture "emb-cell-2.rgb"
+texrep 1 1
+numvert 8
+-26 126 -19
+-26 126 -15
+35 126 -15
+35 126 -19
+35 122.160004 -19
+35 122.160004 -15
+-26 122.160004 -15
+-26 122.160004 -19
+numsurf 2
+SURF 0x00
+mat 0
+refs 4
+1 4.0 1.0
+0 0.0 1.0
+7 0.0 0.0
+6 4.0 0.0
+SURF 0x00
+mat 0
+refs 4
+5 0.0 0.0
+4 4.0 0.0
+3 4.0 1.0
+2 0.0 1.0
+kids 0
+OBJECT poly
+name "Plane.047<u61v1>"
+texture "emb-cell-2.rgb"
+texrep 1 1
+numvert 4
+35 126 -15
+-26 126 -15
+-26 122.160004 -15
+35 122.160004 -15
+numsurf 1
+SURF 0x00
+mat 0
+refs 4
+0 61.0 1.0
+1 0.0 1.0
+2 0.0 0.0
+3 61.0 0.0
+kids 0
+OBJECT poly
+name "Plane.048<u57v1>"
+texture "emb-cell-2.rgb"
+texrep 1 1
+numvert 4
+35 126 -14
+-22 126 -14
+-22 122.160004 -14
+35 122.160004 -14
+numsurf 1
+SURF 0x00
+mat 0
+refs 4
+1 57.0 1.0
+0 0.0 1.0
+3 0.0 0.0
+2 57.0 0.0
+kids 0
+OBJECT poly
+name "Plane.049<u4v1>"
+texture "emb-cell-2.rgb"
+texrep 1 1
+numvert 8
+-22 126 -14
+-22 126 -10
+35 126 -10
+35 126 -14
+35 122.160004 -14
+35 122.160004 -10
+-22 122.160004 -10
+-22 122.160004 -14
+numsurf 2
+SURF 0x00
+mat 0
+refs 4
+1 4.0 1.0
+0 0.0 1.0
+7 0.0 0.0
+6 4.0 0.0
+SURF 0x00
+mat 0
+refs 4
+5 0.0 0.0
+4 4.0 0.0
+3 4.0 1.0
+2 0.0 1.0
+kids 0
+OBJECT poly
+name "Plane.050<u57v1>"
+texture "emb-cell-2.rgb"
+texrep 1 1
+numvert 4
+35 126 -10
+-22 126 -10
+-22 122.160004 -10
+35 122.160004 -10
+numsurf 1
+SURF 0x00
+mat 0
+refs 4
+0 57.0 1.0
+1 0.0 1.0
+2 0.0 0.0
+3 57.0 0.0
+kids 0
+OBJECT poly
+name "Plane.051<u58v1>"
+texture "emb-cell-2.rgb"
+texrep 1 1
+numvert 4
+37 115.500008 -9
+-21 115.500008 -9
+-21 114.500008 -9
+37 114.500008 -9
+numsurf 1
+SURF 0x00
+mat 0
+refs 4
+1 58.0 1.0
+0 0.0 1.0
+3 0.0 0.0
+2 58.0 0.0
+kids 0
+OBJECT poly
+name "Plane.052<u4v1>"
+texture "emb-cell-2.rgb"
+texrep 1 1
+numvert 8
+-21 115.500008 -9
+-21 115.500008 -5
+37 115.500008 -5
+37 115.500008 -9
+37 114.500008 -9
+37 114.500008 -5
+-21 114.500008 -5
+-21 114.500008 -9
+numsurf 2
+SURF 0x00
+mat 0
+refs 4
+1 4.0 1.0
+0 0.0 1.0
+7 0.0 0.0
+6 4.0 0.0
+SURF 0x00
+mat 0
+refs 4
+5 0.0 0.0
+4 4.0 0.0
+3 4.0 1.0
+2 0.0 1.0
+kids 0
+OBJECT poly
+name "Plane.053<u58v1>"
+texture "emb-cell-2.rgb"
+texrep 1 1
+numvert 4
+37 115.500008 -5
+-21 115.500008 -5
+-21 114.500008 -5
+37 114.500008 -5
+numsurf 1
+SURF 0x00
+mat 0
+refs 4
+0 58.0 1.0
+1 0.0 1.0
+2 0.0 0.0
+3 58.0 0.0
+kids 0
+OBJECT poly
+name "Plane.054<u4v1>"
+texture "emb-cell-2.rgb"
+texrep 1 1
+numvert 8
+-17 115.5 -4
+-17 115.5 0
+37 115.5 0
+37 115.5 -4
+37 114.5 -4
+37 114.5 0
+-17 114.5 0
+-17 114.5 -4
+numsurf 2
+SURF 0x00
+mat 0
+refs 4
+1 4.0 1.0
+0 0.0 1.0
+7 0.0 0.0
+6 4.0 0.0
+SURF 0x00
+mat 0
+refs 4
+5 0.0 0.0
+4 4.0 0.0
+3 4.0 1.0
+2 0.0 1.0
+kids 0
+OBJECT poly
+name "Plane.055<u54v1>"
+texture "emb-cell-2.rgb"
+texrep 1 1
+numvert 4
+37 115.5 -4
+-17 115.5 -4
+-17 114.5 -4
+37 114.5 -4
+numsurf 1
+SURF 0x00
+mat 0
+refs 4
+1 54.0 1.0
+0 0.0 1.0
+3 0.0 0.0
+2 54.0 0.0
+kids 0
+OBJECT poly
+name "Plane.056<u54v1>"
+texture "emb-cell-2.rgb"
+texrep 1 1
+numvert 4
+37 115.5 0
+-17 115.5 0
+-17 114.5 0
+37 114.5 0
+numsurf 1
+SURF 0x00
+mat 0
+refs 4
+0 54.0 1.0
+1 0.0 1.0
+2 0.0 0.0
+3 54.0 0.0
+kids 0
+OBJECT poly
+name "Bare"
+numvert 34
+-22 0 -29
+37 0 -29
+-22 0 -24
+37 0 -24
+37 0 -19
+-27 0 -24
+-27 0 -19
+-26 0 -15
+35 0 -15
+-22 0 -10
+-22 0 -15
+37 0 -10
+-21 0 -5
+37 0 -5
+-17 0 0
+-17 0 -5
+37 0 0
+37 115.500008 0
+-17 115.500008 -5
+-17 115.500008 0
+37 115.500008 -5
+-21 115.500008 -5
+37 126.000008 -10
+-22 126.000008 -15
+-22 126.000008 -10
+35 126.000008 -15
+-26 126.000008 -15
+-27 126.000008 -19
+-27 115.500008 -24
+37 126.000008 -19
+37 115.500008 -24
+-22 115.500008 -24
+37 115.500008 -29
+-22 115.500008 -29
+numsurf 26
+SURF 0x00
+mat 2
+refs 4
+8 0.0 1.0
+4 0.0 0.0
+29 1.0 0.0
+25 1.0 1.0
+SURF 0x00
+mat 2
+refs 4
+11 0.0 1.0
+8 0.0 0.0
+25 1.0 0.0
+22 1.0 1.0
+SURF 0x00
+mat 2
+refs 4
+15 0.0 1.0
+18 1.0 1.0
+21 1.0 0.0
+12 0.0 0.0
+SURF 0x00
+mat 2
+refs 4
+5 0.0 1.0
+28 1.0 1.0
+31 1.0 0.0
+2 0.0 0.0
+SURF 0x00
+mat 2
+refs 4
+10 0.0 1.0
+23 1.0 1.0
+26 1.0 0.0
+7 0.0 0.0
+SURF 0x00
+mat 2
+refs 4
+7 0.0 1.0
+26 1.0 1.0
+27 1.0 0.0
+6 0.0 0.0
+SURF 0x00
+mat 2
+refs 4
+12 0.0 1.0
+21 1.0 1.0
+24 1.0 0.0
+9 0.0 0.0
+SURF 0x00
+mat 2
+refs 4
+15 0.0 1.0
+14 0.0 0.0
+19 1.0 0.0
+18 1.0 1.0
+SURF 0x00
+mat 2
+refs 4
+14 0.0 1.0
+16 0.0 0.0
+17 1.0 0.0
+19 1.0 1.0
+SURF 0x00
+mat 2
+refs 4
+16 0.0 1.0
+13 0.0 0.0
+20 1.0 0.0
+17 1.0 1.0
+SURF 0x00
+mat 2
+refs 4
+13 0.0 1.0
+11 0.0 0.0
+22 1.0 0.0
+20 1.0 1.0
+SURF 0x00
+mat 2
+refs 4
+10 0.0 1.0
+9 0.0 0.0
+24 1.0 0.0
+23 1.0 1.0
+SURF 0x00
+mat 2
+refs 4
+5 0.0 1.0
+6 0.0 0.0
+27 1.0 0.0
+28 1.0 1.0
+SURF 0x00
+mat 2
+refs 4
+4 0.0 1.0
+3 0.0 0.0
+30 1.0 0.0
+29 1.0 1.0
+SURF 0x00
+mat 2
+refs 4
+1 0.0 1.0
+0 0.0 0.0
+33 1.0 0.0
+32 1.0 1.0
+SURF 0x00
+mat 2
+refs 4
+0 0.0 1.0
+2 0.0 0.0
+31 1.0 0.0
+33 1.0 1.0
+SURF 0x00
+mat 2
+refs 4
+3 0.0 1.0
+1 0.0 0.0
+32 1.0 0.0
+30 1.0 1.0
+SURF 0x00
+mat 2
+refs 4
+23 0.0 1.0
+25 0.0 0.0
+29 1.0 0.0
+27 1.0 1.0
+SURF 0x00
+mat 2
+refs 3
+23 0.0 1.0
+27 0.0 0.0
+26 1.0 0.0
+SURF 0x00
+mat 2
+refs 4
+22 0.0 1.0
+25 0.0 0.0
+23 1.0 0.0
+24 1.0 1.0
+SURF 0x00
+mat 2
+refs 4
+18 0.0 1.0
+20 0.0 0.0
+22 1.0 0.0
+24 1.0 1.0
+SURF 0x00
+mat 2
+refs 3
+18 0.0 1.0
+24 0.0 0.0
+21 1.0 0.0
+SURF 0x00
+mat 2
+refs 4
+17 0.0 1.0
+20 0.0 0.0
+18 1.0 0.0
+19 1.0 1.0
+SURF 0x00
+mat 2
+refs 3
+27 0.0 1.0
+31 0.0 0.0
+28 1.0 0.0
+SURF 0x00
+mat 2
+refs 4
+30 0.0 1.0
+32 0.0 0.0
+33 1.0 0.0
+31 1.0 1.0
+SURF 0x00
+mat 2
+refs 4
+27 0.0 1.0
+29 0.0 0.0
+30 1.0 0.0
+31 1.0 1.0
+kids 0

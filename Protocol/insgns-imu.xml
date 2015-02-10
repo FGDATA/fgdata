@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+
+<!-- Example usage: <dash><dash>generic=file,out,50,fgfs.imu,insgns-imu -->
+
+<PropertyList>
+
+ <generic>
+
+  <output>
+   <line_separator>newline</line_separator>
+   <var_separator>tab</var_separator>
+
+   <chunk>
+    <name>time (sec)</name>
+    <type>float</type>
+    <format>%.4f</format>
+    <node>/sim/time/elapsed-sec</node>
+   </chunk>
+
+   <chunk>
+    <name>roll rate ("p" rad/sec)</name>
+    <type>float</type>
+    <format>%.6f</format>
+    <node>/fdm/jsbsim/velocities/pi-rad_sec</node>
+   </chunk>
+
+   <chunk>
+    <name>pitch rate ("q" rad/sec)</name>
+    <type>float</type>
+    <format>%.6f</format>
+    <node>/fdm/jsbsim/velocities/qi-rad_sec</node>
+   </chunk>
+
+   <chunk>
+    <name>yaw rate ("r" rad/sec)</name>
+    <type>float</type>
+    <format>%.6f</format>
+    <node>/fdm/jsbsim/velocities/ri-rad_sec</node>
+   </chunk>
+
+   <chunk>
+    <name>X accel (body axis) (mps)</name>
+    <type>float</type>
+    <format>%.5f</format>
+    <node>/accelerations/pilot/x-accel-fps_sec</node>
+    <factor>0.3048</factor>  <!-- feet to meter -->
+   </chunk>
+
+   <chunk>
+    <name>Y accel (body axis) (mps)</name>
+    <type>float</type>
+    <format>%.5f</format>
+    <node>/accelerations/pilot/y-accel-fps_sec</node>
+    <factor>0.3048</factor>  <!-- feet to meter -->
+   </chunk>
+
+   <chunk>
+    <name>Z accel (body axis) (mps)</name>
+    <type>float</type>
+    <format>%.5f</format>
+    <node>/accelerations/pilot/z-accel-fps_sec</node>
+    <factor>0.3048</factor>  <!-- feet to meter -->
+   </chunk>
+  </output>
+
+ </generic>
+
+</PropertyList>

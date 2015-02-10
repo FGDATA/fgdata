@@ -1,0 +1,241 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+  <path>ZKV500.ac</path>
+  <panel>
+    <path>Aircraft/Instruments-3d/zkv500/ZKV500-panel.xml</path>
+    <bottom-left>
+      <x-m>-0.002</x-m>
+      <y-m>-0.027</y-m>
+      <z-m>0.012</z-m>
+    </bottom-left>
+    <bottom-right>
+      <x-m>-0.002</x-m>
+      <y-m>0.06</y-m>
+      <z-m>0.012</z-m>
+    </bottom-right>
+    <top-left>
+      <x-m>-0.002</x-m>
+      <y-m>-0.027</y-m>
+      <z-m>0.15</z-m>
+    </top-left>
+  </panel>
+
+  <animation>
+    <type>material</type>
+    <object-name>LCD.display</object-name>
+    <object-name>button.ENTER</object-name>
+    <object-name>button.START</object-name>
+    <object-name>button.ESCAPE</object-name>
+    <object-name>knob.POWER.circle</object-name>
+    <object-name>knob.MODE.circle</object-name>
+    <object-name>knob.RIGHT.circle</object-name>
+    <object-name>knob.LEFT.circle</object-name>
+    <emission>
+      <red>0.1</red>
+      <blue>0.1</blue>
+      <green>0.8</green>
+      <factor-prop>/instrumentation/zkv500/retro-light</factor-prop>
+    </emission>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <condition>
+      <property>/sim/model/gps/redled/state</property>
+      <property>/instrumentation/gps/serviceable</property>
+    </condition>
+    <object-name>LED.0_ON</object-name>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <condition>
+      <property>/sim/model/gps/greenled/state</property>
+      <property>/instrumentation/gps/serviceable</property>
+    </condition>
+    <object-name>LED.1_ON</object-name>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>knob.POWER</object-name>
+    <object-name>knob.POWER.circle</object-name>
+    <property>/instrumentation/zkv500/power</property>
+    <factor>30</factor>
+    <axis>
+      <x>-1</x>
+      <y>0</y>
+      <z>0</z>
+    </axis>
+    <center>
+      <x-m>0</x-m>
+      <y-m>0.03</y-m>
+      <z-m>-0.03</z-m>
+    </center>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>knob.POWER</object-name>
+    <object-name>knob.POWER.circle</object-name>
+    <visible>true</visible>
+    <action>
+      <name>increase gps state off - on - enlighted</name> 
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+	<script>zkv500.power_knob(1)</script>
+      </binding>
+    </action>
+    <action>
+      <name>decrease gps state off - on - enlighted</name> 
+      <button>2</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+	<script>zkv500.power_knob(-1)</script>
+      </binding>
+    </action>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>knob.LEFT</object-name>
+    <object-name>knob.LEFT.circle</object-name>
+    <visible>true</visible>
+    <condition>
+      <property>/instrumentation/gps/serviceable</property>
+    </condition>
+    <action>
+      <name>next menu</name> 
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+	<script>zkv500.left_knob(1)</script>
+      </binding>
+    </action>
+    <action>
+      <name>previous menu</name> 
+      <button>2</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+	<script>zkv500.left_knob(-1)</script>
+      </binding>
+    </action>
+  </animation>
+ 
+  <animation>
+    <type>pick</type>
+    <object-name>knob.RIGHT</object-name>
+    <object-name>knob.RIGHT.circle</object-name>
+    <visible>true</visible>
+    <condition>
+      <property>/instrumentation/gps/serviceable</property>
+    </condition>
+    <action>
+      <name>next item</name> 
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+	<script>zkv500.right_knob(1)</script>
+      </binding>
+    </action>
+    <action>
+      <name>previous item</name> 
+      <button>2</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+	<script>zkv500.right_knob(-1)</script>
+      </binding>
+    </action>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>knob.MODE</object-name>
+    <object-name>knob.MODE.circle</object-name>
+    <visible>true</visible>
+    <condition>
+      <property>/instrumentation/gps/serviceable</property>
+    </condition>
+    <action>
+      <name>select next mode</name> 
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+	<script>zkv500.select_mode(1)</script>
+      </binding>
+    </action>
+    <action>
+      <name>select previous mode</name> 
+      <button>2</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+	<script>zkv500.select_mode(-1)</script>
+      </binding>
+    </action>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>button.ENTER</object-name>
+    <visible>true</visible>
+    <condition>
+      <property>/instrumentation/gps/serviceable</property>
+    </condition>
+    <action>
+      <name>manage ENTER button (top left)</name> 
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+	<script>zkv500.enter_button()</script>
+      </binding>
+    </action>
+  </animation>
+  
+  <animation>
+    <type>pick</type>
+    <object-name>button.ESCAPE</object-name>
+    <visible>true</visible>
+    <condition>
+      <property>/instrumentation/gps/serviceable</property>
+    </condition>
+    <action>
+      <name>manage ESCAPE button (top middle)</name> 
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+	<script>zkv500.escape_button()</script>
+      </binding>
+    </action>
+  </animation>
+ 
+  <animation>
+    <type>pick</type>
+    <object-name>button.START</object-name>
+    <visible>true</visible>
+    <condition>
+      <property>/instrumentation/gps/serviceable</property>
+    </condition>
+    <action>
+      <name>manage START button (top right)</name> 
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+	<script>zkv500.start_button()</script>
+      </binding>
+    </action>
+  </animation>
+  
+</PropertyList>

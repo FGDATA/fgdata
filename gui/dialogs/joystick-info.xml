@@ -1,0 +1,191 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<name>joystick-info</name>
+	<layout>vbox</layout>
+	<resizable>true</resizable>
+	<default-padding>3</default-padding>
+
+	<group>
+		<layout>hbox</layout>
+		<default-padding>1</default-padding>
+
+		<empty><stretch>true</stretch></empty>
+
+		<text>
+			<label>Joystick Information</label>
+		</text>
+
+		<empty><stretch>true</stretch></empty>
+
+		<button>
+			<legend></legend>
+			<key>Esc</key>
+			<pref-width>16</pref-width>
+			<pref-height>16</pref-height>
+			<border>2</border>
+			<binding>
+				<command>dialog-close</command>
+			</binding>
+		</button>
+	</group>
+
+	<hrule/>
+
+	<nasal>
+		<open>
+			var value = func(p, default = "") {
+				return p != nil and (var v = p.getValue()) != nil ? v : default;
+			}
+
+			var items = func(it, name) {
+				var t = "";
+				foreach (var x; it) {
+					t ~= "    [";
+					t ~= value(x.getNode("name"), name ~ " #" ~ x.getIndex());
+					t ~= "] ... ";
+					t ~= value(x.getNode("desc"), "???");
+					t ~= "\n";
+				}
+				return t;
+			}
+
+			var t = "";
+			var joysticks = props.globals.getNode("/input/joysticks").getChildren("js");
+			var numjs = size(joysticks);
+			forindex (var i; joysticks) {
+				var js = joysticks[i];
+				var id = value(js.getNode("id"), "[unnamed]");
+				var source = value(js.getNode("source"), "[user defined]");
+				var names = js.getChildren("name");
+
+				t ~= "Joystick #" ~ js.getIndex() ~ ": \"" ~ id ~ "\"\n\n";
+				t ~= "    Driver: " ~ source ~ "\n";
+				if (size(names)) {
+					t ~= "    Used for: ";
+					var last = pop(names);
+					foreach (var n; names)
+						t ~= '"' ~ value(n) ~ '", ';
+
+					t ~= '"' ~ value(last) ~ '"';
+				}
+				t ~= "\n\n";
+				t ~= items(js.getChildren("axis"), "Axis");
+				t ~= "\n";
+				t ~= items(js.getChildren("button"), "Button");
+
+				var help = value(js.getNode("help"), nil);
+				if (help != nil)
+					t ~= "\n\n" ~ help;
+
+				if (numjs > 1 and i &lt; numjs - 1)
+					t ~= "\n\n\n----------------------------------------\n\n\n";
+			}
+
+			var text = props.globals.getNode("/sim/gui/dialogs/joystick-info/text", 1);
+			text.setValue(t);
+		</open>
+
+		<close>
+			text.setValue("");
+		</close>
+	</nasal>
+
+	<group>
+		<layout>table</layout>
+		<default-padding>2</default-padding>
+
+		<empty>
+			<width>150</width>
+			<col>0</col>
+			<row>0</row>
+		</empty>
+
+		<text>
+			<label>Aileron:  </label>
+			<halign>right</halign>
+			<col>1</col>
+			<row>0</row>
+		</text>
+
+		<text>
+			<label>-0.00000</label>
+			<halign>left</halign>
+			<format>%.5f</format>
+			<property>/controls/flight/aileron</property>
+			<live>1</live>
+			<col>2</col>
+			<row>0</row>
+		</text>
+
+		<text>
+			<label>Elevator:  </label>
+			<halign>right</halign>
+			<col>1</col>
+			<row>1</row>
+		</text>
+
+		<text>
+			<label>-0.00000</label>
+			<halign>left</halign>
+			<format>%.5f</format>
+			<property>/controls/flight/elevator</property>
+			<live>1</live>
+			<col>2</col>
+			<row>1</row>
+		</text>
+
+		<text>
+			<label>Rudder:  </label>
+			<halign>right</halign>
+			<col>3</col>
+			<row>0</row>
+		</text>
+
+		<text>
+			<label>-0.00000</label>
+			<halign>left</halign>
+			<format>%.5f</format>
+			<property>/controls/flight/rudder</property>
+			<live>1</live>
+			<col>4</col>
+			<row>0</row>
+		</text>
+
+		<text>
+			<label>Throttle:  </label>
+			<halign>right</halign>
+			<col>3</col>
+			<row>1</row>
+		</text>
+
+		<text>
+			<label>-0.00000</label>
+			<halign>left</halign>
+			<format>%.5f</format>
+			<property>/controls/engines/engine/throttle</property>
+			<live>1</live>
+			<col>4</col>
+			<row>1</row>
+		</text>
+
+		<empty>
+			<width>150</width>
+			<col>5</col>
+			<row>0</row>
+		</empty>
+	</group>
+
+	<textbox>
+		<padding>5</padding>
+		<halign>fill</halign>
+		<valign>fill</valign>
+		<stretch>true</stretch>
+		<pref-width>640</pref-width>
+		<pref-height>480</pref-height>
+		<slider>20</slider>
+		<wrap>false</wrap>
+		<editable>false</editable>
+		<property>/sim/gui/dialogs/joystick-info/text</property>
+	</textbox>
+</PropertyList>

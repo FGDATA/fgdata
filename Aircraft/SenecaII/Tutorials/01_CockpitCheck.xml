@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ This file is part of FlightGear, the free flight simulator
+ http://www.flightgear.org/
+
+ Copyright (C) 2009 Torsten Dreyer, Torsten (at) t3r _dot_ de
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation; either version 2 of the
+ License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+-->
+
+<PropertyList>
+  <name>Cockpit Check</name>
+  <description>This is the cockpit checklist. Perform this checklist after entering the cockpit and before starting the engines.</description>
+  <interval>0</interval>
+
+  <init>
+    <set>
+      <property>/sim/current-view/view-number</property>
+      <value>0</value>
+    </set>
+  </init>
+
+  <step>
+    <message>
+      CABIN DOORS: closed and checked
+    </message>
+    <view>
+      <heading-offset-deg>-90</heading-offset-deg>
+      <pitch-offset-deg>-10</pitch-offset-deg>
+      <field-of-view>47</field-of-view>
+    </view>
+
+    <exit>
+      <condition>
+        <equals>
+          <property>sim/model/door-positions/right-door/position-norm</property>
+          <value>0</value>
+        </equals>
+        <equals>
+          <property>sim/model/door-positions/pax-door/position-norm</property>
+          <value>0</value>
+        </equals>
+        <equals>
+          <property>sim/model/door-positions/baggage-door/position-norm</property>
+          <value>0</value>
+        </equals>
+      </condition>
+    </exit>
+  </step>
+
+  <step>
+    <message>
+      ALL SWITCHES: off
+    </message>
+    <view>
+      <heading-offset-deg>22</heading-offset-deg>
+      <pitch-offset-deg>-38</pitch-offset-deg>
+      <field-of-view>35</field-of-view>
+    </view>
+
+    <exit>
+    </exit>
+  </step>
+
+  <step>
+    <message>
+      GEAR LEVER: down
+    </message>
+    <view>
+      <heading-offset-deg>-20</heading-offset-deg>
+      <pitch-offset-deg>-29</pitch-offset-deg>
+      <field-of-view>27</field-of-view>
+    </view>
+
+    <exit>
+      <condition>
+        <property>controls/gear/gear-down</property>
+      </condition>
+    </exit>
+  </step>
+
+  <step>
+    <message>
+      CIRCUIT BREAKERS: checked
+    </message>
+    <view>
+      <heading-offset-deg>-43</heading-offset-deg>
+      <pitch-offset-deg>-22</pitch-offset-deg>
+      <field-of-view>21</field-of-view>
+    </view>
+
+    <exit>
+    </exit>
+  </step>
+
+  <step>
+    <message>
+      PARKING BRAKE: set
+    </message>
+    <view>
+      <heading-offset-deg>-14</heading-offset-deg>
+      <pitch-offset-deg>-36</pitch-offset-deg>
+      <field-of-view>20</field-of-view>
+    </view>
+
+    <exit>
+      <condition>
+        <property>controls/gear/brake-parking</property>
+      </condition>
+    </exit>
+  </step>
+</PropertyList>

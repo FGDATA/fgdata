@@ -1,0 +1,326 @@
+<!--
+Syd Adams
+Primus 1000 PFD  hotspots
+-->
+
+<PropertyList>
+
+    <name>PFD hotspots</name>
+    <w-base>180</w-base>
+    <h-base>240</h-base>
+    <w>180</w>
+    <h>240</h>
+
+    <layers>
+        <layer>
+            <name>NAV/FMS</name>
+            <type>text</type>
+            <font>arial_black</font>
+            <point-size>4.5</point-size>
+            <color>
+                <red>0.9</red>
+                <green>0.2</green>
+                <blue>0.6</blue>
+            </color>
+            <chunks>
+                <chunk>
+                    <type>text-value</type>
+                    <property>/instrumentation/primus1000/fms-mode</property>
+                </chunk>
+            </chunks>
+            <transformations>
+                <transformation>
+                    <type>x-shift</type>
+                    <offset>30</offset>
+                </transformation>
+                <transformation>
+                    <type>y-shift</type>
+                    <offset>74</offset>
+                </transformation>
+            </transformations>
+        </layer>
+
+        <layer>
+            <name>NAV/SRC</name>
+            <type>text</type>
+            <font>arial_black</font>
+            <point-size>5</point-size>
+            <color>
+                <red>0.1</red>
+                <green>0.9</green>
+                <blue>0.4</blue>
+            </color>
+            <chunks>
+                <chunk>
+                    <type>text-value</type>
+                    <property>/instrumentation/primus1000/nav-string</property>
+                </chunk>
+            </chunks>
+            <transformations>
+                <transformation>
+                    <type>x-shift</type>
+                    <offset>35</offset>
+                </transformation>
+                <transformation>
+                    <type>y-shift</type>
+                    <offset>-1</offset>
+                </transformation>
+            </transformations>
+        </layer>
+
+        <layer>
+            <name>NAV/DST</name>
+            <type>text</type>
+            <font>arial_black</font>
+            <point-size>5</point-size>
+            <color>
+                <red>0.1</red>
+                <green>0.9</green>
+                <blue>0.4</blue>
+            </color>
+            <chunks>
+                <chunk>
+                    <type>number-value</type>
+                    <property>/instrumentation/primus1000/nav-dist-nm</property>
+                    <format>%3.1f</format>
+                </chunk>
+            </chunks>
+            <transformations>
+                <transformation>
+                    <type>x-shift</type>
+                    <offset>35</offset>
+                </transformation>
+                <transformation>
+                    <type>y-shift</type>
+                    <offset>-6</offset>
+                </transformation>
+            </transformations>
+        </layer>
+
+        <layer>
+            <name>Wind Speed</name>
+            <type>text</type>
+            <font>arial_black</font>
+            <point-size>6</point-size>
+            <color>
+                <red>0.7</red>
+                <green>0.7</green>
+                <blue>0.3</blue>
+            </color>
+            <chunks>
+                <chunk>
+                    <type>number-value</type>
+                    <property>environment/wind-speed-kt</property>
+                    <format>%03.0f</format>
+                </chunk>
+            </chunks>
+            <transformations>
+                <transformation>
+                    <type>x-shift</type>
+                    <offset>-55</offset>
+                </transformation>
+                <transformation>
+                    <type>y-shift</type>
+                    <offset>-61</offset>
+                </transformation>
+            </transformations>
+        </layer>
+
+        <layer>
+            <name>Ground Speed</name>
+            <type>text</type>
+            <font>arial_black</font>
+            <point-size>6</point-size>
+            <color>
+                <red>0.1</red>
+                <green>0.9</green>
+                <blue>0.4</blue>
+            </color>
+            <chunks>
+                <chunk>
+                    <type>number-value</type>
+                    <property>velocities/groundspeed-kt</property>
+                    <format>%03.0f</format>
+                </chunk>
+            </chunks>
+            <transformations>
+                <transformation>
+                    <type>x-shift</type>
+                    <offset>22</offset>
+                </transformation>
+                <transformation>
+                    <type>y-shift</type>
+                    <offset>-71</offset>
+                </transformation>
+            </transformations>
+        </layer>
+
+
+<!--    FD MODE ANNUNCIATORS-->
+
+        <layer>
+            <name>LATERAL</name>
+            <type>text</type>
+            <font>arial_black</font>
+            <point-size>6</point-size>
+            <color>
+                <red>0.1</red>
+                <green>0.9</green>
+                <blue>0.3</blue>
+            </color>
+            <chunks>
+                <chunk>
+                    <type>text-value</type>
+                    <property>instrumentation/flightdirector/lateral-mode</property>
+                </chunk>
+            </chunks>
+            <transformations>
+                <transformation>
+                    <type>x-shift</type>
+                    <offset>-35</offset>
+                </transformation>
+                <transformation>
+                    <type>y-shift</type>
+                    <offset>100</offset>
+                </transformation>
+            </transformations>
+        </layer>
+
+        <layer>
+            <name>VERTICAL</name>
+            <type>text</type>
+            <font>arial_black</font>
+            <point-size>6</point-size>
+            <color>
+                <red>0.1</red>
+                <green>0.9</green>
+                <blue>0.3</blue>
+            </color>
+            <chunks>
+                <chunk>
+                    <type>text-value</type>
+                    <property>instrumentation/flightdirector/vertical-mode</property>
+                </chunk>
+            </chunks>
+            <transformations>
+                <transformation>
+                    <type>x-shift</type>
+                    <offset>10</offset>
+                </transformation>
+                <transformation>
+                    <type>y-shift</type>
+                    <offset>100</offset>
+                </transformation>
+            </transformations>
+        </layer>
+
+
+</layers>
+
+    <actions>
+<!--select BARO/RA MODE-->
+
+    <action>
+        <name>select ra / baro alt mode</name>
+        <button>0</button>
+        <x>-58</x>
+        <y>-103</y>
+        <w>18</w>
+        <h>12</h>
+        <binding>
+            <command>property-toggle</command>
+            <property>/instrumentation/primus1000/ra-mode</property>
+            <min>0</min>
+            <max>1</max>
+        </binding>
+    </action>
+
+<!--reset baro-->
+
+    <action>
+        <name>reset inhg</name>
+        <button>0</button>
+        <x>44</x>
+        <y>-103</y>
+        <w>18</w>
+        <h>12</h>
+        <binding>
+            <command>property-assign</command>
+            <property>instrumentation/altimeter/setting-inhg</property>
+            <value>29.92</value>
+        </binding>
+    </action>
+
+<!--adjust inhg-->
+
+    <action>
+        <name>calibrate inhg down fine</name>
+        <button>0</button>
+        <x>67</x>
+        <y>-110</y>
+        <w>8</w>
+        <h>14</h>
+        <binding>
+            <command>property-adjust</command>
+            <property>/instrumentation/altimeter/setting-inhg</property>
+            <step>-0.01</step>
+            <min>26.0</min>
+            <max>33.0</max>
+            <wrap>false</wrap>
+        </binding>
+    </action>
+
+    <action>
+        <name>calibrate inhg down coarse</name>
+        <button>1</button>
+        <x>67</x>
+        <y>-110</y>
+        <w>8</w>
+        <h>14</h>
+        <binding>
+            <command>property-adjust</command>
+            <property>/instrumentation/altimeter/setting-inhg</property>
+            <step>-0.1</step>
+            <min>26.0</min>
+            <max>33.0</max>
+            <wrap>false</wrap>
+        </binding>
+    </action>
+
+    <action>
+        <name>calibrate inhg up fine</name>
+        <button>0</button>
+        <x>75</x>
+        <y>-110</y>
+        <w>8</w>
+        <h>14</h>
+        <binding>
+            <command>property-adjust</command>
+            <property>/instrumentation/altimeter/setting-inhg</property>
+            <step>0.01</step>
+            <min>26.0</min>
+            <max>33.0</max>
+            <wrap>false</wrap>
+        </binding>
+    </action>
+
+    <action>
+        <name>calibrate inhg up coarse</name>
+        <button>1</button>
+        <x>75</x>
+        <y>-110</y>
+        <w>8</w>
+        <h>14</h>
+        <binding>
+            <command>property-adjust</command>
+            <property>/instrumentation/altimeter/setting-inhg</property>
+            <step>0.1</step>
+            <min>26.0</min>
+            <max>33.0</max>
+            <wrap>false</wrap>
+        </binding>
+    </action>
+
+</actions>
+
+</PropertyList>

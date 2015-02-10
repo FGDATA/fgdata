@@ -1,0 +1,191 @@
+<?xml version="1.0"?>
+
+<!--
+************************************************************************
+Genius F23 USB Joystick
+
+Axes:
+0 - Aileron
+1 - Elevator
+2 - Rudder
+3 - Throttle
+4 - View left-right
+5 - View up-down
+
+Buttons:
+0 - Brakes
+1 - Cycle view
+2 - Elevator trim up
+3 - Elevator trim down
+4 - Flaps down
+5 - Flaps up
+6 - Mixture richer
+7 - Mixture leaner
+************************************************************************
+-->
+
+<PropertyList>
+	<name>Genius F23 USB</name>
+
+	<axis n="0">
+		<desc>Aileron</desc>
+		<binding>
+			<command>property-scale</command>
+			<property>/controls/flight/aileron</property>
+			<power type="int">2</power>
+		</binding>
+	</axis>
+
+	<axis n="1">
+		<desc>Elevator</desc>
+		<binding>
+			<command>property-scale</command>
+			<property>/controls/flight/elevator</property>
+			<factor type="double">-1.0</factor>
+			<power type="int">2</power>
+		</binding>
+	</axis>
+
+	<axis n="2">
+		<desc>Rudder</desc>
+		<binding>
+			<command>property-scale</command>
+			<property>/controls/flight/rudder</property>
+			<power type="int">2</power>
+		</binding>
+	</axis>
+
+	<axis n="3">
+		<desc>Throttle</desc>
+		<binding>
+			<command>nasal</command>
+			<script>controls.throttleAxis()</script>
+		</binding>
+	</axis>
+
+	<axis n="4">
+		<desc>View Direction</desc>
+		<direction>left</direction>
+		<low>
+			<repeatable>true</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>view.panViewDir(1)</script>
+			</binding>
+		</low>
+		<high>
+			<repeatable>true</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>view.panViewDir(-1)</script>
+			</binding>
+		</high>
+	</axis>
+
+	<axis n="5">
+		<desc>View Elevation</desc>
+		<direction>upward</direction>
+		<low>
+			<repeatable>true</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>view.panViewPitch(1)</script>
+			</binding>
+		</low>
+		<high>
+			<repeatable>true</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>view.panViewPitch(-1)</script>
+			</binding>
+		</high>
+	</axis>
+
+	<button n="0">
+		<desc>Brakes</desc>
+		<binding>
+			<command>nasal</command>
+			<script>controls.applyBrakes(1)</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>controls.applyBrakes(0)</script>
+			</binding>
+		</mod-up>
+	</button>
+
+	<button n="1">
+		<desc>Cycle View</desc>
+		<repeatable>false</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>view.stepView(1)</script>
+		</binding>
+	</button>
+
+	<button n="2">
+		<desc>Elevator trim up</desc>
+		<repeatable type="bool">true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>controls.elevatorTrim(1)</script>
+		</binding>
+	</button>
+
+	<button n="3">
+		<desc>Elevator trim down</desc>
+		<repeatable type="bool">true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>controls.elevatorTrim(-1)</script>
+		</binding>
+	</button>
+
+	<button n="4">
+		<desc>Flaps down</desc>
+		<binding>
+			<command>nasal</command>
+			<script>controls.flapsDown(1)</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>controls.flapsDown(0)</script>
+			</binding>
+		</mod-up>
+	</button>
+
+	<button n="5">
+		<desc>Flaps up</desc>
+		<repeatable>false</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>controls.flapsDown(-1)</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>controls.flapsDown(0)</script>
+			</binding>
+		</mod-up>
+	</button>
+
+	<button n="6">
+		<desc>Mixture richer</desc>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>controls.adjMixture(1)</script>
+		</binding>
+	</button>
+
+	<button n="7">
+		<desc>Mixture leaner</desc>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>controls.adjMixture(-1)</script>
+		</binding>
+	</button>
+</PropertyList>

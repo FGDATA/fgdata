@@ -1,0 +1,231 @@
+<?xml version="1.0"?>
+<!--
+  Zeppelin NT-07 airship for FlightGear.
+
+  Copyright (C) 2012 - 2013  Anders Gidenstam  (anders(at)gidenstam.org)
+  This file is licensed under the GPL license version 2 or later.
+-->
+<PropertyList>
+ <!-- Disclaimer: These instructions are derived only from common
+      sense together with certain data from the certificate of
+      airworthiness and have no connection whatsoever to any
+      instructions for the real Zeppelin NT.
+ -->
+ <title>Start Engine List</title>
+
+ <item>
+  <name>Mixture</name>
+  <value>Rich</value>
+  <condition>
+   <and>
+    <greater-than>
+     <property>controls/engines/engine[0]/mixture</property>
+     <value>0.90</value>
+    </greater-than>
+    <greater-than>
+     <property>controls/engines/engine[1]/mixture</property>
+     <value>0.90</value>
+    </greater-than>
+    <greater-than>
+     <property>controls/engines/engine[2]/mixture</property>
+     <value>0.90</value>
+    </greater-than>
+   </and>
+  </condition>
+  <binding>
+   <command>nasal</command>
+   <script>
+     interpolate("controls/engines/engine[0]/mixture", 1.0, 5.0);
+     interpolate("controls/engines/engine[1]/mixture", 1.0, 5.0);
+     interpolate("controls/engines/engine[2]/mixture", 1.0, 5.0);
+   </script>
+  </binding>
+ </item>
+
+ <item>
+  <name>Engine Speed</name>
+  <value>Low RPM</value>
+  <condition>
+   <and>
+    <less-than>
+     <property>controls/engines/engine[0]/throttle</property>
+     <value>0.05</value>
+    </less-than>
+    <less-than>
+     <property>controls/engines/engine[1]/throttle</property>
+     <value>0.05</value>
+    </less-than>
+    <less-than>
+     <property>controls/engines/engine[2]/throttle</property>
+     <value>0.05</value>
+    </less-than>
+   </and>
+  </condition>
+  <binding>
+   <command>nasal</command>
+   <script>
+     interpolate("controls/engines/engine[0]/throttle", 0.04, 5.0);
+     interpolate("controls/engines/engine[1]/throttle", 0.04, 5.0);
+     interpolate("controls/engines/engine[2]/throttle", 0.04, 5.0);
+   </script>
+  </binding>
+ </item>
+
+ <item>
+  <name>Thrust</name>
+  <value>No thrust (propeller blade angle close to 0)</value>
+  <condition>
+   <and>
+    <greater-than>
+     <property>controls/engines/engine[0]/propeller-pitch</property>
+     <value>0.40</value>
+    </greater-than>
+    <less-than>
+     <property>controls/engines/engine[0]/propeller-pitch</property>
+     <value>0.48</value>
+    </less-than>
+    <greater-than>
+     <property>controls/engines/engine[1]/propeller-pitch</property>
+     <value>0.40</value>
+    </greater-than>
+    <less-than>
+     <property>controls/engines/engine[1]/propeller-pitch</property>
+     <value>0.48</value>
+    </less-than>
+    <greater-than>
+     <property>controls/engines/engine[2]/propeller-pitch</property>
+     <value>0.40</value>
+    </greater-than>
+    <less-than>
+     <property>controls/engines/engine[2]/propeller-pitch</property>
+     <value>0.48</value>
+    </less-than>
+   </and>
+  </condition>
+  <binding>
+   <command>nasal</command>
+   <script>
+     interpolate("controls/engines/engine[0]/propeller-pitch", 0.45, 5.0);
+     interpolate("controls/engines/engine[1]/propeller-pitch", 0.45, 5.0);
+     interpolate("controls/engines/engine[2]/propeller-pitch", 0.45, 5.0);
+   </script>
+  </binding>
+ </item>
+
+ <item>
+  <name>Beacon</name>
+  <value>On</value>
+  <condition>
+   <equals>
+    <property>controls/lighting/beacon</property>
+    <value type="bool">1</value>
+   </equals>
+  </condition>
+  <binding>
+   <command>nasal</command>
+   <script>
+     setprop("controls/lighting/beacon", 1.0);
+   </script>
+  </binding>
+ </item>
+
+ <item>
+  <name>Navigation lights</name>
+  <value>On</value>
+  <condition>
+   <equals>
+    <property>controls/lighting/nav-lights</property>
+    <value type="bool">1</value>
+   </equals>
+  </condition>
+  <binding>
+   <command>nasal</command>
+   <script>
+     setprop("controls/lighting/nav-lights", 1.0);
+   </script>
+  </binding>
+ </item>
+
+ <item>
+  <name>Magnetos</name>
+  <value>Both On</value>
+  <condition>
+   <and>
+    <equals>
+     <property>controls/engines/engine[0]/magnetos</property>
+     <value type="int">3</value>
+    </equals>
+    <equals>
+     <property>controls/engines/engine[1]/magnetos</property>
+     <value type="int">3</value>
+    </equals>
+    <equals>
+     <property>controls/engines/engine[2]/magnetos</property>
+     <value type="int">3</value>
+    </equals>
+   </and>
+  </condition>
+  <binding>
+   <command>nasal</command>
+   <script>
+     setprop("controls/engines/engine[0]/magnetos", 3.0);
+     setprop("controls/engines/engine[1]/magnetos", 3.0);
+     setprop("controls/engines/engine[2]/magnetos", 3.0);
+   </script>
+  </binding>
+ </item>
+
+ <item>
+  <name>Engine Starter</name>
+  <value>Start to 500 RPM</value>
+  <condition>
+   <and>
+    <property>engines/engine[0]/running</property>
+    <property>engines/engine[1]/running</property>
+    <property>engines/engine[2]/running</property>
+   </and>
+  </condition>
+  <binding>
+   <command>nasal</command>
+   <script>
+     controls.startEngine(1, 0,1,2);
+     settimer(func {
+       controls.startEngine(0, 0,1,2);
+     }, 10.0);
+   </script>
+  </binding>
+ </item>
+
+ <item>
+  <name>Engine Speed</name>
+  <value>800-1000RPM</value>
+  <condition>
+   <and>
+    <greater-than>
+     <property>engines/engine[0]/rpm</property>
+     <value>799.0</value>
+    </greater-than>
+    <less-than>
+     <property>engines/engine[0]/rpm</property>
+     <value>1001.0</value>
+    </less-than>
+    <greater-than>
+     <property>engines/engine[1]/rpm</property>
+     <value>799.0</value>
+    </greater-than>
+    <less-than>
+     <property>engines/engine[1]/rpm</property>
+     <value>1001.0</value>
+    </less-than>
+    <greater-than>
+     <property>engines/engine[2]/rpm</property>
+     <value>799.0</value>
+    </greater-than>
+    <less-than>
+     <property>engines/engine[2]/rpm</property>
+     <value>1001.0</value>
+    </less-than>
+   </and>
+  </condition>
+ </item>
+</PropertyList>

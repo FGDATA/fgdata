@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+        <animation>
+		<type>select</type>
+		<object-name>gear.000</object-name>
+		<object-name>gear.001</object-name>        
+		<object-name>Cylinder.002</object-name>        
+ 		<object-name>Cylinder.007</object-name>       
+  		<object-name>Cylinder.010</object-name>      
+  		<object-name>Cylinder.012</object-name>      
+		<condition>
+			<less-than>
+				<property>velocities/true-airspeed-kt</property>
+				<value>170</value>
+			</less-than>
+		</condition>
+	</animation>
+</PropertyList>

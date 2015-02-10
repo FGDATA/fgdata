@@ -1,0 +1,535 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+  <name>fgcom</name>
+  <layout>vbox</layout>
+  <resizable>false</resizable>
+
+  <nasal>
+        <open><![CDATA[
+            var autofill = func {
+                if ((getprop("/sim/fgcom/selected-server") == nil) or 
+                    (getprop("/sim/fgcom/selected-server") == "" )   ){
+                    var tx = getprop("/sim/fgcom/server");
+                    var dlg = cmdarg();
+                    #var servers = cmdarg().getChildren("group")[5].getChildren("combo")[0].getChildren("value");
+                    var servers = props.globals.getNode("/sim/gui/dialogs/multiplay/fgcom-servers", 1);
+                    foreach (var s; servers.getChildren("value")) {
+                        var server = s.getValue();
+                        var host = split(" ", server)[0];
+                        if (host == tx) {
+                            setprop("/sim/fgcom/selected-server", server);
+                        }
+                    }
+                }
+            }
+            
+            var servers = props.globals.getNode("/sim/gui/dialogs/multiplay/fgcom-servers", 1);
+            var updateServers = func {
+                servers.removeChildren("value");                
+                # get the results list from the server
+                var serverlist = props.globals.getNode("/sim/multiplay/server-list", 1);
+            
+                var i=0;
+                foreach (var s; serverlist.getChildren("fgcom")) {
+                    
+                    if (!s.getNode("online").getBoolValue()) {
+                      continue; # skip offline servers
+                    }
+                  
+                # label is name and location, for the moment
+                # should we include the number of users? or wait until we
+                # have a better UI toolkit?
+                    var nm = s.getNode("hostname").getValue() ~ " - " ~ s.getNode("location").getValue();
+                    servers.getNode("value[" ~ i ~ "]", 1).setValue(nm);
+                    i += 1;
+                }
+
+                autofill();
+                gui.dialog_update("fgcom", "server");
+            }
+            
+            var static_serverList = [
+                    ['fgcom.flightgear.org', 'Avignon, France']
+                ];
+                
+            var updateServersFailed = func {
+                debug.dump("Failed to retrieve server list!");
+    
+                servers.removeChildren("value"); 
+                var i=0;
+                foreach (var s; static_serverList) {
+                # create the node the PUI combo
+                    var nm = s[0] ~ " - " ~ s[1];
+                    servers.getNode("value[" ~ i ~ "]", 1).setValue(nm);
+                    i += 1;
+                }
+                
+                autofill();
+                gui.dialog_update("fgcom", "server");
+            }
+            
+            # listen for results arriving  
+            setlistener("/sim/multiplay/got-servers", updateServers);
+            setlistener("/sim/multiplay/get-servers-failure", updateServersFailed);
+            
+            fgcommand("xmlhttprequest",  props.Node.new({
+              "url" : "http://liveries.flightgear.org/mpstatus/mpservers.xml",
+              "targetnode" : "/sim/multiplay/server-list",
+              "complete" : "/sim/multiplay/got-servers",
+              "failure" : "/sim/multiplay/get-servers-failure"
+            }));
+            ]]>
+        </open>
+    <close>
+    </close>
+  </nasal>
+
+  <!-- titlebar -->
+  <group>
+    <layout>hbox</layout>
+    <empty>
+      <stretch>1</stretch>
+    </empty>
+
+    <text>
+      <label>FGCom Settings</label>
+    </text>
+
+    <empty>
+      <stretch>1</stretch>
+    </empty>
+
+    <button>
+      <pref-width>16</pref-width>
+      <pref-height>16</pref-height>
+      <border>1</border>
+      <legend>?</legend>
+      <binding>
+        <command>open-browser</command>
+        <path>http://wiki.flightgear.org/FGCom_3.0</path>
+      </binding>
+    </button>
+  </group>
+  <hrule/>
+
+  <!-- main dialog area -->
+  <group>
+    <layout>table</layout>
+    <halign>left</halign>
+
+    <text>
+      <row>0</row>
+      <col>0</col>
+      <label>Enabled:</label>
+      <halign>right</halign>
+      <enable>
+        <equals>
+          <property>/sim/fgcom/test</property>
+          <value>0</value>
+        </equals>
+      </enable>
+    </text>
+    <checkbox>
+      <row>0</row>
+      <col>1</col>
+      <colspan>2</colspan>
+      <halign>left</halign>
+      <name>enabled</name>
+      <label></label>
+      <live>1</live>
+      <enable>
+        <equals>
+          <property>/sim/fgcom/test</property>
+          <value>0</value>
+        </equals>
+      </enable>
+      <property>/sim/fgcom/enabled</property>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>enabled</object-name>
+      </binding>
+    </checkbox>
+
+    <text>
+      <row>1</row>
+      <col>0</col>
+      <label>Display messages:</label>
+      <halign>right</halign>
+    </text>
+    <checkbox>
+      <row>1</row>
+      <col>1</col>
+      <colspan>2</colspan>
+      <halign>left</halign>
+      <name>showMessages</name>
+      <label></label>
+      <live>1</live>
+      <property>/sim/fgcom/show-messages</property>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>showMessages</object-name>
+      </binding>
+    </checkbox>
+    <text>
+      <row>1</row>
+      <col>1</col>
+      <label>      (for debug only)</label>
+      <halign>left</halign>
+    </text>
+
+    <text>
+      <row>3</row>
+      <col>0</col>
+      <label>Echo test:</label>
+      <halign>right</halign>
+      <enable>
+        <equals>
+          <property>/sim/fgcom/enabled</property>
+          <value>1</value>
+        </equals>
+      </enable>
+    </text>
+    <checkbox>
+      <row>3</row>
+      <col>1</col>
+      <colspan>2</colspan>
+      <halign>left</halign>
+      <name>test</name>
+      <label></label>
+      <enable>
+        <equals>
+          <property>/sim/fgcom/enabled</property>
+          <value>1</value>
+        </equals>
+      </enable>
+      <live>1</live>
+      <property>/sim/fgcom/test</property>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>test</object-name>
+      </binding>
+    </checkbox>
+
+    <text>
+      <row>4</row>
+      <col>0</col>
+      <label>PTT test:</label>
+      <halign>right</halign>
+      <enable>
+        <equals>
+          <property>/sim/fgcom/enabled</property>
+          <value>-1</value>
+        </equals>
+      </enable>
+    </text>
+    <checkbox>
+      <row>4</row>
+      <col>1</col>
+      <colspan>2</colspan>
+      <halign>left</halign>
+      <name>ptt-test</name>
+      <label></label>
+      <enable>
+        <equals>
+          <property>/sim/fgcom/enabled</property>
+          <value>-1</value>
+        </equals>
+      </enable>
+      <live>1</live>
+      <property>/instrumentation/comm[0]/ptt</property>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>ptt-test</object-name>
+      </binding>
+    </checkbox>
+    <text>
+      <row>4</row>
+      <col>1</col>
+      <label>      (/instrumentation/comm/ptt) </label>
+      <halign>left</halign>
+    </text>
+
+
+    <text>
+      <row>5</row>
+      <col>0</col>
+      <label>Speaker Volume:</label>
+      <halign>right</halign>
+    </text>
+    <slider>
+      <row>5</row>
+      <col>1</col>
+      <halign>left</halign>
+      <name>speaker-vol</name>
+      <label></label>
+      <min>0</min>
+      <max>1.0</max>
+      <step>0.1</step>
+      <property>/sim/fgcom/speaker-level</property>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>speaker-vol</object-name>
+      </binding>
+    </slider>
+    <text>
+      <row>5</row>
+      <col>1</col>
+      <label>1234         </label>
+      <format>%.1f</format>
+      <live>true</live>
+      <halign>right</halign>
+      <property>/sim/fgcom/speaker-level</property>
+    </text>
+
+    <text>
+      <row>6</row>
+      <col>0</col>
+      <label>Silence threshold:</label>
+      <halign>right</halign>
+    </text>
+    <slider>
+      <row>6</row>
+      <col>1</col>
+      <halign>left</halign>
+      <name>silence-thd</name>
+      <label></label>
+      <min>-60.0</min>
+      <max>0.0</max>
+      <step>1</step>
+      <property>/sim/fgcom/silence-threshold</property>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>silence-thd</object-name>
+      </binding>
+    </slider>
+    <text>
+      <row>6</row>
+      <col>1</col>
+      <label>1234 dB        </label>
+      <format>%.1f dB</format>
+      <live>true</live>
+      <halign>right</halign>
+      <property>/sim/fgcom/silence-threshold</property>
+    </text>
+  </group>
+
+  <hrule/>
+
+  <!-- registration (keep it for the day we need it)
+  <group>
+    <layout>hbox</layout>
+    <empty>
+      <stretch>1</stretch>
+    </empty>
+
+    <text>
+      <label>Registration</label>
+    </text>
+
+    <empty>
+      <stretch>1</stretch>
+    </empty>
+  </group>
+
+  <group>
+    <layout>table</layout>
+    <halign>left</halign>
+
+    <text>
+      <row>0</row>
+      <col>0</col>
+      <halign>right</halign>
+      <label>Enabled:</label>
+      <enable>
+        <equals>
+          <property>/sim/fgcom/enabled</property>
+          <value>0</value>
+        </equals>
+      </enable>
+    </text>
+    <checkbox>
+      <row>0</row>
+      <col>1</col>
+      <colspan>2</colspan>
+      <halign>left</halign>
+      <name>reg-enabled</name>
+      <label></label>
+      <property>/sim/fgcom/register/enabled</property>
+      <enable>
+        <equals>
+          <property>/sim/fgcom/enabled</property>
+          <value>0</value>
+        </equals>
+      </enable>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>reg-enabled</object-name>
+      </binding>
+    </checkbox>
+
+    <text>
+      <row>1</row>
+      <col>0</col>
+      <halign>right</halign>
+      <label>Username:</label>
+      <enable>
+        <equals>
+          <property>/sim/fgcom/enabled</property>
+          <value>0</value>
+        </equals>
+      </enable>
+    </text>
+    <input>
+      <name>username</name>
+      <row>1</row>
+      <col>1</col>
+      <colspan>2</colspan>
+      <halign>left</halign>
+      <pref-width>125</pref-width>
+      <editable>true</editable>
+      <property>/sim/fgcom/register/username</property>
+      <enable>
+        <equals>
+          <property>/sim/fgcom/enabled</property>
+          <value>0</value>
+        </equals>
+      </enable>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>username</object-name>
+      </binding>
+    </input>
+
+    <text>
+      <row>2</row>
+      <col>0</col>
+      <halign>right</halign>
+      <label>Password:</label>
+      <enable>
+        <equals>
+          <property>/sim/fgcom/enabled</property>
+          <value>0</value>
+        </equals>
+      </enable>
+    </text>
+    <input>
+      <name>password</name>
+      <row>2</row>
+      <col>1</col>
+      <colspan>2</colspan>
+      <halign>left</halign>
+      <pref-width>125</pref-width>
+      <editable>true</editable>
+      <property>/sim/fgcom/register/password</property>
+      <enable>
+        <equals>
+          <property>/sim/fgcom/enabled</property>
+          <value>0</value>
+        </equals>
+      </enable>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>password</object-name>
+      </binding>
+    </input>
+  </group>
+
+  <hrule/>
+-->
+  <!-- server -->
+  <group>
+    <layout>hbox</layout>
+    <empty>
+      <stretch>1</stretch>
+    </empty>
+
+    <text>
+      <label>Server</label>
+    </text>
+
+    <empty>
+      <stretch>1</stretch>
+    </empty>
+  </group>
+
+  <group>
+    <layout>table</layout>
+    <halign>left</halign>
+
+
+
+    <combo>
+      <name>server</name>
+      <row>1</row>
+      <col>0</col>
+      <colspan>6</colspan>
+      <pref-width>275</pref-width>
+      <editable>false</editable>
+      <property>/sim/fgcom/selected-server</property>
+      <properties>/sim/gui/dialogs/multiplay/fgcom-servers</properties>
+      <enable>
+        <and>
+          <equals>
+            <property>/sim/fgcom/enabled</property>
+            <value>1</value>
+          </equals>
+          <equals>
+            <property>/sim/fgcom/test</property>
+            <value>0</value>
+          </equals>
+        </and>
+      </enable>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>server</object-name>
+      </binding>
+      <binding>
+        <command>nasal</command>
+        <script>
+          <![CDATA[
+                 setprop("/sim/fgcom/enabled", 0);
+
+                 var server = getprop("/sim/fgcom/selected-server");
+                 server = split(" ", server)[0];
+                 setprop("/sim/fgcom/server", server);
+
+                 setprop("/sim/fgcom/enabled", 1);
+             ]]>
+        </script>
+      </binding>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>test</object-name>
+      </binding>
+    </combo>
+
+  </group>
+
+  <!-- button area -->
+
+  <hrule/>
+  <group>
+    <layout>hbox</layout>
+    <default-padding>10</default-padding>
+    <empty>
+      <stretch>true</stretch>
+    </empty>
+
+    <button>
+      <legend>Close</legend>
+      <default>true</default>
+      <equal>true</equal>
+      <border>1</border>
+      <binding>
+        <command>dialog-close</command>
+      </binding>
+    </button>
+
+    <empty>
+      <stretch>true</stretch>
+    </empty>
+  </group>
+
+</PropertyList>
+

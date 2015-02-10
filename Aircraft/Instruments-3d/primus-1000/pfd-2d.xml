@@ -1,0 +1,132 @@
+<!--
+Syd Adams
+
+Primus 1000 PFD  hotspots
+-->
+
+<PropertyList>
+
+  <name>PFD hotspots</name>
+  <w-base>180</w-base>
+  <h-base>240</h-base>
+  <w>180</w>
+  <h>240</h>
+
+  <layers>
+  </layers>
+ <actions>
+   
+   <!--  *************      SELECT BARO  /  RA MODE     *****************-->
+
+   <action>
+     <name>bezel outline</name>
+     <button>0</button>
+     <x>-90</x>
+     <y>-120</y>
+     <w>180</w>
+     <h>240</h>
+   </action>
+
+   <action>
+     <name>select ra / baro alt mode</name>
+     <button>0</button>
+     <x>-58</x>
+     <y>-103</y>
+     <w>18</w>
+     <h>12</h>
+     <binding>
+       <command>property-toggle</command>
+       <property>/instrumentation/primus1000/ra-mode</property>
+       <min>0</min>
+       <max>1</max>
+     </binding>
+   </action>
+
+   <!--                  reset baro -->
+
+   <action>
+     <name>reset inhg</name>
+     <button>0</button>
+     <x>44</x>
+     <y>-103</y>
+     <w>18</w>
+     <h>12</h>
+     <binding>
+       <command>property-assign</command>
+       <property>instrumentation/altimeter/setting-inhg</property>
+       <value>29.92</value>
+     </binding>
+   </action>
+
+   <!--       adjust    inhg          -->
+   <action>
+     <name>calibrate inhg down fine</name>
+     <button>0</button>
+     <x>67</x>
+     <y>-110</y>
+     <w>8</w>
+     <h>14</h>
+     <binding>
+       <command>property-adjust</command>
+       <property>/instrumentation/altimeter/setting-inhg</property>
+       <step>-0.01</step>
+       <min>26.0</min>
+       <max>33.0</max>
+       <wrap>false</wrap>
+     </binding>
+   </action>
+   
+   <action>
+     <name>calibrate inhg down coarse</name>
+     <button>1</button>
+     <x>67</x>
+     <y>-110</y>
+     <w>8</w>
+     <h>14</h>
+     <binding>
+       <command>property-adjust</command>
+       <property>/instrumentation/altimeter/setting-inhg</property>
+       <step>-0.1</step>
+       <min>26.0</min>
+       <max>33.0</max>
+       <wrap>false</wrap>
+     </binding>
+   </action>
+   
+   <action>
+     <name>calibrate inhg up fine</name>
+     <button>0</button>
+     <x>75</x>
+     <y>-110</y>
+     <w>8</w>
+     <h>14</h>
+     <binding>
+       <command>property-adjust</command>
+       <property>/instrumentation/altimeter/setting-inhg</property>
+       <step>0.01</step>
+       <min>26.0</min>
+       <max>33.0</max>
+       <wrap>false</wrap>
+     </binding>
+   </action>
+   
+   <action>
+     <name>calibrate inhg up coarse</name>
+     <button>1</button>
+     <x>75</x>
+     <y>-110</y>
+     <w>8</w>
+     <h>14</h>
+     <binding>
+       <command>property-adjust</command>
+       <property>/instrumentation/altimeter/setting-inhg</property>
+       <step>0.1</step>
+       <min>26.0</min>
+       <max>33.0</max>
+       <wrap>false</wrap>
+     </binding>
+   </action>
+
+   
+ </actions>
+</PropertyList>

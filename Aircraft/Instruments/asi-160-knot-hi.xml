@@ -1,0 +1,193 @@
+<?xml version="1.0"?>
+
+<!--
+Improved airspeed indicator instrument.
+Apr 27 2001
+Martin Dressler dr@musicabona.cz
+airspeed indicator instrument from C172RG
+GPL
+_______________________________________________________________________________
+
+Based on Default by David Megginson, david@megginson.com.
+
+This is an instrument configuration file for the open-source flight
+simulator FlightGear (www.flightgear.org).  The file is an XML-encoded
+FlightGear property list defining the instrument's layers and actions.
+
+Each instrument is composed of layers stacked on top of each other.
+A layer may be a texture (with transparent parts to show the layers
+underneath), text, or a special layer that switches between two
+others (say, to turn an indicator light on or off).  Each layer can
+move independently in proportion to a property value, and text
+can be generated from property values as well: all of the layer's
+movements are defined as transformations.
+
+Actions are hotspots on the instrument that will respond to a mouse
+click.  Actions always modify the values of properties, either by
+adjusting them, toggling them, or swaping them with other
+properties' values.
+-->
+
+<PropertyList>
+
+ <name>C172RG Airspeed Indicator</name>
+
+ <w-base>256</w-base>
+ <h-base>256</h-base>
+
+ <layers>
+  <layer>
+   <name>gauge face</name>
+   <texture>  <!-- for alternate backgroun rewrite to airsp3.rgb -->
+   <path>Aircraft/Instruments/Textures/airsp2.rgb</path>
+   <x1>0.0</x1>
+   <y1>0.0</y1>
+   <x2>1.0</x2>
+   <y2>1.0</y2>
+   </texture>
+   <!-- <w>126</w> -->
+   <!-- <h>126</h> -->
+  </layer>
+ <!-- 
+  <layer>
+   <name>numbers under hub</name>
+   <texture>   
+   <path>Aircraft/Instruments/Textures/airspeed-160-knot.rgb</path>
+   <x1>0.171875</x1>
+   <x2>0.328125</x2>
+   <y1>0.1640625</y1>
+   <y2>0.3203125</y2>
+   </texture>
+   <w>19</w>
+   <h>19</h>
+  </layer>
+-->    
+  <layer>
+   <name>needle</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/madr-misc1.rgb</path>
+    <x1>0.0</x1>
+    <y1>0.40625</y1>
+    <x2>0.40625</x2>
+    <y2>1.0</y2>
+   </texture>
+   <w>104</w>
+   <h>152</h>
+   <transformations>
+    <transformation>
+     <type>rotation</type>
+     <property>/instrumentation/airspeed-indicator/indicated-speed-kt</property>
+     <min>10.0</min>
+     <max>190.0</max>
+     <scale>1.0</scale>
+     <interpolation>
+      <entry><ind>  10</ind><dep>    3</dep></entry>
+      <entry><ind>  40</ind><dep>   38</dep></entry>
+      <entry><ind>  60</ind><dep>   85</dep></entry>
+      <entry><ind>  80</ind><dep>  146</dep></entry>
+      <entry><ind> 100</ind><dep>  198</dep></entry>
+      <entry><ind> 120</ind><dep>  236</dep></entry>
+      <entry><ind> 140</ind><dep>  274</dep></entry>
+      <entry><ind> 160</ind><dep>  313</dep></entry>
+      <entry><ind> 190</ind><dep>  353</dep></entry>
+     </interpolation>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>25</offset>
+    </transformation>
+   </transformations>
+  </layer> 
+ 
+  <layer>
+   <name>foreground</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/airsp1.rgb</path>
+    <x1>0.0</x1>
+    <y1>0.0</y1>
+    <x2>1.0</x2>
+    <y2>1.0</y2>
+   </texture>
+  </layer>
+  <layer>
+   <name>calibration</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/airsp4.rgb</path>
+    <x1>0.0</x1>
+    <y1>0.0</y1>
+    <x2>1.0</x2>
+    <y2>1.0</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>rotation</type>
+     <property>/instrumentation/airspeed-indicator/speed-offset-kt</property>
+     <min>-360.0</min>
+     <max>360.0</max>
+     <scale>-1</scale>
+    </transformation>
+   </transformations>
+  </layer>
+ </layers>
+ <actions>
+  <action>
+   <name></name>
+   <type>adjust</type>
+   <button>0</button>
+   <x>-128</x>
+   <y>-128</y>
+   <w>128</w>
+   <h>256</h>
+   <property>/instrumentation/airspeed-indicator/speed-offset-kt</property>
+   <increment>0.5</increment>
+   <min>0</min>
+   <max>360</max>
+   <wrap>true</wrap>
+  </action>
+  <action>
+   <name></name>
+   <type>adjust</type>
+   <button>1</button>
+   <x>-128</x>
+   <y>-128</y>
+   <w>128</w>
+   <h>256</h>
+   <property>/instrumentation/airspeed-indicator/speed-offset-kt</property>
+   <increment>10</increment>
+   <min>0</min>
+   <max>360</max>
+   <wrap>true</wrap>
+  </action>
+
+  <action>
+   <name></name>
+   <type>adjust</type>
+   <button>0</button>
+   <x>0</x>
+   <y>-128</y>
+   <w>128</w>
+   <h>256</h>
+   <property>/instrumentation/airspeed-indicator/speed-offset-kt</property>
+   <increment>-0.5</increment>
+   <min>0</min>
+   <max>360</max>
+   <wrap>true</wrap>
+  </action>
+  <action>
+   <name></name>
+   <type>adjust</type>
+   <button>1</button>
+   <x>0</x>
+   <y>-128</y>
+   <w>128</w>
+   <h>256</h>
+   <property>/instrumentation/airspeed-indicator/speed-offset-kt</property>
+   <increment>-10</increment>
+   <min>0</min>
+   <max>360</max>
+   <wrap>true</wrap>
+  </action>
+
+</actions>
+
+</PropertyList>

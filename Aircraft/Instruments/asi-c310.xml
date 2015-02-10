@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+
+<!--
+Improved airspeed indicator instrument.
+Apr 27 2001
+Martin Dressler dr@musicabona.cz
+Modified by David Megginson for Cessna 310 operational speeds.
+GPL
+-->
+
+<PropertyList>
+
+ <name>Cessna 310 Airspeed Indicator (Knots)</name>
+ 
+  <w-base>128</w-base>
+  <h-base>128</h-base>
+   
+   <layers>
+    <layer>
+     <name>gauge face</name>
+     <texture>   
+     <path>Aircraft/Instruments/Textures/asi-c310.rgb</path>
+     <x1>0.5</x1>
+     <y1>0.5</y1>
+     <x2>1.0</x2>
+     <y2>1.0</y2>
+     </texture>
+     <w>126</w>
+     <h>126</h>
+    </layer>
+    <layer>
+    <name>needle</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/misc-1.rgb</path>
+    <x1>0.8</x1>
+    <y1>0.78125</y1>
+    <x2>0.8375</x2>
+    <y2>1.0</y2>
+   </texture>
+   <w>5.5</w>
+   <h>44</h>
+   <transformations>
+     <transformation>
+      <type>rotation</type>
+      <property>/instrumentation/airspeed-indicator/indicated-speed-kt</property>
+      <min>10.0</min>
+      <max>260.0</max>
+      <scale>1.0</scale>
+       <interpolation>
+       <entry><ind>  10</ind><dep>    3</dep></entry>
+       <entry><ind>  40</ind><dep>   13</dep></entry>
+       <entry><ind>  60</ind><dep>   35</dep></entry>
+       <entry><ind>  80</ind><dep>   63</dep></entry>
+       <entry><ind> 100</ind><dep>   93</dep></entry>
+       <entry><ind> 120</ind><dep>  125</dep></entry>
+       <entry><ind> 140</ind><dep>  163</dep></entry>
+       <entry><ind> 160</ind><dep>  195</dep></entry>
+       <entry><ind> 180</ind><dep>  225</dep></entry>
+       <entry><ind> 200</ind><dep>  252</dep></entry>
+       <entry><ind> 230</ind><dep>  295</dep></entry>
+       <entry><ind> 260</ind><dep>  340</dep></entry>
+       </interpolation>
+     </transformation>
+    <transformation>
+    <type>y-shift</type>
+    <offset>16</offset>
+    </transformation>
+   </transformations>
+  </layer> 
+ 
+ <layer>
+  <name>button</name>
+  <texture>
+  <path>Aircraft/Instruments/Textures/misc-1.rgb</path>
+  <x1>0.6171875</x1>
+  <y1>0.2421875</y1>
+  <x2>0.7890625</x2>
+  <y2>0.4140625</y2>
+  </texture>
+  <w>14</w>
+  <h>14</h>
+  </layer>
+  
+  <layer>
+   <name>glare shield</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/bezel1.rgb</path>
+    <x1>0.5</x1>
+    <y1>0.0</y1>
+    <x2>1.0</x2>
+    <y2>0.5</y2>
+   </texture>
+  <w>128</w>
+  <h>128</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>2</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-2</offset>
+    </transformation>
+    </transformations>
+  </layer>
+  </layers>
+</PropertyList>
+

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- flight recorder configuration -->
+<!-- engine fault properties -->
+
+<PropertyList>
+
+    <signal>
+        <type>bool</type>
+        <property type="string">/controls/flight/flaps-serviceable</property>
+    </signal>
+    <signal>
+        <type>bool</type>
+        <property type="string">/controls/engines/engine[%i]/faults/serviceable</property>
+    </signal>
+
+    <signal>
+        <type>bool</type>
+        <property type="string">/controls/engines/engine[%i]/faults/left-magneto-serviceable</property>
+    </signal>
+
+    <signal>
+        <type>bool</type>
+        <property type="string">/controls/engines/engine[%i]/faults/right-magneto-serviceable</property>
+    </signal>
+
+    <signal>
+        <type>bool</type>
+        <property type="string">/controls/engines/engine[%i]/faults/spark-plugs-serviceable</property>
+    </signal>
+
+    <signal>
+        <type>bool</type>
+        <property type="string">/controls/engines/engine[%i]/faults/oil-pressure-status</property>
+    </signal>
+
+    <signal>
+        <type>bool</type>
+        <property type="string">/controls/engines/engine[%i]/faults/fuel-pump-serviceable</property>
+    </signal>
+
+</PropertyList>

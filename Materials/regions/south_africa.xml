@@ -1,0 +1,197 @@
+<?xml version="1.0"?>
+<!-- Regional definitions for South Africa -->
+<PropertyList>
+  <name>South Africa</name>
+  <area>
+    <lon1>9.0</lon1>
+    <lon2>36.0</lon2>
+    <lat1>-37.0</lat1>
+    <lat2>-21.0</lat2>
+  </area>
+
+  <condition>
+    <equals>
+      <property>sim/startup/season</property>
+      <value>summer</value>
+    </equals>
+  </condition>
+
+ <material>
+  <name>MixedCropPastureCover</name>
+  <name>MixedCrop</name>
+  <name>ComplexCrop</name>
+ <texture-set>
+    <texture>Terrain/cropgrass-madagascar.png</texture>
+    <texture n="12">Terrain/tundra-hawaii-green.png</texture>
+  </texture-set>
+  <parameters>
+   <transition_model>0.5</transition_model>
+   <rock_strata>1</rock_strata>
+  </parameters>
+  <xsize>2000</xsize>
+  <ysize>2000</ysize>
+  <light-coverage>2000000.0</light-coverage>
+  <solid>1</solid>
+  <friction-factor>0.9</friction-factor>
+  <rolling-friction>0.1</rolling-friction>
+  <bumpiness>0.7</bumpiness>
+  <load-resistance>1e30</load-resistance>
+</material>
+
+
+
+ <material>
+  <name>DeciduousBroadCover</name>
+  <name>DeciduousForest</name>
+  <name>Bog</name>
+  <name>Heath</name>
+  <texture-set>
+   <texture>Terrain/rainforest-hawaii.png</texture>
+   <texture n="12">Terrain/tundra-hawaii-green.png</texture>
+  </texture-set>
+  <parameters>
+   <transition_model>0.5</transition_model>
+   <rock_strata>1</rock_strata>
+  </parameters>
+  <xsize>2000</xsize>
+  <ysize>2000</ysize>
+  <light-coverage>10000000.0</light-coverage>
+  <wood-coverage>4000.0</wood-coverage>
+  <tree-texture>Trees/tropical.png</tree-texture>
+  <tree-varieties>8</tree-varieties>
+  <tree-range-m alias="/params/forest/tree-range-m"/>
+  <tree-height-m>25.0</tree-height-m>
+  <tree-width-m>15.0</tree-width-m>
+  <rolling-friction>1</rolling-friction>
+  <bumpiness>0.85</bumpiness>
+ </material>
+
+  <material>
+    <name>EvergreenBroadCover</name>
+    <name>EvergreenForest</name>
+    <effect>Effects/forest</effect>
+    <texture-set>
+     <texture>Terrain/forest1a.png</texture>
+     <texture n="12">Terrain/tundra-hawaii-green.png</texture>
+    </texture-set>
+    <parameters>
+     <transition_model>0.5</transition_model>
+     <rock_strata>1</rock_strata>
+    </parameters>
+    <xsize>2000</xsize>
+    <ysize>2000</ysize>
+    <light-coverage>10000000.0</light-coverage>
+    <wood-coverage>4000.0</wood-coverage>
+    <tree-texture>Trees/coniferous-alt.png</tree-texture>
+    <tree-varieties>8</tree-varieties>
+    <tree-range-m alias="/params/forest/tree-range-m"/>
+    <tree-height-m>25.0</tree-height-m>
+    <tree-width-m>18.0</tree-width-m>
+    <rolling-friction>1</rolling-friction>
+    <bumpiness>1</bumpiness>
+  </material>
+
+ <material>
+    <name>DryCropPastureCover</name>
+    <name>DryCrop</name>
+    <texture-set>
+     <texture>Terrain/dry_pasture4.png</texture>
+     <texture n="12">Terrain/dirtrock.png</texture>
+     <texture n="15">Terrain/tundra-hawaii-green.png</texture>
+    </texture-set>
+    <parameters>
+      <dot_size>10.0</dot_size>
+      <rock_strata>1</rock_strata>
+    </parameters>
+    <object-mask>Terrain/drycrop1.mask.png</object-mask>
+    <object-mask>Terrain/drycrop2.mask.png</object-mask>
+    <object-mask>Terrain/drycrop3.mask.png</object-mask>
+    <xsize>2000</xsize>
+    <ysize>2000</ysize>
+    <solid>1</solid>
+    <friction-factor>0.9</friction-factor>
+    <rolling-friction>0.1</rolling-friction>
+    <bumpiness>0.6</bumpiness>
+    <load-resistance>1e30</load-resistance>
+    <light-coverage>2000000.0</light-coverage>
+    <object-group include="Materials/base/farm-buildings.xml"/>
+    <wood-coverage>10000.0</wood-coverage>
+    <tree-texture>Trees/mixed-alt.png</tree-texture>
+    <tree-varieties>8</tree-varieties>
+    <tree-range-m alias="/params/forest/tree-range-m"/>
+    <tree-height-m>20.0</tree-height-m>
+    <tree-width-m>12.0</tree-width-m>
+  </material>
+
+ <material>
+    <name>DryCropPastureCover</name>
+    <name>DryCrop</name>
+	<texture-set>
+     <texture>Terrain/dry_pasture4.png</texture>
+	 <texture n="12">Terrain/dirtrock.png</texture>
+	 <texture n="15">Terrain/tundra-hawaii-green.png</texture>
+	</texture-set>
+	<parameters>
+      <dot_size>10.0</dot_size>
+	  <rock_strata>1</rock_strata>
+    </parameters>
+    <object-mask>Terrain/drycrop1.mask.png</object-mask>
+    <object-mask>Terrain/drycrop2.mask.png</object-mask>
+    <object-mask>Terrain/drycrop3.mask.png</object-mask>
+    <xsize>2000</xsize>
+    <ysize>2000</ysize>
+    <solid>1</solid>
+    <friction-factor>0.9</friction-factor>
+    <rolling-friction>0.1</rolling-friction>
+    <bumpiness>0.6</bumpiness>
+    <load-resistance>1e30</load-resistance>
+    <light-coverage>2000000.0</light-coverage>
+    <object-group include="Materials/base/farm-buildings.xml"/>
+    <wood-coverage>10000.0</wood-coverage>
+    <tree-texture>Trees/mixed.png</tree-texture>
+    <tree-varieties>8</tree-varieties>
+    <tree-range-m alias="/params/forest/tree-range-m"/>
+    <tree-height-m>20.0</tree-height-m>
+    <tree-width-m>12.0</tree-width-m>
+  </material>
+
+  <material>
+    <effect>Effects/cropgrass</effect>
+    <name>Grassland</name>
+    <texture-set>
+     <texture>Terrain/dry_pasture4.png</texture>
+     <texture n="12">Terrain/tundra-hawaii-green.png</texture>
+    </texture-set>
+    <parameters>
+     <rock_strata>1</rock_strata>
+    </parameters>
+    <xsize>2000</xsize>
+    <ysize>2000</ysize>
+    <light-coverage>2000000.0</light-coverage>
+    <diffuse>
+      <r>0.93</r>
+      <g>0.95</g>
+      <b>0.93</b>
+      <a>1.0</a>
+    </diffuse>
+    <specular>
+      <r>0.1</r>
+      <g>0.12</g>
+      <b>0.1</b>
+      <a>1.0</a>
+    </specular>
+    <shininess>1.2</shininess>
+    <solid>1</solid>
+    <friction-factor>0.7</friction-factor>
+    <rolling-friction>0.1</rolling-friction>
+    <bumpiness>0.3</bumpiness>
+    <load-resistance>1e30</load-resistance>
+    <wood-coverage>150000.0</wood-coverage>
+    <tree-texture>Trees/mixed.png</tree-texture>
+    <tree-varieties>8</tree-varieties>
+    <tree-range-m alias="/params/forest/tree-range-m"/>
+    <tree-height-m>20.0</tree-height-m>
+    <tree-width-m>12.0</tree-width-m>
+  </material>
+
+</PropertyList>

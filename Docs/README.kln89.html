@@ -1,0 +1,77 @@
+<h1>The KLN89 GPS unit in FlightGear</h1>
+
+FlightGear includes a simulation of the KLN89B GPS unit.  This is an IFR en-route, terminal and non-precision approach capable GPS (FAA TSO-C129 level A1) introduced around 1994.  The majority of the display is text based, but there is a fairly rudimentary moving map display.
+<br>
+<br>
+The user-interface and capabilities of this unit are extremely complex, and as far as possible the simulation is a faithful reproduction of the behaviour of the original.  The best documentation is therefore the original manual, which is readily available on the web.  A working link at the time of writing can be found <a href="http://www.buffaloairways.com/manuals/manuals.htm">here</a>.  Owners of the old <i>Fly!</i> flight simulator will also find a useful section on the KLN89 in the accompanying manual.  Various other relevant iterature on the web may be found by searching.
+<br>
+<br>
+The KLN89B may currently be found in FlightGear only on the 2D C172p panel:
+<pre>fgfs --aircraft=c172p-2dpanel</pre>
+The display is clearest at a FG area size of 1024x768, since at that geometry there is a 1:1 mapping between screen and KLN89 display pixels:
+<pre>fgfs --aircraft=c172p-2dpanel --geometry=1024x768</pre>
+At higher resolutions the display is readable but slightly blurred, at lower resolutions the display may be largely unreadable.  Advanced note: One possible way around this is to make up a custom mini-panel containing only the KLN89B at the correct resolution.  Check out the KLN90 mini-panel on the b1900d for a template to get started.
+<br>
+<br>
+The unit is currently functional for en-route navigation and non-precision approaches, but is not yet fully complete, and is missing a number of features.  The duplicate waypoint page is not available, so some waypoints (particularly NDBs) which have duplicated IDs worldwide may be unselectable.  There is no provision for altitude input.  The moving map page only displays the active flightplan, not airports or navaids not on the flightplan.  Only a couple of non-precision approaches are available in the database, at KHWD and C83.  It is not possible to enter user-defined waypoints.  Most of the OTH (auxiliary) and CAL (calculator) pages are unimplemented (info such as satellite position and status, fuel calculator etc).  The nearest search functions don't work yet.  Waypoint scan with the inner-knob out only works on the NAV4 (moving map) page.  There is no turn anticipation.  Only some user settings are changable in the SET pages, and these are not persistent between FG sessions.  That list sounds long, but the unit is still under active development, and hopefully it gives some indication of how much *has* been implemented so far!
+<br>
+<br>
+The rest of this documentation is a short introduction to using the unit, and a description of the specific peculiarities of using the unit within FlightGear.
+<br>
+<br>
+<h2>Getting Started with the Unit</h2>
+<b><i>Input</b></i>
+<br>
+Input to a complex instrument is unfortunately somewhat more awkward in a simulator than on the real-life unit.  Input to the unit in FlightGear is via the mouse, although key-bindings could be configured by the user.  At the right-hand side of the unit is a double knob, composed of an inner and outer knob.  Both knobs may be turned in either direction by clicking with the mouse (left mouse button): press Ctrl-C to see where the hot-spots are, and practice clicking the correct knob on the ground before commencing an approach.  The inner knob may be pulled out - the middle mouse button is used to pull out and push in the middle knob.  The left mouse button is used to turn the inner knob when pulled out in the same manner as before.
+<br>
+<br>
+<b><i>Basics</b></i>
+<br>
+The unit is organised in pages, eg. APT (airport data), NAV (navigation display).  Most pages are composed of several subpages, eg. NAV1 (CDI and basic nav info), NAV4 (moving map page).  Moving between pages is done using the outer knob, moving between subpages is done using the inner knob.  Most pages have several editable or changable data fields.  Press the CRSR button to enter or exit edit mode.  In edit mode, the outer knob moves between editable items, and the inner knob changes items, except for cyclic fields (indicated by '>'), which require the CLR button to cycle through the choices.  Sometimes a specific choice may require confirmation to set it; in this case the unit will flash 'ENT', and the ENT button must be pressed to confirm (or generally either the CLR or CRSR button to reject).  The DTO button allows navigation direct to a selectable waypoint.  The OBS button allows navigation relative to a radial to or from a given waypoint, in a similar manner to VOR navigation.
+<br>
+<br>
+<b><i>Flight planning</b></i>
+<br>
+Central to operation of the unit is the concept of the active flightplan, which is a path connecting a set of waypoints that the user intends to follow.  By default the unit operates in LEG mode, whereby navigation is provided along each leg (great-circle path between waypoints) of the flightplan.  Several flightplans are programmed into the FPL pages at startup for convienience.  Other flightplans may be entered into any of the FPL pages (except FPL0, the active flightplan) as per the manual instructions (or trial-and-error for the adventurous!).  Any flightplan can be made active, at which point it is copied to the FPL0 page.  Currently flightplans can not be entered on the command line, loaded from file, nor are entered flightplans in the unit saved between sessions.  This will come eventually...
+<br>
+<br>
+<b><i>Navigation</b></i>
+<br>
+The NAV1 page contains a CDI-type display.  The scale may be changed.  NAV4 contains the moving map display, which currently shows only the active flightplan.  Press the CRSR button to access the map scale change, or the CRSR button, then left-outer-knob, then ENT button (!) to access the map menu.  Note that if you select heading-up display then the map will blank out at speeds less than about 2 knots unless the unit is interfaced to a heading source (not currently done in FG) - this is consistent with the real-life unit.  The waypoints of the active flightplan may be 'scanned' on this page by pulling the inner knob out (middle mouse button) and turning it (left mouse button).  This allows the default direct-to waypoint to be changed (to the one displayed in the bottom-right of the screen), which can be very useful when under ATC control on an IFR flight-plan.
+<br>
+<br>
+<b><i>Approaches</b></i>
+<br>
+The KLN89B is classed as TSO-C129 level A1 by the FAA, which among other things means it is suitable for non-precision IFR approaches if mounted in a suitable installation.  The FG installation currently doesn't quite comply, since there is no altitude input, but this is a sim so we won't worry too much for now!  How to fly non-precision approaches is beyond the scope of this document - see Charles Wood's excellent pages at <a href="http://www.navfltsm.addr.com/">www.navfltsm.com</a> for a thorough grounding.  The FAA GPS regulations state that the waypoints for a given approach must be stored in a database in the correct order, and must not be editable by the user!  Approaches for a given airport may be selected from the APT8 page, but only if that airport is in the active flightplan.  If there is a choice of IAF (initial approach fix), then this is chosen on the APT8 page as well.  The approach will be added to the active flightplan, but will be removed if the unit is power-cycled (another FAA reg. I believe).  Hence there are is no approach in the active flight-plan at FG startup.  Currently only 3 approaches are available, two at KHWD (Hayward Executive) and one at C83 (Byron), both of which are in the FG base package.  These are hardwired into the code at present, but it is hoped to move them to a file that the user can enter their favourite approaches into.
+<br>
+<br>
+To fly an approach, make sure that the NAV1 CDI is slaved to the GPS by using the GPS/NAV switch on the annunciator unit near the top of the panel.  If everything is setup OK, the approach should arm about 30 miles or so from the destination, indicated on the annunciator, and the FSD of the CDI will change smoothly from 5 miles to 1 mile.  When 2nm from the final approach fix (FAF), if everything is OK then the unit will change to approach active mode, indicated by ACTV on the annunciator.  FSD will change from 1 to 0.3 miles.  If the status fails to change to ACTV by the time the FAF has been passed then a missed approach must be flown.
+<br>
+<br>
+<b><i>Approach example: KLSN to C83</b></i>
+<br>
+An example flight with a non-precision approach flown entirely within the base-package scenery area is KLSN (Los Banos Muni) to C83 (Byron) in IFR conditions.  The approach chart for C83 GPS rwy 30 can be found online <a href="http://204.108.4.16/d-tpp/0602/09141G30.PDF">here</a>.  Start FlightGear with:
+<pre>
+fgfs --airport=KLSN --aircraft=c172p-2dpanel --geometry=1024x768 --ceiling=1000 --visibility=3000 --wind=300@5
+</pre>
+For the adventurous, increase the difficulty by adding turbulence, putting the wind across the runway with varying speed and direction, bringing the ceiling and visibility down to the approach minimums of 740ft and 1600m (1 mile), and leaving the autopilot switched off!
+<br>
+<br>
+Before taking off from KLSN, set up the instruments for the flight.  Use the outer knob on the KLN89 to move to the FPL page.  Use the inner knob to move to FPL5, which contains KLSN -> C83.  Press the CRSR button, and the 'Use?' legend is underlined and starts to flash, along with the 'ENT' legend in the left-hand frame.  Press ENT to use the flightplan, and the flightplan is then copied to the FPL0 page, and becomes the active flightplan.
+<br>
+<br>
+Now we must add the approach.  Approaches are selected from the APT8 page.  This would require C83 to be selected on the APT pages.  However, because C83 is the active waypoint, we can select the approach from the ACT pages, which are a straight copy of the appropriate data pages (APT, NDB, VOR etc) for the active waypoint.  Click left on the outer knob a couple of times to reach the ACT page.  Click left on the inner knob once (or right seven times!) to reach the ACT8 page.  Press the CRSR button and use the outer knob to select an approach (there is only one for this airport).  Press ENT to select the approach.  Use the outer knob to select an IAF (we want PATYY for this flight since that introduces a slight dog-leg into the flightplan that keeps us clear of high ground.  Use <a href="http://atlas.sourceforge.net">Atlas</a> to visulise this).  Press ENT to select the IAF.  Finally, press ENT once more to add the approach to the flightplan.  Press the NAV/GPS button on the annunciator to slave the NAV1 CDI to the GPS (the nav/gps flag on NAV1 won't change at the current state of development - you'll need to trust the annunciator indication instead), and tune NAV2 to Modesto VOR if desired (114.6) for a handy positional sanity check.
+<br>
+<br>
+Take off and fly to PATYY.  It's quite a long flight (over 50nm total, about 25 to PATYY), so gain a bit of height.  Five to six thousand feet is probably appropriate, and gets us above the clouds.  Note that the published chart mandates arming the approach mode before reaching PATYY (PATYY is more than 30 miles from the airport, so it won't arm automatically by then), but currently this is not supported in the code, so we'll need to wait until it automatically arms between PATYY and TRACY.  Close to PATYY the waypoint alert will flash, and after waypoint sequencing occurs, the KLN89 will flash the message annunciation, indicating a message to view.  Press MSG to view the message, which will contain the new course to follow to the new active waypoint (TRACY), and MSG again to clear the message screen.
+<br>
+<br>
+Shortly after PATYY is passed approach mode will arm.  The CDI scale smoothly changes from 5nm to 1nm deviation per dot, and a message is annunciated reminding the user to set the baro setting on the KLN89.  The ALT pages and altitude alerting are not currently implemented, so ignore that message for now.  Keep an eye on the distance to TRACY, and start decending at a suitable rate when appropriate, remembering that the chart shows a 2000ft minimum altitude at TRACY.
+<br>
+<br>
+Once we reach TRACY things start to get exciting.  The next waypoint is the final approach fix (FAF), BABPI in this case.  BABPI is only 6.1nm from TRACY, with only a further 3.5nm to the missed approach point (MAP), AMOSY, located at the runway threshold.  You can descend no lower than 1300ft before passing BABPI, and should try to get down close to that height to avoid an alarming descent rate over the final leg.  Approaching the FAF (BABPI) the approach should activate, indicated by the ACTV annunciation on the MD41 unit (the annunciator panel above NAV1), and the CDI smoothly changing scale from 1nm to 0.3nm per dot.  If the approach fails to activate prior to passing the FAF then the missed approach procedure must be flown.  Assuming we have an ACTV approach passing BABPI, turn onto the final approach course to AMOSY, check gear, flaps and mixture setting (sure, it's a fixed gear plane, but it doesn't hurt to get into good habits!), and descend to minimum altitude, which is 740ft for the RWY30 straight-in approach that we are flying, or 880ft for this aircraft for a circling approach to another runway.  You need a positive visual fix on the runway prior to reaching the MAP in order to transition to visuals and land, otherwise the missed approach procedure must be flown.  No waypoint sequencing past the MAP occurs (another FAA reg) - it is necessary to fly the missed approach procedure and then use DTO or OBS mode to navigate to the missed approach holding point (MAHP) as appropriate.
+<br>
+<br>
+<b><i>Miscellaneous</b></i>
+<br>
+Currently the GPS position is always correct, although in future a small random drift may be added.  No simulation of range ahead integrity monitoring (RAIM) is done.  At the time the units were introduced the GPS satellite constellation was less complete giving the possibility of unacceptable (but predicatable) navigation degradation due to poor satellite geometry.  I doubt that RAIM failure due to poor satellite geometry is an issue now, but would welcome an opinion one way or another from an IFR GPS-using pilot.  Report bugs to the FlightGear lists or to daveluff AT ntlworld DOT com.  Have fun :-)

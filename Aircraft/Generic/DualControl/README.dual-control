@@ -1,0 +1,90 @@
+Dual control for FlightGear/CVS (copilot OSG only)
+--------------------------------------------------
+
+  Anders Gidenstam  (anders at gidenstam dot org)
+
+This collection of Nasal code and instruments enables a pilot and
+copilot to jointly fly an aircraft over the FlightGear multiplayer
+network.  Pilot and copilot can have shared control over primary
+flight controls, throttle, mixture, elevator trim, flaps, brakes,
+cockpit switches, part of the radio stack and instrument settings
+and so on.
+
+To use the system two "aircraft" needs to be created:
+- The pilot uses the original aircraft (or a variant thereof).
+  The pilot need to specify the callsign of the copilot (other copilots
+  will be ignored).
+
+  Usage example:
+   fgfs --aircraft=ZLT-NT --prop:/sim/remote/pilot-callsign="copilot"
+
+- The copilot uses a special "aircraft", <aircraft>-copilot, which
+  piggybacks on the designated pilot and captures the local control
+  inputs. A current limitation is that only the cockpit view
+  is jitter free. There is also a noticeable delay between control inputs
+  and effect, since they are passed via the the multiplayer protocol.
+  The severity of this delay depend on round trip time and some other
+  factors - the delay seems significantly longer than the round trip time
+  itself which is due to buffering in the MP protocol receiver.
+  That said, I have flown successfully as copilot in a setup with
+  100-120ms round trip time between both pilot and server and copilot and
+  server (total delay >500ms). Landing is a bit exciting in that
+  case, however.
+
+  Usage example:
+   fgfs --aircraft=ZLT-NT-copilot --prop:/sim/remote/pilot-callsign="pilot"
+
+Visit http://www.gidenstam.org/FlightGear/DualControl/ for the latest
+information.
+
+
+Developer notes
+---------------
+
+The dual control mechanism is divided into to several parts:
+- the generic core modules in DualControl/ ;
+- the 3d instrument sharing wrappers in DualControl/instruments/ ; and
+- the aircraft specific configuration in Systems/ZLT-NT-dual-control.nas
+  and the ZLT-NT/-set/-copilot-set files.
+
+See the ZLT-NT aircraft for an example how everything come together.
+
+aircraft_dual_control
+---------------------
+
+The aircraft specific dual control Nasal module MUST be loaded as
+aircraft_dual_control and MUST define the following variables and
+functions:
+
+  pilot_connect_copilot(copilot) : returns a list of DCT components
+    Does whatever initialization needed to connect the copilot and
+    returns a list of dual-control-tools components whose update() method will
+    be called (in list order) once per frame.
+    copilot is the node hash for the base of the multiplayer tree for the
+    copilot user.
+
+  pilot_disconnect_copilot() : void
+    Does whatever cleanup needed when the copilot disconnects.
+
+  copilot_connect_pilot(pilot) : returns a list of DCT components   
+    Does whatever initialization needed to connect to the pilot and
+    returns a list of dual-control-tools components whose update() method will
+    be called (in list order) once per frame.
+    pilot is the node hash for the base of the multiplayer tree for the
+    pilot user.
+
+  copilot_disconnect_pilot() :
+    Does whatever cleanup needed when the pilot disconnects.
+
+
+  pilot_type : string
+    The identifying string of the pilot aircraft is the path of the
+    3d model XML file of the pilot aircraft (as found in sim/model/path
+    under the multiplayer entry).
+
+  copilot_type : string
+    The identifying string of the copilot aircraft is the path of the
+    3d model XML file of the copilot aircraft (as found in sim/model/path
+    under the multiplayer entry).
+
+

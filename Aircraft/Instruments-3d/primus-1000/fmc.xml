@@ -1,0 +1,302 @@
+<?xml version="1.0"?>
+<!--
+Author : Syd Adams
+Flight Mode Control
+
+HDG:
+Heading Bug hold - Low Bank can be selected
+
+NAV:
+Arm & Capture VOR , LOC or FMS
+
+APR : (ILS approach)
+Arm & Capture VOR APR , LOC or BC
+Also arm and capture GS
+
+BC :
+Arm & capture localizer backcourse
+Nav also illuminates
+
+VNAV:
+Arm and capture VOR/DME or FMS vertical profile
+profile entered in MFD VNAV menu
+
+ALT:
+Hold current Altitude or PFD preset altitude
+
+VS:
+Hold current vertical speed ... 
+adjustable with pitch wheel
+
+SPD :
+Hold current speed 
+adjustable with pitch wheel
+
+-->
+<PropertyList>
+
+<path>fmc.ac</path>
+
+    <animation>
+        <type>material</type>
+        <object-name>FD.btns</object-name>
+        <emission>
+            <red>0.035</red>
+            <green>0.025</green>
+            <blue>0.015</blue>
+            <factor-prop>systems/electrical/outputs/instrument-lights</factor-prop>
+        </emission>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>FD.hdg</object-name>
+        <condition>
+            <equals>
+                <property>instrumentation/flightdirector/lnav</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>FD.nav</object-name>
+        <condition>
+                <greater-than>
+                    <property>instrumentation/flightdirector/lnav</property>
+                    <value>1</value>
+                </greater-than>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>FD.apr</object-name>
+        <condition>
+            <equals>
+                <property>instrumentation/flightdirector/lnav</property>
+                <value>7</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>FD.bc</object-name>
+        <condition>
+            <property>instrumentation/nav/back-course-btn</property>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>FD.vnav</object-name>
+        <condition>
+            <and>
+                <greater-than>
+                    <property>instrumentation/flightdirector/vnav</property>
+                    <value>0</value>
+                </greater-than>
+                <less-than>
+                    <property>instrumentation/flightdirector/vnav</property>
+                    <value>3</value>
+                </less-than>
+            </and>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>FD.alt</object-name>
+        <condition>
+            <or>
+                <equals>
+                    <property>instrumentation/flightdirector/vnav</property>
+                    <value>3</value>
+                </equals>
+                <equals>
+                    <property>instrumentation/flightdirector/vnav</property>
+                    <value>4</value>
+                </equals>
+            </or>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>FD.vs</object-name>
+        <condition>
+            <equals>
+                <property>instrumentation/flightdirector/vnav</property>
+                <value>5</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>FD.spd</object-name>
+        <condition>
+            <equals>
+                <property>instrumentation/flightdirector/spd</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
+
+<!--    OSG hotspots    -->
+<animation>
+    <type>pick</type>
+    <object-name>FD.hdg</object-name>
+    <action>
+        <button>0</button>
+        <repeatable>false</repeatable>
+        <binding>
+            <command>nasal</command>
+            <script>
+				if(getprop("/instrumentation/flightdirector/lnav")!= 1){
+				setprop("/instrumentation/flightdirector/lnav",1);
+				}else{
+				setprop("/instrumentation/flightdirector/lnav",0);
+				}
+			</script>
+        </binding>
+    </action>
+</animation>
+
+<animation>
+    <type>pick</type>
+    <object-name>FD.nav</object-name>
+    <action>
+        <button>0</button>
+        <repeatable>false</repeatable>
+        <binding>
+            <command>nasal</command>
+            <script>
+				if(getprop("/instrumentation/flightdirector/lnav")!= 2){
+				setprop("/instrumentation/flightdirector/lnav",2);
+				}else{
+				setprop("/instrumentation/flightdirector/lnav",0);
+				}
+			</script>
+        </binding>
+    </action>
+</animation>
+
+<animation>
+    <type>pick</type>
+    <object-name>FD.apr</object-name>
+    <action>
+        <button>0</button>
+        <repeatable>false</repeatable>
+        <binding>
+            <command>nasal</command>
+            <script>
+				if(getprop("/instrumentation/flightdirector/lnav")!= 3){
+				setprop("/instrumentation/flightdirector/lnav",3);
+				}else{
+				setprop("/instrumentation/flightdirector/lnav",0);
+				}
+			</script>
+        </binding>
+    </action>
+</animation>
+
+<animation>
+    <type>pick</type>
+    <object-name>FD.bc</object-name>
+    <action>
+        <button>0</button>
+        <repeatable>false</repeatable>
+        <binding>
+            <command>nasal</command>
+            <script>
+				if(getprop("/instrumentation/flightdirector/lnav")!= 4){
+				setprop("/instrumentation/flightdirector/lnav",4);
+				}else{
+				setprop("/instrumentation/flightdirector/lnav",0);
+				}
+			</script>
+        </binding>
+    </action>
+</animation>
+
+<animation>
+    <type>pick</type>
+    <object-name>FD.vnav</object-name>
+    <action>
+        <button>0</button>
+        <repeatable>false</repeatable>
+        <binding>
+            <command>nasal</command>
+            <script>
+				if(getprop("/instrumentation/flightdirector/vnav")!= 7){
+				setprop("/instrumentation/flightdirector/vnav",7);
+				}else{
+				setprop("/instrumentation/flightdirector/vnav",0);
+				}
+			</script>
+        </binding>
+    </action>
+</animation>
+
+<animation>
+    <type>pick</type>
+    <object-name>FD.alt</object-name>
+    <action>
+        <button>0</button>
+        <repeatable>false</repeatable>
+        <binding>
+            <command>nasal</command>
+            <script>
+				if(getprop("/instrumentation/flightdirector/vnav")!= 2){
+				setprop("/instrumentation/flightdirector/vnav",2);
+				}else{
+				setprop("/instrumentation/flightdirector/vnav",0);
+				}
+			</script>
+        </binding>
+    </action>
+</animation>
+
+<animation>
+    <type>pick</type>
+    <object-name>FD.vs</object-name>
+    <action>
+        <button>0</button>
+        <repeatable>false</repeatable>
+        <binding>
+            <command>nasal</command>
+            <script>
+				if(getprop("/instrumentation/flightdirector/vnav")!= 3){
+				setprop("/instrumentation/flightdirector/vnav",3);
+				}else{
+				setprop("/instrumentation/flightdirector/vnav",0);
+				}
+			</script>
+        </binding>
+    </action>
+</animation>
+
+<animation>
+    <type>pick</type>
+    <object-name>FD.spd</object-name>
+    <action>
+        <button>0</button>
+        <repeatable>false</repeatable>
+        <binding>
+            <command>nasal</command>
+            <script>
+				if(getprop("/instrumentation/flightdirector/spd")!= 1){
+				setprop("/instrumentation/flightdirector/spd",1);
+				}else{
+				setprop("/instrumentation/flightdirector/spd",0);
+				}
+			</script>
+        </binding>
+    </action>
+</animation>
+
+</PropertyList>

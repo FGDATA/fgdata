@@ -1,0 +1,213 @@
+<?xml version="1.0"?>
+<PropertyList>
+  <name>Middle East</name>
+  <area>
+    <lon1>45.0</lon1>
+    <lon2>65.0</lon2>
+    <lat1>10.0</lat1>
+    <lat2>40.0</lat2>
+  </area>
+
+  <area>
+    <lon1>30.0</lon1>
+    <lon2>45.0</lon2>
+    <lat1>10.0</lat1>
+    <lat2>35.0</lat2>
+  </area>
+
+  <condition>
+    <equals>
+      <property>sim/startup/season</property>
+      <value>summer</value>
+    </equals>
+  </condition>
+
+  <material>
+    <name>Landmass</name>
+    <name>SomeSort</name>
+    <name>Island</name>
+    <name>Default</name>
+    <texture-set>
+      <texture>Terrain/dirtrock_dark.png</texture>
+      <texture n="11">Terrain/sand_hires_ochre.png</texture>
+      <texture n="12">Terrain/rocks-desert.png</texture>
+      <texture n="15">Terrain/sand_hires_ochre.png</texture>
+    </texture-set>
+    <parameters>
+      <hires_overlay_bias>0.1</hires_overlay_bias>
+      <dot_density>0.4</dot_density>
+    </parameters>
+    <xsize>2000</xsize>
+    <ysize>2000</ysize>
+    <light-coverage>10000000.0</light-coverage>
+    <shininess>2.5</shininess>
+    <rolling-friction>0.1</rolling-friction>
+    <friction-factor>0.7</friction-factor>
+    <bumpiness>0.1</bumpiness>
+  </material>
+
+  <material>
+    <effect>Effects/landmass-scrub</effect>
+    <name>ShrubCover</name>
+    <name>ShrubGrassCover</name>
+    <name>ScrubCover</name>
+    <name>Scrub</name>
+    <name>Sclerophyllous</name>
+    <texture-set>
+      <texture>Terrain/shrub1_dark.png</texture>
+      <texture n="11">Terrain/sand_hires_ochre.png</texture>
+      <texture n="12">Terrain/dirtrock_dark.png</texture>
+      <texture n="15">Terrain/airport_grass2.png</texture>
+    </texture-set>
+    <parameters>
+      <hires_overlay_bias>-0.1</hires_overlay_bias>
+    </parameters>
+    <xsize>2000</xsize>
+    <ysize>2000</ysize>
+    <diffuse>
+      <r>0.0</r>
+      <g>0.86</g>
+      <b>0.86</b>
+      <a>1.0</a>
+    </diffuse>
+    <specular>
+      <r>0.1</r>
+      <g>0.1</g>
+      <b>0.1</b>
+      <a>1.0</a>
+    </specular>
+    <shininess>1.2</shininess>
+    <light-coverage>20000000.0</light-coverage>
+    <wood-coverage>12000.0</wood-coverage>
+    <tree-texture>Trees/mixed-shrub.png</tree-texture>
+    <tree-varieties>8</tree-varieties>
+    <tree-range-m alias="/params/forest/tree-range-m"/>
+    <tree-height-m>2.0</tree-height-m>
+    <tree-width-m>2.0</tree-width-m>
+    <rolling-friction>0.6</rolling-friction>
+    <bumpiness>0.4</bumpiness>
+  </material>
+
+
+  <material>
+    <name>DryCropPastureCover</name>
+    <name>DryCrop</name>
+    <texture-set>
+      <texture>Terrain/dry_pasture4.png</texture>
+      <texture n="11">Terrain/sand_hires_ochre.png</texture>
+      <texture n="12">Terrain/dry_pasture4.png</texture>
+    </texture-set>
+    <parameters>
+      <hires_overlay_bias>-0.1</hires_overlay_bias>
+    </parameters>
+    <xsize>2000</xsize>
+    <ysize>2000</ysize>
+    <solid>1</solid>
+    <friction-factor>0.9</friction-factor>
+    <rolling-friction>0.1</rolling-friction>
+    <bumpiness>0.6</bumpiness>
+    <load-resistance>1e30</load-resistance>
+    <light-coverage>2000000.0</light-coverage>
+  </material>
+
+  <material>
+    <name>MixedCropPastureCover</name>
+    <name>MixedCrop</name>
+    <name>ComplexCrop</name>
+    <texture-set>
+      <texture>Terrain/irrcrop.png</texture>
+      <texture n="11">Terrain/dry_pasture4.png</texture>
+      <texture n="12">Terrain/town-europe.png</texture>
+    </texture-set>
+    <texture-set>
+      <texture>Terrain/drycrop.png</texture>
+      <texture n="11">Terrain/dry_pasture4.png</texture>
+      <texture n="12">Terrain/town-europe.png</texture>
+    </texture-set>
+    <parameters>
+      <hires_overlay_bias>-0.05</hires_overlay_bias>
+      <dust_resistance>0.7</dust_resistance>
+      <transition_model>0.7</transition_model>
+    </parameters>
+    <object-mask>Terrain/irrcrop.mask.png</object-mask>
+    <object-mask>Terrain/irrcrop.mask.png</object-mask>
+    <xsize>2000</xsize>
+    <ysize>2000</ysize>
+    <light-coverage>2000000.0</light-coverage>
+    <solid>1</solid>
+    <friction-factor>0.9</friction-factor>
+    <rolling-friction>0.1</rolling-friction>
+    <bumpiness>0.7</bumpiness>
+    <load-resistance>1e30</load-resistance>
+    <object-group include="Materials/base/farm-buildings.xml"/>
+    <wood-coverage>5000.0</wood-coverage>
+    <tree-texture>Trees/mixed-alt.png</tree-texture>
+    <tree-varieties>8</tree-varieties>
+    <tree-range-m alias="/params/forest/tree-range-m"/>
+    <tree-height-m>20.0</tree-height-m>
+    <tree-width-m>12.0</tree-width-m>
+  </material>
+
+  <material>
+    <name>IrrCropPastureCover</name>
+    <name>IrrCrop</name>
+    <name>Orchard</name>
+    <name>Olives</name>
+    <name>Vineyard</name>
+    <name>Rice</name>
+    <texture-set>
+      <texture>Terrain/mixedcrop.png</texture>
+      <texture n="11">Terrain/mixedforest-hires.png</texture>
+      <texture n="12">Terrain/drycrop.png</texture>
+    </texture-set>
+    <object-mask>Terrain/irrcrop.mask.png</object-mask>
+    <parameters>
+      <hires_overlay_bias>-0.12</hires_overlay_bias>
+      <transition_model>0.0</transition_model>
+      <dust_resistance>0.1</dust_resistance>
+    </parameters>
+    <!--<object-mask>Terrain/rice1.mask.png</object-mask>-->
+    <xsize>2000</xsize>
+    <ysize>2000</ysize>
+    <light-coverage>2000000.0</light-coverage>
+    <solid>1</solid>
+    <friction-factor>0.9</friction-factor>
+    <rolling-friction>0.3</rolling-friction>
+    <bumpiness>0.6</bumpiness>
+    <load-resistance>1e30</load-resistance>
+    <!--<object-group include="Materials/base/farm-buildings.xml"/>-->
+    <wood-coverage>120000.0</wood-coverage>
+    <tree-texture>Trees/deciduous-alt.png</tree-texture>
+    <tree-varieties>8</tree-varieties>
+    <tree-range-m alias="/params/forest/tree-range-m"/>
+    <tree-height-m>20.0</tree-height-m>
+    <tree-width-m>12.0</tree-width-m>
+  </material>
+
+  <material>
+    <name>GrassCover</name>
+    <name>BareTundraCover</name>
+    <name>MixedTundraCover</name>
+    <name>Cemetery</name>
+    <effect>Effects/landmass-nowood</effect>
+    <texture-set>
+      <texture>Terrain/tundra2.png</texture>
+      <texture n="11">Terrain/grass_hires.png</texture>
+      <texture n="12">Terrain/dirtrock_dark.png</texture>
+    </texture-set>
+    <parameters>
+      <transition_model>0.8</transition_model>
+      <hires_overlay_bias>-0.1</hires_overlay_bias>
+    </parameters>
+    <xsize>2000</xsize>
+    <ysize>2000</ysize>
+    <light-coverage>4000000.0</light-coverage>
+    <shininess>1.2</shininess>
+    <solid>1</solid>
+    <friction-factor>0.7</friction-factor>
+    <rolling-friction>0.1</rolling-friction>
+    <bumpiness>0.15</bumpiness>
+    <load-resistance>1e30</load-resistance>
+  </material>
+
+</PropertyList>

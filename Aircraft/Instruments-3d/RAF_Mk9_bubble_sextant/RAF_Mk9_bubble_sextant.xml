@@ -1,0 +1,511 @@
+<?xml version="1.0"?>
+<!--
+  RAF Mk9 bubble sextant.
+
+  Copyright (C) 2008 - 2013  Anders Gidenstam  (anders(at)gidenstam.org)
+  This file is licensed under the GPL license version 2 or later.
+-->
+<PropertyList>
+
+ <!-- Overlay these to set the instrument number. -->
+ <params>
+  <!-- FIXME: These properties have not been made into parameters yet.
+       instrumentation/sextant[0]/roll-error-deg
+       instrumentation/sextant[0]/pitch-error-deg
+       instrumentation/sextant[0]/bubble-norm
+       instrumentation/sextant[0]/setting/deg10
+       instrumentation/sextant[0]/setting/deg1
+       instrumentation/sextant[0]/setting/min
+       instrumentation/sextant[0]/view-angle-deg
+       instrumentation/sextant[0]/view-distance-m
+       instrumentation/sextant[0]/offsets/roll-deg
+       instrumentation/sextant[0]/offsets/pitch-deg
+       instrumentation/sextant[0]/offsets/heading-deg
+       instrumentation/sextant[0]/offsets/x-m
+       instrumentation/sextant[0]/offsets/y-m
+       instrumentation/sextant[0]/offsets/z-m
+  -->
+  <serviceable>instrumentation/sextant[0]/serviceable</serviceable>
+  <lighting-norm>controls/lighting/dome-norm</lighting-norm>
+ </params>
+
+ <path>RAF_Mk9_bubble_sextant.ac</path>
+ <!-- x/y/z == back/right/up -->
+
+ <!-- =========================================================================
+      Instrument function animations.
+      ===================================================================== -->
+
+ <!-- ===================================================================== -->
+ <!-- Bubble movement -->
+ <animation>
+  <type>translate</type>
+  <object-name>bubble</object-name>
+  <property>instrumentation/sextant/roll-error-deg</property>
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+  <interpolation>
+   <entry>
+    <ind>-4</ind>
+    <dep>0.008</dep>
+   </entry>
+   <entry>
+    <ind>0</ind>
+    <dep>0</dep>
+   </entry>
+   <entry>
+    <ind>4</ind>
+    <dep>-0.008</dep>
+   </entry>
+  </interpolation>
+ </animation>
+ <animation>
+  <type>translate</type>
+  <object-name>bubble</object-name>
+  <property>instrumentation/sextant/pitch-error-deg</property>
+  <axis>
+   <x>0</x>
+   <y>0</y>
+   <z>1</z>
+  </axis>
+  <interpolation>
+   <entry>
+    <ind>-4</ind>
+    <dep>0.008</dep>
+   </entry>
+   <entry>
+    <ind>0</ind>
+    <dep>0</dep>
+   </entry>
+   <entry>
+    <ind>4</ind>
+    <dep>-0.008</dep>
+   </entry>
+  </interpolation>
+ </animation>
+ <animation>
+  <type>scale</type>
+  <object-name>bubble</object-name>
+  <property>instrumentation/sextant/bubble-norm</property>
+  <x-factor>0.0</x-factor>
+  <x-offset>1.0</x-offset>
+  <y-factor>1.0</y-factor>
+  <y-offset>0.0</y-offset>
+  <z-factor>1.0</z-factor>
+  <z-offset>0.0</z-offset>
+  <center>
+   <x-m> -0.060 </x-m>
+   <y-m>  0.000 </y-m>
+   <z-m>  0.000 </z-m>
+  </center>
+ </animation> 
+
+ <!-- If the bubble is gone the instrument is unserviceable. -->
+ <animation>
+  <type>select</type>
+  <object-name>bubble</object-name>
+  <condition>
+   <property alias="../../../params/serviceable"/>
+  </condition>
+ </animation>
+
+ <!-- ===================================================================== -->
+ <!-- 10 deg setting knob -->
+ <animation>
+  <type>knob</type>
+  <object-name>10_setting_knob</object-name>
+  <property>instrumentation/sextant/setting/deg10</property>
+  <factor>5.0</factor>
+  <offset-deg>-15.0</offset-deg>
+  <center>
+   <x-m> -0.057 </x-m>
+   <y-m>  0.035 </y-m>
+   <z-m>  0.038 </z-m>
+  </center>
+  <axis>
+   <x> 0.0 </x>
+   <y> 1.0 </y>
+   <z> 0.0 </z>
+  </axis>
+  <increase>
+   <binding>
+    <command>nasal</command>
+    <script>RAFmk9sextant.sextant.step_10deg_knob(1);</script>
+   </binding>
+  </increase>
+  <decrease>
+   <binding>
+    <command>nasal</command>
+    <script>RAFmk9sextant.sextant.step_10deg_knob(-1);</script>
+   </binding>
+  </decrease>
+  <hovered>
+   <binding>
+    <command>set-tooltip</command>
+    <label>Coarse setting: %2d0deg</label>
+    <measure-text>Coarse setting: 88deg</measure-text>
+    <tooltip-id>10deg_knob</tooltip-id>
+    <property>instrumentation/sextant/setting/deg10</property>
+   </binding>
+  </hovered>
+ </animation>
+ <animation>
+  <type>rotate</type>
+  <object-name>10_setting_knob_scale</object-name>
+  <property>instrumentation/sextant/setting/deg10</property>
+  <factor>5.0</factor>
+  <offset-deg>-15.0</offset-deg>
+  <center>
+   <x-m> -0.057 </x-m>
+   <y-m>  0.035 </y-m>
+   <z-m>  0.038 </z-m>
+  </center>
+  <axis>
+   <x> 0.0 </x>
+   <y> 1.0 </y>
+   <z> 0.0 </z>
+  </axis>
+ </animation>
+
+ <!-- ===================================================================== -->
+ <!-- Degree drum -->
+ <animation>
+  <type>rotate</type>
+  <object-name>degree_drum</object-name>
+  <property>instrumentation/sextant/setting/deg1</property>
+  <factor>36.0</factor>
+  <offset-deg>18</offset-deg>
+  <center>
+   <x-m> -0.1110 </x-m>
+   <y-m>  0.0150 </y-m>
+   <z-m> -0.0450 </z-m>
+  </center>
+  <axis>
+   <x> 1.0 </x>
+   <y> 0.0 </y>
+   <z> 0.0 </z>
+  </axis>
+ </animation>
+
+ <!-- ===================================================================== -->
+ <!-- Minute drum -->
+ <animation>
+  <type>rotate</type>
+  <object-name>minute_drum</object-name>
+  <property>instrumentation/sextant/setting/min</property>
+  <factor>6.0</factor>
+  <offset-deg>30.0</offset-deg>
+  <center>
+   <x-m> -0.1270 </x-m>
+   <y-m>  0.0040 </y-m>
+   <z-m> -0.0315 </z-m>
+  </center>
+  <axis>
+   <x>-1.0 </x>
+   <y> 0.0 </y>
+   <z> 0.0 </z>
+  </axis>
+ </animation>
+
+ <!-- ===================================================================== -->
+ <animation>
+  <type>knob</type>
+  <object-name>slow_motion_knob</object-name>
+  <property>instrumentation/sextant/setting/deg1</property>
+  <factor>120.0</factor>
+  <offset-deg>0</offset-deg>
+  <center>
+   <x-m> -0.0680 </x-m>
+   <y-m>  0.0230 </y-m>
+   <z-m>  0.0090 </z-m>
+  </center>
+  <axis>
+   <x> 0.0 </x>
+   <y> 1.0 </y>
+   <z> 0.0 </z>
+  </axis>
+  <increase>
+   <binding>
+    <command>nasal</command>
+    <script>RAFmk9sextant.sextant.adjust_altitude_fine(0.01667);</script>
+   </binding>
+  </increase>
+  <decrease>
+   <binding>
+    <command>nasal</command>
+    <script>RAFmk9sextant.sextant.adjust_altitude_fine(-0.01667);</script>
+   </binding>
+  </decrease>
+  <hovered>
+   <binding>
+    <command>set-tooltip</command>
+    <label>Fine setting: %2.4fdeg</label>
+    <measure-text>Fine setting: 00.000deg</measure-text>
+    <tooltip-id>1deg_knob</tooltip-id>
+    <property>instrumentation/sextant/setting/deg1</property>
+   </binding>
+  </hovered>
+ </animation>
+
+ <!-- ===================================================================== -->
+ <animation>
+  <type>knob</type>
+  <object-name>bubble_knob</object-name>
+  <property>instrumentation/sextant/bubble-norm</property>
+  <factor>360.0</factor>
+  <offset-deg>0</offset-deg>
+  <center>
+   <x-m> -0.0350 </x-m>
+   <y-m> -0.0230 </y-m>
+   <z-m>  0.0390 </z-m>
+  </center>
+  <axis>
+   <x> 0.0 </x>
+   <y> 1.0 </y>
+   <z> 0.0 </z>
+  </axis>
+  <increase>
+   <binding>
+    <command>nasal</command>
+    <script>RAFmk9sextant.sextant.step_bubble_knob(0.01);</script>
+   </binding>
+  </increase>
+  <decrease>
+   <binding>
+    <command>nasal</command>
+    <script>RAFmk9sextant.sextant.step_bubble_knob(-0.01);</script>
+   </binding>
+  </decrease>
+  <hovered>
+   <binding>
+    <command>set-tooltip</command>
+    <label>Bubble size %3d%%</label>
+    <measure-text>Bubble size 100%</measure-text>
+    <mapping>percent</mapping>
+    <tooltip-id>bubble_knob</tooltip-id>
+    <property>instrumentation/sextant/bubble-norm</property>
+   </binding>
+  </hovered>
+ </animation>
+
+ <!-- ===================================================================== -->
+ <animation>
+  <type>pick</type>
+  <object-name>5_deg_knob</object-name>
+  <action>
+   <button>0</button>
+   <repeatable>false</repeatable>
+   <binding>
+    <command>nasal</command>
+    <script>RAFmk9sextant.sextant.step_5deg_knob(0);</script>
+   </binding>
+  </action>
+  <hovered>
+   <binding>
+    <command>set-tooltip</command>
+    <label>Click to toggle +5deg setting</label>
+    <tooltip-id>5deg_knob</tooltip-id>
+   </binding>
+  </hovered>
+ </animation>
+
+ <!-- =========================================================================
+      Instrument handling animations.
+      ===================================================================== -->
+
+ <!-- ===================================================================== -->
+ <animation>
+  <type>rotate</type>
+  <property>instrumentation/sextant/view-angle-deg</property>
+  <factor>1.0</factor>
+  <center>
+   <x-m> -0.10 </x-m>
+   <y-m>  0.00 </y-m>
+   <z-m>  0.00 </z-m>
+  </center>
+  <axis>
+   <x>  0.0 </x>
+   <y>  0.3 </y>
+   <z>  1.0 </z>
+  </axis>
+ </animation>
+
+ <!-- ===================================================================== -->
+ <!-- Offset from eye position -->
+ <animation>
+  <type>translate</type>
+  <property>instrumentation/sextant/view-distance-m</property>
+  <axis>
+   <x>-1.0 </x>
+   <y> 0.0 </y>
+   <z> 0.0 </z>
+  </axis>
+  <factor>1.0</factor>
+ </animation>
+
+ <!-- ===================================================================== -->
+ <animation>
+  <type>rotate</type>
+  <property>instrumentation/sextant/offsets/roll-deg</property>
+  <factor>1.0</factor>
+  <center>
+   <x-m>  0.00 </x-m>
+   <y-m>  0.00 </y-m>
+   <z-m>  0.00 </z-m>
+  </center>
+  <axis>
+   <x> 1.0 </x>
+   <y> 0.0 </y>
+   <z> 0.0 </z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <property>instrumentation/sextant/offsets/pitch-deg</property>
+  <factor>1.0</factor>
+  <center>
+   <x-m>  0.00 </x-m>
+   <y-m>  0.00 </y-m>
+   <z-m>  0.00 </z-m>
+  </center>
+  <axis>
+   <x> 0.0 </x>
+   <y> 1.0 </y>
+   <z> 0.0 </z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <property>instrumentation/sextant/offsets/heading-deg</property>
+  <factor>1.0</factor>
+  <center>
+   <x-m>  0.00 </x-m>
+   <y-m>  0.00 </y-m>
+   <z-m>  0.00 </z-m>
+  </center>
+  <axis>
+   <x> 0.0 </x>
+   <y> 0.0 </y>
+   <z> 1.0 </z>
+  </axis>
+ </animation>
+
+ <!-- ===================================================================== -->
+ <!-- Translations for user's view. -->
+ <animation>
+  <type>translate</type>
+  <property>instrumentation/sextant/offsets/x-m</property>
+  <axis>
+   <x>1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+  <factor>1.0</factor>
+ </animation>
+ <animation>
+  <type>translate</type>
+  <property>instrumentation/sextant/offsets/y-m</property>
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+  <factor>1.0</factor>
+ </animation>
+ <animation>
+  <type>translate</type>
+  <property>instrumentation/sextant/offsets/z-m</property>
+  <axis>
+   <x>0</x>
+   <y>0</y>
+   <z>1</z>
+  </axis>
+  <factor>1.0</factor>
+ </animation>
+
+ <!-- ===================================================================== -->
+ <animation>
+  <type>pick</type>
+  <object-name>eye_piece</object-name>
+  <action>
+   <button>0</button>
+   <repeatable>false</repeatable>
+   <binding>
+    <command>nasal</command>
+    <script>RAFmk9sextant.toggle_look_through();</script>
+   </binding>
+  </action>
+  <hovered>
+   <binding>
+    <command>set-tooltip</command>
+    <label>Click to enter or exit look through.</label>
+    <tooltip-id>lookthrough</tooltip-id>
+   </binding>
+  </hovered>
+ </animation>
+ <animation>
+  <type>pick</type>
+  <object-name>left_handle</object-name>
+  <object-name>right_handle</object-name>
+  <action>
+   <button>0</button>
+   <repeatable>false</repeatable>
+   <binding>
+    <command>nasal</command>
+    <script>RAFmk9sextant.pick_up();</script>
+   </binding>
+  </action>
+  <hovered>
+   <binding>
+    <command>set-tooltip</command>
+    <label>Click to pick up or put down.</label>
+    <tooltip-id>pickup</tooltip-id>
+   </binding>
+  </hovered>
+ </animation>
+
+ <!-- ===================================================================== -->
+ <!-- External illumination. Do not use on untextured faces. -->
+ <animation>
+  <type>material</type>
+  <object-name>body</object-name>
+  <!-- object-name>eye_piece</object-name>
+  <object-name>bubble_knob</object-name>
+  <object-name>10_setting_knob</object-name>
+  <object-name>5_deg_knob</object-name>
+  <object-name>slow_motion_knob</object-name>
+  <object-name>left_handle</object-name>
+  <object-name>right_handle</object-name -->
+  <emission> 
+   <factor-prop alias="../../../params/lighting-norm"/>
+   <red>0.75</red>
+   <green>0.25</green>
+   <blue>0.25</blue>
+  </emission>
+ </animation>
+ <!-- Radium paint(?) and internal illumination. -->
+ <animation>
+  <type>material</type>
+  <object-name>bubble</object-name>
+  <object-name>viewfinder_markings</object-name>
+  <object-name>10_setting_knob_scale</object-name>
+  <object-name>degree_drum</object-name>
+  <object-name>minute_drum</object-name>
+  <object-name>10_mark</object-name>
+  <object-name>minute_mark.001</object-name>
+  <object-name>minute_mark</object-name>
+  <emission> 
+   <factor-prop/>
+   <offset>0.70</offset>
+   <red>0.60</red>
+   <green>0.80</green>
+   <blue>0.60</blue>
+  </emission>
+ </animation>
+
+</PropertyList>

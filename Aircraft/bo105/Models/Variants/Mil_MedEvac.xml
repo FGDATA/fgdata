@@ -1,0 +1,154 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<sim>
+		<model>
+			<bo105>
+				<name type="string">Military MedEvac</name>
+
+				<wiper type="bool">true</wiper>
+				<wire-cutter type="bool">true</wire-cutter>
+				<miniguns type="bool">false</miniguns>
+				<missiles type="bool">false</missiles>
+
+				<material>
+					<fuselage>
+						<texture type="string">livery.rgb</texture>
+
+						<diffuse>
+							<red>0.243</red>
+							<green>0.262</green>
+							<blue>0.268</blue>
+						</diffuse>
+
+						<ambient>
+							<red>0.163</red>
+							<green>0.169</green>
+							<blue>0.166</blue>
+						</ambient>
+
+						<specular>
+							<red>0.1</red>
+							<green>0.1</green>
+							<blue>0.1</blue>
+						</specular>
+
+						<emission>
+							<red>0.02</red>
+							<green>0.02</green>
+							<blue>0.02</blue>
+						</emission>
+
+						<transparency>
+							<alpha>1.0</alpha>
+						</transparency>
+
+						<shininess>128</shininess>
+					</fuselage>
+
+					<glass>
+						<diffuse>
+							<red>1.0</red>
+							<green>1.0</green>
+							<blue>1.0</blue>
+						</diffuse>
+
+						<ambient>
+							<red>1.0</red>
+							<green>1.0</green>
+							<blue>1.0</blue>
+						</ambient>
+
+						<specular>
+							<red>1.0</red>
+							<green>1.0</green>
+							<blue>1.0</blue>
+						</specular>
+
+						<emission>
+							<red>0.6</red>
+							<green>0.6</green>
+							<blue>0.6</blue>
+						</emission>
+
+						<transparency>
+							<alpha>0.2</alpha>
+						</transparency>
+
+						<shininess>25</shininess>
+					</glass>
+
+					<rotor>
+						<texture>Textures/Rotor/black.png</texture>
+					</rotor>
+
+					<emblem>
+						<texture>RED-CROSS</texture>
+
+						<transparency>
+							<alpha>1.0</alpha>
+						</transparency>
+
+						<threshold>0.1</threshold>
+					</emblem>
+
+					<helmet>
+						<diffuse>
+							<red>0.243</red>
+							<green>0.262</green>
+							<blue>0.268</blue>
+						</diffuse>
+
+						<ambient>
+							<red>0.163</red>
+							<green>0.169</green>
+							<blue>0.166</blue>
+						</ambient>
+
+						<specular>
+							<red>0.1</red>
+							<green>0.1</green>
+							<blue>0.1</blue>
+						</specular>
+
+						<emission>
+							<red>0.02</red>
+							<green>0.02</green>
+							<blue>0.02</blue>
+						</emission>
+
+						<shininess>0</shininess>
+					</helmet>
+
+					<flightsuit>
+						<diffuse>
+							<red>0.243</red>
+							<green>0.262</green>
+							<blue>0.268</blue>
+						</diffuse>
+
+						<ambient>
+							<red>0.163</red>
+							<green>0.169</green>
+							<blue>0.166</blue>
+						</ambient>
+
+						<specular>
+							<red>0.1</red>
+							<green>0.1</green>
+							<blue>0.1</blue>
+						</specular>
+
+						<emission>
+							<red>0.02</red>
+							<green>0.02</green>
+							<blue>0.02</blue>
+						</emission>
+
+						<shininess>0</shininess>
+					</flightsuit>
+				</material>
+			</bo105>
+		</model>
+	</sim>
+</PropertyList>

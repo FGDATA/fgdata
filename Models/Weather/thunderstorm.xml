@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+ <path>thunderstorm.ac</path>
+
+ <animation>
+  <type>range</type>
+  <min-m>0</min-m>
+  <max-m>50000</max-m>
+ </animation>
+
+ <animation>
+  <type>alpha-test</type>
+  <object-name>ThunderCloud</object-name>
+  <alpha-factor>0.01</alpha-factor>
+ </animation>
+
+ <animation>
+  <type>range</type>
+  <object-name>ThunderCloud</object-name>
+  <min-m>0</min-m>
+  <max-m>2000</max-m>
+ </animation>
+
+ <animation>
+  <type>range</type>
+  <object-name>ThunderCloudLowRes</object-name>
+  <min-m>2000</min-m>
+  <max-m>50000</max-m>
+ </animation>
+
+</PropertyList>

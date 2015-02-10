@@ -1,0 +1,188 @@
+<?xml version="1.0"?>
+<!--
+
+Linux/Windows/Mac Axis Numbers:
+  0   	Aileron (positive == right) 
+  1  	Elevator (positive == down/back/nose-up)
+  2     throttle (positive == forward)
+  3   	Twist grip "rudder" control
+  4     Hat left/right (view)
+  5     Hat up/down (elevator trim)
+
+Button Numbers (Identical b/w Linux/Windows/Mac):
+  0  Brakes               (trigger)
+  1  Gear toggle          (labeled 2)
+  2  unassigned           (labeled 3)
+  3  Flap down            (labeled 4)
+  4  unassigned           (labeled 5)
+  5  Flap up              (labeled 6)
+
+$Id$
+-->
+<PropertyList>
+ <name>Saitek ST290 Pro</name>
+ <name>SAITEK Saitek ST290 Pro</name>
+
+ <axis n="0">
+  <desc>Aileron</desc>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/aileron</property>
+   <squared type="bool">true</squared>
+  </binding>
+ </axis>
+
+ <axis n="1">
+  <desc>Elevator</desc>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/elevator</property>
+   <factor type="double">-1.0</factor>
+   <squared type="bool">true</squared>
+  </binding>
+ </axis>
+
+ <axis>
+  <desc>Throttle</desc>
+  <number>
+   <unix>2</unix>
+   <mac>2</mac>
+   <windows>2</windows>
+  </number>
+  <binding>
+   <command>nasal</command>
+   <script>controls.throttleAxis()</script>
+  </binding>
+ </axis>
+
+ <axis n="3">
+  <desc>Rudder</desc>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/rudder</property>
+  </binding>
+
+  <binding>
+   <command>nasal</command>
+   <script><![CDATA[
+    # In mode 3 (taxiing), map the wheelbrakes
+    if(getprop("/input/joysticks/js[0]/saitek-x45-mode") == 3) {
+        val = cmdarg().getNode("setting").getValue();
+        setprop("/controls/gear/brake-left", 0);
+        setprop("/controls/gear/brake-right", 0);
+        if(val > 0) { setprop("/controls/gear/brake-right", val); }
+        else        { setprop("/controls/gear/brake-left", -val); }
+    }
+   ]]></script>
+  </binding>
+ </axis>
+
+ <!-- Hat -->
+
+ <axis>
+  <number>
+   <unix>4</unix>
+   <mac>4</mac>
+   <windows>6</windows>
+  </number>
+  <desc>View Direction</desc>
+  <low>
+   <repeatable>true</repeatable>
+   <binding>
+    <command>nasal</command>
+    <script>view.panViewDir(1)</script>
+   </binding>
+  </low>
+  <high>
+   <repeatable>true</repeatable>
+   <binding>
+    <command>nasal</command>
+    <script>view.panViewDir(-1)</script>
+   </binding>
+  </high>
+ </axis>
+
+ <axis>
+  <number>
+   <unix>5</unix>
+   <mac>5</mac>
+   <windows>7</windows>
+  </number>
+  <desc>Elevator trim</desc>
+  <binding><command>null</command></binding>
+  <interval-sec type="double">0.02</interval-sec>
+  <low>
+   <repeatable type="bool">true</repeatable>
+   <binding>
+    <command>property-adjust</command>
+    <property>/controls/flight/elevator-trim</property>
+    <step type="double">0.001</step>
+   </binding>
+  </low>
+  <high>
+   <repeatable type="bool">true</repeatable>
+   <binding>
+    <command>property-adjust</command>
+    <property>/controls/flight/elevator-trim</property>
+    <step type="double">-0.001</step>
+   </binding>
+  </high>
+ </axis>
+
+ <!-- buttons -->
+
+ <button n="0">
+  <desc>Brakes</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.applyBrakes(1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.applyBrakes(0)</script>
+   </binding>
+  </mod-up>
+ </button>
+
+ <!-- Gear toggle on button A -->
+
+ <button n="1">
+  <desc>Landing Gear Up/Down Toggle</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.gearToggle()</script>
+  </binding>
+ </button>
+
+ <!-- Flap control on the throttle upper hat -->
+
+ <button n="3">
+  <desc>Increase flaps</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.flapsDown(1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.flapsDown(0)</script>
+   </binding>
+  </mod-up>
+ </button>
+
+ <button n="5">
+  <desc>Decrease flaps</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.flapsDown(-1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.flapsDown(0)</script>
+   </binding>
+  </mod-up>
+ </button>
+
+</PropertyList>

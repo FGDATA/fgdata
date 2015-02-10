@@ -1,0 +1,1735 @@
+<?xml version="1.0"?>
+<!-- Buccaneer model config file -->
+<!-- Vivian Meazza 2007/10/1 vivian.meazza@lineone.net -->
+<!-- Ver 0.1.0 -->
+<PropertyList>
+	<path>../../../../Aircraft/Buccaneer/Models/buccaneer.ac</path>
+	<texture-path>../../../../Aircraft/Buccaneer/Models</texture-path>
+	<nasal>
+		<load>
+			print("Loading Buccaneer Wingman", cmdarg().getPath());
+			srand();
+
+			var fg_root = getprop("/sim/fg-root");
+			var self = cmdarg();
+			var variant_node = self.getNode("sim/model/variant", 1);
+			var name_node = self.getNode("name", 1);
+			var rel_brg_node = self.getNode("load/rel-brg-to-user-deg", 1);
+			var elev_node = self.getNode("load/elev-to-user-deg", 1);
+			var pilot_head_brg_node = self.getNode("pilot-head/rel-brg-deg", 1);
+			var pilot_head_elev_node = self.getNode("pilot-head/elev-deg", 1);
+			var observer_head_brg_node = self.getNode("observer-head/rel-brg-deg", 1);
+			var observer_head_elev_node = self.getNode("observer-head/elev-deg", 1);
+			var pilot_head_look_node = self.getNode("pilot-head/look", 1);
+			var observer_head_look_node = self.getNode("observer-head/look", 1);
+			var pilot_head_visor_node = self.getNode("pilot-head/visor-pos-norm", 1);
+			var observer_head_visor_node = self.getNode("observer-head/visor-pos-norm", 1);
+			var ht_agl_node = self.getNode("position/altitude-ft",1);
+			var right_aileron_node = self.getNode("surface-positions/right-aileron-pos-norm",1);
+			var left_aileron_node = self.getNode("surface-positions/left-aileron-pos-norm",1);
+			var engine_n1_node = self.getNode("engines/engine/n1",1);
+			var engine_smoking_node = self.getNode("engines/engine/smoking",1);
+
+			pilot_head_brg_node.setDoubleValue(0);
+			pilot_head_elev_node.setDoubleValue(0);
+			pilot_head_look_node.setValue("leader");
+			pilot_head_visor_node.setDoubleValue(0);
+
+			observer_head_brg_node.setDoubleValue(0);
+			observer_head_elev_node.setDoubleValue(0);
+			observer_head_look_node.setValue("ahead");
+			observer_head_visor_node.setDoubleValue(0);
+
+			var variant = nil;
+			var ht_agl = 0;
+			var loopid = 0;
+
+			var update = func {
+
+			var right_aileron = getprop("/surface-positions/right-aileron-pos-norm");
+
+			if (right_aileron != nil){
+			right_aileron_node.setDoubleValue(right_aileron);
+			}
+
+			var left_aileron = getprop("/surface-positions/left-aileron-pos-norm");
+
+			if (left_aileron != nil){
+			left_aileron_node.setDoubleValue(left_aileron);
+			}
+
+			var engine_n1 = getprop("/engines/engine/n1");
+			var engine_smoking = getprop("/engines/engine/smoking");
+
+			if (engine_n1 != nil){
+			engine_n1_node.setDoubleValue(engine_n1);
+			engine_smoking_node.setBoolValue(engine_smoking);
+			}
+
+			settimer(update, 0);
+			}
+
+			var observer = func{
+
+			var ht_agl = ht_agl_node.getValue();
+#			print("observer ht_agl ", ht_agl);
+			if (ht_agl != nil){
+
+			if( ht_agl &gt;= 7500 + (rand() * 1000)){
+			observer_head_visor_node.setDoubleValue(1);
+			}else{
+			observer_head_visor_node.setDoubleValue(0);
+			}
+
+			}
+
+			var observer_look = observer_head_look_node.getValue();
+
+			if (observer_look == "leader")
+			{
+			interpolate(observer_head_brg_node, 5 - rand() * 10 , 1);
+			interpolate(observer_head_elev_node, 1 - rand() * 2 , 1);
+			observer_head_look_node.setValue("ahead");
+			settimer(observer, 5 + (rand() * 10));
+			} else {
+			interpolate(observer_head_elev_node, rand() * -20, 1);
+			interpolate(observer_head_brg_node, 5 - rand() * 10 , 1);
+			observer_head_look_node.setValue("leader");
+			settimer(observer, 10 + (rand() * 10));
+			}
+
+			} # end func observer_look
+
+
+			var loop = func(id) {
+
+			id == loopid or return;
+
+			var ht_agl = ht_agl_node.getValue();
+			#			print("name ",name_node.getValue(), " ht_agl ", ht_agl);
+			if (ht_agl != nil){
+
+			if( ht_agl &gt;= 8000 + (rand() * 1000)){
+			pilot_head_visor_node.setDoubleValue(1);
+			}else{
+			pilot_head_visor_node.setDoubleValue(0);
+			}
+
+			}
+
+			if(name_node.getValue()== "Blue-Leader"){
+			variant_node.setDoubleValue(323);
+			}elsif(name_node.getValue()== "Red-2"){
+			variant_node.setDoubleValue(324);
+			}elsif(name_node.getValue()== "Blue-2"){
+			variant_node.setDoubleValue(325);
+			}
+
+			var v = variant_node.getValue();
+
+			if (v != nil ) {
+			variant = v;
+			v = fg_root ~ "/Aircraft/Buccaneer/Models/Liveries/" ~ variant ~ ".xml";
+			fgcommand("loadxml", props.Node.new({ filename: v, targetnode: self.getPath() }));
+			}
+
+			var rel_brg = rel_brg_node.getValue();
+			var elev = elev_node.getValue();
+			var pilot_look = pilot_head_look_node.getValue();
+
+			if(pilot_look == "leader" and rel_brg != nil and elev != nil){
+
+			if(rel_brg &lt;= -60 ){
+			rel_brg = -60;
+			} elsif(rel_brg &gt;= 60 ){
+			rel_brg = 60;
+			}
+
+			interpolate(pilot_head_brg_node, rel_brg, 1);
+
+			if(rel_brg &lt;= -45 ){
+			rel_brg = -45;
+			} elsif(rel_brg &gt;= 45 ){
+			rel_brg = 45;
+			}
+
+			interpolate(pilot_head_elev_node, elev, 1);
+
+			#			print ("rel_brg ", rel_brg," elev ", elev, " pilot_look ", pilot_look," ", rand() * -10);
+
+			pilot_head_look_node.setValue("ahead");
+			settimer(func { loop(id) }, 20 + (rand() * 10));
+			} else {
+			interpolate(pilot_head_brg_node, 0, 1);
+			interpolate(pilot_head_elev_node, 0 - rand() * 10, 1);
+#			print(name_node.getValue(), " ahead elev", pilot_head_elev_node.getValue(), " brg ", pilot_head_brg_node.getValue());
+			pilot_head_look_node.setValue("leader");
+			settimer(func { loop(id) }, 15 + (rand() * 10));
+			}
+
+			}
+
+			loop(loopid);
+			update();
+			observer();
+		</load>
+
+		<unload>
+			print("Unloading Buccaneer Wingman", cmdarg().getPath());
+			loopid += 1;
+		</unload>
+	</nasal>
+
+	<offsets>
+		<x-m>0</x-m>
+	</offsets>
+
+	<animation>
+		<enable-hot type="bool">false</enable-hot>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>Canopy-Main-Rain</object-name>
+		<object-name>Canopy-Side-Port-Rain</object-name>
+		<object-name>Canopy-Side-Stbd-Rain</object-name>
+		<object-name>Canopy-Front-Rain</object-name>
+	</animation>
+
+	<!-- **** non-panel models **** -->
+
+	<model>
+		<path>Aircraft/Buccaneer/Models/fan.xml</path>
+		<name>Fan-Stbd</name>
+		<offsets>
+			<x-m>6.54929</x-m>
+			<y-m>1.14886</y-m>
+			<z-m>0.315138</z-m>
+			<pitch-deg>2</pitch-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<path>/Aircraft/Buccaneer/Models/fan.xml</path>
+		<name>Fan-Port</name>
+		<offsets>
+			<x-m>6.54929</x-m>
+			<y-m>-1.14886</y-m>
+			<z-m>0.315138</z-m>
+			<pitch-deg>2</pitch-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<path>AI/Aircraft/Buccaneer/Models/strop.xml</path>
+		<name>New-Strop</name>
+		<offsets>
+			<x-m>7.77252</x-m>
+			<y-m>0.0</y-m>
+			<z-m>-0.370128</z-m>
+		</offsets>
+	</model>
+
+
+
+
+	<!-- ***************** Cockpit *************************** -->
+
+
+	<!-- **************** Instruments ********************* -->
+
+	<animation>
+		<type>select</type>
+		<object-name>Place-Holders</object-name>
+	</animation>
+
+	<!-- **************** Over Glare Shield********** -->
+	<over-main-panel>
+		<offsets>
+			<x-m>3.36104</x-m>
+		</offsets>
+	</over-main-panel>
+
+	<!-- E2b -->
+	<model>
+		<path>AI/Aircraft/Buccaneer/Instruments/e2b.xml</path>
+		<offsets>
+			<x-m>3.52034</x-m>
+			<y-m>0</y-m>
+			<z-m>1.17373</z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<path>AI/Aircraft/Buccaneer/Instruments/asi.xml</path>
+		<offsets>
+			<x-m>3.36104</x-m>
+			<y-m>-0.212109</y-m>
+			<z-m>0.89</z-m>
+			<roll-deg>12.5</roll-deg>
+			<pitch-deg>-15</pitch-deg>
+			<heading-deg>10</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<path>AI/Aircraft/Buccaneer/Instruments/blowing_press.xml</path>
+		<offsets>
+			<x-m>3.38</x-m>
+			<y-m>0.28</y-m>
+			<z-m>0.88</z-m>
+			<roll-deg>-12.5</roll-deg>
+			<pitch-deg>-10</pitch-deg>
+			<heading-deg>-25</heading-deg>
+		</offsets>
+	</model>
+
+	<!-- *********** Port Coaming Panel ********** -->
+	<model>
+		<path>AI/Aircraft/Buccaneer/Instruments/port_coaming_panel.xml</path>
+		<offsets>
+			<x-m>3.6</x-m>
+			<y-m>-0.311199</y-m>
+			<z-m>0.778272</z-m>
+			<heading-deg>22.5</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<path>AI/Aircraft/Buccaneer/Instruments/stbd_coaming_panel.xml</path>
+		<offsets>
+			<x-m>3.6</x-m>
+			<y-m>0.311199</y-m>
+			<z-m>0.785</z-m>
+			<heading-deg>-22.5</heading-deg>
+		</offsets>
+	</model>
+
+	<!-- *********** Throttle Panel ********** -->
+	<model>
+		<path>AI/Aircraft/Buccaneer/Instruments/throttle_panel.xml</path>
+		<offsets>
+			<x-m>3.83186</x-m>
+			<y-m>-0.455</y-m>
+			<z-m>0.347693</z-m>
+		</offsets>
+	</model>
+
+	<!-- **************** Main Panel ********** -->
+	<model>
+		<path>AI/Aircraft/Buccaneer/Models/main-panel.xml</path>
+		<offsets>
+			<x-m>0</x-m>
+			<y-m>0</y-m>
+			<z-m>0.00</z-m>
+		</offsets>
+	</model>
+
+	<!-- **************** Stbd Panel ********** -->
+	<stbd-panel>
+		<offsets>
+			<pitch-deg>25.0</pitch-deg>
+			<roll-deg>10.0</roll-deg>
+		</offsets>
+	</stbd-panel>
+
+	<model>
+		<path>AI/Aircraft/Buccaneer/Instruments/fuel_panel.xml</path>
+		<offsets>
+			<x-m>3.65</x-m>
+			<y-m>0.361662</y-m>
+			<z-m>0.40</z-m>
+			<pitch-deg alias="../../../stbd-panel/offsets/pitch-deg"/>
+			<roll-deg alias="../../../stbd-panel/offsets/roll-deg"/>
+		</offsets>
+	</model>
+
+	<model>
+		<path>AI/Aircraft/Buccaneer/Instruments/stick.xml</path>
+		<offsets>
+			<x-m>0</x-m>
+			<y-m>0</y-m>
+			<z-m>0</z-m>
+		</offsets>
+	</model>
+
+
+
+	<!-- ***** Navigation Lights ****** -->
+	<!--
+
+	<model>
+		<path>AI/Aircraft/Hunter/Models/light-green.xml</path>
+		<name>Stbd-Light</name>
+		<offsets>
+			<x-m>0.839935</x-m>
+			<y-m>4.7883</y-m>
+			<z-m>-0.100609</z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<path>AI/Aircraft/Hunter/Models/light-red.xml</path>
+		<name>Port-Light</name>
+		<offsets>
+			<x-m>0.839935</x-m>
+			<y-m>-4.7883</y-m>
+			<z-m>-0.100609</z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<path>AI/Aircraft/Hunter/Models/light-white.xml</path>
+		<name>Tail-Light</name>
+		<offsets>
+			<x-m>6.487</x-m>
+			<y-m>0.0</y-m>
+			<z-m>0.86</z-m>
+		</offsets>
+	</model>
+	-->
+
+	<!-- hide droptank pylons in all views-->
+	<!--
+	<animation>
+		<type>select</type>
+		<object-name>Pylon-L</object-name>
+		<object-name>Pylon-R</object-name>
+	</animation>
+	
+-->
+
+	<!-- **************************** Pilot ******************************* -->
+
+	<!--  conceal Pilot Head etc in Cockpit Views -->
+	<animation>
+		<type>select</type>
+		<object-name>Pilot-Head</object-name>
+		<condition>
+			<not>
+				<equals>
+					<property>/sim/current-view/name</property>
+					<value>Model Cockpit View</value>
+				</equals>
+			</not>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>Pilot-Head</object-name>
+		<property>pilot-head/rel-brg-deg</property>
+		<center>
+			<!--4.07546		0.0499988-->
+			<!--4.08807,0.102067,0.92268-->
+			<x-m>4.07546</x-m>
+			<y-m>-0.0499988</y-m>
+			<z-m>0.920013</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>0</y>
+			<z>-1</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>Pilot-Head</object-name>
+		<property>pilot-head/elev-deg</property>
+		<center>
+			<x-m>4.07546</x-m>
+			<y-m>-0.0499988</y-m>
+			<z-m>0.920013</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>Visor-Pilot</object-name>
+		<property>pilot-head/visor-pos-norm</property>
+		<factor>40</factor>
+		<center>
+			<x-m>4.05315</x-m>
+			<y-m>-0.150731</y-m>
+			<z-m>1.100</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>-1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<!--5.33412	1.13113	0.0101561
+	5.2616	1.12063	-0.0504371-->
+
+	<animation>
+		<type>rotate</type>
+		<object-name>Observer-Head</object-name>
+		<property>observer-head/rel-brg-deg</property>
+		<center>
+			<!--4.07546		0.0499988-->
+			<!--4.08807,0.102067,0.92268-->
+			<x-m>5.334126</x-m>
+			<y-m>0.0504371</y-m>
+			<z-m>1.13113</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>0</y>
+			<z>-1</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>Observer-Head</object-name>
+		<property>observer-head/elev-deg</property>
+		<center>
+			<x-m>5.33412</x-m>
+			<y-m>0.0504371</y-m>
+			<z-m>1.13113</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>Visor-Observer</object-name>
+		<property>observer-head/visor-pos-norm</property>
+		<factor>40</factor>
+		<!--5.31167	1.31919	0.0507311-->
+		<center>
+			<x-m>5.31175</x-m>
+			<y-m>-0.0507311</y-m>
+			<z-m>1.31910</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>-1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<!-- **************************** Controls **************************** -->
+	<!-- ***************** Control Surfaces *********** -->
+
+	<!-- *********** Rudder *************** -->
+	<animation>
+		<type>rotate</type>
+		<object-name>Rudder</object-name>
+		<property>/surface-positions/rudder-pos-norm</property>
+		<factor>-15</factor>
+		<axis>
+			<x1-m>16.0501</x1-m>
+			<y1-m>0</y1-m>
+			<z1-m>1.18808</z1-m>
+			<x2-m>16.6735</x2-m>
+			<y2-m>0</y2-m>
+			<z2-m>2.79738</z2-m>
+		</axis>
+	</animation>
+
+	<!--  ********** Ailerons ************ -->
+	<!-- Port -->
+	<animation>
+		<type>rotate</type>
+		<object-name>Aileron-Port</object-name>
+		<property>/surface-positions/left-aileron-pos-norm</property>
+		<factor>-30</factor>
+		<axis>
+			<x1-m>11.1886</x1-m>
+			<y1-m>-2.9227</y1-m>
+			<z1-m>0.366716</z1-m>
+			<x2-m>12.6736</x2-m>
+			<y2-m>-6.54553</y2-m>
+			<z2-m>0.275412</z2-m>
+		</axis>
+	</animation>
+
+	<!-- Starboard -->
+	<animation>
+		<type>rotate</type>
+		<object-name>Aileron-Stbd</object-name>
+		<property>/surface-positions/right-aileron-pos-norm</property>
+		<factor>30</factor>
+		<axis>
+			<x1-m>11.1886</x1-m>
+			<y1-m>2.9227</y1-m>
+			<z1-m>0.366716</z1-m>
+			<x2-m>12.6736</x2-m>
+			<y2-m>6.54553</y2-m>
+			<z2-m>0.275412</z2-m>
+		</axis>
+	</animation>
+
+	<!-- ********************* Elevators ***************** -->
+	<!-- Tail Plane-->
+	<animation>
+		<type>rotate</type>
+		<object-name>Tail-Assmbly</object-name>
+		<property>/surface-positions/elevator-pos-norm</property>
+		<factor>10</factor>
+		<center>
+			<x-m>16.2535.57</x-m>
+			<y-m>0</y-m>
+			<z-m>3.18725</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<!-- Port -->
+	<animation>
+		<type>rotate</type>
+		<object-name>Flap-Tail-Port</object-name>
+		<property>/surface-positions/tail-flaps-pos-norm</property>
+		<factor>30</factor>
+		<axis>
+			<x1-m>17.1088</x1-m>
+			<y1-m>-2.194</y1-m>
+			<z1-m>3.19493</z1-m>
+			<x2-m>16.5068</x2-m>
+			<y2-m>-0.12744</y2-m>
+			<z2-m>3.19004</z2-m>
+		</axis>
+	</animation>
+
+	<!-- Stbd -->
+	<animation>
+		<type>rotate</type>
+		<object-name>Flap-Tail-Stbd</object-name>
+		<property>/surface-positions/tail-flaps-pos-norm</property>
+		<factor>-30</factor>
+		<axis>
+			<x1-m>17.1088</x1-m>
+			<y1-m>2.194</y1-m>
+			<z1-m>3.19493</z1-m>
+			<x2-m>16.5068</x2-m>
+			<y2-m>0.12744</y2-m>
+			<z2-m>3.19004</z2-m>
+		</axis>
+	</animation>
+
+	<!--  ************** Flaps ******************** -->
+	<!-- Port -->
+	<animation>
+		<type>rotate</type>
+		<object-name>Flap-Port</object-name>
+		<property>/surface-positions/flap-pos-norm</property>
+		<factor>45</factor>
+		<axis>
+			<x1-m>11.1477</x1-m>
+			<y1-m>-2.92065</y1-m>
+			<z1-m>0.366882</z1-m>
+			<x2-m>10.6706</x2-m>
+			<y2-m>-1.69491</y2-m>
+			<z2-m>0.354456</z2-m>
+		</axis>
+	</animation>
+
+	<!-- Stbd -->
+	<animation>
+		<type>rotate</type>
+		<object-name>Flap-Stbd</object-name>
+		<property>/surface-positions/flap-pos-norm</property>
+		<factor>-45</factor>
+		<axis>
+			<x1-m>11.1477</x1-m>
+			<y1-m>2.92065</y1-m>
+			<z1-m>0.366882</z1-m>
+			<x2-m>10.6706</x2-m>
+			<y2-m>1.69491</y2-m>
+			<z2-m>0.354456</z2-m>
+		</axis>
+	</animation>
+
+	<!-- ******************* Airbrake **************** -->
+	<!-- Extend/Retract -->
+
+	<animation>
+		<type>rotate</type>
+		<object-name>Airbrake-Stbd</object-name>
+		<property>/surface-positions/speedbrake-pos-norm</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>0</dep>
+			</entry>
+			<entry>
+				<ind>0.5</ind>
+				<dep>15</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>40</dep>
+			</entry>
+		</interpolation>
+		<center>
+			<x-m>17.4764</x-m>
+			<y-m>0.407569</y-m>
+			<z-m>0.640095</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>0</y>
+			<z>1</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>Drag-Link-Stbd</object-name>
+		<object-name>Airbrake-Stbd</object-name>
+		<property>/surface-positions/speedbrake-pos-norm</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>0</dep>
+			</entry>
+			<entry>
+				<ind>0.5</ind>
+				<dep>19</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>35</dep>
+			</entry>
+		</interpolation>
+		<axis>
+			<x1-m>16.36384</x1-m>
+			<y1-m>0.461053</y1-m>
+			<z1-m>0.477672</z1-m>
+			<x2-m>16.3554</x2-m>
+			<y2-m>0.477428</y2-m>
+			<z2-m>0.600957</z2-m>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>Airbrake-Port</object-name>
+		<property>/surface-positions/speedbrake-pos-norm</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>0</dep>
+			</entry>
+			<entry>
+				<ind>0.5</ind>
+				<dep>-15</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>-40</dep>
+			</entry>
+		</interpolation>
+		<center>
+			<x-m>17.4764</x-m>
+			<y-m>-0.407569</y-m>
+			<z-m>0.640095</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>0</y>
+			<z>1</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>Drag-Link-Port</object-name>
+		<object-name>Airbrake-Port</object-name>
+		<property>/surface-positions/speedbrake-pos-norm</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>0</dep>
+			</entry>
+			<entry>
+				<ind>0.5</ind>
+				<dep>-19</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>-35</dep>
+			</entry>
+		</interpolation>
+		<axis>
+			<x1-m>16.36384</x1-m>
+			<y1-m>-0.461053</y1-m>
+			<z1-m>0.477672</z1-m>
+			<x2-m>16.3554</x2-m>
+			<y2-m>-0.477428</y2-m>
+			<z2-m>0.600957</z2-m>
+		</axis>
+	</animation>
+
+	<!-- ****************** Undercarriage **************** -->
+	<!--
+	-->
+	<!-- Front U/C -->
+	<!--
+	-->
+	<!-- Extend/Retract -->
+	<animation>
+		<type>rotate</type>
+		<object-name>Gear-Nose</object-name>
+		<property>/gear/gear[0]/position-norm</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>82.5</dep>
+			</entry>
+			<!--<entry>
+				<ind>0.25</ind>
+				<dep>82.5</dep>
+			</entry>-->
+			<entry>
+				<ind>1</ind>
+				<dep>0</dep>
+			</entry>
+		</interpolation>
+		<center>
+			<x-m>3.16747</x-m>
+			<y-m>0.0</y-m>
+			<z-m>-0.472047</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>-1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<!-- Open/Close Doors -->
+	<!-- Door -->
+	<animation>
+		<type>rotate</type>
+		<object-name>Door-Front</object-name>
+		<property>/gear/gear/position-norm</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>0</dep>
+			</entry>
+			<entry>
+				<ind>0.1</ind>
+				<dep>90</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>90</dep>
+			</entry>
+		</interpolation>
+		<axis>
+			<x1-m>3.01056</x1-m>
+			<y1-m>0.146521</y1-m>
+			<z1-m>-0.624665</z1-m>
+			<x2-m>4.79913</x2-m>
+			<y2-m>0.152957</y2-m>
+			<z2-m>-0.717831</z2-m>
+		</axis>
+	</animation>
+
+	<!-- nose wheel castering -->
+	<animation>
+		<type>rotate</type>
+		<object-name>Assmbly-Lower-Nose</object-name>
+		<object-name>F-Arm</object-name>
+		<object-name>F-DArm</object-name>
+		<property>/gear/gear/caster-angle-deg</property>
+		<factor>1</factor>
+		<axis>
+			<x1-m>3.374</x1-m>
+			<y1-m>0</y1-m>
+			<z1-m>-0.374706</z1-m>
+			<x2-m>3.374</x2-m>
+			<y2-m>0</y2-m>
+			<z2-m>-0.999678</z2-m>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>Pivot-Bracket</object-name>
+		<property>/gear/gear/caster-angle-deg</property>
+		<factor>1</factor>
+		<axis>
+			<x1-m>3.374</x1-m>
+			<y1-m>0</y1-m>
+			<z1-m>-0.374706</z1-m>
+			<x2-m>3.374</x2-m>
+			<y2-m>0</y2-m>
+			<z2-m>-0.999678</z2-m>
+		</axis>
+	</animation>
+
+	<!-- Compression -->
+	<animation>
+		<type>rotate</type>
+		<object-name>Assmbly-Lower-Nose</object-name>
+		<property>/gear/gear[0]/compression-norm</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>-2</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>18</dep>
+			</entry>
+		</interpolation>
+		<center>
+			<x-m>3.17039</x-m>
+			<y-m>-1.92861</y-m>
+			<z-m>-1.36823</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>-1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>translate</type>
+		<object-name>Oleo-Nose</object-name>
+		<property>/gear/gear[0]/compression-norm</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>-0.0093</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>0.1</dep>
+			</entry>
+		</interpolation>
+		<axis>
+			<x>0</x>
+			<y>0</y>
+			<z>1</z>
+		</axis>
+	</animation>
+
+	<!-- *** Tail Bumper *** -->
+	<animation>
+		<type>rotate</type>
+		<object-name>Tail-Bumper</object-name>
+		<property>/gear/gear[3]/position-norm</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>0</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>75</dep>
+			</entry>
+		</interpolation>
+		<center>
+			<x-m>13.9884</x-m>
+			<y-m>0.0</y-m>
+			<z-m>-0.420321</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<!-- Compression -->
+	<animation>
+		<type>rotate</type>
+		<object-name>Tail-Bumper</object-name>
+		<property>/gear/gear[3]/compression-norm</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>0</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>35</dep>
+			</entry>
+		</interpolation>
+		<center>
+			<x-m>13.9884</x-m>
+			<y-m>0.0</y-m>
+			<z-m>-0.420321</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>-1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<!-- Main U/C Left-->
+	<!--
+	-->
+	<!-- Extend/Retract -->
+	<animation>
+		<type>rotate</type>
+		<object-name>Gear-Main-Port</object-name>
+		<property>/gear/gear[1]/position-norm</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>64</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>-2</dep>
+			</entry>
+		</interpolation>
+		<center>
+			<x-m>8.97018</x-m>
+			<y-m>-1.84485</y-m>
+			<z-m>0.26455</z-m>
+		</center>
+		<axis>
+			<x>1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>Assmbly-Lower-Port</object-name>
+		<property>/gear/gear[1]/position-norm</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>64</dep>
+			</entry>
+			<entry>
+				<ind>0.35</ind>
+				<dep>64</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>0</dep>
+			</entry>
+		</interpolation>
+		<center>
+			<x-m>9.0435</x-m>
+			<y-m>1.92861</y-m>
+			<z-m>-0.672172</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>-1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>translate</type>
+		<object-name>Oleo-Port</object-name>
+		<property>/gear/gear[1]/position-norm</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>0.1975</dep>
+			</entry>
+			<entry>
+				<ind>0.35</ind>
+				<dep>0.1975</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>0</dep>
+			</entry>
+		</interpolation>
+		<axis>
+			<x>0</x>
+			<y>0</y>
+			<z>1</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>Door-Main-Port</object-name>
+		<property>/gear/gear[1]/position-norm</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>0</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>-67.5</dep>
+			</entry>
+		</interpolation>
+		<axis>
+			<x1-m>9.09345</x1-m>
+			<y1-m>-2.03621</y1-m>
+			<z1-m>0.193093</z1-m>
+			<x2-m>9.91029</x2-m>
+			<y2-m>-2.03621</y2-m>
+			<z2-m>0.208715</z2-m>
+		</axis>
+	</animation>
+
+	<!-- Compression -->
+	<animation>
+		<type>rotate</type>
+		<object-name>Assmbly-Lower-Port</object-name>
+		<property>/gear/gear[1]/compression-norm</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>-4</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>60</dep>
+			</entry>
+		</interpolation>
+		<center>
+			<x-m>9.0435</x-m>
+			<y-m>-1.92861</y-m>
+			<z-m>-0.672172</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>-1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>translate</type>
+		<object-name>Oleo-Port</object-name>
+		<property>/gear/gear[1]/compression-norm</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>-0.0075</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>0.19</dep>
+			</entry>
+		</interpolation>
+		<axis>
+			<x>0</x>
+			<y>0</y>
+			<z>1</z>
+		</axis>
+	</animation>
+
+	<!-- hide the undercarriage when retracted -->
+	<animation>
+		<type>select</type>
+		<object-name>Gear-Main-Port</object-name>
+		<condition>
+			<greater-than>
+				<property>/gear/gear[0]/position-norm</property>
+				<value>0.02</value>
+			</greater-than>
+		</condition>
+	</animation>
+
+	<!-- Main U/C - Right -->
+	<!--
+	-->
+	<!-- Extend/Retract -->
+	<animation>
+		<type>rotate</type>
+		<object-name>Gear-Main-Stbd</object-name>
+		<property>/gear/gear[2]/position-norm</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>64</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>-2</dep>
+			</entry>
+		</interpolation>
+		<center>
+			<x-m>8.97018</x-m>
+			<y-m>1.84485</y-m>
+			<z-m>0.26455</z-m>
+		</center>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>Assmbly-Lower-Stbd</object-name>
+		<property>/gear/gear[2]/position-norm</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>64</dep>
+			</entry>
+			<entry>
+				<ind>0.35</ind>
+				<dep>64</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>0</dep>
+			</entry>
+		</interpolation>
+		<center>
+			<x-m>9.0435</x-m>
+			<y-m>1.92861</y-m>
+			<z-m>-0.672172</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>-1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>translate</type>
+		<object-name>Oleo-Stbd</object-name>
+		<property>/gear/gear[2]/position-norm</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>0.1975</dep>
+			</entry>
+			<entry>
+				<ind>0.35</ind>
+				<dep>0.1975</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>0</dep>
+			</entry>
+		</interpolation>
+		<axis>
+			<x>0</x>
+			<y>0</y>
+			<z>1</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>Door-Main-Stbd</object-name>
+		<property>/gear/gear[2]/position-norm</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>0</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>67.5</dep>
+			</entry>
+		</interpolation>
+		<axis>
+			<x1-m>9.09345</x1-m>
+			<y1-m>2.03621</y1-m>
+			<z1-m>0.193093</z1-m>
+			<x2-m>9.91029</x2-m>
+			<y2-m>2.03621</y2-m>
+			<z2-m>0.208715</z2-m>
+		</axis>
+	</animation>
+
+	<!-- Compression -->
+	<animation>
+		<type>rotate</type>
+		<object-name>Assmbly-Lower-Stbd</object-name>
+		<property>/gear/gear[2]/compression-norm</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>-4</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>60</dep>
+			</entry>
+		</interpolation>
+		<center>
+			<x-m>9.0435</x-m>
+			<y-m>1.92861</y-m>
+			<z-m>-0.672172</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>-1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>translate</type>
+		<object-name>Oleo-Stbd</object-name>
+		<property>/gear/gear[2]/compression-norm</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>0.0075</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>0.1900</dep>
+			</entry>
+		</interpolation>
+		<axis>
+			<x>0</x>
+			<y>0</y>
+			<z>1</z>
+		</axis>
+	</animation>
+
+	<!-- hide the undercarriage when retracted -->
+	<animation>
+		<type>select</type>
+		<object-name>Gear-Main-Stbd</object-name>
+		<condition>
+			<greater-than>
+				<property>/gear/gear[0]/position-norm</property>
+				<value>0.02</value>
+			</greater-than>
+		</condition>
+	</animation>
+
+
+	<!-- ***************** Canopy *********************** -->
+	<!--
+	<animation>
+		<type>translate</type>
+		<object-name>Main</object-name>
+		<property>/canopy/position-norm</property>
+		<factor>0.6</factor>
+		<axis>
+			<x>1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	-->
+	<!-- ************************ arrestor hook ********************** -->
+	<!--
+	-->
+	<!-- lower/raise -->
+	<animation>
+		<type>rotate</type>
+		<object-name>AHook-assmbly</object-name>
+		<property>/gear/tailhook/position-norm</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>0</dep>
+			</entry>
+			<entry>
+				<ind>0.5</ind>
+				<dep>45</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>90</dep>
+			</entry>
+		</interpolation>
+		<center>
+			<x-m>14.8328</x-m>
+			<y-m>0</y-m>
+			<z-m>-0.161891</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<!-- lower/raise holdback -->
+	<animation>
+		<type>rotate</type>
+		<object-name>Holdback</object-name>
+		<property>/gear/launchbar/holdback-position-norm</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>0</dep>
+			</entry>
+			<entry>
+				<ind>0.5</ind>
+				<dep>45</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>90</dep>
+			</entry>
+		</interpolation>
+		<center>
+			<x-m>16.27641</x-m>
+			<y-m>0</y-m>
+			<z-m>0.116332</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>Holdback</object-name>
+		<condition>
+			<equals>
+				<property>/gear/launchbar/state</property>
+				<value>Engaged</value>
+			</equals>
+		</condition>
+	</animation>
+
+	<!-- ************ Panel Lighting ************** -->
+	<!--
+	<animation>
+		<type>material</type>
+		<object-name>Panels</object-name>
+		<emission>
+			<factor-prop>/controls/lighting/panel-norm</factor-prop>
+			<red>0.6</red>
+			<green>0.20</green>
+			<blue>0.20</blue>
+		</emission>
+	</animation>-->
+
+	<animation>
+		<type>shader</type>
+		<shader>chrome</shader>
+		<texture>chrome2.rgb</texture>
+		<object-name>Intake-Stbd</object-name>
+	</animation>
+
+	<animation>
+		<type>shader</type>
+		<shader>chrome</shader>
+		<texture>chrome2.rgb</texture>
+		<object-name>Pitot-Head</object-name>
+	</animation>
+
+	<!-- Material Animations -->
+	<animation>
+		<type>material</type>
+		<!--global type="bool">true</global-->
+		<object-name>Fuselage-Markings-Side-No</object-name>
+		<property-base>sim/model/livery/material/Fuselage-Markings-Side-No</property-base>
+		<texture-prop>texture</texture-prop>
+	</animation>
+
+	<animation>
+		<type>material</type>
+		<!--global type="bool">true</global-->
+		<object-name>Fuselage-Markings-Ser-No</object-name>
+		<property-base>sim/model/livery/material/Fuselage-Markings-Ser-No</property-base>
+		<texture-prop>texture</texture-prop>
+	</animation>
+
+	<animation>
+		<type>material</type>
+		<!--global type="bool">true</global-->
+		<object-name>Markings-Wing-Inner-Ser-No-Stbd</object-name>
+		<property-base>sim/model/livery/material/Markings-Wing-Inner-Ser-No-Stbd</property-base>
+		<texture-prop>texture</texture-prop>
+	</animation>
+
+	<animation>
+		<type>material</type>
+		<!--global type="bool">true</global-->
+		<object-name>Markings-Wing-Outer-Ser-No-Stbd</object-name>
+		<property-base>sim/model/livery/material/Markings-Wing-Outer-Ser-No-Stbd</property-base>
+		<texture-prop>texture</texture-prop>
+	</animation>
+
+	<animation>
+		<type>material</type>
+		<!--global type="bool">true</global-->
+		<object-name>Markings-Wing-Inner-Ser-No-Stbd</object-name>
+		<property-base>sim/model/livery/material/Markings-Wing-Inner-Ser-No-Stbd</property-base>
+		<texture-prop>texture</texture-prop>
+	</animation>
+
+	<animation>
+		<type>material</type>
+		<!--global type="bool">true</global-->
+		<object-name>Markings-Wing-Outer-Ser-No-Stbd</object-name>
+		<property-base>sim/model/livery/material/Markings-Wing-Outer-Ser-No-Stbd</property-base>
+		<texture-prop>texture</texture-prop>
+	</animation>
+
+	<animation>
+		<type>material</type>
+		<!--global type="bool">true</global-->
+		<object-name>Markings-Wing-Inner-Ser-No-Port</object-name>
+		<property-base>sim/model/livery/material/Markings-Wing-Inner-Ser-No-Port</property-base>
+		<texture-prop>texture</texture-prop>
+	</animation>
+
+	<animation>
+		<type>material</type>
+		<!--global type="bool">true</global-->
+		<object-name>Markings-Wing-Outer-Ser-No-Port</object-name>
+		<property-base>sim/model/livery/material/Markings-Wing-Outer-Ser-No-Port</property-base>
+		<texture-prop>texture</texture-prop>
+	</animation>
+
+	<animation>
+		<type>material</type>
+		<!--global type="bool">true</global-->
+		<object-name>Markings-Flap-Stbd</object-name>
+		<property-base>sim/model/livery/material/Markings-Flap-Stbd</property-base>
+		<texture-prop>texture</texture-prop>
+	</animation>
+
+	<animation>
+		<type>material</type>
+		<!--global type="bool">true</global-->
+		<object-name>Markings-Flap-Port</object-name>
+		<property-base>sim/model/livery/material/Markings-Flap-Port</property-base>
+		<texture-prop>texture</texture-prop>
+	</animation>
+
+	<!-- particle systems -->
+	<model>
+		<path>Aircraft/Buccaneer/Models/Effects/haze.xml</path>
+		<name>testhaze</name>
+		<offsets>
+			<x-m>  0 </x-m>
+			<y-m>  0 </y-m>
+			<z-m>  0 </z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<path>Aircraft/Buccaneer/Models/Effects/smoke.xml</path>
+		<name>smoke-s</name>
+		<offsets>
+			<x-m>0</x-m>
+			<y-m>1</y-m>
+			<z-m>0</z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<path>Aircraft/Buccaneer/Models/Effects/smoke.xml</path>
+		<name>smoke-p</name>
+		<offsets>
+			<x-m> 0</x-m>
+			<y-m>-1</y-m>
+			<z-m> 0</z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<path>Aircraft/Buccaneer/Models/Effects/fuel.xml</path>
+		<name>fuel</name>
+		<offsets>
+			<x-m>0</x-m>
+			<y-m>0</y-m>
+			<z-m>0</z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<path>AI/Aircraft/Buccaneer/Models/Effects/tiptrail-stbd.xml</path>
+		<name>tiptrail-s</name>
+		<offsets>
+			<x-m>0</x-m>
+			<y-m>0</y-m>
+			<z-m>0</z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<path>AI/Aircraft/Buccaneer/Models/Effects/tiptrail-port.xml</path>
+		<name>tiptrail-p</name>
+		<offsets>
+			<x-m>0</x-m>
+			<y-m>0</y-m>
+			<z-m>0</z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<path>AI/Aircraft/Buccaneer/Models/Effects/tiptrail-tail-port.xml</path>
+		<name>tiptrail-t-s</name>
+		<offsets>
+			<x-m>0</x-m>
+			<y-m>2.13948</y-m>
+			<z-m>0</z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<path>AI/Aircraft/Buccaneer/Models/Effects/tiptrail-tail-port.xml</path>
+		<name>tiptrail-t-p</name>
+		<offsets>
+			<x-m>0</x-m>
+			<y-m>-2.13948</y-m>
+			<z-m>0</z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<path>Aircraft/Buccaneer/Models/Effects/fuel.xml</path>
+		<name>fuel</name>
+		<offsets>
+			<x-m>0</x-m>
+			<y-m>0</y-m>
+			<z-m>0</z-m>
+		</offsets>
+	</model>
+
+	<effect>
+		<inherits-from>Effects/buccaneerreflect-uber</inherits-from>
+		<object-name>Fuselage</object-name>
+		<object-name>Spine</object-name>
+		<object-name>Intake-Tail</object-name>
+		<object-name>Rudder</object-name>
+		<object-name>Nose-Cone</object-name>
+		<object-name>Nose</object-name>
+		<object-name>Nacelle-Stbd</object-name>
+		<object-name>Nacelle-Port</object-name>
+		<object-name>Drag-Link-Stbd</object-name>
+		<object-name>Drag-Link-Port</object-name>
+		<object-name>Body-Stbd</object-name>
+		<object-name>Body-Port</object-name>
+		<object-name>Strake-Lower-Stbd</object-name>
+		<object-name>Strake-Lower-Port</object-name>
+		<object-name>Strake-Upper-Stbd</object-name>
+		<object-name>Strake-upper-Port</object-name>
+		<object-name>Cat-Strop-Hook</object-name>
+		<object-name>NACA-Duct</object-name>
+		<object-name>Probe</object-name>
+		<object-name>Door-Main-Port</object-name>
+		<object-name>Door-Main-Stbd</object-name>
+		<object-name>Door-Front</object-name>
+	</effect>
+
+	<effect>
+		<inherits-from>Effects/buccaneerreflect-uber</inherits-from>
+		<!--<object-name>Tail-Assmbly</object-name>-->
+		<object-name>Tail-Plane</object-name>
+		<object-name>Flap-Tail-Stbd</object-name>
+		<object-name>Flap-Tail-Port</object-name>
+		<object-name>Bullet-Aft</object-name>
+		<object-name>Bullet-Forward</object-name>
+		<object-name>Tail-Fairing-Top</object-name>
+
+		<!--<object-name>Wing-Port-Outer</object-name>-->
+		<object-name>Wing-Outer-Surface-Port</object-name>
+		<object-name>Aileron-Port</object-name>
+		<object-name>Body-Port</object-name>
+		<object-name>Pitot-Fairing</object-name>
+
+		<!--<object-name>Wing-Port-Inner</object-name>-->
+		<object-name>Wing-Inner-Surface-Port</object-name>
+		<object-name>Flap-Port-Surface</object-name>
+
+		<!--<object-name>Wing-Stbd-Outer</object-name>-->
+		<object-name>Wing-Outer-Surface-Stbd</object-name>
+		<object-name>Aileron-Stbd</object-name>
+		<object-name>Body-Stbd</object-name>
+
+		<!--<object-name>Wing-Stbd-Inner</object-name>-->
+		<object-name>Wing-Inner-Surface-Stbd</object-name>
+		<object-name>Flap-Stbd-Surface</object-name>
+
+		<object-name>Frame-Main</object-name>
+		<object-name>Frame-Front</object-name>
+		<object-name>Frame-Centre</object-name>
+	</effect>
+
+	<effect>
+		<inherits-from>Effects/buccaneerreflect-uber</inherits-from>
+		<parameters>
+			<reflection-fresnel type="float">0.1</reflection-fresnel>
+			<reflection-rainbow type="float">0.05</reflection-rainbow>
+			<reflection-noise type="float">0.1</reflection-noise>
+			<ambient-correction type="float">0.1</ambient-correction>
+			<reflection-correction type="float">0.2</reflection-correction>
+		</parameters>
+		<object-name>Intakes</object-name>
+		<object-name>Probe-Tip</object-name>
+		<object-name>Pitot-Head</object-name>
+	</effect>
+
+	<effect>
+		<inherits-from>Effects/buccaneerglass-uber</inherits-from>
+		<parameters>
+			<reflection-fresnel type="float">0.05</reflection-fresnel>
+			<reflection-rainbow type="float">0.05</reflection-rainbow>
+			<reflection-noise type="float">0.05</reflection-noise>
+			<ambient-correction type="float">0.1</ambient-correction>
+			<reflection-correction type="float">0.2</reflection-correction>
+		</parameters>
+		<object-name>Visor-Glass-Pilot</object-name>
+		<object-name>Visor-Glass-Observer</object-name>
+	</effect>
+
+	<effect>
+		<inherits-from>Effects/buccaneerglass-uber</inherits-from>
+		<object-name>Canopy-Side-Port</object-name>
+		<object-name>Canopy-Side-Stbd</object-name>
+		<object-name>Canopy-Front</object-name>
+		<object-name>Canopy-Main-Port</object-name>
+		<object-name>Canopy-Main-Stbd</object-name>
+		<object-name>Screen-Port</object-name>
+		<object-name>Screen-Stbd</object-name>
+	</effect>
+
+	<effect>
+		<inherits-from>Effects/model-transparent</inherits-from>
+		<object-name>Canopy-Front-Rain</object-name>
+		<object-name>Canopy-Main-Rain</object-name>
+		<object-name>Canopy-Side-Port-Rain</object-name>
+		<object-name>Canopy-Side-Stbd-Rain</object-name>
+	</effect>
+
+	<effect>
+		<inherits-from>Effects/model-transparent</inherits-from>
+		<object-name>Wiper-Arc</object-name>
+	</effect>
+
+	<!--************* Strike Sight ************************-->
+	<model>
+		<path>../../../../Aircraft/Buccaneer/Instruments/Canvas-HUD.xml</path>
+		<!--3.3518	0.895731	0.383018
+		3.3518	0.895731	-0.383018-->
+		<offsets>
+			<x-m>3.3518</x-m>
+			<y-m>-0.05</y-m>
+			<z-m>1.0</z-m>
+		</offsets>
+	</model>
+
+</PropertyList>

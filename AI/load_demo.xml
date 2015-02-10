@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+	<scenario>
+
+		<description>
+			This scenario places an underslung load ready to be picked up at the
+			designated position. It assumes a cubic shape whose centre is specified
+			by the z-offset.
+				 
+			Note: Units are ft, lbs, deg. Mass is in slugs
+
+			Vivian Meazza
+</description>
+
+		<entry>
+			<name>Load</name>
+			<type>ballistic</type>
+			<model>Models/Geometry/load.xml</model>
+			<latitude>37.611716</latitude>
+			<longitude>-122.358434</longitude>
+			<altitude>0</altitude>
+			<life>-1</life>
+			<speed>0</speed>
+			<repeat>false</repeat>
+			<count>1</count>
+			<azimuth>0</azimuth>
+			<elevation>0</elevation>
+			<x-offset>-8.366</x-offset>
+			<y-offset>0</y-offset>
+			<z-offset>-2.75</z-offset>
+			<slaved-load>true</slaved-load>
+			<ground-offset>1.5</ground-offset>
+			<load-offset>-10</load-offset>
+			<wind>true</wind>
+			<eda>10.76</eda>
+			<mass>9.325</mass>
+			<cd>0.95</cd>
+			<aero_stabilized>false</aero_stabilized>
+			<!--<contents>consumables/fuel/tank[3]</contents>
+			<impact>true</impact>
+			<impact-reports>sim/ai/aircraft/impact/droptank</impact-reports>-->
+			<force_stabilized>true</force_stabilized>
+			<external-force>true</external-force>
+			<force-path>sim/ai/ballistic/force[2]</force-path>
+		</entry>
+
+	</scenario>
+
+</PropertyList>

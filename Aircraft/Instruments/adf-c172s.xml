@@ -1,0 +1,222 @@
+<?xml version="1.0"?>
+
+<!--
+adf.xml
+
+ADF Gauge from C172-S
+
+Martin Dressler dr@musicabona.cz
+Mar 6 2003
+
+
+-->
+
+<PropertyList>
+
+ <name>C172-S ADF Gauge</name>
+ <w-base>512</w-base>
+ <h-base>512</h-base>
+
+ <params>
+  <adf-course-rotation-deg>/instrumentation/kr-87/inputs/rotation-deg</adf-course-rotation-deg>
+  <adf-needle-deg>/instrumentation/kr-87/outputs/needle-deg</adf-needle-deg>
+ </params>
+
+ <layers>
+ 
+  <layer>
+   <name>NAV backplate</name>
+   <w>320</w>
+   <h>320</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/nav3.rgb</path>
+    <x1>0.0</x1>
+    <x2>0.625</x2>
+    <y1>0.0</y1>
+    <y2>0.625</y2>
+   </texture>
+  </layer>
+  <layer>
+   <name>ADF needle</name>
+   <w>44</w>
+   <h>308</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/nav4.rgb</path>
+    <x1>0.4765625</x1>
+    <x2>0.5625</x2>
+    <y1>0.0</y1>
+    <y2>0.6015625</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>rotation</type>
+     <offset>0</offset>
+     <property alias="../../../../../params/adf-needle-deg"/>
+     <min>0</min>
+     <max>360</max>
+     <scale>1</scale>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>2</offset>
+    </transformation>
+   </transformations>
+  </layer>
+  
+  <layer>
+   <name>Radial</name>
+   <w>512</w>
+   <h>512</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/nav2.rgb</path>
+    <x1>0.0</x1>
+    <x2>1.0</x2>
+    <y1>0.0</y1>
+    <y2>1.0</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>rotation</type>
+     <property alias="../../../../../params/adf-course-rotation-deg"/>
+     <min>0.0</min>
+     <max>360.0</max>
+     <scale>-1.0</scale>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>ADF star</name>
+   <w>512</w>
+   <h>512</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/nav5.rgb</path>
+    <x1>0.0</x1>
+    <x2>1.0</x2>
+    <y1>0.0</y1>
+    <y2>1.0</y2>
+   </texture>
+  </layer>
+
+  <layer>
+   <name>Foreground</name>
+   <w>512</w>
+   <h>512</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/nav1.rgb</path>
+    <x1>0.0</x1>
+    <x2>1.0</x2>
+    <y1>0.0</y1>
+    <y2>1.0</y2>
+   </texture>
+  </layer>
+
+  <layer>
+   <name>HDG Knob</name>
+   <condition>
+    <equals>
+     <property>/sim/instrument-options/omit-knobs</property>
+     <value></value>
+    </equals>
+   </condition>
+   <w>100</w>
+   <h>100</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/nav4.rgb</path>
+    <x1>0.5625</x1>
+    <x2>0.757812</x2>
+    <y1>0.0</y1>
+    <y2>0.195312</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-181</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-192</offset>
+    </transformation>
+    <transformation>
+     <type>rotation</type>
+     <property alias="../../../../../params/adf-course-rotation-deg"/>
+     <scale>5</scale>
+    </transformation>
+   </transformations>
+  </layer>
+ 
+ </layers>
+
+ <actions>
+
+  <action>
+   <name>small counter-clockwise rotation</name>
+   <button>0</button>
+   <x>-231</x>
+   <y>-242</y>
+   <w>50</w>
+   <h>100</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/adf-course-rotation-deg"/>
+    <step>-1.0</step>
+    <min>0</min>
+    <max>360</max>
+    <wrap>true</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>large counter-clockwise rotation</name>
+   <button>1</button>
+   <x>-231</x>
+   <y>-242</y>
+   <w>50</w>
+   <h>100</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/adf-course-rotation-deg"/>
+    <step>-5.0</step>
+    <min>0</min>
+    <max>360</max>
+    <wrap>true</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>small clockwise rotation</name>
+   <button>0</button>
+   <x>-181</x>
+   <y>-242</y>
+   <w>50</w>
+   <h>100</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/adf-course-rotation-deg"/>
+    <step>1.0</step>
+    <min>0</min>
+    <max>360</max>
+    <wrap>true</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>large clockwise rotation</name>
+   <button>1</button>
+   <x>-181</x>
+   <y>-242</y>
+   <w>50</w>
+   <h>100</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/adf-course-rotation-deg"/>
+    <step>5.0</step>
+    <min>0</min>
+    <max>360</max>
+    <wrap>true</wrap>
+   </binding>
+  </action>
+
+ </actions>
+
+</PropertyList>

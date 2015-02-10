@@ -1,0 +1,161 @@
+<?xml version="1.0"?>
+<!--
+Author : Syd Adams
+Primus 1000 Primary Flight Display
+-->
+<PropertyList>
+
+<path>pfd.ac</path>
+
+    <panel>
+        <path>Aircraft/Instruments-3d/primus-1000/PFD/PFD-panel.xml</path>
+        <bottom-left>
+            <x-m>0.003</x-m>
+            <y-m>-0.075</y-m>
+            <z-m>-0.078</z-m>
+        </bottom-left>
+        <bottom-right>
+            <x-m>0.003</x-m>
+            <y-m>0.075</y-m>
+            <z-m>-0.078</z-m>
+        </bottom-right>
+        <top-left>
+            <x-m>0.003</x-m>
+            <y-m>-0.075</y-m>
+            <z-m>0.107</z-m>
+        </top-left>
+    </panel>
+
+    <panel>
+        <path>Aircraft/Instruments-3d/primus-1000/PFD/PFD-text-panel.xml</path>
+        <bottom-left>
+            <x-m>0.004</x-m>
+            <y-m>-0.075</y-m>
+            <z-m>-0.078</z-m>
+        </bottom-left>
+        <bottom-right>
+            <x-m>0.004</x-m>
+            <y-m>0.075</y-m>
+            <z-m>-0.078</z-m>
+        </bottom-right>
+        <top-left>
+            <x-m>0.004</x-m>
+            <y-m>-0.075</y-m>
+            <z-m>0.107</z-m>
+        </top-left>
+    </panel>
+
+<animation>
+    <type>rotate</type>
+    <object-name>Slipball</object-name>
+    <property>instrumentation/slip-skid-ball/indicated-slip-skid</property>
+    <interpolation>
+        <entry>
+            <ind>-1.5</ind><dep>-4.5</dep>
+        </entry>
+        <entry>
+            <ind>1.5</ind><dep>4.5</dep>
+        </entry>
+    </interpolation>
+<center>
+            <x-m>0</x-m>
+            <y-m>0</y-m>
+            <z-m>0.077</z-m>
+        </center>
+    <axis>
+        <x>-1</x>
+        <y>0</y>
+        <z>0</z>
+    </axis>
+</animation>
+
+<!-- Hotspots -->
+
+    <animation>
+        <type>pick</type>
+        <object-name>PFD.std</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-assign</command>
+                <property>instrumentation/altimeter/setting-inhg</property>
+                <value>29.92</value>
+            </binding>
+        </action>
+    </animation>
+
+    <animation>
+        <type>pick</type>
+        <object-name>PFD.knob</object-name>
+        <action>
+            <button>0</button>
+            <repeatable>true</repeatable>
+            <interval-sec>0.1</interval-sec>
+            <binding>
+                <command>property-adjust</command>
+                <property>instrumentation/altimeter/setting-inhg</property>
+                <step>0.01</step>
+                <min>26.0</min>
+                <max>33.0</max>
+                <wrap>false</wrap>
+            </binding>
+        </action>
+    </animation>
+
+    <animation>
+        <type>pick</type>
+        <object-name>PFD.knob</object-name>
+        <action>
+            <button>1</button>
+            <repeatable>true</repeatable>
+            <interval-sec>0.1</interval-sec>
+            <binding>
+                <command>property-adjust</command>
+                <property>instrumentation/altimeter/setting-inhg</property>
+                <step>-0.01</step>
+                <min>26.0</min>
+                <max>33.0</max>
+                <wrap>false</wrap>
+            </binding>
+        </action>
+    </animation>
+
+    <animation>
+        <type>pick</type>
+        <object-name>PFD.knob</object-name>
+        <action>
+            <button>3</button>
+            <repeatable>true</repeatable>
+            <interval-sec>0.1</interval-sec>
+            <binding>
+                <command>property-adjust</command>
+                <property>instrumentation/altimeter/setting-inhg</property>
+                <step>0.01</step>
+                <min>26.0</min>
+                <max>33.0</max>
+                <wrap>false</wrap>
+            </binding>
+        </action>
+    </animation>
+
+    <animation>
+        <type>pick</type>
+        <object-name>PFD.knob</object-name>
+        <action>
+            <button>4</button>
+            <repeatable>true</repeatable>
+            <interval-sec>0.1</interval-sec>
+            <binding>
+                <command>property-adjust</command>
+                <property>instrumentation/altimeter/setting-inhg</property>
+                <step>-0.01</step>
+                <min>26.0</min>
+                <max>33.0</max>
+                <wrap>false</wrap>
+            </binding>
+        </action>
+    </animation>
+
+</PropertyList>

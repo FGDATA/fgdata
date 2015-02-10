@@ -1,0 +1,1010 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+ <comment>
+  <![CDATA[
+    Usage:
+  
+    Recording: fgfs --generic=file,out,20,flight.out,playback
+    Playback:  fgfs --generic=file,in,20,flight.out,playback --fdm=null
+  ]]>
+ </comment>
+
+ <generic>
+
+  <output>
+   <line_separator>newline</line_separator>
+   <var_separator>,</var_separator>
+
+
+   <!-- Flight Controls -->
+   <chunk>
+    <name>aileron</name>
+    <type>float</type>
+    <format>%f</format>
+    <node>/controls/flight/aileron[0]</node>
+   </chunk>
+
+   <chunk>
+    <name>aileron-trim</name>
+    <type>float</type>
+    <format>%f</format>
+    <node>/controls/flight/aileron-trim</node>
+   </chunk>
+ 
+   <chunk>
+    <name>elevator</name>
+    <type>float</type>
+    <format>%f</format>
+    <node>/controls/flight/elevator</node>
+   </chunk>
+ 
+   <chunk>
+    <name>elevator-trim</name>
+    <type>float</type>
+    <format>%f</format>
+    <node>/controls/flight/elevator-trim</node>
+   </chunk>
+ 
+   <chunk>
+    <name>rudder</name>
+    <type>float</type>
+    <format>%f</format>
+    <node>/controls/flight/rudder</node>
+   </chunk>
+ 
+   <chunk>
+    <name>rudder-trim</name>
+    <type>float</type>
+    <format>%f</format>
+    <node>/controls/flight/rudder-trim</node>
+   </chunk>
+ 
+   <chunk>
+    <name>flaps</name>
+    <type>float</type>
+    <format>%f</format>
+    <node>/controls/flight/flaps</node>
+   </chunk>
+ 
+   <chunk>
+    <name>slats</name>
+    <type>float</type>
+    <format>%f</format>
+    <node>/controls/flight/slats</node>
+   </chunk>
+ 
+   <chunk>
+    <name>speedbrake</name>
+    <type>float</type>
+    <format>%f</format>
+    <node>/controls/flight/speedbrake</node>
+   </chunk>
+ 
+   <!-- Engines -->
+   <chunk>
+    <name>throttle</name>
+    <type>float</type>
+    <format>%f</format>
+    <node>/controls/engines/engine[0]/throttle</node>
+   </chunk>
+   <chunk>
+    <name>throttle</name>
+    <type>float</type>
+    <format>%f</format>
+    <node>/controls/engines/engine[1]/throttle</node>
+   </chunk>
+
+   <chunk>
+    <name>starter</name>
+    <type>float</type>
+    <format>%f</format>
+    <node>/controls/engines/engine[0]/starter</node>
+   </chunk>
+   <chunk>
+    <name>starter</name>
+    <type>float</type>
+    <format>%f</format>
+    <node>/controls/engines/engine[1]/starter</node>
+   </chunk>
+
+   <chunk>
+    <name>fuel-pump</name>
+    <type>float</type>
+    <format>%f</format>
+    <node>/controls/engines/engine[0]/fuel-pump</node>
+   </chunk>
+   <chunk>
+    <name>fuel-pump</name>
+    <type>float</type>
+    <format>%f</format>
+    <node>/controls/engines/engine[1]/fuel-pump</node>
+   </chunk>
+
+   <chunk>
+    <name>cutoff</name>
+    <type>float</type>
+    <format>%f</format>
+    <node>/controls/engines/engine[0]/cutoff</node>
+   </chunk>
+   <name>cutoff</name>
+   <chunk>
+    <name>cutoff</name>
+    <type>float</type>
+    <format>%f</format>
+    <node>/controls/engines/engine[1]/cutoff</node>
+   </chunk>
+
+   <chunk>
+    <name>mixture</name>
+    <type>float</type>
+    <format>%f</format>
+    <node>/controls/engines/engine[0]/mixture</node>
+   </chunk>
+   <chunk>
+    <name>mixture</name>
+    <type>float</type>
+    <format>%f</format>
+    <node>/controls/engines/engine[1]/mixture</node>
+   </chunk>
+
+   <chunk>
+    <name>propeller-pitch</name>
+    <type>float</type>
+    <format>%f</format>
+    <node>/controls/engines/engine[0]/propeller-pitch</node>
+   </chunk>
+   <chunk>
+    <name>propeller-pitch</name>
+    <type>float</type>
+    <format>%f</format>
+    <node>/controls/engines/engine[1]/propeller-pitch</node>
+   </chunk>
+
+   <chunk>
+    <name>magnetos</name>
+    <type>float</type>
+    <format>%f</format>
+    <node>/controls/engines/engine[0]/magnetos</node>
+   </chunk>
+   <chunk>
+    <name>magnetos</name>
+    <type>float</type>
+    <format>%f</format>
+    <node>/controls/engines/engine[1]/magnetos</node>
+   </chunk>
+
+   <chunk>
+    <name>ignition</name>
+    <type>float</type>
+    <format>%f</format>
+    <node>/controls/engines/engine[0]/ignition</node>
+   </chunk>
+   <chunk>
+    <name>ignition</name>
+    <type>float</type>
+    <format>%f</format>
+    <node>/controls/engines/engine[1]/ignition</node>
+   </chunk>
+
+ 
+   <!-- Gear -->
+   <chunk>
+    <name>brake-left</name>
+    <type>float</type>
+    <format>%f</format>
+    <node>/controls/gear/brake-left</node>
+   </chunk>
+
+   <chunk>
+    <name>brake-right</name>
+    <type>float</type>
+    <format>%f</format>
+    <node>/controls/gear/brake-right</node>
+   </chunk>
+
+   <chunk>
+    <name>brake-parking</name>
+    <type>float</type>
+    <format>%f</format>
+    <node>/controls/gear/brake-parking</node>
+   </chunk>
+
+   <chunk>
+    <name>steering</name>
+    <type>float</type>
+    <format>%f</format>
+    <node>/controls/gear/steering</node>
+   </chunk>
+
+   <chunk>
+    <name>gear-down</name>
+    <type>float</type>
+    <format>%f</format>
+    <node>/controls/gear/gear-down</node>
+   </chunk>
+
+   <chunk>
+    <name>gear-position</name>
+    <type>float</type>
+    <format>%f</format>
+    <node>/gear/gear/position-norm</node>
+   </chunk>
+
+   <chunk>
+    <name>gear-position</name>
+    <type>float</type>
+    <format>%f</format>
+    <node>/gear/gear[1]/position-norm</node>
+   </chunk>
+
+   <chunk>
+    <name>gear-position</name>
+    <type>float</type>
+    <format>%f</format>
+    <node>/gear/gear[2]/position-norm</node>
+   </chunk>
+
+   <chunk>
+    <name>gear-position</name>
+    <type>float</type>
+    <format>%f</format>
+    <node>/gear/gear[3]/position-norm</node>
+   </chunk>
+
+   <chunk>
+    <name>gear-position</name>
+    <type>float</type>
+    <format>%f</format>
+    <node>/gear/gear[4]/position-norm</node>
+   </chunk>
+
+   <!-- Hydraulics -->
+   <chunk>
+    <name>engine-pump</name>
+    <type>float</type>
+    <node>/controls/hydraulic/system[0]/engine-pump</node>
+   </chunk>
+   <chunk>
+    <name>engine-pump</name>
+    <type>float</type>
+    <node>/controls/hydraulic/system[1]/engine-pump</node>
+   </chunk>
+
+   <chunk>
+    <name>electric-pump</name>
+    <type>float</type>
+    <node>/controls/hydraulic/system[0]/electric-pump</node>
+   </chunk>
+   <chunk>
+    <name>electric-pump</name>
+    <type>float</type>
+    <node>/controls/hydraulic/system[1]/electric-pump</node>
+   </chunk>
+
+   <!-- Electric -->
+   <chunk>
+    <name>battery-switch</name>
+    <type>float</type>
+    <node>/controls/electric/battery-switch</node>
+   </chunk>
+
+   <chunk>
+    <name>external-power</name>
+    <type>float</type>
+    <node>/controls/electric/external-power</node>
+   </chunk>
+
+   <chunk>
+    <name>APU-generator</name>
+    <type>float</type>
+    <node>/controls/electric/APU-generator</node>
+   </chunk>
+
+   <!-- Autoflight -->
+   <chunk>
+    <name>engage</name>
+    <type>float</type>
+    <node>/controls/autoflight/autopilot[0]/engage</node>
+   </chunk>
+
+   <chunk>
+    <name>heading-select</name>
+    <type>float</type>
+    <node>/controls/autoflight/heading-select</node>
+   </chunk>
+
+   <chunk>
+    <name>altitude-select</name>
+    <type>float</type>
+    <node>/controls/autoflight/altitude-select</node>
+   </chunk>
+
+   <chunk>
+    <name>bank-angle-select</name>
+    <type>float</type>
+    <node>/controls/autoflight/bank-angle-select</node>
+   </chunk>
+
+   <chunk>
+    <name>vertical-speed-select</name>
+    <type>float</type>
+    <node>/controls/autoflight/vertical-speed-select</node>
+   </chunk>
+
+   <chunk>
+    <name>speed-select</name>
+    <type>float</type>
+    <node>/controls/autoflight/speed-select</node>
+   </chunk>
+
+   <!-- Position -->
+   <chunk>
+    <name>latitude-deg</name>
+    <type>double</type>
+    <format>%.10lf</format>
+    <node>/position/latitude-deg</node>
+   </chunk>
+
+   <chunk>
+    <name>longitude-deg</name>
+    <type>double</type>
+    <format>%.10lf</format>
+    <node>/position/longitude-deg</node>
+   </chunk>
+
+   <chunk>
+    <name>altitude-ft</name>
+    <type>float</type>
+    <format>%f</format>
+    <node>/position/altitude-ft</node>
+   </chunk>
+
+   <!-- Orientation -->
+   <chunk>
+    <name>roll-deg</name>
+    <type>float</type>
+    <format>%f</format>
+    <node>/orientation/roll-deg</node>
+   </chunk>
+
+   <chunk>
+    <name>pitch-deg</name>
+    <type>float</type>
+    <format>%f</format>
+    <node>/orientation/pitch-deg</node>
+   </chunk>
+
+   <chunk>
+    <name>heading-deg</name>
+    <type>float</type>
+    <format>%f</format>
+    <node>/orientation/heading-deg</node>
+   </chunk>
+
+   <chunk>
+    <name>side-slip-rad</name>
+    <type>float</type>
+    <format>%f</format>
+    <node>/orientation/side-slip-deg</node>
+   </chunk>
+
+   <!-- Velocities -->
+   <chunk>
+     <name>airspeed-kt</name>
+     <type>float</type>
+     <format>%f</format>
+     <node>/velocities/airspeed-kt</node>
+   </chunk>
+
+   <chunk>
+     <name>glideslope</name>
+     <type>float</type>
+     <format>%f</format>
+     <node>/velocities/glideslope</node>
+   </chunk>
+
+   <chunk>
+     <name>mach</name>
+     <type>float</type>
+     <format>%f</format>
+     <node>/velocities/mach</node>
+   </chunk>
+
+   <chunk>
+     <name>speed-down-fps</name>
+     <type>float</type>
+     <format>%f</format>
+     <node>/velocities/speed-down-fps</node>
+   </chunk>
+
+   <chunk>
+     <name>speed-east-fps</name>
+     <type>float</type>
+     <format>%f</format>
+     <node>/velocities/speed-east-fps</node>
+   </chunk>
+
+   <chunk>
+     <name>speed-north-fps</name>
+     <type>float</type>
+     <format>%f</format>
+     <node>/velocities/speed-north-fps</node>
+   </chunk>
+
+   <chunk>
+     <name>uBody-fps</name>
+     <type>float</type>
+     <format>%f</format>
+     <node>/velocities/uBody-fps</node>
+   </chunk>
+
+   <chunk>
+     <name>vBody-fps</name>
+     <type>float</type>
+     <format>%f</format>
+     <node>/velocities/vBody-fps</node>
+   </chunk>
+
+   <chunk>
+     <name>wBody-fps</name>
+     <type>float</type>
+     <format>%f</format>
+     <node>/velocities/wBody-fps</node>
+   </chunk>
+
+   <chunk>
+     <name>vertical-speed-fps</name>
+     <type>float</type>
+     <format>%f</format>
+     <node>/velocities/vertical-speed-fps</node>
+   </chunk>
+
+   <!-- Accelerations -->
+   <chunk>
+     <name>nlf</name>
+     <type>float</type>
+     <format>%f</format>
+     <node>/accelerations/nlf</node>
+   </chunk>
+   <chunk>
+     <name>ned-down-accel-fps_sec</name>
+     <type>float</type>
+     <format>%f</format>
+     <node>/accelerations/ned/down-accel-fps_sec</node>
+   </chunk>
+   <chunk>
+     <name>ned-east-accel-fps_sec</name>
+     <type>float</type>
+     <format>%f</format>
+     <node>/accelerations/ned/east-accel-fps_sec</node>
+   </chunk>
+   <chunk>
+     <name>ned-north-accel-fps_sec</name>
+     <type>float</type>
+     <format>%f</format>
+     <node>/accelerations/ned/north-accel-fps_sec</node>
+   </chunk>
+
+   <chunk>
+     <name>pilot-x-accel-fps_sec</name>
+     <type>float</type>
+     <format>%f</format>
+     <node>/accelerations/pilot/x-accel-fps_sec</node>
+   </chunk>
+   <chunk>
+     <name>pilot-y-accel-fps_sec</name>
+     <type>float</type>
+     <format>%f</format>
+     <node>/accelerations/pilot/y-accel-fps_sec</node>
+   </chunk>
+   <chunk>
+     <name>pilot-z-accel-fps_sec</name>
+     <type>float</type>
+     <format>%f</format>
+     <node>/accelerations/pilot/z-accel-fps_sec</node>
+   </chunk>
+
+   <!-- Surface Positions -->
+   <chunk>
+     <name>elevator-pos-norm</name>
+     <type>float</type>
+     <format>%f</format>
+     <node>/surface-positions/elevator-pos-norm[0]</node>
+   </chunk>
+   <chunk>
+     <name>flap-pos-norm</name>
+     <type>float</type>
+     <format>%f</format>
+     <node>/surface-positions/flap-pos-norm[0]</node>
+   </chunk>
+   <chunk>
+     <name>left-aileron-pos-norm</name>
+     <type>float</type>
+     <format>%f</format>
+     <node>/surface-positions/left-aileron-pos-norm[0]</node>
+   </chunk>
+   <chunk>
+     <name>right-aileron-pos-norm</name>
+     <type>float</type>
+     <format>%f</format>
+     <node>/surface-positions/right-aileron-pos-norm[0]</node>
+   </chunk>
+   <chunk>
+     <name>rudder-pos-norm</name>
+     <type>float</type>
+     <format>%f</format>
+     <node>/surface-positions/rudder-pos-norm[0]</node>
+   </chunk>
+  </output>
+
+  <input>
+   <line_separator>newline</line_separator>
+   <var_separator>,</var_separator>
+
+
+   <!-- Flight Controls -->
+   <chunk>
+    <name>aileron</name>
+    <type>float</type>
+    <node>/controls/flight/aileron</node>
+   </chunk>
+
+   <chunk>
+    <name>aileron-trim</name>
+    <type>float</type>
+    <node>/controls/flight/aileron-trim</node>
+   </chunk>
+ 
+   <chunk>
+    <name>elevator</name>
+    <type>float</type>
+    <node>/controls/flight/elevator</node>
+   </chunk>
+ 
+   <chunk>
+    <name>elevator-trim</name>
+    <type>float</type>
+    <node>/controls/flight/elevator-trim</node>
+   </chunk>
+ 
+   <chunk>
+    <name>rudder</name>
+    <type>float</type>
+    <node>/controls/flight/rudder</node>
+   </chunk>
+ 
+   <chunk>
+    <name>rudder-trim</name>
+    <type>float</type>
+    <node>/controls/flight/rudder-trim</node>
+   </chunk>
+ 
+   <chunk>
+    <name>flaps</name>
+    <type>float</type>
+    <node>/controls/flight/flaps</node>
+   </chunk>
+ 
+   <chunk>
+    <name>slats</name>
+    <type>float</type>
+    <node>/controls/flight/slats</node>
+   </chunk>
+ 
+   <chunk>
+    <name>speedbrake</name>
+    <type>float</type>
+    <node>/controls/flight/speedbrake</node>
+   </chunk>
+ 
+
+   <!-- Engines -->
+   <chunk>
+    <name>throttle</name>
+    <type>float</type>
+    <node>/controls/engines/engine[0]/throttle</node>
+   </chunk>
+   <chunk>
+    <name>throttle</name>
+    <type>float</type>
+    <node>/controls/engines/engine[1]/throttle</node>
+   </chunk>
+
+   <chunk>
+    <name>starter</name>
+    <type>float</type>
+    <node>/controls/engines/engine[0]/starter</node>
+   </chunk>
+   <chunk>
+    <name>starter</name>
+    <type>float</type>
+    <node>/controls/engines/engine[1]/starter</node>
+   </chunk>
+
+   <chunk>
+    <name>fuel-pump</name>
+    <type>float</type>
+    <node>/controls/engines/engine[0]/fuel-pump</node>
+   </chunk>
+   <chunk>
+    <name>fuel-pump</name>
+    <type>float</type>
+    <node>/controls/engines/engine[1]/fuel-pump</node>
+   </chunk>
+
+   <chunk>
+    <name>cutoff</name>
+    <type>float</type>
+    <node>/controls/engines/engine[0]/cutoff</node>
+   </chunk>
+   <chunk>
+    <name>cutoff</name>
+    <type>float</type>
+    <node>/controls/engines/engine[1]/cutoff</node>
+   </chunk>
+
+   <chunk>
+    <name>mixture</name>
+    <type>float</type>
+    <node>/controls/engines/engine[0]/mixture</node>
+   </chunk>
+   <chunk>
+    <name>mixture</name>
+    <type>float</type>
+    <node>/controls/engines/engine[1]/mixture</node>
+   </chunk>
+
+   <chunk>
+    <name>propeller-pitch</name>
+    <type>float</type>
+    <node>/controls/engines/engine[0]/propeller-pitch</node>
+   </chunk>
+   <chunk>
+    <name>propeller-pitch</name>
+    <type>float</type>
+    <node>/controls/engines/engine[1]/propeller-pitch</node>
+   </chunk>
+
+   <chunk>
+    <name>magnetos</name>
+    <type>float</type>
+    <node>/controls/engines/engine[0]/magnetos</node>
+   </chunk>
+   <chunk>
+    <name>magnetos</name>
+    <type>float</type>
+    <node>/controls/engines/engine[1]/magnetos</node>
+   </chunk>
+
+   <chunk>
+    <name>ignition</name>
+    <type>float</type>
+    <node>/controls/engines/engine[0]/ignition</node>
+   </chunk>
+   <chunk>
+    <name>ignition</name>
+    <type>float</type>
+    <node>/controls/engines/engine[1]/ignition</node>
+   </chunk>
+
+ 
+   <!-- Gear -->
+   <chunk>
+    <name>brake-left</name>
+    <type>float</type>
+    <node>/controls/gear/brake-left</node>
+   </chunk>
+
+   <chunk>
+    <name>brake-right</name>
+    <type>float</type>
+    <node>/controls/gear/brake-right</node>
+   </chunk>
+
+   <chunk>
+    <name>brake-parking</name>
+    <type>float</type>
+    <node>/controls/gear/brake-parking</node>
+   </chunk>
+
+   <chunk>
+    <name>steering</name>
+    <type>float</type>
+    <node>/controls/gear/steering</node>
+   </chunk>
+
+   <chunk>
+    <name>gear-down</name>
+    <type>float</type>
+    <node>/controls/gear/gear-down</node>
+   </chunk>
+
+   <chunk>
+    <name>gear-position</name>
+    <type>float</type>
+    <format>%f</format>
+    <node>/gear/gear/position-norm</node>
+   </chunk>
+
+   <chunk>
+    <name>gear-position</name>
+    <type>float</type>
+    <format>%f</format>
+    <node>/gear/gear[1]/position-norm</node>
+   </chunk>
+
+   <chunk>
+    <name>gear-position</name>
+    <type>float</type>
+    <format>%f</format>
+    <node>/gear/gear[2]/position-norm</node>
+   </chunk>
+
+   <chunk>
+    <name>gear-position</name>
+    <type>float</type>
+    <format>%f</format>
+    <node>/gear/gear[3]/position-norm</node>
+   </chunk>
+
+   <chunk>
+    <name>gear-position</name>
+    <type>float</type>
+    <format>%f</format>
+    <node>/gear/gear[4]/position-norm</node>
+   </chunk>
+
+   <!-- Hydraulics -->
+   <chunk>
+    <name>engine-pump</name>
+    <type>float</type>
+    <node>/controls/hydraulic/system[0]/engine-pump</node>
+   </chunk>
+   <chunk>
+    <name>engine-pump</name>
+    <type>float</type>
+    <node>/controls/hydraulic/system[1]/engine-pump</node>
+   </chunk>
+
+   <chunk>
+    <name>electric-pump</name>
+    <type>float</type>
+    <node>/controls/hydraulic/system[0]/electric-pump</node>
+   </chunk>
+   <chunk>
+    <name>electric-pump</name>
+    <type>float</type>
+    <node>/controls/hydraulic/system[1]/electric-pump</node>
+   </chunk>
+
+   <!-- Electric -->
+   <chunk>
+    <name>battery-switch</name>
+    <type>float</type>
+    <node>/controls/electric/battery-switch</node>
+   </chunk>
+
+   <chunk>
+    <name>external-power</name>
+    <type>float</type>
+    <node>/controls/electric/external-power</node>
+   </chunk>
+
+   <chunk>
+    <name>APU-generator</name>
+    <type>float</type>
+    <node>/controls/electric/APU-generator</node>
+   </chunk>
+
+   <!-- Autoflight -->
+   <chunk>
+    <name>engage</name>
+    <type>float</type>
+    <node>/controls/autoflight/autopilot[0]/engage</node>
+   </chunk>
+
+   <chunk>
+    <name>heading-select</name>
+    <type>float</type>
+    <node>/controls/autoflight/heading-select</node>
+   </chunk>
+
+   <chunk>
+    <name>altitude-select</name>
+    <type>float</type>
+    <node>/controls/autoflight/altitude-select</node>
+   </chunk>
+
+   <chunk>
+    <name>bank-angle-select</name>
+    <type>float</type>
+    <node>/controls/autoflight/bank-angle-select</node>
+   </chunk>
+
+   <chunk>
+    <name>vertical-speed-select</name>
+    <type>float</type>
+    <node>/controls/autoflight/vertical-speed-select</node>
+   </chunk>
+
+   <chunk>
+    <name>speed-select</name>
+    <type>float</type>
+    <node>/controls/autoflight/speed-select</node>
+   </chunk>
+
+   <!-- Position -->
+   <chunk>
+    <name>latitude-deg</name>
+    <type>double</type>
+    <node>/position/latitude-deg</node>
+   </chunk>
+
+   <chunk>
+    <name>longitude-deg</name>
+    <type>double</type>
+    <node>/position/longitude-deg</node>
+   </chunk>
+
+   <chunk>
+    <name>altitude-ft</name>
+    <type>float</type>
+    <node>/position/altitude-ft</node>
+   </chunk>
+
+   <!-- Orientation -->
+   <chunk>
+    <name>roll-deg</name>
+    <type>float</type>
+    <node>/orientation/roll-deg</node>
+   </chunk>
+
+   <chunk>
+    <name>pitch-deg</name>
+    <type>float</type>
+    <node>/orientation/pitch-deg</node>
+   </chunk>
+
+   <chunk>
+    <name>heading-deg</name>
+    <type>float</type>
+    <node>/orientation/heading-deg</node>
+   </chunk>
+
+   <chunk>
+    <name>side-slip-deg</name>
+    <type>float</type>
+    <node>/orientation/side-slip-deg</node>
+   </chunk>
+
+   <!-- Velocities -->
+   <chunk>
+     <name>airspeed-kt</name>
+     <type>float</type>
+     <node>/velocities/airspeed-kt</node>
+   </chunk>
+
+   <chunk>
+     <name>glideslope</name>
+     <type>float</type>
+     <node>/velocities/glideslope</node>
+   </chunk>
+
+   <chunk>
+     <name>mach</name>
+     <type>float</type>
+     <node>/velocities/mach</node>
+   </chunk>
+
+   <chunk>
+     <name>speed-down-fps</name>
+     <type>float</type>
+     <node>/velocities/speed-down-fps</node>
+   </chunk>
+
+   <chunk>
+     <name>speed-east-fps</name>
+     <type>float</type>
+     <node>/velocities/speed-east-fps</node>
+   </chunk>
+
+   <chunk>
+     <name>speed-north-fps</name>
+     <type>float</type>
+     <node>/velocities/speed-north-fps</node>
+   </chunk>
+
+   <chunk>
+     <name>uBody-fps</name>
+     <type>float</type>
+     <node>/velocities/uBody-fps</node>
+   </chunk>
+
+   <chunk>
+     <name>vBody-fps</name>
+     <type>float</type>
+     <node>/velocities/vBody-fps</node>
+   </chunk>
+
+   <chunk>
+     <name>wBody-fps</name>
+     <type>float</type>
+     <node>/velocities/wBody-fps</node>
+   </chunk>
+
+   <chunk>
+     <name>vertical-speed-fps</name>
+     <type>float</type>
+     <node>/velocities/vertical-speed-fps</node>
+   </chunk>
+
+   <!-- Accelerations -->
+   <chunk>
+     <name>nlf</name>
+     <type>float</type>
+     <node>/accelerations/nlf</node>
+   </chunk>
+   <chunk>
+     <name>ned-down-accel-fps_sec</name>
+     <type>float</type>
+     <node>/accelerations/ned/down-accel-fps_sec</node>
+   </chunk>
+   <chunk>
+     <name>ned-east-accel-fps_sec</name>
+     <type>float</type>
+     <node>/accelerations/ned/east-accel-fps_sec</node>
+   </chunk>
+   <chunk>
+     <name>ned-north-accel-fps_sec</name>
+     <type>float</type>
+     <node>/accelerations/ned/north-accel-fps_sec</node>
+   </chunk>
+
+   <chunk>
+     <name>pilot-x-accel-fps_sec</name>
+     <type>float</type>
+     <node>/accelerations/pilot/x-accel-fps_sec</node>
+   </chunk>
+   <chunk>
+     <name>pilot-y-accel-fps_sec</name>
+     <type>float</type>
+     <node>/accelerations/pilot/y-accel-fps_sec</node>
+   </chunk>
+   <chunk>
+     <name>pilot-z-accel-fps_sec</name>
+     <type>float</type>
+     <node>/accelerations/pilot/z-accel-fps_sec</node>
+   </chunk>
+
+   <!-- Surface Positions -->
+   <chunk>
+     <name>elevator-pos-norm</name>
+     <type>float</type>
+     <node>/surface-positions/elevator-pos-norm[0]</node>
+   </chunk>
+   <chunk>
+     <name>flap-pos-norm</name>
+     <type>float</type>
+     <node>/surface-positions/flap-pos-norm[0]</node>
+   </chunk>
+   <chunk>
+     <name>left-aileron-pos-norm</name>
+     <type>float</type>
+     <node>/surface-positions/left-aileron-pos-norm[0]</node>
+   </chunk>
+   <chunk>
+     <name>right-aileron-pos-norm</name>
+     <type>float</type>
+     <node>/surface-positions/right-aileron-pos-norm[0]</node>
+   </chunk>
+   <chunk>
+     <name>rudder-pos-norm</name>
+     <type>float</type>
+     <node>/surface-positions/rudder-pos-norm[0]</node>
+   </chunk> 
+ </input>
+
+ </generic>
+
+</PropertyList>

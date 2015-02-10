@@ -1,0 +1,248 @@
+<?xml version="1.0"?>
+<PropertyList>
+    <name>RIC-dlg</name>
+    <layout>vbox</layout>
+
+    <group>
+        <layout>hbox</layout>
+
+        <text><label>   DSP-84 EFIS Control  </label></text>
+
+        <button>
+            <halign>right</halign>
+            <pref-width>30</pref-width>
+            <legend>X</legend>
+            <default>true</default>
+            <key>Esc</key>
+            <binding>
+                <command>dialog-close</command>
+            </binding>
+        </button>
+    </group>
+
+    <hrule/>
+
+    <group>
+        <layout>table</layout>
+
+<!-- HDG set -->
+
+        <text>
+            <row>0</row>
+            <col>0</col>
+            <label>HDG</label>
+        </text>
+
+        <button>
+            <pref-height>20</pref-height>
+            <pref-width>20</pref-width>
+            <row>0</row>
+            <col>1</col>
+            <legend>@</legend>
+            <binding>
+                <command>property-assign</command>
+                <property>instrumentation/fgc-65/settings/hdg</property>
+                <property>orientation/heading-magnetic-deg</property>
+            </binding>
+            <binding>
+                <command>dialog-update</command>
+            </binding>
+        </button>
+
+        <button>
+            <pref-height>20</pref-height>
+            <pref-width>20</pref-width>
+            <row>1</row>
+            <col>0</col>
+            <legend>&lt;</legend>
+            <binding>
+                <command>property-adjust</command>
+                <property>instrumentation/fgc-65/settings/hdg</property>
+                <step>-1</step>
+                <min>0</min>
+                <max>360</max>
+                <wrap>1</wrap>
+            </binding>
+            <binding>
+                <command>dialog-update</command>
+            </binding>
+        </button>
+
+        <input>
+            <pref-height>20</pref-height>
+            <pref-width>40</pref-width>
+            <row>1</row>
+            <col>1</col>
+            <property>instrumentation/fgc-65/settings/hdg</property>
+            <live>true</live>
+        </input>
+
+        <button>
+            <pref-height>20</pref-height>
+            <pref-width>20</pref-width>
+            <row>1</row>
+            <col>2</col>
+            <legend>&gt;</legend>
+            <binding>
+                <command>property-adjust</command>
+                <property>instrumentation/fgc-65/settings/hdg</property>
+                <step>1</step>
+                <min>0</min>
+                <max>360</max>
+                <wrap>1</wrap>
+            </binding>
+            <binding>
+                <command>dialog-update</command>
+            </binding>
+        </button>
+
+        <dial>
+            <pref-width>60</pref-width>
+            <pref-height>50</pref-height>
+            <row>2</row>
+            <col>1</col>
+            <property>instrumentation/fgc-65/settings/hdg</property>
+            <resolution>1</resolution>
+            <min>0</min>
+            <max>360</max>
+            <wrap>false</wrap>
+            <binding>
+                <command>dialog-apply</command>
+            </binding>
+            <binding>
+                <command>dialog-update</command>
+            </binding>
+        </dial>
+
+<!--buttons-->
+
+<button>
+            <pref-height>40</pref-height>
+            <pref-width>40</pref-width>
+            <row>2</row>
+            <col>3</col>
+            <legend>l</legend>
+            <binding>
+                <command>dialog-update</command>
+            </binding>
+        </button>
+
+<button>
+            <pref-height>40</pref-height>
+            <pref-width>40</pref-width>
+            <row>2</row>
+            <col>4</col>
+            <legend>ll</legend>
+            <binding>
+                <command>dialog-update</command>
+            </binding>
+        </button>
+
+<button>
+            <pref-height>40</pref-height>
+            <pref-width>40</pref-width>
+            <row>2</row>
+            <col>5</col>
+            <legend>CRS</legend>
+            <binding>
+                <command>dialog-update</command>
+            </binding>
+        </button>
+<!-- CRS set -->
+
+        <text>
+            <row>0</row>
+            <col>6</col>
+            <label>CRS</label>
+        </text>
+
+        <button>
+            <pref-height>20</pref-height>
+            <pref-width>20</pref-width>
+            <row>0</row>
+            <col>7</col>
+            <legend>@</legend>
+            <binding>
+                <command>property-assign</command>
+                <property>instrumentation/nav/radials/selected-deg</property>
+                <property>orientation/heading-magnetic-deg</property>
+            </binding>
+            <binding>
+                <command>dialog-update</command>
+            </binding>
+        </button>
+
+        <button>
+            <pref-height>20</pref-height>
+            <pref-width>20</pref-width>
+            <row>1</row>
+            <col>6</col>
+            <legend>&lt;</legend>
+            <binding>
+                <command>property-adjust</command>
+                <property>instrumentation/nav/radials/selected-deg</property>
+                <step>-1</step>
+                <min>0</min>
+                <max>360</max>
+                <wrap>1</wrap>
+            </binding>
+            <binding>
+                <command>dialog-update</command>
+            </binding>
+        </button>
+
+        <input>
+            <pref-height>20</pref-height>
+            <pref-width>40</pref-width>
+            <row>1</row>
+            <col>7</col>
+            <property>instrumentation/nav/radials/selected-deg</property>
+            <live>true</live>
+        </input>
+
+        <button>
+            <pref-height>20</pref-height>
+            <pref-width>20</pref-width>
+            <row>1</row>
+            <col>8</col>
+            <legend>&gt;</legend>
+            <binding>
+                <command>property-adjust</command>
+                <property>instrumentation/nav/radials/selected-deg</property>
+                <step>1</step>
+                <min>0</min>
+                <max>360</max>
+                <wrap>1</wrap>
+            </binding>
+            <binding>
+                <command>dialog-update</command>
+            </binding>
+        </button>
+
+        <dial>
+            <pref-width>60</pref-width>
+            <pref-height>50</pref-height>
+            <row>2</row>
+            <col>7</col>
+            <property>instrumentation/nav/radials/selected-deg</property>
+            <resolution>1</resolution>
+            <min>0</min>
+            <max>360</max>
+            <wrap>false</wrap>
+            <binding>
+                <command>dialog-apply</command>
+            </binding>
+            <binding>
+                <command>dialog-update</command>
+            </binding>
+        </dial>
+
+
+<!-- EHSI display-->
+
+
+    </group>
+
+
+
+</PropertyList>

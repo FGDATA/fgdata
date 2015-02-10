@@ -1,0 +1,141 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+ <path>moffett_hangar1.ac</path>
+
+ <nasal>
+  <load>
+   if (!contains(globals, "scenery")) globals["scenery"] = {};
+   if (!contains(scenery, "KNUQ")) scenery["KNUQ"] = {};
+   if (!contains(scenery.KNUQ, "hangar")) scenery.KNUQ["hangar"] = {};
+   if (contains(scenery, "sharedDoor")) {
+     scenery.KNUQ.hangar[0] =
+       { door :
+         [scenery.sharedDoor.new("/scenery/KNUQ/hangar[0]/door[0]", 5*60),
+          scenery.sharedDoor.new("/scenery/KNUQ/hangar[0]/door[1]", 5*60)
+         ]
+       };
+   } else {
+     scenery.KNUQ.hangar[0] =
+       { door :
+         [aircraft.door.new("/scenery/KNUQ/hangar[0]/door[0]", 5*60),
+          aircraft.door.new("/scenery/KNUQ/hangar[0]/door[1]", 5*60)
+         ]
+       };
+   }
+  </load>
+  <unload>
+   if (contains(scenery, "sharedDoor")) {
+     scenery.KNUQ.hangar[0].door[0].destroy();
+     scenery.KNUQ.hangar[0].door[1].destroy();
+   }
+  </unload>
+ </nasal>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>Door_1A</object-name>
+  <property>/scenery/KNUQ/hangar[0]/door[0]/position-norm</property>
+  <factor>-40</factor>
+  <center>
+   <x-m>  115.0 </x-m>
+   <y-m>   43.6 </y-m>
+   <z-m>    0.0 </z-m>
+  </center>
+  <axis>
+   <x>0</x>
+   <y>0</y>
+   <z>1</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>rotate</type>
+  <object-name>Door_1B</object-name>
+  <property>/scenery/KNUQ/hangar[0]/door[0]/position-norm</property>
+  <factor>40</factor>
+  <center>
+   <x-m>  115.0 </x-m>
+   <y-m>   43.6 </y-m>
+   <z-m>    0.0 </z-m>
+  </center>
+  <axis>
+   <x>0</x>
+   <y>0</y>
+   <z>1</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>Door_2A</object-name>
+  <property>/scenery/KNUQ/hangar[0]/door[1]/position-norm</property>
+  <factor>-40</factor>
+  <center>
+   <x-m> -105.0 </x-m>
+   <y-m>   43.6 </y-m>
+   <z-m>    0.0 </z-m>
+  </center>
+  <axis>
+   <x>0</x>
+   <y>0</y>
+   <z>1</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>rotate</type>
+  <object-name>Door_2B</object-name>
+  <property>/scenery/KNUQ/hangar[0]/door[1]/position-norm</property>
+  <factor>40</factor>
+  <center>
+   <x-m> -105.0 </x-m>
+   <y-m>   43.6 </y-m>
+   <z-m>    0.0 </z-m>
+  </center>
+  <axis>
+   <x>0</x>
+   <y>0</y>
+   <z>1</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>pick</type>
+  <object-name>Door_1A</object-name>
+  <object-name>Door_1B</object-name>
+  <visible>true</visible>
+  <action>
+   <name>click</name>
+   <button>0</button>
+   <repeatable>false</repeatable>
+   <binding>
+    <command>nasal</command>
+    <script>scenery.KNUQ.hangar[0].door[0].toggle();</script>
+   </binding>
+  </action>
+ </animation>
+ <animation>
+  <type>pick</type>
+  <object-name>Door_2A</object-name>
+  <object-name>Door_2B</object-name>
+  <visible>true</visible>
+  <action>
+   <name>click</name>
+   <button>0</button>
+   <repeatable>false</repeatable>
+   <binding>
+    <command>nasal</command>
+    <script>scenery.KNUQ.hangar[0].door[1].toggle();</script>
+   </binding>
+  </action>
+ </animation>
+
+ <!-- LOD -->
+
+ <animation>
+  <type>range</type>
+  <min-m>0</min-m>
+  <max-property>/sim/rendering/static-lod/bare</max-property>
+ </animation>
+
+</PropertyList>

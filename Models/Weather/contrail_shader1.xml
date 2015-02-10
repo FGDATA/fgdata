@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<path>contrail.ac</path>
+
+
+
+
+	<!--<animation>
+		<type>blend</type>
+		--><!--<object-name>contrail</object-name>--><!--
+		<object-name>disk1</object-name>
+		<object-name>disk2</object-name>
+		<object-name>disk3</object-name>
+		<object-name>disk4</object-name>
+		<object-name>disk5</object-name>
+		<object-name>disk6</object-name>
+		<object-name>disk7</object-name>
+		<object-name>disk8</object-name>
+		<object-name>disk9</object-name>
+		<object-name>disk10</object-name>
+		<object-name>disk11</object-name>
+		<object-name>disk12</object-name>
+		<use-personality>true</use-personality>
+		<property>sim/time/elapsed-sec</property>
+		<factor>0.5</factor>
+		<offset>0.005</offset>
+		<min>0.0001</min>
+	</animation>-->
+
+	<effect>
+		<inherits-from>Effects/contrail</inherits-from>
+		<!--<object-name>contrail</object-name>-->
+		<object-name>disk1</object-name>
+		<object-name>disk2</object-name>
+		<object-name>disk3</object-name>
+		<object-name>disk4</object-name>
+		<object-name>disk5</object-name>
+		<object-name>disk6</object-name>
+		<object-name>disk7</object-name>
+		<object-name>disk8</object-name>
+		<object-name>disk9</object-name>
+		<object-name>disk10</object-name>
+		<object-name>disk11</object-name>
+		<object-name>disk12</object-name>
+	</effect>
+
+	<animation>
+		<object-name>contrail</object-name>
+		<!--<object-name>disk1</object-name>
+		<object-name>disk2</object-name>
+		<object-name>disk3</object-name>
+		<object-name>disk4</object-name>
+		<object-name>disk5</object-name>
+		<object-name>disk6</object-name>
+		<object-name>disk7</object-name>
+		<object-name>disk8</object-name>
+		<object-name>disk9</object-name>
+		<object-name>disk10</object-name>
+		<object-name>disk11</object-name>
+		<object-name>disk12</object-name>-->
+		<!--<use-personality>true</use-personality>-->
+		<enable-hot type="bool">false</enable-hot>
+	</animation>
+
+	<animation>
+		<type>scale</type>
+		<object-name>contrail</object-name>
+		<!--<object-name>disk1</object-name>
+		<object-name>disk2</object-name>
+		<object-name>disk3</object-name>
+		<object-name>disk4</object-name>
+		<object-name>disk5</object-name>
+		<object-name>disk6</object-name>
+		<object-name>disk7</object-name>
+		<object-name>disk8</object-name>
+		<object-name>disk9</object-name>
+		<object-name>disk10</object-name>
+		<object-name>disk11</object-name>
+		<object-name>disk12</object-name>-->
+		<use-personality>true</use-personality>
+		<property>sim/time/elapsed-sec</property>
+		<x-offset>0</x-offset>
+		<y-offset>0</y-offset>
+		<z-offset>0</z-offset>
+		<x-min>0.1</x-min>
+		<y-min>0.1</y-min>
+		<z-min>0.1</z-min>
+		<x-factor>1.2</x-factor>
+		<y-factor>1.2</y-factor>
+		<z-factor>1.2</z-factor>
+	</animation>
+	
+	
+
+
+</PropertyList>

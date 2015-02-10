@@ -1,0 +1,61 @@
+{ 
+    "src":    "HSI.svg",
+     "animations": [{
+        "element": "#Compass",
+        "type":    "transform",
+        "transforms": [{
+          "type": "rotate",
+          "a": {
+            "property": "hsiHeading",
+            "scale": -1
+          },
+          "x": 310.308,
+          "y": 295.821
+        }]
+      },{
+        "element": "#Bug",
+        "type":    "transform",
+        "transforms": [{
+          "type": "rotate",
+          "a": {
+            "property": "hsiBug"
+          },
+          "x": 310.308,
+          "y": 295.821
+        }]
+      },{
+        "element": "#CDINeedle",
+        "type":    "transform",
+        "transforms": [{
+          "type": "rotate",
+          "a": {
+            "property": "hsiCourse"
+          },
+          "x": 310.308,
+          "y": 295.821
+        }]
+      },{
+        "element": "#CDIFrame",
+        "type":    "transform",
+        "transforms": [{
+          "type": "rotate",
+          "a": {
+            "property": "hsiCourse"
+          },
+          "x": 310.308,
+          "y": 295.821
+        }]
+      },{
+        "element": "#CDIBar",
+        "type":    "transform",
+        "transforms": [{
+          "type": "translate",
+          "x": {
+            "property": "hsiCDIdeflection",
+            "scale": 9
+          },
+          "y": 0
+        }]
+      }]
+}
+

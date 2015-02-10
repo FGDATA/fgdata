@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<PropertyList>
+
+    <path>pedestal.ac</path>
+
+    <model>
+        <name>CDU1</name>
+        <path>Aircraft/CitationX/Models/Instruments/CDU.xml</path>
+        <offsets>
+            <x-m>0.088</x-m>
+            <y-m>-0.082</y-m>
+            <z-m>-0.052</z-m>
+            <pitch-deg>-59.59</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <name>CDU2</name>
+        <path>Aircraft/CitationX/Models/Instruments/CDU1.xml</path>
+        <offsets>
+            <x-m>0.088</x-m>
+            <y-m>0.090</y-m>
+            <z-m>-0.052</z-m>
+            <pitch-deg>-59.59</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <path>Aircraft/CitationX/Models/Instruments/RMU1.xml</path>
+        <offsets>
+            <x-m>0.250</x-m>
+            <y-m>-0.103</y-m>
+            <z-m>-0.110</z-m>
+            <pitch-deg>-85.0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <path>Aircraft/CitationX/Models/Instruments/RMU2.xml</path>
+        <offsets>
+            <x-m>0.250</x-m>
+            <y-m>0.111</y-m>
+            <z-m>-0.110</z-m>
+            <pitch-deg>-85.0</pitch-deg>
+        </offsets>
+    </model>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>Speedbrk.lever</object-name>
+        <property>controls/flight/speedbrake</property>
+        <factor>55</factor>
+        <center>
+            <x-m>0.425</x-m>
+            <y-m>0.0</y-m>
+            <z-m>-0.201</z-m>
+        </center>
+        <axis>
+            <x>0.0</x>
+            <y>1.0</y>
+            <z>0.0</z>
+        </axis>
+    </animation>
+
+    <animation>
+        <type>translate</type>
+        <object-name>FlapLever</object-name>
+        <property>controls/flight/flaps</property>
+        <interpolation>
+            <entry><ind>0</ind><dep>0</dep></entry>
+            <entry><ind>0.0428</ind><dep>0.0117</dep></entry>
+            <entry><ind>0.142</ind><dep>0.0275</dep></entry>
+            <entry><ind>0.428</ind><dep>0.0475</dep></entry>
+            <entry><ind>1.0</ind><dep>0.0724</dep></entry>
+        </interpolation>
+        <axis>
+            <x>0.996</x>
+            <y>0.0</y>
+            <z>-0.087</z>
+        </axis>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>LHthrottle</object-name>
+        <property>controls/engines/engine/throttle</property>
+        <factor>65</factor>
+        <center>
+            <x-m>0.425</x-m>
+            <y-m>0.0</y-m>
+            <z-m>-0.201</z-m>
+        </center>
+        <axis>
+            <x>0.0</x>
+            <y>-1.0</y>
+            <z>0.0</z>
+        </axis>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>RHthrottle</object-name>
+        <property>controls/engines/engine[1]/throttle</property>
+        <factor>65</factor>
+        <center>
+            <x-m>0.425</x-m>
+            <y-m>0.0</y-m>
+            <z-m>-0.201</z-m>
+        </center>
+        <axis>
+            <x>0.0</x>
+            <y>-1.0</y>
+            <z>0.0</z>
+        </axis>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>Taxi.switch</object-name>
+        <property>controls/lighting/taxi-lights</property>
+        <factor>30</factor>
+        <center>
+            <x-m>0.532</x-m>
+            <y-m>0</y-m>
+            <z-m>-0.133</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>-1</y>
+            <z>0</z>
+        </axis>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>LHLlight.switch</object-name>
+        <property>controls/lighting/landing-light[0]</property>
+        <factor>30</factor>
+        <center>
+            <x-m>0.532</x-m>
+            <y-m>0</y-m>
+            <z-m>-0.133</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>-1</y>
+            <z>0</z>
+        </axis>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>RHLlight.switch</object-name>
+        <property>controls/lighting/landing-light[1]</property>
+        <factor>30</factor>
+        <center>
+            <x-m>0.532</x-m>
+            <y-m>0</y-m>
+            <z-m>-0.133</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>-1</y>
+            <z>0</z>
+        </axis>
+    </animation>
+
+    <animation>
+        <type>textranslate</type>
+        <object-name>Atrim.needle</object-name>
+        <property>controls/flight/aileron-trim</property>
+        <factor>0.0346</factor>
+        <axis>
+            <x>-1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+    </animation>
+
+    <animation>
+        <type>textranslate</type>
+        <object-name>Rtrim.needle</object-name>
+        <property>controls/flight/rudder-trim</property>
+        <factor>0.0346</factor>
+        <axis>
+            <x>-1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+    </animation>
+
+<animation>
+    <type>pick</type>
+    <object-name>Speedbrk.lever</object-name>
+    <action>
+        <button>0</button>
+        <repeatable>false</repeatable>
+        <binding>
+            <command>property-toggle</command>
+            <property>controls/flight/speedbrake</property>
+        </binding>
+    </action>
+</animation>
+
+<animation>
+    <type>pick</type>
+    <object-name>FlapLever</object-name>
+    <action>
+        <button>0</button>
+        <repeatable>false</repeatable>
+        <binding>
+            <command>nasal</command>
+            <script>controls.flapsDown(1)</script>
+        </binding>
+        <mod-up>
+            <binding>
+                <command>nasal</command>
+                <script>controls.flapsDown(0)</script>
+            </binding>
+        </mod-up>
+    </action>
+    <action>
+        <button>1</button>
+        <repeatable>false</repeatable>
+        <binding>
+            <command>nasal</command>
+            <script>controls.flapsDown(-1)</script>
+        </binding>
+        <mod-up>
+            <binding>
+                <command>nasal</command>
+                <script>controls.flapsDown(0)</script>
+            </binding>
+        </mod-up>
+    </action>
+</animation>
+
+<animation>
+    <type>pick</type>
+    <object-name>Taxi.switch</object-name>
+    <action>
+        <button>0</button>
+        <repeatable>false</repeatable>
+        <binding>
+            <command>property-toggle</command>
+            <property>controls/lighting/taxi-lights</property>
+        </binding>
+        <binding>
+            <command>property-toggle</command>
+            <property>sim/sound/click</property>
+        </binding>
+    </action>
+</animation>
+
+<animation>
+    <type>pick</type>
+    <object-name>LHLlight.switch</object-name>
+    <action>
+        <button>0</button>
+        <repeatable>false</repeatable>
+        <binding>
+            <command>property-toggle</command>
+            <property>controls/lighting/landing-light[0]</property>
+        </binding>
+        <binding>
+            <command>property-toggle</command>
+            <property>sim/sound/click</property>
+        </binding>
+    </action>
+</animation>
+
+<animation>
+    <type>pick</type>
+    <object-name>RHLlight.switch</object-name>
+    <action>
+        <button>0</button>
+        <repeatable>false</repeatable>
+        <binding>
+            <command>property-toggle</command>
+            <property>controls/lighting/landing-light[1]</property>
+        </binding>
+        <binding>
+            <command>property-toggle</command>
+            <property>sim/sound/click</property>
+        </binding>
+    </action>
+</animation>
+
+<animation>
+    <type>pick</type>
+    <object-name>RIC1.crs</object-name>
+    <action>
+        <button>0</button>
+        <repeatable>false</repeatable>
+        <binding>
+            <command>property-assign</command>
+            <property>instrumentation/nav/radials/selected-deg</property>
+            <property>orientation/heading-magnetic-deg</property>
+        </binding>
+    </action>
+    <action>
+        <button>3</button>
+        <repeatable>true</repeatable>
+        <binding>
+            <command>property-adjust</command>
+            <property>instrumentation/nav/radials/selected-deg</property>
+            <step>1</step>
+            <min>0</min>
+            <max>360</max>
+            <wrap>1</wrap>
+        </binding>
+    </action>
+    <action>
+        <button>4</button>
+        <repeatable>true</repeatable>
+        <binding>
+            <command>property-adjust</command>
+            <property>instrumentation/nav/radials/selected-deg</property>
+            <step>-1</step>
+            <min>0</min>
+            <max>360</max>
+            <wrap>1</wrap>
+        </binding>
+    </action>
+</animation>
+
+<animation>
+    <type>pick</type>
+    <object-name>RIC2.crs</object-name>
+    <action>
+        <button>0</button>
+        <repeatable>false</repeatable>
+        <binding>
+            <command>property-assign</command>
+            <property>instrumentation/nav[1]/radials/selected-deg</property>
+            <property>orientation/heading-magnetic-deg</property>
+        </binding>
+    </action>
+    <action>
+        <button>3</button>
+        <repeatable>true</repeatable>
+        <binding>
+            <command>property-adjust</command>
+            <property>instrumentation/nav[1]/radials/selected-deg</property>
+            <step>1</step>
+            <min>0</min>
+            <max>360</max>
+            <wrap>1</wrap>
+        </binding>
+    </action>
+    <action>
+        <button>4</button>
+        <repeatable>true</repeatable>
+        <binding>
+            <command>property-adjust</command>
+            <property>instrumentation/nav[1]/radials/selected-deg</property>
+            <step>-1</step>
+            <min>0</min>
+            <max>360</max>
+            <wrap>1</wrap>
+        </binding>
+    </action>
+</animation>
+
+<animation>
+    <type>pick</type>
+    <object-name>RIC1.alt</object-name>
+    <object-name>RIC2.alt</object-name>
+    <action>
+        <button>0</button>
+        <repeatable>false</repeatable>
+        <binding>
+            <command>property-assign</command>
+            <property>autopilot/settings/asel</property>
+            <value>100</value>
+        </binding>
+    </action>
+    <action>
+        <button>3</button>
+        <repeatable>true</repeatable>
+        <binding>
+            <command>property-adjust</command>
+            <property>autopilot/settings/asel</property>
+            <step>1</step>
+            <min>0</min>
+            <max>655</max>
+            <wrap>0</wrap>
+        </binding>
+    </action>
+    <action>
+        <button>4</button>
+        <repeatable>true</repeatable>
+        <binding>
+            <command>property-adjust</command>
+            <property>autopilot/settings/asel</property>
+            <step>-1</step>
+            <min>0</min>
+            <max>655</max>
+            <wrap>0</wrap>
+        </binding>
+    </action>
+</animation>
+
+<animation>
+    <type>pick</type>
+    <object-name>RIC1.hdg</object-name>
+    <object-name>RIC2.hdg</object-name>
+    <action>
+        <button>0</button>
+        <repeatable>false</repeatable>
+        <binding>
+            <command>property-assign</command>
+            <property>autopilot/settings/heading-bug-deg</property>
+            <property>orientation/heading-magnetic-deg</property>
+        </binding>
+    </action>
+    <action>
+        <button>3</button>
+        <repeatable>true</repeatable>
+        <binding>
+            <command>property-adjust</command>
+            <property>autopilot/settings/heading-bug-deg</property>
+            <step>1</step>
+            <min>0</min>
+            <max>360</max>
+            <wrap>1</wrap>
+        </binding>
+    </action>
+    <action>
+        <button>4</button>
+        <repeatable>true</repeatable>
+        <binding>
+            <command>property-adjust</command>
+            <property>autopilot/settings/heading-bug-deg</property>
+            <step>-1</step>
+            <min>0</min>
+            <max>360</max>
+            <wrap>1</wrap>
+        </binding>
+    </action>
+</animation>
+
+<animation>
+    <type>pick</type>
+    <object-name>Atrim.switch</object-name>
+    <action>
+        <button>0</button>
+        <repeatable>true</repeatable>
+        <binding>
+            <command>property-adjust</command>
+            <property>controls/flight/aileron-trim</property>
+            <step>0.01</step>
+            <min>-1.0</min>
+            <max>1.0</max>
+            <wrap>0</wrap>
+        </binding>
+    </action>
+    <action>
+        <button>1</button>
+        <repeatable>true</repeatable>
+        <binding>
+            <command>property-adjust</command>
+            <property>controls/flight/aileron-trim</property>
+            <step>-0.01</step>
+            <min>-1.0</min>
+            <max>1.0</max>
+            <wrap>0</wrap>
+        </binding>
+    </action>
+</animation>
+
+<animation>
+    <type>pick</type>
+    <object-name>RUDDER.knob</object-name>
+    <action>
+        <button>0</button>
+        <repeatable>true</repeatable>
+        <binding>
+            <command>property-adjust</command>
+            <property>controls/flight/rudder-trim</property>
+            <step>0.01</step>
+            <min>-1.0</min>
+            <max>1.0</max>
+            <wrap>0</wrap>
+        </binding>
+    </action>
+    <action>
+        <button>1</button>
+        <repeatable>true</repeatable>
+        <binding>
+            <command>property-adjust</command>
+            <property>controls/flight/rudder-trim</property>
+            <step>-0.01</step>
+            <min>-1.0</min>
+            <max>1.0</max>
+            <wrap>0</wrap>
+        </binding>
+    </action>
+</animation>
+
+</PropertyList>

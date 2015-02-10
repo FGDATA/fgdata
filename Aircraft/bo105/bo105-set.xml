@@ -1,0 +1,633 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<sim>
+		<description>Eurocopter Bo105</description>
+		<author>Melchior Franz, Maik Justus (FDM)</author>
+		<status>early-production</status>
+		<license>GPL v2</license>
+
+		<flight-model>yasim</flight-model>
+		<aero>bo105</aero>
+		<fuel-fraction>1.0</fuel-fraction>
+
+		<startup>
+			<splash-texture>Aircraft/bo105/splash.png</splash-texture>
+		</startup>
+
+		<gui>
+			<style>
+				<colors>
+					<splash-font>
+						<red>0.25</red>
+						<green>0.28</green>
+						<blue>0.31</blue>
+					</splash-font>
+				</colors>
+			</style>
+		</gui>
+
+		<instrumentation>
+			<path>Aircraft/bo105/Instruments/instrumentation.xml</path>
+		</instrumentation>
+
+		<sound>
+			<path>Aircraft/bo105/Sounds/sound.xml</path>
+		</sound>
+
+		<submodels>
+			<serviceable type="bool">true</serviceable>
+			<path>Aircraft/bo105/Models/submodels.xml</path>
+		</submodels>
+
+		<panel>
+			<visibility archive="n">false</visibility>
+		</panel>
+
+		<model>
+			<path archive="y">Aircraft/bo105/Models/bo105.xml</path>
+			<bo105>
+				<name type="string">Yellow MedEvac</name>
+				<insignia type="string">Textures/Emblems/oebh.png</insignia>
+				<shadow type="bool">true</shadow>
+				<wiper type="bool">true</wiper>
+				<wire-cutter type="bool">true</wire-cutter>
+				<tail-angle-deg type="int" archive="y">0</tail-angle-deg>
+				<state type="int">0</state>
+				<rotor-step-deg type="float">-1.0</rotor-step-deg>
+
+				<particles>
+					<enabled type="bool">true</enabled>
+				</particles>
+
+				<material>
+					<glass>
+						<diffuse>
+							<red>1.0</red>
+							<green>1.0</green>
+							<blue>1.0</blue>
+						</diffuse>
+
+						<ambient>
+							<red>1.0</red>
+							<green>1.0</green>
+							<blue>1.0</blue>
+						</ambient>
+
+						<specular>
+							<red>1.0</red>
+							<green>1.0</green>
+							<blue>1.0</blue>
+						</specular>
+
+						<emission>
+							<red>0.6</red>
+							<green>0.6</green>
+							<blue>0.6</blue>
+						</emission>
+
+						<transparency>
+							<alpha>0.2</alpha>
+						</transparency>
+
+						<shininess>25</shininess>
+					</glass>
+
+					<fuselage>
+						<texture>livery.rgb</texture>
+
+						<diffuse>
+							<red>0.8</red>
+							<green>0.7</green>
+							<blue>0.001</blue>
+						</diffuse>
+
+						<ambient>
+							<red>0.8</red>
+							<green>0.7</green>
+							<blue>0.0</blue>
+						</ambient>
+
+						<specular>
+							<red>0.4</red>
+							<green>0.2</green>
+							<blue>0.0</blue>
+						</specular>
+
+						<emission>
+							<red>0.0</red>
+							<green>0.0</green>
+							<blue>0.0</blue>
+						</emission>
+
+						<transparency>
+							<alpha>1.0</alpha>
+						</transparency>
+
+						<shininess>32</shininess>
+					</fuselage>
+
+					<emblem>
+						<texture>Textures/empty.png</texture>
+
+						<transparency>
+							<alpha>1.0</alpha>
+						</transparency>
+
+						<threshold>0.1</threshold>
+					</emblem>
+
+					<rotor>
+						<texture>Textures/Rotor/orange.png</texture>
+					</rotor>
+				</material>
+
+				<doors>
+					<door>
+						<position-norm type="double">0.0</position-norm>
+						<name type="string">pilot's door</name>
+					</door>
+
+					<door>
+						<position-norm type="double">0.0</position-norm>
+						<name type="string">copilot's door</name>
+					</door>
+
+					<door>
+						<position-norm type="double">0.0</position-norm>
+						<name type="string">right backdoor</name>
+					</door>
+
+					<door>
+						<position-norm type="double">0.0</position-norm>
+						<name type="string">left backdoor</name>
+					</door>
+
+					<door>
+						<position-norm type="double">0.0</position-norm>
+						<name type="string">right reardoor</name>
+					</door>
+
+					<door>
+						<position-norm type="double">0.0</position-norm>
+						<name type="string">left reardoor</name>
+					</door>
+				</doors>
+			</bo105>
+
+			<livery>
+				<file type="string"/>
+			</livery>
+		</model>
+
+		<multiplay>
+			<generic>
+				<string n="0"/> <!-- emblem basename -->
+				<float n="0" alias="/sim/model/bo105/doors/door[0]/position-norm"/>
+				<float n="1" alias="/sim/model/bo105/doors/door[1]/position-norm"/>
+				<float n="2" alias="/sim/model/bo105/doors/door[2]/position-norm"/>
+				<float n="3" alias="/sim/model/bo105/doors/door[3]/position-norm"/>
+				<float n="4" alias="/sim/model/bo105/doors/door[4]/position-norm"/>
+				<float n="5" alias="/sim/model/bo105/doors/door[5]/position-norm"/>
+			</generic>
+		</multiplay>
+
+		<rendering>
+			<camera-group>
+				<znear type="double">0.1</znear>
+			</camera-group>
+		</rendering>
+
+		<view n="0">
+			<internal archive="y">true</internal>
+			<config>
+				<x-offset-m archive="y">0.40</x-offset-m><!--right-->
+				<y-offset-m archive="y">0.65</y-offset-m><!--up-->
+				<z-offset-m archive="y">1.2</z-offset-m><!--back-->
+				<pitch-offset-deg archive="y">-6</pitch-offset-deg>
+				<limits>
+					<enabled type="bool">true</enabled>
+					<left>
+						<heading-max-deg type="double">160</heading-max-deg>
+						<x-offset-max-m type="double">0.30</x-offset-max-m>
+						<x-offset-threshold-deg type="double">65</x-offset-threshold-deg>
+					</left>
+					<right>
+						<heading-max-deg type="double">140</heading-max-deg>
+						<x-offset-max-m type="double">0.15</x-offset-max-m>
+						<x-offset-threshold-deg type="double">65</x-offset-threshold-deg>
+					</right>
+				</limits>
+			</config>
+		</view>
+
+		<view n="1">
+			<config>
+				<target-z-offset-m archive="y" type="double">2.5</target-z-offset-m>
+			</config>
+		</view>
+
+		<view n="2">
+			<config>
+				<target-z-offset-m archive="y" type="double">2.5</target-z-offset-m>
+			</config>
+		</view>
+
+		<view n="3">
+			<config>
+				<target-z-offset-m archive="y" type="double">2.5</target-z-offset-m>
+			</config>
+		</view>
+
+		<view n="4">
+			<config>
+				<target-z-offset-m archive="y" type="double">2.5</target-z-offset-m>
+			</config>
+		</view>
+
+		<view n="5">
+			<config>
+				<target-z-offset-m archive="y" type="double">2.5</target-z-offset-m>
+			</config>
+		</view>
+
+		<view n="6">
+			<config>
+				<target-z-offset-m archive="y" type="double">2.5</target-z-offset-m>
+			</config>
+		</view>
+
+		<view n="100">
+			<name>Belly View</name>
+			<enabled type="bool">false</enabled>
+			<type>lookfrom</type>
+			<internal archive="y">true</internal>
+			<config>
+				<from-model type="bool">true</from-model>
+				<from-model-idx type="int">0</from-model-idx>
+				<x-offset-m archive="y">0</x-offset-m>    <!-- right? -->
+				<y-offset-m archive="y">-1</y-offset-m>   <!-- up -->
+				<z-offset-m archive="y">3.5</z-offset-m>  <!-- back -->
+				<pitch-offset-deg>0</pitch-offset-deg>
+				<ground-level-nearplane-m type="double">0.05f</ground-level-nearplane-m>
+				<default-field-of-view-deg type="double">55.0</default-field-of-view-deg>
+				<default-pitch-deg type="double">-15</default-pitch-deg>
+				<default-heading-deg type="double">0</default-heading-deg>
+				<front-direction-deg type="double">0</front-direction-deg>
+				<front-left-direction-deg type="double">45</front-left-direction-deg>
+				<left-direction-deg type="double">90</left-direction-deg>
+				<back-left-direction-deg type="double">135</back-left-direction-deg>
+				<back-direction-deg type="double">180</back-direction-deg>
+				<back-right-direction-deg type="double">225</back-right-direction-deg>
+				<right-direction-deg type="double">270</right-direction-deg>
+				<front-right-direction-deg type="double">315</front-right-direction-deg>
+				<default-field-of-view-deg>55</default-field-of-view-deg>
+			</config>
+		</view>
+
+		<hud>
+			<enable3d>false</enable3d>
+		</hud>
+
+		<weight n="0">
+			<name>Pilot</name>
+			<weight-lb>180</weight-lb>
+			<max-lb>300</max-lb>
+		</weight>
+
+		<weight n="1">
+			<name>Co-Pilot</name>
+			<weight-lb>180</weight-lb>
+			<max-lb>300</max-lb>
+		</weight>
+
+		<weight n="2">
+			<name>Right Passenger</name>
+			<weight-lb>0</weight-lb>
+			<max-lb>300</max-lb>
+		</weight>
+
+		<weight n="3">
+			<name>Middle Passenger</name>
+			<weight-lb>0</weight-lb>
+			<max-lb>300</max-lb>
+		</weight>
+
+		<weight n="4">
+			<name>Left Passenger</name>
+			<weight-lb>0</weight-lb>
+			<max-lb>300</max-lb>
+		</weight>
+
+		<weight n="5">
+			<name>Load</name>
+			<weight-lb>0</weight-lb>
+			<max-lb>800</max-lb>
+		</weight>
+
+		<menubar>
+			<default>
+				<menu n="100">
+					<label>BO-105CBS</label>
+					<item>
+						<label>Autostart</label>
+						<binding>
+							<command>nasal</command>
+							<script>bo105.startup()</script>
+						</binding>
+					</item>
+					<item>
+						<label>Autoshutdown</label>
+						<binding>
+							<command>nasal</command>
+							<script>bo105.shutdown()</script>
+						</binding>
+					</item>
+					<item>
+						<label>Select Livery</label>
+						<binding>
+							<command>nasal</command>
+							<script>aircraft.livery.dialog.open()</script>
+						</binding>
+					</item>
+				</menu>
+			</default>
+		</menubar>
+
+
+		<help>
+			<title>Bo105</title>
+			<key>
+				<name>{ }</name>
+				<desc>shutdown/start turbines</desc>
+			</key>
+			<key>
+				<name>d/D</name>
+				<desc>select next/previous door</desc>
+			</key>
+			<key>
+				<name>Ctrl-D</name>
+				<desc>open/close selected door</desc>
+			</key>
+			<key>
+				<name>i</name>
+				<desc>toggle ignition switch</desc>
+			</key>
+			<key>
+				<name>m/M</name>
+				<desc>shift engine balance to right/left engine</desc>
+			</key>
+			<key>
+				<name>n/N</name>
+				<desc>engine power adjustment up/down</desc>
+			</key>
+			<key>
+				<name>r</name>
+				<desc>apply rotor brake</desc>
+			</key>
+			<key>
+				<name>R</name>
+				<desc>toggle rotor brake</desc>
+			</key>
+			<key>
+				<name>y/Y</name>
+				<desc>switch to next/previous variant</desc>
+			</key>
+			<key>
+				<name>Ctrl-Y</name>
+				<desc>open material dialogs</desc>
+			</key>
+			<key>
+				<name>,</name>
+				<desc>fire machine guns/missiles</desc>
+			</key>
+			<key>
+				<name>=</name>
+				<desc>open/close Bo105 config dialog</desc>
+			</key>
+			<key>
+				<name>MMB</name>
+				<desc>adjust power lever (middle mouse button)</desc>
+			</key>
+		</help>
+	</sim>
+
+	<consumables>
+		<fuel>
+			<tank>
+				<name>Main</name>
+				<selected type="bool" write="n">1</selected>
+				<density-ppg type="double" write="n">6.682</density-ppg>
+			</tank>
+
+			<tank>
+				<name>Supply</name>
+				<selected type="bool" write="n">1</selected>
+				<density-ppg type="double" write="n">6.682</density-ppg>
+			</tank>
+		</fuel>
+	</consumables>
+
+	<controls>
+		<rotor>
+			<reltarget type="double">0</reltarget>
+			<maxreltorque type="double">0</maxreltorque>
+		</rotor>
+
+		<armament>
+			<trigger type="bool">false</trigger>
+		</armament>
+
+		<engines>
+			<engine n="0">
+				<magnetos>1</magnetos>
+				<propeller-pitch alias="/controls/engines/power-trim"/>
+				<mixture alias="/controls/engines/power-balance"/>
+			</engine>
+
+			<engine n="1">
+				<magnetos>1</magnetos>
+				<propeller-pitch alias="/controls/engines/power-trim"/>
+				<mixture alias="/controls/engines/power-balance"/>
+				<throttle alias="/controls/engines/engine[0]/throttle"/>
+			</engine>
+
+			<power-trim type="double">0</power-trim>
+			<power-balance type="double">0</power-balance>
+		</engines>
+
+		<lighting>
+			<strobe type="bool">true</strobe>
+			<beacon type="bool">true</beacon>
+			<nav-lights type="bool">true</nav-lights>
+		</lighting>
+	</controls>
+
+	<instrumentation>
+		<gsdi>
+			<serviceable type="bool">true</serviceable>
+			<enabled type="bool">true</enabled>
+		</gsdi>
+	</instrumentation>
+
+	<input>
+		<keyboard>
+			<key n="4">
+				<name>Ctrl-D</name>
+				<desc>Open/close selected door</desc>
+				<binding>
+					<command>nasal</command>
+					<script>bo105.doors.toggle()</script>
+				</binding>
+			</key>
+
+			<key n="61">
+				<name>=</name>
+				<desc>Show configuration dialog</desc>
+				<binding>
+					<command>nasal</command>
+					<script>bo105.config_dialog.toggle()</script>
+				</binding>
+			</key>
+
+			<key n="25">
+				<name>Ctrl-Y</name>
+				<desc>Show material dialogs</desc>
+				<binding>
+					<command>nasal</command>
+					<script>
+						material.showDialog("/sim/model/bo105/material/fuselage/", nil, 10);
+						material.showDialog("/sim/model/bo105/material/glass/", nil, 240);
+						material.showDialog("/sim/model/bo105/material/emblem/", nil, 470);
+					</script>
+				</binding>
+			</key>
+
+			<key n="68">
+				<name>D</name>
+				<desc>Select previous door</desc>
+				<binding>
+					<command>nasal</command>
+					<script>bo105.doors.previous()</script>
+				</binding>
+			</key>
+
+			<key n="82">
+				<name>R</name>
+				<desc>Toggle rotor brake</desc>
+				<binding>
+					<command>nasal</command>
+					<script>
+						var p = "/controls/rotor/brake";
+						setprop(p, !getprop(p));
+					</script>
+				</binding>
+			</key>
+
+			<key n="89">
+				<name>Y</name>
+				<desc>Select previous variant</desc>
+				<binding>
+					<command>nasal</command>
+					<script>aircraft.livery.previous()</script>
+				</binding>
+			</key>
+
+			<key n="100">
+				<name>d</name>
+				<desc>Select next door</desc>
+				<binding>
+					<command>nasal</command>
+					<script>bo105.doors.next()</script>
+				</binding>
+			</key>
+
+			<key n="105">
+				<name>i</name>
+				<desc>Toggle ignition switch</desc>
+				<binding>
+					<command>nasal</command>
+					<script>
+						foreach (var e; controls.engines) {
+							if (e.selected.getValue()) {
+								var i = e.controls.getNode("ignition", 1);
+								i.setValue(!i.getValue());
+							}
+						}
+					</script>
+				</binding>
+			</key>
+
+			<key n="114">
+				<name>r</name>
+				<desc>Apply rotor brake</desc>
+				<binding>
+					<command>nasal</command>
+					<script>interpolate("/controls/rotor/brake", 1.0, 2)</script>
+				</binding>
+				<mod-up>
+					<binding>
+						<command>nasal</command>
+						<script>interpolate("/controls/rotor/brake", 0.0, 2)</script>
+					</binding>
+				</mod-up>
+			</key>
+
+			<key n="118">
+				<name>Alt-v</name>
+				<desc>Toggle dynamic cockpit view</desc>
+				<mod-alt>
+					<binding>
+						<command>property-toggle</command>
+						<property>/sim/view/dynamic/enabled</property>
+					</binding>
+				</mod-alt>
+			</key>
+
+			<key n="121">
+				<name>y</name>
+				<desc>Select next variant</desc>
+				<binding>
+					<command>nasal</command>
+					<script>aircraft.livery.next()</script>
+				</binding>
+			</key>
+
+			<key n="123">
+				<name>{</name>
+				<desc>Shutdown Engines</desc>
+				<binding>
+					<command>nasal</command>
+					<script>bo105.shutdown()</script>
+					<condition>
+						<property>/sim/signals/fdm-initialized</property>
+					</condition>
+				</binding>
+			</key>
+
+			<key n="125">
+				<name>}</name>
+				<desc>Start Engines</desc>
+				<binding>
+					<command>nasal</command>
+					<script>bo105.startup()</script>
+					<condition>
+						<property>/sim/signals/fdm-initialized</property>
+					</condition>
+				</binding>
+			</key>
+		</keyboard>
+	</input>
+
+	<nasal>
+		<bo105>
+			<file>Aircraft/bo105/Nasal/bo105.nas</file>
+		</bo105>
+	</nasal>
+
+	<rotors>
+		<main>
+			<rpm type="double">0</rpm>
+		</main>
+	</rotors>
+</PropertyList>

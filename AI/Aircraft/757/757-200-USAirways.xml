@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+ <description>B757-200</description>
+  <author>Unknown, modified by Brett Harrison</author>
+ <path>Models/757-200.ac</path>
+<texture-path>Textures/USAirways</texture-path>
+  
+   <animation>
+   <type>select</type>
+      <object-name>winglets</object-name>
+         <condition>
+            <equals>
+            <property>/sim/signals/fdm-initialized</property>
+            <value>1</value>
+            </equals>
+         </condition>
+   </animation>
+
+         	<animation>
+   		<type>select</type>
+		<object-name>gear</object-name>
+		<condition>
+			<less-than>
+				<property>velocities/true-airspeed-kt</property>
+				<value>170</value>
+			</less-than>
+		</condition>
+	</animation>
+  
+</PropertyList>

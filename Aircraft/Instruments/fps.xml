@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+ 
+ <name>frames per second</name>
+ <w-base>50</w-base>
+ <h-base>50</h-base>
+
+ <layers>
+
+  <layer>
+   <name>counter</name>
+   <type>text</type>
+   <font>led</font>
+   <point-size>6.5</point-size>
+   <color>
+    <red>1.0</red>
+    <green>0.5</green>
+    <blue>0.0</blue>
+   </color>
+   <chunks>
+    <chunk>
+     <type>number-value</type>
+     <property>/sim/frame-rate</property>
+     <format>%.0f</format>
+    </chunk>
+   </chunks>
+  </layer>
+
+ </layers>
+
+</PropertyList>

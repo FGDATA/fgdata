@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+ <path>cloudbox2.ac</path>
+ 
+ 
+<animation>
+  <enable-hot type="bool">false</enable-hot>
+</animation>
+
+<effect>
+  <inherits-from>Effects/clouds-box</inherits-from>
+  <object-name>rect</object-name>
+</effect>
+
+</PropertyList>

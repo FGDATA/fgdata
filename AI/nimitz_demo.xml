@@ -1,0 +1,145 @@
+<?xml version="1.0"?>
+<PropertyList>
+	<scenario>
+		<name>Nimitz Carrier (San Francisco)</name>
+		<description>
+			
+			Places 2 Nimitz-class Carriers in the environment -
+			
+			USS Nimitz - in the Pacific Ocean off San Fransisco
+			USS Eisenhower in the Mediterranean off Toulon
+
+			Notes:
+			x, y, z-offset-m   The distance in meters of the Fresnel Lens
+			Optical Landing System (FLOLS) from the
+			carrier model origin.
+			max-lat, min-lat   Defines an operating box in terms of the
+			max and min lat excursions from the start
+			position
+			max-lon, min-lon   Defines an operating box in terms of the
+			max and min lon excursions from the start
+			position
+			TACAN-channel-ID   Defines a TACAN channel for display
+			purposes only
+		</description>
+
+		<entry>
+			<type>carrier</type>
+			<name>Nimitz</name>
+			<pennant-number>CVN-68</pennant-number>
+			<TACAN-channel-ID>029Y</TACAN-channel-ID>
+			<model>Models/Geometry/Nimitz/nimitz.xml</model>
+			<latitude>37.8</latitude>
+			<longitude>-122.6</longitude>
+			<speed>10</speed>
+			<heading>200</heading>
+			<rudder>0</rudder>
+			<turn-radius-ft>12000</turn-radius-ft>
+			<flols-pos>
+				<x-offset-m>69.84</x-offset-m>
+				<y-offset-m>-39.67</y-offset-m>
+				<z-offset-m>21.47</z-offset-m>
+			</flols-pos>
+			<parking-pos>
+				<name>cat-1</name>
+				<heading-offset-deg>-4</heading-offset-deg>
+				<x-offset-m>-3.65</x-offset-m>
+				<y-offset-m>15.2715</y-offset-m>
+				<z-offset-m>20</z-offset-m>
+			</parking-pos>
+			<parking-pos>
+				<name>cat-2</name>
+				<heading-offset-deg>-1</heading-offset-deg>
+				<x-offset-m>1.6</x-offset-m>
+				<y-offset-m>-4.6</y-offset-m>
+				<z-offset-m>20</z-offset-m>
+			</parking-pos>
+			<parking-pos>
+				<name>cat-3</name>
+				<heading-offset-deg>-4</heading-offset-deg>
+				<x-offset-m>93</x-offset-m>
+				<y-offset-m>-20.2362</y-offset-m>
+				<z-offset-m>20</z-offset-m>
+			</parking-pos>
+			<parking-pos>
+				<name>cat-4</name>
+				<heading-offset-deg>0.0</heading-offset-deg>
+				<x-offset-m>95.1</x-offset-m>
+				<y-offset-m>-29.6192</y-offset-m>
+				<z-offset-m>20</z-offset-m>
+			</parking-pos>
+			<parking-pos>
+				<name>park-1</name>
+				<heading-offset-deg>-90</heading-offset-deg>
+				<x-offset-m>54</x-offset-m>
+				<y-offset-m>25</y-offset-m>
+				<z-offset-m>20</z-offset-m>
+			</parking-pos>
+			<max-lat>0.01</max-lat>
+			<min-lat>0.05</min-lat>
+			<max-long>0.05</max-long>
+			<min-long>0.01</min-long>
+			<mp-control>false</mp-control>
+			<ai-control>true</ai-control>
+		</entry>
+		<entry>
+			<type>carrier</type>
+			<name>Eisenhower</name>
+			<pennant-number>CVN-69</pennant-number>
+			<TACAN-channel-ID>030Y</TACAN-channel-ID>
+			<model>Models/Geometry/Nimitz/eisenhower.xml</model>
+			<latitude>42.9</latitude>
+			<longitude>5.96</longitude>
+			<speed>10</speed>
+			<heading>200</heading>
+			<rudder>0</rudder>
+			<turn-radius-ft>12000</turn-radius-ft>
+			<flols-pos>
+				<x-offset-m>69.84</x-offset-m>
+				<y-offset-m>-39.67</y-offset-m>
+				<z-offset-m>21.47</z-offset-m>
+			</flols-pos>
+			<parking-pos>
+				<name>cat-1</name>
+				<heading-offset-deg>-4</heading-offset-deg>
+				<x-offset-m>-3.65</x-offset-m>
+				<y-offset-m>15.2715</y-offset-m>
+				<z-offset-m>20</z-offset-m>
+			</parking-pos>
+			<parking-pos>
+				<name>cat-2</name>
+				<heading-offset-deg>-1</heading-offset-deg>
+				<x-offset-m>1.6</x-offset-m>
+				<y-offset-m>-4.6</y-offset-m>
+				<z-offset-m>20</z-offset-m>
+			</parking-pos>
+			<parking-pos>
+				<name>cat-3</name>
+				<heading-offset-deg>-4</heading-offset-deg>
+				<x-offset-m>93</x-offset-m>
+				<y-offset-m>-20.2362</y-offset-m>
+				<z-offset-m>20</z-offset-m>
+			</parking-pos>
+			<parking-pos>
+				<name>cat-4</name>
+				<heading-offset-deg>0</heading-offset-deg>
+				<x-offset-m>110</x-offset-m>
+				<y-offset-m>-29.6417</y-offset-m>
+				<z-offset-m>20</z-offset-m>
+			</parking-pos>
+			<parking-pos>
+				<name>park-1</name>
+				<heading-offset-deg>-90</heading-offset-deg>
+				<x-offset-m>54</x-offset-m>
+				<y-offset-m>26</y-offset-m>
+				<z-offset-m>20</z-offset-m>
+			</parking-pos>
+			<max-lat>0.01</max-lat>
+			<min-lat>0.05</min-lat>
+			<max-long>0.05</max-long>
+			<min-long>0.01</min-long>
+			<mp-control>false</mp-control>
+			<ai-control>true</ai-control>
+		</entry>
+	</scenario>
+</PropertyList>

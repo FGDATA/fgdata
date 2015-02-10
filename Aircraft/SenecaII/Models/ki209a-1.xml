@@ -1,0 +1,280 @@
+<?xml version="1.0" ?>
+<!--
+ This file is part of FlightGear, the free flight simulator
+ http://www.flightgear.org/
+
+ Copyright (C) 2009 Torsten Dreyer, Torsten (at) t3r _dot_ de
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation; either version 2 of the
+ License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+-->
+<!--
+  Animations for the ki209 vor/loc/gs indicator
+  Maintainer: Torsten Dreyer
+-->
+<PropertyList>
+  <path>ki209a.ac</path>
+
+  <params>
+    <selected-radial>instrumentation/nav[0]/radials/selected-deg</selected-radial>
+    <signal-quality>instrumentation/nav[0]/signal-quality-norm</signal-quality>
+    <to-flag>instrumentation/nav[0]/to-flag</to-flag>
+    <from-flag>instrumentation/nav[0]/from-flag</from-flag>
+    <gs-needle-deflection>instrumentation/nav[0]/gs-needle-deflection</gs-needle-deflection>
+    <heading-needle-deflection>instrumentation/nav[0]/heading-needle-deflection</heading-needle-deflection>
+    <has-gs>instrumentation/nav[0]/has-gs</has-gs>
+  </params>
+
+  <animation>
+    <type>material</type>
+    <object-name>BackPlate</object-name>
+    <object-name>CompassRose</object-name>
+    <object-name>TO</object-name>
+    <object-name>FROM</object-name>
+    <object-name>LOCIndicator</object-name>
+    <object-name>GSIndicator</object-name>
+    <object-name>NAV</object-name>
+    <object-name>GS</object-name>
+    <object-name>Marker</object-name>
+    <object-name>OBSSelector</object-name>
+    <emission>
+      <red-prop>sim/model/instrument-lighting/emission/red</red-prop>
+      <green-prop>sim/model/instrument-lighting/emission/green</green-prop>
+      <blue-prop>sim/model/instrument-lighting/emission/blue</blue-prop>
+      <factor-prop>controls/lighting/instruments-norm</factor-prop>
+    </emission>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>CompassRose</object-name>
+    <property alias="../../params/selected-radial"/>
+    <factor>1.0</factor>
+    <axis>
+      <x>1.0</x>
+      <y>0.0</y>
+      <z>0.0</z>
+    </axis>
+    <center>
+      <x-m>-0.001</x-m>
+      <y-m>0</y-m>
+      <z-m>0</z-m>
+    </center>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>NAV</object-name>
+    <property alias="../../params/signal-quality"/>
+    <interpolation>
+      <entry>
+        <ind>0</ind>
+        <dep>0</dep>
+      </entry>
+      <entry>
+        <ind>0.5</ind>
+        <dep>0.0</dep>
+      </entry>
+      <entry>
+        <ind>0.90</ind>
+        <dep>70.0</dep>
+      </entry>
+      <entry>
+        <ind>1.0</ind>
+        <dep>90</dep>
+      </entry>
+    </interpolation>
+    <axis>
+      <x>-1.0</x>
+      <y>0.0</y>
+      <z>0.0</z>
+    </axis>
+    <center>
+      <x-m>0</x-m>
+      <y-m>0</y-m>
+      <z-m>0.0128645</z-m>
+    </center>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>GS</object-name>
+    <condition>
+      <not>
+        <property alias="../../../../params/has-gs"/>
+      </not>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>translate</type>
+    <object-name>TO</object-name>
+    <property alias="../../params/to-flag"/>
+    <factor>0.00707069</factor>
+    <axis>
+      <x>0.0</x>
+      <y>0.0</y>
+      <z>1.0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>translate</type>
+    <object-name>FROM</object-name>
+    <property alias="../../params/from-flag"/>
+    <factor>-0.00707069</factor>
+    <axis>
+      <x>0.0</x>
+      <y>0.0</y>
+      <z>1.0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>translate</type>
+    <object-name>LOCIndicator</object-name>
+    <property alias="../../params/heading-needle-deflection"/>
+    <factor>0.001612</factor>
+    <axis>
+      <x>0.0</x>
+      <y>1.0</y>
+      <z>0.0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>translate</type>
+    <object-name>GSIndicator</object-name>
+    <property alias="../../params/gs-needle-deflection"/>
+    <interpolation>
+      <entry>
+        <ind>-3.50</ind>
+        <dep>-0.01612</dep>
+      </entry>
+      <entry>
+        <ind>3.50</ind>
+        <dep>0.01612</dep>
+      </entry>
+    </interpolation>
+    <axis>
+      <x>0.0</x>
+      <y>0.0</y>
+      <z>1.0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>OBSSelector</object-name>
+    <property alias="../../params/selected-radial"/>
+    <factor>8.0</factor>
+    <axis>
+      <x>1.0</x>
+      <y>0.0</y>
+      <z>0.0</z>
+    </axis>
+    <center>
+      <x-m>0</x-m>
+      <y-m>-0.0318071</y-m>
+      <z-m>-0.0327009</z-m>
+    </center>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>OBSSelectorPick.L</object-name>
+    <visible>false</visible>
+    <action>
+      <button>0</button>
+      <repeatable>true</repeatable>
+      <binding>
+        <command>property-adjust</command>
+        <property alias="../../../../params/selected-radial"/>
+        <step>1</step>
+        <min>0</min>
+        <max>360</max>
+        <wrap>1</wrap>
+      </binding>
+    </action>
+    <action>
+      <button>1</button>
+      <repeatable>true</repeatable>
+      <binding>
+        <command>property-adjust</command>
+        <property alias="../../../../params/selected-radial"/>
+        <step>10</step>
+        <min>0</min>
+        <max>360</max>
+        <wrap>1</wrap>
+      </binding>
+    </action>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>OBSSelectorPick.R</object-name>
+    <visible>false</visible>
+    <action>
+      <button>0</button>
+      <repeatable>true</repeatable>
+      <binding>
+        <command>property-adjust</command>
+        <property alias="../../../../params/selected-radial"/>
+        <step>-1</step>
+        <min>0</min>
+        <max>360</max>
+        <wrap>1</wrap>
+      </binding>
+    </action>
+    <action>
+      <button>1</button>
+      <repeatable>true</repeatable>
+      <binding>
+        <command>property-adjust</command>
+        <property alias="../../../../params/selected-radial"/>
+        <step>-10</step>
+        <min>0</min>
+        <max>360</max>
+        <wrap>1</wrap>
+      </binding>
+    </action>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>OBSSelector</object-name>
+    <visible>true</visible>
+    <action>
+      <button>3</button>
+      <repeatable>true</repeatable>
+      <binding>
+        <command>property-adjust</command>
+        <property alias="../../../../params/selected-radial"/>
+        <step>1</step>
+        <min>0</min>
+        <max>360</max>
+        <wrap>1</wrap>
+      </binding>
+    </action>
+    <action>
+      <button>4</button>
+      <repeatable>true</repeatable>
+      <binding>
+        <command>property-adjust</command>
+        <property alias="../../../../params/selected-radial"/>
+        <step>-1</step>
+        <min>0</min>
+        <max>360</max>
+        <wrap>1</wrap>
+      </binding>
+    </action>
+  </animation>
+
+</PropertyList>

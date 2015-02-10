@@ -1,0 +1,23 @@
+<?xml version="1.0" ?> 
+  <PropertyList> 
+    <path>trimwheel.ac</path> 
+    <animation>
+    <type>rotate</type>
+      <object-name>TrimWheel</object-name>
+      <property>controls/flight/elevator-trim</property>
+      <factor>-360</factor>
+      <axis>
+        <x>0.0</x>
+        <y>1.0</y>
+        <z>0.0</z>
+      </axis>
+      <center>
+        <x-m>-0.04</x-m>
+        <y-m>0.0</y-m>
+        <z-m>0.0</z-m>
+      </center>
+    </animation>  
+
+ 
+
+</PropertyList>

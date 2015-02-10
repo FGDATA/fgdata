@@ -1,0 +1,1381 @@
+<?xml version="1.0"?>
+
+<!--
+	This file defines vi-like key sequences which are started with the ':'-key.
+	It's evaluated by $FG_ROOT/Nasal/multikey.nas.
+
+	- <Esc> always aborts.
+	- <Return>/<Enter> executes and terminates the command mode, given that
+	  <binding>s exist (use "null" if there's nothing else to do) and <no-exit/>
+	  isn't defined.
+	- Keys with defined <exit/> property execute their bindings immediately,
+	  that is: without having to press <Return>/<Enter>.
+	- Format placeholder values are available to Nasal code via arg[].
+	- Nasal code can set the dialog title by assignment to the _ variable.
+	- <key> indices aren't used by the system, but are recommended to allow
+	  reliable overwriting by aircraft or user xml files.
+	- Cursor keys are equivalent to characters <, >, ^, _.
+-->
+
+<PropertyList>
+	<nasal>
+		<script><![CDATA[
+			var clamp = func(val, min, max) {
+				return (val > max) ? max : (val < min) ? min : val;
+			}
+
+			var adjustprop = func(path, offset, min = -1, max = 1) {
+				var val = getprop(path) + offset;
+				setprop(path, clamp(val, min, max));
+				return val;
+			}
+
+			# Usage: setpropf(<format>, <vector or list of args>, <value>);
+			var setpropf = func {
+				var val = pop(arg);
+				setprop(call(sprintf, size(arg) and typeof(arg[0]) == "vector" ? arg[0] : arg), val);
+			}
+
+			# Usage: getpropf(<format>, <vector or list of args>);
+			var getpropf = func {
+				getprop(call(sprintf, size(arg) and typeof(arg[0]) == "vector" ? arg[0] : arg));
+			}
+		]]></script>
+	</nasal>
+
+	<key n="58">
+		<name>:</name>
+		<desc>User commands</desc>
+		<!-- reserved for user extensions -->
+	</key>
+
+	<key n="63">
+		<name>?</name>
+		<desc>Help</desc>
+		<exit/>
+		<binding>
+			<command>nasal</command>
+			<script>multikey.help()</script>
+		</binding>
+	</key>
+
+	<key n="65">
+		<name>A</name>
+		<desc>Aircraft</desc>
+		<!-- reserved for aircraft extensions -->
+	</key>
+
+	<key n="68">
+		<name>D</name>
+		<desc>Dialogs</desc>
+
+		<key n="89">
+			<name>Y</name>
+			<desc>Nasal Console</desc>
+			<exit/>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>nasal-console</dialog-name>
+			</binding>
+		</key>
+
+		<key n="97">
+			<name>a</name>
+			<desc>Autopilot Settings</desc>
+			<exit/>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>autopilot</dialog-name>
+			</binding>
+		</key>
+
+		<key n="102">
+			<name>f</name>
+			<desc>Fuel and Payload</desc>
+			<exit/>
+			<binding>
+				<command>nasal</command>
+				<script>gui.showWeightDialog()</script>
+			</binding>
+		</key>
+
+		<key n="103">
+			<name>g</name>
+			<desc>GPS Settings</desc>
+			<exit/>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>gps</dialog-name>
+			</binding>
+		</key>
+
+		<key n="104">
+			<name>h</name>
+			<desc>Chat History</desc>
+			<exit/>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>chat-full</dialog-name>
+			</binding>
+		</key>
+
+		<key n="105">
+			<name>i</name>
+			<desc>Instrument Settings</desc>
+			<exit/>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>instruments</dialog-name>
+			</binding>
+		</key>
+
+		<key n="109">
+			<name>m</name>
+			<desc>Multiplayer Pilot List</desc>
+			<exit/>
+			<binding>
+				<command>nasal</command>
+				<script>multiplayer.dialog.show()</script>
+			</binding>
+		</key>
+
+		<key n="112">
+			<name>p</name>
+			<desc>Position aircraft</desc>
+			<key n="97">
+				<name>a</name>
+				<desc>Position aircraft in air</desc>
+				<exit/>
+				<binding>
+					<command>dialog-show</command>
+					<dialog-name>location-in-air</dialog-name>
+				</binding>
+			</key>
+
+			<key n="103">
+				<name>g</name>
+				<desc>Position aircraft on ground</desc>
+				<exit/>
+				<binding>
+					<command>dialog-show</command>
+					<dialog-name>location-on-ground</dialog-name>
+				</binding>
+			</key>
+		</key>
+
+		<key n="114">
+			<name>r</name>
+			<desc>Radio Settings</desc>
+			<exit/>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>radios</dialog-name>
+			</binding>
+		</key>
+
+		<key n="115">
+			<name>s</name>
+			<desc>Sound Configuration</desc>
+			<exit/>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>sound-dialog</dialog-name>
+			</binding>
+		</key>
+
+		<key n="116">
+			<name>t</name>
+			<desc>Time Settings</desc>
+			<exit/>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>timeofday</dialog-name>
+			</binding>
+		</key>
+
+		<key n="118">
+			<name>v</name>
+			<desc>View options</desc>
+			<exit/>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>view</dialog-name>
+			</binding>
+		</key>
+
+		<key n="119">
+			<name>w</name>
+			<desc>Weather Conditions</desc>
+			<exit/>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>weather</dialog-name>
+			</binding>
+		</key>
+	</key>
+
+	<!-- environment -->
+	<key n="69">
+		<name>E</name>
+		<desc>Environment</desc>
+		<key n="69">
+			<name>w</name>
+			<desc>Weather</desc>
+			<key n="119">
+				<name>s</name>
+				<desc>Weather Scenario</desc>
+				<key n="115">
+					<name>f</name>
+					<desc>Weather Scenario = Fair weather</desc>
+					<binding>
+						<command>nasal</command>
+						<script>
+							setprop("/environment/weather-scenario", "Fair weather");
+						</script>
+					</binding>
+				</key>
+
+				<key n="109">
+					<name>m</name>
+					<desc>Weather Scenario = METAR</desc>
+					<binding>
+						<command>nasal</command>
+						<script>
+							setprop("/environment/weather-scenario", "METAR");
+						</script>
+					</binding>
+				</key>
+
+				<key n="110">
+					<name>n</name>
+					<desc>Weather Scenario = none</desc>
+					<binding>
+						<command>nasal</command>
+						<script>
+							setprop("/environment/weather-scenario", "none");
+						</script>
+					</binding>
+				</key>
+
+				<key n="116">
+					<name>t</name>
+					<desc>Weather Scenario = Thunderstorm</desc>
+					<binding>
+						<command>nasal</command>
+						<script>
+							setprop("/environment/weather-scenario", "Thunderstorm");
+						</script>
+					</binding>
+				</key>
+			</key>
+		</key>
+
+		<key n="116">
+			<name>t</name>
+			<desc>Time Settings</desc>
+			<!-- only Clock Time and noon are implemented -->
+			<key n="99">
+				<name>c</name>
+				<desc>Time = Clock Time</desc>
+				<binding>
+					<command>timeofday</command>
+					<timeofday>real</timeofday>
+				</binding>
+			</key>
+
+			<key n="110">
+				<name>n</name>
+				<desc>Time = noon</desc>
+				<binding>
+					<command>timeofday</command>
+					<timeofday>noon</timeofday>
+				</binding>
+			</key>
+		</key>
+	</key>
+
+	<!-- Position commands -->
+	<key n="80">
+	<name>P</name>
+	<desc>Position</desc>
+		<key n="103">
+			<name>g</name>
+			<desc>Position on ground</desc>
+			<key n="903">
+				<name>%s</name>
+				<desc>Position on ground: airport=%s</desc>
+				<key n="32">
+					<name> </name>
+					<desc>Position on ground: airport=%s runway=</desc>
+					<binding>
+						<command>nasal</command>
+						<script>aircraft.teleport(airport:arg[0])</script>
+					</binding>
+
+					<key n="903">
+						<name>%s</name>
+						<desc>Position on ground: airport=%s runway=%s</desc>
+						<binding>
+							<command>nasal</command>
+							<script>aircraft.teleport(airport:arg[0], runway:arg[1])</script>
+						</binding>
+					</key>
+				</key>
+			</key>
+		</key>
+	</key>
+
+	<key n="89">
+		<name>Y</name>
+		<desc>Development functions</desc>
+
+		<key n="99">
+			<name>c</name>
+			<desc>Reload tile cache</desc>
+			<exit/>
+			<binding>
+				<command>tile-cache-reload</command>
+			</binding>
+		</key>
+
+		<key n="100">
+			<name>d</name>
+			<desc>Toggle FDM data logging</desc>
+			<exit/>
+			<binding>
+				<command>property-toggle</command>
+				<property>/sim/temp/fdm-data-logging</property>
+			</binding>
+		</key>
+
+		<key n="102">
+			<name>f</name>
+			<desc>Set fog ...</desc>
+
+			<key n="47">
+				<name>/</name>
+				<desc>Fog off</desc>
+				<exit/>
+				<binding>
+					<command>property-assign</command>
+					<property>/sim/rendering/fog</property>
+					<value>disabled</value>
+				</binding>
+			</key>
+
+			<key n="102">
+				<name>f</name>
+				<desc>Fog fastest</desc>
+				<exit/>
+				<binding>
+					<command>property-assign</command>
+					<property>/sim/rendering/fog</property>
+					<value>fastest</value>
+				</binding>
+			</key>
+
+			<key n="110">
+				<name>n</name>
+				<desc>Fog nicest</desc>
+				<exit/>
+				<binding>
+					<command>property-assign</command>
+					<property>/sim/rendering/fog</property>
+					<value>nicest</value>
+				</binding>
+			</key>
+		</key>
+
+		<key n="108">
+			<name>l</name>
+			<desc>Force lighting update</desc>
+			<exit/>
+			<binding>
+				<command>lighting-update</command>
+			</binding>
+		</key>
+
+		<key n="109">
+			<name>m</name>
+			<desc>Dump Google Maps link</desc>
+			<exit/>
+			<binding>
+				<command>nasal</command>
+				<script>
+					printf("http://maps.google.com/maps?ll=%.10f,%.10f&amp;z=12&amp;t=h",
+							getprop("/position/latitude-deg"),
+							getprop("/position/longitude-deg"));
+				</script>
+			</binding>
+		</key>
+
+		<key n="112">
+			<name>p</name>
+			<desc>Reload panel</desc>
+			<exit/>
+			<binding>
+				<command>panel-load</command>
+			</binding>
+		</key>
+
+		<key n="115">
+			<name>s</name>
+			<desc>On-screen statistics level (0-4)</desc>
+			<key n="901">
+				<name>%u</name>
+				<desc>Set on-screen statistics level</desc>
+				<exit/>
+				<binding>
+					<command>nasal</command>
+					<script>setprop("/sim/rendering/on-screen-statistics", arg[0])</script>
+				</binding>
+			</key>
+		</key>
+
+		<key n="119">
+			<name>w</name>
+			<desc>Toggle wireframe</desc>
+			<exit/>
+			<binding>
+				<command>property-toggle</command>
+				<property>/sim/rendering/wireframe</property>
+			
+			</binding>
+		</key>
+
+		<!--key n="121">
+				this is bad: overwrites userarchive entries, causes errors and a segfault
+			<name>y</name>
+			<desc>Reload global preferences</desc>
+			<exit/>
+			<binding>
+				<command>preferences-load</command>
+			</binding>
+		</key-->
+	</key>
+
+	<!-- Autopilot multikey commands -->
+	<key n="97">
+		<name>a</name>
+		<desc>Autopilot</desc>
+		<key n="104">
+			<name>h</name>
+			<desc>Heading Control</desc>
+			<key n="119">
+				<name>w</name>
+				<desc>Wing Level</desc>
+				<binding>
+					<command>nasal</command>
+					<script>setprop("/autopilot/locks/heading", "wing-leveler")</script>
+				</binding>
+			</key>
+
+			<key n="98">
+				<name>b</name>
+				<desc>Heading Bug</desc>
+				<key n="901">
+					<name>%f</name>
+					<desc>Heading Bug = %.3f degree</desc>
+					<binding>
+						<command>nasal</command>
+						<script>
+							setprop("/autopilot/locks/heading", "dg-heading-hold");
+							setprop("/autopilot/settings/heading-bug-deg", arg[0]);
+						</script>
+					</binding>
+				</key>
+			</key>
+
+			<key n="116">
+				<name>t</name>
+				<desc>True Heading</desc>
+				<key n="901">
+					<name>%f</name>
+					<desc>True Heading = %.3f degree</desc>
+					<binding>
+						<command>nasal</command>
+						<script>
+							setprop("/autopilot/locks/heading", "true-heading-hold");
+							setprop("/autopilot/settings/true-heading-deg", arg[0]);
+						</script>
+					</binding>
+				</key>
+			</key>
+
+			<key n="110">
+				<name>n</name>
+				<desc>Nav1 Hold</desc>
+				<binding>
+					<command>nasal</command>
+					<script>setprop("/autopilot/locks/heading", "nav1-hold")</script>
+				</binding>
+			</key>
+
+			<key n="47">
+				<name>/</name>
+				<desc>Heading control: disable</desc>
+				<binding>
+					<command>property-assign</command>
+					<property>/autopilot/locks/heading</property>
+					<value></value>
+				</binding>
+			</key>
+		</key>
+
+		<key n="118">
+			<name>v</name>
+			<desc>Velocity control</desc>
+			<key n="116">
+				<name>t</name>
+				<desc>Speed with throttle</desc>
+				<key n="901">
+					<name>%f</name>
+					<desc>Speed with throttle = %.1f knots</desc>
+					<binding>
+						<command>nasal</command>
+						<script>
+							setprop("/autopilot/settings/target-speed-kt", arg[0]);
+							setprop("/autopilot/locks/speed", "speed-with-throttle");
+						</script>
+					</binding>
+				</key>
+			</key>
+
+			<key n="112">
+				<name>p</name>
+				<desc>Speed with pitch</desc>
+				<key n="901">
+					<name>%f</name>
+					<desc>Speed with pitch = %.2f knots</desc>
+					<binding>
+						<command>nasal</command>
+						<script>
+							setprop("/autopilot/settings/target-speed-kt", arg[0]);
+							setprop("/autopilot/locks/speed", "speed-with-pitch-trim");
+						</script>
+					</binding>
+				</key>
+			</key>
+
+			<key n="47">
+				<name>/</name>
+				<desc>Velocity control: disable</desc>
+				<binding>
+					<command>property-assign</command>
+					<property>/autopilot/locks/speed</property>
+					<value></value>
+				</binding>
+			</key>
+		</key>
+
+		<key n="112">
+			<name>p</name>
+			<desc>Pitch/Altitude control</desc>
+			<key n="118">
+				<name>v</name>
+				<desc>Vertical Speed Hold</desc>
+				<key n="901">
+					<name>%f</name>
+					<desc>Vertical Speed = %.2f fpm</desc>
+					<binding>
+						<command>nasal</command>
+						<script>
+							setprop("/autopilot/settings/vertical-speed-fpm", arg[0]);
+							setprop("/autopilot/locks/altitude", "vertical-speed-hold");
+						</script>
+					</binding>
+				</key>
+			</key>
+
+			<key n="112">
+				<name>p</name>
+				<desc>Pitch hold</desc>
+				<key n="901">
+					<name>%f</name>
+					<desc>Pitch angle = %.1f degree</desc>
+					<binding>
+						<command>nasal</command>
+						<script>
+							setprop("/autopilot/settings/target-pitch-degree", arg[0]);
+							setprop("/autopilot/locks/altitude", "pitch-hold");
+						</script>
+					</binding>
+				</key>
+			</key>
+
+			<key n="111">
+				<name>o</name>
+				<desc>AoA hold</desc>
+				<key n="901">
+					<name>%f</name>
+					<desc>AoA angle = %.1f degree</desc>
+					<binding>
+						<command>nasal</command>
+						<script>
+							setprop("/autopilot/settings/target-aoa-degree", arg[0]);
+							setprop("/autopilot/locks/altitude", "aoa-hold");
+						</script>
+					</binding>
+				</key>
+			</key>
+
+			<key n="97">
+				<name>a</name>
+				<desc>Altitude hold</desc>
+				<key n="901">
+					<name>%f</name>
+					<desc>Target altitude = %.2f feet</desc>
+					<binding>
+						<command>nasal</command>
+						<script>
+							setprop("/autopilot/settings/target-altitude-ft", arg[0]);
+							setprop("/autopilot/locks/altitude", "altitude-hold");
+						</script>
+					</binding>
+				</key>
+			</key>
+
+			<key n="103">
+				<name>g</name>
+				<desc>AGL hold</desc>
+				<key n="901">
+					<name>%f</name>
+					<desc>Target AGL = %.1f feet</desc>
+					<binding>
+						<command>nasal</command>
+						<script>
+							setprop("/autopilot/settings/target-agl-ft", arg[0]);
+							setprop("/autopilot/locks/altitude", "agl-hold");
+						</script>
+					</binding>
+				</key>
+			</key>
+
+			<key n="110">
+				<name>n</name>
+				<desc>Nav1 glideslope</desc>
+				<binding>
+					<command>property-assign</command>
+					<property>/autopilot/locks/altitude</property>
+					<value>gs1-hold</value>
+				</binding>
+			</key>
+
+			<key n="47">
+				<name>/</name>
+				<desc>Pitch/Altitude control: disable</desc>
+				<binding>
+					<command>property-assign</command>
+					<property>/autopilot/locks/altitude</property>
+					<value></value>
+				</binding>
+			</key>
+		</key>
+
+		<key n="114">
+			<name>r</name>
+			<desc>Route Manager</desc>
+			<key n="97">
+				<name>a</name>
+				<desc>Append waypoint</desc>
+				<key n="903">
+					<name>%s</name>
+					<desc>Append waypoint: airport ID[@altitude] = %s</desc>
+					<binding>
+						<command>nasal</command>
+						<script>setprop("/autopilot/route-manager/input", arg[0])</script>
+					</binding>
+				</key>
+			</key>
+
+			<key n="99">
+				<name>c</name>
+				<desc>Clear waypoints</desc>
+				<binding>
+					<command>nasal</command>
+					<script>setprop("/autopilot/route-manager/input", "@clear")</script>
+				</binding>
+			</key>
+
+			<key n="100">
+				<name>d</name>
+				<desc>Delete waypoint</desc>
+				<key n="902">
+					<name>%u</name>
+					<desc>Delete waypoint at %u</desc>
+					<binding>
+						<command>nasal</command>
+						<script>
+							var command = sprintf("@delete%d", arg[0] > 0 ? arg[0] - 1 : 0);
+							setprop("/autopilot/route-manager/input", command);
+						</script>
+					</binding>
+				</key>
+			</key>
+
+			<key n="105">
+				<name>i</name>
+				<desc>Insert waypoint</desc>
+				<key n="902">
+					<name>%u</name>
+					<desc>Insert waypoint at %u</desc>
+					<key n="903">
+						<name>%s</name>
+						<desc>Insert waypoint at %u: airport ID = %s</desc>
+						<binding>
+							<command>nasal</command>
+							<script>
+								var command = sprintf("@insert%d:%s", arg[0] > 0 ? arg[0] - 1 : 0, arg[1]);
+								setprop("/autopilot/route-manager/input", command);
+							</script>
+						</binding>
+					</key>
+				</key>
+			</key>
+
+			<key n="112">
+				<name>p</name>
+				<desc>Remove first waypoint</desc>
+				<binding>
+					<command>nasal</command>
+					<script>setprop("/autopilot/route-manager/input", "@pop")</script>
+				</binding>
+			</key>
+		</key>
+	</key>
+
+	<nasal>
+		<script>
+			var slewEngineProp = func(format, index, prop, value) {
+				value = controls.slewProp("/controls/engines/engine[" ~ index ~ "]/" ~ prop, value);
+				_ = sprintf(format, index, value);
+			}
+		</script>
+	</nasal>
+
+	<key n="101">
+		<name>e</name>
+		<desc>Engines</desc>
+		<key n="109">
+			<name>m</name>
+			<desc>Mixture (0.0 to 1.0)</desc>
+			<binding>
+				<command>null</command>
+			</binding>
+
+			<key n="901">
+				<name>%f</name>
+				<desc>Mixture = %.3f</desc>
+				<binding>
+					<command>nasal</command>
+					<script>props.setAll("/controls/engines/engine", "mixture", arg[0])</script>
+				</binding>
+			</key>
+
+			<key n="94">
+				<name>^</name>
+				<desc>Mixture up</desc>
+				<no-exit/>
+				<binding>
+					<command>nasal</command>
+					<script>_ = sprintf("Mixture = %.3f", controls.adjMixture(0.25))</script>
+				</binding>
+			</key>
+
+			<key n="95">
+				<name>_</name>
+				<desc>Mixture down</desc>
+				<no-exit/>
+				<binding>
+					<command>nasal</command>
+					<script>_ = sprintf("Mixture = %.3f", controls.adjMixture(-0.25))</script>
+				</binding>
+			</key>
+		</key>
+
+		<key n="112">
+			<name>p</name>
+			<desc>Propeller pitch (0.0 to 1.0)</desc>
+			<binding>
+				<command>null</command>
+			</binding>
+
+			<key n="901">
+				<name>%f</name>
+				<desc>Propeller pitch = %.3f</desc>
+				<binding>
+					<command>nasal</command>
+					<script>props.setAll("/controls/engines/engine", "propeller-pitch", arg[0])</script>
+				</binding>
+			</key>
+
+			<key n="94">
+				<name>^</name>
+				<desc>Propeller pitch up</desc>
+				<no-exit/>
+				<binding>
+					<command>nasal</command>
+					<script>_ = sprintf("Propeller pitch = %.3f", controls.adjPropeller(0.25))</script>
+				</binding>
+			</key>
+
+			<key n="95">
+				<name>_</name>
+				<desc>Propeller pitch down</desc>
+				<no-exit/>
+				<binding>
+					<command>nasal</command>
+					<script>_ = sprintf("Propeller pitch = %.3f", controls.adjPropeller(-0.25))</script>
+				</binding>
+			</key>
+		</key>
+
+		<key n="116">
+			<name>t</name>
+			<desc>Throttle (0.0 to 1.0)</desc>
+			<binding>
+				<command>null</command>
+			</binding>
+
+			<key n="901">
+				<name>%f</name>
+				<desc>Throttle = %.3f</desc>
+				<binding>
+					<command>nasal</command>
+					<script>props.setAll("/controls/engines/engine", "throttle", arg[0])</script>
+				</binding>
+			</key>
+
+			<key n="94">
+				<name>^</name>
+				<desc>Throttle up</desc>
+				<no-exit/>
+				<binding>
+					<command>nasal</command>
+					<script>_ = sprintf("Throttle = %.3f", controls.adjThrottle(0.25))</script>
+				</binding>
+			</key>
+
+			<key n="95">
+				<name>_</name>
+				<desc>Throttle down</desc>
+				<no-exit/>
+				<binding>
+					<command>nasal</command>
+					<script>_ = sprintf("Throttle = %.3f", controls.adjThrottle(-0.25))</script>
+				</binding>
+			</key>
+		</key>
+
+		<key n="902">
+			<name>%u</name>
+			<desc>Engine #%u</desc>
+			<key n="109">
+				<name>m</name>
+				<desc>Mixture (0.0 to 1.0)</desc>
+				<binding>
+					<command>null</command>
+				</binding>
+
+				<key n="901">
+					<name>%f</name>
+					<desc>Mixture = %.3f</desc>
+					<binding>
+						<command>nasal</command>
+						<script>setprop("/controls/engines/engine[" ~ arg[0] ~ "]/mixture", arg[1])</script>
+					</binding>
+				</key>
+
+				<key n="94">
+					<name>^</name>
+					<desc>Mixture up</desc>
+					<no-exit/>
+					<binding>
+						<command>nasal</command>
+						<script>slewEngineProp("Mixture #%u = %.3f", arg[0], "mixture", 0.25)</script>
+					</binding>
+				</key>
+
+				<key n="95">
+					<name>_</name>
+					<desc>Mixture down</desc>
+					<no-exit/>
+					<binding>
+						<command>nasal</command>
+						<script>slewEngineProp("Mixture #%u = %.3f", arg[0], "mixture", -0.25)</script>
+					</binding>
+				</key>
+			</key>
+
+			<key n="112">
+				<name>p</name>
+				<desc>Propeller pitch (0.0 to 1.0)</desc>
+				<binding>
+					<command>null</command>
+				</binding>
+
+				<key n="901">
+					<name>%f</name>
+					<desc>Propeller pitch = %.3f</desc>
+					<binding>
+						<command>nasal</command>
+						<script>setprop("/controls/engines/engine[" ~ arg[0] ~ "]/propeller-pitch", arg[1])</script>
+					</binding>
+				</key>
+
+				<key n="94">
+					<name>^</name>
+					<desc>Propeller up</desc>
+					<no-exit/>
+					<binding>
+						<command>nasal</command>
+						<script>slewEngineProp("Propeller pitch #%u = %.3f", arg[0], "propeller-pitch", 0.25)</script>
+					</binding>
+				</key>
+
+				<key n="95">
+					<name>_</name>
+					<desc>Propeller down</desc>
+					<no-exit/>
+					<binding>
+						<command>nasal</command>
+						<script>slewEngineProp("Propeller pitch #%u = %.3f", arg[0], "propeller-pitch", -0.25)</script>
+					</binding>
+				</key>
+			</key>
+
+			<key n="116">
+				<name>t</name>
+				<desc>Throttle (0.0 to 1.0)</desc>
+				<binding>
+					<command>null</command>
+				</binding>
+
+				<key n="901">
+					<name>%f</name>
+					<desc>Throttle = %.3f</desc>
+					<binding>
+						<command>nasal</command>
+						<script>setprop("/controls/engines/engine[" ~ arg[0] ~ "]/throttle", arg[1])</script>
+					</binding>
+				</key>
+
+				<key n="94">
+					<name>^</name>
+					<desc>Throttle up</desc>
+					<no-exit/>
+					<binding>
+						<command>nasal</command>
+						<script>slewEngineProp("Throttle #%u = %.3f", arg[0], "throttle", 0.25)</script>
+					</binding>
+				</key>
+
+				<key n="95">
+					<name>_</name>
+					<desc>Throttle down</desc>
+					<no-exit/>
+					<binding>
+						<command>nasal</command>
+						<script>slewEngineProp("Throttle #%u = %.3f", arg[0], "throttle", -0.25)</script>
+					</binding>
+				</key>
+			</key>
+		</key>
+	</key>
+
+	<!-- Flight Controls -->
+	<key n="102">
+		<name>f</name>
+		<desc>Flight controls</desc>
+		<key n="97">
+			<name>a</name>
+			<desc>Aileron</desc>
+			<key n="901">
+				<name>%f</name>
+				<desc>Aileron adjustment: %.3f</desc>
+				<binding>
+					<command>nasal</command>
+					<script>adjustprop("/controls/flight/aileron", arg[0])</script>
+				</binding>
+			</key>
+
+			<key n="116">
+				<name>t</name>
+				<desc>Aileron trim</desc>
+				<binding>
+					<command>null</command>
+				</binding>
+
+				<key n="901">
+					<name>%f</name>
+					<desc>Aileron trim adjustment: %.3f</desc>
+					<binding>
+						<command>nasal</command>
+						<script>adjustprop("/controls/flight/aileron-trim", arg[0])</script>
+					</binding>
+				</key>
+
+				<key n="60">
+					<name>&lt;</name>
+					<desc>Aileron trim adjustment left</desc>
+					<no-exit/>
+					<binding>
+						<command>nasal</command>
+						<script>_ = sprintf("Aileron trim = %.3f", controls.aileronTrim(-0.5))</script>
+					</binding>
+				</key>
+
+				<key n="62">
+					<name>&gt;</name>
+					<desc>Aileron trim adjustment right</desc>
+					<no-exit/>
+					<binding>
+						<command>nasal</command>
+						<script>_ = sprintf("Aileron trim = %.3f", controls.aileronTrim(0.5))</script>
+					</binding>
+				</key>
+			</key>
+		</key>
+
+		<key n="101">
+			<name>e</name>
+			<desc>Elevator</desc>
+			<key n="901">
+				<name>%f</name>
+				<desc>Elevator adjustment: %.3f</desc>
+				<binding>
+					<command>nasal</command>
+					<script>adjustprop("/controls/flight/elevator", arg[0])</script>
+				</binding>
+			</key>
+
+			<key n="116">
+				<name>t</name>
+				<desc>Elevator trim</desc>
+				<binding>
+					<command>null</command>
+				</binding>
+
+				<key n="901">
+					<name>%f</name>
+					<desc>Elevator trim adjustment: %.3f</desc>
+					<binding>
+						<command>nasal</command>
+						<script>adjustprop("/controls/flight/elevator-trim", arg[0])</script>
+					</binding>
+				</key>
+
+				<key n="94">
+					<name>^</name>
+					<desc>Elevator trim adjustment down</desc>
+					<no-exit/>
+					<binding>
+						<command>nasal</command>
+						<script>_ = sprintf("Elevator trim = %.3f", controls.elevatorTrim(0.5))</script>
+					</binding>
+				</key>
+
+				<key n="95">
+					<name>_</name>
+					<desc>Elevator trim adjustment up</desc>
+					<no-exit/>
+					<binding>
+						<command>nasal</command>
+						<script>_ = sprintf("Elevator trim = %.3f", controls.elevatorTrim(-0.5))</script>
+					</binding>
+				</key>
+			</key>
+		</key>
+
+		<key n="114">
+			<name>r</name>
+			<desc>Rudder</desc>
+			<key n="901">
+				<name>%f</name>
+				<desc>Rudder adjustment: %.3f</desc>
+				<binding>
+					<command>nasal</command>
+					<script>adjustprop("/controls/flight/rudder", arg[0])</script>
+				</binding>
+			</key>
+
+<!-- Do we need absolute control position settings?
+			<key n="61">
+				<name>&#61;</name>
+				<key n="37">
+					<name>%f</name>
+					<desc>Rudder = %.3f</desc>
+					<binding>
+						<command>nasal</command>
+						<script>setprop("/controls/flight/rudder-trim", arg[0])</script>
+					</binding>
+				</key>
+			</key>
+-->
+			<key n="116">
+				<name>t</name>
+				<desc>Rudder trim</desc>
+				<binding>
+					<command>null</command>
+				</binding>
+
+				<key n="901">
+					<name>%f</name>
+					<desc>Rudder trim adjustment: %.3f</desc>
+					<binding>
+						<command>nasal</command>
+						<script>adjustprop("/controls/flight/rudder-trim", arg[0])</script>
+					</binding>
+				</key>
+
+				<key n="60">
+					<name>&lt;</name>
+					<desc>Rudder trim adjustment left</desc>
+					<no-exit/>
+					<binding>
+						<command>nasal</command>
+						<script>_ = sprintf("Rudder trim = %.3f", controls.rudderTrim(-0.5))</script>
+					</binding>
+				</key>
+
+				<key n="62">
+					<name>&gt;</name>
+					<desc>Rudder trim adjustment right</desc>
+					<no-exit/>
+					<binding>
+						<command>nasal</command>
+						<script>_ = sprintf("Rudder trim = %.3f", controls.rudderTrim(0.5))</script>
+					</binding>
+				</key>
+			</key>
+		</key>
+
+		<key n="105">
+			<name>i</name> <!-- FIXME: for good name -->
+			<desc>Initialize</desc>
+			<key n="97">
+				<name>a</name>
+				<desc>Initialize all trims</desc>
+				<binding>
+					<command>nasal</command>
+					<script>
+						setprop("/controls/flight/aileron-trim", 0);
+						setprop("/controls/flight/elevator-trim", 0);
+						setprop("/controls/flight/rudder-trim", 0);
+					</script>
+				</binding>
+			</key>
+		</key>
+
+		<key n="119">
+			<name>w</name>
+			<desc>Wing</desc>
+			<key n="102">
+				<name>f</name>
+				<desc>Toggle wing fold</desc>
+				<binding>
+					<command>property-toggle</command>
+					<property>/controls/flight/wing-fold</property>
+				</binding>
+			</key>
+
+			<key n="115">
+				<name>s</name>
+				<desc>Wing sweep</desc>
+				<key n="901">
+					<name>%f</name>
+					<desc>Wing sweep = %.3f</desc>
+					<binding>
+						<command>nasal</command>
+						<script>setprop("/controls/flight/wing-sweep", arg[0])</script>
+					</binding>
+				</key>
+			</key>
+		</key>
+	</key>
+
+	<!-- Radio -->
+	<nasal>
+		<script>
+			var radio_fmt = "/instrumentation/%s[%u]/frequencies/%s-mhz";
+
+			var setfreq = func(type, index, which, value) {
+				index = (index >= 1) ? index - 1 : 0;
+				setpropf(radio_fmt, type, index, which, value);
+			}
+
+			var togglefreq = func(type, index) {
+				index = (index >= 1) ? index - 1 : 0;
+				var sel = sprintf(radio_fmt, type, index, "selected");
+				var stby = sprintf(radio_fmt, type, index, "standby");
+				var s = getprop(stby);
+				setprop(stby, getprop(sel));
+				setprop(sel, s);
+			}
+
+			var settacan = func(number, letter) {
+				var ch = sprintf("%03u%s", number, letter);
+				var p = "/instrumentation/tacan/frequencies/selected-channel[%u]";
+				setpropf(p, 1, chr(ch[0]));
+				setpropf(p, 2, chr(ch[1]));
+				setpropf(p, 3, chr(ch[2]));
+				setpropf(p, 4, chr(ch[3]));
+			}
+		</script>
+	</nasal>
+
+	<key n="114">
+		<name>r</name>
+		<desc>Radio</desc>
+
+		<key n="97">
+			<name>a</name>
+			<desc>ADF</desc>
+			<key n="102">
+				<name>f</name>
+				<desc>ADF frequency = ? kHz</desc>
+				<key n="902">
+					<name>%u</name>
+					<desc>ADF frequency = %u kHz</desc>
+					<binding>
+						<command>nasal</command>
+						<script>setprop("/instrumentation/adf[0]/frequencies/selected-khz", arg[0])</script>
+					</binding>
+				</key>
+			</key>
+		</key>
+
+		<key n="99">
+			<name>c</name>
+			<desc>Comm</desc>
+			<key n="902">
+				<name>%u</name>
+				<desc>Comm%u</desc>
+				<key n="102">
+					<name>f</name>
+					<desc>Comm%u frequency = ? MHz</desc>
+					<key n="37">
+						<name>%f</name>
+						<desc>Comm%u frequency = %.3f MHz</desc>
+						<binding>
+							<command>nasal</command>
+							<script>setfreq("comm", arg[0], "selected", arg[1])</script>
+						</binding>
+					</key>
+				</key>
+
+				<key n="115">
+					<name>s</name>
+					<desc>Comm%u standby frequency = ? MHz</desc>
+					<key n="901">
+						<name>%f</name>
+						<desc>Comm%u standby frequency = %.3f MHz</desc>
+						<binding>
+							<command>nasal</command>
+							<script>setfreq("comm", arg[0], "standby", arg[1])</script>
+						</binding>
+					</key>
+				</key>
+
+				<key n="116">
+					<name>t</name>
+					<desc>Comm%u toggle selected/standby</desc>
+					<binding>
+						<command>nasal</command>
+						<script>togglefreq("comm", arg[0])</script>
+					</binding>
+				</key>
+			</key>
+		</key>
+
+		<key n="110">
+			<name>n</name>
+			<desc>Nav</desc>
+			<key n="902">
+				<name>%u</name>
+				<desc>Nav%u</desc>
+				<key n="102">
+					<name>f</name>
+					<desc>Nav%u frequency = ? MHz</desc>
+					<key n="901">
+						<name>%f</name>
+						<desc>Nav%u frequency = %.3f MHz</desc>
+						<binding>
+							<command>nasal</command>
+							<script>setfreq("nav", arg[0], "selected", arg[1])</script>
+						</binding>
+					</key>
+				</key>
+
+				<key n="115">
+					<name>s</name>
+					<desc>Nav%u standby frequency = ? MHz</desc>
+					<key n="901">
+						<name>%f</name>
+						<desc>Nav%u standby frequency = %.3f MHz</desc>
+						<binding>
+							<command>nasal</command>
+							<script>setfreq("nav", arg[0], "standby", arg[1])</script>
+						</binding>
+					</key>
+				</key>
+
+				<key n="116">
+					<name>t</name>
+					<desc>Nav%u toggle selected/standby</desc>
+					<binding>
+						<command>nasal</command>
+						<script>togglefreq("nav", arg[0])</script>
+					</binding>
+				</key>
+			</key>
+		</key>
+
+		<key n="116">
+			<name>t</name>
+			<desc>TACAN channel = ?</desc>
+			<key n="902">
+				<name>%3u</name>
+				<desc>TACAN channel = %u</desc>
+				<key n="120">
+					<name>x</name>
+					<desc>TACAN channel = %uX</desc>
+					<binding>
+						<command>nasal</command>
+						<script>settacan(arg[0], "X")</script>
+					</binding>
+				</key>
+
+				<key n="121">
+					<name>y</name>
+					<desc>TACAN channel = %uY</desc>
+					<binding>
+						<command>nasal</command>
+						<script>settacan(arg[0], "Y")</script>
+					</binding>
+				</key>
+			</key>
+		</key>
+	</key>
+
+	<key n="120">
+		<name>x</name>
+		<desc>Experimental</desc>
+		<!-- reserved for experimental features -->
+	</key>
+
+	<key n="902">
+		<name>%u</name>
+		<desc>Execute nasal-console tab #%u</desc>
+		<exit/>
+		<binding>
+			<command>nasal</command>
+			<script>
+				fgcommand("nasal", props.Node.new({
+					module: "__nasal_console",
+					script: getpropf("/sim/gui/dialogs/nasal-console/code[%u]", arg[0]) or "",
+				}));
+			</script>
+		</binding>
+	</key>
+</PropertyList>

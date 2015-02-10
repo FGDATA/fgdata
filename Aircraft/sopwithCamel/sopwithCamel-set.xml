@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<sim>
+		<description type="string">Sopwith Camel 1F.1 (uiuc)</description>
+		<author type="string">AJ MacLeod, Vivian Meazza, Michael Selig(FDM)</author>
+		<status type="string">early production</status>
+
+		<flight-model>larcsim</flight-model>
+		<aero>uiuc</aero>
+		<aircraft-dir>Aircraft/UIUC/sopwithCamel-v2-nl</aircraft-dir>
+
+		<startup>
+			<splash-texture>Aircraft/sopwithCamel/splash.rgb</splash-texture>
+		</startup>
+
+		<sound> 
+			<path>Aircraft/sopwithCamel/Sounds/uiuc/sopwithCamel-sound.xml</path>
+		</sound>
+
+		<virtual-cockpit archive="y">true</virtual-cockpit>
+		<allow-toggle-cockpit archive="y">false</allow-toggle-cockpit>
+
+		<model>
+			<path>Aircraft/sopwithCamel/Models/sopwithCamel-model.xml</path>
+			<texture-path>Aircraft/sopwithCamel/Models/Textures</texture-path>
+			<camel>
+				<extra-details archive="y" type="bool">true</extra-details>
+			</camel>
+		</model>
+
+		<view n="0">
+			<internal archive="y">true</internal>
+			<config>
+				<x-offset-m archive="y">0.0</x-offset-m> <!--Right-->
+				<y-offset-m archive="y">0.6563</y-offset-m> <!--Up-->
+				<z-offset-m archive="y">0.475</z-offset-m> <!--Back-->
+				<pitch-offset-deg>-15</pitch-offset-deg>
+				<default-field-of-view-deg>60</default-field-of-view-deg>
+			</config>
+		</view>
+
+		<menubar>
+			<default>
+				<menu n="10">
+					<label>Camel</label>
+					<enabled type="bool">true</enabled>
+					<item>
+						<label>Toggle extra details</label>
+						<binding>
+							<command>property-toggle</command>
+							<property>sim/model/camel/extra-details</property>
+						</binding>
+					</item>
+				</menu>
+			</default>
+		</menubar>
+	</sim>
+
+	<nasal>
+		<camel>
+			<file>Aircraft/sopwithCamel/Models/camel.nas</file>
+		</camel>
+	</nasal>
+</PropertyList>

@@ -1,0 +1,53 @@
+<!-- $Id$ -->
+<!--
+  Zeppelin NT07 airship.
+
+  Copyright (C) 2008 - 2009  Anders Gidenstam  (anders(at)gidenstam.org)
+  This file is licensed under the GPL license v2 or later.
+-->
+<PropertyList>
+
+ <path>CenterMFD.ac</path>
+ <offsets>
+  <!-- x/y/z == back/right/up -->
+  <x-m> 0.0 </x-m>
+  <y-m> 0.0 </y-m>
+  <z-m> 0.0 </z-m>
+ </offsets>
+
+ <model>
+  <name>Screen1</name>
+  <path>Aircraft/ZLT-NT/Models/Instruments/CenterMFD/screen-engines.xml</path>
+  <offsets>
+   <x-m> 0.000</x-m>
+   <y-m> 0.000</y-m>
+   <z-m> 0.000</z-m>
+  </offsets>
+ </model>
+
+ <model>
+  <name>Screen2</name>
+  <path>Aircraft/ZLT-NT/Models/Instruments/CenterMFD/screen-controls.xml</path>
+  <offsets>
+   <x-m> 0.01010</x-m>
+   <y-m>-0.01025</y-m>
+   <z-m> 0.35550</z-m>
+  </offsets>
+ </model>
+
+ <animation>
+  <type>select</type>
+  <object-name>Screen1</object-name>
+  <object-name>Screen2</object-name>
+  <condition>
+   <property>instrumentation/CenterMFD/serviceable</property>
+  </condition>
+ </animation>
+
+ <animation>
+  <type>range</type>
+  <min-m>0</min-m>
+  <max-m>15</max-m>
+ </animation>
+
+</PropertyList>

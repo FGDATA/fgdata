@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<PropertyList>
+
+  <name>pushback</name>
+  <layout>vbox</layout>
+  
+  <nasal>
+    <open>
+       var pushback_position = aircraft.door.new("sim/model/pushback", 10.0);
+       pushback_position.setpos(pushback_position.getpos());
+       props.globals.getNode("/sim/model/pushback/enabled", 1 ).setBoolValue(1);
+       props.globals.initNode("/sim/model/pushback/target-speed-fps", 0.0  );
+    </open>
+    <close>
+       pushback_position.setpos(0);
+       setprop("/sim/model/pushback/enabled", 0 );
+       setprop("/sim/model/pushback/target-speed-fps", 0 );
+       setprop("/sim/model/pushback/force", 0);
+    </close>
+  </nasal>
+
+  <group>
+    <layout>hbox</layout>
+    <text>
+      <label>Pushback</label>
+    </text>
+
+    <empty>
+      <stretch>true</stretch>
+    </empty>
+
+    <button>
+      <legend/>
+      <key>Esc</key>
+      <pref-width>16</pref-width>
+      <pref-height>16</pref-height>
+      <border>2</border>
+      <binding>
+        <command>dialog-close</command>
+      </binding>
+    </button>
+  </group>
+
+  <hrule/>
+
+  <group>
+    <stretch>true</stretch>
+    <layout>vbox</layout>
+    <halign>center</halign>
+    <valign>top</valign>
+
+    <checkbox>
+      <halign>left</halign>
+      <label>(Dis)Connect pushback</label>
+      <property>/sim/model/pushback/position-norm</property>
+      <binding>
+        <command>nasal</command>
+        <script>pushback_position.toggle();</script>
+      </binding>
+    </checkbox>
+
+    <group>
+      <layout>hbox</layout>
+
+      <text>
+        <label>Speed:</label>
+      </text>
+
+      <slider>
+        <row>0</row>
+        <col>2</col>
+        <min>-25</min> <!-- +/- 15kts -->
+        <max>25</max>
+        <property>/sim/model/pushback/target-speed-fps</property>
+        <binding>
+          <command>dialog-apply</command>
+        </binding>
+      </slider>
+
+      <text>
+        <pref-width>16</pref-width>
+        <property>/sim/model/pushback/target-speed-fps</property>
+        <format>%2.0f</format>
+        <live>true</live>
+      </text>
+
+      <text>
+        <label>fps</label>
+      </text>
+
+    </group>
+    
+  </group> </PropertyList> 

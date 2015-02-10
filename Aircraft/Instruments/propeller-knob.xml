@@ -1,0 +1,151 @@
+<?xml version="1.0"?>
+
+<!--
+Default throttle knob.
+
+Started Winter 2002 by David Megginson, david@megginson.com.
+-->
+
+<PropertyList>
+
+ <name>Propeller Knob</name>
+ <w-base>64</w-base>
+ <h-base>72</h-base>
+
+ <params>
+  <engine-propeller-select>/controls/engines/engine[0]/propeller-pitch</engine-propeller-select>
+ </params>
+ 
+ <layers>
+  <layer>
+   <name>background</name>
+    <texture>
+    <path>Aircraft/Instruments/Textures/misc-1.rgb</path>
+    <x1>0.625</x1>
+    <y1>0.2275</y1>
+    <x2>0.8</x2>
+    <y2>0.415</y2>
+   </texture>
+   <w>64</w>
+   <h>64</h>
+  </layer>   
+<!-- fix texture -->
+<!--layer>
+   <name>shaft</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/misc-1.rgb</path>
+    <x1>0.890625</x1>
+    <y1>0.8125</y1>
+    <x2>0.921875</x2>
+    <y2>1.0</y2>
+   </texture>
+   <w>16</w>
+   <h>24</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-5</offset>
+    </transformation>
+   </transformations>
+  </layer-->
+  <layer>
+   <name>knob</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/handles.rgb</path>
+    <x1>0.5</x1>
+    <y1>0.5</y1>
+    <x2>1.0</x2>
+    <y2>1.0</y2>
+   </texture>
+   <w>64</w>
+   <h>64</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>0</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <property alias="../../../../../params/engine-propeller-select"/>
+     <min>0.0</min>
+     <max>1.0</max>
+     <scale>18</scale>
+     <offset>-20</offset>
+    </transformation>
+   </transformations>
+  </layer>
+ </layers>
+
+ <actions>
+
+  <action>
+   <name>small decrease</name>
+   <button>0</button>
+   <x>-32</x>
+   <y>-36</y>
+   <w>32</w>
+   <h>72</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/engine-propeller-select"/>
+    <step>-0.01</step>
+    <min>0</min>
+    <max>1.0</max>
+    <wrap>false</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>small increase</name>
+   <button>0</button>
+   <x>0</x>
+   <y>-36</y>
+   <w>32</w>
+   <h>72</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/engine-propeller-select"/>
+    <step>0.01</step>
+    <min>0</min>
+    <max>1.0</max>
+    <wrap>false</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>big decrease</name>
+   <button>1</button>
+   <x>-32</x>
+   <y>-36</y>
+   <w>32</w>
+   <h>72</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/engine-propeller-select"/>
+    <step>-0.1</step>
+    <min>0</min>
+    <max>1.0</max>
+    <wrap>false</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>big increase</name>
+   <button>1</button>
+   <x>0</x>
+   <y>-36</y>
+   <w>32</w>
+   <h>72</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/engine-propeller-select"/>
+    <step>0.1</step>
+    <min>0</min>
+    <max>1.0</max>
+    <wrap>false</wrap>
+   </binding>
+  </action>
+
+ </actions>
+
+</PropertyList>

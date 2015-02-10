@@ -1,0 +1,65 @@
+# Jeff Scott
+# Lockheed F-104, cruise configuration
+# small single jet engine supersonic fighter, data from:
+#	Roskam, Jan. Airplane Flight Dynamics and Automatic Flight
+# 	  Controls, Part I. Lawrence KS: DARcorporation, 1995, 
+# 	  pg 529-531
+# 03-23-2000    file creation
+
+init Dz_cg       3.0    # [ft]
+
+geometry bw     21.9    # [ft]
+geometry cbar    9.6    # [ft]
+geometry Sw    196.0    # [ft^2]
+
+controlSurface de 20 20 # [deg]  guess for now
+controlSurface da 20 20 # [deg]  guess for now
+controlSurface dr 20 20 # [deg]  guess for now
+
+mass Weight   16300     # [lb]
+mass I_xx      3600     # [slug-ft^2]
+mass I_yy     59000     # [slug-ft^2]
+mass I_zz     60000     # [slug-ft^2]
+mass I_xz         0     # [slug-ft^2]
+
+
+# Roskam: CTx=0.2634 (SL conditions) --> 5050 lb
+# aircraft specs:  7800 lb static thrust (F-104A)
+#                 15800 lb static thrust (F-104G)
+#                 18800 lb static thrust (F-104S)
+engine simpleSingle 8000 # [lb]
+
+
+CL CLo      0.122       # []
+CL CL_a     2.005       # [/rad]
+CL CL_adot  0.82        # [/rad]
+CL CL_q     1.9         # [/rad]
+CL CL_de    0.684       # [/rad]    used CLih (typo in Roskam?)
+
+CD CDo      0.048       # []
+CD CD_a     0.384       # [/rad]
+CD CD_de    0.0         # [/rad]
+
+Cm Cmo     -0.028       # []
+Cm Cm_a    -1.308       # [/rad]
+Cm Cm_adot -2.05        # [/rad]
+Cm Cm_q    -4.83        # [/rad]
+Cm Cm_de   -1.6         # [/rad]    used Cmih (typo in Roskam?)
+
+CY CY_beta -1.045       # [/rad]
+CY CY_p     0.0         # [/rad]
+CY CY_r     0.0         # [/rad]
+CY CY_da    0.0         # [/rad]    sign reversed
+CY CY_dr    0.087       # [/rad]
+
+Cl Cl_beta -0.093       # [/rad]
+Cl Cl_p    -0.272       # [/rad]
+Cl Cl_r     0.154       # [/rad]
+Cl Cl_da   -0.0173      # [/rad]    sign reversed
+Cl Cl_dr    0.0079      # [/rad]
+
+Cn Cn_beta  0.242       # [/rad]
+Cn Cn_p    -0.093       # [/rad]
+Cn Cn_r    -0.649       # [/rad]
+Cn Cn_da   -0.0025      # [/rad]    sign reversed
+Cn Cn_dr   -0.0435      # [/rad]

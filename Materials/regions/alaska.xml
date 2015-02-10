@@ -1,0 +1,148 @@
+<?xml version="1.0"?>
+<!-- REGIONAL DEFINITION ALASKA AND NORTHWEST TERRITORIES-->
+<PropertyList>
+  <name>Alaska and NW Territories</name>
+
+  <area>
+    <lon1>-180.0</lon1>
+    <lon2>-60.0</lon2>
+    <lat1>55.0</lat1>
+    <lat2>90.0</lat2>
+  </area>
+
+  <material>
+    <effect>Effects/forest</effect>
+    <name>MixedForestCover</name>
+    <name>MixedForest</name>
+    <name>RainForest</name>
+    <texture-set>
+     <texture>Terrain/mixedforest-hires-autumn.png</texture>
+     <texture n="11">Terrain/grass_hires.png</texture>
+     <texture n="12">Terrain/herbtundra_iceland.png</texture>
+    </texture-set>
+    <parameters>
+     <hires_overlay_bias>-0.05</hires_overlay_bias>
+    </parameters>
+    <xsize>2000</xsize>
+    <ysize>2000</ysize>
+    <light-coverage>5000000.0</light-coverage>
+    <wood-coverage>4000.0</wood-coverage>
+    <tree-texture>Trees/mixed-alt.png</tree-texture>
+    <tree-varieties>8</tree-varieties>
+    <tree-range-m alias="/params/forest/tree-range-m"/>
+    <tree-height-m>25.0</tree-height-m>
+    <tree-width-m>15.0</tree-width-m>
+    <rolling-friction>1</rolling-friction>
+    <bumpiness>0.95</bumpiness>
+  </material>
+
+   <material>
+    <effect>Effects/forest</effect>
+    <name>DeciduousBroadCover</name>
+    <name>DeciduousForest</name>
+    <name>Bog</name>
+    <name>Heath</name>
+    <texture-set>
+     <texture>Terrain/deciduous-hires-autumn.png</texture>
+     <texture n="11">Terrain/grass_hires.png</texture>
+     <texture n="12">Terrain/herbtundra_iceland.png</texture>
+    </texture-set>
+    <parameters>
+     <hires_overlay_bias>-0.05</hires_overlay_bias>
+    </parameters>
+    <xsize>2000</xsize>
+    <ysize>2000</ysize>
+    <light-coverage>10000000.0</light-coverage>
+    <wood-coverage>4000.0</wood-coverage>
+    <tree-texture>Trees/deciduous-alt.png</tree-texture>
+    <tree-varieties>8</tree-varieties>
+    <tree-range-m alias="/params/forest/tree-range-m"/>
+    <tree-height-m>25.0</tree-height-m>
+    <tree-width-m>15.0</tree-width-m>
+    <forest-effect-size>1500.0</forest-effect-size>
+    <forest-effect-shape>0.0</forest-effect-shape>
+    <rolling-friction>1</rolling-friction>
+    <bumpiness>0.85</bumpiness>
+  </material>
+
+  <material>
+    <effect>Effects/landmass-scrub</effect>
+    <name>ShrubCover</name>
+    <name>ShrubGrassCover</name>
+    <name>ScrubCover</name>
+    <name>Scrub</name>
+    <name>Sclerophyllous</name>
+    <texture-set>
+      <texture>Terrain/shrub1-autumn.png</texture>
+      <texture n="11">Terrain/grass_hires.png</texture>
+      <texture n="12">Terrain/herbtundra_iceland.png</texture>
+      <texture n="14">Terrain/grain_texture.png</texture>
+      <texture n="15">Terrain/airport_grass2.png</texture>
+    </texture-set>
+    <xsize>2000</xsize>
+    <ysize>2000</ysize>
+    <diffuse>
+      <r>0.86</r>
+      <g>0.86</g>
+      <b>0.86</b>
+      <a>1.0</a>
+    </diffuse>
+    <specular>
+      <r>0.1</r>
+      <g>0.1</g>
+      <b>0.1</b>
+      <a>1.0</a>
+    </specular>
+    <shininess>1.2</shininess>
+    <light-coverage>20000000.0</light-coverage>
+    <wood-coverage>12000.0</wood-coverage>
+    <tree-texture>Trees/mixed-shrub.png</tree-texture>
+    <tree-varieties>8</tree-varieties>
+    <tree-range-m alias="/params/forest/tree-range-m"/>
+    <tree-height-m>2.0</tree-height-m>
+    <tree-width-m>2.0</tree-width-m>
+    <rolling-friction>0.6</rolling-friction>
+    <bumpiness>0.4</bumpiness>
+  </material>
+
+  <material>
+    <name>EvergreenBroadCover</name>
+    <name>EvergreenForest</name>
+    <effect>Effects/forest</effect>
+    <texture-set>
+     <texture>Terrain/forest1a.png</texture>
+     <texture n="11">Terrain/grass_hires.png</texture>
+     <texture n="12">Terrain/herbtundra_iceland.png</texture>
+    </texture-set>
+    <parameters>
+     <hires_overlay_bias>-0.05</hires_overlay_bias>
+    </parameters>
+    <xsize>2000</xsize>
+    <ysize>2000</ysize>
+    <light-coverage>10000000.0</light-coverage>
+    <wood-coverage>4000.0</wood-coverage>
+    <tree-texture>Trees/coniferous-alt.png</tree-texture>
+    <tree-varieties>8</tree-varieties>
+    <tree-range-m alias="/params/forest/tree-range-m"/>
+    <tree-height-m>25.0</tree-height-m>
+    <tree-width-m>18.0</tree-width-m>
+    <rolling-friction>1</rolling-friction>
+    <bumpiness>1</bumpiness>
+  </material>
+
+  <material>
+    <name>Sand</name>
+    <texture-set>
+      <texture>Terrain/herbtundra_iceland.png</texture>
+      <texture n="11">Terrain/grass_hires.png</texture>
+    </texture-set>
+    <xsize>2000</xsize>
+    <ysize>2000</ysize>
+    <light-coverage>10000000.0</light-coverage>
+    <shininess>2.5</shininess>
+    <rolling-friction>0.1</rolling-friction>
+    <friction-factor>0.7</friction-factor>
+    <bumpiness>0.1</bumpiness>
+  </material>
+
+</PropertyList>

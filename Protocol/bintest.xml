@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+ <generic>
+
+  <output>
+   <binary_mode>true</binary_mode>
+   <binary_footer>magic,0x12345678</binary_footer>
+
+   <chunk>
+    <name>indicated speed (kt)</name>
+    <type>int</type>
+    <node>/velocities/airspeed-kt</node>
+   </chunk>
+ 
+   <chunk>
+    <name>pitch att (deg)</name>
+    <type>float</type>
+    <node>/orientation/pitch-deg</node>
+   </chunk>
+
+   <chunk>
+    <name>magnetic heading (deg)</name>
+    <type>float</type>
+    <node>/orientation/heading-deg</node>
+   </chunk>
+
+   <chunk>
+    <name>outside air temperarure (degF)</name>
+    <type>int</type>
+    <node>/environment/temperature-degf</node>
+   </chunk>
+
+   <chunk>
+    <name>autocoord</name>
+    <type>bool</type>
+    <node>/controls/flight/auto-coordination</node>
+   </chunk>
+
+   <!-- chunk>
+    <name>clock</name>
+    <type>string</type>
+    <node>/instrumentation/clock/indicated-string</node>
+   </chunk -->
+
+  </output>
+
+ </generic>
+
+</PropertyList>

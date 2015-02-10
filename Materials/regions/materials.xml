@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!-- FlightGear Materials File. See Docs/README.materials for details. -->
+
+<PropertyList>
+
+ <!-- Shared parameters for various materials. -->
+<params>
+  <forest>
+    <!-- Maximum distance from which all trees are visible. -->
+    <!-- Some trees will be visible to twice this range  -->
+    <tree-range-m>8000</tree-range-m>
+  </forest>
+  <building>
+    <!-- Maximum distance from which all buildings are visible -->
+    <!-- Some buildings will be visible to twice this range. -->
+    <building-range-m>10000</building-range-m>
+  </building>
+</params>
+
+<!-- Base materials -->
+<region include="Materials/regions/global.xml"/>
+<region include="Materials/regions/global-summer.xml"/>
+<region include="Materials/regions/global-winter.xml"/>
+
+<!-- Arctic and Antarctic Regions -->
+<region include="Materials/regions/arctic.xml"/>
+<region include="Materials/regions/north_atlantic_islands.xml"/>
+
+<!-- North America -->
+<region include="Materials/regions/alaska.xml"/>
+<region include="Materials/regions/us_southwest.xml"/>
+<region include="Materials/regions/california.xml"/>
+<region include="Materials/regions/sierras.xml"/>
+
+<!-- South America -->
+<region include="Materials/regions/tropical_south_america.xml"/>
+<region include="Materials/regions/caribbean.xml"/>
+<region include="Materials/regions/ascension.xml"/>
+
+<!-- Middle East-->
+<region include="Materials/regions/middle_east.xml"/>
+
+<!-- Asia -->
+<region include="Materials/regions/asia.xml"/>
+
+<!-- Pacific-->
+<region include="Materials/regions/indonesia.xml"/>
+<region include="Materials/regions/hawaii.xml"/>
+<region include="Materials/regions/oahu.xml"/>
+
+<!-- Africa -->
+<region include="Materials/regions/south_africa.xml"/>
+<region include="Materials/regions/madagascar.xml"/>
+
+<!-- Europe -->
+<region include="Materials/regions/europe.xml"/>
+<region include="Materials/regions/scandinavia.xml"/>
+<region include="Materials/regions/united_kingdom.xml"/>
+<region include="Materials/regions/ireland.xml"/>
+<region include="Materials/regions/corse.xml"/>
+<region include="Materials/regions/iceland.xml"/>
+
+</PropertyList>

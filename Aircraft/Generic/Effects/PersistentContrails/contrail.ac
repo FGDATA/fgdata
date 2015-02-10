@@ -1,0 +1,194 @@
+AC3Db
+MATERIAL "ac3dmat1" rgb 1 1 1  amb 1 1 1  emis 0 0 0  spec 1 1 1  shi 100  trans 0.482
+OBJECT world
+kids 10
+OBJECT poly
+name "rect1"
+loc -0.242457 -0.06195 -1.19202e-006
+texture "contrail.dds"
+crease 45.000000
+numvert 4
+0 -24.938 -25
+0 -24.938 25
+0 25.062 25
+0 25.062 -25
+numsurf 1
+SURF 0x0
+mat 0
+refs 4
+0 -0.046875 -0.0468746
+1 1.04687 -0.0468746
+2 1.04687 1.04687
+3 -0.046875 1.04687
+kids 0
+OBJECT poly
+name "rect2"
+loc -0.188577 -0.06195 -1.19202e-006
+texture "contrail.dds"
+crease 45.000000
+numvert 4
+0 25.062 -25
+0 25.062 25
+0 -24.938 25
+0 -24.938 -25
+numsurf 1
+SURF 0x0
+mat 0
+refs 4
+3 -0.046875 -0.0468746
+2 1.04687 -0.0468746
+1 1.04687 1.04687
+0 -0.046875 1.04687
+kids 0
+OBJECT poly
+name "rect3"
+loc -0.134698 -0.06195 -1.19202e-006
+texture "contrail.dds"
+crease 45.000000
+numvert 4
+0 -24.938 -25
+0 -24.938 25
+0 25.062 25
+0 25.062 -25
+numsurf 1
+SURF 0x0
+mat 0
+refs 4
+0 -0.046875 -0.0468746
+1 1.04687 -0.0468746
+2 1.04687 1.04687
+3 -0.046875 1.04687
+kids 0
+OBJECT poly
+name "rect4"
+loc -0.0808192 -0.06195 -1.19202e-006
+texture "contrail.dds"
+crease 45.000000
+numvert 4
+0 25.062 -25
+0 25.062 25
+0 -24.938 25
+0 -24.938 -25
+numsurf 1
+SURF 0x0
+mat 0
+refs 4
+3 -0.046875 -0.0468746
+2 1.04687 -0.0468746
+1 1.04687 1.04687
+0 -0.046875 1.04687
+kids 0
+OBJECT poly
+name "rect5"
+loc -0.0269392 -0.06195 -1.19202e-006
+texture "contrail.dds"
+crease 45.000000
+numvert 4
+0 -24.938 -25
+0 -24.938 25
+0 25.062 25
+0 25.062 -25
+numsurf 1
+SURF 0x0
+mat 0
+refs 4
+0 -0.046875 -0.0468746
+1 1.04687 -0.0468746
+2 1.04687 1.04687
+3 -0.046875 1.04687
+kids 0
+OBJECT poly
+name "rect6"
+loc 0.0269398 -0.06195 -1.19202e-006
+texture "contrail.dds"
+crease 45.000000
+numvert 4
+0 25.062 -25
+0 25.062 25
+0 -24.938 25
+0 -24.938 -25
+numsurf 1
+SURF 0x0
+mat 0
+refs 4
+3 -0.046875 -0.0468746
+2 1.04687 -0.0468746
+1 1.04687 1.04687
+0 -0.046875 1.04687
+kids 0
+OBJECT poly
+name "rect7"
+loc 0.0808188 -0.06195 -1.19202e-006
+texture "contrail.dds"
+crease 45.000000
+numvert 4
+0 -24.938 -25
+0 -24.938 25
+0 25.062 25
+0 25.062 -25
+numsurf 1
+SURF 0x0
+mat 0
+refs 4
+0 -0.046875 -0.0468746
+1 1.04687 -0.0468746
+2 1.04687 1.04687
+3 -0.046875 1.04687
+kids 0
+OBJECT poly
+name "rect8"
+loc 0.134698 -0.06195 -1.19202e-006
+texture "contrail.dds"
+crease 45.000000
+numvert 4
+0 25.062 -25
+0 25.062 25
+0 -24.938 25
+0 -24.938 -25
+numsurf 1
+SURF 0x0
+mat 0
+refs 4
+3 -0.046875 -0.0468746
+2 1.04687 -0.0468746
+1 1.04687 1.04687
+0 -0.046875 1.04687
+kids 0
+OBJECT poly
+name "rect9"
+loc 0.188578 -0.06195 -1.19202e-006
+texture "contrail.dds"
+crease 45.000000
+numvert 4
+0 -24.938 -25
+0 -24.938 25
+0 25.062 25
+0 25.062 -25
+numsurf 1
+SURF 0x0
+mat 0
+refs 4
+0 -0.046875 -0.0468746
+1 1.04687 -0.0468746
+2 1.04687 1.04687
+3 -0.046875 1.04687
+kids 0
+OBJECT poly
+name "rect10"
+loc 0.242457 -0.06195 -1.19202e-006
+texture "contrail.dds"
+crease 45.000000
+numvert 4
+0 25.062 -25
+0 25.062 25
+0 -24.938 25
+0 -24.938 -25
+numsurf 1
+SURF 0x0
+mat 0
+refs 4
+3 -0.046875 -0.0468746
+2 1.04687 -0.0468746
+1 1.04687 1.04687
+0 -0.046875 1.04687
+kids 0

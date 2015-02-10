@@ -1,0 +1,175 @@
+<?xml version="1.0"?>
+<!--
+ This file is part of FlightGear, the free flight simulator
+ http://www.flightgear.org/
+
+ Copyright (C) 2011 Torsten Dreyer, Torsten (at) t3r _dot_ de
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation; either version 2 of the
+ License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+-->
+<PropertyList>
+  <path>AttitudeGyro.ac</path>
+  <params>
+    <pitch>instrumentation/attitude-indicator[0]/indicated-pitch-deg</pitch>
+    <roll>instrumentation/attitude-indicator[0]/indicated-roll-deg</roll>
+    <pitch-reference>instrumentation/attitude-indicator[0]/pitch-reference-offset-deg</pitch-reference>
+  </params>
+  <animation>
+    <type>material</type>
+    <object-name>Pitch</object-name>
+    <object-name>Roll</object-name>
+    <object-name>RollReference</object-name>
+    <object-name>PitchReference</object-name>
+    <emission>
+      <red>1.0</red>
+      <green>0.2</green>
+      <blue>0.0</blue>
+      <factor-prop>sim/model/material/instruments/factor</factor-prop>
+    </emission>
+  </animation>
+  <animation>
+    <type>material</type>
+    <object-name>Background</object-name>
+    <emission>
+      <red>1.0</red>
+      <green>0.2</green>
+      <blue>0.0</blue>
+      <factor-prop>sim/model/material/instruments/factor</factor-prop>
+    </emission>
+  </animation>
+  <animation>
+    <name>Roll</name>
+    <type>rotate</type>
+    <object-name>Roll</object-name>
+    <object-name>Pitch</object-name>
+    <object-name>Background</object-name>
+    <object-name>Shade</object-name>
+    <property alias="../../params/roll"/>
+    <factor>1.0</factor>
+    <min-deg>-100</min-deg>
+    <max-deg>100</max-deg>
+    <axis>
+      <x>1.0</x>
+      <y>0.0</y>
+      <z>0.0</z>
+    </axis>
+  </animation>
+  <animation>
+    <name>Pitch</name>
+    <type>translate</type>
+    <object-name>Pitch</object-name>
+    <property alias="../../params/pitch"/>
+    <factor>-0.000778632</factor>
+    <min-m>-0.01575</min-m>
+    <max-m>0.01575</max-m>
+    <axis>
+      <x>0.0</x>
+      <y>0.0</y>
+      <z>1.0</z>
+    </axis>
+  </animation>
+  <animation>
+    <name>PitchReference</name>
+    <type>translate</type>
+    <object-name>PitchReference</object-name>
+    <property alias="../../params/pitch-reference"/>
+    <factor>-0.000778632</factor>
+    <min-m>-0.01575</min-m>
+    <max-m>0.01575</max-m>
+    <axis>
+      <x>0.0</x>
+      <y>0.0</y>
+      <z>1.0</z>
+    </axis>
+  </animation>
+  <animation>
+    <type>pick</type>
+    <object-name>Knob.Pick.L</object-name>
+    <visible>false</visible>
+    <action>
+      <button>0</button>
+      <repeatable>true</repeatable>
+      <binding>
+        <command>property-adjust</command>
+        <property alias="../../../../params/pitch-reference"/>
+        <step>-1</step>
+        <min>-7.5</min>
+        <max>7.5</max>
+        <wrap>0</wrap>
+      </binding>
+    </action>
+    <action>
+      <button>3</button>
+      <repeatable>true</repeatable>
+      <binding>
+        <command>property-adjust</command>
+        <property alias="../../../../params/pitch-reference"/>
+        <step>-1</step>
+        <min>-7.5</min>
+        <max>7.5</max>
+        <wrap>0</wrap>
+      </binding>
+    </action>
+    <action>
+      <button>4</button>
+      <repeatable>true</repeatable>
+      <binding>
+        <command>property-adjust</command>
+        <property alias="../../../../params/pitch-reference"/>
+        <step>1</step>
+        <min>-7.5</min>
+        <max>7.5</max>
+        <wrap>0</wrap>
+      </binding>
+    </action>
+  </animation>
+  <animation>
+    <type>pick</type>
+    <object-name>Knob.Pick.R</object-name>
+    <visible>false</visible>
+    <action>
+      <button>0</button>
+      <repeatable>true</repeatable>
+      <binding>
+        <command>property-adjust</command>
+        <property alias="../../../../params/pitch-reference"/>
+        <step>1</step>
+        <min>-7.5</min>
+        <max>7.5</max>
+        <wrap>0</wrap>
+      </binding>
+    </action>
+    <action>
+      <button>3</button>
+      <repeatable>true</repeatable>
+      <binding>
+        <command>property-adjust</command>
+        <property alias="../../../../params/pitch-reference"/>
+        <step>-1</step>
+        <min>-7.5</min>
+        <max>7.5</max>
+        <wrap>0</wrap>
+      </binding>
+    </action>
+    <action>
+      <button>4</button>
+      <repeatable>true</repeatable>
+      <binding>
+        <command>property-adjust</command>
+        <property alias="../../../../params/pitch-reference"/>
+        <step>1</step>
+        <min>-7.5</min>
+        <max>7.5</max>
+        <wrap>0</wrap>
+      </binding>
+    </action>
+  </animation>
+</PropertyList>

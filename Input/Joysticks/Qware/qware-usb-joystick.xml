@@ -1,0 +1,179 @@
+<?xml version="1.0"?>
+
+<!-- 
+************************************************************************
+
+* Bindings for Qware 4-axis, 12 buttons joystick.
+*
+* Axis 0  : Ailerons
+* Axis 1  : Elevator
+* Axis 2  : Throttle
+* Axes 3  : Rudder trim
+* Axes 6  : View left/right
+* Axes 7  : View up/down
+*
+* Button 1 : Trigger
+* Button 2 : PTT - Push To Talk (FGcom)
+* Button 3 : Elevator trim down
+* Button 4 : Zoom out
+* Button 5 : Elevator trim up
+* Button 4 : Zoom in
+
+************************************************************************
+-->
+
+<PropertyList>
+
+ <name>5-Axis,12-Button with POV </name>
+
+ <axis n="0">
+  <desc>Aileron</desc>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/aileron</property>
+   <power type="double">2</power>
+  </binding>
+ </axis>
+
+ <axis n="1">
+  <desc>Elevator</desc>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/elevator</property>
+   <factor type="double">-1.0</factor>
+   <power type="double">2</power>
+  </binding>
+ </axis>
+
+ <axis n="2">
+  <desc>Throttle</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.throttleAxis()</script>
+  </binding>
+ </axis>
+
+ <axis n="3">
+  <desc>Rudder</desc>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/rudder</property>
+   <power type="double">2</power>
+  </binding>
+ </axis>
+ 
+ <axis n="6">
+  <desc>View (left/right)</desc>
+  <low>
+   <repeatable>true</repeatable>
+   <binding>
+    <command>property-adjust</command>
+    <property>/sim/current-view/goal-heading-offset-deg</property>
+    <step type="double">1.0</step>
+   </binding>
+  </low>
+  <high>
+   <repeatable>true</repeatable>
+   <binding>
+    <command>property-adjust</command>
+    <property>/sim/current-view/goal-heading-offset-deg</property>
+    <step type="double">-1.0</step>
+   </binding>
+  </high>
+ </axis>
+ 
+ <axis n="7">
+  <desc>View (up/down)</desc>
+  <low>
+   <repeatable>true</repeatable>
+   <binding>
+    <command>property-adjust</command>
+    <property>/sim/current-view/goal-pitch-offset-deg</property>
+    <step type="double">-1.0</step>
+   </binding>
+  </low>
+  <high>
+   <repeatable>true</repeatable>
+   <binding>
+    <command>property-adjust</command>
+    <property>/sim/current-view/goal-pitch-offset-deg</property>
+    <step type="double">1.0</step>
+   </binding>
+  </high>
+ </axis>
+ 
+ <!-- Button #1 -->
+ <button n="0">
+  <desc>Trigger</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.trigger(1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.trigger(0)</script>
+   </binding>
+  </mod-up>
+ </button>
+ 
+ <!-- Button #2 -->
+ <button n="1">
+  <desc>Push To Talk (FGCom)</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.ptt(1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.ptt(0)</script>
+   </binding>
+  </mod-up>
+ </button>
+ 
+ <!-- Button #3 -->
+ <button n="2">
+  <desc>Elevator trim down</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.elevatorTrim(-1)</script>
+  </binding>
+ </button>
+
+ <!-- Button #4 -->
+ <button n="3">
+  <desc>Zoom out</desc>
+  <repeatable>true</repeatable>
+  <binding>
+   <command>property-adjust</command>
+   <property>/sim/current-view/field-of-view</property>
+   <step type="double">0.3</step>
+   <max>179</max>
+  </binding>
+ </button>
+ 
+ <!-- Button #5 -->
+ <button n="4">
+  <desc>Elevator trim up</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.elevatorTrim(1)</script>
+  </binding>
+ </button>
+ 
+ <!-- Button #6 -->
+ <button n="5">
+  <desc>Zoom in</desc>
+  <repeatable>true</repeatable>
+  <binding>
+   <command>property-adjust</command>
+   <property>/sim/current-view/field-of-view</property>
+   <step type="double">-0.3</step>
+   <min>1</min>
+  </binding>
+ </button>
+
+</PropertyList>

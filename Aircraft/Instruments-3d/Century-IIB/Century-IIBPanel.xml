@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PropertyList>
+    <name>Century-IIBPanel</name>
+    <background>Aircraft/Instruments-3d/Century-IIB/transparent.rgb</background>
+    <w>158</w>
+    <h>74</h>
+    <instruments>
+        <instrument>
+            <name>panel hotspots</name>
+            <x>79</x>
+            <y>37</y>
+            <w>158</w>
+            <h>74</h>
+            <w-base>158</w-base>
+            <h-base>74</h-base>
+
+            <actions>
+                <!-- AP Button -->
+                <action>
+                    <name>ApButton</name>
+                    <button>0</button>
+                    <x>-75</x>
+                    <y>-16</y>
+                    <w>38</w>
+                    <h>48</h>
+                    <binding>
+                        <command>property-toggle</command>
+                        <property>/autopilot/CENTURYIIB/controls/roll</property>
+                    </binding>
+                    <binding>
+                        <command>nasal</command>
+                        <script>CenturyIIB.apRollControl()</script>
+                    </binding>
+                </action>
+
+                <!-- HDG Button -->
+                <action>
+                    <name>HdgButton</name>
+                    <button>0</button>
+                    <x>37</x>
+                    <y>-16</y>
+                    <w>38</w>
+                    <h>48</h>
+                    <binding>
+                        <command>property-toggle</command>
+                        <property>/autopilot/CENTURYIIB/controls/hdg</property>
+                    </binding>
+                    <binding>
+                        <command>nasal</command>
+                        <script>CenturyIIB.apHdgControl()</script>
+                    </binding>
+                </action>
+
+                <!-- ROLL decrease -->
+                <action>
+                    <name>ROLL decrease</name>
+                    <button>0</button>
+                    <x>-30</x>
+                    <y>-25</y>
+                    <w>30</w>
+                    <h>45</h>
+                    <binding>
+                        <command>property-adjust</command>
+                        <property>/autopilot/CENTURYIIB/settings/roll-knob-deg</property>
+                        <step>-0.5</step>
+                        <min>-30.0</min>
+                        <max>30.0</max>
+                    </binding>
+                    <binding>
+                        <command>nasal</command>
+                        <script>CenturyIIB.rollKnobUpdate()</script>
+                    </binding>
+                </action>
+
+                <!-- ROLL increase -->
+                <action>
+                    <name>ROLL increase</name>
+                    <button>0</button>
+                    <x>0</x>
+                    <y>-25</y>
+                    <w>30</w>
+                    <h>45</h>
+                    <binding>
+                        <command>property-adjust</command>
+                        <property>/autopilot/CENTURYIIB/settings/roll-knob-deg</property>
+                        <step>0.5</step>
+                        <min>-30.0</min>
+                        <max>30.0</max>
+                    </binding>
+                    <binding>
+                        <command>nasal</command>
+                        <script>CenturyIIB.rollKnobUpdate()</script>
+                    </binding>
+                </action>
+              
+            </actions>
+        </instrument>
+    </instruments>
+</PropertyList>

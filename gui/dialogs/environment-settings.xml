@@ -1,0 +1,508 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+  <name>environment-settings</name>
+  <modal>false</modal>
+  <resizable>false</resizable>
+  <layout>vbox</layout>
+  <default-padding>3</default-padding>
+
+  <!-- Title bar with close button -->
+  <group>
+    <layout>hbox</layout>
+    <default-padding>1</default-padding>
+
+    <empty>
+      <stretch>true</stretch>
+    </empty>
+
+    <text>
+      <label>Environment Settings</label>
+    </text>
+
+    <empty>
+      <stretch>true</stretch>
+    </empty>
+
+    <button>
+      <legend/>
+      <key>Esc</key>
+      <pref-width>16</pref-width>
+      <pref-height>16</pref-height>
+      <border>2</border>
+      <binding>
+        <command>dialog-close</command>
+      </binding>
+    </button>
+  </group>
+
+  <hrule/>
+
+  <group>
+    <layout>table</layout>
+    
+    <text>
+      <row>0</row>
+      <col>0</col>
+      <label>Ground textures:</label>
+      <halign>right</halign>
+    </text>
+    <combo>
+      <row>0</row>
+      <col>1</col>
+      <name>season</name>
+      <halign>left</halign>
+      <live>true</live>
+      <property>/sim/startup/season</property>
+      <value>summer</value>
+      <value>winter</value>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>season</object-name>
+      </binding>
+    </combo>
+
+    <button>
+      <row>0</row>
+      <col>2</col>
+      <legend>Reload Scenery</legend>
+      <binding>
+        <command>reinit</command>
+        <subsystem>tile-manager</subsystem>
+      </binding>
+    </button>
+    
+  </group>
+    
+  <hrule/>
+  
+    
+  <group>
+    <layout>table</layout>
+    
+    <text>
+      <row>0</row>
+      <col>0</col>
+      <colspan>4</colspan>
+      <halign>left</halign>
+      <label>Ground conditions (requires shaders effects)</label>
+    </text>
+    
+    <checkbox>
+      <row>1</row>
+      <col>0</col>
+      <colspan>4</colspan>
+      <halign>left</halign>
+      <label>Set maximum snow level from METAR</label>
+      <name>metar-snow</name>
+      <property>/environment/params/metar-updates-snow-level</property>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>metar-snow</object-name>
+      </binding>
+    </checkbox>
+    
+    <text>
+      <label>Snow line</label>
+      <halign>left</halign>
+      <row>2</row>
+      <col>0</col>
+    </text>
+    
+    <text>
+      <label>-425m</label>
+      <halign>right</halign>
+      <row>2</row>
+      <col>1</col>
+    </text>
+        
+    <slider>
+      <name>snow-level</name>
+      <row>2</row>
+      <col>2</col>
+      <min>-425.0</min>
+      <max>7500.0</max>
+      <live>true</live>
+      <property>/environment/snow-level-m</property>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>snow-level</object-name>
+      </binding>
+    </slider>
+
+    <text>
+      <label>7500m</label>
+      <halign>left</halign>
+      <row>2</row>
+      <col>3</col>
+    </text>
+    
+    <text>
+      <row>2</row>
+      <col>4</col>
+      <label>12345678</label>
+      <format>%.fm</format>
+      <live>true</live>
+      <property>/environment/snow-level-m</property>
+    </text>    
+    
+
+   <text>
+      <enable>
+       <property>/sim/rendering/shaders/skydome</property>
+      </enable>
+      <label>Snow thickness</label>
+      <halign>left</halign>
+      <row>3</row>
+      <col>0</col>
+    </text>
+    
+    <text>
+      <enable>
+       <property>/sim/rendering/shaders/skydome</property>
+      </enable>
+      <label>thin</label>
+      <halign>right</halign>
+      <row>3</row>
+      <col>1</col>
+    </text>
+        
+    <slider>
+      <enable>
+       <property>/sim/rendering/shaders/skydome</property>
+      </enable>
+      <name>snow-thickness</name>
+      <row>3</row>
+      <col>2</col>
+      <min>0.0</min>
+      <max>0.6</max>
+      <live>true</live>
+      <property>/environment/surface/snow-thickness-factor</property>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>snow-thickness</object-name>
+      </binding>
+    </slider>
+
+    <text>
+      <enable>
+       <property>/sim/rendering/shaders/skydome</property>
+      </enable>
+      <label>thick</label>
+      <halign>left</halign>
+      <row>3</row>
+      <col>3</col>
+    </text>
+
+
+   <text>
+    <enable>
+     <property>/sim/rendering/shaders/skydome</property>
+     </enable>
+     <label>Ice cover</label>
+     <halign>left</halign>
+     <row>4</row>
+     <col>0</col>
+    </text>
+    
+    <text>
+     <enable>
+      <property>/sim/rendering/shaders/skydome</property> 
+     </enable>
+     <label>none</label>
+     <halign>right</halign>
+     <row>4</row>
+     <col>1</col>
+    </text>
+        
+    <slider>
+     <enable>
+      <property>/sim/rendering/shaders/skydome</property>
+     </enable>
+     <name>ice-cover</name>
+     <row>4</row>
+     <col>2</col>
+     <min>0.0</min>
+     <max>1.0</max>
+     <live>true</live>
+     <property>/environment/sea/surface/ice-cover</property>
+     <binding>
+       <command>dialog-apply</command>
+       <object-name>ice-cover</object-name>
+     </binding>
+    </slider>
+
+    <text>
+     <enable>
+      <property>/sim/rendering/shaders/skydome</property>
+     </enable>
+     <label>thick</label>
+     <halign>left</halign>
+     <row>4</row>
+     <col>3</col>
+    </text>
+
+
+
+    <text>
+      <enable>
+       <property>/sim/rendering/shaders/skydome</property>
+      </enable>
+      <label>Dust cover</label>
+      <halign>left</halign>
+      <row>5</row>
+      <col>0</col>
+    </text>
+    
+    <text>
+      <enable>
+       <property>/sim/rendering/shaders/skydome</property>
+      </enable>
+      <label>none</label>
+      <halign>right</halign>
+      <row>5</row>
+      <col>1</col>
+    </text>
+        
+    <slider>
+      <enable>
+       <property>/sim/rendering/shaders/skydome</property>
+      </enable>
+      <name>dust-level</name>
+      <row>5</row>
+      <col>2</col>
+      <min>0.0</min>
+      <max>0.7</max>
+      <live>true</live>
+      <property>/environment/surface/dust-cover-factor</property>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>dust-level</object-name>
+      </binding>
+    </slider>
+
+    <text>
+      <enable>
+       <property>/sim/rendering/shaders/skydome</property>
+      </enable>
+      <label>dusty</label>
+      <halign>left</halign>
+      <row>5</row>
+      <col>3</col>
+    </text>
+
+    <text>
+      <enable>
+       <property>/sim/rendering/shaders/skydome</property>
+      </enable>
+      <label>Wetness</label>
+      <halign>left</halign>
+      <row>6</row>
+      <col>0</col>
+    </text>
+    
+    <text>
+      <enable>
+       <property>/sim/rendering/shaders/skydome</property>
+      </enable>
+      <label>dry</label>
+      <halign>right</halign>
+      <row>6</row>
+      <col>1</col>
+    </text>
+        
+    <slider>
+      <enable>
+       <property>/sim/rendering/shaders/skydome</property>
+      </enable>
+      <name>wetness</name>
+      <row>6</row>
+      <col>2</col>
+      <min>0.0</min>
+      <max>0.7</max>
+      <live>true</live>
+      <property>/environment/surface/wetness-set</property>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>wetness</object-name>
+      </binding>
+    </slider>
+
+    <text>
+      <enable>
+       <property>/sim/rendering/shaders/skydome</property>
+      </enable>
+      <label>wet</label>
+      <halign>left</halign>
+      <row>6</row>
+      <col>3</col>
+    </text>
+    
+
+    <text>
+      <enable>
+       <property>/sim/rendering/shaders/skydome</property>
+      </enable>
+      <label>Vegetation</label>
+      <halign>left</halign>
+      <row>7</row>
+      <col>0</col>
+    </text>
+    
+    <text>
+      <enable>
+       <property>/sim/rendering/shaders/skydome</property>
+      </enable>
+      <label>none</label>
+      <halign>right</halign>
+      <row>7</row>
+      <col>1</col>
+    </text>
+        
+    <slider>
+      <enable>
+       <property>/sim/rendering/shaders/skydome</property>
+      </enable>
+      <name>lichen-level</name>
+      <row>7</row>
+      <col>2</col>
+      <min>0.0</min>
+      <max>0.7</max>
+      <live>true</live>
+      <property>/environment/surface/lichen-cover-factor</property>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>lichen-level</object-name>
+      </binding>
+    </slider>
+
+    <text>
+      <enable>
+       <property>/sim/rendering/shaders/skydome</property>
+      </enable>
+      <label>mossy</label>
+      <halign>left</halign>
+      <row>7</row>
+      <col>3</col>
+    </text>
+
+
+    <text>
+      <enable>
+       <property>/sim/rendering/shaders/skydome</property>
+      </enable>
+      <label>Season (experimental)</label>
+      <halign>left</halign>
+      <row>8</row>
+      <col>0</col>
+    </text>
+    
+    <text>
+      <enable>
+       <property>/sim/rendering/shaders/skydome</property>
+      </enable>
+      <label>summer</label>
+      <halign>right</halign>
+      <row>8</row>
+      <col>1</col>
+    </text>
+        
+    <slider>
+      <enable>
+       <property>/sim/rendering/shaders/skydome</property>
+      </enable>
+      <name>season</name>
+      <row>8</row>
+      <col>2</col>
+      <min>0.0</min>
+      <max>2.0</max>
+      <live>true</live>
+      <property>/environment/season</property>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>season</object-name>
+      </binding>
+    </slider>
+
+    <text>
+      <enable>
+       <property>/sim/rendering/shaders/skydome</property>
+      </enable>
+      <label>late autumn</label>
+      <halign>left</halign>
+      <row>8</row>
+      <col>3</col>
+    </text>
+
+ <text>
+      <enable>
+       <property>/sim/rendering/shaders/skydome</property>
+      </enable>
+      <label>Moonlight</label>
+      <halign>left</halign>
+      <row>9</row>
+      <col>0</col>
+    </text>
+    
+    <text>
+      <enable>
+       <property>/sim/rendering/shaders/skydome</property>
+      </enable>
+      <label>new</label>
+      <halign>right</halign>
+      <row>9</row>
+      <col>1</col>
+    </text>
+        
+    <slider>
+      <enable>
+       <property>/sim/rendering/shaders/skydome</property>
+      </enable>
+      <name>moon</name>
+      <row>9</row>
+      <col>2</col>
+      <min>0.0</min>
+      <max>1.0</max>
+      <live>true</live>
+      <property>/environment/moonlight</property>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>moon</object-name>
+      </binding>
+    </slider>
+
+    <text>
+      <enable>
+       <property>/sim/rendering/shaders/skydome</property>
+      </enable>
+      <label>full</label>
+      <halign>left</halign>
+      <row>9</row>
+      <col>3</col>
+    </text>
+
+
+  </group>
+  
+  <hrule/>
+
+  <group>
+    <empty>
+      <stretch>true</stretch>
+    </empty>
+    <layout>hbox</layout>
+
+    <button>
+      <legend>Close</legend>
+      <default>true</default>
+      <key>Esc</key>
+      <binding>
+        <command>dialog-close</command>
+      </binding>
+    </button>
+    <empty>
+      <stretch>true</stretch>
+    </empty>
+  </group>
+
+</PropertyList>

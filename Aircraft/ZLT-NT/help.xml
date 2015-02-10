@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+<!--
+  Zeppelin NT07 airship.
+
+  Copyright (C) 2008 - 2010  Anders Gidenstam  (anders(at)gidenstam.org)
+  This file is licensed under the GPL license v2 or later.
+-->
+<PropertyList>
+
+ <title>Zeppelin NT07 airship</title>
+ <!-- Specific keys -->
+ <key>
+  <name>W</name>
+  <desc>Weigh-off to 700 lbs heavy by adding/removing ballast. (Takes about 10 seconds and only works on ground.)</desc>
+ </key>
+ <key>
+  <name>w</name>
+  <desc>Show current on-ground weight.</desc>
+ </key>
+ <key>
+  <name>F/f</name>
+  <desc>Open/close gas valve.</desc>
+ </key>
+ <key>
+  <name>Q/q</name>
+  <desc>Inflate/deflate fore ballonet.</desc>
+ </key>
+ <key>
+  <name>A/a</name>
+  <desc>Inflate/deflate aft ballonet.</desc>
+ </key>
+ <key>
+  <name>[ ]</name>
+  <desc>Swivel side engines up/down.</desc>
+ </key>
+ <key>
+  <name>G/g</name>
+  <desc>Swivel aft engine down/up.</desc>
+ </key>
+ <key>
+  <name>D/d</name>
+  <desc>Drop ballast in 1%/0.1% decrements.</desc>
+ </key>
+ <key>
+  <name>Y</name>
+  <desc>Release mooring mast connection or wire.</desc>
+ </key>
+ <key>
+  <name>U</name>
+  <desc>Attach mooring wire. Only possible within 100 feet of the mooring mast.</desc>
+ </key>
+ <key>
+  <name>y/u</name>
+  <desc>Play out/winch in mooring wire.</desc>
+ </key>
+ <key>
+  <name>Alt + click</name>
+  <desc>Place mooring mast.</desc>
+ </key>
+ <key>
+  <name>w</name>
+  <desc>Passenger view: walk forwards, +shift to run.</desc>
+ </key>
+ <key>
+  <name>s</name>
+  <desc>Passenger view: walk backwards.</desc>
+ </key>
+ <key>
+  <name>a</name>
+  <desc>Passenger view: side step left, +shift to run.</desc>
+ </key>
+ <key>
+  <name>d</name>
+  <desc>Passenger view: side step right, +shift to run.</desc>
+ </key>
+
+ <!-- Handling instructions. -->
+ <text>
+ ____________________Engine controls____________________
+ 
+ RPM select:               Blue levers, controlled by throttle axis (PgUp/PgDown).
+ Mixture:                  Red levers, controlled by mixture axis (m/M).
+ Thrust (propeller pitch): Black levers, controlled by propeller axis (n/N).
+
+ Take off/Landing:         RPM select fully forward, use thrust levers for control.
+ Cruise:                   Thrust levers fully forward, use RPM select for control.
+
+ <!-- Real data -->
+ ____________________Limitations____________________
+ Vne   : 70 kt
+ Vmo   : 45 kt
+
+ Envelope
+     Maximum pressure    2.4 inH2O (600 Pa; 12.5 psf)
+     Minimum pressure    1.2 inH2O (300 Pa;  6.3 psf)
+
+ C.G. Range
+     Take off and Landing
+       Maximum Forward         1344.5 in
+       Maximum Aft             1374.0 in
+     In Flight
+       Maximum Forward         1315.0 in
+       Maximum Aft             1374.0 in
+
+ Maximum equilibrium weight                   : 16,865 lbs (7650 kg)
+ Maximum static heavyness:   In Flight        :  1,102 lbs  (500 kg)
+                             Take off/Landing :    882 lbs  (400 kg)
+ Maximum static lightness                     :   -441 lbs (-200 kg)
+
+ Maximum operating altitude                   : 10,000 ft
+
+ ________________FlightGear Pilot's Notes_______________
+
+ http://wiki.flightgear.org/index.php/Zeppelin_NT
+ </text>
+</PropertyList>

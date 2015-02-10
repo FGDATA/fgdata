@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<!--
+************************************************************************
+Override default joystick bindings for laptop accelerometers.
+
+This prevents it generating inputs that override keyboard settings.
+
+************************************************************************
+$Id$
+-->
+
+<PropertyList>
+
+ <name>applesmc</name>
+ <name>ST LIS3LV02DL Accelerometer</name>
+ <name>ST LIS3L V02DL Accelerometer</name>
+
+</PropertyList>
+
+<!-- end of joystick.xml -->

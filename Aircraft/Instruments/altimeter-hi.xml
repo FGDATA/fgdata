@@ -1,0 +1,218 @@
+<?xml version="1.0"?>
+
+<!--
+Improved airspeed indicator instrument.
+Apr 27 2001
+Martin Dressler dr@musicabona.cz
+Altimeter indicator instrument from C172RG
+GPL
+_______________________________________________________________________________
+
+Based on Default by David Megginson, david@megginson.com.
+
+This is an instrument configuration file for the open-source flight
+simulator FlightGear (www.flightgear.org).  The file is an XML-encoded
+FlightGear property list defining the instrument's layers and actions.
+
+Each instrument is composed of layers stacked on top of each other.
+A layer may be a texture (with transparent parts to show the layers
+underneath), text, or a special layer that switches between two
+others (say, to turn an indicator light on or off).  Each layer can
+move independently in proportion to a property value, and text
+can be generated from property values as well: all of the layer's
+movements are defined as transformations.
+
+Actions are hotspots on the instrument that will respond to a mouse
+click.  Actions always modify the values of properties, either by
+adjusting them, toggling them, or swaping them with other
+properties' values.
+-->
+
+<PropertyList>
+
+ <name>C172RG Altimeter Indicator</name>
+
+ <w-base>256</w-base>
+ <h-base>256</h-base>
+
+ <layers>
+  <layer>
+   <name>Pressure</name>
+   <texture> 
+    <path>Aircraft/Instruments/Textures/alt3.rgb</path>
+    <x1>0.0</x1>
+    <y1>0.0</y1>
+    <x2>1.0</x2>
+    <y2>1.0</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>rotation</type>
+     <property>/instrumentation/altimeter/setting-inhg</property>
+     <min>26.0</min>
+     <max>33.0</max>
+     <scale>-99.89</scale>  <!-- degrees rotation per millibar -->
+     <offset>120</offset>
+    </transformation>
+   </transformations>
+  </layer>
+  <layer>
+   <name>background</name>
+   <texture> 
+    <path>Aircraft/Instruments/Textures/alt2.rgb</path>
+    <x1>0.0</x1>
+    <y1>0.0</y1>
+    <x2>1.0</x2>
+    <y2>1.0</y2>
+   </texture>
+  </layer>
+  <layer>
+   <name>thousand needle</name>
+   <texture> 
+    <path>Aircraft/Instruments/Textures/madr-misc1.rgb</path>
+    <x1>0.5</x1>
+    <y1>0.0</y1>
+    <x2>1.0</x2>
+    <y2>0.5</y2>
+   </texture>
+   <w>128</w>
+   <h>128</h>
+   <transformations>
+    <transformation>
+     <type>rotation</type>
+     <property>/instrumentation/altimeter/indicated-altitude-ft</property>
+      <max>100000.0</max>
+      <scale>0.0036</scale>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>8</offset>
+    </transformation>
+   </transformations>
+  </layer>
+  <layer>
+   <name>short needle</name>
+   <texture> 
+    <path>Aircraft/Instruments/Textures/madr-misc1.rgb</path>
+    <x1>0.734375</x1>
+    <y1>0.59375</y1>
+    <x2>0.875</x2>
+    <y2>1.0</y2>
+   </texture>
+   <w>36</w>
+   <h>104</h>
+   <transformations>
+    <transformation>
+     <type>rotation</type>
+     <property>/instrumentation/altimeter/indicated-altitude-ft</property>
+      <max>100000.0</max>
+      <scale>0.036</scale>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>14</offset>
+    </transformation>
+   </transformations>
+  </layer>
+  <layer>
+   <name>long needle</name>
+   <texture> 
+    <path>Aircraft/Instruments/Textures/madr-misc1.rgb</path>
+    <x1>0.875</x1>
+    <y1>0.5</y1>
+    <x2>1.0</x2>
+    <y2>1.0</y2>
+   </texture>
+   <w>32</w>
+   <h>128</h>
+   <transformations>
+    <transformation>
+     <type>rotation</type>
+     <property>/instrumentation/altimeter/indicated-altitude-ft</property>
+      <max>100000.0</max>
+      <scale>0.36</scale>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>18</offset>
+    </transformation>
+   </transformations>
+  </layer>
+  <layer>
+   <name>foreground</name>
+   <texture> 
+    <path>Aircraft/Instruments/Textures/alt1.rgb</path>
+    <x1>0.0</x1>
+    <y1>0.0</y1>
+    <x2>1.0</x2>
+    <y2>1.0</y2>
+   </texture>
+  </layer>
+ </layers>
+ <actions>
+  <action>
+   <name>calibrate fine</name>
+   <button>0</button>
+   <x>-103</x>
+   <y>-122</y>
+   <w>22</w>
+   <h>45</h>
+   <binding>
+    <command>property-adjust</command>
+    <property>/instrumentation/altimeter/setting-inhg</property>
+    <step>-0.01</step>
+    <min>26.0</min>
+    <max>33.0</max>
+    <wrap>false</wrap>
+   </binding>
+  </action>
+  <action>
+   <name>calibrate coarse</name>
+   <button>1</button>
+   <x>-103</x>
+   <y>-122</y>
+   <w>22</w>
+   <h>45</h>
+   <binding>
+    <command>property-adjust</command>
+    <property>/instrumentation/altimeter/setting-inhg</property>
+    <step>-0.1</step>
+    <min>26.0</min>
+    <max>33.0</max>
+    <wrap>false</wrap>
+   </binding>
+  </action>
+  <action>
+   <name>calibrate fine</name>
+   <button>0</button>
+   <x>-81</x>
+   <y>-122</y>
+   <w>22</w>
+   <h>45</h>
+   <binding>
+    <command>property-adjust</command>
+    <property>/instrumentation/altimeter/setting-inhg</property>
+    <step>0.01</step>
+    <min>26.0</min>
+    <max>33.0</max>
+    <wrap>false</wrap>
+   </binding>
+  </action>
+  <action>
+   <name>calibrate coarse</name>
+   <button>1</button>
+   <x>-81</x>
+   <y>-122</y>
+   <w>22</w>
+   <h>45</h>
+   <binding>
+    <command>property-adjust</command>
+    <property>/instrumentation/altimeter/setting-inhg</property>
+    <step>0.1</step>
+    <min>26.0</min>
+    <max>33.0</max>
+    <wrap>false</wrap>
+   </binding>
+  </action>
+ </actions>
+</PropertyList>

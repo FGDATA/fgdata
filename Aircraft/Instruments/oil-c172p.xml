@@ -1,0 +1,154 @@
+<?xml version="1.0"?>
+<!--
+-->
+<PropertyList>
+
+    <name>Oil</name>
+    <w-base>100</w-base>
+    <h-base>100</h-base>
+
+    <params>
+      <ot>engines/engine[0]/oil-temperature-degf</ot>
+      <op>/engines/engine[0]/oil-pressure-psi</op>
+    </params>
+
+    <layers>
+          <layer>
+            <name>OilTemp</name>
+            <w>20</w>
+            <h>100</h>
+            <texture>
+                <path>Aircraft/Instruments/Textures/FuelOilAmps.png</path>
+                <x1>0.5</x1>
+                <x2>1.0</x2>
+                <y1>0.25</y1>
+                <y2>0.50</y2>
+            </texture>
+            <transformations>
+                <transformation>
+                    <type>x-shift</type>
+                    <offset>-10</offset>
+                </transformation>
+            </transformations>
+        </layer>
+
+        <layer>
+            <name>OilPress</name>
+            <w>20</w>
+            <h>100</h>
+            <texture>
+                <path>Aircraft/Instruments/Textures/FuelOilAmps.png</path>
+                <x1>0.0</x1>
+                <x2>0.5</x2>
+                <y1>0.25</y1>
+                <y2>0.50</y2>
+            </texture>
+            <transformations>
+                <transformation>
+                    <type>x-shift</type>
+                    <offset>10</offset>
+                </transformation>
+            </transformations>
+        </layer>
+
+        <layer>
+            <name>OTNeedle</name>
+            <w>3</w>
+            <h>96</h>
+            
+            <texture>
+                <path>Aircraft/Instruments/Textures/misc1.rgb</path>
+                <x1>0.71875</x1>
+                <x2>0.828125</x2>
+                <y1>0.46875</y1>
+                <y2>1.0</y2>
+            </texture>
+            
+            <transformations>
+                <transformation>
+                    <type>x-shift</type>
+                    <offset>-10</offset>
+                </transformation>
+                <transformation>
+                    <type>y-shift</type>
+                    <offset>-110</offset>
+                </transformation>
+                <transformation>
+                    <type>rotation</type>
+                    <property alias="../../../../../params/ot"/>
+                    <interpolation>
+                        <entry>
+                            <ind>75</ind>
+                            <dep>-30</dep>
+                        </entry>
+                        <entry>
+                            <ind>180</ind>
+                            <dep>5</dep>
+                        </entry>
+                        <entry>
+                            <ind>240</ind>
+                            <dep>30</dep>
+                        </entry>
+                    </interpolation>
+                </transformation>
+                <transformation>
+                    <type>y-shift</type>
+                    <offset>120</offset>
+                </transformation>
+            </transformations>
+        </layer>
+
+        <layer>
+            <name>OPNeedle</name>
+            <w>3</w>
+            <h>96</h>
+            
+            <texture>
+                <path>Aircraft/Instruments/Textures/misc1.rgb</path>
+                <x1>0.71875</x1>
+                <x2>0.828125</x2>
+                <y1>0.46875</y1>
+                <y2>1.0</y2>
+            </texture>
+            
+            <transformations>
+                <transformation>
+                    <type>x-shift</type>
+                    <offset>10</offset>
+                </transformation>
+                <transformation>
+                    <type>y-shift</type>
+                    <offset>-110</offset>
+                </transformation>
+                <transformation>
+                    <type>rotation</type>
+                    <property alias="../../../../../params/op"/>
+                    <interpolation>
+                        <entry>
+                            <ind>10</ind>
+                            <dep>-30</dep>
+                        </entry>
+                        <entry>
+                            <ind>30</ind>
+                            <dep>-15</dep>
+                        </entry>
+                        <entry>
+                            <ind>80</ind>
+                            <dep>15</dep>
+                        </entry>
+                        <entry>
+                            <ind>100</ind>
+                            <dep>30</dep>
+                        </entry>
+                    </interpolation>
+                </transformation>
+                <transformation>
+                    <type>y-shift</type>
+                    <offset>120</offset>
+                </transformation>
+            </transformations>
+        </layer>
+
+    </layers>
+
+</PropertyList>

@@ -1,0 +1,332 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+
+
+ <name>earthview</name>
+ <layout>vbox</layout>
+ <default-padding>3</default-padding>
+ <!--<width>150</width>
+ <height>50</height>-->
+ <modal>false</modal>
+
+   <group>
+    <layout>hbox</layout>
+    <default-padding>1</default-padding>
+
+    <empty>
+      <stretch>true</stretch>
+    </empty>
+
+    <text>
+      <label>Earthview Orbital Rendering</label>
+    </text>
+
+    <empty>
+      <stretch>true</stretch>
+    </empty>
+
+    <button>
+      <legend/>
+      <key>Esc</key>
+      <pref-width>16</pref-width>
+      <pref-height>16</pref-height>
+      <border>2</border>
+      <binding>
+        <command>dialog-close</command>
+      </binding>
+    </button>
+  </group>
+
+  <hrule/>
+ 
+  <group>
+  <layout>table</layout>
+ 
+   <text>
+   <row>0</row>
+   <col>0</col>
+   <halign>right</halign>
+   <label>Show cloud layer</label>
+   </text>
+
+   <checkbox>
+   	<name>cloudsphere-flag</name>
+   <row>0</row>
+   <col>1</col>
+   <halign>left</halign>
+   <property>/earthview/cloudsphere-flag</property>
+   <binding>
+     <command>dialog-apply</command>
+	 <object-name>cloudsphere-flag</object-name>
+    </binding>
+    </checkbox>
+	
+   <text>
+   <enable><property>/earthview/cloudsphere-flag</property></enable>
+   <row>1</row>
+   <col>0</col>
+   <halign>right</halign>
+   <label>Show cloud shadows</label>
+   </text>
+
+   <checkbox>
+   <enable><property>/earthview/cloudsphere-flag</property></enable>
+   <name>cloud-shadow-flag</name>
+   <row>1</row>
+   <col>1</col>
+   <halign>left</halign>
+   <property>/earthview/cloud-shadow-flag</property>
+   <binding>
+     <command>dialog-apply</command>
+	 <object-name>cloud-shadow-flag</object-name>
+	 <script>
+		if(getprop("/earthview/cloud-shadow-flag")==1) {setprop("/earthview/cloudsphere-angle",0.0);}
+	</script>
+    </binding>
+    </checkbox>
+	
+   <text>
+   <row>2</row>
+   <col>0</col>
+   <halign>right</halign>
+   <label>Automatic light scattering</label>
+   </text>
+
+   <checkbox>
+   <row>2</row>
+   <col>1</col>
+   <halign>left</halign>
+   <property>/earthview/mrd-flag</property>
+   <binding>
+     <command>dialog-apply</command>
+    </binding>
+    </checkbox>
+  
+   <button>
+   <row>3</row>
+   <col>0</col>
+   <legend>Start</legend>
+   <equal>true</equal>
+   <binding>
+    <command>nasal</command>
+    <script>earthview.start()</script>
+   </binding>
+  </button>
+ 
+  <button>
+   <row>3</row>
+   <col>1</col>
+   <legend>Stop</legend>
+   <equal>true</equal>
+   <binding>
+    <command>nasal</command>
+    <script>earthview.stop()</script>
+   </binding>
+  </button>
+  
+  <button>
+   <row>3</row>
+   <col>2</col>
+   <legend>Cancel</legend>
+   <equal>true</equal>
+   <key>Esc</key>
+   <binding>
+    <command>dialog-close</command>
+   </binding>
+  </button>
+  
+  </group>
+  
+  <group>
+		<layout>hbox</layout>
+		<text>
+			<label>Cloudsphere rotation</label>
+			<halign>left</halign>
+		</text>
+		<hrule>
+			<stretch>true</stretch>
+		</hrule>
+	</group>
+  
+  <group>
+		<layout>hbox</layout>
+		<halign>right</halign>
+		<text>
+			<enable><not><property>/earthview/cloud-shadow-flag</property></not></enable>
+			<label>Rotation angle</label>
+		</text>
+		<slider>
+			<enable><not><property>/earthview/cloud-shadow-flag</property></not></enable>
+			<name>cloud-rotation-angle</name>
+			<min>0.0</min>
+			<max>360.0</max>
+			<step>0.1</step>
+			<live>true</live>
+			<property>/earthview/cloudsphere-angle</property>
+			<binding>
+				<command>dialog-apply</command>
+				<object-name>cloud-rotation-angle</object-name>
+			</binding>
+		</slider>
+		<text>
+			<label>12345678</label>
+			<format>%.3f</format>
+			<live>true</live>
+			<property>/earthview/cloudsphere-angle</property>
+		</text>
+	</group>
+ 
+ <group>
+		<layout>hbox</layout>
+		<text>
+			<label>Atmospheric effects</label>
+			<halign>left</halign>
+		</text>
+		<hrule>
+			<stretch>true</stretch>
+		</hrule>
+	</group>
+	
+	<group>
+		<layout>hbox</layout>
+		<halign>right</halign>
+		<text>
+			<enable><not><property>/earthview/mrd-flag</property></not></enable>
+			<label>Mie factor</label>
+		</text>
+		<slider>
+			<enable><not><property>/earthview/mrd-flag</property></not></enable>
+			<name>mie-factor</name>
+			<min>0.0</min>
+			<max>0.01</max>
+			<step>0.001</step>
+			<live>true</live>
+			<property>/sim/rendering/mie</property>
+			<binding>
+				<command>dialog-apply</command>
+				<object-name>mie-factor</object-name>
+			</binding>
+		</slider>
+		<text>
+			<label>12345678</label>
+			<format>%.3f</format>
+			<live>true</live>
+			<property>/sim/rendering/mie</property>
+		</text>
+	</group>
+
+	<group>
+		<layout>hbox</layout>
+		<halign>right</halign>
+		<text>
+			<enable><not><property>/earthview/mrd-flag</property></not></enable>
+			<label>Rayleigh factor</label>
+		</text>
+		<slider>
+			<enable><not><property>/earthview/mrd-flag</property></not></enable>
+			<name>rayleigh-factor</name>
+			<min>0.0</min>
+			<max>0.001</max>
+			<step>0.00002</step>
+			<property>/sim/rendering/rayleigh</property>
+			<binding>
+				<command>dialog-apply</command>
+				<object-name>rayleigh-factor</object-name>
+			</binding>
+		</slider>
+		<text>
+			<label>12345678</label>
+			<format>%.5f</format>
+			<live>true</live>
+			<property>/sim/rendering/rayleigh</property>
+		</text>
+	</group>
+
+	<group>
+		<layout>hbox</layout>
+		<halign>right</halign>
+		<text>
+			<enable><not><property>/earthview/mrd-flag</property></not></enable>
+			<label>Density factor</label>
+		</text>
+		<slider>
+			<name>density-factor</name>
+			<enable><not><property>/earthview/mrd-flag</property></not></enable>
+			<min>0.0</min>
+			<max>1.0</max>
+			<step>0.1</step>
+			<property>/sim/rendering/dome-density</property>
+			<binding>
+				<command>dialog-apply</command>
+				<object-name>density-factor</object-name>
+			</binding>
+		</slider>
+		<text>
+			<label>12345678</label>
+			<format>%.1f</format>
+			<live>true</live>
+			<property>/sim/rendering/dome-density</property>
+		</text>
+	</group>
+	
+	<group>
+		<layout>hbox</layout>
+		<halign>right</halign>
+		<text>
+			<label>Visibility</label>
+		</text>
+		<slider>
+			<name>visibility</name>
+			<min>30000.0</min>
+			<max>250000.0</max>
+			<step>10.0</step>
+			<property>/environment/visibility-m</property>
+			<binding>
+				<command>dialog-apply</command>
+				<object-name>visibility</object-name>
+			</binding>
+			<live>true</live>
+		</slider>
+		<text>
+			<label>12345678</label>
+			<format>%.1f</format>
+			<live>true</live>
+			<property>/environment/visibility-m</property>
+		</text>
+	</group>
+<!--<button>
+   <x>10</x>
+   <y>10</y>
+   <legend>Start</legend>
+   <equal>true</equal>
+   <binding>
+    <command>nasal</command>
+    <script>earthview.start()</script>
+   </binding>
+  </button>
+
+<button>
+   <x>50</x>
+   <y>10</y>
+   <legend>Stop</legend>
+   <equal>true</equal>
+ <binding>
+    <command>nasal</command>
+    <script>earthview.stop()</script>
+   </binding>
+  </button>
+
+ <button>
+   <x>90</x>
+   <y>10</y>
+   <legend>Cancel</legend>
+   <equal>true</equal>
+   <key>Esc</key>
+   <binding>
+    <command>dialog-close</command>
+   </binding>
+  </button>-->
+
+</PropertyList>

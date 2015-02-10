@@ -1,0 +1,186 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+  
+  <path>G-164A.ac</path>
+
+  <offsets>
+    <pitch-deg>9</pitch-deg>   
+    <z-m>1.9</z-m>
+  </offsets>
+ 
+ <animation>
+  <type>rotate</type>
+  <property>velocities/true-airspeed-kt</property>
+  <interpolation>
+	<entry><ind>0</ind><dep>0.0</dep></entry>
+	<entry><ind>20</ind><dep>0.0</dep></entry>
+	<entry><ind>30</ind><dep>9</dep></entry>
+	<entry><ind>80</ind><dep>9</dep></entry>
+  </interpolation>
+  <center>
+   <x-m>0.0</x-m>
+   <y-m>0.0</y-m>
+   <z-m>-25.0</z-m>
+  </center>
+  <axis>
+   <x>0.0</x>
+   <y>-.5</y>
+   <z>0.0</z>
+  </axis>
+ </animation>	
+ 
+ <animation>
+    <type>rotate</type>
+    <object-name>axeHelice</object-name>
+    <object-name>axeHelice2</object-name>
+    <object-name>pale1</object-name>
+    <object-name>pale2</object-name>
+    <property>velocities/true-airspeed-kt</property>
+    <factor>360</factor>
+    <center>
+      <x-m>0</x-m>
+      <y-m>0</y-m>
+      <z-m>-0.003</z-m>
+    </center>
+    <axis>
+      <x>1.0</x>
+      <y>0.0</y>
+      <z>0.0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>spin</type>
+    <object-name>helice</object-name>
+    <object-name>axeHelice2</object-name>
+    <property>velocities/true-airspeed-kt</property>
+    <factor>-1</factor>
+    <center>
+      <x-m>0</x-m>
+      <y-m>0</y-m>
+      <z-m>-0.003</z-m>
+    </center>
+    <axis>
+      <x>1.0</x>
+      <y>0.0</y>
+      <z>0.0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>pale1</object-name>
+    <object-name>pale2</object-name>
+    <object-name>axeHelice2</object-name>
+    <condition>
+      <less-than>
+         <property>velocities/true-airspeed-kt</property>
+         <value>10</value>
+      </less-than>
+    </condition>
+  </animation>
+  
+  <animation>
+    <type>select</type>
+    <object-name>disqueHelice</object-name>
+    <condition>
+      <greater-than>
+         <property>velocities/true-airspeed-kt</property>
+         <value>10</value>
+      </greater-than>
+    </condition>
+  </animation>
+
+
+  <!-- RAT -->
+  
+  <animation>
+    <type>spin</type>
+    <object-name>ventiloPales</object-name>
+    <object-name>ventiloAxe</object-name>
+    <property>velocities/true-airspeed-kt</property>
+    <factor>5</factor>
+    <center>
+      <x-m>1.1</x-m>
+      <y-m>0</y-m>
+      <z-m>-0.943</z-m>
+    </center>
+    <axis>
+      <x>1.0</x>
+      <y>0.0</y>
+      <z>0.0</z>
+    </axis>
+  </animation>
+  
+    <!-- rotation des roues -->
+  <animation>
+    <type>spin</type>
+    <object-name>roueG</object-name>
+    <property>velocities/true-airspeed-kt</property>
+	<condition>
+	    <less-than>
+	        <property>velocities/true-airspeed-kt</property>
+	        <value>71</value>
+	    </less-than>
+	</condition>
+    <factor>-10</factor>
+    <center>
+      <x-m>1.59</x-m>
+      <y-m>0</y-m>
+      <z-m>-1.38</z-m>
+    </center>
+    <axis>
+      <x>0.0</x>
+      <y>1.0</y>
+      <z>0.0</z>
+    </axis>
+  </animation>
+  
+  <animation>
+    <type>spin</type>
+    <object-name>roueD</object-name>
+    <property>velocities/true-airspeed-kt</property>
+	<condition>
+	    <less-than>
+	        <property>velocities/true-airspeed-kt</property>
+	        <value>71</value>
+	    </less-than>
+	</condition>
+    <factor>-10</factor>
+    <center>
+      <x-m>1.59</x-m>
+      <y-m>0</y-m>
+      <z-m>-1.38</z-m>
+    </center>
+    <axis>
+      <x>0.0</x>
+      <y>1.0</y>
+      <z>0.0</z>
+    </axis>
+  </animation>
+  
+  <animation>
+    <type>spin</type>
+    <object-name>roulette</object-name>
+    <property>velocities/true-airspeed-kt</property>
+	<condition>
+	    <less-than>
+	        <property>velocities/true-airspeed-kt</property>
+	        <value>71</value>
+	    </less-than>
+	</condition>
+    <factor>-30</factor>
+    <center>
+      <x-m>7.162</x-m>
+      <y-m>0</y-m>
+      <z-m>-0.596</z-m>
+    </center>
+    <axis>
+      <x>0.0</x>
+      <y>1.0</y>
+      <z>0.0</z>
+    </axis>
+  </animation>
+ 
+</PropertyList>

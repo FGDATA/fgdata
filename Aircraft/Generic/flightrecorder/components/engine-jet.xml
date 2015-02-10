@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- flight recorder configuration -->
+<!-- jet engine -->
+
+<PropertyList>
+
+    <signal>
+        <type>float</type>
+        <property type="string">/systems/electrical/outputs/fuel-pump[%i]</property>
+    </signal>
+
+    <signal>
+        <type>float</type>
+        <property type="string">/controls/engines/engine[%i]/starter</property>
+    </signal>
+
+    <signal>
+        <type>float</type>
+        <property type="string">/controls/engines/engine[%i]/throttle</property>
+    </signal>
+
+    <signal>
+        <type>float</type>
+        <property type="string">/controls/engines/engine[%i]/condition</property>
+    </signal>
+
+    <signal>
+        <type>bool</type>
+        <property type="string">/engines/engine[%i]/running</property>
+    </signal>
+ 
+    <signal>
+        <type>bool</type>
+        <property type="string">/engines/engine[%i]/cranking</property>
+    </signal>
+
+    <signal>
+        <type>float</type>
+        <property type="string">/engines/engine[%i]/rpm</property> <!--  YASim -->
+    </signal>
+
+    <signal>
+        <type>float</type>
+        <property type="string">/engines/engine[%i]/n1</property>
+    </signal>
+
+    <signal>
+        <type>float</type>
+        <property type="string">/engines/engine[%i]/n2</property>
+    </signal>
+
+    <signal>
+        <type>float</type><property type="string">/engines/engine[%i]/thrust-lbs</property>
+    </signal>
+
+    <signal>
+        <type>float</type>
+        <property type="string">/engines/engine[%i]/egt-degf</property>
+    </signal>
+
+    <signal>
+        <type>float</type>
+        <property type="string">/engines/engine[%i]/epr</property>
+    </signal>
+
+    <signal>
+        <type>float</type>
+        <property type="string">/engines/engine[%i]/oil-pressure-psi</property> <!--  JSBSim -->
+    </signal>
+
+</PropertyList>

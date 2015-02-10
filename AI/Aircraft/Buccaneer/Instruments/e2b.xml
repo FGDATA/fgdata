@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+
+<!-- E2B Standby Compass -->
+
+<PropertyList>
+
+	<path>e2b.ac</path>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>segments</object-name>
+		<property>/instrumentation/magnetic-compass/indicated-heading-deg</property>
+		<center>
+			<x-m>0</x-m>
+			<y-m>0</y-m>
+			<z-m>0</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>0</y>
+			<z>1</z>
+		</axis>
+	</animation>
+
+	<!-- Panel Lighting -->
+	<animation>
+		<type>material</type>
+		<object-name>segments</object-name>
+		<emission>
+			<factor-prop>/systems/electrical/outputs/instrument-lighting</factor-prop>
+			<red>0.03125</red>
+			<green>0.0089</green>
+			<blue>0.0089</blue>
+		</emission>
+	</animation>
+
+	<!-- Noshadow -->
+	<animation>
+		<type>noshadow</type>
+	</animation>
+
+
+	<!-- *** LoD *** -->
+	<!--
+	<animation>
+		<type>range</type>
+		<min-m>0</min-m>
+		<max-m>15</max-m>
+	</animation>-->
+
+</PropertyList>

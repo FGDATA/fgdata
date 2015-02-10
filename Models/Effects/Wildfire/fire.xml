@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<!-- (C) 2008  Anders Gidenstam.
+     Distribution: GPL v2 or later.
+-->
+<PropertyList>
+
+ <!--========================================================================= 
+  Fire
+ -->
+ <particlesystem>
+  <name>Fire</name>
+  <type>normal</type>
+  <texture>smoke.png</texture>
+  <emissive>true</emissive>
+  <lighting>false</lighting>
+
+  <offsets>
+   <x-m>0</x-m>
+   <y-m>0</y-m>
+   <z-m>0</z-m>
+  </offsets>
+
+  <attach>world</attach>
+
+  <placer>
+   <type>sector</type>
+   <radius-min-m>0.0</radius-min-m>
+   <radius-max-m>35.0</radius-max-m>
+  </placer>
+
+  <shooter>
+   <theta-min-deg>0.0</theta-min-deg>
+   <theta-max-deg>40.0</theta-max-deg>
+   <phi-min-deg>0.0</phi-min-deg>
+   <phi-max-deg>360.0</phi-max-deg>
+   <speed-mps>
+    <value>50.0</value>
+    <spread>5.0</spread>
+   </speed-mps>
+  </shooter>
+
+  <counter>
+   <particles-per-sec>
+    <value>30.0</value>
+    <spread>10</spread>
+   </particles-per-sec>
+  </counter>
+
+  <align>billboard</align>
+
+  <particle>
+   <start>
+    <color>
+     <red><value>1.0</value></red>
+     <green><value>0.5</value></green>
+     <blue><value>0.0</value></blue>
+     <alpha><value>1.0</value></alpha>
+    </color>
+    <size>
+     <value>6.0</value>
+     <spread>2</spread>
+    </size>
+   </start>
+   <end>
+    <color>
+     <red><value>1.0</value></red>
+     <green><value>1.0</value></green>
+     <blue><value>1.0</value></blue>
+     <alpha><value>0.3</value></alpha>
+    </color>
+    <size>
+     <value>2.0</value>
+     <spread>0.5</spread>
+    </size>
+   </end>
+
+   <life-sec>
+    <value>4</value>
+   </life-sec>
+   <mass-kg>0.1</mass-kg>
+   <radius-m>0.2</radius-m>
+  </particle>
+
+  <program>
+   <fluid>air</fluid>
+   <gravity>false</gravity>
+   <wind>false</wind>
+  </program>
+
+ </particlesystem>
+
+</PropertyList>

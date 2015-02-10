@@ -1,0 +1,83 @@
+The airspeed indicator can be initialized in an instrumentation.xml file.
+If not specified, the generic indicator will be loaded 
+from the Aircraft/Generic/generic-instrumentation.xml.
+
+The normal setup is :
+
+  <airspeed-indicator>
+    <name>airspeed-indicator</name>
+    <number>0</number>
+    <total-pressure>/systems/pitot/total-pressure-inhg</total-pressure>
+    <static-pressure>/systems/static/pressure-inhg</static-pressure>
+    <has-overspeed-indicator>1</has-overspeed-indicator>
+  </airspeed-indicator>
+
+Of course the total and static pressure may be sourced from any other 
+pitot and static system when defined:
+
+  <airspeed-indicator>
+    <name>airspeed-indicator</name>
+    <number>1</number>
+    <total-pressure>/systems/pitot[1]/total-pressure-inhg</total-pressure>
+    <static-pressure>/systems/static[1]/pressure-inhg</static-pressure>
+    <has-overspeed-indicator>0</has-overspeed-indicator>
+  </airspeed-indicator>
+
+Note that the Aircraft/Generic/generic-systems.xml only initiates one 
+pitot and one static system, see also README.systems
+
+<total-pressure> is optional --- defaults to "/systems/pitot/total-pressure-inhg"
+For supersonic aircraft with an airspeed indicator NOT compensating for 
+a shockwave in front of the pitot tube (most probably the case), use:
+<total-pressure>/systems/pitot/measured-total-pressure-inhg</total-pressure>
+
+<static-pressure> is optional --- defaults to "/systems/static/pressure-inhg"
+<has-overspeed-indicator> is optional --- defaults to 0 / off
+
+The <has-overspeed-indicator> provides a property for "barber-pole" animation,
+ and is set to 0 / false by default ,
+
+If enabled , these properties should be added in the aircraft -set file,
+with that aircraft's correct figures.
+
+    <airspeed-indicator>
+        <ias-limit>248.0</ias-limit>
+        <mach-limit>0.48</mach-limit>
+        <alt-threshold>13200.0</alt-threshold>
+    </airspeed-indicator>
+
+
+The default values are for a Beechcraft B1900D .
+
+<ias-limit> is the aircraft's VNE (never exceed speed) in KIAS
+
+<mach-limit> Mach speed limit.
+
+<alt-threshold> altitude at which these figures were calculated.
+
+Note : <mach-limit> is the mach limit at <alt-threshold>
+This was designed for indicated airspeed limits, but could probably be extended 
+for mach limits.
+
+
+To initiate additional airspeed indicators, add in your instrumentation 
+file (for airspeed indicator index 1):
+
+  <airspeed-indicator>
+    <name>airspeed-indicator</name>
+    <number>1</number>
+    <total-pressure>/systems/pitot[1]/total-pressure-inhg</total-pressure>
+    <static-pressure>/systems/static[1]/pressure-inhg</static-pressure>
+    <has-overspeed-indicator>0</has-overspeed-indicator>
+  </airspeed-indicator>
+
+Note: this airspeed indicator sources its pressures from the second 
+pitot and static system (with index 1).
+and in the aircraft -set file:
+
+    <airspeed-indicator n="1">
+	  <serviceable type="bool" archive="y">true</serviceable>
+    </airspeed-indicator>
+
+And if "has-overspeed-indicator" = 1, the appropriate limits as explained
+above in the airspeed-indicator brackets.

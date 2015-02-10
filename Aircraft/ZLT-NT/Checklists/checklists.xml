@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+  Zeppelin NT-07 airship for FlightGear.
+
+  Copyright (C) 2012  Anders Gidenstam  (anders(at)gidenstam.org)
+  This file is licensed under the GPL license version 2 or later.
+-->
+<PropertyList>
+ <!-- Disclaimer: These instructions are derived only from common
+      sense together with certain data from the certificate of
+      airworthiness and have no connection whatsoever to any
+      instructions for the real Zeppelin NT.
+ -->
+ <checklist include="Aircraft/ZLT-NT/Checklists/start-engine.xml"/>
+ <checklist include="Aircraft/ZLT-NT/Checklists/before-take-off.xml"/>
+ <checklist include="Aircraft/ZLT-NT/Checklists/cruise.xml"/>
+ <checklist include="Aircraft/ZLT-NT/Checklists/final.xml"/>
+
+</PropertyList>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+     SenecaII custom flight recorder configuration
+     Torsten Dreyer, December 2011
+
+     based on
+     777-200ER custom flight recorder configuration
+     Thorsten Brehm, September 2011 
+-->
+
+<PropertyList>
+
+    <!-- selected active flight recorder configuration for replay system -->
+    <replay-config type="int">0</replay-config>
+
+    <config n="0">
+        <name type="string">SenecaII Flight Recorder</name>
+
+        <!-- include generic stuff -->
+        <signals include="/Aircraft/Generic/flightrecorder/components/position.xml" />
+        <signals include="/Aircraft/Generic/flightrecorder/components/controls.xml" />
+        <signals include="/Aircraft/Generic/flightrecorder/components/surfaces.xml"/>
+        <signals include="/Aircraft/Generic/flightrecorder/components/engine-piston-prop.xml">
+            <count type="int">2</count>
+            <signal><type>bool</type><property type="string">/controls/engines/engine[%i]/starter-switch</property></signal>
+            <signal><type>bool</type><property type="string">/controls/engines/engine[%i]/primer</property></signal>
+            <signal><type>bool</type><property type="string">/controls/engines/engine[%i]/fuel-pump</property></signal>
+            <signal><type>bool</type><property type="string">/controls/electric/engine[%i]/generator</property></signal>
+            <signal><type>bool</type><property type="string">/controls/engines/engine[%i]/alternate-air</property></signal>
+            <signal><type>float</type><property type="string">/controls/engines/engine[%i]/cowl-flaps-norm</property></signal>
+            <signal><type>float</type><property type="string">/fdm/jsbsim/propulsion/engine[%i]/cowl-flaps-norm</property></signal>
+            <signal><type>float</type><property type="string">engines/engine[%i]/mp-inhg</property></signal>
+        </signals>
+        <signals include="/Aircraft/Generic/flightrecorder/components/gear-retractable.xml">
+            <count type="int">3</count>
+        </signals>
+        <signals include="/Aircraft/Generic/flightrecorder/components/tanks.xml">
+            <count type="int">4</count>
+        </signals>
+        <signals include="/Aircraft/Generic/flightrecorder/components/kx165.xml">
+            <count type="int">2</count>
+        </signals>
+
+        <signals>
+            <count type="int">2</count>
+            <signal><type>int</type><property type="string">/controls/fuel/tank[%i]/fuel_selector-position</property></signal>
+        </signals>
+
+        <signals>  <!-- now the custom properties -->
+            <signal><type>bool</type><property type="string">/controls/anti-ice/pitot-heat</property></signal>
+            <signal><type>bool</type><property type="string">/controls/electric/battery-switch</property></signal>
+
+            <signal><type>bool</type><property type="string">/controls/lighting/beacon</property></signal>
+            <signal><type>bool</type><property type="string">/controls/lighting/landing-lights</property></signal>
+            <signal><type>bool</type><property type="string">/controls/lighting/nav-lights</property></signal>
+            <signal><type>bool</type><property type="string">/controls/lighting/strobe</property></signal>
+            <signal><type>bool</type><property type="string">/controls/lighting/taxi-light</property></signal>
+
+            <signal><type>bool</type><property type="string">/controls/deice/prop-deice</property></signal>
+            <signal><type>bool</type><property type="string">/controls/deice/surface-deice</property></signal>
+            <signal><type>bool</type><property type="string">/controls/deice/windshield-deice</property></signal>
+            <signal><type>bool</type><property type="string">/controls/deice/wingice-light</property></signal>
+
+            <signal><type>bool</type><property type="string">/instrumentation/radar-altimeter/decision-height</property></signal>
+            <signal><type>float</type><property type="string">/instrumentation/airspeed-indicator/tas-face-rotation</property></signal>
+            <signal><type>bool</type><property type="string">/instrumentation/annunciator/test</property></signal>
+
+            <signal><type>bool</type><property type="string">/controls/electric/circuitbreaker/cb_0_0</property></signal>
+            <signal><type>bool</type><property type="string">/controls/electric/circuitbreaker/cb_0_10</property></signal>
+            <signal><type>bool</type><property type="string">/controls/electric/circuitbreaker/cb_0_11</property></signal>
+            <signal><type>bool</type><property type="string">/controls/electric/circuitbreaker/cb_0_12</property></signal>
+            <signal><type>bool</type><property type="string">/controls/electric/circuitbreaker/cb_0_13</property></signal>
+            <signal><type>bool</type><property type="string">/controls/electric/circuitbreaker/cb_0_14</property></signal>
+            <signal><type>bool</type><property type="string">/controls/electric/circuitbreaker/cb_0_15</property></signal>
+            <signal><type>bool</type><property type="string">/controls/electric/circuitbreaker/cb_0_1</property></signal>
+            <signal><type>bool</type><property type="string">/controls/electric/circuitbreaker/cb_0_2</property></signal>
+            <signal><type>bool</type><property type="string">/controls/electric/circuitbreaker/cb_0_3</property></signal>
+            <signal><type>bool</type><property type="string">/controls/electric/circuitbreaker/cb_0_4</property></signal>
+            <signal><type>bool</type><property type="string">/controls/electric/circuitbreaker/cb_0_5</property></signal>
+            <signal><type>bool</type><property type="string">/controls/electric/circuitbreaker/cb_0_6</property></signal>
+            <signal><type>bool</type><property type="string">/controls/electric/circuitbreaker/cb_0_7</property></signal>
+            <signal><type>bool</type><property type="string">/controls/electric/circuitbreaker/cb_0_8</property></signal>
+            <signal><type>bool</type><property type="string">/controls/electric/circuitbreaker/cb_0_9</property></signal>
+            <signal><type>bool</type><property type="string">/controls/electric/circuitbreaker/cb_1_0</property></signal>
+            <signal><type>bool</type><property type="string">/controls/electric/circuitbreaker/cb_1_10</property></signal>
+            <signal><type>bool</type><property type="string">/controls/electric/circuitbreaker/cb_1_11</property></signal>
+            <signal><type>bool</type><property type="string">/controls/electric/circuitbreaker/cb_1_12</property></signal>
+            <signal><type>bool</type><property type="string">/controls/electric/circuitbreaker/cb_1_13</property></signal>
+            <signal><type>bool</type><property type="string">/controls/electric/circuitbreaker/cb_1_14</property></signal>
+            <signal><type>bool</type><property type="string">/controls/electric/circuitbreaker/cb_1_15</property></signal>
+            <signal><type>bool</type><property type="string">/controls/electric/circuitbreaker/cb_1_1</property></signal>
+            <signal><type>bool</type><property type="string">/controls/electric/circuitbreaker/cb_1_2</property></signal>
+            <signal><type>bool</type><property type="string">/controls/electric/circuitbreaker/cb_1_3</property></signal>
+            <signal><type>bool</type><property type="string">/controls/electric/circuitbreaker/cb_1_4</property></signal>
+            <signal><type>bool</type><property type="string">/controls/electric/circuitbreaker/cb_1_5</property></signal>
+            <signal><type>bool</type><property type="string">/controls/electric/circuitbreaker/cb_1_6</property></signal>
+            <signal><type>bool</type><property type="string">/controls/electric/circuitbreaker/cb_1_7</property></signal>
+            <signal><type>bool</type><property type="string">/controls/electric/circuitbreaker/cb_1_8</property></signal>
+            <signal><type>bool</type><property type="string">/controls/electric/circuitbreaker/cb_1_9</property></signal>
+            <signal><type>bool</type><property type="string">/controls/electric/circuitbreaker/cb_2_0</property></signal>
+            <signal><type>bool</type><property type="string">/controls/electric/circuitbreaker/cb_2_10</property></signal>
+            <signal><type>bool</type><property type="string">/controls/electric/circuitbreaker/cb_2_11</property></signal>
+            <signal><type>bool</type><property type="string">/controls/electric/circuitbreaker/cb_2_12</property></signal>
+            <signal><type>bool</type><property type="string">/controls/electric/circuitbreaker/cb_2_13</property></signal>
+            <signal><type>bool</type><property type="string">/controls/electric/circuitbreaker/cb_2_14</property></signal>
+            <signal><type>bool</type><property type="string">/controls/electric/circuitbreaker/cb_2_15</property></signal>
+            <signal><type>bool</type><property type="string">/controls/electric/circuitbreaker/cb_2_1</property></signal>
+            <signal><type>bool</type><property type="string">/controls/electric/circuitbreaker/cb_2_2</property></signal>
+            <signal><type>bool</type><property type="string">/controls/electric/circuitbreaker/cb_2_3</property></signal>
+            <signal><type>bool</type><property type="string">/controls/electric/circuitbreaker/cb_2_4</property></signal>
+            <signal><type>bool</type><property type="string">/controls/electric/circuitbreaker/cb_2_5</property></signal>
+            <signal><type>bool</type><property type="string">/controls/electric/circuitbreaker/cb_2_6</property></signal>
+            <signal><type>bool</type><property type="string">/controls/electric/circuitbreaker/cb_2_7</property></signal>
+            <signal><type>bool</type><property type="string">/controls/electric/circuitbreaker/cb_2_8</property></signal>
+            <signal><type>bool</type><property type="string">/controls/electric/circuitbreaker/cb_2_9</property></signal>
+
+            <signal><type>bool</type><property type="string">/controls/gear/gear-emergency-extend</property></signal>
+            <signal><type>bool</type><property type="string">/controls/gear/gear-emergency-extend-unlock</property></signal>
+
+            <signal><type>float</type><property type="string">/controls/lighting/instruments-norm</property></signal>
+            <signal><type>float</type><property type="string">/controls/lighting/panel-norm</property></signal>
+            <signal><type>float</type><property type="string">/controls/lighting/radio-norm</property></signal>
+
+        </signals>
+
+    </config>
+
+</PropertyList>

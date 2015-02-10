@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+ <description>B757-200</description>  
+ <path>Models/B757.ac</path>
+ <texture-path>Textures/Vim</texture-path>  
+  
+  	<animation>
+		<type>select</type>
+		<object-name>gear</object-name>
+		<condition>
+			<less-than>
+				<property>velocities/true-airspeed-kt</property>
+				<value>200</value>
+			</less-than>
+		</condition>
+	</animation>
+  
+</PropertyList>

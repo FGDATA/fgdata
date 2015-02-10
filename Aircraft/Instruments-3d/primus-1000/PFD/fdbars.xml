@@ -1,0 +1,151 @@
+<?xml version="1.0"?>
+
+
+<PropertyList>
+    <name>FD bars</name>
+    <w-base>176</w-base>
+    <h-base>206</h-base>
+
+    <layers>
+
+<!--V bars-->
+
+    <layer>
+        <condition>
+            <not>
+                <property>instrumentation/primus1000/control/cp</property>
+            </not>
+        </condition>
+        <name>vbar</name>
+        <w>176</w>
+        <h>40</h>
+        <emissive>true</emissive>
+        <texture>
+            <path>Aircraft/Instruments-3d/primus-1000/PFD/pfd-bezel.png</path>
+            <x1>0.750</x1>
+            <y1>0.918</y1>
+            <x2>1.0</x2>
+            <y2>0.974</y2>
+        </texture>
+        <transformations>
+            <transformation>
+                <type>rotation</type>
+                <property>autopilot/internal/target-roll-deg</property>
+            </transformation>
+           <transformation>
+                <type>rotation</type>
+                <property>orientation/roll-deg</property>
+                <scale>-1</scale>
+            </transformation>
+            <transformation>
+                <type>y-shift</type>
+                <property>autopilot/internal/target-pitch-deg</property>
+                <scale>4.122</scale>
+            </transformation>
+            <transformation>
+                <type>y-shift</type>
+                <property>orientation/pitch-deg</property>
+                <scale>-4.122</scale>
+            </transformation>
+        </transformations>
+    </layer>
+
+    <layer>
+        <condition>
+            <not>
+                <property>instrumentation/primus1000/control/cp</property>
+            </not>
+        </condition>
+        <name>Vsymbol</name>
+        <w>176</w>
+        <h>40</h>
+        <emissive>true</emissive>
+        <texture>
+            <path>Aircraft/Instruments-3d/primus-1000/PFD/pfd-bezel.png</path>
+            <x1>0.750</x1>
+            <y1>0.822</y1>
+            <x2>1.0</x2>
+            <y2>0.879</y2>
+        </texture>
+    </layer>
+
+<!--Cross Pointer-->
+
+    <layer>
+        <condition>
+            <property>instrumentation/primus1000/control/cp</property>
+        </condition>
+        <name>XpointerH</name>
+        <w>60</w>
+        <h>2</h>
+        <emissive>true</emissive>
+        <texture>
+            <path>Aircraft/Instruments-3d/primus-1000/PFD/pfd-bezel.png</path>
+            <x1>0.768</x1>
+            <y1>0.515</y1>
+            <x2>0.815</x2>
+            <y2>0.556</y2>
+        </texture>
+        <transformations>
+            <transformation>
+                <type>y-shift</type>
+                <property>orientation/pitch-deg</property>
+                <scale>-4.122</scale>
+            </transformation>
+            <transformation>
+                <type>y-shift</type>
+                <property>autopilot/internal/target-pitch-deg</property>
+                <scale>4.122</scale>
+            </transformation>
+        </transformations>
+    </layer>
+
+    <layer>
+        <condition>
+            <property>instrumentation/primus1000/control/cp</property>
+        </condition>
+        <name>XpointerV</name>
+        <w>2</w>
+        <h>60</h>
+        <emissive>true</emissive>
+        <texture>
+            <path>Aircraft/Instruments-3d/primus-1000/PFD/pfd-bezel.png</path>
+            <x1>0.768</x1>
+            <y1>0.515</y1>
+            <x2>0.815</x2>
+            <y2>0.556</y2>
+        </texture>
+        <transformations>
+            <transformation>
+                <type>x-shift</type>
+                <property>orientation/roll-deg</property>
+                <scale>-0.5</scale>
+            </transformation>
+            <transformation>
+                <type>x-shift</type>
+                <property>autopilot/internal/target-roll-deg</property>
+                <scale>1</scale>
+            </transformation>
+        </transformations>
+    </layer>
+
+    <layer>
+        <condition>
+            <property>instrumentation/primus1000/control/cp</property>
+        </condition>
+        <name>Xpointer</name>
+        <w>176</w>
+        <h>40</h>
+        <emissive>true</emissive>
+        <texture>
+            <path>Aircraft/Instruments-3d/primus-1000/PFD/pfd-bezel.png</path>
+            <x1>0.750</x1>
+            <y1>0.697</y1>
+            <x2>1.0</x2>
+            <y2>0.754</y2>
+        </texture>
+    </layer>
+
+</layers>
+
+</PropertyList>

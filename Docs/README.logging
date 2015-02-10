@@ -1,0 +1,88 @@
+Logging in FlightGear
+---------------------
+
+[Note: JSBSim also has its own independent logging facilities, which
+are not discussed here.]
+
+FlightGear can log any property values at any interval to one or more
+CSV files (which can be read and graphed using spreadsheets like
+Gnumeric or Excel).  Logging is defined in the '/logging' subbranch of
+the main property tree; under '/logging', each '/log' subbranch
+defines a separate log with its own output file and interval.  Here is
+a simple example that logs the rudder and aileron settings every
+second (1000ms) to the file steering.csv, using a comma (the default,
+anyway) as the field delimiter:
+
+<PropertyList>
+ <logging>
+  <log>
+   <enabled>true</enabled>
+   <filename>steering.csv</filename>
+   <interval-ms>1000</interval-ms>
+   <delimiter>,</delimiter>
+   <entry>
+    <enabled>true</enabled>
+    <title>Rudder</title>
+    <property>/controls/flight/rudder</property>
+   </entry>
+   <entry>
+    <enabled>true</enabled>
+    <title>Ailerons</title>
+    <property>/controls/flight/aileron</property>
+   </entry>
+  </log>
+ </logging>
+</PropertyList>
+
+Each 'log' subbranch contains a required 'enabled' property, an
+optional 'filename' property (defaults to "fg_log.csv"), an optional
+'delimiter' property (defaults to a comma), an optional 'interval-ms'
+property (defaults to 0, which logs every frame), and a series of
+'entry' subbranches.  The 'delimiter' property uses only the first
+character of the property value as the delimiter.  Note that the
+logger does no escaping, so you must choose a delimiter that will not
+appear in the property values (that's not hard, since most of the
+values are numeric, but watch for commas in the titles).
+
+Each 'entry' subbranch contains a required 'enabled' property, a
+'property' property specifying the name of the property to be logged,
+and an optional 'title' property specifying the title to use in the
+CSV file (defaults to the full path of the property).  The elapsed
+time in milliseconds since the start of the simulation is always
+included as the first entry with the title "Time", so there is no need
+to include it explicitly.
+
+Here's a sample of the logging output for the above log:
+
+  Time,Rudder,Ailerons
+  6522,0.000000,0.000000
+  7668,-0.000000,0.000000
+  8702,-0.000000,0.000000
+  9705,-0.000000,0.000000
+  10784,-0.000000,0.000000
+  11792,-0.000000,0.000000
+  12808,-0.000000,-0.210000
+  13826,-0.000000,-0.344000
+  14881,-0.000000,-0.066000
+  15901,-0.000000,-0.806000
+  16943,-0.000000,-0.936000
+  17965,-0.000000,-0.534000
+  19013,-0.000000,-0.294000
+  20044,-0.000000,0.270000
+  21090,-0.000000,-1.000000
+  22097,-0.000000,-0.168000
+
+Note that the requested interval is only a minimum; most of the time,
+the actual interval is slightly longer than the requested one.
+
+The easiest way for an end-user to define logs is to put the log in a
+separate XML file (usually under the user's home directory), then
+refer to it using the --config option, like this:
+
+  fgfs --config=log-config.xml
+
+The output log files are always relative to the current directory.
+
+--
+
+David Megginson, last updated 2002-02-01

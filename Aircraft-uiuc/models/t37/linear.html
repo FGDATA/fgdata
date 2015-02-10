@@ -1,0 +1,2677 @@
+<html>
+<head>
+<title>T-37A Tweet -- Linear Model</title>
+</head>
+
+<BODY 
+bgcolor="FFFFFF" text="000000" link="0800FF" 
+vlink="FF0000" alink="FF0FF8">
+
+<font face="arial,helvetica">
+
+<center><h1><b><i>
+T-37A Tweet -- Linear Model
+</i></b></h1></center>
+
+<b><i>Graduate Research done by <a href="http://fly.to/jeffscott/">Jeff Scott</a><br>
+Advisor:  <a href="http://www.uiuc.edu/ph/www/m-selig">Prof. Michael Selig</a><br>
+Applied Aerodynamics Group<br>
+Department of Aeronautical and Astronautical Engineering<br>
+University of Illinois at Urbana-Champaign, Urbana, Illinois 61801<p>
+
+Last updated June 7, 2000</i></b>
+
+<p>
+
+The linear aerodynamics model uses stability derivatives to approximate 
+actual aircraft behavior.  The T-37A Tweet linear model is based on the 
+following flight conditions (cruise):
+
+<p>
+
+<center>
+<table width="95%" border="1">
+<tr>
+	<td colspan="7" bgcolor="FFFFCC">
+	<font face="arial,helvetica" size="4"><b><center>
+	Flight Conditions
+	</center></b></font>
+	</td>
+</tr>
+
+<tr>
+	<th>
+	<font face="arial,helvetica">
+	Variable
+	</font>
+	</th>
+
+	<th>
+	<font face="arial,helvetica">
+	Variable<br>in Code
+	</font>
+	</th>
+
+	<th>
+	<font face="arial,helvetica">
+	Description
+	</font>
+	</th>
+
+	<th>
+	<font face="arial,helvetica">
+	Units
+	</font>
+	</th>
+
+	<th>
+	<font face="arial,helvetica">
+	Value(s)
+	</font>
+	</th>
+
+	<th>
+	<font face="arial,helvetica">
+	Source
+	</font>
+	</th>
+
+	<th>
+	<font face="arial,helvetica">
+	Notes
+	</font>
+	</th>
+</tr>
+
+<tr>
+<tr>
+	<td valign="top">
+	<font face="arial,helvetica">
+	h
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Altitude
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	altitude above sea level
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	ft
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	30000
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Roskam pg 501
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	
+	</font>
+	</td>
+</tr>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	<img src="../images/alpha.gif">
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Alpha
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	angle of attack
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	deg
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	2
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Roskam pg 501
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	
+	</font>
+	</td>
+</tr>
+
+<tr>
+	<td valign="top">
+	<font face="arial,helvetica">
+	V<sub><img src="../images/inf.gif"></sub>
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	V_true_kts
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	velocity (true air speed)
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	kts
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	270
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Roskam pg 501
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Mach 0.459
+	</font>
+	</td>
+</tr>
+
+<tr>
+	<td valign="top">
+	<font face="arial,helvetica">
+	q
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Dynamic_pressure
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	dynamic pressure
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	lb/ft<sup>2</sup>
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	92.7
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Roskam pg 501
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	
+	</font>
+	</td>
+</tr>
+
+<tr>
+	<td valign="top">
+	<font face="arial,helvetica">
+	C.G.
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	-
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	center of gravity location
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	% <img src="../images/cbar.gif">
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	27
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Roskam pg 501
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	
+	</font>
+	</td>
+</tr>
+
+<tr>
+	<td valign="top">
+	<font face="arial,helvetica">
+	C<sub>L</sub>
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	CL
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	lift coefficient
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	-
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	?
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	not available
+	</font>
+	</td>
+</tr>
+
+<tr>
+	<td valign="top">
+	<font face="arial,helvetica">
+	C<sub>D</sub>
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	CD
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	drag coefficient
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	-
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	?
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	not available
+	</font>
+	</td>
+</tr>
+
+<tr>
+	<td valign="top">
+	<font face="arial,helvetica">
+	C<sub>m</sub>
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Cm
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	pitching moment coefficient
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	-
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	?
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	not available
+	</font>
+	</td>
+</tr>
+</table>
+</center>
+
+<p>
+
+The data input into the simulator is listed in the following tables:
+
+<p>
+
+<center>
+<table width="95%" border="1">
+<tr>
+	<td colspan="7" bgcolor="FFFFCC">
+	<font face="arial,helvetica" size="4"><b><center>
+	Geometry
+	</center></b></font>
+	</td>
+</tr>
+
+<tr>
+	<th>
+	<font face="arial,helvetica">
+	Variable
+	</font>
+	</th>
+
+	<th>
+	<font face="arial,helvetica">
+	Variable<br>in Code
+	</font>
+	</th>
+
+	<th>
+	<font face="arial,helvetica">
+	Description
+	</font>
+	</th>
+
+	<th>
+	<font face="arial,helvetica">
+	Units
+	</font>
+	</th>
+
+	<th>
+	<font face="arial,helvetica">
+	Value(s)
+	</font>
+	</th>
+
+	<th>
+	<font face="arial,helvetica">
+	Source
+	</font>
+	</th>
+
+	<th>
+	<font face="arial,helvetica">
+	Notes
+	</font>
+	</th>
+</tr>
+
+<tr>
+	<td valign="top">
+	<font face="arial,helvetica">
+	b
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	bw
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	wingspan
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	ft
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	33.8
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Roskam pg 501
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	
+	</font>
+	</td>
+</tr>
+
+<tr>
+	<td valign="top">
+	<font face="arial,helvetica">
+	<img src="../images/cbar.gif">
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	cbar
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	wing mean aerodynamic chord
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	ft
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	5.47
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Roskam pg 501
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	
+	</font>
+	</td>
+</tr>
+
+<tr>
+	<td valign="top">
+	<font face="arial,helvetica">
+	S
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Sw
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	wing surface area
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	ft<sup>2</sup>
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	182
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Roskam pg 501
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	
+	</font>
+	</td>
+</tr>
+</table>
+
+<p>
+
+<table width="95%" border="1">
+<tr>
+	<td colspan="7" bgcolor="FFFFCC">
+	<font face="arial,helvetica" size="4"><b><center>
+	Control Surface Geometry
+	</center></b></font>
+	</td>
+</tr>
+
+<tr>
+	<th>
+	<font face="arial,helvetica">
+	Variable
+	</font>
+	</th>
+
+	<th>
+	<font face="arial,helvetica">
+	Variable<br>in Code
+	</font>
+	</th>
+
+	<th>
+	<font face="arial,helvetica">
+	Description
+	</font>
+	</th>
+
+	<th>
+	<font face="arial,helvetica">
+	Units
+	</font>
+	</th>
+
+	<th>
+	<font face="arial,helvetica">
+	Value(s)
+	</font>
+	</th>
+
+	<th>
+	<font face="arial,helvetica">
+	Source
+	</font>
+	</th>
+
+	<th>
+	<font face="arial,helvetica">
+	Notes
+	</font>
+	</th>
+</tr>
+
+<tr>
+	<td valign="top">
+	<font face="arial,helvetica">
+	<img src="../images/delta.gif">e<sub>max</sub>
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	demax
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	maximum elevator deflection
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	deg
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	+20
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	-
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	guess
+	</font>
+	</td>
+</tr>
+
+<tr>
+	<td valign="top">
+	<font face="arial,helvetica">
+	<img src="../images/delta.gif">e<sub>min</sub>
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	demin
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	minimum elevator deflection
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	deg
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	-20
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	-
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	guess
+	</font>
+	</td>
+</tr>
+
+<tr>
+	<td valign="top">
+	<font face="arial,helvetica">
+	<img src="../images/delta.gif">a<sub>max</sub>
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	damax
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	maximum aileron deflection
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	deg
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	+20
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	-
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	guess
+	</font>
+	</td>
+</tr>
+
+<tr>
+	<td valign="top">
+	<font face="arial,helvetica">
+	<img src="../images/delta.gif">a<sub>min</sub>
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	damin
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	minimum aileron deflection
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	deg
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	-20
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	-
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	guess
+	</font>
+	</td>
+</tr>
+
+<tr>
+	<td valign="top">
+	<font face="arial,helvetica">
+	<img src="../images/delta.gif">r<sub>max</sub>
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	drmax
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	maximum rudder deflection
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	deg
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	+20
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	-
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	guess
+	</font>
+	</td>
+</tr>
+
+<tr>
+	<td valign="top">
+	<font face="arial,helvetica">
+	<img src="../images/delta.gif">r<sub>min</sub>
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	drmin
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	minimum rudder deflection
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	deg
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	-20
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	-
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	guess
+	</font>
+	</td>
+</tr>
+</table>
+
+<p>
+
+<table width="95%" border="1">
+<tr>
+	<td colspan="7" bgcolor="FFFFCC">
+	<font face="arial,helvetica" size="4"><b><center>
+	Mass Data
+	</center></b></font>
+	</td>
+</tr>
+
+<tr>
+	<th>
+	<font face="arial,helvetica">
+	Variable
+	</font>
+	</th>
+
+	<th>
+	<font face="arial,helvetica">
+	Variable<br>in Code
+	</font>
+	</th>
+
+	<th>
+	<font face="arial,helvetica">
+	Description
+	</font>
+	</th>
+
+	<th>
+	<font face="arial,helvetica">
+	Units
+	</font>
+	</th>
+
+	<th>
+	<font face="arial,helvetica">
+	Value(s)
+	</font>
+	</th>
+
+	<th>
+	<font face="arial,helvetica">
+	Source
+	</font>
+	</th>
+
+	<th>
+	<font face="arial,helvetica">
+	Notes
+	</font>
+	</th>
+</tr>
+
+<tr>
+	<td valign="top">
+	<font face="arial,helvetica">
+	W
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Weight
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	weight at flight condition
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	lb
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	6360
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Roskam pg 501
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	converted to Mass <br>[slug/ft<sup>3</sup>] in code
+	</font>
+	</td>
+</tr>
+
+<tr>
+	<td valign="top">
+	<font face="arial,helvetica">
+	I<sub>xx</sub>
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	I_xx
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	roll inertia
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	slug ft<sup>2</sup>
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	7985
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Roskam pg 501
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	
+	</font>
+	</td>
+</tr>
+
+<tr>
+	<td valign="top">
+	<font face="arial,helvetica">
+	I<sub>yy</sub>
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	I_yy
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	pitch inertia
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	slug ft<sup>2</sup>
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	3326
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Roskam pg 501
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	
+	</font>
+	</td>
+</tr>
+
+<tr>
+	<td valign="top">
+	<font face="arial,helvetica">
+	I<sub>zz</sub>
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	I_zz
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	yaw inertia
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	slug ft<sup>2</sup>
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	11183
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Roskam pg 501
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	
+	</font>
+	</td>
+</tr>
+
+<tr>
+	<td valign="top">
+	<font face="arial,helvetica">
+	I<sub>xz</sub>
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	I_xz
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	lateral cross inertia
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	slug ft<sup>2</sup>
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	0
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Roskam pg 501
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	
+	</font>
+	</td>
+</tr>
+</table>
+
+<p>
+
+<table width="95%" border="1">
+<tr>
+	<td colspan="7" bgcolor="FFFFCC">
+	<font face="arial,helvetica" size="4"><b><center>
+	Propulsion Data
+	</center></b></font>
+	</td>
+</tr>
+
+<tr>
+	<th>
+	<font face="arial,helvetica">
+	Variable
+	</font>
+	</th>
+
+	<th>
+	<font face="arial,helvetica">
+	Variable<br>in Code
+	</font>
+	</th>
+
+	<th>
+	<font face="arial,helvetica">
+	Description
+	</font>
+	</th>
+
+	<th>
+	<font face="arial,helvetica">
+	Units
+	</font>
+	</th>
+
+	<th>
+	<font face="arial,helvetica">
+	Value(s)
+	</font>
+	</th>
+
+	<th>
+	<font face="arial,helvetica">
+	Source
+	</font>
+	</th>
+
+	<th>
+	<font face="arial,helvetica">
+	Notes
+	</font>
+	</th>
+</tr>
+
+<tr>
+	<td valign="top">
+	<font face="arial,helvetica">
+	T<sub>max</sub>
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	simpleSingleMaxThrust
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	maximum thrust
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	lb
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	850
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Roskam pg 502
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	estimated from C<sub>T<sub>x</sub></sub><br>
+	at sea level
+	</font>
+	</td>
+</tr>
+
+<tr>
+	<td valign="top">
+	<font face="arial,helvetica">
+	T<sub>max</sub>
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	simpleSingleMaxThrust
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	maximum thrust
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	lb
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	5700
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	David pg 251
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	engine rating<br>
+	(A-37B Dragonfly)
+	</font>
+	</td>
+</tr>
+</table>
+
+<p>
+
+<table width="95%" border="1">
+<tr>
+	<td colspan="7" bgcolor="FFFFCC">
+	<font face="arial,helvetica" size="4"><b><center>
+	Aerodynamic Data
+	</center></b></font>
+	</td>
+</tr>
+
+<tr>
+	<th>
+	<font face="arial,helvetica">
+	Variable
+	</font>
+	</th>
+
+	<th>
+	<font face="arial,helvetica">
+	Variable<br>in Code
+	</font>
+	</th>
+
+	<th>
+	<font face="arial,helvetica">
+	Description
+	</font>
+	</th>
+
+	<th>
+	<font face="arial,helvetica">
+	Units
+	</font>
+	</th>
+
+	<th>
+	<font face="arial,helvetica">
+	Value(s)
+	</font>
+	</th>
+
+	<th>
+	<font face="arial,helvetica">
+	Source
+	</font>
+	</th>
+
+	<th>
+	<font face="arial,helvetica">
+	Notes
+	</font>
+	</th>
+</tr>
+
+<tr>
+	<td valign="top">
+	<font face="arial,helvetica">
+	C<sub>D<sub>0</sub></sub>
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	CDo
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	drag coefficient at <img src="../images/alpha.gif">=0
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	-
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	0.020
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Roskam pg 502
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	
+	</font>
+	</td>
+</tr>
+
+<tr>
+	<td valign="top">
+	<font face="arial,helvetica">
+	C<sub>D<sub><img src="../images/alpha.gif"></sub></sub>
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	CD_a
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	drag curve slope
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	1/rad
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	0.25
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Roskam pg 502
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	
+	</font>
+	</td>
+</tr>
+
+<tr>
+	<td valign="top">
+	<font face="arial,helvetica">
+	C<sub>D<sub><img src="../images/delta.gif">e</sub></sub>
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	CD_de
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	drag due to elevator
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	1/rad
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	0
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Roskam pg 502
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	<img src="../images/delta.gif">e positive down
+	</font>
+	</td>
+</tr>
+
+<tr>
+	<td valign="top">
+	<font face="arial,helvetica">
+	C<sub>L<sub>0</sub></sub>
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	CLo
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	lift coefficient at <img src="../images/alpha.gif">=0
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	-
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	0.20
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Roskam pg 502
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	
+	</font>
+	</td>
+</tr>
+
+<tr>
+	<td valign="top">
+	<font face="arial,helvetica">
+	C<sub>L<sub><img src="../images/alpha.gif"></sub></sub>
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	CL_a
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	lift curve slope
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	1/rad
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	5.15
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Roskam pg 502
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	
+	</font>
+	</td>
+</tr>
+
+<tr>
+	<td valign="top">
+	<font face="arial,helvetica">
+	C<sub>L<sub><img src="../images/alphadot.gif"></sub></sub>
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	CL_adot
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	lift due to angle of attack rate
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	1/rad
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	2.0
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Roskam pg 502
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	
+	</font>
+	</td>
+</tr>
+
+<tr>
+	<td valign="top">
+	<font face="arial,helvetica">
+	C<sub>L<sub>q</sub></sub>
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	CL_q
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	lift due to pitch rate
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	1/rad
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	4.1
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Roskam pg 502
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	
+	</font>
+	</td>
+</tr>
+
+<tr>
+	<td valign="top">
+	<font face="arial,helvetica">
+	C<sub>L<sub><img src="../images/delta.gif">e</sub></sub>
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	CL_de
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	lift due to elevator
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	1/rad
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	0.5
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Roskam pg 502
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	<img src="../images/delta.gif">e positive down
+	</font>
+	</td>
+</tr>
+
+<tr>
+	<td valign="top">
+	<font face="arial,helvetica">
+	C<sub>m<sub>0</sub></sub>
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Cmo
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	pitch moment coefficient at <img src="../images/alpha.gif">=0
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	-
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	0.025
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Roskam pg 502
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	
+	</font>
+	</td>
+</tr>
+
+<tr>
+	<td valign="top">
+	<font face="arial,helvetica">
+	C<sub>m<sub><img src="../images/alpha.gif"></sub></sub>
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Cm_a
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	pitch moment due to angle of attack
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	1/rad
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	-0.70
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Roskam pg 502
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	
+	</font>
+	</td>
+</tr>
+
+<tr>
+	<td valign="top">
+	<font face="arial,helvetica">
+	C<sub>m<sub><img src="../images/alphadot.gif"></sub></sub>
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Cm_adot
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	pitch moment due to angle of attack rate
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	1/rad
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	-6.95
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Roskam pg 502
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	
+	</font>
+	</td>
+</tr>
+
+<tr>
+	<td valign="top">
+	<font face="arial,helvetica">
+	C<sub>m<sub>q</sub></sub>
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Cm_q
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	pitch moment due to pitch rate
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	1/rad
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	-14.9
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Roskam pg 502
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	
+	</font>
+	</td>
+</tr>
+
+<tr>
+	<td valign="top">
+	<font face="arial,helvetica">
+	C<sub>m<sub><img src="../images/delta.gif">e</sub></sub>
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Cm_de
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	pitching moment due to elevator
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	1/rad
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	-1.12
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Roskam pg 502
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	<img src="../images/delta.gif">e positive down
+	</font>
+	</td>
+</tr>
+
+<tr>
+	<td valign="top">
+	<font face="arial,helvetica">
+	C<sub>Y<sub><img src="../images/beta.gif"></sub></sub>
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	CY_beta
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	side force fue to sideslip angle
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	1/rad
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	-0.346
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Roskam pg 503
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	
+	</font>
+	</td>
+</tr>
+
+<tr>
+	<td valign="top">
+	<font face="arial,helvetica">
+	C<sub>Y<sub>p</sub></sub>
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	CY_p
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	side force due to roll rate
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	1/rad
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	-0.0827
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Roskam pg 503
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	
+	</font>
+	</td>
+</tr>
+
+<tr>
+	<td valign="top">
+	<font face="arial,helvetica">
+	C<sub>Y<sub>r</sub></sub>
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	CY_r
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	side force due to yaw rate
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	1/rad
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	0.30
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Roskam pg 503
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	
+	</font>
+	</td>
+</tr>
+
+<tr>
+	<td valign="top">
+	<font face="arial,helvetica">
+	C<sub>Y<sub><img src="../images/delta.gif">a</sub></sub>
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	CY_da
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	side force due to aileron
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	1/rad
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	0
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Roskam pg 503
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	<img src="../images/delta.gif">a positive<br>right aileron up
+	</font>
+	</td>
+</tr>
+
+<tr>
+	<td valign="top">
+	<font face="arial,helvetica">
+	C<sub>Y<sub><img src="../images/delta.gif">r</sub></sub>
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	CY_dr
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	side force due to rudder
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	1/rad
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	0.2
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Roskam pg 503
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	<img src="../images/delta.gif">r positive left
+	</font>
+	</td>
+</tr>
+
+<tr>
+	<td valign="top">
+	<font face="arial,helvetica">
+	C<sub>l<sub><img src="../images/beta.gif"></sub></sub>
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Cl_beta
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	dihedral effect
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	1/rad
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	-0.0944
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Roskam pg 503
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	
+	</font>
+	</td>
+</tr>
+
+<tr>
+	<td valign="top">
+	<font face="arial,helvetica">
+	C<sub>l<sub>p</sub></sub>
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Cl_p
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	roll damping
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	1/rad
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	-0.442
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Roskam pg 503
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	
+	</font>
+	</td>
+</tr>
+
+<tr>
+	<td valign="top">
+	<font face="arial,helvetica">
+	C<sub>l<sub>r</sub></sub>
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Cl_r
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	roll moment due to yaw rate
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	1/rad
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	0.0926
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Roskam pg 503
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	
+	</font>
+	</td>
+</tr>
+
+<tr>
+	<td valign="top">
+	<font face="arial,helvetica">
+	C<sub>l<sub><img src="../images/delta.gif">a</sub></sub>
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Cl_da
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	roll moment due to aileron
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	1/rad
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	-0.181
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Roskam pg 503
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	<img src="../images/delta.gif">a positive<br>right aileron up
+	</font>
+	</td>
+</tr>
+
+<tr>
+	<td valign="top">
+	<font face="arial,helvetica">
+	C<sub>l<sub><img src="../images/delta.gif">r</sub></sub>
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Cl_dr
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	roll moment due to rudder
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	1/rad
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	0.015
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Roskam pg 503
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	<img src="../images/delta.gif">r positive left
+	</font>
+	</td>
+</tr>
+
+<tr>
+	<td valign="top">
+	<font face="arial,helvetica">
+	C<sub>n<sub><img src="../images/beta.gif"></sub></sub>
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Cn_beta
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	weathercock stability
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	1/rad
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	0.1106
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Roskam pg 503
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	
+	</font>
+	</td>
+</tr>
+
+<tr>
+	<td valign="top">
+	<font face="arial,helvetica">
+	C<sub>n<sub>p</sub></sub>
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Cn_p
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	adverse yaw
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	1/rad
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	-0.0243
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Roskam pg 503
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	
+	</font>
+	</td>
+</tr>
+
+<tr>
+	<td valign="top">
+	<font face="arial,helvetica">
+	C<sub>n<sub>r</sub></sub>
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Cn_r
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	yaw damping
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	1/rad
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	-0.139
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Roskam pg 503
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	
+	</font>
+	</td>
+</tr>
+
+<tr>
+	<td valign="top">
+	<font face="arial,helvetica">
+	C<sub>n<sub><img src="../images/delta.gif">a</sub></sub>
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Cn_da
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	yaw moment due to aileron
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	1/rad
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	0.0254
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Roskam pg 503
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	<img src="../images/delta.gif">a positive<br>right aileron up
+	</font>
+	</td>
+</tr>
+
+<tr>
+	<td valign="top">
+	<font face="arial,helvetica">
+	C<sub>n<sub><img src="../images/delta.gif">r</sub></sub>
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Cn_dr
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	yaw moment due to rudder
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	1/rad
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	-0.0365
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	Roskam pg 503
+	</font>
+	</td>
+
+	<td valign="top">
+	<font face="arial,helvetica">
+	<img src="../images/delta.gif">r positive left
+	</font>
+	</td>
+</tr>
+</table>
+</center>
+
+<p>
+<hr>
+<p>
+
+<h5><b><center>
+<a href="http://amber.aae.uiuc.edu/~jscott/sis/">Flight Sim Home</a> * 
+<a href="../index.html">Aircraft Models</a> * 
+<a href="index.html">T-37 Model</a> * 
+<a href="refs.html">T-37 References<br>
+</h5></b></center>
+
+</font>
+</body>
+</html>

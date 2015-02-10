@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<PropertyList>
+ <name>GPS panel</name>
+ <background>Aircraft/Instruments-3d/zkv500/transparent-bg.rgb</background>
+ <w>256</w>
+ <h>256</h>
+ <instruments>
+   <instrument include="ZKV500-display.xml">
+     <name>LCD GPS Display</name>
+     <x>0</x>
+     <y>0</y>
+     <w>1024</w>
+     <h>1024</h>
+   </instrument>
+ </instruments>
+</PropertyList>

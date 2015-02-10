@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+  <!-- Datum Light - Green -->
+  <PropertyList> 
+    <path>datum.ac</path>
+	
+	<animation>
+		<type>alpha-test</type>
+		<object-name>Datum</object-name>
+		<alpha-factor>0.01</alpha-factor>
+	</animation>
+   
+	<animation> 
+      <type>scale</type>
+      <object-name>Datum</object-name>
+      <property>controls/flols/distance-m</property>
+      <x-offset>1.0</x-offset>
+      <x-factor>0.0</x-factor>
+	  <y-offset>1.0</y-offset>
+      <y-factor>0.01</y-factor>
+      <z-offset>1.0</z-offset>
+      <z-factor>0.01</z-factor>
+    </animation>
+	
+    <!-- *** LoD *** -->
+    <animation> 
+      <type>range</type>
+      <object-name>Datum</object-name>
+      <min-m>0</min-m>
+      <max-m>5000</max-m>
+    </animation>
+    
+  </PropertyList>

@@ -1,0 +1,425 @@
+<?xml version="1.0"?>
+<!--
+    Piper Seneca II panel
+-->
+
+<PropertyList>
+    <params>
+      <row-lights>221</row-lights>
+      <row-1>155</row-1>
+      <row-2>69</row-2>
+      <row-3>4</row-3>
+      <col-1>48</col-1>
+      <col-2>129</col-2>
+      <col-3>212</col-3>
+      <col-4>294</col-4>
+
+      <col-r1>385</col-r1>
+      <col-r2>463</col-r2>
+      <col-r3>545</col-r3>
+      <col-r4>627</col-r4>
+
+      <eng-row-1>175</eng-row-1>
+      <eng-row-2>133</eng-row-2>
+      <eng-row-3>90</eng-row-3>
+      <eng-row-4>48</eng-row-4>
+      <eng-col-1>455</eng-col-1>
+      <eng-col-2>497</eng-col-2>
+
+      <radio-col>603</radio-col>
+
+      <size-1>91</size-1>
+      <size-2>45</size-2>
+    </params>
+
+    <name>SenecaII IFR Panel</name>
+    <w>680</w>
+    <h>272</h>
+
+    <instruments>
+
+        <instrument include="/Aircraft/Instruments/fps.xml">
+            <name>frames per second</name>
+            <x>20</x>
+            <y>0</y>
+            <w>40</w>
+            <h>40</h>
+        </instrument>
+
+        <!-- left half -->
+        <instrument include="hsi-bk-hi.xml">
+            <name>Bendix King HSI</name>
+            <x alias="../../../params/col-3"/>
+            <y>71</y>
+            <w>99</w>
+            <h>97</h>
+        </instrument>
+
+<!--
+        <instrument include="ILSCapture.xml">
+            <name>ILS Capture Light</name>
+            <x alias="../../../params/col-2"/>
+            <y alias="../../../params/row-lights"/>
+            <w>35</w>
+            <h>35</h>
+        </instrument>
+-->
+        <instrument include="AnnunciatorLight.xml">
+            <params>
+                <test>instrumentation/annunciator/test</test>
+                <signal>instrumentation/annunciator/fuelpump[0]</signal>
+                <texture-path>Aircraft/SenecaII/Panels/Textures/FuelPump.png</texture-path>
+            </params>
+            <name>FuelPumpL</name>
+            <x>213</x>
+            <y alias="../../../params/row-lights"/>
+            <w>12</w>
+            <h>12</h>
+        </instrument>
+
+        <instrument include="AnnunciatorLight.xml">
+            <params>
+                <test>instrumentation/annunciator/test</test>
+                <signal>instrumentation/annunciator/overboost[0]</signal>
+                <texture-path>Aircraft/SenecaII/Panels/Textures/OverBoost.png</texture-path>
+            </params>
+            <name>OverBoostL</name>
+            <x>232</x>
+            <y alias="../../../params/row-lights"/>
+            <w>12</w>
+            <h>12</h>
+        </instrument>
+
+        <instrument include="AnnunciatorLight.xml">
+            <params>
+                <test>instrumentation/annunciator/test</test>
+                <signal>instrumentation/annunciator/oil</signal>
+                <texture-path>Aircraft/SenecaII/Panels/Textures/Oil.png</texture-path>
+            </params>
+            <name>Oil</name>
+            <x>250</x>
+            <y alias="../../../params/row-lights"/>
+            <w>12</w>
+            <h>12</h>
+        </instrument>
+
+        <instrument include="AnnunciatorLight.xml">
+            <params>
+                <test>instrumentation/annunciator/test</test>
+                <signal>instrumentation/annunciator/vacuum</signal>
+                <texture-path>Aircraft/SenecaII/Panels/Textures/GyroAir.png</texture-path>
+            </params>
+            <name>GyroAir</name>
+            <x>268</x>
+            <y alias="../../../params/row-lights"/>
+            <w>12</w>
+            <h>12</h>
+        </instrument>
+
+        <instrument include="AnnunciatorLight.xml">
+            <params>
+                <test>instrumentation/annunciator/test</test>
+                <signal>instrumentation/annunciator/alt</signal>
+                <texture-path>Aircraft/SenecaII/Panels/Textures/Alt.png</texture-path>
+            </params>
+            <name>Alt</name>
+            <x>286</x>
+            <y alias="../../../params/row-lights"/>
+            <w>12</w>
+            <h>12</h>
+        </instrument>
+
+        <instrument include="AnnunciatorLight.xml">
+            <params>
+                <test>instrumentation/annunciator/test</test>
+                <signal>instrumentation/annunciator/overboost[1]</signal>
+                <texture-path>Aircraft/SenecaII/Panels/Textures/OverBoost.png</texture-path>
+            </params>
+            <name>OverBoostR</name>
+            <x>304</x>
+            <y alias="../../../params/row-lights"/>
+            <w>12</w>
+            <h>12</h>
+        </instrument>
+
+        <instrument include="AnnunciatorLight.xml">
+            <params>
+                <test>instrumentation/annunciator/test</test>
+		<signal>instrumentation/annunciator/fuelpump[1]</signal>
+                <texture-path>Aircraft/SenecaII/Panels/Textures/FuelPump.png</texture-path>
+            </params>
+            <name>FuelPumpR</name>
+            <x>322</x>
+            <y alias="../../../params/row-lights"/>
+            <w>12</w>
+            <h>12</h>
+        </instrument>
+
+        <instrument include="GearUnsafe.xml">
+            <name>GearUnsafeLight</name>
+            <x alias="../../../params/col-2"/>
+            <y alias="../../../params/row-lights"/>
+            <w>20</w>
+            <h>20</h>
+        </instrument>
+
+        <instrument include="../../Instruments/clock.xml">
+            <name>clock</name>
+            <x>170</x>
+            <y alias="../../../params/row-lights"/>
+            <w>55</w>
+            <h>55</h>
+        </instrument>
+
+        <instrument include="Airspeed.xml">
+            <name>Airspeed Indicator</name>
+            <x alias="../../../params/col-2"/>
+            <y alias="../../../params/row-1"/>
+            <w alias="../../../params/size-1"/>
+            <h alias="../../../params/size-1"/>
+        </instrument>
+
+        <instrument include="../../Instruments/ati-c172s.xml">
+            <name>Attitude Gyro</name>
+            <x alias="../../../params/col-3"/>
+            <y alias="../../../params/row-1"/>
+            <w alias="../../../params/size-1"/>
+            <h alias="../../../params/size-1"/>
+        </instrument>
+
+        <instrument include="../../Instruments/alt-c172s.xml">
+            <name>Altimeter</name>
+            <x alias="../../../params/col-4"/>
+            <y alias="../../../params/row-1"/>
+            <w alias="../../../params/size-1"/>
+            <h alias="../../../params/size-1"/>
+        </instrument>
+
+        <instrument include="adf.xml">
+            <name>ADF Coordinator</name>
+            <x alias="../../../params/col-1"/>
+            <y alias="../../../params/row-2"/>
+            <w alias="../../../params/size-1"/>
+            <h alias="../../../params/size-1"/>
+        </instrument>
+
+        <instrument include="../../Instruments/trn-c172s.xml">
+            <name>Turn Coordinator</name>
+            <x alias="../../../params/col-2"/>
+            <y alias="../../../params/row-2"/>
+            <w alias="../../../params/size-1"/>
+            <h alias="../../../params/size-1"/>
+        </instrument>
+
+        <instrument include="../../Instruments/vsi-c172s.xml">
+            <name>Vertical Velocity Indicator</name>
+            <x alias="../../../params/col-4"/>
+            <y alias="../../../params/row-2"/>
+            <w alias="../../../params/size-1"/>
+            <h alias="../../../params/size-1"/>
+        </instrument>
+
+        <instrument include="FuelOilAmps.xml">
+            <name>FuelOilAmps</name>
+            <params>
+                <amps>/systems/electrical/bus[0]/element[1]/i</amps>
+                <cht>/engines/engine[0]/cht-degf</cht>
+                <ot>engines/engine[0]/oil-temperature-degf</ot>
+                <op>/engines/engine[0]/oil-pressure-psi</op>
+                <fuel>/consumables/fuel/tank[0]/level-gal_us</fuel>
+            </params>
+            <x>425</x>
+            <y alias="../../../params/row-3"/>
+            <w>165</w>
+            <h>16</h>
+        </instrument>
+
+        <instrument include="FuelOilAmps.xml">
+            <name>FuelOilAmps</name>
+            <params>
+                <amps>/systems/electrical/bus[1]/element[1]/i</amps>
+                <cht>/engines/engine[1]/cht-degf</cht>
+                <ot>engines/engine[1]/oil-temperature-degf</ot>
+                <op>/engines/engine[1]/oil-pressure-psi</op>
+                <fuel>/consumables/fuel/tank[1]/level-gal_us</fuel>
+            </params>
+            <x>595</x>
+            <y alias="../../../params/row-3"/>
+            <w>165</w>
+            <h>16</h>
+        </instrument>
+
+        <!-- right half -->
+        <instrument include="../../Instruments/kra-10a.xml">
+            <name>Radar Altimeter</name>
+            <x alias="../../../params/col-r1"/>
+            <y alias="../../../params/row-1"/>
+            <w alias="../../../params/size-1"/>
+            <h alias="../../../params/size-1"/>
+        </instrument>
+
+        <instrument include="../../Instruments/vor2-c172s.xml">
+            <name>VOR 2 Gauge</name>
+            <params>
+                <nav-to-flag>/instrumentation/nav[1]/from-flag</nav-to-flag>
+                <nav-from-flag>/instrumentation/nav[1]/to-flag</nav-from-flag>
+                <nav-radial-selected>/instrumentation/nav[1]/radials/selected-deg</nav-radial-selected>
+                <nav-gs-needle-deflection>/instrumentation/nav[1]/gs-needle-deflection</nav-gs-needle-deflection>
+                <nav-heading-needle-deflection>/instrumentation/nav[1]/heading-needle-deflection</nav-heading-needle-deflection>
+                <nav-has-gs-needle>/sim/instrument-options/nav[1]/has-gs-needle</nav-has-gs-needle>
+                <nav-needles-pivot>/sim/instrument-options/nav[1]/needles-pivot</nav-needles-pivot>
+            </params>
+            <x alias="../../../params/col-r1"/>
+            <y alias="../../../params/row-2"/>
+            <w alias="../../../params/size-1"/>
+            <h alias="../../../params/size-1"/>
+        </instrument>
+
+        <instrument include="RPM.xml">
+            <name>RPM Left Gauge</name>
+            <params>
+                <source>/engines/engine[0]/rpm-filtered</source>
+            </params>
+            <x alias="../../../params/eng-col-1"/>
+            <y alias="../../../params/eng-row-1"/>
+            <w alias="../../../params/size-2"/>
+            <h alias="../../../params/size-2"/>
+        </instrument>
+
+        <instrument include="MP.xml">
+            <name>MP Gauge</name>
+            <params>
+                <left>/engines/engine[0]/mp-osi-filtered</left>
+                <right>/engines/engine[1]/mp-osi-filtered</right>
+            </params>
+            <x alias="../../../params/eng-col-1"/>
+            <y alias="../../../params/eng-row-2"/>
+            <w alias="../../../params/size-2"/>
+            <h alias="../../../params/size-2"/>
+        </instrument>
+
+        <instrument include="RPM.xml">
+            <name>RPM Right Gauge</name>
+            <params>
+                <source>/engines/engine[1]/rpm-filtered</source>
+            </params>
+            <x alias="../../../params/eng-col-2"/>
+            <y alias="../../../params/eng-row-1"/>
+            <w alias="../../../params/size-2"/>
+            <h alias="../../../params/size-2"/>
+        </instrument>
+
+        <instrument include="FF.xml">
+            <name>Fuel Flow Gauge</name>
+            <params>
+                <left>/engines/engine[0]/fuel-flow-gph</left>
+                <right>/engines/engine[1]/fuel-flow-gph</right>
+            </params>
+            <x alias="../../../params/eng-col-2"/>
+            <y alias="../../../params/eng-row-2"/>
+            <w alias="../../../params/size-2"/>
+            <h alias="../../../params/size-2"/>
+        </instrument>
+
+        <instrument include="EGT.xml">
+            <name>EGT-L Gauge</name>
+            <params>
+                <value>engines/engine[0]/egt-degf-filtered</value>
+                <bug>engines/engine[0]/egt-bug</bug>
+            </params>
+            <x alias="../../../params/eng-col-1"/>
+            <y alias="../../../params/eng-row-3"/>
+            <w alias="../../../params/size-2"/>
+            <h alias="../../../params/size-2"/>
+        </instrument>
+
+        <instrument include="EGT.xml">
+            <name>EGT-R Gauge</name>
+            <params>
+                <value>engines/engine[1]/egt-degf-filtered</value>
+                <bug>engines/engine[1]/egt-bug</bug>
+            </params>
+            <x alias="../../../params/eng-col-2"/>
+            <y alias="../../../params/eng-row-3"/>
+            <w alias="../../../params/size-2"/>
+            <h alias="../../../params/size-2"/>
+        </instrument>
+
+        <instrument include="Vacuum.xml">
+            <name>Gyro PressureGauge</name>
+<!--            <x alias="../../../params/eng-col-1"/> -->
+            <x>454</x>
+            <y alias="../../../params/eng-row-4"/>
+            <w alias="../../../params/size-2"/>
+            <h alias="../../../params/size-2"/>
+        </instrument>
+
+        <instrument include="FlapTrimIndicator.xml">
+            <name>FlapTrim</name>
+            <x alias="../../../params/eng-col-2"/>
+            <y alias="../../../params/eng-row-4"/>
+            <w alias="../../../params/size-2"/>
+            <h alias="../../../params/size-2"/>
+        </instrument>
+
+
+<!--
+        <instrument include="../../Instruments/navcom-kx155.xml">
+            <name>comnav1</name>
+            <params>
+              <comm-freq-selected-prop>/instrumentation/comm[0]/frequencies/selected-mhz</comm-freq-selected-prop>
+              <comm-freq-standby-prop>/instrumentation/comm[0]/frequencies/standby-mhz</comm-freq-standby-prop>
+              <nav-freq-selected-prop>/instrumentation/nav[0]/frequencies/selected-mhz</nav-freq-selected-prop>
+              <nav-freq-standby-prop>/instrumentation/nav[0]/frequencies/standby-mhz</nav-freq-standby-prop>
+              <nav-morse-id-volume-prop>/instrumentation/nav[0]/volume</nav-morse-id-volume-prop>
+              <nav-morse-ident-toggle-prop>/instrumentation/nav[0]/ident</nav-morse-ident-toggle-prop>
+            </params>
+            <x alias="../../../params/radio-col"/>
+            <y>242</y>
+            <w>150</w>
+            <h>50</h>
+        </instrument>
+
+        <instrument include="../../Instruments/navcom-kx155.xml">
+            <name>comnav2</name>
+            <params>
+              <comm-freq-selected-prop>/instrumentation/comm[1]/frequencies/selected-mhz</comm-freq-selected-prop>
+              <comm-freq-standby-prop>/instrumentation/comm[1]/frequencies/standby-mhz</comm-freq-standby-prop>
+              <nav-freq-selected-prop>/instrumentation/nav[1]/frequencies/selected-mhz</nav-freq-selected-prop>
+              <nav-freq-standby-prop>/instrumentation/nav[1]/frequencies/standby-mhz</nav-freq-standby-prop>
+              <nav-morse-id-volume-prop>/instrumentation/nav[1]/volume</nav-morse-id-volume-prop>
+              <nav-morse-ident-toggle-prop>/instrumentation/nav[1]/ident</nav-morse-ident-toggle-prop>
+            </params>
+            <x alias="../../../params/radio-col"/>
+            <y>190</y>
+            <w>150</w>
+            <h>50</h>
+        </instrument>
+
+        <instrument include="../../Instruments/kr-87adf.xml">
+            <name>comnav2</name>
+            <x alias="../../../params/radio-col"/>
+            <y>148</y>
+            <w>150</w>
+            <h>30</h>
+        </instrument>
+
+        <instrument include="../../Instruments/xpdr-kt76c.xml">
+            <name>comnav2</name>
+            <x alias="../../../params/radio-col"/>
+            <y>116</y>
+            <w>150</w>
+            <h>30</h>
+        </instrument>
+
+        <instrument include="../../Instruments/dme.xml">
+            <name>comnav2</name>
+            <x alias="../../../params/radio-col"/>
+            <y>84</y>
+            <w>80</w>
+            <h>30</h>
+        </instrument>
+-->
+    </instruments>
+
+</PropertyList>

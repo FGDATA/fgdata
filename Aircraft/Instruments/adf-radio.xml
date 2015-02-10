@@ -1,0 +1,413 @@
+<?xml version="1.0"?>
+
+<!--
+Parameterized ADF radio instrument.
+John Check <j4strngs@rockfish.net>
+June 2001
+
+This is an instrument configuration file for the open-source flight
+simulator FlightGear (www.flightgear.org).  The file is an XML-encoded
+FlightGear property list defining the instrument's layers and actions.
+
+Each instrument is composed of layers stacked on top of each other.
+A layer may be a texture (with transparent parts to show the layers
+underneath), text, or a special layer that switches between two
+others (say, to turn an indicator light on or off).  Each layer can
+move independently in proportion to a property value, and text
+can be generated from property values as well: all of the layer's
+movements are defined as transformations.
+
+Actions are hotspots on the instrument that will respond to a mouse
+click.  Actions always modify the values of properties, either by
+adjusting them, toggling them, or swaping them with other
+properties' values.
+-->
+
+<PropertyList>
+
+ <name>ADF Radio</name>
+ <w-base>256</w-base>
+ <h-base>64</h-base>
+
+<params>
+  <adf-freq-selected-prop>/instrumentation/adf/frequencies/selected-khz</adf-freq-selected-prop>
+  <adf-freq-standby-prop>/instrumentation/adf/frequencies/standby-khz</adf-freq-standby-prop>
+  <adf-morse-id-volume-prop>/instrumentation/adf/volume-norm</adf-morse-id-volume-prop>
+  <adf-morse-ident-toggle-prop>/instrumentation/adf/ident-audible</adf-morse-ident-toggle-prop>
+  <adf-pwr-volts-prop>/systems/electrical/outputs/adf[0]</adf-pwr-volts-prop>
+</params>
+
+ <layers>
+
+  <layer>
+   <name>background</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/navcom-radios.rgb</path>
+    <x1>0.0</x1>
+    <y1>0.5</y1>
+    <x2>1.0</x2>
+    <y2>0.75</y2>
+   </texture>
+  </layer>
+  
+  <layer>
+   <name>display</name>
+   <condition>
+    <greater-than>
+     <property alias="../../../../../params/adf-pwr-volts-prop"/>
+     <value>8.0</value>
+    </greater-than>
+   </condition>
+   <type>text</type>
+   <font>led</font>
+   <point-size>7</point-size>
+   <color>
+    <red>1.0</red>
+    <green>0.5</green>
+    <blue>0.0</blue>
+   </color>
+   <chunks>
+    <chunk>
+     <type>number-value</type>
+     <property alias="../../../../../params/adf-freq-selected-prop"/>
+     <format>%6.0f</format>
+    </chunk>
+    <chunk>
+     <type>number-value</type>
+     <property alias="../../../../../params/adf-freq-standby-prop"/>
+     <format>%12.0f</format>
+    </chunk>
+   </chunks>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-110</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-4</offset>
+    </transformation>
+   </transformations>
+  </layer>
+ 
+  <layer>
+   <name>annunciator display</name>
+   <condition>
+    <greater-than>
+     <property alias="../../../../../params/adf-pwr-volts-prop"/>
+     <value>8.0</value>
+    </greater-than>
+   </condition>
+   <type>text</type>
+   <point-size>6</point-size>
+   <color>
+    <red>1.0</red>
+    <green>0.5</green>
+    <blue>0.0</blue>
+   </color>
+   <chunks>
+    <chunk>
+     <type>literal</type>
+     <text>SEL              STDBY</text>
+    </chunk>
+   </chunks>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-90</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>14</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>swap adffrequencies button label</name>
+   <type>text</type>
+   <point-size>6</point-size>
+   <color>
+    <red>0.0</red>
+    <green>0.0</green>
+    <blue>0.0</blue>
+   </color>
+   <chunks>
+    <chunk>
+     <type>literal</type>
+     <text>SWAP</text>
+    </chunk>
+   </chunks>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-95</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-20</offset>
+    </transformation>
+   </transformations>
+  </layer>
+ 
+ <layer>
+  <name>knob</name>
+  <texture>
+  <path>Aircraft/Instruments/Textures/blister.rgb</path>
+  <x1>0.0</x1>
+  <y1>0.75</y1>
+  <x2>0.25</x2>
+  <y2>1.0</y2>
+  </texture>
+  <h>32</h>
+  <w>32</w>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>100</offset>
+    </transformation>
+   </transformations>
+ </layer> 
+
+  <layer>
+   <name>ident knob</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/blister.rgb</path>
+    <x1>0.0</x1>
+    <y1>0.75</y1>
+    <x2>0.25</x2>
+    <y2>1.0</y2>
+   </texture>
+   <w>15</w>
+   <h>15</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>70</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-16</offset>
+    </transformation>
+   </transformations>
+  </layer>
+  <layer>
+   <name>ident knob pointer</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/blister.rgb</path>
+    <x1>0.0</x1>
+    <y1>0.1640625</y1>
+    <x2>0.1</x2>
+    <y2>0.328125</y2>
+   </texture>
+   <w>2</w>
+   <h>6</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>70</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-16</offset>
+    </transformation>
+    <transformation>
+     <type>rotation</type>
+     <property>/instrumentation/adf/volume-norm</property>
+     <min>0</min>
+     <max>2</max>
+     <scale>140</scale>
+     <offset>-140</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>3</offset>
+    </transformation>
+   </transformations>
+  </layer>
+  <layer>
+   <name>voice/ident toggle</name>
+    <type>switch</type>
+     <layer>
+      <condition>
+       <property alias="../../../../../params/adf-morse-ident-toggle-prop"/>
+      </condition>
+      <name>voice on</name>
+      <texture>
+      <path>Aircraft/Instruments/Textures/switches.rgb</path>
+      <x1>0.0</x1>
+      <y1>0.75</y1>
+      <x2>0.25</x2>
+      <y2>1.0</y2>
+      </texture>
+      <w>12</w>
+      <h>12</h>
+    <transformations>
+      <transformation>
+      <type>y-shift</type>
+      <offset>1</offset>
+      </transformation>
+    </transformations>
+    </layer>
+    <layer>
+    <name>ident on</name>
+    <texture>
+    <path>Aircraft/Instruments/Textures/switches.rgb</path>
+    <x1>0.0</x1>
+    <y1>0.0</y1>
+    <x2>0.25</x2>
+    <y2>0.30</y2>
+    </texture>
+    <w>12</w>
+    <h>15</h>
+    </layer>
+    <transformations>
+     <transformation>
+      <type>x-shift</type>
+      <offset>42</offset>
+      </transformation>
+    <transformation>
+    <type>y-shift</type>
+    <offset>-20</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+ </layers>
+
+ <actions>
+
+  <action>
+   <name>small decrease</name>
+   <button>0</button>
+   <x>89</x>
+   <y>-12</y>
+   <w>12</w>
+   <h>24</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/adf-freq-standby-prop"/>
+    <step>-1</step>
+    <min>100</min>
+    <max>1300</max>
+    <resolution>1</resolution>
+    <wrap>1</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>large decrease</name>
+   <button>1</button>
+   <x>89</x>
+   <y>-12</y>
+   <w>12</w>
+   <h>24</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/adf-freq-standby-prop"/>
+    <step>-100</step>
+    <min>100</min>
+    <max>1300</max>
+    <resolution>1</resolution>
+    <wrap>1</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>small increase</name>
+   <button>0</button>
+   <x>100</x>
+   <y>-12</y>
+   <w>12</w>
+   <h>24</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/adf-freq-standby-prop"/>
+    <step>1</step>
+    <min>100</min>
+    <max>1300</max>
+    <resolution>1</resolution>
+    <wrap>1</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>large increase</name>
+   <button>1</button>
+   <x>100</x>
+   <y>-12</y>
+   <w>12</w>
+   <h>24</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/adf-freq-standby-prop"/>
+    <step>100</step>
+    <min>100</min>
+    <max>1300</max>
+    <resolution>1</resolution>
+    <wrap>1</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>swap adf frequencies</name>
+   <button>0</button>
+   <x>-95</x>
+   <y>-26</y>
+   <w>20</w>
+   <h>14</h>
+   <binding>
+    <command>property-swap</command>
+    <property alias="../../../../params/adf-freq-selected-prop"/>
+    <property alias="../../../../params/adf-freq-standby-prop"/>
+   </binding>
+  </action>
+ 
+  <action>
+   <name>ident volume increase</name>
+   <button>0</button>
+   <x>70</x>
+   <y>-24</y>
+   <w>8</w>
+   <h>16</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/adf-morse-id-volume-prop"/>
+    <step>0.5</step>
+    <min>0</min>
+    <max>1</max>
+   </binding>
+  </action>
+
+  <action>
+   <name>ident volume decrease</name>
+   <button>0</button>
+   <x>62</x>
+   <y>-24</y>
+   <w>16</w>
+   <h>8</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/adf-morse-id-volume-prop"/>
+    <step>-0.5</step>
+    <min>0</min>
+    <max>1</max>
+   </binding>
+  </action>
+ 
+  <action>
+   <name>ident volume</name>
+   <button>0</button>
+   <x>37</x>
+   <y>-30</y>
+   <w>14</w>
+   <h>16</h>
+   <binding>
+    <command>property-toggle</command>
+    <property alias="../../../../params/adf-morse-ident-toggle-prop"/>
+   </binding>
+  </action>
+
+ </actions>
+
+</PropertyList>

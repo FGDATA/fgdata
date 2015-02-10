@@ -1,0 +1,214 @@
+<!--
+DHC-2 Beaver
+2004 Syd Adams 
+
+-->
+
+<airplane mass="2850">
+
+    <approach speed="40" aoa="14">
+        <control-setting axis="/controls/engines/engine[0]/throttle" value="0.3"/>
+        <control-setting axis="/engines/engine[0]/mixture" value="1.0"/>
+        <control-setting axis="/controls/engines/engine[0]/propeller-pitch" value="1.0"/>
+        <control-setting axis="/controls/flight/flaps" value="1"/>
+    </approach>
+
+    <cruise speed="131" alt="5000">
+        <control-setting value="1.0" axis="/controls/engines/engine[0]/throttle"/>
+        <control-setting value="1.0" axis="/engines/engine[0]/mixture"/>
+        <control-setting value="1.0" axis="/controls/engines/engine[0]/propeller-pitch"/>
+        <control-setting value="0.0" axis="/controls/flight/flaps"/>
+    </cruise>
+
+    <cockpit x="-0.825" y="-0.26" z="0.70"/>
+
+    <fuselage width="1.6" ax="2.5" ay="0" az="0" bx="3.7" by="0" bz="0.0" taper="0.75" midpoint="0.25"/>
+
+
+    <wing x="0.0" y="0.6" z="0.6" chord="1.5875" taper="1.0" length="6.8" dihedral="4" incidence="2.0">
+        <stall width="15" aoa="15" peak="1.5"/>
+        <flap0 drag="1.6" end="0.58" lift="1.5" start="0.02"/>
+        <flap1 drag="1.1" end="0.97" lift="1.2" start="0.58"/>
+        <control-input control="FLAP0" axis="/controls/flight/flaps"/>
+        <control-input split="true" control="FLAP1" axis="/controls/flight/aileron"/>
+        <control-input split="true" control="FLAP1" axis="/controls/flight/aileron-trim"/>
+        <control-output prop="/surface-positions/flap-pos-norm" control="FLAP0"/>
+        <control-output prop="/surface-positions/left-aileron-pos-norm" side="left" control="FLAP1"/>
+        <control-output prop="/surface-positions/right-aileron-pos-norm" side="right" control="FLAP1"/>
+        <control-speed transition-time="15" control="FLAP0"/>
+    </wing>
+
+    <hstab x="-6.0" y="0.2" z="0.2"  chord="1.2" taper=".7" length="2.5">
+        <stall width="3" aoa="15" peak="1.5"/>
+        <flap0 drag="1.1" end="1" lift="1.4" start="0"/>
+        <control-input control="FLAP0" axis="/controls/flight/elevator"/>
+        <control-input control="FLAP0" axis="/controls/flight/elevator-trim"/>
+        <control-output prop="/surface-positions/elevator-pos-norm" control="FLAP0"/>
+    </hstab>
+
+    <vstab x="-5.5" y="0" z="0.2" sweep="15"  chord="3.0" taper=".2" length="2.0">
+        <stall width="3" aoa="15" peak="1.5"/>
+        <flap0 drag="1.1" end="1" lift="1.3" start="0"/>
+        <control-input control="FLAP0" axis="/controls/flight/rudder" invert="true"/>
+        <control-input control="FLAP0" axis="/controls/flight/rudder-trim" invert="true"/>
+        <control-output prop="/surface-positions/rudder-pos-norm" control="FLAP0"/>
+        <control-output prop="/controls/gear/steering" control="FLAP0"/>
+    </vstab>
+
+<!--   doors     -->
+    <vstab x="0" y="0" z="0.0" length="0.001" chord="0.001">
+        <flap0 start="0" end="0.5" lift="1" drag="1"/>
+        <flap1 start="0.5" end="1" lift="1" drag="1"/>
+        <control-input axis="controls/doors/open[0]" control="FLAP0"/>
+        <control-input axis="controls/doors/open[1]" control="FLAP1"/>
+        <control-output control="FLAP0" prop="controls/doors/position-norm[0]"/>
+        <control-output control="FLAP1" prop="controls/doors/position-norm[1]"/>
+        <control-speed control="FLAP0" transition-time="2"/>
+        <control-speed control="FLAP1" transition-time="2"/>
+    </vstab>
+
+    <vstab x="0" y="0" z="0.0" length="0.001" chord="0.001">
+        <flap0 start="0" end="0.5" lift="1" drag="1"/>
+        <flap1 start="0.5" end="1" lift="1" drag="1"/>
+        <control-input axis="controls/doors/open[2]" control="FLAP0"/>
+        <control-input axis="controls/doors/open[3]" control="FLAP1"/>
+        <control-output control="FLAP0" prop="controls/doors/position-norm[2]"/>
+        <control-output control="FLAP1" prop="controls/doors/position-norm[3]"/>
+        <control-speed control="FLAP0" transition-time="2"/>
+        <control-speed control="FLAP1" transition-time="2"/>
+    </vstab>
+
+<!--firing time-->
+    <vstab x="0" y="0" z="0.0" length="0.001" chord="0.001">
+        <flap0 start="0" end="0.5" lift="1" drag="1"/>
+        <flap1 start="0.5" end="1" lift="1" drag="1"/>
+        <control-input axis="engines/engine/running" control="FLAP0"/>
+        <control-output control="FLAP0" prop="engines/engine/firing"/>
+        <control-speed control="FLAP0" transition-time="15"/>
+    </vstab>
+
+<!--  Pratt & Whitney R-985 Wasp Junior  -->
+    <propeller moment="12" x="2.0" y="0.0" z="0.0" mass="700" radius="1.2" cruise-power="400" cruise-alt="5000" min-rpm="1600" max-rpm="2300" cruise-speed="130" cruise-rpm="2200" fine-stop="0.8" coarse-stop="1.8">
+        <piston-engine eng-rpm="2300" alt="0" eng-power="450" displacement="985" compression="6" turbo-mul="1.3" wastegate-mp="36.5"/>
+        <actionpt x="2.5" y="0.0" z="0.0"/>
+        <control-input control="THROTTLE" axis="/controls/engines/engine[0]/throttle"/>
+        <control-input control="STARTER" axis="/controls/engines/engine[0]/starter"/>
+        <control-input control="MAGNETOS" axis="/controls/engines/engine[0]/magnetos"/>
+        <control-input control="MIXTURE" axis="/engines/engine[0]/mixture"/>
+        <control-input control="ADVANCE" axis="/controls/engines/engine[0]/propeller-pitch"/>
+    </propeller>
+
+<!-- Retractable wheels-->
+
+    <gear x="3.54" y="1.5" z="-2.57" compression="0.2"  spring = "3" sfric = "0.5" dfric=".45" retract-time="2" initial-load="0" damp="0.6">
+        <control-input axis="/controls/gear/steering" control="STEER" src0="-1.0" src1="1.0" dst0="1" dst1="-1"/>
+        <control-input axis="/controls/gear/gear-down" control="EXTEND"/>
+        <control-output control="EXTEND" prop="/gear/gear[0]/position-norm"/>
+        <control-speed control="EXTEND" transition-time="2"/>
+    </gear>
+
+    <gear x="3.54" y="-1.5" z="-2.57" compression="0.2" spring = "3" sfric = "0.5" dfric=".45" retract-time="2" initial-load="0" damp="0.6">
+        <control-input axis="/controls/gear/steering" control="STEER" src0="-1.0" src1="1.0" dst0="1" dst1="-1"/>
+        <control-input axis="/controls/gear/gear-down" control="EXTEND"/>
+        <control-output control="EXTEND" prop="/gear/gear[1]/position-norm"/>
+        <control-speed control="EXTEND" transition-time="2"/>
+    </gear>
+
+    <gear x="-0.5" y="1.5" z="-2.57" compression="0.2" spring = "7" sfric = "0.5" dfric=".45" retract-time="2" initial-load="1" damp="2">
+        <control-input control="BRAKE" axis="/controls/gear/brake-parking" />
+        <control-input control="BRAKE" axis="/controls/gear/brake-left" />
+        <control-input axis="/controls/gear/gear-down" control="EXTEND"/>
+        <control-output control="EXTEND" prop="/gear/gear[2]/position-norm"/>
+        <control-speed control="EXTEND" transition-time="2"/>
+    </gear>
+
+    <gear x="-0.5" y="-1.5" z="-2.57" compression="0.2" spring = "7" sfric = "0.5" dfric=".45" retract-time="2" initial-load="1" damp="2">
+        <control-input control="BRAKE" axis="/controls/gear/brake-parking" />
+        <control-input control="BRAKE" axis="/controls/gear/brake-right" />
+        <control-input axis="/controls/gear/gear-down" control="EXTEND"/>
+        <control-output control="EXTEND" prop="/gear/gear[3]/position-norm"/>
+        <control-speed control="EXTEND" transition-time="2"/>
+    </gear>
+
+ <!-- Floats-->
+
+    <gear x="3.52" y="1.5" z="-2.4" compression="1.2" spring = "15" sfric = "0.8" dfric = "0.7" ignored-by-solver="1" on-water="1" on-solid="0" reduce-friction-by-extension="1.15" speed-planing="15" spring-factor-not-planing="0.7">
+    </gear>
+
+    <gear x="3.52" y="-1.5" z="-2.4" compression="1.2" spring = "15" sfric = "0.8" dfric = "0.7" ignored-by-solver="1" on-water="1" on-solid="0" reduce-friction-by-extension="1.15" speed-planing="15" spring-factor-not-planing="0.7">
+    </gear>
+
+    <gear x="-1.5" y="1.5" z="-2.0" compression="1.0" spring = "15" sfric = "0.85" dfric = "0.75" ignored-by-solver="1" on-water="1" on-solid="0" reduce-friction-by-extension="1.15" speed-planing="15" spring-factor-not-planing="0.5">
+    </gear>
+
+    <gear x="-1.5" y="-1.5" z="-2.0" compression="1.0" spring = "15" sfric = "0.85" dfric = "0.75" ignored-by-solver="1" on-water="1" on-solid="0" reduce-friction-by-extension="1.15" speed-planing="15" spring-factor-not-planing="0.5">
+    </gear>
+
+<!-- 2 more Floats, need to be at this position in the file to do not brake the animation
+    "reduce-friction-by-extension" is reduced to get steering control-->
+
+    <gear x="-3.6" y="1.5" z="-1.7" compression="1.2" spring = "8" sfric = "0.9" dfric = "0.8" ignored-by-solver="1" on-water="1" on-solid="0" reduce-friction-by-extension="0.5" speed-planing="25" spring-factor-not-planing="3">
+        <control-input axis="/controls/gear/steering" control="STEER"/>
+        <control-input axis="/controls/gear/water-rudder" control="EXTEND"/>
+        <control-output control="EXTEND" prop="/controls/gear/water-rudder-down"/>
+        <control-speed control="EXTEND" transition-time="2"/>
+    </gear>
+
+    <gear x="-3.6" y="-1.5" z="-1.7" compression="1.2" spring = "8" sfric = "0.9" dfric = "0.8" ignored-by-solver="1" on-water="1" on-solid="0" reduce-friction-by-extension="0.5" speed-planing="25" spring-factor-not-planing="3">
+        <control-input axis="/controls/gear/steering" control="STEER"/>
+        <control-input axis="/controls/gear/water-rudder" control="EXTEND"/>
+        <control-speed control="EXTEND" transition-time="2"/>
+    </gear>
+
+    <!-- The Floats on solid ground-->
+
+    <gear x="3.52" y="1.5" z="-2.4" compression="0.4" spring = "10" sfric = "1.5" dfric = "1.3" skid="1" ignored-by-solver="1">
+    </gear>
+
+    <gear x="3.52" y="-1.5" z="-2.4" compression="0.4" spring = "10" sfric = "1.5" dfric = "1.3" skid="1" ignored-by-solver="1">
+    </gear>
+
+    <gear x="0.0" y="1.5" z="-2.1" compression="0.2" spring = "10" sfric = "1.5" dfric = "1.3" skid="1" ignored-by-solver="1">
+    </gear>
+
+    <gear x="0.0" y="-1.5" z="-2.1" compression="0.2" spring = "10" sfric = "1.5" dfric = "1.3" skid="1" ignored-by-solver="1">
+    </gear>
+
+    <gear x="-3.22" y="1.5" z="-2.0" compression="0.2" spring = "10" sfric = "1.5" dfric = "1.3" skid="1" ignored-by-solver="1">
+    </gear>
+
+    <gear x="-3.22" y="-1.5" z="-2.0" compression="0.2" spring = "10" sfric = "1.5" dfric = "1.3" skid="1" ignored-by-solver="1">
+    </gear>
+
+
+<!-- Retractable wheels on water-->
+    <gear x="-0.22" y="1.5" z="-2.57" compression="0.2" spring = "0.1" sfric = "1" dfric="1" retract-time="2" on-water="1" on-solid="0" ignored-by-solver="1" reduce-friction-by-extension="0.5">
+        <control-input axis="/controls/gear/gear-down" control="EXTEND"/>
+        <control-speed control="EXTEND" transition-time="2"/>
+    </gear>
+
+    <gear x="-0.22" y="-1.5" z="-2.57" compression="0.2" spring = "0.1" sfric = "1" dfric ="1" retract-time="2" on-water="1" on-solid="0" ignored-by-solver="1" reduce-friction-by-extension="0.5">
+        <control-input axis="/controls/gear/gear-down" control="EXTEND"/>
+        <control-speed control="EXTEND" transition-time="2"/>
+    </gear>
+
+
+<!-- Fuel  -->
+    <tank x="0.4643" y="0" z="-0.7" capacity="210"/><!--35 gal +4.5 in-->
+    <tank x="-0.1478" y="0" z="-0.7" capacity="210"/><!--35 gal -19.6 in-->
+    <tank x="-0.666" y="0" z="-0.7" capacity="156"/><!--25 gal -40.0 in-->
+
+    <ballast x="-6.0" y="0.0" z="0.50" mass="-250"/>
+
+    <weight x="0.5278" y="0.0" z="-0.5" mass-prop="/sim/weight[0]/weight-lb"/>
+    <weight x="-0.38" y="0" z="-0.5" mass-prop="/sim/weight[1]/weight-lb"/>
+    <weight x="-1.8" y="0" z="-0.5" mass-prop="/sim/weight[2]/weight-lb"/>
+    <weight x="-2.6" y="0" z="-0.5" mass-prop="/sim/weight[3]/weight-lb"/>
+
+    <hitch name="anchor" x="3.0" y="0" z="-2.0">
+        <tow length="20" weight-per-meter="0.1" elastic-constant="9000"  break-force="10000"/>
+        <winch max-tow-length="1000" min-tow-length="20" initial-tow-length="20" max-winch-speed="4" power="5" max-force="600"/>
+        <control-input axis="/controls/winch/place" control="PLACEWINCH"/>
+    </hitch>
+
+</airplane>

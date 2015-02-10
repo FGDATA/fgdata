@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+    <path>fuelswitch.ac</path>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>FuelSelect</object-name>
+        <property>/controls/fuel/switch-position</property>
+        <factor>90.0</factor>
+        <axis>
+            <x>-1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+        <center>
+            <x-m>0</x-m>
+            <y-m>0</y-m>
+            <z-m>0</z-m>
+        </center>
+    </animation>
+
+    <animation>
+        <type>pick</type>
+        <object-name>Fuelswitch.LH</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>nasal</command>
+                <script>dhc2.WaspJr.fuel_select(-1)</script>
+            </binding>
+            <binding>
+                <command>property-toggle</command>
+                <property>sim/sound/switch</property>
+            </binding>
+        </action>
+    </animation>
+
+    <animation>
+        <type>pick</type>
+        <object-name>Fuelswitch.RH</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>nasal</command>
+                <script>dhc2.WaspJr.fuel_select(1)</script>
+            </binding>
+            <binding>
+                <command>property-toggle</command>
+                <property>sim/sound/switch</property>
+            </binding>
+        </action>
+    </animation>
+
+</PropertyList>

@@ -1,0 +1,166 @@
+<?xml version="1.0"?>
+
+<!--
+Default Mixture knob.
+
+Started summer 2000 by David Megginson, david@megginson.com.
+
+This is an instrument configuration file for the open-source flight
+simulator FlightGear (www.flightgear.org).  The file is an XML-encoded
+FlightGear property list defining the instrument's layers and actions.
+
+Each instrument is composed of layers stacked on top of each other.
+A layer may be a texture (with transparent parts to show the layers
+underneath), text, or a special layer that switches between two
+others (say, to turn an indicator light on or off).  Each layer can
+move independently in proportion to a property value, and text
+can be generated from property values as well: all of the layer's
+movements are defined as transformations.
+
+Actions are hotspots on the instrument that will respond to a mouse
+click.  Actions always modify the values of properties, either by
+adjusting them, toggling them, or swaping them with other
+properties' values.
+-->
+
+<PropertyList>
+
+ <name>Mixture Knob</name>
+ <w-base>64</w-base>
+ <h-base>72</h-base>
+ <params> 
+  <engine-mixture-select>/controls/engines/engine[0]/mixture</engine-mixture-select>
+ </params>
+ <layers>
+  <layer>
+   <name>background</name>
+    <texture>
+    <path>Aircraft/Instruments/Textures/misc-1.rgb</path>
+    <x1>0.625</x1>
+    <y1>0.2275</y1>
+    <x2>0.8</x2>
+    <y2>0.415</y2>
+   </texture>
+   <w>64</w>
+   <h>64</h>
+  </layer>
+  <!-- fix texture -->
+  <!--layer>
+   <name>shaft</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/misc-1.rgb</path>
+    <x1>0.890625</x1>
+    <y1>0.8125</y1>
+    <x2>0.921875</x2>
+    <y2>1.0</y2>
+   </texture>
+   <w>16</w>
+   <h>24</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-5</offset>
+    </transformation>
+   </transformations>
+  </layer-->
+  <layer>
+   <name>knob</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/handles.rgb</path>
+    <x1>0.5</x1>
+    <y1>0.0</y1>
+    <x2>1.0</x2>
+    <y2>0.5</y2>
+   </texture>
+   <w>64</w>
+   <h>64</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-3</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <property alias="../../../../../params/engine-mixture-select"/>
+     <min>0.0</min>
+     <max>1.0</max>
+     <scale>18</scale>
+     <offset>-22</offset>
+    </transformation>
+   </transformations>
+  </layer>
+ </layers>
+
+ <actions>
+
+  <action>
+   <name>small decrease</name>
+   <button>0</button>
+   <x>-32</x>
+   <y>-44</y>
+   <w>32</w>
+   <h>74</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/engine-mixture-select"/>
+    <step>-0.01</step>
+    <min>0</min>
+    <max>1.0</max>
+    <wrap>false</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>small increase</name>
+   <button>0</button>
+   <x>0</x>
+   <y>-44</y>
+   <w>32</w>
+   <h>74</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/engine-mixture-select"/>
+    <step>0.01</step>
+    <min>0</min>
+    <max>1.0</max>
+    <wrap>false</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>big decrease</name>
+   <button>1</button>
+   <x>-32</x>
+   <y>-44</y>
+   <w>32</w>
+   <h>74</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/engine-mixture-select"/>
+    <step>-0.1</step>
+    <min>0</min>
+    <max>1.0</max>
+    <wrap>false</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>big increase</name>
+   <button>1</button>
+   <x>0</x>
+   <y>-44</y>
+   <w>32</w>
+   <h>74</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/engine-mixture-select"/>
+    <step>0.1</step>
+    <min>0</min>
+    <max>1.0</max>
+    <wrap>false</wrap>
+   </binding>
+  </action>
+
+ </actions>
+
+</PropertyList>

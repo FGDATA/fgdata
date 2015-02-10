@@ -1,0 +1,64 @@
+# Michael Selig
+# SIAI-Marchetti S-211, cruise configuration (1)
+# small, single jet engine, military trainer, data from:
+#       Roskam, Jan. Airplane Flight Dynamics and Automatic Flight
+#         Controls, Part I. Lawrence KS: DARcorporation, 1995, 
+#         pg 494-496
+# 02-10-2000    file creation
+
+init Dz_cg      2.5     # [ft]
+
+geometry bw    26.3     # [ft]
+geometry cbar   5.4     # [ft]
+geometry Sw   136.0     # [ft^2]
+
+controlSurface de 20 20 # [deg]  guess for now
+controlSurface da 20 20 # [deg]  guess for now
+controlSurface dr 20 20 # [deg]  guess for now
+
+mass Weight  4000       # [lb]
+mass I_xx     800       # [slug-ft^2]
+mass I_yy    4800       # [slug-ft^2]
+mass I_zz    5200       # [slug-ft^2]
+mass I_xz     200       # [slug-ft^2]
+
+
+# Roskam: CTx=0.022 (cruise conditions) --> 600 lb
+# aircraft specs: 2500 lb static thrust
+#engine simpleSingle 1250 # [lb]
+engine simpleSingle 3500 # [lb]
+
+
+CL CLo      0.149       # []
+CL CL_a     5.50        # [/rad]
+CL CL_adot  4.2         # [/rad]
+CL CL_q    10.0         # [/rad]
+CL CL_de    0.38        # [/rad]
+
+CD CDo      0.0205      # []
+CD CD_a     0.12        # [/rad]
+CD CD_de    0.0         # [/rad]
+
+Cm Cmo     -0.08        # []
+Cm Cm_a    -0.24        # [/rad]
+Cm Cm_adot -9.6         # [/rad]
+Cm Cm_q   -17.7         # [/rad]
+Cm Cm_de   -0.88        # [/rad]
+
+CY CY_beta -1.00        # [/rad]
+CY CY_p    -0.140       # [/rad]
+CY CY_r     0.61        # [/rad]
+CY CY_da    0.0         # [/rad]    sign reversed
+CY CY_dr    0.0280      # [/rad]
+
+Cl Cl_beta -0.110       # [/rad]
+Cl Cl_p    -0.390       # [/rad]
+Cl Cl_r     0.280       # [/rad]
+Cl Cl_da   -0.100       # [/rad]    sign reversed
+Cl Cl_dr    0.050       # [/rad]
+
+Cn Cn_beta 0.170        # [/rad]
+Cn Cn_p    0.090        # [/rad]
+Cn Cn_r   -0.260        # [/rad]
+Cn Cn_da   0.003        # [/rad]    sign reversed
+Cn Cn_dr  -0.120        # [/rad]

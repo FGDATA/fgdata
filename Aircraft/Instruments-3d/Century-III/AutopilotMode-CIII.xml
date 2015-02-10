@@ -1,0 +1,78 @@
+<?xml version="1.0" ?>
+<!--
+    $Id$
+    This is the Altimatic IIIc Autopilot "Coupler Mode Selector" 3d instrument.
+    Maintainer: Torsten Dreyer, Dave Perry
+    
+    AltimaticIIIc is a Piper rename of the Century III autopilot
+
+-->
+<PropertyList>
+    <path>../Century-IIB/AutopilotMode.ac</path>
+
+    <!-- Autopilot Mode Hot Spots-->
+    <panel>
+        <path>Aircraft/Instruments-3d/Century-III/AutopilotModePanel.xml</path>
+        <bottom-left>
+            <x-m>0.001</x-m>
+            <y-m>-0.016</y-m>
+            <z-m>-0.016</z-m>
+        </bottom-left>
+        <bottom-right>
+            <x-m>0.001</x-m>
+            <y-m>0.016</y-m>
+            <z-m>-0.016</z-m>
+        </bottom-right>
+        <top-left>
+            <x-m>0.001</x-m>
+            <y-m>-0.016</y-m>
+            <z-m>0.016</z-m>
+        </top-left>
+    </panel>
+
+    <animation>
+        <type>noshadow</type>
+        <object-name>AutopilotMode</object-name>
+    </animation>
+
+    <animation>
+        <type>material</type>
+        <object-name>AutopilotMode.Face</object-name>
+        <emission>
+          <red>0.45</red>
+          <green>0.09</green>
+          <blue>0.00001</blue>
+          <factor-prop>/sim/model/material/instruments/factor</factor-prop>
+        </emission>
+    </animation>
+    
+    <animation>
+        <type>material</type>
+        <object-name>AutopilotMode.Knob</object-name>
+        <emission>
+          <red>0.2</red>
+          <green>0.04</green>
+          <blue>0.00002</blue>
+          <factor-prop>/sim/model/material/instruments/factor</factor-prop>
+        </emission>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>AutopilotMode.Knob</object-name>
+        <property>/autopilot/CENTURYIII/controls/mode</property>
+        <factor>-30</factor>
+        <offset-deg>60</offset-deg>
+        <axis>
+            <x>1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+        <center>
+            <x-m>0</x-m>
+            <y-m>0</y-m>
+            <z-m>-0.00592792</z-m>
+        </center>
+    </animation>
+
+</PropertyList>

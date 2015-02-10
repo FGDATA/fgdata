@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+    <sim>
+        <description>FG video assistant</description>
+        <author>Syd Adams, Melchior Franz</author>
+        <status>alpha</status>
+        <flight-model>ufo</flight-model>
+
+        <model>
+            <path>Aircraft/ufo/Models/mibs.ac</path>
+        </model>
+
+        <sound>
+            <path>Aircraft/ufo/ufo-sound.xml</path>
+        </sound>
+
+        <panel>
+            <visibility>false</visibility>
+        </panel>
+
+        <view n="0">
+            <config>
+                <limits>
+                    <enabled type="bool">false</enabled>
+                </limits>
+            </config>
+        </view>
+
+        <view n="100">
+            <name>Cam View</name>
+            <type>lookfrom</type>
+            <internal type="bool">false</internal>
+            <config>
+                <from-model type="bool">true</from-model>
+                <from-model-idx type="int">0</from-model-idx>
+                <ground-level-nearplane-m type="double">0.5f</ground-level-nearplane-m>
+                <default-field-of-view-deg type="double">55.0</default-field-of-view-deg>
+                <default-pitch-deg type="double">0</default-pitch-deg>
+                <default-heading-deg type="double">0</default-heading-deg>
+                <front-direction-deg type="double">0</front-direction-deg>
+                <front-left-direction-deg type="double">45</front-left-direction-deg>
+                <left-direction-deg type="double">90</left-direction-deg>
+                <back-left-direction-deg type="double">135</back-left-direction-deg>
+                <back-direction-deg type="double">180</back-direction-deg>
+                <back-right-direction-deg type="double">225</back-right-direction-deg>
+                <right-direction-deg type="double">270</right-direction-deg>
+                <front-right-direction-deg type="double">315</front-right-direction-deg>
+            </config>
+        </view>
+
+        <current-view>
+            <view-number>7</view-number>
+        </current-view>
+
+        <help>
+            <title>FG videocam menu help</title>
+            <line>SPACE: toggle cam menu</line>
+            <line>AI: select AI targets</line>
+            <line>MP: select multiplayer targets</line>
+            <line>GOTO: move to target location</line>
+            <line>CHASE: follow target</line>
+            <line>FOCUS: direct view at target</line>
+            <line>ALT: match target altitude</line>
+            <line>SPEED: half throttle matches target speed</line>
+        </help>
+
+        <cam>
+            <target-number type="int">0</target-number>
+            <target-name type="string"></target-name>
+            <target-ai type="bool">1</target-ai>
+            <target-mp type="bool">1</target-mp>
+            <chase type="bool">0</chase>
+            <alt type="bool">0</alt>
+            <speed type="bool">0</speed>
+            <focus type="bool">0</focus>
+            <goto type="bool">0</goto>
+            <lock type="bool">0</lock>
+        </cam>
+
+    </sim>
+
+    <nasal>
+        <cam>
+            <file>Aircraft/ufo/cam.nas</file>
+        </cam>
+    </nasal>
+
+    <input>
+        <keyboard>
+            <key n="32">
+                <name>SPACE</name>
+                <desc>Show dialog</desc>
+                <binding>
+                    <command>nasal</command>
+                    <script>cam.panel_dialog.toggle()</script>
+                </binding>
+            </key>
+        </keyboard>
+    </input>
+
+    <instrumentation>
+        <radar>
+            <range>100</range>
+        </radar>
+    </instrumentation>
+
+    <gear>
+        <gear>
+            <!-- hint for the route manager -->
+            <wow type="bool">false</wow>
+        </gear>
+    </gear>
+
+    <autopilot>
+        <route-manager>
+            <min-lock-altitude-agl-ft type="double">-10000</min-lock-altitude-agl-ft>
+        </route-manager>
+    </autopilot>
+</PropertyList>

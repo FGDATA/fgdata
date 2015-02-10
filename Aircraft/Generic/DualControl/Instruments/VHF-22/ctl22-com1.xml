@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!-- CTL 22 Comm1 Control for VHF-22 tranceiver
+Active and preset displayed +
+6 frequency memory storage
+2.375"W x 2.625"H
+Freq. range 118.000 - 135.975 (normal) @ 25 khz spacing
+Syd Adams
+
+Adapted for dual control by Anders Gidenstam
+
+NOTE: ctl22.nas MUST be loaded as Nasal module VHF22.
+ -->
+
+<PropertyList include="ctl22-com.xml">
+
+ <params>
+  <serviceable>instrumentation/comm[0]/serviceable</serviceable>
+  <electrical-supply>systems/electrical/outputs/comm[0]</electrical-supply>
+  <volume-norm>instrumentation/comm[0]/volume</volume-norm>
+  <selected-freq-mhz>instrumentation/comm[0]/frequencies/selected-mhz</selected-freq-mhz>
+  <standby-freq-mhz>instrumentation/comm[0]/frequencies/standby-mhz</standby-freq-mhz>
+  <swap-script>VHF22.swap(0);</swap-script>
+  <small-inc-script>VHF22.adjust_frequency(0,  0.025);</small-inc-script>
+  <small-dec-script>VHF22.adjust_frequency(0, -0.025);</small-dec-script>
+  <big-inc-script>VHF22.adjust_frequency(0,  1.0);</big-inc-script>
+  <big-dec-script>VHF22.adjust_frequency(0, -1.0);</big-dec-script>
+ </params>
+
+</PropertyList>

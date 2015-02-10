@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!--
+
+Neuform 3-blade propeller TR3-73-25
+
+http://www.neuform-composites.de/
+mass: 5.5 kg
+diameter 68" / 1.73m
+
+estimated 1kg for the hub, 1.5kg each blade
+
+-->
+<propeller name="tr3-73-25">
+  <ixx>0.827</ixx>
+  <diameter unit="IN">68</diameter>
+  <numblades>3</numblades>
+  <gearratio>4.0</gearratio>
+  <table name="C_THRUST" type="internal">
+    <tableData>
+      0.0  0.1310
+      0.1  0.1256
+      0.2  0.1201
+      0.3  0.1106
+      0.4  0.0993
+      0.5  0.0875
+      0.6  0.0707
+      0.7  0.0537
+      0.8  0.0291
+      1.0  -0.0098
+      1.2  -0.0516
+      1.4  -0.0927
+    </tableData>
+  </table>
+
+  <table name="C_POWER" type="internal">
+    <tableData>
+      0.0   0.1350
+      0.1   0.1350
+      0.2   0.1318
+      0.3   0.1287
+      0.4   0.1212
+      0.5   0.1111
+      0.6   0.1019
+      0.7   0.0856
+      0.8   0.0699
+      1.0   0.0250
+      1.2  -0.0400
+      1.4  -0.1202
+      1.6  -0.2040
+    </tableData>
+  </table>
+
+</propeller>
+

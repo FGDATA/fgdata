@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--== Bluebird AI/multiplayer ==-->
+<!--==  AI from series 8 ==  8770 vertices ==  8024 poly ==-->
+
+<PropertyList include="bluebird-common.xml">
+	<path>bluebird-ai.ac</path>
+	<texture-path>../../../../Aircraft/bluebird/Models/Textures</texture-path>
+	<nasal>
+		<load>
+			print("Loading bluebird-osg-ai version 8.93  release date 2009.Feb.09  at ", cmdarg().getPath());
+			var livery_update = aircraft.livery_update.new(
+				"Aircraft/bluebird/Models/Liveries", 20,
+				func print("bluebird-osg-ai livery update"));
+		</load>
+		<unload>
+			print("Unloading bluebird-osg-ai ", cmdarg().getPath());
+			livery_update.stop();
+		</unload>
+	</nasal>
+</PropertyList>
+

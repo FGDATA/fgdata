@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+ <path>cirrus_am3.ac</path>
+
+<animation>
+  <object-name>mesh</object-name>
+  <enable-hot type="bool">false</enable-hot>
+</animation>
+
+<effect>
+  <inherits-from>Effects/cloud-static</inherits-from>
+  <object-name>mesh</object-name>
+</effect>
+
+
+</PropertyList>

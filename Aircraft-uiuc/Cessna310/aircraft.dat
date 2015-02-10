@@ -1,0 +1,64 @@
+# Jeff Scott
+# Cessna 310, cruise configuration
+# small twin piston engine general aviation airplane, data from:
+#	Roskam, Jan. Airplane Flight Dynamics and Automatic Flight
+# 	  Controls, Part I. Lawrence KS: DARcorporation, 1995, 
+# 	  pg 487-489
+# 03-23-2000    file creation
+
+init Dz_cg       2.5    # [ft]
+
+geometry bw     36.9    # [ft]
+geometry cbar    4.79   # [ft]
+geometry Sw    175.0    # [ft^2]
+
+controlSurface de 20 20 # [deg]  guess for now
+controlSurface da 20 20 # [deg]  guess for now
+controlSurface dr 20 20 # [deg]  guess for now
+
+mass Weight    4600     # [lb]
+mass I_xx      8884     # [slug-ft^2]
+mass I_yy      1939     # [slug-ft^2]
+mass I_zz     11001     # [slug-ft^2]
+mass I_xz         0     # [slug-ft^2]
+
+
+# Roskam: CTx=0.031 (cruise conditions) --> 500 lb
+# aircraft specs: 2 engines of 213 kW each
+#                             ~1100 lb static thrust each
+engine simpleSingle 1100 # [lb]
+
+
+CL CLo       0.288      # []
+CL CL_a      4.58       # [/rad]
+CL CL_adot   5.3        # [/rad]
+CL CL_q      9.7        # [/rad]
+CL CL_de     0.81       # [/rad]
+
+CD CDo       0.029      # []
+CD CD_a      0.16       # [/rad]
+CD CD_de     0.0        # [/rad]
+
+Cm Cmo       0.07       # []
+Cm Cm_a     -0.137      # [/rad]
+Cm Cm_adot -12.7        # [/rad]
+Cm Cm_q    -26.3        # [/rad]
+Cm Cm_de    -2.26       # [/rad]
+
+CY CY_beta  -0.698      # [/rad]
+CY CY_p     -0.141      # [/rad]
+CY CY_r      0.355      # [/rad]
+CY CY_da     0.0        # [/rad]    sign reversed
+CY CY_dr     0.23       # [/rad]
+
+Cl Cl_beta  -0.1096     # [/rad]
+Cl Cl_p     -0.551      # [/rad]
+Cl Cl_r      0.0729     # [/rad]
+Cl Cl_da    -0.172      # [/rad]    sign reversed
+Cl Cl_dr     0.0192     # [/rad]
+
+Cn Cn_beta   0.1444     # [/rad]
+Cn Cn_p     -0.0257     # [/rad]
+Cn Cn_r     -0.1495     # [/rad]
+Cn Cn_da     0.0168     # [/rad]    sign reversed
+Cn Cn_dr    -0.1152     # [/rad]

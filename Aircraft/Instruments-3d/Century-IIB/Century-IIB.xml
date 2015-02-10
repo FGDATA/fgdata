@@ -1,0 +1,111 @@
+<?xml version="1.0" ?>
+<!--
+    $Id$
+    This is the Century IIB Autopilot 3d instrument.
+    Maintainer: Dave Perry
+    
+-->
+<PropertyList>
+    <path>Century-IIB.ac</path>
+
+    <!-- Century IIB Autopilot Hot Spots-->
+    <panel>
+        <path>Aircraft/Instruments-3d/Century-IIB/Century-IIBPanel.xml</path>
+        <bottom-left>
+            <x-m>0.009</x-m>
+            <y-m>-0.047625</y-m>
+            <z-m>-0.0254</z-m>
+        </bottom-left>
+        <bottom-right>
+            <x-m>0.009</x-m>
+            <y-m>0.047625</y-m>
+            <z-m>-0.0254</z-m>
+        </bottom-right>
+        <top-left>
+            <x-m>0.009</x-m>
+            <y-m>-0.047625</y-m>
+            <z-m>0.0254</z-m>
+        </top-left>
+    </panel>
+
+    <animation>
+        <type>noshadow</type>
+        <object-name>Century-IIB</object-name>
+    </animation>
+
+    <animation>
+        <type>material</type>
+        <object-name>Century-IIB.Face</object-name>
+        <emission>
+          <red>0.45</red>
+          <green>0.09</green>
+          <blue>0.00001</blue>
+          <factor-prop>/sim/model/material/instruments/factor</factor-prop>
+        </emission>
+    </animation>
+
+    <animation>
+        <type>material</type>
+        <object-name>Century-IIB.HdgButton</object-name>
+        <object-name>Century-IIB.ApButton</object-name>
+        <object-name>Century-IIB.RollKnob</object-name>
+        <emission>
+          <red>0.2</red>
+          <green>0.04</green>
+          <blue>0.00002</blue>
+          <factor-prop>/sim/model/material/instruments/factor</factor-prop>
+        </emission>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>Century-IIB.HdgButton</object-name>
+        <property>/autopilot/CENTURYIIB/controls/hdg</property>
+        <factor>-40</factor>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <center>
+            <x-m>0.00703</x-m>
+            <y-m>0.034</y-m>
+            <z-m>0.0067</z-m>
+        </center>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>Century-IIB.ApButton</object-name>
+        <property>/autopilot/CENTURYIIB/controls/roll</property>
+        <factor>-40</factor>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <center>
+            <x-m>0.00703</x-m>
+            <y-m>-0.034</y-m>
+            <z-m>0.0067</z-m>
+        </center>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>Century-IIB.RollKnob</object-name>
+        <property>/autopilot/CENTURYIIB/settings/roll-knob-deg</property>
+        <factor>-1.5</factor>
+        <axis>
+            <x>1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+        <center>
+            <x-m>0.0</x-m>
+            <y-m>-0.0</y-m>
+            <z-m>-0.0</z-m>
+        </center>
+    </animation>
+
+</PropertyList>

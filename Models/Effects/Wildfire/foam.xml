@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!-- (C) 2008 - 2010  Anders Gidenstam.
+     Distribution: GPL v2 or later.
+-->
+<PropertyList>
+
+ <path>foam.ac</path>
+ <offsets>
+  <heading-deg>42.0</heading-deg>
+ </offsets>
+
+ <animation>
+  <type>select</type>
+  <condition>
+   <property>/environment/wildfire/models/enabled</property>
+  </condition>
+ </animation>
+
+ <animation>
+  <type>range</type>
+  <min-m>0</min-m>
+  <max-m>5000</max-m>
+ </animation>
+
+ <animation>
+  <enable-hot type="bool">false</enable-hot>
+ </animation>
+ <animation>
+  <type>noshadow</type>
+ </animation>
+
+</PropertyList>

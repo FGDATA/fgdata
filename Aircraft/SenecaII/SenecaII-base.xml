@@ -1,0 +1,867 @@
+<?xml version="1.0"?>
+<!--
+ This file is part of FlightGear, the free flight simulator
+ http://www.flightgear.org/
+
+ Copyright (C) 2009 Torsten Dreyer, Torsten (at) t3r _dot_ de
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation; either version 2 of the
+ License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+-->
+<PropertyList>
+  <sim>
+    <author>Torsten Dreyer</author>
+    <startup>
+      <splash-texture>Aircraft/SenecaII/splash.png</splash-texture>
+      <splash-title>Piper PA34 200T Seneca II</splash-title>
+    </startup>
+    <panel>
+      <visibility>false</visibility>
+    </panel>
+
+    <!-- enable "parkpos=AVAILABLE" option -->
+    <dimensions>
+      <radius-m type="double">8.0</radius-m>
+      <parkpos-offset-m type="double">0.0</parkpos-offset-m>
+    </dimensions>
+    <aircraft-class type="string">ga</aircraft-class>
+    <aircraft-operator></aircraft-operator>
+    <model>
+      <instrument-lighting>
+        <emission>
+          <red type="double">1.0</red>
+          <green type="double">0.2</green>
+          <blue type="double">0.0</blue>
+        </emission>
+      </instrument-lighting>
+      <material>
+        <cockpit>
+          <red type="double">0.5</red>
+          <green type="double">0.1</green>
+          <blue type="double">0.1</blue>
+          <factor type="double">0</factor>
+        </cockpit>
+      </material>
+      <icing>
+        <iceable>
+          <name>Wing</name>
+          <salvage-control>/controls/deice/surface-deice-wingtail-light</salvage-control>
+          <sensitivity type="double">0.8</sensitivity>
+          <output-property>/fdm/jsbsim/ice/wing</output-property>
+        </iceable>
+        <iceable>
+          <name>Stabilizer</name>
+          <salvage-control>/controls/deice/surface-deice-wingtail-light</salvage-control>
+          <sensitivity type="double">1.0</sensitivity>
+          <output-property>/fdm/jsbsim/ice/stabilizer</output-property>
+        </iceable>
+        <iceable>
+          <name>Propeller</name>
+          <salvage-control>/controls/deice/prop-deice</salvage-control>
+          <sensitivity type="double">0.5</sensitivity>
+          <output-property>/fdm/jsbsim/ice/propeller</output-property>
+        </iceable>
+        <iceable>
+          <name>Windshield</name>
+          <salvage-control>/controls/deice/windshield-deice</salvage-control>
+          <sensitivity type="double">0.5</sensitivity>
+          <!-- not relevant for fdm, ignore output-property -->
+        </iceable>
+        <iceable>
+          <name>Fuselage</name>
+          <!-- no salvage control, no deicing of the fuselage -->
+          <sensitivity type="double">0.3</sensitivity>
+          <output-property>/fdm/jsbsim/ice/fuselage</output-property>
+        </iceable>
+        <iceable>
+          <name>Pitot tube</name>
+          <sensitivity type="double">1</sensitivity>
+          <salvage-control>/controls/anti-ice/pitot-heat</salvage-control>
+          <output-property>/systems/pitot/icing</output-property>
+        </iceable>
+      </icing>
+    </model>
+    <view n="0">
+      <internal>true</internal>
+      <config>
+        <default-field-of-view-deg type="double">50</default-field-of-view-deg>
+        <x-offset-m type="double">-0.358</x-offset-m>
+        <y-offset-m type="double">1.75</y-offset-m>
+        <z-offset-m type="double">-0.3</z-offset-m>
+        <pitch-offset-deg>-15</pitch-offset-deg>
+      </config>
+    </view>
+    <view n="1">
+      <config>
+        <y-offset-m type="double">3</y-offset-m>
+      </config>
+    </view>
+    <view n="100">
+      <name>Left Rear Pax View</name>
+      <type>lookfrom</type>
+      <internal>true</internal>
+      <config>
+        <from-model type="bool">true</from-model>
+        <from-model-idx type="int">0</from-model-idx>
+        <ground-level-nearplane-m type="double">0.01</ground-level-nearplane-m>
+        <default-field-of-view-deg type="double">50</default-field-of-view-deg>
+        <pitch-offset-deg>-15</pitch-offset-deg>
+        <heading-offset-deg>80</heading-offset-deg>
+        <x-offset-m type="double">-0.25</x-offset-m>
+        <y-offset-m type="double">1.60</y-offset-m>
+        <z-offset-m type="double">1.20</z-offset-m>
+      </config>
+    </view>
+    <view n="101">
+      <name>Right Rear Pax View</name>
+      <type>lookfrom</type>
+      <internal>true</internal>
+      <config>
+        <from-model type="bool">true</from-model>
+        <from-model-idx type="int">0</from-model-idx>
+        <ground-level-nearplane-m type="double">0.01</ground-level-nearplane-m>
+        <default-field-of-view-deg type="double">50</default-field-of-view-deg>
+        <pitch-offset-deg>-15</pitch-offset-deg>
+        <heading-offset-deg>-80</heading-offset-deg>
+        <x-offset-m type="double">0.25</x-offset-m>
+        <y-offset-m type="double">1.60</y-offset-m>
+        <z-offset-m type="double">1.20</z-offset-m>
+      </config>
+    </view>
+    <view n="102">
+      <name>Copilot View</name>
+      <type>lookfrom</type>
+      <internal>true</internal>
+      <config>
+        <from-model type="bool">true</from-model>
+        <from-model-idx type="int">0</from-model-idx>
+        <ground-level-nearplane-m type="double">0.01</ground-level-nearplane-m>
+        <default-field-of-view-deg type="double">50</default-field-of-view-deg>
+        <pitch-offset-deg>-15</pitch-offset-deg>
+        <x-offset-m type="double">0.358</x-offset-m>
+        <y-offset-m type="double">1.75</y-offset-m>
+        <z-offset-m type="double">-0.3</z-offset-m>
+      </config>
+    </view>
+    <menubar>
+      <default>
+        <!--menu n="3">
+                  <item n="0">
+                  <label>Autopilot Settings</label>
+                    <binding>
+                      <command>nasal</command>
+                      <script>SenecaII.apDialog.open()</script>
+                    </binding>
+                  </item>
+                </menu-->
+        <menu n="10">
+          <label>Seneca</label>
+          <enabled type="bool">true</enabled>
+          <item>
+            <label>Malfunctions..</label>
+            <binding>
+              <command>nasal</command>
+              <script><![CDATA[
+                var mal = gui.Dialog.new("/sim/gui/dialogs/SenecaII/menu/dialog", 
+                                         "Aircraft/SenecaII/Dialogs/malfunctions-dialog.xml");
+                mal.open();
+                ]]></script>
+            </binding>
+          </item>
+          <item>
+            <label>A/C Registration</label>
+            <binding>
+              <command>nasal</command>
+              <script><![CDATA[ 
+                SenecaII.registrationDialog.toggle();
+              ]]></script>
+            </binding>
+          </item>
+          <item>
+            <label>Show/hide Aircraft</label>
+            <binding>
+              <command>property-toggle</command>
+              <property>sim/rendering/draw-mask/aircraft</property>
+            </binding>
+          </item>
+          <item>
+            <label>Show/hide yoke</label>
+            <binding>
+              <command>property-toggle</command>
+              <property>/sim/model/hide-yoke</property>
+            </binding>
+          </item>
+          <item>
+            <label>Show/hide windshield deice</label>
+            <binding>
+              <command>property-toggle</command>
+              <property>/sim/model/hide-windshield-deice</property>
+            </binding>
+          </item>
+          <item>
+            <label>Open/close cowl-flaps</label>
+            <binding>
+              <command>property-toggle</command>
+              <property>/controls/engines/engine[0]/cowl-flaps-norm</property>
+            </binding>
+            <binding>
+              <command>property-toggle</command>
+              <property>/controls/engines/engine[1]/cowl-flaps-norm</property>
+            </binding>
+          </item>
+          <item>
+            <label>Open/close Front door</label>
+            <binding>
+              <command>property-toggle</command>
+              <property>sim/model/door-positions/right-door/state</property>
+            </binding>
+            <binding>
+              <command>property-interpolate</command>
+              <property>sim/model/door-positions/right-door/position-norm</property>
+              <property>sim/model/door-positions/right-door/state</property>
+              <time>1.0</time>
+            </binding>
+          </item>
+          <item>
+            <label>Open/close PAX door</label>
+            <binding>
+              <command>property-toggle</command>
+              <property>sim/model/door-positions/pax-door/state</property>
+            </binding>
+            <binding>
+              <command>property-interpolate</command>
+              <property>sim/model/door-positions/pax-door/position-norm</property>
+              <property>sim/model/door-positions/pax-door/state</property>
+              <time>1.0</time>
+            </binding>
+          </item>
+          <item>
+            <label>Open/close Baggage door</label>
+            <binding>
+              <command>property-toggle</command>
+              <property>sim/model/door-positions/baggage-door/state</property>
+            </binding>
+            <binding>
+              <command>property-interpolate</command>
+              <property>sim/model/door-positions/baggage-door/position-norm</property>
+              <property>sim/model/door-positions/baggage-door/state</property>
+              <time>1.0</time>
+            </binding>
+          </item>
+          <!--item>
+                        <label>Yaw Damper (on/off) default off</label>
+                        <binding>
+                            <command>property-toggle</command>
+                            <property>/autopilot/CENTURYIII/settings/yaw-damper</property>
+                        </binding>
+                    </item-->
+          <!--
+                    <item>
+                        <label>Checklists..</label>
+                        <binding>
+                            <command>dialog-show</command>
+                            <dialog-name>/sim/dialogs/dialog[0]</dialog-name>
+                        </binding>
+                    </item>
+                        -->
+          <item>
+            <label>Panel in a browser</label>
+            <binding>
+              <command>nasal</command>
+              <script>
+                var n = props.globals.getNode("/sim/http/running");
+                if( props.globals.getNode("/").getValue("sim/http/running",0) != 1 ) {
+                  gui.popupTip("Internal webserver not running. Restart FlightGear with --httpd=8080", 5.0);
+                } else {
+                  var _url = "http://localhost:" ~ getprop("/sim/http/options/listening-port") ~ "/aircraft-dir/WebPanel/Panel1.html";
+                  fgcommand("open-browser", props.Node.new({ "url": _url }));
+                }
+              </script>
+            </binding>
+          </item>
+        </menu>
+      </default>
+    </menubar>
+    <systems>
+      <path>Aircraft/SenecaII/Systems/SenecaII-systems.xml</path>
+      <property-rule n="100">
+        <name>CENTURYIII-Controller</name>
+        <path>Aircraft/SenecaII/Systems/CENTURYIII-Controller.xml</path>
+      </property-rule>
+      <autopilot>
+        <name>CENTURYIII</name>
+        <path>Aircraft/SenecaII/Systems/CENTURYIII.xml</path>
+      </autopilot>
+      <property-rule n="101">
+        <name>Instrument-Filter</name>
+        <path>Aircraft/SenecaII/Systems/Instrument-filter.xml</path>
+      </property-rule>
+      <property-rule n="102">
+        <name>Electrical System</name>
+        <path>Aircraft/SenecaII/Systems/electric.xml</path>
+      </property-rule>
+      <electrical>
+        <path/>
+      </electrical>
+    </systems>
+    <instrumentation>
+      <path>Aircraft/SenecaII/Systems/SenecaII-instruments.xml</path>
+    </instrumentation>
+    <sound>
+      <path>Aircraft/SenecaII/SenecaII-Sound.xml</path>
+    </sound>
+    <flaps>
+      <setting type="double">0.000</setting>
+      <!-- Flaps 0 -->
+      <setting type="double">0.250</setting>
+      <!-- Flaps 10 -->
+      <setting type="double">0.625</setting>
+      <!-- Flaps 25 -->
+      <setting type="double">1.000</setting>
+      <!-- Flaps 40 -->
+    </flaps>
+    <aircraft-data>
+      <path>instrumentation/airspeed-indicator/tas-face-rotation</path>
+      <path>instrumentation/attitude-indicator[0]/horizon-offset-deg</path>
+      <path>instrumentation/attitude-indicator[1]/horizon-offset-deg</path>
+      <path>instrumentation/altimeter[0]/setting-inhg</path>
+      <path>instrumentation/altimeter[1]/setting-inhg</path>
+      <path>instrumentation/radar-altimeter/decision-height</path>
+      <path>instrumentation/comm[0]/volume</path>
+      <path>instrumentation/comm[0]/frequencies/selected-mhz</path>
+      <path>instrumentation/comm[0]/frequencies/standby-mhz</path>
+      <path>instrumentation/comm[0]/test-btn</path>
+      <path>instrumentation/nav[0]/audio-btn</path>
+      <path>instrumentation/nav[0]/power-btn</path>
+      <path>instrumentation/nav[0]/frequencies/selected-mhz</path>
+      <path>instrumentation/nav[0]/frequencies/standby-mhz</path>
+      <path>instrumentation/comm[1]/volume</path>
+      <path>instrumentation/comm[1]/frequencies/selected-mhz</path>
+      <path>instrumentation/comm[1]/frequencies/standby-mhz</path>
+      <path>instrumentation/comm[1]/test-btn</path>
+      <path>instrumentation/nav[1]/audio-btn</path>
+      <path>instrumentation/nav[1]/power-btn</path>
+      <path>instrumentation/nav[1]/frequencies/selected-mhz</path>
+      <path>instrumentation/nav[1]/frequencies/standby-mhz</path>
+      <path>instrumentation/nav[1]/radials/selected-deg</path>
+      <path>instrumentation/dme/frequencies/selected-mhz</path>
+      <path>instrumentation/dme/switch-position</path>
+      <path>instrumentation/adf/model</path>
+      <path>instrumentation/adf/rotation-deg</path>
+      <path>sim/model/hide-yoke</path>
+      <path>sim/model/hide-windshield-deice</path>
+      <path>engines/engine[0]/egt-bug</path>
+      <path>engines/engine[1]/egt-bug</path>
+      <path>controls/engines/engine[0]/cowl-flaps-norm</path>
+      <path>controls/engines/engine[1]/cowl-flaps-norm</path>
+      <path>autopilot/CENTURYIII/controls/mode</path>
+      <path>autopilot/CENTURYIII/controls/nav-source</path>
+      <path>controls/electric/battery-switch</path>
+      <path>controls/electric/avionic-switch</path>
+      <path>controls/fuel/tank[0]/fuel_selector-position</path>
+      <path>controls/fuel/tank[1]/fuel_selector-position</path>
+    </aircraft-data>
+    <help>
+      <title>PA34-200T Seneca II</title>
+      <line>Quick startup:</line>
+      <line> - set magnetos to on by hitting '}' trice</line>
+      <line> - open throttles approx. 25 percent</line>
+      <line> - hit 's' for 5 seconds to start the engines</line>
+      <line> - hit 'B' to release brakes</line>
+      <line> - open throttles to 40 inches of manifold pressure</line>
+      <line> - rotate at 70 knots, climb at 100 knots</line>
+      <line/>
+      <line>You can also use the tutorials under Help-&gt;Start Tutorial</line>
+      <line/>
+      <line>For the online documentation go to</line>
+      <line>http://wiki.flightgear.org/Seneca</line>
+      <line/>
+    </help>
+
+    <flight-recorder include="Systems/flight-recorder.xml"/>
+
+    <tutorials>
+      <tutorial include="Tutorials/___ColdStart.xml"/>
+      <tutorial include="Tutorials/___HotStart.xml"/>
+      <tutorial include="Tutorials/01_CockpitCheck.xml"/>
+      <tutorial include="Tutorials/02_StartEngine.xml"/>
+      <tutorial include="Tutorials/03_AfterStartEngineCheck.xml"/>
+      <tutorial include="Tutorials/04_TaxiCheck.xml"/>
+      <tutorial include="Tutorials/05_BeforeTakeoffCheck.xml"/>
+      <tutorial include="Tutorials/06_LineUpCheck.xml"/>
+      <tutorial include="Tutorials/07_AfterTakeoffCheck.xml"/>
+      <tutorial include="Tutorials/08_CruiseCheck.xml"/>
+      <tutorial include="Tutorials/09_ApproachCheck.xml"/>
+      <tutorial include="Tutorials/10_FinalCheck.xml"/>
+      <tutorial include="Tutorials/11_AfterLandingCheck.xml"/>
+      <!--
+          <tutorial include="Tutorials/90_InterceptRadial.xml"/>
+          <tutorial include="Tutorials/91_Holding.xml"/>
+          <tutorial include="Tutorials/92_ILSApproach.xml"/>
+-->
+    </tutorials>
+    <checklists>
+      <checklist include="Checklists/cockpit.xml"/>
+      <checklist include="Checklists/before-start-engine.xml"/>
+      <checklist include="Checklists/start-engine.xml"/>
+      <checklist include="Checklists/after-start-engine.xml"/>
+      <checklist include="Checklists/taxi.xml"/>
+      <checklist include="Checklists/run-up.xml"/>
+      <checklist include="Checklists/before-take-off.xml"/>
+      <checklist include="Checklists/line-up.xml"/>
+      <checklist include="Checklists/after-take-off.xml"/>
+      <checklist include="Checklists/cruise.xml"/>
+      <checklist include="Checklists/approach.xml"/>
+      <checklist include="Checklists/final.xml"/>
+      <checklist include="Checklists/after-landing.xml"/>
+      <checklist include="Checklists/parking.xml"/>
+      <checklist include="Checklists/emergency.xml"/>
+    </checklists>
+    <rendering>
+      <als-secondary-lights>
+        <landing-light1-offset-deg type="double">5</landing-light1-offset-deg>
+        <landing-light2-offset-deg type="double">-5</landing-light2-offset-deg>
+      </als-secondary-lights>
+    </rendering>
+  </sim>
+  <engines>
+    <engine n="0">
+      <oil-pressure-psi type="double">0.0</oil-pressure-psi>
+    </engine>
+    <engine n="1">
+      <oil-pressure-psi type="double">0.0</oil-pressure-psi>
+    </engine>
+  </engines>
+  <autopilot>
+    <CENTURYIII>
+      <controls>
+        <roll>
+          <button-on type="bool">false</button-on>
+          <button-off type="bool">false</button-off>
+        </roll>
+        <hdg>
+          <button-on type="bool">false</button-on>
+          <button-off type="bool">false</button-off>
+        </hdg>
+        <alt>
+          <button-on type="bool">false</button-on>
+          <button-off type="bool">false</button-off>
+        </alt>
+        <pitch>
+          <button-on type="bool">false</button-on>
+          <button-off type="bool">false</button-off>
+        </pitch>
+      </controls>
+    </CENTURYIII>
+  </autopilot>
+  <controls>
+    <autopilot>
+      <mode type="int">2</mode>
+      <!-- start in heading-mode -->
+    </autopilot>
+    <electric>
+      <engine n="0">
+        <generator type="bool">true</generator>
+      </engine>
+      <engine n="1">
+        <generator type="bool">true</generator>
+      </engine>
+      <battery-switch type="bool">true</battery-switch>
+      <avionic-switch type="bool">true</avionic-switch>
+    </electric>
+    <engines>
+      <engine n="0">
+        <magnetos type="int">0</magnetos>
+        <magneto n="0" type="bool">false</magneto>
+        <magneto n="1" type="bool">false</magneto>
+        <cowl-flaps-norm type="double">1.0</cowl-flaps-norm>
+        <primer type="bool">false</primer>
+        <starter-switch type="bool">false</starter-switch>
+      </engine>
+      <engine n="1">
+        <magnetos type="int">0</magnetos>
+        <magneto n="0" type="bool">false</magneto>
+        <magneto n="1" type="bool">false</magneto>
+        <cowl-flaps-norm type="double">1.0</cowl-flaps-norm>
+        <primer type="bool">false</primer>
+        <starter-switch type="bool">false</starter-switch>
+      </engine>
+    </engines>
+    <gear>
+      <brake-parking type="bool">1</brake-parking>
+    </gear>
+    <fuel>
+      <tank n="0">
+        <fuel_selector-position type="int">1</fuel_selector-position>
+      </tank>
+      <tank n="1">
+        <fuel_selector-position type="int">1</fuel_selector-position>
+      </tank>
+    </fuel>
+    <lighting>
+      <strobe type="bool">false</strobe>
+      <beacon type="bool">false</beacon>
+      <landing-lights alias="/sim/rendering/als-secondary-lights/use-landing-light"/>
+      <taxi-light alias="/sim/rendering/als-secondary-lights/use-alt-landing-light"/>
+      <nav-lights type="bool">false</nav-lights>
+      <radio-norm type="double">0.0</radio-norm>
+      <panel-norm type="double">0.0</panel-norm>
+      <instruments-norm type="double">0.0</instruments-norm>
+    </lighting>
+    <deice>
+      <surface-deice type="bool">false</surface-deice>
+      <surface-deice-wingtail-light type="bool">false</surface-deice-wingtail-light>
+    </deice>
+  </controls>
+  <gear>
+    <transit-light>
+      <serviceable type="bool">true</serviceable>
+    </transit-light>
+    <gear n="0">
+      <indicator-serviceable type="bool">true</indicator-serviceable>
+    </gear>
+    <gear n="1">
+      <indicator-serviceable type="bool">true</indicator-serviceable>
+    </gear>
+    <gear n="2">
+      <indicator-serviceable type="bool">true</indicator-serviceable>
+    </gear>
+  </gear>
+  <consumables>
+    <fuel>
+      <tank n="0">
+        <name type="string">Left Wing</name>
+        <capacity-gal_us type="double">64.0</capacity-gal_us>
+        <unusable-gal_us type="double">2.5</unusable-gal_us>
+        <level-gal_us type="double">30</level-gal_us>
+      </tank>
+      <tank n="1">
+        <name type="string">Right Wing</name>
+        <capacity-gal_us type="double">64.0</capacity-gal_us>
+        <unusable-gal_us type="double">2.5</unusable-gal_us>
+        <level-gal_us type="double">30</level-gal_us>
+      </tank>
+      <tank n="2">
+        <hidden type="bool">true</hidden>
+      </tank>
+      <tank n="3">
+        <hidden type="bool">true</hidden>
+      </tank>
+    </fuel>
+  </consumables>
+  <limits>
+    <max-flap-extension-speed>
+      <flaps type="double">0.20</flaps>
+      <speed type="double">129</speed>
+    </max-flap-extension-speed>
+    <max-flap-extension-speed>
+      <flaps type="double">0.60</flaps>
+      <speed type="double">115</speed>
+    </max-flap-extension-speed>
+    <max-flap-extension-speed>
+      <flaps type="double">0.99</flaps>
+      <speed type="double">105</speed>
+    </max-flap-extension-speed>
+    <max-gear-extension-speed type="double">129</max-gear-extension-speed>
+    <vne type="double">190</vne>
+    <mass-and-balance>
+      <!-- standard -->
+      <maximum-takeoff-mass-lbs type="double">4570</maximum-takeoff-mass-lbs>
+      <maximum-landing-mass-lbs type="double">4342</maximum-landing-mass-lbs>
+      <!-- reduced mtom to 1999kg -->
+      <!-- maximum-takeoff-mass-lbs type="double">4407</maximum-takeoff-mass-lbs>
+          <maximum-landing-mass-lbs type="double">4407</maximum-landing-mass-lbs-->
+      <cg>
+        <dimension type="string">in</dimension>
+        <limit>
+          <entry>
+            <position type="double">82.0</position>
+            <mass-lbs type="double">2200</mass-lbs>
+          </entry>
+          <entry>
+            <position type="double">82.0</position>
+            <mass-lbs type="double">3400</mass-lbs>
+          </entry>
+          <entry>
+            <position type="double">90.6</position>
+            <mass-lbs type="double">4570</mass-lbs>
+          </entry>
+          <entry>
+            <position type="double">94.6</position>
+            <mass-lbs type="double">4570</mass-lbs>
+          </entry>
+          <entry>
+            <position type="double">94.6</position>
+            <mass-lbs type="double">2200</mass-lbs>
+          </entry>
+        </limit>
+      </cg>
+    </mass-and-balance>
+  </limits>
+  <input>
+        <keyboard>
+            <key n="267">
+                <name>F11</name>
+                <desc>Pop up autopilot dialog</desc>
+                <binding>
+                    <command>nasal</command>
+                    <script>setprop("/sim/messages/copilot", "Please operate the A/P from the 3d-panel.");</script>
+                </binding>
+            </key>
+        </keyboard>
+    </input>
+  <nasal>
+    <SenecaII>
+      <file>Aircraft/SenecaII/Nasal/SenecaII.nas</file>
+      <file>Aircraft/SenecaII/Nasal/electric.nas</file>
+      <file>Aircraft/Generic/limits.nas</file>
+      <file>Aircraft/SenecaII/Nasal/registration.nas</file>
+      <file>Aircraft/Instruments-3d/ki266/ki266.nas</file>
+      <file>Aircraft/SenecaII/Systems/kcs55.nas</file>
+      <script>
+        <![CDATA[
+               gui.menuEnable("autopilot",0);
+#              var apDialog = gui.Dialog.new("/sim/gui/dialogs/SenecaII/centuryIII/dialog",
+#               "Aircraft/SenecaII/Dialogs/centuryIII-dlg.xml");
+              KCS55.new();
+
+              #override controls.startEngine, we use "starter-switch" instead of "starter"
+              controls.startEngine = func(v = 1, which...) {
+                if (!v and !size(which))
+                     return props.setAll("/controls/engines/engine", "starter-switch", 0);
+                 if(size(which)) {
+                     foreach(var i; which)
+                         foreach(var e; controls.engines)
+                             if(e.index == i)
+                                 e.controls.getNode("starter-switch",1).setBoolValue(v);
+                 } else {
+                     foreach(var e; controls.engines)
+                         if(e.selected.getValue())
+                             e.controls.getNode("starter-switch",1).setBoolValue(v);
+                 }
+
+              }
+
+      ]]></script>
+    </SenecaII>
+    <kr87>
+      <file>Aircraft/SenecaII/Nasal/kr87.nas</file>
+    </kr87>
+    <icing>
+      <file>Aircraft/SenecaII/Nasal/icing.nas</file>
+      <file>Aircraft/SenecaII/Nasal/PitotIcing.nas</file>
+    </icing>
+  </nasal>
+  <systems>
+    <electrical>
+      <path/>
+      <bus n="0">
+        <volts type="double">12</volts>
+        <name>mainbus</name>
+        <element>
+          <type>battery</type>
+          <name>main-battery</name>
+          <capacity-ah type="double">35</capacity-ah>
+        </element>
+        <element>
+          <type>generator</type>
+          <name>left-generator</name>
+          <max-amps type="double">65</max-amps>
+          <max-volts type="double">13.81</max-volts>
+          <min-volts type="double">12.0</min-volts>
+          <min-rpm type="double">800</min-rpm>
+          <max-rpm type="double">2000</max-rpm>
+          <switch-property>/controls/electric/engine[0]/generator</switch-property>
+          <rpm-source>/engines/engine[0]/rpm</rpm-source>
+        </element>
+        <element>
+          <type>generator</type>
+          <name>right-generator</name>
+          <max-amps type="double">65</max-amps>
+          <max-volts type="double">13.81</max-volts>
+          <min-volts type="double">12.0</min-volts>
+          <min-rpm type="double">800</min-rpm>
+          <max-rpm type="double">2000</max-rpm>
+          <switch-property>/controls/electric/engine[1]/generator</switch-property>
+          <rpm-source>/engines/engine[1]/rpm</rpm-source>
+        </element>
+        <element>
+          <type>load</type>
+          <name>landing-lights</name>
+          <load-watts type="double">50</load-watts>
+          <switch-property>/controls/lighting/landing-lights</switch-property>
+        </element>
+        <element>
+          <type>load</type>
+          <name>taxi-lights</name>
+          <load-watts type="double">50</load-watts>
+          <switch-property>/controls/lighting/taxi-light</switch-property>
+        </element>
+        <element>
+          <type>load</type>
+          <name>nav-lights</name>
+          <load-watts type="double">20</load-watts>
+          <switch-property>/controls/lighting/nav-lights</switch-property>
+        </element>
+        <element>
+          <type>load</type>
+          <name>prop-deice</name>
+          <load-watts type="double">200</load-watts>
+          <switch-property>/controls/deice/prop-deice</switch-property>
+          <i-property>/systems/electrical/deice/prop-deice-amps</i-property>
+        </element>
+        <element>
+          <type>load</type>
+          <name>beacon</name>
+          <load-watts type="double">50</load-watts>
+          <switch-property>/controls/lighting/beacon</switch-property>
+        </element>
+      </bus>
+      <!-- old outputs stuff -->
+      <outputs>
+        <dme type="double">12</dme>
+        <adf type="double">12</adf>
+        <nav n="0" type="double">12</nav>
+        <nav n="1" type="double">12</nav>
+        <turn-coordinator type="double">12</turn-coordinator>
+        <autopilot type="double">12</autopilot>
+      </outputs>
+    </electrical>
+    <fuel>
+      <fuel-pump n="0">
+        <name>L/H fuel pump</name>
+        <destination-tank type="int">2</destination-tank>
+        <fuel-flow-gph type="double">100</fuel-flow-gph>
+      </fuel-pump>
+      <fuel-pump n="1">
+        <name>R/H fuel pump</name>
+        <destination-tank type="int">3</destination-tank>
+        <fuel-flow-gph type="double">100</fuel-flow-gph>
+      </fuel-pump>
+    </fuel>
+  </systems>
+  <instrumentation>
+    <use-new-navradio type="bool">true</use-new-navradio>
+    <adf>
+      <ident-audible>0</ident-audible>
+      <volume-norm type="double">1.0</volume-norm>
+      <model>ki227</model>
+    </adf>
+    <comm n="0">
+      <power-btn type="bool">1</power-btn>
+      <power-good type="bool">1</power-good>
+    </comm>
+    <comm n="1">
+      <power-btn type="bool">1</power-btn>
+      <power-good type="bool">1</power-good>
+    </comm>
+    <nav n="0">
+      <ident type="bool">0</ident>
+      <volume type="double">0.5</volume>
+      <loc>
+        <ident-volume alias="../../volume"/>
+        <ident-enabled alias="../../ident"/>
+      </loc>
+      <vor>
+        <ident-volume alias="../../volume"/>
+        <ident-enabled alias="../../ident"/>
+      </vor>
+    </nav>
+    <nav n="1">
+      <ident type="bool">0</ident>
+      <volume type="double">0.5</volume>
+      <loc>
+        <ident-volume alias="../../volume"/>
+        <ident-enabled alias="../../ident"/>
+      </loc>
+      <vor>
+        <ident-volume alias="../../volume"/>
+        <ident-enabled alias="../../ident"/>
+      </vor>
+    </nav>
+    <dme>
+      <supply-voltage-norm type="double">0.6</supply-voltage-norm>
+      <min-supply-voltage-norm type="double">0.5</min-supply-voltage-norm>
+    </dme>
+    <marker-beacon>
+      <audio-btn type="bool">true</audio-btn>
+      <power-btn type="bool">true</power-btn>
+      <serviceable type="bool">true</serviceable>
+    </marker-beacon>
+    <audio-panel include="Models/gma340properties.xml"/>
+    <kcs55 include="Systems/kcs55.xml"/>
+    <magnetic-compass>
+      <pitch-offset-deg type="double">-0.64</pitch-offset-deg>
+    </magnetic-compass>
+  </instrumentation>
+  <fdm>
+    <jsbsim>
+      <aero>
+        <Cnp-factor type="double">1.0</Cnp-factor>
+      </aero>
+      <ice>
+        <wing type="double">0.0</wing>
+        <stabilizer type="double">0.0</stabilizer>
+        <propeller type="double">0.0</propeller>
+        <fuselage type="double">0.0</fuselage>
+      </ice>
+    </jsbsim>
+  </fdm>
+  <payload>
+    <weight>
+      <name type="string">Pilot</name>
+      <weight-lb alias="/fdm/jsbsim/inertia/pointmass-weight-lbs[0]"/>
+      <min-lb type="double">0.0</min-lb>
+      <max-lb type="double">300.0</max-lb>
+    </weight>
+    <weight>
+      <name type="string">Co Pilot</name>
+      <weight-lb alias="/fdm/jsbsim/inertia/pointmass-weight-lbs[1]"/>
+      <min-lb type="double">0.0</min-lb>
+      <max-lb type="double">300.0</max-lb>
+    </weight>
+    <weight>
+      <name type="string">Middle Left Pax</name>
+      <weight-lb alias="/fdm/jsbsim/inertia/pointmass-weight-lbs[2]"/>
+      <min-lb type="double">0.0</min-lb>
+      <max-lb type="double">300.0</max-lb>
+    </weight>
+    <weight>
+      <name type="string">Middle Right Pax</name>
+      <weight-lb alias="/fdm/jsbsim/inertia/pointmass-weight-lbs[3]"/>
+      <min-lb type="double">0.0</min-lb>
+      <max-lb type="double">300.0</max-lb>
+    </weight>
+    <weight>
+      <name type="string">Rear Left Pax</name>
+      <weight-lb alias="/fdm/jsbsim/inertia/pointmass-weight-lbs[4]"/>
+      <min-lb type="double">0.0</min-lb>
+      <max-lb type="double">300.0</max-lb>
+    </weight>
+    <weight>
+      <name type="string">Rear Right Pax</name>
+      <weight-lb alias="/fdm/jsbsim/inertia/pointmass-weight-lbs[5]"/>
+      <min-lb type="double">0.0</min-lb>
+      <max-lb type="double">300.0</max-lb>
+    </weight>
+    <weight>
+      <name type="string">Nose Baggage</name>
+      <weight-lb alias="/fdm/jsbsim/inertia/pointmass-weight-lbs[6]"/>
+      <min-lb type="double">0.0</min-lb>
+      <max-lb type="double">200.0</max-lb>
+    </weight>
+    <weight>
+      <name type="string">Aft Baggage</name>
+      <weight-lb alias="/fdm/jsbsim/inertia/pointmass-weight-lbs[7]"/>
+      <min-lb type="double">0.0</min-lb>
+      <max-lb type="double">200.0</max-lb>
+    </weight>
+  </payload>
+</PropertyList>

@@ -1,0 +1,319 @@
+<?xml version="1.0" ?>
+
+<!--
+**************X360 Controller for Windows layout****************
+
+Axes 0,1 (Left-stick):          View direction and elevation
+Axis 2 (Trigger buttons LT/RT): Rudder
+Axis 3 (Right-stick U/D):       Elevator
+Axis 4 (Right-stick L/R):       Ailerons
+Axis 6 (D-pad L/R):             Aileron trim
+Axis 7 (D-pad U/D):             Elevator trim
+
+Button 0 (A):                   Flaps down
+Button 1 (B):                   Brakes
+Button 2 (X):                   Flaps up
+Button 3 (Y):                   Park brake toggle
+Button 4 (Left shoulder):       Throttle decrease
+Button 5 (Right shoulder):      Throttle increase
+Button 6 (Back):                Landing gear toggle
+Button 7 (Start):               Pause
+Button 8 (Press left-stick):    Reset view
+
+****************************************************************
+-->
+
+<PropertyList>
+
+<name>Controller (XBOX 360 For Windows)</name>
+
+<axis n="0">
+  <desc>View Direction</desc>
+  <low>
+   <repeatable>true</repeatable>
+   <binding>
+    <command>property-adjust</command>
+    <property>/sim/current-view/goal-heading-offset-deg</property>
+    <step type="double">2</step>
+   </binding>
+  </low>
+  <high>
+   <repeatable>true</repeatable>
+   <binding>
+    <command>property-adjust</command>
+    <property>/sim/current-view/goal-heading-offset-deg</property>
+    <step type="double">-2</step>
+   </binding>
+  </high>
+</axis>
+
+<axis n="1">
+  <desc>View Elevation</desc>
+  <low>
+   <repeatable>true</repeatable>
+   <binding>
+    <command>property-adjust</command>
+    <property>/sim/current-view/goal-pitch-offset-deg</property>
+    <step type="double">-1</step>
+   </binding>
+  </low>
+  <high>
+   <repeatable>true</repeatable>
+   <binding>
+    <command>property-adjust</command>
+    <property>/sim/current-view/goal-pitch-offset-deg</property>
+    <step type="double">1</step>
+   </binding>
+  </high>
+</axis>
+
+<axis n="2">
+  <desc>Rudder</desc>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/rudder</property>
+   <factor type="double">-1.0</factor>
+  </binding>
+</axis>
+
+<axis n="3">
+  <desc>Elevator</desc>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/elevator</property>
+   <factor type="double">-1.0</factor>
+   <squared type="bool">true</squared>
+  </binding>
+</axis>
+
+<axis n="4">
+  <desc>Aileron</desc>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/aileron</property>
+   <squared type="bool">true</squared>
+  </binding>
+</axis>
+
+<axis n="6">
+  <desc>Aileron trim</desc>
+  <low>
+   <repeatable>true</repeatable>
+   <binding>
+    <command>property-adjust</command>
+    <property>/controls/flight/aileron-trim</property>
+    <step type="double">-0.002</step>
+   </binding>
+  </low>
+  <high>
+   <repeatable>true</repeatable>
+   <binding>
+    <command>property-adjust</command>
+    <property>/controls/flight/aileron-trim</property>
+    <step type="double">0.002</step>
+   </binding>
+  </high>
+</axis>
+
+<axis n="7">
+  <desc>Elevator trim</desc>
+  <low>
+   <repeatable>true</repeatable>
+   <binding>
+    <command>property-adjust</command>
+    <property>/controls/flight/elevator-trim</property>
+    <step type="double">-1.5</step>
+   </binding>
+  </low>
+  <high>
+   <repeatable>true</repeatable>
+   <binding>
+    <command>property-adjust</command>
+    <property>/controls/flight/elevator-trim</property>
+    <step type="double">1.5</step>
+   </binding>
+  </high>
+</axis>
+
+<button n="0">
+  <desc>Flaps Down</desc>
+  <repeatable>false</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.flapsDown(1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.flapsDown(0)</script>
+   </binding>
+  </mod-up>
+</button>
+
+<button n="1">
+  <desc>Brakes</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.applyBrakes(1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.applyBrakes(0)</script>
+   </binding>
+  </mod-up>
+</button>
+
+<button n="2">
+  <desc>Flaps Up</desc>
+  <repeatable>false</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.flapsDown(-1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.flapsDown(0)</script>
+   </binding>
+  </mod-up>
+</button>
+
+<button n="3">
+  <desc>Parking brake</desc>
+  <repeatable type="bool">false</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>
+   var pb = getprop("/controls/gear/brake-parking");
+   pb = !pb;
+   setprop ("/controls/gear/brake-parking",pb)
+   </script>
+  </binding>
+</button>
+
+<button n="4">
+  <desc>Throttle decrease</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>property-adjust</command>
+   <property>/controls/engines/engine[0]/throttle</property>
+   <step type="double">-0.01</step>
+  </binding>
+  <binding>
+   <command>property-adjust</command>
+   <property>/controls/engines/engine[1]/throttle</property>
+   <step type="double">-0.01</step>
+  </binding>
+  <binding>
+   <command>property-adjust</command>
+   <property>/controls/engines/engine[2]/throttle</property>
+   <step type="double">-0.01</step>
+  </binding>
+  <binding>
+   <command>property-adjust</command>
+   <property>/controls/engines/engine[3]/throttle</property>
+   <step type="double">-0.01</step>
+  </binding>
+  <binding>
+   <command>property-adjust</command>
+   <property>/controls/engines/engine[4]/throttle</property>
+   <step type="double">-0.01</step>
+  </binding>
+  <binding>
+   <command>property-adjust</command>
+   <property>/controls/engines/engine[5]/throttle</property>
+   <step type="double">-0.01</step>
+  </binding>
+  <binding>
+   <command>property-adjust</command>
+   <property>/controls/engines/engine[6]/throttle</property>
+   <step type="double">-0.01</step>
+  </binding>
+  <binding>
+   <command>property-adjust</command>
+   <property>/controls/engines/engine[7]/throttle</property>
+   <step type="double">-0.01</step>
+  </binding>
+</button>
+
+<button n="5">
+  <desc>Throttle increase</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>property-adjust</command>
+   <property>/controls/engines/engine[0]/throttle</property>
+   <step type="double">0.01</step>
+  </binding>
+  <binding>
+   <command>property-adjust</command>
+   <property>/controls/engines/engine[1]/throttle</property>
+   <step type="double">0.01</step>
+  </binding>
+  <binding>
+   <command>property-adjust</command>
+   <property>/controls/engines/engine[2]/throttle</property>
+   <step type="double">0.01</step>
+  </binding>
+  <binding>
+   <command>property-adjust</command>
+   <property>/controls/engines/engine[3]/throttle</property>
+   <step type="double">0.01</step>
+  </binding>
+  <binding>
+   <command>property-adjust</command>
+   <property>/controls/engines/engine[4]/throttle</property>
+   <step type="double">0.01</step>
+  </binding>
+  <binding>
+   <command>property-adjust</command>
+   <property>/controls/engines/engine[5]/throttle</property>
+   <step type="double">0.01</step>
+  </binding>
+  <binding>
+   <command>property-adjust</command>
+   <property>/controls/engines/engine[6]/throttle</property>
+   <step type="double">0.01</step>
+  </binding>
+  <binding>
+   <command>property-adjust</command>
+   <property>/controls/engines/engine[7]/throttle</property>
+   <step type="double">0.01</step>
+  </binding>
+</button>
+
+<button n="6">
+  <desc>Landing gear toggle</desc>
+  <repeatable type="bool">false</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>
+   controls.gearToggle()
+   </script>
+  </binding>
+</button>
+
+<button n="7">
+  <desc>Pause</desc>
+  <repeatable type="bool">false</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>
+   var p =getprop ("/sim/freeze/master");
+   p = !p;
+   setprop ("sim/freeze/master",p);
+   setprop ("sim/freeze/clock",p)
+   </script>
+  </binding>
+</button>
+
+<button n="8">
+  <desc>Center View</desc>
+  <repeatable type="bool">false</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>view.resetView()</script>
+  </binding>
+</button>
+
+</PropertyList>

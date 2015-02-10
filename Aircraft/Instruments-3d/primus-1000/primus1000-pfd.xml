@@ -1,0 +1,858 @@
+<?xml version="1.0"?>
+<!--
+Author : Syd Adams
+Primus 1000 Primary Flight Display
+-->
+<PropertyList>
+
+<path>primus1000-pfd.ac</path>
+
+<animation>
+    <type>select</type>
+    <object-name>AP.annun</object-name>
+    <condition>
+        <not>
+            <property>autopilot/locks/passive-mode</property>
+        </not>	
+    </condition>
+</animation>
+
+<animation>
+    <type>select</type>
+    <object-name>FDbars</object-name>
+    <condition>
+        <property>instrumentation/primus1000/fdmode</property>
+    </condition>
+</animation>
+
+<animation>
+    <type>select</type>
+    <object-name>GSscale</object-name>
+    <object-name>GSneedle</object-name>
+    <condition>
+        <and>
+            <equals>
+                <property>instrumentation/nav/has-gs</property>
+                <value>true</value>
+            </equals>
+            <less-than>
+                <property>instrumentation/nav/gs-distance</property>
+                <value>30000</value>
+            </less-than>
+        </and>
+    </condition>
+</animation>
+
+<!--
+ <animation>
+   <type>select</type>
+   <object-name>gs.annun</object-name>
+   <condition>
+       <equals>
+         <property>instrumentation/nav/has-gs</property>
+         <value>true</value>
+       </equals>
+   </condition>
+ </animation>
+
+
+ <animation>
+   <type>select</type>
+   <object-name>loc.annun</object-name>
+   <condition>
+       <equals>
+         <property>instrumentation/nav/nav-loc</property>
+         <value>true</value>
+       </equals>
+   </condition>
+ </animation>
+-->
+
+<animation>
+    <type>select</type>
+    <object-name>outer.marker</object-name>
+    <condition>
+        <equals>
+            <property>instrumentation/marker-beacon/outer</property>
+            <value>true</value>
+        </equals>
+    </condition>
+</animation>
+ 
+<animation>
+    <type>select</type>
+    <object-name>middle.marker</object-name>
+    <condition>
+        <equals>
+        <property>instrumentation/marker-beacon/middle</property>
+        <value>true</value>
+        </equals>
+    </condition>
+</animation>
+ 
+<animation>
+    <type>select</type>
+    <object-name>inner.marker</object-name>
+    <condition>
+        <equals>
+            <property>instrumentation/marker-beacon/inner</property>
+            <value>true</value>
+        </equals>
+    </condition>
+</animation>
+
+<!-- FLIGHT DIRECTOR BARS -->
+
+<animation>
+    <type>translate</type>
+    <object-name>FDbars</object-name>
+    <property>autopilot/settings/target-pitch-deg</property>
+    <factor>0.0014</factor>
+    <axis>
+        <x>0.0</x>
+        <y>0.0</y>
+        <z>1.0</z>
+    </axis>
+    <center>
+        <x-m>0.002</x-m>
+        <y-m>0</y-m>
+        <z-m>0.0516</z-m>
+    </center>
+</animation>
+
+<animation>
+    <type>rotate</type>
+    <object-name>FDbars</object-name>
+    <property>autopilot/internal/target-roll-deg</property>
+    <axis>
+        <x>-1.0</x>
+        <y>0.0</y>
+        <z>0.0</z>
+    </axis>
+    <center>
+        <x-m>0.002</x-m>
+        <y-m>0</y-m>
+        <z-m>0.0516</z-m>
+    </center>
+</animation>
+
+<animation>
+    <type>rotate</type>
+    <object-name>FDbars</object-name>
+    <property>orientation/roll-deg</property>
+    <axis>
+        <x>1.0</x>
+        <y>0.0</y>
+        <z>0.0</z>
+    </axis>
+    <center>
+        <x-m>0.002</x-m>
+        <y-m>0</y-m>
+        <z-m>0.0516</z-m>
+    </center>
+</animation>
+
+<animation>
+    <type>translate</type>
+    <object-name>FDbars</object-name>
+    <property>orientation/pitch-deg</property>
+    <factor>0.0014</factor>
+    <axis>
+        <x>0.0</x>
+        <y>0.0</y>
+        <z>-1.0</z>
+    </axis>
+    <center>
+        <x-m>0.002</x-m>
+        <y-m>0</y-m>
+        <z-m>0.0516</z-m>
+    </center>
+</animation>
+
+<!-- ATITUDE INDICATOR -->
+
+<animation>
+    <type>texmultiple</type>
+    <object-name>AI</object-name>
+    <transform>
+        <property>orientation/pitch-deg</property>
+        <subtype>textranslate</subtype>
+        <factor>0.004694</factor>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+    </transform>
+    <transform>
+        <property>orientation/roll-deg</property>
+        <subtype>texrotate</subtype>
+        <center>
+            <x>0.25</x>
+            <y>0.50</y>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>0</y>
+            <z>-1</z>
+        </axis>
+    </transform>
+</animation>
+
+<animation>
+    <type>translate</type>
+    <object-name>SlipBall</object-name>
+    <property>instrumentation/slip-skid-ball/indicated-slip-skid</property>
+    <min>-1.1</min>
+    <max>1.1</max>
+    <interpolation>
+        <entry>
+            <ind>-1.1</ind><dep>-0.0125</dep>
+        </entry>
+        <entry>
+            <ind>1.1</ind><dep>0.0125</dep>
+        </entry>
+    </interpolation>
+    <axis>
+        <x>0</x>
+        <y>1</y>
+        <z>0</z>
+    </axis>
+</animation>
+
+<animation>
+    <type>texrotate</type>
+    <object-name>HDGface</object-name>
+    <property>orientation/heading-magnetic-deg</property>
+    <center>
+        <x>0.75</x>
+        <y>0.25</y>
+        <z>0.0</z>
+    </center>
+    <axis>
+        <x>0</x>
+        <y>0</y>
+        <z>-1</z>
+    </axis>
+</animation>
+ 
+<animation>
+    <type>rotate</type>
+    <object-name>hdgbug</object-name>
+    <property>autopilot/internal/fdm-heading-bug-error-deg</property>
+    <axis>
+        <x>-1.0</x>
+        <y>0.0</y>
+        <z>0.0</z>
+    </axis>
+    <center>
+        <x-m>0.002</x-m>
+        <y-m>0</y-m>
+        <z-m>-0.040</z-m>
+    </center>
+</animation>
+ 
+<animation>
+    <type>rotate</type>
+    <object-name>CRSneedle</object-name>
+    <object-name>CRSneedle.001</object-name>
+    <object-name>ToFlag</object-name>
+    <object-name>FromFlag</object-name>
+    <property>orientation/heading-magnetic-deg</property>
+    <axis>
+        <x>1.0</x>
+        <y>0.0</y>
+        <z>0.0</z>
+    </axis>
+    <center>
+        <x-m>0.002</x-m>
+        <y-m>0</y-m>
+        <z-m>-0.040</z-m>
+    </center>
+</animation>
+ 
+<animation>
+    <type>rotate</type>
+    <object-name>CRSneedle</object-name>
+    <object-name>CRSneedle.001</object-name>
+    <object-name>ToFlag</object-name>
+    <object-name>FromFlag</object-name>
+    <property>instrumentation/nav/radials/selected-deg</property>
+    <axis>
+        <x>-1.0</x>
+        <y>0.0</y>
+        <z>0.0</z>
+    </axis>
+    <center>
+        <x-m>0.002</x-m>
+        <y-m>0</y-m>
+        <z-m>-0.040</z-m>
+    </center>
+</animation>
+ 
+<animation>
+    <type>translate</type>
+    <object-name>CRSneedle.001</object-name>
+    <property>instrumentation/nav/heading-needle-deflection</property>
+    <interpolation>
+        <entry>
+            <ind>-10.0</ind><dep>-0.0148</dep>
+        </entry>
+        <entry>
+            <ind>0.0</ind><dep>0.0</dep>
+        </entry>
+        <entry>
+            <ind>10.0</ind><dep>0.0148</dep>
+        </entry>
+    </interpolation>
+    <axis>
+        <x>0.0</x>
+        <y>1.0</y>
+        <z>0.0</z>
+    </axis>
+    <center>
+        <x-m>0.002</x-m>
+        <y-m>0</y-m>
+        <z-m>-0.040</z-m>
+    </center>
+</animation>
+ 
+<animation>
+    <type>translate</type>
+    <object-name>GSneedle</object-name>
+    <property>instrumentation/nav/gs-needle-deflection-norm</property>
+    <interpolation>
+        <entry>
+            <ind>-1.0</ind><dep>-0.0188</dep>
+        </entry>
+        <entry>
+            <ind>-0.5</ind><dep>-0.0162</dep>
+        </entry>
+        <entry>
+            <ind>0.0</ind><dep>0.0</dep>
+        </entry>
+        <entry>
+            <ind>0.5</ind><dep>0.0158</dep>
+        </entry>
+        <entry>
+            <ind>1.0</ind><dep>0.02</dep>
+        </entry>
+    </interpolation>
+    <axis>
+        <x>0.0</x>
+        <y>0.0</y>
+        <z>1.0</z>
+    </axis>
+</animation>
+ 
+<animation>
+    <type>rotate</type>
+    <object-name>NAV1pointer</object-name>
+    <property>instrumentation/primus1000/dc550/nav1ptr-hdg-offset</property>
+    <axis>
+        <x>-1.0</x>
+        <y>0.0</y>
+        <z>0.0</z>
+    </axis>
+    <center>
+        <x-m>0.002</x-m>
+        <y-m>0</y-m>
+        <z-m>-0.040</z-m>
+    </center>
+</animation>
+
+<animation>
+    <type>rotate</type>
+    <object-name>NAV2pointer</object-name>
+    <property>instrumentation/primus1000/dc550/nav2ptr-hdg-offset</property>
+    <axis>
+        <x>-1.0</x>
+        <y>0.0</y>
+        <z>0.0</z>
+    </axis>
+    <center>
+        <x-m>0.002</x-m>
+        <y-m>0</y-m>
+        <z-m>-0.040</z-m>
+    </center>
+</animation>
+
+<animation>
+    <type>textranslate</type>
+    <object-name>ASIribbon</object-name>
+    <property>instrumentation/airspeed-indicator/indicated-speed-kt</property>
+    <interpolation>
+        <entry>
+            <ind> 0.0</ind><dep>0.0</dep>
+        </entry>
+        <entry>
+            <ind> 100.0</ind><dep>0.172</dep>
+        </entry>
+        <entry>
+            <ind> 200.0</ind><dep>0.342</dep>
+        </entry>
+        <entry>
+            <ind> 300.0</ind><dep>0.514</dep>
+        </entry>
+        <entry>
+            <ind> 400.0</ind><dep>0.683</dep>
+        </entry>
+        <entry>
+            <ind> 470.0</ind><dep>0.806</dep>
+        </entry>
+    </interpolation>
+    <axis>
+        <x>0</x>
+        <y>1</y>
+        <z>0</z>
+    </axis>
+</animation>
+ 
+<animation>
+    <type>textranslate</type>
+    <object-name>Asitext</object-name>
+    <property>instrumentation/airspeed-indicator/indicated-speed-kt</property>
+    <factor>0.001</factor>
+    <step>100</step>
+    <axis>
+        <x>0</x>
+        <y>1</y>
+        <z>0</z>
+    </axis>
+</animation>
+ 
+<animation>
+    <type>textranslate</type>
+    <object-name>Asitext.001</object-name>
+    <property>instrumentation/airspeed-indicator/indicated-speed-kt</property>
+    <factor>0.01</factor>
+    <step>10</step>
+    <axis>
+        <x>0</x>
+        <y>1</y>
+        <z>0</z>
+    </axis>
+</animation>
+ 
+<animation>
+    <type>textranslate</type>
+    <object-name>Asitext.002</object-name>
+    <property>instrumentation/airspeed-indicator/indicated-speed-kt</property>
+    <factor>0.1</factor>
+    <axis>
+        <x>0</x>
+        <y>1</y>
+        <z>0</z>
+    </axis>
+</animation>
+ 
+<animation>
+    <type>rotate</type>
+    <object-name>VSIneedle</object-name>
+    <property>autopilot/internal/vert-speed-fpm</property>
+    <min>-4000.0</min>
+    <max>4000.0</max>
+    <interpolation>
+        <entry>
+            <ind>-4000.0</ind><dep>-80.0</dep>
+        </entry>
+        <entry>
+            <ind>-2000.0</ind><dep>-38.0</dep>
+        </entry>
+        <entry>
+            <ind>-1000.0</ind><dep>-19.0</dep>
+        </entry>
+        <entry>
+            <ind>-500.0</ind><dep>-9.5</dep>
+        </entry>
+        <entry>
+            <ind>0.0</ind><dep>0.0</dep>
+        </entry>
+        <entry>
+            <ind>500.0</ind><dep>9.5</dep>
+        </entry>
+        <entry>
+            <ind>1000.0</ind><dep>19.0</dep>
+        </entry>
+        <entry>
+            <ind>2000.0</ind><dep>38.0</dep>
+        </entry>
+        <entry>
+            <ind>4000.0</ind><dep>80.0</dep>
+        </entry>
+    </interpolation>
+    <axis>
+        <x>-1.0</x>
+        <y>0.0</y>
+        <z>0.0</z>
+    </axis>
+    <center>
+        <x-m>0.004</x-m>
+        <y-m>0.081</y-m>
+        <z-m>-0.042</z-m>
+    </center>
+</animation>
+ 
+<animation>
+    <type>textranslate</type>
+    <object-name>ALTribbon</object-name>
+    <property>position/altitude-ft</property>
+    <factor>0.000669</factor>
+    <axis>
+        <x>0</x>
+        <y>1</y>
+        <z>0</z>
+    </axis>
+</animation>
+ 
+<animation>
+    <type>textranslate</type>
+    <object-name>Alt10</object-name>
+    <property>position/altitude-ft</property>
+    <factor>0.01</factor>
+    <axis>
+        <x>0</x>
+        <y>1</y>
+        <z>0</z>
+    </axis>
+</animation>
+ 
+<animation>
+    <type>textranslate</type>
+    <object-name>Alt100</object-name>
+    <property>position/altitude-ft</property>
+    <factor>0.001</factor>
+    <step>100</step>
+    <scroll>20</scroll>
+    <axis>
+        <x>0</x>
+        <y>1</y>
+        <z>0</z>
+    </axis>
+</animation>
+ 
+<animation>
+    <type>textranslate</type>
+    <object-name>Alt1000</object-name>
+    <property>position/altitude-ft</property>
+    <factor>0.0001</factor>
+    <step>1000</step>
+    <scroll>20</scroll>
+    <axis>
+        <x>0</x>
+        <y>1</y>
+        <z>0</z>
+    </axis>
+</animation>
+ 
+<animation>
+    <type>textranslate</type>
+    <object-name>Alt10000</object-name>
+    <property>position/altitude-ft</property>
+    <factor>0.00001</factor>
+    <step>10000</step>
+    <scroll>20</scroll>
+    <axis>
+        <x>0</x>
+        <y>1</y>
+        <z>0</z>
+    </axis>
+</animation>
+
+<animation>
+    <type>rotate</type>
+    <object-name>Warrow</object-name>
+    <property>orientation/heading-deg</property>
+    <axis>
+        <x>1.0</x>
+        <y>0.0</y>
+        <z>0.0</z>
+    </axis>
+    <center>
+        <x-m>0.002</x-m>
+        <y-m>-0.037</y-m>
+        <z-m>-0.063</z-m>
+    </center>
+</animation>
+ 
+<animation>
+    <type>rotate</type>
+    <object-name>Warrow</object-name>
+    <property>environment/wind-from-heading-deg</property>
+    <axis>
+        <x>-1.0</x>
+        <y>0.0</y>
+        <z>-0.0</z>
+    </axis>
+    <center>
+        <x-m>0.002</x-m>
+        <y-m>-0.037</y-m>
+        <z-m>-0.063</z-m>
+    </center>
+</animation>
+
+<animation>
+    <type>textranslate</type>
+    <object-name>hdgtext</object-name>
+    <property>autopilot/settings/heading-bug-deg</property>
+    <factor>0.001</factor>
+    <step>100</step>
+    <axis>
+        <x>0</x>
+        <y>1</y>
+        <z>0</z>
+    </axis>
+</animation>
+
+<animation>
+    <type>textranslate</type>
+    <object-name>hdgtext.001</object-name>
+    <property>autopilot/settings/heading-bug-deg</property>
+    <factor>0.01</factor>
+    <step>10</step>
+    <axis>
+        <x>0</x>
+        <y>1</y>
+        <z>0</z>
+    </axis>
+</animation>
+
+<animation>
+    <type>textranslate</type>
+    <object-name>hdgtext.002</object-name>
+    <property>autopilot/settings/heading-bug-deg</property>
+    <factor>0.1</factor>
+    <step>1</step>
+    <axis>
+        <x>0</x>
+        <y>1</y>
+        <z>0</z>
+    </axis>
+</animation>
+
+<animation>
+    <type>textranslate</type>
+    <object-name>mach.002</object-name>
+    <property>velocities/mach</property>
+    <factor>10.0</factor>
+    <step>0.01</step>
+    <axis>
+        <x>0</x>
+        <y>1</y>
+        <z>0</z>
+    </axis>
+</animation>
+ 
+<animation>
+    <type>textranslate</type>
+    <object-name>mach.003</object-name>
+    <property>velocities/mach</property>
+    <factor>100.0</factor>
+    <step>0.001</step>
+    <axis>
+        <x>0</x>
+        <y>1</y>
+        <z>0</z>
+    </axis>
+</animation>
+
+<animation>
+    <type>textranslate</type>
+    <object-name>crstext</object-name>
+    <property>instrumentation/nav/radials/selected-deg</property>
+    <factor>0.001</factor>
+    <step>100</step>
+    <axis>
+        <x>0</x>
+        <y>1</y>
+        <z>0</z>
+    </axis>
+</animation>
+
+<animation>
+    <type>textranslate</type>
+    <object-name>crstext.001</object-name>
+    <property>instrumentation/nav/radials/selected-deg</property>
+    <factor>0.01</factor>
+    <step>10</step>
+    <axis>
+        <x>0</x>
+        <y>1</y>
+        <z>0</z>
+    </axis>
+</animation>
+
+<animation>
+    <type>textranslate</type>
+    <object-name>crstext.002</object-name>
+    <property>instrumentation/nav/radials/selected-deg</property>
+    <factor>0.1</factor>
+    <step>1</step>
+    <axis>
+        <x>0</x>
+        <y>1</y>
+        <z>0</z>
+    </axis>
+</animation>
+ 
+<animation>
+    <type>textranslate</type>
+    <object-name>alttext</object-name>
+    <property>autopilot/settings/target-altitude-ft</property>
+    <factor>0.00001</factor>
+    <step>10000</step>
+    <axis>
+        <x>0</x>
+        <y>1</y>
+        <z>0</z>
+    </axis>
+</animation>
+
+<animation>
+    <type>textranslate</type>
+    <object-name>alttext.001</object-name>
+    <property>autopilot/settings/target-altitude-ft</property>
+    <factor>0.0001</factor>
+    <step>1000</step>
+    <axis>
+        <x>0</x>
+        <y>1</y>
+        <z>0</z>
+    </axis>
+</animation>
+ 
+<animation>
+    <type>textranslate</type>
+    <object-name>alttext.002</object-name>
+    <property>autopilot/settings/target-altitude-ft</property>
+    <factor>0.001</factor>
+    <step>100</step>
+    <axis>
+        <x>0</x>
+        <y>1</y>
+        <z>0</z>
+    </axis>
+</animation>
+ 
+<animation>
+    <type>textranslate</type>
+    <object-name>alttext.003</object-name>
+    <property>autopilot/settings/target-altitude-ft</property>
+    <factor>0.01</factor>
+    <step>10</step>
+    <axis>
+        <x>0</x>
+        <y>1</y>
+        <z>0</z>
+    </axis>
+</animation>
+ 
+<animation>
+    <type>textranslate</type>
+    <object-name>alttext.004</object-name>
+    <property>autopilot/settings/target-altitude-ft</property>
+    <factor>0.1</factor>
+    <step>1</step>
+    <axis>
+        <x>0</x>
+        <y>1</y>
+        <z>0</z>
+    </axis>
+</animation>
+ 
+<animation>
+    <type>textranslate</type>
+    <object-name>nav1msg</object-name>
+    <property>instrumentation/primus1000/dc550/nav1ptr</property>
+    <factor>0.025</factor>
+    <step>1</step>
+    <axis>
+        <x>0</x>
+        <y>-1</y>
+        <z>0</z>
+    </axis>
+</animation>
+ 
+<animation>
+    <type>textranslate</type>
+    <object-name>nav2msg</object-name>
+    <property>instrumentation/primus1000/dc550/nav2ptr</property>
+    <factor>0.025</factor>
+    <step>1</step>
+    <axis>
+        <x>0</x>
+        <y>-1</y>
+        <z>0</z>
+    </axis>
+</animation>
+
+<animation>
+    <type>textranslate</type>
+    <object-name>crsmsg</object-name>
+    <property>instrumentation/primus1000/dc550/nav1ptr</property>
+    <factor>0.0099</factor>
+    <step>3</step>
+    <axis>
+        <x>0</x>
+        <y>-1</y>
+        <z>0</z>
+    </axis>
+</animation>
+
+<animation>
+    <type>select</type>
+    <object-name>FromFlag</object-name>
+    <condition>
+        <and>
+            <equals>
+                <property>instrumentation/nav/from-flag</property>
+                <value>true</value>
+            </equals>
+            <equals>
+                <property>instrumentation/nav/nav-loc</property>
+                <value>false</value>
+            </equals>
+        </and>
+    </condition>
+</animation>
+ 
+<animation>
+    <type>select</type>
+    <object-name>ToFlag</object-name>
+    <condition>
+        <and>
+            <equals>
+                <property>instrumentation/nav/to-flag</property>
+                <value>true</value>
+            </equals>
+            <equals>
+                <property>instrumentation/nav/nav-loc</property>
+                <value>false</value>
+            </equals>
+        </and>
+    </condition>
+</animation>
+ 
+<animation>
+    <type>select</type>
+    <object-name>NAV1pointer</object-name>
+    <condition>
+        <greater-than>
+            <property>instrumentation/primus1000/dc550/nav1ptr</property>
+            <value>0</value>
+        </greater-than>
+    </condition>
+</animation>
+ 
+<animation>
+    <type>select</type>
+    <object-name>NAV2pointer</object-name>
+    <condition>
+        <greater-than>
+            <property>instrumentation/primus1000/dc550/nav2ptr</property>
+            <value>0</value>
+        </greater-than>
+    </condition>
+</animation>
+
+</PropertyList>

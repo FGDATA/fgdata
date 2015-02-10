@@ -1,0 +1,750 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type="text/xsl" href="joystick.xsl"?>
+<!-- Saitek AV8R/Aviator
+
+  Copyright (C) 2007 - 2012  Anders Gidenstam  (anders(at)gidenstam.org)
+  This file is released under the GPL license v2 or later.
+-->
+<PropertyList>
+
+ <name type="string">Saitek AV8R Joystick</name>
+ <name type="string">Saitek AV8R Classic Stick</name>
+ <name type="string">Saitek Aviator Stick</name>
+
+ <nasal>
+  <script>
+   <![CDATA[
+     var self = cmdarg().getParent();
+     var data = self.getNode("data");
+     var modifier            = 0;
+     var engine_select_mode  = 0;
+     # TM0: All selected; TM1: #1 & #2; TM2: #3 & #4
+     var engine_axis_mode    = 0;
+     # Valid only in TM1 and TM2.
+     #   EA0: throttle
+     #   EA1: mixture
+     #   EA2: propeller
+     var quick_view_active   = 0;
+     var old_view            = view.point.save();
+     var pressed             = [0,0,0,0,0,0,0,0,0,0,0,0];
+     # Map engines to throttles for TM1 (0, 1) and TM2 (2, 3)
+     var engine = [0, 1, 2, 3];
+
+     # Do per-aircraft modifications
+     if (contains({"Aircraft/Short_Empire/Models/Short_Empire-model.xml" : 0,
+                   "Aircraft/Lockheed1049/Models/Lockheed1049_twa.xml"   : 0},
+                  getprop("/sim/model/path"))) {
+       # TM1: the outer engines, TM2: the inner engines
+       engine = [0, 3, 1, 2];
+     }
+     if (contains({"Aircraft/DO-X/Models/dox.xml"   : 0},
+                  getprop("/sim/model/path"))) {
+       engine = [[0, 1, 2, 3, 4, 5], [6, 7, 8, 9, 10, 11],
+                 [0, 1, 2, 3, 4, 5], [6, 7, 8, 9, 10, 11]];
+     }
+
+
+     var goal_heading_offset =
+       props.globals.getNode("/sim/current-view/goal-heading-offset-deg", 1);
+     var goal_pitch_offset   =
+       props.globals.getNode("/sim/current-view/goal-pitch-offset-deg", 1);
+
+     var headtracking = props.globals.getNode("/sim/headtracking/enabled", 1);
+
+     var kbdctrl  = props.globals.getNode("/devices/status/keyboard/ctrl", 1);
+     var kbdalt   = props.globals.getNode("/devices/status/keyboard/alt", 1);
+
+     var quick_view = func {
+       var dir = arg[0];
+       if (dir == 0) {
+         quick_view_active = 0;
+         view.point.move(old_view, 0.1);
+         headtracking.setIntValue(1);
+       } else {
+         if (quick_view_active == 0) {
+           quick_view_active = 1;
+           old_view = view.point.save();
+           headtracking.setIntValue(0);
+
+           if (dir == 1) {
+             goal_heading_offset.setDoubleValue
+               (getprop("/sim/view/config/left-direction-deg"));
+             goal_pitch_offset.setDoubleValue
+               (getprop("/sim/view/config/pitch-offset-deg"));
+             view.fovProp.setDoubleValue
+               (getprop("/sim/view/config/default-field-of-view-deg"));
+           } if (dir == 2) {
+             goal_heading_offset.setDoubleValue
+               (getprop("/sim/view/config/right-direction-deg"));
+             goal_pitch_offset.setDoubleValue
+               (getprop("/sim/view/config/pitch-offset-deg"));
+             view.fovProp.setDoubleValue
+               (getprop("/sim/view/config/default-field-of-view-deg"));
+           } if (dir == 3) {
+             goal_heading_offset.setDoubleValue
+               (getprop("/sim/view/config/front-direction-deg"));
+             goal_pitch_offset.setDoubleValue
+               (getprop("/sim/view/config/pitch-offset-deg"));
+             view.fovProp.setDoubleValue
+               (getprop("/sim/view/config/default-field-of-view-deg"));
+           } if (dir == 4) {
+             goal_heading_offset.setDoubleValue
+               (getprop("/sim/view/config/back-direction-deg"));
+             goal_pitch_offset.setDoubleValue
+               (getprop("/sim/view/config/pitch-offset-deg"));
+             view.fovProp.setDoubleValue
+               (getprop("/sim/view/config/default-field-of-view-deg"));
+           }
+         }
+       }
+     } 
+
+     var trace = func(str) {
+       # Uncomment the line below to trace button presses.
+       #print("Aviator.xml: " ~ str);
+     }
+   ]]>
+  </script>
+ </nasal>
+
+ <!-- Analog axis 0. Aileron -->
+ <axis>
+  <name>Stick left/right</name>
+  <number>
+   <unix>0</unix>
+   <mac>0</mac>
+   <windows>0</windows>
+  </number>
+  <desc>aileron</desc>
+  <dead-band type="double">0.05</dead-band>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/aileron</property>
+   <offset type="double">0.0</offset>
+   <squared type="bool">1</squared>
+  </binding>
+ </axis>
+
+ <!-- Analog axis 1. Elevator -->
+ <axis>
+  <name>Stick forward/back</name>
+  <number>
+   <unix>1</unix>
+   <mac>1</mac>
+   <windows>1</windows>
+  </number>
+  <desc>elevator</desc>
+  <dead-band type="double">0.05</dead-band>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/elevator</property>
+   <offset type="double">0.0</offset>
+   <factor type="double">-1.0</factor>
+   <squared type="bool">1</squared>
+  </binding>
+ </axis>
+
+ <!-- Analog axis 3. Rudder -->
+ <axis>
+  <name>Stick twist</name>
+  <number>
+   <unix>3</unix>
+   <mac>2</mac>
+   <windows>3</windows>
+  </number>
+  <desc>rudder</desc>
+  <dead-band type="double">0.05</dead-band>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/rudder</property>
+   <offset type="double">0.0</offset>
+   <factor type="double">1.0</factor>
+   <squared type="bool">1</squared>
+  </binding>
+  <!-- binding>
+   <command>nasal</command>
+   <script>
+    setprop("sim/current-view/goal-heading-offset-deg",
+            -90.0*cmdarg().getNode("setting").getValue());
+   </script>
+  </binding -->
+ </axis>
+
+ <!-- Analog axis 2. Throttle 1 -->
+ <axis>
+  <name>Left throttle</name>
+  <number>
+   <unix>2</unix>
+   <mac>3</mac>
+   <windows>2</windows>
+  </number>
+  <desc>TM0: throttle, TM1: throttle/propeller 1, TM2: throttle/propeller 3</desc>
+  <binding>
+   <command>nasal</command>
+   <script>
+     if (engine_select_mode == 0) {
+       controls.throttleAxis();
+     } else {
+       controls.perEngineSelectedAxisHandler(engine_axis_mode)
+           ((engine_select_mode == 1) ? engine[0] : engine[2]);
+     }
+   </script>
+  </binding>
+ </axis>
+
+ <!-- Analog axis 4. Throttle 2 -->
+ <axis>
+  <name>Right throttle</name>
+  <number>
+   <unix>4</unix>
+   <mac>4</mac>
+   <windows>4</windows>
+  </number>
+  <desc>TM0: mixture, TM1: throttle/propeller 2, TM2: throttle/propeller 4</desc>
+  <binding>
+   <command>nasal</command>
+   <script>
+     if (engine_select_mode == 0) {
+       controls.mixtureAxis();
+     } else {
+       controls.perEngineSelectedAxisHandler(engine_axis_mode)
+           ((engine_select_mode == 1) ? engine[1] : engine[3]);
+     }
+   </script>
+  </binding>
+ </axis>
+
+ <!-- Axis 5. Hat left/right -->
+ <axis>
+  <name>Hat left/right</name>
+  <number>
+   <unix>5</unix>
+   <mac>5</mac>
+   <windows>5</windows>
+  </number>
+  <desc>quick view left/right, +mod: horizontal view pan</desc>
+  <low>
+   <repeatable type="bool">true</repeatable>
+   <binding>
+    <command>nasal</command>
+    <script>
+     <![CDATA[
+       trace("Axis 5, Hat: low!");
+      if (modifier) {
+         view.panViewDir(0.5);
+       } else {
+         quick_view(1);
+       }
+     ]]>
+    </script>
+   </binding>
+   <mod-up>
+    <binding>
+     <command>nasal</command>
+     <script>
+        if (!modifier) {
+          quick_view(0);
+        }
+     </script>
+    </binding>
+   </mod-up>
+  </low>
+  <high>
+   <repeatable type="bool">true</repeatable>
+   <binding>
+    <command>nasal</command>
+    <script>
+     <![CDATA[
+       trace("Axis 5, Hat: high!");
+       if (modifier) {
+         view.panViewDir(-0.5);
+       } else {
+         quick_view(2);
+       }
+     ]]>
+    </script>
+   </binding>
+   <mod-up>
+    <binding>
+     <command>nasal</command>
+     <script>
+      <![CDATA[
+        trace("Axis 5, Hat: low released!");
+        if (!modifier) {
+          quick_view(0);
+        }
+      ]]>
+     </script>
+    </binding>
+   </mod-up>
+  </high>
+ </axis>
+
+ <!-- Axis 6. Hat up/down -->
+ <axis>
+  <name>Hat up/down</name>
+  <number>
+   <unix>6</unix>
+   <mac>6</mac>
+   <windows>6</windows>
+  </number>
+  <desc>view reset/quick view front, +mod: vertical view pan</desc>
+  <low>
+   <repeatable type="bool">true</repeatable>
+   <binding>
+    <command>nasal</command>
+    <script>
+     <![CDATA[
+       trace("Axis 6, Hat: low!");
+       if (modifier) {
+         view.panViewPitch(0.5);
+       } else {
+         view.resetView();
+       }
+     ]]>
+    </script>
+   </binding>
+   <mod-up>
+    <binding>
+     <command>nasal</command>
+     <script>
+      <![CDATA[
+        if (!modifier) {
+          #quick_view(0);
+        }
+      ]]>
+     </script>
+    </binding>
+   </mod-up>
+  </low>
+  <high>
+   <repeatable type="bool">true</repeatable>
+   <binding>
+    <command>nasal</command>
+    <script>
+     <![CDATA[
+       trace("Axis 6, Hat: high!");
+       if (modifier) {
+         view.panViewPitch(-0.5);
+       } else {
+         quick_view(3);
+       }
+     ]]>
+    </script>
+   </binding>
+   <mod-up>
+    <binding>
+     <command>nasal</command>
+     <script>
+      <![CDATA[
+        if (!modifier) {
+          quick_view(0);
+        }
+      ]]>
+     </script>
+    </binding>
+   </mod-up>
+  </high>
+ </axis>
+
+ <!-- Trigger Button -->
+ <button>
+  <name>Trigger</name>
+  <number>
+   <unix>0</unix>
+   <mac>0</mac>
+   <windows>0</windows>
+  </number>
+  <desc>function modifier (mod)</desc>
+  <binding>
+   <command>nasal</command>
+   <script>
+      trace("Button 0 pressed!");
+      modifier = 1;
+   </script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>
+      modifier = 0;
+    </script>
+   </binding>
+  </mod-up>
+ </button>
+
+ <!-- Center Button -->
+ <button>
+  <name>Center button</name>
+  <number>
+   <unix>2</unix>
+   <mac>2</mac>
+   <windows>2</windows>
+  </number>
+  <desc>brakes, +mod: Toggle parking brake</desc>
+  <binding>
+   <command>nasal</command>
+   <script>
+     trace("Button 2 pressed!");
+     if (modifier) {
+       controls.applyParkingBrake(1);
+     } else {
+       controls.applyBrakes(1);
+     }
+   </script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>
+      controls.applyBrakes(0);
+    </script>
+   </binding>
+  </mod-up>
+ </button>
+
+ <!-- Left Button -->
+ <button>
+  <name>Left button</name>
+  <number>
+   <unix>1</unix>
+   <mac>1</mac>
+   <windows>1</windows>
+  </number>
+  <desc>left brake, +mod: PTT</desc>
+  <binding>
+   <command>nasal</command>
+   <script>
+      trace("Button 1 pressed!");
+      if (modifier) {
+        controls.ptt(1);
+      } else {
+        controls.applyBrakes(1, -1);
+      }
+   </script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>
+       controls.applyBrakes(0, -1);
+       controls.ptt(0);
+    </script>
+   </binding>
+  </mod-up>
+ </button>
+
+ <!-- Right Button -->
+ <button>
+  <name>Right button</name>
+  <number>
+   <unix>3</unix>
+   <mac>3</mac>
+   <windows>3</windows>
+  </number>
+  <desc>right brake, +mod: trigger</desc>
+  <binding>
+   <command>nasal</command>
+   <script>
+      trace("Button 3 pressed!");
+      if (modifier) {
+        controls.trigger(1);
+      } else {
+        controls.applyBrakes(1, 1);
+      }
+   </script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>
+       controls.applyBrakes(0, 1);
+       controls.trigger(0);
+    </script>
+   </binding>
+  </mod-up>
+ </button>
+
+ <!-- Button: T1 -->
+ <button>
+  <name>T1</name>
+  <number>
+   <unix>4</unix>
+   <mac>4</mac>
+   <windows>4</windows>
+  </number>
+  <desc>next view, +mod: zoom in +Shift: next weapon</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>
+      trace("Button 4 pressed!");
+      if (modifier) {
+        view.decrease();
+      } else {
+        if (!pressed[4]) {
+          pressed[4] = 1;
+          view.stepView(1);
+        }
+      }
+   </script>
+  </binding>
+  <mod-shift>
+   <binding>
+    <command>nasal</command>
+    <script>
+      trace("Button 4 + shift pressed!");
+      controls.weaponSelect(1);
+    </script>
+   </binding>
+  </mod-shift>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>
+      pressed[4] = 0;
+    </script>
+   </binding>
+  </mod-up>
+ </button>
+
+ <!-- Button: T2 -->
+ <button>
+  <name>T2</name>
+  <number>
+   <unix>5</unix>
+   <mac>5</mac>
+   <windows>5</windows>
+  </number>
+  <desc>previous view, +mod: zoom out, +Shift: previous weapon</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>
+      trace("Button 5 pressed!");
+      if (modifier) {
+        view.increase();
+      } else {
+        if (!pressed[5]) {
+          pressed[5] = 1;
+          view.stepView(-1);
+        }
+      }
+   </script>
+  </binding>
+  <mod-shift>
+   <binding>
+    <command>nasal</command>
+    <script>
+      trace("Button 5 + shift pressed!");
+      controls.weaponSelect(-1);
+    </script>
+   </binding>
+  </mod-shift>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>
+      pressed[5] = 0;
+    </script>
+   </binding>
+  </mod-up>
+ </button>
+
+ <!-- Button: T3 -->
+ <button>
+  <name>T3</name>
+  <number>
+   <unix>6</unix>
+   <mac>6</mac>
+   <windows>6</windows>
+  </number>
+  <desc>trim nose down, +mod: disarm speed brakes</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>
+      trace("Button 6 pressed!");
+      if (modifier) {
+        setprop("/controls/flight/speedbrake", 0.0);
+      } else {
+        controls.elevatorTrim(1);
+      }
+   </script>
+  </binding>
+ </button>
+
+ <!-- Button: T4 -->
+ <button>
+  <name>T4</name>
+  <number>
+   <unix>7</unix>
+   <mac>7</mac>
+   <windows>7</windows>
+  </number>
+  <desc>trim nose up, +mod: deploy speed brakes</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>
+      trace("Button 7 pressed!");
+      if (modifier) {
+        setprop("/controls/flight/speedbrake", 1.0);
+      } else {
+        controls.elevatorTrim(-1);
+      }
+   </script>
+  </binding>
+ </button>
+
+ <!-- Button: T5 -->
+ <button>
+  <name>T5</name>
+  <number>
+   <unix>8</unix>
+   <mac>8</mac>
+   <windows>8</windows>
+  </number>
+  <desc>retract flaps one step, +mod: gear up</desc>
+  <binding>
+   <command>nasal</command>
+   <script>
+      trace("Button 8 pressed!");
+      if (!modifier) {
+        controls.flapsDown(-1);
+      } else {
+        controls.gearDown(-1);
+      }
+   </script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>
+       controls.flapsDown(0);
+       controls.gearDown(0);
+    </script>
+   </binding>
+  </mod-up>
+ </button>
+
+ <!-- Button: T6 -->
+ <button>
+  <name>T6</name>
+  <number>
+   <unix>9</unix>
+   <mac>9</mac>
+   <windows>9</windows>
+  </number>
+  <desc>deploy flaps one step, +mod: gear down</desc>
+  <binding>
+   <command>nasal</command>
+   <script>
+      trace("Button 9 pressed!");
+      if (!modifier) {
+        controls.flapsDown(1);
+      } else {
+        controls.gearDown(1);
+      }
+   </script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>
+       controls.flapsDown(0);
+       controls.gearDown(0);
+    </script>
+   </binding>
+  </mod-up>
+ </button>
+
+ <!-- Button: T7 -->
+ <button>
+  <name>T7</name>
+  <number>
+   <unix>10</unix>
+   <mac>10</mac>
+   <windows>10</windows>
+  </number>
+  <desc>Increase magnetos, +mod: Engine throttle/propeller axis swap</desc>
+  <binding>
+   <command>nasal</command>
+   <script>
+      trace("Button 10 pressed!");
+      if (!modifier) {
+        controls.stepMagnetos(1);
+      } else {
+        engine_axis_mode = 2*!engine_axis_mode;
+      }
+   </script>
+  </binding>
+ </button>
+
+ <!-- Button: T8 -->
+ <button>
+  <number>
+   <unix>11</unix>
+   <mac>11</mac>
+   <windows>11</windows>
+  </number>
+  <name>T8</name>
+  <desc>Decrease magnetos, +mod: Engine throttle/propeller axis swap</desc>
+  <binding>
+   <command>nasal</command>
+   <script>
+      trace("Button 11 pressed!");
+      if (!modifier) {
+        controls.stepMagnetos(-1);
+      } else {
+        engine_axis_mode = 2*!engine_axis_mode;
+      }
+   </script>
+  </binding>
+ </button>
+
+ <!-- Button: 3-way Mode switch -->
+ <button>
+  <name>Mode 1</name>
+  <number>
+   <unix>12</unix>
+   <mac>12</mac>
+   <windows>12</windows>
+  </number>
+  <desc>Engine 0/1 throttle mode</desc>
+  <binding>
+   <command>nasal</command>
+   <script>
+      trace("Mode 1!");
+      engine_select_mode = 1;
+   </script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>
+       trace("Mode Off!");
+       engine_select_mode = 0;
+    </script>
+   </binding>
+  </mod-up>
+ </button>
+ <button>
+  <name>Mode 2</name>
+  <number>
+   <unix>13</unix>
+   <mac>13</mac>
+   <windows>13</windows>
+  </number>
+  <name>Mode 2</name>
+  <desc>Engine 2/3 throttle mode</desc>
+  <binding>
+   <command>nasal</command>
+   <script>
+      trace("Mode 2!");
+      engine_select_mode = 2;
+   </script>
+  </binding>
+ </button>
+
+</PropertyList>

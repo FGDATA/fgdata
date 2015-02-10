@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PropertyList>
+	<name>Effects/fog</name>
+	<technique n="11">
+		<pass>
+			<lighting>false</lighting>
+			<depth>
+				<enabled>false</enabled>
+			</depth>
+			<blend>
+				<source>src-alpha</source>
+				<destination>one-minus-src-alpha</destination>
+			</blend>
+			<render-bin>
+				<bin-number>1</bin-number>
+				<bin-name>RenderBin</bin-name>
+			</render-bin>
+			<texture-unit>
+				<unit>0</unit>
+				<type>buffer</type>
+				<name>depth</name>
+			</texture-unit>
+			<texture-unit>
+				<unit>1</unit>
+				<type>buffer</type>
+				<name>normal</name>
+			</texture-unit>
+			<texture-unit>
+				<unit>2</unit>
+				<type>buffer</type>
+				<name>diffuse</name>
+			</texture-unit>
+			<texture-unit>
+				<unit>3</unit>
+				<type>buffer</type>
+				<name>spec-emis</name>
+			</texture-unit>
+			<program>
+				<vertex-shader>Shaders/fog.vert</vertex-shader>
+				<fragment-shader>Shaders/fog.frag</fragment-shader>
+				<fragment-shader>Shaders/gbuffer-functions.frag</fragment-shader>
+			</program>
+			<uniform>
+				<name>depth_tex</name>
+				<type>sampler-2d</type>
+				<value type="int">0</value>
+			</uniform>
+			<uniform>
+				<name>normal_tex</name>
+				<type>sampler-2d</type>
+				<value type="int">1</value>
+			</uniform>
+			<uniform>
+				<name>color_tex</name>
+				<type>sampler-2d</type>
+				<value type="int">2</value>
+			</uniform>
+			<uniform>
+				<name>spec_emis_tex</name>
+				<type>sampler-2d</type>
+				<value type="int">3</value>
+			</uniform>
+			<!-- The following uniforms are automatically defined and initialized :
+				- fg_SunAmbientColor
+				- fg_SunDiffuseColor
+				- fg_SunSpecularColor
+				- fg_SunDirection
+				- fg_ProjectionMatrixInverse
+				- fg_ViewMatrixInverse
+				- fg_ViewMatrix
+				- fg_Planes
+				- fg_FogColor
+				- fg_FogDensity
+			-->
+		</pass>
+	</technique>
+</PropertyList>
+

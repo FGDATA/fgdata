@@ -1,0 +1,275 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<name>tanker</name>
+	<x>-10</x>
+	<layout>vbox</layout>
+
+  <nasal>
+    <open>
+      var dlgRoot = cmdarg();
+      
+			var tankers = props.globals.getNode("/sim/ai/tankers/", 1).getChildren("tanker");
+      var types = props.globals.getNode("/systems/refuel/", 1).getChildren("type");
+      var tanker_node = props.globals.getNode("/sim/gui/dialogs/tanker/tanker", 1);
+      
+      #  Force default speed of 250kts
+      setprop("/sim/gui/dialogs/tanker/tanker/speed-kts", 250.0);
+      
+      if (size(types) == 0) {
+        # This really shouldn't happen, as Nasal/tanker.nas disables this menu item
+        # if no refueling type is available.        
+        gui.popupTip("Air to air refueling unavailable in this aircraft", 5);
+				fgcommand("dialog-close", props.Node.new({ "dialog-name" : "tanker"}));					
+      }
+      
+				
+			if (size(tankers) > 0) {							
+				var combo = gui.findElementByName(dlgRoot, "tanker-combo");
+				var idx = 0;
+				foreach (var t; tankers) {
+				  foreach(var type; types) {				  
+				    if (type.getValue() == t.getNode("type", 1).getValue()) {
+							combo.getChild("value", idx, 1).setValue(t.getNode("name", 1).getValue());
+							idx += 1;
+						}
+					}
+				}
+			}
+			
+			var select_tanker = func() {
+			  var name = getprop("/sim/gui/dialogs/tanker/selected-tanker");
+				
+				foreach (var t; tankers) {
+				  if (name == t.getNode("name", 1).getValue()) {
+				    props.copy(t, tanker_node);
+				  }				
+				}
+			}
+			
+			var generate_tanker = func() {
+				if (tanker_node.getNode("name", 1).getValue()) {
+				  tanker.request_new(tanker_node);
+				}
+			}			
+        
+		</open>
+	</nasal>
+
+	<group>
+		<layout>hbox</layout>
+		<empty><stretch>1</stretch></empty>
+
+		<text>
+			<label>Air-to-Air Refueling Tanker</label>
+		</text>
+
+		<empty><stretch>1</stretch></empty>
+
+		<button>
+			<pref-width>16</pref-width>
+			<pref-height>16</pref-height>
+			<legend></legend>
+			<keynum>27</keynum>
+			<border>2</border>
+
+			<binding>
+				<command>dialog-close</command>
+			</binding>
+		</button>
+	</group>
+
+	<hrule/>
+
+	<group>
+	  <layout>table</layout>	
+	  
+	  <text>
+	    <row>0</row>
+	    <col>0</col>
+	    <halign>right</halign>
+	    <label>Tanker:</label>
+		</text>
+		
+		<combo>
+      <name>tanker-combo</name>
+	    <row>0</row>
+	    <col>1</col>
+	    <colspan>2</colspan>
+	    <halign>left</halign>
+      <property>/sim/gui/dialogs/tanker/selected-tanker</property>
+      <editable>false</editable>
+      <pref-width>200</pref-width>
+      <halign>fill</halign>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>tanker-combo</object-name>
+      </binding>
+      <binding>
+        <command>nasal</command>
+        <script>select_tanker();</script>
+      </binding>
+		</combo>
+
+	  <text>
+	    <row>1</row>
+	    <col>0</col>
+	    <halign>right</halign>
+	    <label>Type:</label>
+		</text>
+		
+		<text>
+	    <row>1</row>
+	    <col>1</col>
+	    <visible>
+	      <equals>
+	        <property>/sim/gui/dialogs/tanker/tanker/type</property>
+	        <value>probe</value>	      
+	      </equals>	    
+	    </visible>
+	    <colspan>3</colspan>
+	    <halign>left</halign>
+	    <label>Drogue and Probe</label>
+		</text>
+
+		<text>
+	    <row>1</row>
+	    <col>1</col>
+	    <visible>
+	      <equals>
+	        <property>/sim/gui/dialogs/tanker/tanker/type</property>
+	        <value>boom</value>	      
+	      </equals>	    
+	    </visible>
+	    <colspan>3</colspan>
+	    <halign>left</halign>
+	    <label>Boom</label>
+		</text>
+		
+	  <text>
+	    <row>2</row>
+	    <col>0</col>
+	    <halign>right</halign>
+	    <label>Speed:</label>
+		</text>
+
+		<slider>
+			<name>tanker-speed</name>			
+			<row>2</row>
+			<col>1</col>
+			<halign>fill</halign>
+			<min>100</min>
+			<max>350</max>
+			<live>true</live>
+			<property>/sim/gui/dialogs/tanker/tanker/speed-kts</property>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>tanker-speed</object-name>
+      </binding>
+		</slider>
+		
+		<text>
+	    <row>2</row>
+	    <col>2</col>
+	    <halign>left</halign>
+	    <format>%2.0fkts</format>
+	    <label>250</label>
+	    <property>/sim/gui/dialogs/tanker/tanker/speed-kts</property>
+	    <live>true</live>
+		</text>
+
+	  <text>
+	    <row>3</row>
+	    <col>0</col>
+	    <halign>right</halign>
+	    <label>Contact radius:</label>
+		</text>
+		
+		<slider>
+			<name>contact-radius</name>			
+			<row>3</row>
+			<col>1</col>
+			<halign>fill</halign>
+			<min>1</min>
+			<max>100</max>
+			<property>/systems/refuel/contact-radius-m</property>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>contact-radius</object-name>
+      </binding>
+		</slider>
+		
+		<text>
+		  <row>3</row>
+		  <col>2</col>
+	    <halign>left</halign>
+		  <format>%2.0fm</format>
+			<property>/systems/refuel/contact-radius-m</property>
+			<live>true</live>
+		</text>
+
+	  <text>
+	    <row>4</row>
+	    <col>0</col>
+	    <halign>right</halign>
+	    <label>Report refueling:</label>
+		</text>
+		
+		<checkbox>
+			<name>report-contact</name>			
+			<row>4</row>
+			<col>1</col>
+			<halign>left</halign>
+			<property>/systems/refuel/report-contact</property>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>report-contact</object-name>
+      </binding>
+		</checkbox>
+				
+	</group>
+	
+	<hrule/>
+	
+	<group>
+	  <layout>hbox</layout>
+		<default-padding>5</default-padding>
+
+		<empty><stretch>true</stretch></empty>
+	
+		<button>
+			<legend>Request</legend>
+			<equal>true</equal>
+			<binding>
+				<command>nasal</command>
+				<script>generate_tanker();</script>
+			</binding>
+		</button>
+
+		<empty><stretch>true</stretch></empty>
+
+		<button>
+			<legend>Get Position</legend>
+			<equal>true</equal>
+			<binding>
+				<command>nasal</command>
+				<script>tanker.report()</script>
+			</binding>
+		</button>
+		
+		<empty><stretch>true</stretch></empty>
+
+		<button>
+			<legend>Close</legend>
+			<equal>true</equal>
+			<key>Esc</key>
+			<binding>
+				<command>dialog-close</command>
+			</binding>
+		</button>
+		
+		<empty><stretch>true</stretch></empty>
+		
+	</group>
+		
+</PropertyList>

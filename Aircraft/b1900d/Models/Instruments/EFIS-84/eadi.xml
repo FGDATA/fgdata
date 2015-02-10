@@ -1,0 +1,291 @@
+<?xml version="1.0"?>
+<PropertyList>
+
+    <path>eadi.ac</path>
+
+    <animation>
+        <type>texmultiple</type>
+        <object-name>eadi.att</object-name>
+        <transform>
+            <subtype>textranslate</subtype>
+            <property>orientation/pitch-deg</property>
+            <interpolation>
+                <entry><ind>-80.0</ind><dep>-0.3562</dep></entry>
+                <entry><ind>0.0</ind><dep>0.0</dep></entry>
+                <entry><ind>80.0</ind><dep>0.3562</dep></entry>
+            </interpolation>
+            <axis>
+                <x>0</x>
+                <y>1</y>
+            </axis>
+        </transform>
+        <transform>
+            <subtype>texrotate</subtype>
+            <property>orientation/roll-deg</property>
+            <axis>
+                <x>0</x>
+                <y>0</y>
+                <z>-1</z>
+            </axis>
+            <center>
+                <x>0.75</x>
+                <y>0.5</y>
+            </center>
+        </transform>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>vbars</object-name>
+        <condition>
+            <property>instrumentation/fgc-65/internal/fd/enabled</property>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>eadi.ap</object-name>
+        <condition>
+            <equals>
+                 <property>instrumentation/fgc-65/app-65a/AP</property>
+                <value>AP</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>eadi.yd</object-name>
+        <condition>
+                <equals>
+                    <property>instrumentation/fgc-65/app-65a/YD</property>
+                    <value>ENGAGED</value>
+                </equals>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>om</object-name>
+        <condition>
+            <property>instrumentation/marker-beacon/outer</property>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>mm</object-name>
+        <condition>
+            <property>instrumentation/marker-beacon/middle</property>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>im</object-name>
+        <condition>
+            <property>instrumentation/marker-beacon/inner</property>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>vbars</object-name>
+        <property>instrumentation/fgc-65/internal/fd/vbar-roll</property>
+        <center>
+            <x-m>0</x-m>
+            <y-m>0</y-m>
+            <z-m>-0.003</z-m>
+        </center>
+        <axis>
+            <x>-1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+    </animation>
+
+    <animation>
+        <type>translate</type>
+        <object-name>vbars</object-name>
+        <property>instrumentation/fgc-65/internal/fd/vbar-pitch</property>
+        <factor>0.0010</factor>
+        <axis>
+            <x>0</x>
+            <y>0</y>
+            <z>1</z>
+        </axis>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>eadi.loc1</object-name>
+        <condition>
+            <equals>
+                <property>instrumentation/fgc-65/internal/lateral-arm</property>
+                <value>LOC1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>eadi.vor1</object-name>
+        <condition>
+            <equals>
+                <property>instrumentation/fgc-65/internal/lateral-arm</property>
+                <value>VOR1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>eadi.lnv1</object-name>
+        <condition>
+            <equals>
+                <property>instrumentation/fgc-65/internal/lateral-arm</property>
+                <value>LNV1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>eadi.hdg</object-name>
+        <condition>
+            <equals>
+                <property>instrumentation/fgc-65/internal/lateral</property>
+                <value>HDG</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>eadi.L-vor1</object-name>
+        <condition>
+            <equals>
+                <property>instrumentation/fgc-65/internal/lateral</property>
+                <value>VOR1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>eadi.L-loc1</object-name>
+        <condition>
+            <equals>
+                <property>instrumentation/fgc-65/internal/lateral</property>
+                <value>LOC1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>eadi.L-lnv1</object-name>
+        <condition>
+            <equals>
+                <property>instrumentation/fgc-65/internal/lateral</property>
+                <value>LNV1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>eadi.V_ias</object-name>
+        <condition>
+            <equals>
+                <property>instrumentation/fgc-65/internal/vertical</property>
+                <value>IAS</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>eadi.V_alt</object-name>
+        <condition>
+            <equals>
+                <property>instrumentation/fgc-65/internal/vertical</property>
+                <value>ALT</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>eadi.V_gs</object-name>
+        <condition>
+            <equals>
+                <property>instrumentation/fgc-65/internal/vertical</property>
+                <value>GS</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>eadi.V_vs</object-name>
+        <condition>
+            <equals>
+                <property>instrumentation/fgc-65/internal/vertical</property>
+                <value>VS</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>eadi.gs</object-name>
+        <condition>
+            <equals>
+                <property>instrumentation/fgc-65/internal/vertical-arm</property>
+                <value>GS</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>DH</object-name>
+        <condition>
+            <property>instrumentation/mk-viii/inputs/discretes/decision-height</property>
+        </condition>
+    </animation>
+
+    <text>
+        <name>dheight</name>
+        <offsets>
+            <x-m>0.0001</x-m>
+            <y-m>0.034</y-m>
+            <z-m>-0.038</z-m>
+        </offsets>
+        <alignment>left-center</alignment>
+        <axis-alignment>yz-plane</axis-alignment>
+        <type type="string">number-value</type>
+        <property>instrumentation/mk-viii/inputs/arinc429/decision-height</property>
+        <format>%3.0f</format>
+        <font>condensed.txf</font>
+        <character-size>0.004</character-size>
+        <character-aspect-ratio type="double">1.2</character-aspect-ratio>
+        <font-resolution>
+            <width type="int">32</width>
+            <height type="int">32</height>
+        </font-resolution>
+    </text>
+
+    <animation>
+        <name>white</name>
+        <type>material</type>
+        <object-name>dheight</object-name>
+        <emission>
+            <red>0.8</red>
+            <green>0.8</green>
+            <blue>0.8</blue>
+        </emission>
+    </animation>
+
+</PropertyList>

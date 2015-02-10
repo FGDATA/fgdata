@@ -1,0 +1,148 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+    <path>wheels.ac</path>
+
+    <animation>
+        <type>material</type>
+        <object-name>StrutBase</object-name>
+        <object-name>Rstrut</object-name>
+        <object-name>Lstrut</object-name>
+        <object-name>Lwheel</object-name>
+        <object-name>Rwheel</object-name>
+        <object-name>Rearwheel</object-name>
+        <property-base>sim/model/livery</property-base>
+        <texture-prop>texture</texture-prop>
+        <texture>paint1.png</texture>
+    </animation>
+
+    <model>
+        <condition>
+            <not>
+                <property>sim/rendering/rembrandt/enabled</property>
+            </not>
+        </condition>
+        <name>Wshadow</name>
+        <path>Aircraft/dhc2/Models/shadowW.xml</path>
+        <offsets>
+            <x-m>0</x-m>
+            <y-m>0</y-m>
+            <z-m>0</z-m>
+            <pitch-deg>0</pitch-deg>
+        </offsets>
+    </model>
+
+ <effect>
+    <inherits-from>Aircraft/dhc2/Models/Effects/skin-reflect</inherits-from>
+        <object-name>Lstrut</object-name>
+        <object-name>Rstrut</object-name>
+        <object-name>StrutBase</object-name>
+ </effect>
+
+    <!--    Gear Animation    -->
+
+    <animation>
+        <type>rotate</type>
+        <object-name>Lwheel</object-name>
+        <object-name>Lstrut</object-name>
+        <property>gear/gear[0]/compression-m</property>
+        <interpolation>
+            <entry><ind>0.0</ind><dep>0.0</dep></entry>
+            <entry><ind>0.2</ind><dep>14.0</dep></entry>
+        </interpolation>
+        <center>
+            <x-m>-0.834</x-m>
+            <y-m>-0.650</y-m>
+            <z-m>-0.820</z-m>
+        </center>
+        <axis>
+            <x>-1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>Rwheel</object-name>
+        <object-name>Rstrut</object-name>
+        <property>gear/gear[1]/compression-m</property>
+        <interpolation>
+            <entry><ind>0.0</ind><dep>0.0</dep></entry>
+            <entry><ind>0.2</ind><dep>14.0</dep></entry>
+        </interpolation>
+        <center>
+            <x-m>-0.834</x-m>
+            <y-m>0.650</y-m>
+            <z-m>-0.820</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+    </animation>
+    
+    <animation>
+        <type>translate</type>
+        <object-name>Rearwheel.strut</object-name>
+        <object-name>Rearwheel.fork</object-name>
+        <object-name>Rearwheel</object-name>
+        <property>gear/gear[2]/compression-m</property>
+        <factor>1.0</factor>
+        <axis>
+            <x>0.217</x>
+            <y>0</y>
+            <z>0.976</z>
+        </axis>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>Rearwheel.fork</object-name>
+        <object-name>Rearwheel</object-name>
+        <property>controls/flight/rudder</property>
+        <factor>-25.0</factor>
+        <axis>
+            <x1-m>5.852</x1-m>
+            <y1-m>0</y1-m>
+            <z1-m>-0.321</z1-m>
+            <x2-m>5.796</x2-m>
+            <y2-m>0</y2-m>
+            <z2-m>-0.556</z2-m>
+        </axis>
+    </animation>
+
+    <!-- left wheel rotation -->
+    <animation>
+        <type>spin</type>
+        <object-name>Lwheel</object-name>
+        <property>gear/gear[0]/tire-rpm</property>
+        <axis>
+            <x1-m>-1.003</x1-m>
+            <y1-m>-1.397</y1-m>
+            <z1-m>-1.574</z1-m>
+            <x2-m>-1.003</x2-m>
+            <y2-m>-1.511</y2-m>
+            <z2-m>-1.584</z2-m>
+        </axis>
+    </animation>
+    
+    <!-- right wheel rotation -->
+    <animation>
+        <type>spin</type>
+        <object-name>Rwheel</object-name>
+        <property>gear/gear[1]/tire-rpm</property>
+        <axis>
+            <x1-m>-1.003</x1-m>
+            <y1-m>1.511</y1-m>
+            <z1-m>-1.584</z1-m>
+            <x2-m>-1.003</x2-m>
+            <y2-m>1.397</y2-m>
+            <z2-m>-1.574</z2-m>
+        </axis>
+    </animation>
+
+
+</PropertyList>

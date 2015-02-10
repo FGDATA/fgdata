@@ -1,0 +1,178 @@
+<?xml version="1.0"?>
+<!--
+
+  Zeppelin NT-07 airship flight model for JSBSim.
+
+    Copyright (C) 2008 - 2010  Anders Gidenstam  (anders(at)gidenstam.org)
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+  
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+  
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+  
+-->
+<system name="dual-control-jsbsim">
+
+ <documentation>
+  In dual-control mode in FlightGear most control parameters are merged by
+  the FlightGear dual-control system and written into properties in
+  fcs/dual-control/. The channels in this system copies these inputs into
+  the input properties this FDM expects.
+
+  In single control mode in FlightGear the properties in fcs/pilot/
+  are set from FlightGear while the channels in this system copies
+  these inputs into the input properties this FDM expects.
+  
+  Switching this system between single and dual-control is done with the
+  fcs/dual-control/enabled property.
+ </documentation>
+
+ <!-- Artificially split inputs. -->
+
+ <!-- Dual control on/off. -->
+ <property value="0.0">fcs/dual-control/enabled</property>
+
+ <!-- Pilot command properties. Created and set from FlightGear. -->
+ <property value="0.0">fcs/pilot/propeller-speed-cmd-norm[0]</property>
+ <property value="0.0">fcs/pilot/propeller-speed-cmd-norm[1]</property>
+ <property value="0.0">fcs/pilot/propeller-speed-cmd-norm[2]</property>
+ <property value="0.0">fcs/pilot/thrust-cmd-norm[0]</property>
+ <property value="0.0">fcs/pilot/thrust-cmd-norm[1]</property>
+ <property value="0.0">fcs/pilot/thrust-cmd-norm[2]</property>
+ <property value="0.0">fcs/pilot/mixture-cmd-norm[0]</property>
+ <property value="0.0">fcs/pilot/mixture-cmd-norm[1]</property>
+ <property value="0.0">fcs/pilot/mixture-cmd-norm[2]</property>
+
+ <!-- Merged command properties set by dual-control. Set from FlightGear. -->
+ <property value="0.0">fcs/dual-control/propeller-speed-cmd-norm[0]</property>
+ <property value="0.0">fcs/dual-control/propeller-speed-cmd-norm[1]</property>
+ <property value="0.0">fcs/dual-control/propeller-speed-cmd-norm[2]</property>
+ <property value="0.0">fcs/dual-control/thrust-cmd-norm[0]</property>
+ <property value="0.0">fcs/dual-control/thrust-cmd-norm[1]</property>
+ <property value="0.0">fcs/dual-control/thrust-cmd-norm[2]</property>
+ <property value="0.0">fcs/dual-control/mixture-cmd-norm[0]</property>
+ <property value="0.0">fcs/dual-control/mixture-cmd-norm[1]</property>
+ <property value="0.0">fcs/dual-control/mixture-cmd-norm[2]</property>
+
+ <channel name="Propeller speed">
+
+  <switch name="fcs/dual-control/propeller-speed-pos-norm[0]">
+   <default value="fcs/pilot/propeller-speed-cmd-norm[0]"/>
+   <test logic="AND" value="fcs/dual-control/propeller-speed-cmd-norm[0]">
+     fcs/dual-control/enabled GE 0.5
+   </test>
+   <clipto>
+    <min>0.0</min>
+    <max>1.0</max>
+   </clipto>
+   <output>fcs/propeller-speed-cmd-norm[0]</output>
+  </switch>
+  <switch name="fcs/dual-control/propeller-speed-pos-norm[1]">
+   <default value="fcs/pilot/propeller-speed-cmd-norm[1]"/>
+   <test logic="AND" value="fcs/dual-control/propeller-speed-cmd-norm[1]">
+     fcs/dual-control/enabled GE 0.5
+   </test>
+   <clipto>
+    <min>0.0</min>
+    <max>1.0</max>
+   </clipto>
+   <output>fcs/propeller-speed-cmd-norm[1]</output>
+  </switch>
+  <switch name="fcs/dual-control/propeller-speed-pos-norm[2]">
+   <default value="fcs/pilot/propeller-speed-cmd-norm[2]"/>
+   <test logic="AND" value="fcs/dual-control/propeller-speed-cmd-norm[2]">
+     fcs/dual-control/enabled GE 0.5
+   </test>
+   <clipto>
+    <min>0.0</min>
+    <max>1.0</max>
+   </clipto>
+   <output>fcs/propeller-speed-cmd-norm[2]</output>
+  </switch>
+ </channel>
+
+ <channel name="Mixture">
+
+  <switch name="fcs/dual-control/mixture-pos-norm[0]">
+   <default value="fcs/pilot/mixture-cmd-norm[0]"/>
+   <test logic="AND" value="fcs/dual-control/mixture-cmd-norm[0]">
+     fcs/dual-control/enabled GE 0.5
+   </test>
+   <clipto>
+    <min>0.0</min>
+    <max>1.0</max>
+   </clipto>
+   <output>fcs/mixture-cmd-norm[0]</output>
+  </switch>
+  <switch name="fcs/dual-control/mixture-pos-norm[1]">
+   <default value="fcs/pilot/mixture-cmd-norm[1]"/>
+   <test logic="AND" value="fcs/dual-control/mixture-cmd-norm[1]">
+     fcs/dual-control/enabled GE 0.5
+   </test>
+   <clipto>
+    <min>0.0</min>
+    <max>1.0</max>
+   </clipto>
+   <output>fcs/mixture-cmd-norm[1]</output>
+  </switch>
+  <switch name="fcs/dual-control/mixture-pos-norm[2]">
+   <default value="fcs/pilot/mixture-cmd-norm[2]"/>
+   <test logic="AND" value="fcs/dual-control/mixture-cmd-norm[2]">
+     fcs/dual-control/enabled GE 0.5
+   </test>
+   <clipto>
+    <min>0.0</min>
+    <max>1.0</max>
+   </clipto>
+   <output>fcs/mixture-cmd-norm[2]</output>
+  </switch>
+ </channel>
+
+ <channel name="Thrust">
+
+  <switch name="fcs/dual-control/thrust-pos-norm[0]">
+   <default value="fcs/pilot/thrust-cmd-norm[0]"/>
+   <test logic="AND" value="fcs/dual-control/thrust-cmd-norm[0]">
+     fcs/dual-control/enabled GE 0.5
+   </test>
+   <clipto>
+    <min>0.0</min>
+    <max>1.0</max>
+   </clipto>
+   <output>fcs/thrust-cmd-norm[0]</output>
+  </switch>
+  <switch name="fcs/dual-control/thrust-pos-norm[1]">
+   <default value="fcs/pilot/thrust-cmd-norm[1]"/>
+   <test logic="AND" value="fcs/dual-control/thrust-cmd-norm[1]">
+     fcs/dual-control/enabled GE 0.5
+   </test>
+   <clipto>
+    <min>0.0</min>
+    <max>1.0</max>
+   </clipto>
+   <output>fcs/thrust-cmd-norm[1]</output>
+  </switch>
+  <switch name="fcs/dual-control/thrust-pos-norm[2]">
+   <default value="fcs/pilot/thrust-cmd-norm[2]"/>
+   <test logic="AND" value="fcs/dual-control/thrust-cmd-norm[2]">
+     fcs/dual-control/enabled GE 0.5
+   </test>
+   <clipto>
+    <min>0.0</min>
+    <max>1.0</max>
+   </clipto>
+   <output>fcs/thrust-cmd-norm[2]</output>
+  </switch>
+
+ </channel>
+
+</system>

@@ -1,0 +1,248 @@
+<?xml version="1.0"?>
+<!--
+ This file is part of FlightGear, the free flight simulator
+ http://www.flightgear.org/
+
+ Copyright (C) 2009 Torsten Dreyer, Torsten (at) t3r _dot_ de
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation; either version 2 of the
+ License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+-->
+<!-- Electrical system -->
+<PropertyList>
+  <filter>
+    <name>Battery Master Switch</name>
+    <debug>false</debug>
+    <type>gain</type>
+    <gain>1.0</gain>
+    <input>
+      <condition>
+        <property>/controls/electric/battery-switch</property>
+      </condition>
+      <property>/systems/electrical/bus[0]/u-volts</property>
+    </input>
+    <input>0</input>
+    <output>/systems/electrical/battery-bus/u-volts</output>
+  </filter>
+
+  <filter>
+    <name>Avionics Master Switch</name>
+    <debug>false</debug>
+    <type>gain</type>
+    <gain>1.0</gain>
+    <input>
+      <condition>
+        <property>/controls/electric/avionic-switch</property>
+      </condition>
+      <property>/systems/electrical/battery-bus/u-volts</property>
+    </input>
+    <input>0</input>
+    <output>/systems/electrical/avionic-bus/u-volts</output>
+    <output>/systems/electrical/outputs/comm[0]</output>
+    <output>/systems/electrical/outputs/comm[1]</output>
+    <output>/systems/electrical/outputs/nav[0]</output>
+    <output>/systems/electrical/outputs/nav[1]</output>
+    <output>/systems/electrical/outputs/dme[0]</output>
+    <output>/systems/electrical/outputs/adf[0]</output>
+    <output>/systems/electrical/outputs/transponder</output>
+  </filter>
+
+  <filter>
+    <name>Turn And Bank#1</name>
+    <debug>false</debug>
+    <type>gain</type>
+    <gain>1.0</gain>
+    <input>
+      <condition>
+        <not>
+          <property>controls/electric/circuitbreaker/cb_0_9</property>
+        </not>
+      </condition>
+      <property>/systems/electrical/battery-bus/u-volts</property>
+    </input>
+    <input>0</input>
+    <output>systems/electrical/outputs/turn-coordinator</output>
+  </filter>
+
+  <filter>
+    <name>AttitudeIndicator#2</name>
+    <debug>false</debug>
+    <type>gain</type>
+    <gain>0.4167</gain> <!-- 12V to 5psi -->
+    <input>
+      <condition>
+        <not>
+          <property>controls/electric/circuitbreaker/cb_2_6</property>
+        </not>
+      </condition>
+      <property>/systems/electrical/battery-bus/u-volts</property>
+    </input>
+    <input>0</input>
+    <output>instrumentation/attitude-indicator[1]/fake-suction</output>
+  </filter>
+
+  <filter>
+    <name>HSI</name>
+    <debug>false</debug>
+    <type>gain</type>
+    <gain>1.0</gain>
+    <input>
+      <condition>
+        <not>
+          <property>controls/electric/circuitbreaker/cb_2_13</property>
+        </not>
+      </condition>
+      <property>/systems/electrical/battery-bus/u-volts</property>
+    </input>
+    <input>0</input>
+    <output>systems/electrical/outputs/hsi</output>
+  </filter>
+
+  <logic>
+    <name>COMM/NAV1-Power-Observer</name>
+    <input>
+      <greater-than>
+        <property>/systems/electrical/avionic-bus/u-volts</property>
+        <value type="double">10.0</value>
+      </greater-than>
+      <property>/controls/electric/avionic-switch</property>
+      <not>
+        <property>controls/electric/circuitbreaker/cb_2_0</property>
+      </not>
+    </input>
+    <output>instrumentation/comm[0]/serviceable</output>
+    <output>instrumentation/nav[0]/serviceable</output>
+  </logic>
+
+  <logic>
+    <name>COMM/NAV2-Power-Observer</name>
+    <input>
+      <greater-than>
+        <property>/systems/electrical/avionic-bus/u-volts</property>
+        <value type="double">10.0</value>
+      </greater-than>
+      <property>/controls/electric/avionic-switch</property>
+      <not>
+        <property>controls/electric/circuitbreaker/cb_2_1</property>
+      </not>
+    </input>
+    <output>instrumentation/comm[1]/serviceable</output>
+    <output>instrumentation/nav[1]/serviceable</output>
+  </logic>
+
+  <logic>
+    <name>DME-Power-Observer</name>
+    <input>
+      <greater-than>
+        <property>/systems/electrical/avionic-bus/u-volts</property>
+        <value type="double">10.0</value>
+      </greater-than>
+      <property>/controls/electric/avionic-switch</property>
+      <not>
+        <property>controls/electric/circuitbreaker/cb_2_7</property>
+      </not>
+    </input>
+    <output>instrumentation/dme[0]/serviceable</output>
+  </logic>
+
+  <logic>
+    <name>ADF-Power-Observer</name>
+    <input>
+      <greater-than>
+        <property>/systems/electrical/avionic-bus/u-volts</property>
+        <value type="double">10.0</value>
+      </greater-than>
+      <property>/controls/electric/avionic-switch</property>
+      <not>
+        <property>controls/electric/circuitbreaker/cb_2_1</property>
+      </not>
+    </input>
+    <output>/instrumentation/adf[0]/serviceable</output>
+  </logic>
+
+  <logic>
+    <name>Audio-Panel-Power-Observer</name>
+    <input>
+      <greater-than>
+        <property>/systems/electrical/avionic-bus/u-volts</property>
+        <value type="double">10.0</value>
+      </greater-than>
+      <property>/controls/electric/avionic-switch</property>
+      <not>
+        <property>controls/electric/circuitbreaker/cb_2_14</property>
+      </not>
+    </input>
+    <output>/instrumentation/audio-panel[0]/serviceable</output>
+    <output>/instrumentation/marker-beacon[0]/serviceable</output>
+  </logic>
+
+  <logic>
+    <name>Left-Engine-Starter</name>
+    <input>
+      <greater-than>
+        <property>/systems/electrical/battery-bus/u-volts</property>
+        <value type="double">10.0</value>
+      </greater-than>
+      <property>/controls/engines/engine[0]/starter-switch</property>
+      <not>
+        <property>controls/electric/circuitbreaker/cb_0_2</property>
+      </not>
+    </input>
+    <output>/controls/engines/engine[0]/starter</output>
+  </logic>
+
+  <logic>
+    <name>Right-Engine-Starter</name>
+    <input>
+      <greater-than>
+        <property>/systems/electrical/battery-bus/u-volts</property>
+        <value type="double">10.0</value>
+      </greater-than>
+      <property>/controls/engines/engine[1]/starter-switch</property>
+      <not>
+        <property>controls/electric/circuitbreaker/cb_0_2</property>
+      </not>
+    </input>
+    <output>/controls/engines/engine[1]/starter</output>
+  </logic>
+
+  <logic>
+    <name>Gear Pump Control</name>
+    <input>
+      <greater-than>
+        <property>/systems/electrical/battery-bus/u-volts</property>
+        <value type="double">10.0</value>
+      </greater-than>
+      <not>
+        <property>controls/electric/circuitbreaker/cb_0_5</property>
+      </not>
+      <not>
+        <property>controls/electric/circuitbreaker/cb_0_6</property>
+      </not>
+    </input>
+    <output>/fdm/jsbsim/gear/serviceable</output>
+  </logic>
+
+  <logic>
+    <name>Transponder-Power-Observer</name>
+    <input>
+      <greater-than>
+        <property>/systems/electrical/avionic-bus/u-volts</property>
+        <value type="double">10.0</value>
+      </greater-than>
+      <property>/controls/electric/avionic-switch</property>
+      <not>
+        <property>controls/electric/circuitbreaker/cb_2_8</property>
+      </not>
+    </input>
+    <output>/instrumentation/transponder/serviceable</output>
+  </logic>
+
+</PropertyList>

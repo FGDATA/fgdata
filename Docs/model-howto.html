@@ -1,0 +1,1376 @@
+
+<!-- Standard Header Begin -->
+<html>
+
+<head>
+  <title>FlightGear Flight Simulator</title>
+  <link rel="stylesheet" type="text/css" href="../default.css"> 
+</head>
+
+<body>
+  <div id="top">
+    <a href="../"><img id="titlebar" src="../images/fglogosm.jpg" alt=""></a>
+  </div>
+
+  <table id="global">
+    <tbody><tr>
+      <td id="menu">
+	<!-- Use a replacescript to update the menu -->
+	<h3>About</h3>
+	<a href="..">Home</a><br>
+      </td>
+      <td id="page">
+<!-- Standard Header End -->
+<h1>Mini-HOWTO: 3D Aircraft Models in FlightGear</h1>
+
+<h2>11 March 2002</h2>
+<h2>David Megginson</h2>
+<br>
+
+<div>
+<h3>Introduction</h3>
+
+<br>This mini-HOWTO explains how to add 3D aircraft models to
+FlightGear, and how to animate and position those models.  No C++
+programming is required, but the user will need some knowledge of
+FlightGear's property system and XML markup, and will need to
+understand the coordinate system FlightGear uses for its models:<br>
+
+<ul>
+<li>distances are in meters 
+<li>angles are in degrees 
+<li>the x-axis runs lengthwise, towards the back 
+<li>the y-axis runs sideways, towards the right 
+<li>the z-axis runs upwards 
+<li>heading is a rotation around the z-axis, where 
+        positive is clockwise viewed from above 
+<li>pitch is a rotation around the y-axis, where 
+        positive is clockwise viewed from the left 
+<li>roll is a rotation around the x-axis, where positive is clockwise
+viewed from behind</li>
+</ul>
+
+<img src="img/model-howto-heading.jpg" width="500" height="497" alt="Heading Illiustration">
+<img src="img/model-howto-pitch.jpg" width="499" height="349" alt="Pitch Illiustration">
+<img src="img/model-howto-roll.jpg" width="500" height="244" alt="Roll Illiustration">
+
+<p>This mini-HOWTO contains three parts:</p>
+
+<ol>
+<li><a href="#loading">Loading the model</a>
+<li><a href="#repositioning">Repositioning the model</a>
+<li><a href="#animating">Animating the model</a></li>
+</ol>
+
+<!-- end of "Summary" -->
+</div>
+
+
+<div><a name="loading"></a>
+<h3>1. Loading the model</h3>
+
+<p>Through <a href="http://www.openscenegraph.org/">OpenSceneGraph</a>,
+FlightGear supports many different 3D file formats, including VRML2,
+AC3D, DXF, and
+<a href="http://trac.openscenegraph.org/projects/osg/wiki/Support/UserGuides/Plugins">many others</a>.
+The property <var>/sim/model/path</var> in the main FlightGear
+property tree controls what model will be loaded; it takes
+a string value giving the relative path of the model from
+<var>FG_ROOT</var> (the root of the base package, such as
+<code>/usr/local/lib/FlightGear</code> or
+<code>C:\FLIGHTGEAR\</code>).</p>
+
+<p>The easiest way to load a new model is to set the property at
+startup with the <var>--prop:</var> command-line option; for example,
+to use a 3D aircraft model that you have installed in
+<code>$FG_ROOT/Models/my-cessna.wrl</code>, you could invoke
+FlightGear like this (under Unix-like systems):</p>
+
+<blockquote><pre>fgfs --prop:/sim/model/path=Models/my-cessna.wrl
+</pre></blockquote>
+
+<p>(<strong>Note:</strong> Normaly any textures used by the model must appear
+in the same directory.  If <code>my-cessna.wrl</code> uses the
+textures <code>cessna01.rgb</code> and <code>cessna02.rgb</code>, you
+should install those textures in <code>$FG_ROOT/Models/</code>. 
+It is howerever possible to specify a path (relative to the model path)
+to specify where the textures could be found.)</p>
+
+<p>When you want to set a 3D model permanently as the default for an
+aircraft rather than specifying it on the command line, you need to
+edit an aircraft settings file.  In the
+<code>$FG_ROOT/Aircraft/</code> directory there is a series of files
+ending in <code>-set.xml</code>, such as <code>c172-set.xml</code>,
+<code>dc3-yasim-set.xml</code>, and <code>beech99-uiuc-set.xml</code>.
+When you start FlightGear with the <var>--aircraft</var> option, it
+reads the properties from one of these files; for example</p>
+
+<blockquote><pre>fgfs --aircraft=dc3-yasim
+</pre></blockquote>
+
+<p>Loads the properties from
+<code>$FG_ROOT/Aircraft/dc3-yasim-set.xml</code> into the main
+FlightGear property tree.  These files are in the same XML
+property-list format as <code>$FG_ROOT/preferences.xml</code> and the
+FlightGear save files.  There may be many XML files with different
+startup conditions, sounds, panels, 3D models, etc. for any single
+aircraft type, so you are best off copying an existing one, renaming
+it, then changing the value inside the <var>path</var> element inside
+<var>model</var> inside <var>sim</var>:</p>
+
+<blockquote><pre>&lt;PropertyList&gt;
+ &lt;sim&gt;
+  &lt;model&gt;
+   &lt;path&gt;Models/my-cessna.wrl&lt;/path&gt;
+   &lt;texture-path&gt;./Textures&lt;/texture-path&gt;
+  &lt;/model&gt;
+ &lt;/sim&gt;
+&lt;/PropertyList&gt;
+</pre></blockquote>
+
+<p>So far, all of the examples have had the <var>/sim/model/path</var>
+property point directly at the 3D model file
+(<code>Models/my-cessna.wrl</code>); however, if you want to be able
+to reposition or animate the model, you need to point to an
+intermediate XML file instead, and then put the repositioning and
+animation information into the XML file.  Here's a simple example of a
+3D-model wrapper file, with no repositioning or animation
+information:</p>
+
+<blockquote><pre>&lt;PropertyList&gt;
+ &lt;path&gt;my-cessna.wrl&lt;/path&gt;
+ &lt;texture-path&gt;./Textures&lt;/texture-path&gt;
+&lt;/PropertyList&gt;
+</pre></blockquote>
+
+<p>Like the <var>-set.xml</var> files, this file is in XML property
+list format, but the properties in it are not added to the main
+FlightGear property tree; they're used only while loading the
+model.  The following sections will explain how to add repositioning
+and animation information to the file; for now, the only property to
+worry about is <var>path</var>: it provides the relative path to the
+actual 3D file from the XML wrapper file (<strong>not</strong> from
+<var>FG_ROOT</var>!).  Usually, you should put the wrapper file in the
+same directory as the 3D file, and then have
+<var>/sim/model/path</var> point to the wrapper file, either on the
+command line</p>
+
+<blockquote><pre>fgfs --prop:/sim/model/path=Models/my-cessna.xml
+</pre></blockquote>
+
+<p>or in the <code>-set.xml</code> file:</p>
+
+<blockquote><pre>&lt;PropertyList&gt;
+ &lt;sim&gt;
+  &lt;model&gt;
+   &lt;path&gt;Models/my-cessna.xml&lt;/path&gt;
+  &lt;/model&gt;
+ &lt;/sim&gt;
+&lt;/PropertyList&gt;
+</pre></blockquote>
+
+<!-- end of "Loading the model" -->
+</div>
+
+
+<div><a name="repositioning"></a>
+<h3>2. Repositioning the Model</h3>
+
+<p>Often, an aircraft model not designed specifically for FlightGear
+will not be positioned or oriented correctly; for example, it might be
+too far off the ground, and the nose might point to the side or even
+straight up.</p>
+
+<p>Inside the XML wrapper file (<em>not</em> the main FlightGear
+property tree), there are six properties that allow you to tweak the
+default position and orientation of the model:</p>
+
+<dl compact ><dt><strong>/offsets/x-m</strong><dd>The distance to reposition the model along the 
+        x-axis.<dt><strong>/offsets/y-m</strong><dd>The distance to reposition the model along the 
+        y-axis.<dt><strong>/offsets/z-m</strong><dd>The distance to reposition the model along the 
+        z-axis.<dt><strong>/offsets/heading-deg</strong><dd>The angle by which to rotate the model around 
+        the z-axis.<dt><strong>/offsets/roll-deg</strong><dd>The angle by which to rotate the model around 
+        the x-axis.<dt><strong>/offsets/pitch-deg</strong><dd>The angle by which to rotate the model around the y-axis.</dd></dl>
+
+<p>For example, if you wanted to use the 3D model
+<code>my-cessna.wrl</code> but found that the nose was pointing to the
+right instead of straight-ahead and the wheels were 1.5 meters off the
+ground, you could reorient it in the XML wrapper file like this:</p>
+
+<blockquote><pre>&lt;PropertyList&gt;
+ &lt;path&gt;Models/my-cessna.xml&lt;/path&gt;
+ &lt;offsets&gt;
+  &lt;heading-deg&gt;270&lt;/heading-deg&gt;
+  &lt;z-m&gt;-1.5&lt;/z-m&gt;
+ &lt;/offsets&gt;
+&lt;/PropertyList&gt;
+</pre></blockquote>
+
+<p>It usually takes a bit of experimentation to get the model
+positioned correctly.</p>
+
+<!-- end of "Repositioning the Model" -->
+</div>
+
+
+<div><a name="animating"></a>
+<h3>3. Animating the Model</h3>
+
+<p>Now for the interesting part.  FlightGear allows you to animate
+models by having parts rotate or spin in response to property changes:
+for example, the propellers can spin when the engine is on and the
+elevators can move up and down with your controller.  There is no
+fixed limit on what parts can be animated: the only requirements are
+that the part is named in the 3D model file, and that there is a
+property in the main tree that you can use to get the positioning
+information.</p>
+
+<p>Currently, there are several types of animation recognized:</p>
+
+<ol>
+<li>none 
+<li>billboard 
+<li>rotate 
+<li><a href="#scale">scale</a>
+<li><a href="#blend">blend</a>
+<li><a href="#select">select</a>
+<li>spin 
+<li>timed 
+<li>translate 
+<li><a href="#texrotate">texrotate</a>
+<li><a href="#textranslate">textranslate</a>
+<li><a href="#textmultiple">textmultiple</a>
+<li><a href="#material">material</a>
+<li><a href="#range">range</a>
+<li><a href="#alphatest">alpha-test</a>
+<li><a href="#noshadow">noshadow</a>
+<li><a href="#dist-scale">dist-scale</a>
+<li><a href="#flash">flash</a></li>
+</ol>
+
+<p>Typically you will use combinations of rotate, spin, and translate
+to animate the main control surfaces for most standard-configuration
+aircraft. <var>spin</var> rotates the
+object around an axis with a known rotational velocity (not worrying
+about the exact position), and <var>rotate</var> rotates the object
+around an axis to an exact position.</p>
+
+<p>Every animation appears inside an <var>animation</var> element, and
+contains a <var>type</var> property and at least one
+<var>object-name</var> property:</p>
+
+<blockquote><pre>&lt;animation&gt;
+ &lt;type&gt;rotate&lt;/type&gt;
+ &lt;object-name&gt;Rudder&lt;/object-name&gt;
+&lt;/animation&gt;
+</pre></blockquote>
+
+<p>It is possible to omit the <var>type</var> parameter. In this case,
+the type is <var>none</var> and the animation is there only to group
+objets under a single name that can be used in another animation located
+farther in the file. Grouping objects in animations, with a <var>type</var>
+or not, has the effect of reparenting the objects specified in <var>object-name</var>.
+The rule is that the group is inserted between the first object and its parent, 
+and then subsequent objects are removed from their original parent and added
+to the new group.</p>
+
+<p><var>none</var> animations are also handy to reorganise objects in a model. 
+When objects are translucents, they should be drawn back to front in order to 
+see the world that lies behind through the object. But the drawing order is often 
+the order of appearance in the model file, and it is hard to control inside the 
+modeler. This way, one can ignore the order in the modeler, and force the 
+reordering at load time. The order is of course the order of appearance of
+the <var>object-name</var> clause inside the animation. Be aware that this 
+can be ruined by another subsequent animation (last have precedence over first).</p>
+
+<p>The object name must match exactly the object name used in the 3D
+file (including case).  You may include more than one object name to
+apply the same transformation to more than one object, assuming that
+they rotate around exactly the same line:</p>
+
+<blockquote><pre>&lt;animation&gt;
+ &lt;type&gt;rotate&lt;/type&gt;
+ &lt;object-name&gt;LeftElevator&lt;/object-name&gt;
+ &lt;object-name&gt;RightElevator&lt;/object-name&gt;
+&lt;/animation&gt;
+</pre></blockquote>
+
+<p>It is possible to omit the <var>type</var> parameter. In this case,
+the type is <var>null</var> and the animation is there only to group
+objets under a single name that can be used in another animation located
+farther in the file. Grouping objects in animations, with a <var>type</var>
+or not, has the effect of reparenting the objects specified in <var>object-name</var>.
+The rule is that the group is inserted between the first object and its parent, 
+and then subsequent objects are removed from their original parent and added
+to the new group.</p>
+
+<p>The resulting branch is solid when it comes to compute Height Over Terrain (HOT).
+When an object is there to model a beam of light, or another non solid artefact, it 
+can be interesting to ignore it for crash detection. It is done by inserting </p>
+<blockquote><pre>&lt;enable-hot type="boolean"&gt;false&lt;/enable-hot&gt;</pre></blockquote>
+<p>in the animation clause. By default, <var>enable-hot</var> is set to true and one
+can land on the roof of a building.</p>
+
+<p>Each animation must be associated with exactly one property from
+the main FlightGear property tree (remember that the properties in the
+wrapper file are not part of the main tree), using <var>property</var>
+to provide the property name:</p>
+
+<blockquote><pre>&lt;animation&gt;
+ &lt;type&gt;rotate&lt;/type&gt;
+ &lt;object-name&gt;Rudder&lt;/object-name&gt;
+ &lt;property&gt;controls/rudder&lt;/property&gt;
+&lt;/animation&gt;
+</pre></blockquote>
+
+<p>This example rotates the rudder according to the value of the
+<var>/controls/rudder</var> property (or at least, it will when we
+specify the center and axis of rotation below); however,
+<var>/controls/rudder</var> is normalized from -1.0 to 1.0, and we
+probably want to rotate the rudder more than that; as a result, we
+need to use the <var>factor</var> property to do scaling.  For
+example, if the rudder on the actual aircraft rotates 18 degrees in
+each direction, we would use a factor of 18 to scale the rudder
+position from -18 degrees to 18 degrees:</p>
+
+<blockquote><pre>&lt;animation&gt;
+ &lt;type&gt;rotate&lt;/type&gt;
+ &lt;object-name&gt;Rudder&lt;/object-name&gt;
+ &lt;property&gt;controls/rudder&lt;/property&gt;
+ &lt;factor&gt;18&lt;/factor&gt;
+&lt;/animation&gt;
+</pre></blockquote>
+
+<p>If you wanted to reverse the direction of rudder movement, you
+would use a factor of -18.</p>
+
+<p>There is also an <var>offset-deg</var> property that can be useful for
+starting the rotation from a point other than center.  For example,
+let's say that you want the rudder to start 1% to the left rather than
+dead center; you could specify that like this:</p>
+
+<blockquote><pre>&lt;animation&gt;
+ &lt;type&gt;rotate&lt;/type&gt;
+ &lt;object-name&gt;Rudder&lt;/object-name&gt;
+ &lt;property&gt;controls/rudder&lt;/property&gt;
+ &lt;offset-deg&gt;-0.01&lt;/offset-deg&gt;
+ &lt;factor&gt;18&lt;/factor&gt;
+&lt;/animation&gt;
+</pre></blockquote>
+
+<p>The offset is applied <em>after</em> the factor.</p>
+
+<p>Finally, there are <var>min</var> and <var>max</var> properties
+that can constrain the amount of rotation in degrees, as in this (very
+complicated) example for the Cessna 310 landing gear:</p>
+
+<blockquote><pre>&lt;animation&gt;
+ &lt;type&gt;rotate&lt;/type&gt;
+ &lt;object-name&gt;NoseWheel&lt;/object-name&gt;
+ &lt;property&gt;gear/gear[0]/position-norm&lt;/property&gt;
+ &lt;factor&gt;120&lt;/factor&gt;
+ &lt;offset-deg&gt;-1&lt;/offset-deg&gt;
+ &lt;min&gt;-90&lt;/min&gt;
+ &lt;max&gt;0&lt;/max&gt;
+ &lt;center&gt;
+  &lt;x-m&gt;-2.28&lt;/x-m&gt;
+  &lt;y-m&gt;0.0&lt;/y-m&gt;
+  &lt;z-m&gt;-0.65&lt;/z-m&gt;
+ &lt;/center&gt;
+ &lt;axis&gt;
+  &lt;x&gt;0&lt;/x&gt;
+  &lt;y&gt;1&lt;/y&gt;
+  &lt;z&gt;0&lt;/z&gt;
+ &lt;/axis&gt;
+&lt;/animation&gt;
+</pre></blockquote>
+
+<p>In this example, the gear position (from 0.0 for fully retracted to
+1.0 for fully extended) is multiplied by a factor of 120 and an offset
+of -1, then clamped to between -90 and 0.  In the 3D model, the gear
+is extended by default, so we end up with the following rotations
+through the gear's range of movement:</p>
+
+<table border="1">
+
+<tbody><tr>
+<th>position-norm</th>
+<th>+ offset -1</th>
+<th>* factor 120</th>
+<th>clamped to min/max -90:0</th>
+<th>comments</th>
+</tr>
+
+<tr>
+<td>0.0</td>
+<td>-1.0</td>
+<td>-120.0</td>
+<td>-90.0</td>
+<td>fully retracted</td>
+</tr>
+
+<tr>
+<td>0.25</td>
+<td>-0.75</td>
+<td>-90.0</td>
+<td>-90.0</td>
+<td>still retracted</td>
+</tr>
+
+<tr>
+<td>0.5</td>
+<td>-0.5</td>
+<td>-60.0</td>
+<td>-50.0</td>
+<td>1/3 extended</td>
+</tr>
+
+<tr>
+<td>0.75</td>
+<td>-0.25</td>
+<td>-30.0</td>
+<td>-30.0</td>
+<td>2/3 extended</td>
+</tr>
+
+<tr>
+<td>1.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>fully extended (default position)</td>
+</tr>
+
+</tbody></table>
+
+<p>The gear does not move at all during the first 1/4 of the
+position-norm value, giving the doors a chance to open and close in a
+separate animation.  Obviously, this would be easier to manage with an
+interpolation table, and future versions of the model animation will
+likely support interpolation.</p>
+
+<p>Update: Interpolation tables our now supported.  Each table entry 
+plots a dependency point and output values 
+are interpolated in a linear manner between two points.  In the following 
+example an input property value of 
+25 will result in an application of a value 65 to the animation 
+(65 degrees rotation maybe):</p>
+
+<blockquote><pre> &lt;interpolation&gt;
+   &lt;entry&gt;
+    &lt;ind&gt;0&lt;/ind&gt;
+    &lt;dep&gt;0&lt;/dep&gt;
+   &lt;/entry&gt;
+   &lt;entry&gt;
+    &lt;ind&gt;16.67&lt;/ind&gt;
+    &lt;dep&gt;60&lt;/dep&gt;
+   &lt;/entry&gt;
+   &lt;entry&gt;
+    &lt;ind&gt;25&lt;/ind&gt;
+    &lt;dep&gt;65&lt;/dep&gt;
+   &lt;/entry&gt;
+   &lt;entry&gt;
+    &lt;ind&gt;33.3333&lt;/ind&gt;
+    &lt;dep&gt;70&lt;/dep&gt;
+   &lt;/entry&gt;
+   &lt;entry&gt;
+    &lt;ind&gt;66.6667&lt;/ind&gt;
+    &lt;dep&gt;71&lt;/dep&gt;
+   &lt;/entry&gt;
+   &lt;entry&gt;
+    &lt;ind&gt;100&lt;/ind&gt;
+    &lt;dep&gt;75&lt;/dep&gt;
+   &lt;/entry&gt;
+  &lt;/interpolation&gt;
+</pre></blockquote>
+
+<p>For a <var>spin</var> animation, the property provides a value in
+revolutions per minute (RPM) rather than an absolute position in
+degrees, and offset is not used.  You can still use <var>factor</var>
+to scale the property value if it is not in RPM.</p>
+
+<p>Now, it is necessary to specify the axis of rotation for the
+object, its virtual hinge.  This is often the hardest part, requiring
+a lot of trial-and-error when the axis of rotation is not lined up
+with the x-, y-, or z- axis (think of ailerons on a swept wing with a
+non-zero dihedral angle).  You need to provide two groups of
+information: a point through which the axis of rotation passes, and
+the direction in which the axis is moving.</p>
+
+<p>Update: there is now an alternate method for specifying axes 
+that avoids the trial-and-error approach. See below after the Cessna 
+172 animation examples.<p>
+<p>For the point through which the axis passes, you use the
+<var>/center/x-m</var>, <var>/center/y-m</var>, and
+<var>/center/z-m</var> properties to specify a position in meters,
+using the aircraft's coordinate system.  Note that this is the system
+before repositioning: if the original model was pointing sideways,
+then your fuselage will run along the y-axis rather than the
+x-axis.  Here is an example for a rudder:</p>
+
+<blockquote><pre>&lt;animation&gt;
+ &lt;type&gt;rotate&lt;/type&gt;
+ &lt;object-name&gt;Rudder&lt;/object-name&gt;
+ &lt;property&gt;controls/rudder&lt;/property&gt;
+ &lt;factor&gt;18&lt;/factor&gt;
+ &lt;center&gt;
+  &lt;x-m&gt;5.45&lt;/x-m&gt;
+  &lt;y-m&gt;0.0&lt;/y-m&gt;
+  &lt;z-m&gt;0.0&lt;/z-m&gt;
+ &lt;/center&gt;
+&lt;/animation&gt;
+</pre></blockquote>
+
+<p>In this example, the point is right on the y and z axes, but 5.45
+meters along the x axis (i.e. towards the back of the plane).</p>
+
+<p>Finally, in addition to the center point, it's necessary to specify
+the direction of the axis that passes through it, using the properties
+<var>/axis/x</var>, <var>/axis/y</var>, and <var>axis/z</var>.  These
+are unitless values showing the rate of change in each direction; for
+example, a straight up-and-down rotational axis could be specified
+like this:</p>
+
+<blockquote><pre>&lt;axis&gt;
+ &lt;x&gt;0&lt;/x&gt;
+ &lt;y&gt;0&lt;/y&gt;
+ &lt;z&gt;1&lt;/z&gt;
+&lt;/axis&gt;
+</pre></blockquote>
+
+<p>or like this:</p>
+
+<blockquote><pre>&lt;axis&gt;
+ &lt;x&gt;0&lt;/x&gt;
+ &lt;y&gt;0&lt;/y&gt;
+ &lt;z&gt;1000000&lt;/z&gt;
+&lt;/axis&gt;
+</pre></blockquote>
+
+<p>Since there's 0 movement along the other two axes, it doesn't
+matter.  On the other hand, let's say that the rudder hinge sloped
+back 5% because of a swept tail.  In that case, the x-axis would have
+to show some movement as well:</p>
+
+<blockquote><pre>&lt;axis&gt;
+ &lt;x&gt;0.05&lt;/x&gt;
+ &lt;y&gt;0&lt;/y&gt;
+ &lt;z&gt;1&lt;/z&gt;
+&lt;/axis&gt;
+</pre></blockquote>
+
+<p>That could just as easily be written as</p>
+
+<blockquote><pre>&lt;axis&gt;
+ &lt;x&gt;1&lt;/x&gt;
+ &lt;y&gt;0&lt;/y&gt;
+ &lt;z&gt;20&lt;/z&gt;
+&lt;/axis&gt;
+</pre></blockquote>
+
+<p>as long as the ratios are the same.  For a complicated rotation
+axis, like that for an aileron on a swept-back wing with a significant
+dihedral angle, you'll have to specify movement along all three
+axes:</p>
+
+<blockquote><pre>&lt;axis&gt;
+ &lt;x&gt;0.15&lt;/x&gt;
+ &lt;y&gt;1.00&lt;/y&gt;
+ &lt;z&gt;0.01&lt;/z&gt;
+&lt;/axis&gt;
+</pre></blockquote>
+
+<p>Here's a complete example, showing the animation for the rudder on
+the Cessna 172:</p>
+
+<blockquote><pre>&lt;animation&gt;
+ &lt;type&gt;rotate&lt;/type&gt;
+ &lt;object-name&gt;Rudder&lt;/object-name&gt;
+ &lt;property&gt;controls/rudder&lt;/property&gt;
+ &lt;factor&gt;18&lt;/factor&gt;
+ &lt;center&gt;
+  &lt;x-m&gt;5.45&lt;/x-m&gt;
+  &lt;y-m&gt;0.0&lt;/y-m&gt;
+  &lt;z-m&gt;0.0&lt;/z-m&gt;
+ &lt;/center&gt;
+ &lt;axis&gt;
+  &lt;x&gt;0.72&lt;/x&gt;
+  &lt;y&gt;0.0&lt;/y&gt;
+  &lt;z&gt;1.0&lt;/z&gt;
+ &lt;/axis&gt;
+&lt;/animation&gt;
+</pre></blockquote>
+
+<p>And here's an example of a spin, using the Cessna 172
+propeller:</p>
+
+<blockquote><pre>&lt;animation&gt;
+ &lt;type&gt;spin&lt;/type&gt;
+ &lt;object-name&gt;Propeller&lt;/object-name&gt;
+ &lt;property&gt;engines/engine[0]/rpm&lt;/property&gt;
+ &lt;center&gt;
+  &lt;x-m&gt;0&lt;/x-m&gt;
+  &lt;y-m&gt;0&lt;/y-m&gt;
+  &lt;z-m&gt;-.25&lt;/z-m&gt;
+ &lt;/center&gt;
+ &lt;axis&gt;
+  &lt;x&gt;1.0&lt;/x&gt;
+  &lt;y&gt;0.0&lt;/y&gt;
+  &lt;z&gt;0.0&lt;/z&gt;
+ &lt;/axis&gt;
+&lt;/animation&gt;
+</pre></blockquote>
+
+<p>There is an alternate method of specifying the axis that can often be find much easier.  
+This method is particularly
+helpful for rotating on axes that are at odd angles, such as ailerons on dihedral swept 
+wings.</p>
+
+<p>It is not necessary to specify a &lt;center&gt; tag for this method as it will be calculated 
+automatically.  The &lt;axis&gt; tag requres two sets of coordinates (x1-m,y1-m,z1-m and 
+x2-m,y2-m,z2-m), one for each end of the axis.
+With an aileron, for example, you would need to specify coordinates from both the right and left
+corner of the aileron along the hinged edge.  If your object rotates in the direction opposite 
+of what you intended you may correct it by simply swapping the two sets of coordinate values (swap x1 
+and x2, y1 and y2, z1 and z2).</p>
+
+<p>Here is an example from the 747-400:</p>
+
+<blockquote><pre>&lt;animation&gt;
+  &lt;type&gt;rotate&lt;/type&gt;
+  &lt;object-name&gt;AileronLeftOuter&lt;/object-name&gt;
+  &lt;property&gt;surface-positions/left-aileron-pos-norm&lt;/property&gt;
+  &lt;factor&gt;-30&lt;/factor&gt;
+  &lt;axis&gt;
+   &lt;x1-m&gt;18.28&lt;/x1-m&gt;
+   &lt;y1-m&gt;-21.55&lt;/y1-m&gt;
+   &lt;z1-m&gt;-0.37&lt;/z1-m&gt;
+   &lt;x2-m&gt;22.51&lt;/x2-m&gt;
+   &lt;y2-m&gt;-28.37&lt;/y2-m&gt;
+   &lt;z2-m&gt;0.08&lt;/z2-m&gt;
+  &lt;/axis&gt;
+ &lt;/animation&gt;
+</pre></blockquote>
+
+<p>You can get a lot of your initial measurements by viewing the model
+in a 3D editor like <a href="http://prettypoly.sourceforge.net/">PPE</a>, and you can also
+use PPE to name or rename objects so that you can animate them in
+FlightGear.  In the end, though, you'll almost have to do a little
+tweaking by trial and error until everything looks right.</p>
+
+<p>This document will likely be out of date by the time you read it.
+Look at the actual XML wrapper files (currently in
+<code>$FG_ROOT/Aircraft/<em>aircraft-type</em>/Models/</code>) to look
+at how FlightGear is doing things now.  In the future, we'll be adding
+other animation types, including selecting among different versions of
+the same object (such as a translucent propeller disk for high RPM),
+non-rotational transformations, scaling, and conditionals (i.e. draw
+engine exhaust only above a certain velocity).</p>
+
+<p>It is often desired to apply several animations on the same object. 
+It is simply done by specifying multiple animations with the same 
+<var>object-name</var>. But you must be aware of the order of execution of
+these specified animations. Every new animation takes precedence over previously 
+declared one. As we already seen, each new animation is inserted as the parent 
+of the object specified as the first <var>object-name</var>. That means that if
+a rotation is already declared, and a new translation is to be inserted, it will 
+be between the rotation and the object, making the translation acting on the 
+object, and the rotation acting on the translated object.<br>
+So, as a rule of thumb, remember that animations are executed from the 
+bottom of the animation file to its top.</p>
+
+<p>Most animations can be conditioned by a boolean expression on 
+properties. A condition is introduced by the <var>condition</var> element, 
+like in this example&nbsp;:</p>
+<blockquote><pre> &lt;condition&gt;
+   &lt;greater-than&gt;
+    &lt;property&gt;sim/time/sun-angle-rad&lt;/property&gt;
+    &lt;value&gt;1.57&lt;/value&gt;
+   &lt;/greater-than&gt;
+  &lt;/condition&gt;</pre></blockquote>
+<p>Valid condition elements are&nbsp;:</p>
+<blockquote><dl>
+ <dt><var>property</var></dt>
+  <dd>A valid property full path</dd>
+ <dt><var>not</var></dt>
+ <dt><var>and</var></dt>
+ <dt><var>or</var></dt>
+  <dd>Boolean operators</dd>
+ <dt><var>less-than</var></dt>
+ <dt><var>less-than-equals</var></dt>
+ <dt><var>greater-than</var></dt>
+ <dt><var>greater-than-equals</var></dt>
+ <dt><var>equals</var></dt>
+ <dt><var>not-equals</var></dt>
+  <dd>Comparison operators</dd>
+ <dt><var>value</var></dt>
+  <dd>A literal value</dd>
+</dl></blockquote>
+<p>These elements can be combined to build an arbitrary expression.</p>
+<p>Animations without conditions are always executed. Animation with a condition
+are only executed when the condition evaluated to <var>true</var>.</p>
+
+<p>FlightGear sceneries use shared models. These models are loaded once and
+displayed multiple times. If we apply a transformation on an object of the model,
+every occurence of the model will show the same transformation, creating a 
+very unnatural unison. To solve this kind of problem, several animations 
+support the notion of personality. It means that a set of parameters are able
+to randomly vary in a specified range if the <var>use-personality</var> boolean
+property is set to <var>true</var>. For the moment, <var>spin</var> and <var>timed</var>
+animations support personality.</p>
+
+<h3><a name="select">"select" animation type</a></h3>
+
+<p>The select animation is there to remove objects ( specified in the <var>object-name</var> 
+elements ) from the scene when the associated condition evaluated to <var>false</var>.</p>
+<p>In the example below&nbsp;:</p>
+<blockquote><pre> &lt;animation&gt;
+  &lt;type&gt;select&lt;/type&gt;
+  &lt;object-name&gt;StrobesOn&lt;/object-name&gt;
+  &lt;object-name&gt;StrobesOff&lt;/object-name&gt;
+  &lt;object-name&gt;Fixed&lt;/object-name&gt;
+  &lt;condition&gt;
+   &lt;greater-than&gt;
+    &lt;property&gt;sim/time/sun-angle-rad&lt;/property&gt;
+    &lt;value&gt;1.57&lt;/value&gt;
+   &lt;/greater-than&gt;
+  &lt;/condition&gt;
+ &lt;/animation&gt;</pre></blockquote>
+ <p>Objects <var>StrobesOn</var>, <var>StrobesOff</var> and <var>Fixed</var> are only present
+ in the scene ( displayed ) when the sun is below the horizon ( the meaning of the condition).
+ In other words, these objects, that are already in the scene because they were added by the
+ designer of the model, are removed when the sun is above the horizon.</p>
+
+<h3><a name="timed">"timed" animation type</a></h3>
+
+<p>The timed animation selects only one object among those specified by <var>object-name</var>
+for a specified duration. When the displayed time ends, the next object is selected for the 
+matching duration.</p>
+<p>The simpler form is&nbsp;:</p>
+<blockquote><pre> &lt;animation&gt;
+  &lt;name&gt;BeaconFlasher&lt;/name&gt;
+  &lt;type&gt;timed&lt;/type&gt;
+  &lt;object-name&gt;BeaconOff&lt;/object-name&gt;
+  &lt;object-name&gt;BeaconOn&lt;/object-name&gt;
+  &lt;duration-sec&gt;1.0&lt;/duration-sec&gt;
+ &lt;/animation&gt;</pre></blockquote>
+<p>In this example, each object is displayed during an equal time, specified in seconds.</p>
+<p>This second example use personality&nbsp;:</p>
+<blockquote><pre> &lt;animation&gt;
+  &lt;type&gt;timed&lt;/type&gt;
+  &lt;object-name&gt;StrobesOn&lt;/object-name&gt;
+  &lt;object-name&gt;StrobesOff&lt;/object-name&gt;
+  &lt;use-personality type="bool"&gt;true&lt;/use-personality&gt;
+  &lt;branch-duration-sec&gt;
+   &lt;random&gt;
+    &lt;min&gt;0.9&lt;/min&gt;
+    &lt;max&gt;1.1&lt;/max&gt;
+   &lt;/random&gt;
+  &lt;/branch-duration-sec&gt;
+  &lt;branch-duration-sec&gt;
+   &lt;random&gt;
+    &lt;min&gt;0.9&lt;/min&gt;
+    &lt;max&gt;1.1&lt;/max&gt;
+   &lt;/random&gt;
+  &lt;/branch-duration-sec&gt;
+ &lt;/animation&gt;</pre></blockquote>
+<p>In this case, there is a <var>branch-duration-sec</var> element for each 
+<var>object-name</var> that specify a duration for that object. The value of
+<var>branch-duration-sec</var> could be a literal double value in seconds.<br>
+Here, literals have been replaced by the <var>random</var> element. It means
+that the duration is choosen randomly between <var>min</var> and <var>max</var>.
+Because of the <var>use-personality</var> element set to true, durations are 
+allowed to be different for each occurence of this model, breaking the announced 
+unison.</p>
+
+<h3><a name="scale">"scale" animation type</a></h3>
+
+<p>Here is a contrived example of one way to use the "scale" animation
+type.  In this case a shadow map is placed below the aircraft and we
+can control the size based on some property value (i.e. alitutude
+above the ground.)  In real life, the shadow size should stay pretty
+much fixed, so this technique might ultimately be more useful for a
+landing light.</p>
+
+<blockquote><pre> &lt;animation&gt;
+  &lt;type&gt;scale&lt;/type&gt;
+  &lt;object-name&gt;ShadowMap&lt;/object-name&gt;
+  &lt;property&gt;position/altitude-agl-ft&lt;/property&gt;
+  &lt;x-factor&gt;0.05&lt;/x-factor&gt;
+  &lt;x-offset&gt;1.0&lt;/x-offset&gt;
+  &lt;y-factor&gt;0.05&lt;/y-factor&gt;
+  &lt;y-offset&gt;1.0&lt;/y-offset&gt;
+  &lt;z-factor&gt;0.0&lt;/z-factor&gt;
+  &lt;z-offset&gt;1.0&lt;/z-offset&gt;
+  &lt;center&gt;
+   &lt;x-m&gt;0.05&lt;/x-m&gt;
+   &lt;y-m&gt;0.05&lt;/y-m&gt;
+   &lt;z-m&gt;0.0&lt;/z-m&gt;
+  &lt;/center&gt;
+ &lt;/animation&gt;
+</pre></blockquote>
+
+<p>As with the other animations, you need to specify an object-name and
+the property that will drive this animation.  And, as with other types
+of transform animations, the order they are applied is important.  For
+a given object, you will probably want to put the scaling animation
+after any other translate or rotate animations.</p>
+
+<p>You have some individual control over the X, Y, and Z axis scaling.
+For each dimension you can provide factors (x-factor, y-factor, and
+z-factor) and also offsets (x-offset, y-offset, and z-offset.)  You
+can also specify minimum values (x-min, y-min, z-min) and maximum
+values (x-max, y-max, and z-max) for scaling results.</p>
+
+<p>You can set the center of scaling with the center tag. The center is
+that point that does not ever change its position under any scaling.
+If unset this defaults to the (0, 0, 0).</p>
+
+<p>The amount of scaling for each dimension is computed by the
+following formula (and then clamped if a min or max value is
+specified.)</p>
+
+<blockquote><pre>  scale = property * factor + offset
+</pre></blockquote>
+
+<p>Specifying a factor of 0.0 and an offset of 1.0 is equivalent to no
+scaling at all.</p>
+
+<p>As you can see in the above example, at ground level (the property
+value = 0.0) the scaling formula will evaluate to 1.0 (no scaling.)
+As altitude above the ground increases, the scaling factor will
+increase by agl * 0.05 + 1.0.  Note that because a shadow has no depth
+we use a z-factor of 0.0 and a z-offset of 1.0 so the formula always
+evalutes to a scaling factor of 1.0 in the Z dimension.</p>
+
+<h3><a name="blend">"blend" animation type</a></h3>
+
+<p>The blend animation type can be used to adjust the transparency of
+an object. To controll it's behavior it is possible to define:</p><p>
+
+<table>
+ <tbody><tr>
+  <td><b>property</b></td>
+  <td><i>use the value of this property in the calculation</i></td>
+ </tr>
+ <tr>
+  <td><b>offset</b></td>
+  <td><i>offset, ranges from 0.0 to 1.0</i></td>
+ </tr>
+ <tr>
+  <td><b>factor</b></td>
+  <td><i>multiplication factor for the property</i></td>
+ </tr>
+</tbody></table>
+
+</p><p>The formula used is:
+</p><blockquote><pre>alpha = property * factor + offset
+</pre></blockquote>
+
+<p>The result should be between 0.0 and 1.0 where 0.0 equals to a fully visible model and 1.0 equals to a fully transparent model.</p>
+
+<p>To gain greater controll over the result it is possible to limit
+the result by defining a &lt;min&gt; and/or a &lt;max&gt; parameter.
+</p>
+
+<p><strong>Note:</strong> This 
+      effect will only work if there is already a transparent component in the 
+      object, either in the vertex color or in the texture.
+<!-- end of "Animating the Model" -->
+
+
+<h3><a name="texrotate">"texrotate" texture rotation animation type</a></h3>
+
+<p>This animation will adjust the texture mapping on an object 
+so that the texture image appears to rotate about 
+the specified center on the object.  Note that when talking 
+about texture mapping,  meaningful values are from 
+0.0 ~ 1.0.  Texture coordinates are commonly specified as (u,v).  
+A square object's lower left corner would generally be 
+specified as (u=0,v=0) and the upper right corner as (u=1,v=1).  The 
+center will be (u=0.5, v=0.5).  These values
+will be vary (within the 0.0 ~ 1.0 range) if only a portion of a texture is 
+mapped (see compass rose example below).</p>
+  
+<p>For the purpose of specifying the &lt;center&gt; tag 
+you need only use the x and y coordinates.  
+The &lt;axis&gt; tag usually only requires a value for z.  It is possible to 
+obtain some unusual texture mapping effects, like as giving the illusion of 
+perspective on a flat stationary surface by using the other axes.  Here is 
+an example of a rotating compass rose on the 747-400 PDF 
+(primary flight display):<p>
+
+<blockquote><pre> &lt;animation&gt;
+  &lt;type&gt;texrotate&lt;/type&gt;
+  &lt;object-name&gt;rose&lt;/object-name&gt;
+  &lt;property&gt;orientation/heading-magnetic-deg&lt;/property&gt;
+  &lt;center&gt;
+   &lt;x&gt;0.75&lt;/x&gt;
+   &lt;y&gt;0.75&lt;/y&gt;
+   &lt;z&gt;0.0&lt;/z&gt;
+  &lt;/center&gt;
+  &lt;axis&gt;
+   &lt;x&gt;0&lt;/x&gt;
+   &lt;y&gt;0&lt;/y&gt;
+   &lt;z&gt;-1&lt;/z&gt;
+  &lt;/axis&gt;
+ &lt;/animation&gt;
+</pre></blockquote>
+
+<p>The center in this example is (0.75, 0.75) because the compass 
+rose only occupies the upper right corner of the total 
+texture image that it is contained in.  The other three quardrants 
+have other textures for the same model.   As mentioned 
+before, the coordinates are (0,0) lower left to (1,1) upper right,  
+the center of the upper right quadrant is thus (0.75, 0.75).
+
+<h3><a name="textranslate">"textranslate" texture translation animation type</a></h3>
+
+<p>This animation will adjust the texture mapping on an object so 
+that the texture image appears to slides around 
+on the object.  An &lt;axis&gt; tag is required to specify the axis 
+along which the texture is moved (the direction of movement).  The 
+following example displays the right most digit in the altitude indicator 
+on the primary flight display:</p>
+
+ <blockquote><pre> &lt;animation&gt;
+  &lt;type&gt;textranslate&lt;/type&gt;
+  &lt;object-name&gt;alt1&lt;/object-name&gt;
+  &lt;property&gt;position/altitude-ft&lt;/property&gt;
+  &lt;factor&gt;0.01&lt;/factor&gt;
+  &lt;axis&gt;
+   &lt;x&gt;0&lt;/x&gt;
+   &lt;y&gt;1&lt;/y&gt;
+   &lt;z&gt;0&lt;/z&gt;
+  &lt;/axis&gt;
+ &lt;/animation&gt;
+</pre></blockquote>
+
+<p>There are also some special properties available for use in the texture animations.  These are:</p>
+
+<ol>
+<li>step</li>
+<li>scroll</li>
+<li>bias</li>
+</ol>
+
+<p>The &lt;step&gt; tag is useful if you want animations to 
+happen in steps rather than smoothly.  It causes values that are 
+fractional (between) steps size to be ingnored.  It can be used for 
+things like changing digits on nurmeric displays or a ticking second 
+hand on a clock.  The &lt;scroll&gt; tag works with the
+ &lt;step&gt; tag.  The scroll value specifies the distance the input 
+property value should be from a step when scrolling to the next 
+position begins.  This type of scrolling is common on EFIS cockpit 
+displays. The following example gives an "odometer effect" 
+where the hundreds position digit doesn't move until the input value 
+is within is within 1 (e.g. &gt; 99):</p>
+
+ <blockquote><pre>&lt;animation&gt;
+  &lt;type&gt;textranslate&lt;/type&gt;
+  &lt;object-name&gt;asi3&lt;/object-name&gt;
+  &lt;property&gt;velocities/airspeed-kt&lt;/property&gt;
+  &lt;factor&gt;0.001&lt;/factor&gt;
+  &lt;step&gt;100&lt;/step&gt;
+  &lt;scroll&gt;1&lt;/scroll&gt;
+  &lt;axis&gt;
+   &lt;x&gt;0&lt;/x&gt;
+   &lt;y&gt;1&lt;/y&gt;
+   &lt;z&gt;0&lt;/z&gt;
+  &lt;/axis&gt;
+ &lt;/animation&gt;
+</pre></blockquote>
+
+<p>The &lt;bias&gt; tag was added because the normal tags for adjusting properties, &lt;offset&gt; and
+&lt;factor&gt; are applied after the &lt;step&gt; tag.  The &lt;bias&gt; tag allows you to apply an
+offset before the &lt;step&gt; tag and, for example, fix the a radio frequency to display correctly.</p>
+
+ <blockquote><pre>&lt;animation&gt;
+  &lt;type&gt;textranslate&lt;/type&gt;
+  &lt;object-name&gt;comm-digit1&lt;/object-name&gt;
+  &lt;property&gt;instrumentation/comm/frequencies/standby-mhz&lt;/property&gt;
+  &lt;factor&gt;10.0&lt;/factor&gt;
+  &lt;step&gt;0.01&lt;/step&gt;
+  &lt;bias&gt;0.005&lt;/bias&gt;
+  &lt;axis&gt;
+   &lt;x&gt;0&lt;/x&gt;
+   &lt;y&gt;1&lt;/y&gt;
+   &lt;z&gt;0&lt;/z&gt;
+  &lt;/axis&gt;
+ &lt;/animation&gt;
+</pre></blockquote>
+
+<h3><a name="textmultiple">"textmultiple" type, combining texture animation types</a></h3>
+
+<p>The textmultiple animation type isn't a real animation type, but 
+instead it is a method of combining multiple texture 
+tansform operations on the same object.  Unlike object vertex 
+operations, texture operations can not be stacked,
+which means that if you configure two or more texture animation tags 
+on the same object, only the first in the list will be used.   By 
+listing operations using texmultiple they are combined together in 
+Simgear and then handled as a single operation.</p>
+
+<p>If you need to combine together a translation and rotation 
+this is the only way to do it currently.  Note that 
+transform operations are applied in the same order that they are 
+listed in the configuration file.  The following  
+example for the horizon texture from the 747-400 primary flight 
+display explains the format clearly:</p>
+
+<blockquote><pre>&lt;animation&gt;
+  &lt;type&gt;texmultiple&lt;/type&gt;
+  &lt;object-name&gt;horizon&lt;/object-name&gt;
+  &lt;transform&gt;
+    &lt;property&gt;orientation/pitch-deg&lt;/property&gt;
+    &lt;subtype&gt;textranslate&lt;/subtype&gt;
+    &lt;factor&gt;0.0045&lt;/factor&gt;
+    &lt;axis&gt;
+     &lt;x&gt;0&lt;/x&gt;
+     &lt;y&gt;1&lt;/y&gt;
+     &lt;z&gt;0&lt;/z&gt;
+   &lt;/axis&gt;
+  &lt;/transform&gt;
+  &lt;transform&gt;
+    &lt;property&gt;orientation/roll-deg&lt;/property&gt;
+    &lt;subtype&gt;texrotate&lt;/subtype&gt;
+    &lt;center&gt;
+     &lt;x&gt;0.50&lt;/x&gt;
+     &lt;y&gt;0.50&lt;/y&gt;
+   &lt;/center&gt;
+    &lt;axis&gt;
+     &lt;x&gt;0&lt;/x&gt;
+     &lt;y&gt;0&lt;/y&gt;
+     &lt;z&gt;-1&lt;/z&gt;
+   &lt;/axis&gt;
+  &lt;/transform&gt;
+ &lt;/animation&gt;
+</pre></blockquote>
+<h3><a name="range">"range" animation type</a></h3>
+<p>The range type is used to select part of a model using its distance from the
+ viewer as the criterion. To be viewed, the model must be between a minimum
+ distance and a maximum one. Minimum distance can be specified either with the
+ &lt;min-m&gt; element or the &lt;min-property&gt; element that are exclusive.
+ The first one allow to specify a fixed distance in meters, the latter allow to
+ lookup the value from a property. Both can be multiplied by a fixed amount,
+ specified in the &lt;min-factor&gt; element. The same apply for the maximum
+ value with &lt;max-m&gt;, &lt;max-property&gt; and &lt;max-factor&gt; elements.
+ The example below shows how it can be used :</p>
+ <blockquote>
+  <pre>&lt;animation&gt;
+  &lt;type&gt;range&lt;/type&gt;
+  &lt;object-name&gt;Detailed&lt;/object-name&gt;
+  &lt;min-m&gt;0&lt;/min-m&gt;
+  &lt;max-property&gt;/sim/rendering/static-lod/detailed&lt;/max-property&gt;
+&lt;/animation&gt;
+  </pre>
+ </blockquote>
+ <h3><a name="alphatest">"alpha-test" animation type</a></h3>
+<p>This "animation" is a way to set an alpha test on a model branch. The effect
+ is to avoid depth buffer writing of pixel that are not seen because they are
+ transparent. This is particulary useful when modeling a metallic structure or a
+ tree with a billboard. The threshold of transparency is set with the
+ &lt;alpha-factor&gt; element like this :</p>
+ <blockquote>
+  <pre>&lt;animation&gt;
+  &lt;type&gt;alpha-test&lt;/type&gt;
+  &lt;object-name&gt;Detailed&lt;/object-name&gt;
+  &lt;alpha-factor&gt;0.01&lt;/alpha-factor&gt;
+&lt;/animation&gt;
+  </pre>
+ </blockquote>
+
+ <h3><a name="noshadow">"noshadow" animation type</a></h3>
+ <p>This "animation" prevents the shadow casting code to include this object,
+  which might be handy when it doesn't cast a shadow (exhaust flame) or when
+  it looks ugly.</p>
+  <blockquote>
+   <pre>&lt;animation&gt;
+ &lt;type&gt;noshadow&lt;/type&gt;
+ &lt;object-name&gt;Wires.1&lt;/object-name&gt;
+ &lt;object-name&gt;Wires.2&lt;/object-name&gt;
+&lt;/animation&gt;
+   </pre>
+  </blockquote>
+
+ <h3><a name="dist-scale">"dist-scale" animation type</h3>
+ <p>This animation enables to scale an object based on the distance of its 
+ center to the viewer. It was designed to compensate the effect of fog on 
+ emissive (light) sources that is too strong ( lights are hardly visible at distance )<br>
+ Parameters, with default values, are :</p>
+  <blockquote>
+   <pre>&lt;animation&gt;
+ &lt;type&gt;dist-scale&lt;/type&gt;
+ &lt;object-name&gt;RedLight.11&lt;/object-name&gt;
+ &lt;factor&gt;1.0&lt;/factor&gt;
+ &lt;offset&gt;0.0&lt;/offset&gt;
+ &lt;min&gt;0.0&lt;/min&gt;
+ &lt;max&gt;1.0&lt;/max&gt;
+ &lt;center&gt;
+  &lt;x-m&gt;0.0&lt;/x-m&gt;
+  &lt;y-m&gt;0.0&lt;/y-m&gt;
+  &lt;z-m&gt;0.0&lt;/z-m&gt;
+ &lt;/center&gt;
+&lt;/animation&gt;
+   </pre>
+  </blockquote>
+<p>Or, with an interpolation table :</p>
+  <blockquote>
+   <pre>&lt;animation&gt;
+ &lt;type&gt;dist-scale&lt;/type&gt;
+ &lt;object-name&gt;RedLight.11&lt;/object-name&gt;
+ &lt;interpolation&gt;
+  &lt;entry&gt;&lt;ind&gt;0&lt;/ind&gt;&lt;dep&gt;0.1&lt;/dep&gt;&lt;/entry&gt;
+  &lt;entry&gt;&lt;ind&gt;500&lt;/ind&gt;&lt;dep&gt;0.2&lt;/dep&gt;&lt;/entry&gt;
+  &lt;entry&gt;&lt;ind&gt;16000&lt;/ind&gt;&lt;dep&gt;3&lt;/dep&gt;&lt;/entry&gt;
+ &lt;/interpolation&gt;
+ &lt;min&gt;0.0&lt;/min&gt;
+ &lt;max&gt;3.0&lt;/max&gt;
+ &lt;center&gt;
+  &lt;x-m&gt;0.0&lt;/x-m&gt;
+  &lt;y-m&gt;0.0&lt;/y-m&gt;
+  &lt;z-m&gt;0.0&lt;/z-m&gt;
+ &lt;/center&gt;
+&lt;/animation&gt;
+   </pre>
+  </blockquote>
+
+ <h3><a name="flash">"flash" animation type</h3>
+ <p>This animation was designed to scale an object based on the angle between 
+ an arbitrary axis and the axis that goes between the viewer and the center of 
+ the object. The sought effect was the <i>flash</i> of a lighthouse or beacon, 
+ or whatever intense narrow light beam, hence the name.<br>
+ Parameters, with default values, are :</p>
+  <blockquote>
+   <pre>&lt;animation&gt;
+ &lt;type&gt;flash&lt;/type&gt;
+ &lt;object-name&gt;WhiteFlash.2&lt;/object-name&gt;
+ &lt;offset&gt;0.0&lt;/offset&gt;
+ &lt;factor&gt;1.0&lt;/factor&gt;
+ &lt;power&gt;1.0&lt;/power&gt;
+ &lt;two-sides type="boolean"&gt;false&lt;/two-sides&gt;
+ &lt;min&gt;0.0&lt;/min&gt;
+ &lt;max&gt;1.0&lt;/max&gt;
+ &lt;center&gt;
+  &lt;x-m&gt;0.0&lt;/x-m&gt;
+  &lt;y-m&gt;0.0&lt;/y-m&gt;
+  &lt;z-m&gt;0.0&lt;/z-m&gt;
+ &lt;/center&gt;
+ &lt;axis&gt;
+  &lt;x&gt;0.0&lt;/x&gt;
+  &lt;y&gt;0.0&lt;/y&gt;
+  &lt;z&gt;1.0&lt;/z&gt;
+ &lt;/axis&gt;
+&lt;/animation&gt;
+   </pre>
+  </blockquote>
+ <p>The scale formulae is :<br>
+ <center>S = factor * pow( cos_angle, power ) + offset</center><br>
+ cos_angle being the cosine of the angle between the axis and the line 
+ between the center and the viewer.<br>
+ The value S is clamped between min and max.<br>
+ No interpolation table is allowed in this animation.
+ </p>
+
+ <h3><a name="material">"material" animation type</a></h3>
+<p>This "animation" can set any of the material properties on a model branch, including
+the texture file path. The following minimalistic example animation allows to change the
+"panel" object's emissive color from (0,0,0) to (1,.2,0) by setting the factor property
+to values between 0.0 and 1.0.</p>
+
+ <blockquote>
+  <pre>&lt;animation&gt;
+  &lt;type&gt;material&lt;/type&gt;
+  &lt;object-name&gt;panel&lt;/object-name&gt;
+  &lt;emission&gt;
+    &lt;red&gt;1.0&lt;/red&gt;
+    &lt;green&gt;0.2&lt;/green&gt;
+    &lt;blue&gt;0.0&lt;/blue&gt;
+    &lt;factor-prop&gt;/controls/lighting/instruments-norm&lt;/factor-prop&gt;
+  &lt;/emission&gt;
+&lt;/animation&gt;
+  </pre>
+ </blockquote>
+
+
+<p>Changes made with this animation type are by default only effective for the objects listed in
+&lt;object-name&gt; tags, whereby you can use more than one of those. The next example, however,
+sets the optional &lt;global&gt; property, so that changes affect all objects that share
+the same material. This is the preferred method and should be used whereever possible. It isn't
+only faster, but also doesn't break other animations by forcing objects into the same branch.
+Note that all material properties can be set to fixed values, for instance &lt;red&gt; or, by appending
+"-prop", to the contents of another property node: &lt;red-prop&gt;. Because a "material" animation
+can contain a lot of such property paths, which is a nuisance to write, hard to read, and a potential
+source for typos, there's a &lt;property-base&gt; component. Its string value is prepended to
+all material property names (but not to property paths in a &lt;condition&gt; statement!).
+The following example shows all available elements:</p>
+
+ <blockquote>
+  <pre>&lt;animation&gt;
+  &lt;type&gt;material&lt;/type&gt;
+  &lt;object-name&gt;fuselage&lt;/object-name&gt;
+  &lt;condition&gt;
+    &lt;property&gt;sim/model/foo/animate-fuselage-material&lt;/property&gt;
+  &lt;/condition&gt;
+  &lt;global type="bool"&gt;true&lt;/global&gt;
+  &lt;property-base&gt;/sim/model/foo/material/fuselage&lt;/property-base&gt;
+  &lt;diffuse&gt;
+    &lt;red-prop&gt;diffuse/red&lt;/red-prop&gt;
+    &lt;green-prop&gt;diffuse/green&lt;/green-prop&gt;
+    &lt;blue-prop&gt;diffuse/blue&lt;/blue-prop&gt;
+    &lt;factor-prop&gt;diffuse/factor&lt;/factor-prop&gt;
+    &lt;offset-prop&gt;diffuse/offset&lt;/offset-prop&gt;
+  &lt;/diffuse&gt;
+  &lt;ambient&gt;
+    &lt;red-prop&gt;ambient/red&lt;/red-prop&gt;
+    &lt;green-prop&gt;ambient/green&lt;/green-prop&gt;
+    &lt;blue-prop&gt;ambient/blue&lt;/blue-prop&gt;
+    &lt;factor-prop&gt;ambient/factor&lt;/factor-prop&gt;
+    &lt;offset-prop&gt;ambient/offset&lt;/offset-prop&gt;
+  &lt;/ambient&gt;
+  &lt;emission&gt;
+    &lt;red-prop&gt;emission/red&lt;/red-prop&gt;
+    &lt;green-prop&gt;emission/green&lt;/green-prop&gt;
+    &lt;blue-prop&gt;emission/blue&lt;/blue-prop&gt;
+    &lt;factor-prop&gt;emission/factor&lt;/factor-prop&gt;
+    &lt;offset-prop&gt;emission/offset&lt;/offset-prop&gt;
+  &lt;/emission&gt;
+  &lt;specular&gt;
+    &lt;red-prop&gt;specular/red&lt;/red-prop&gt;
+    &lt;green-prop&gt;specular/green&lt;/green-prop&gt;
+    &lt;blue-prop&gt;specular/blue&lt;/blue-prop&gt;
+    &lt;factor-prop&gt;specular/factor&lt;/factor-prop&gt;
+    &lt;offset-prop&gt;specular/offset&lt;/offset-prop&gt;
+  &lt;/specular&gt;
+  &lt;shininess&gt;
+  &lt;transparency&gt;
+    &lt;alpha-prop&gt;transparency/alpha&lt;/alpha-prop&gt;
+    &lt;factor-prop&gt;transparency/factor&lt;/factor-prop&gt;
+    &lt;offset-prop&gt;transparency/offset&lt;/offset-prop&gt;
+    &lt;min&gt;0.0&lt;min&gt;  &lt;!-- no min-prop! --&gt;
+    &lt;max&gt;1.0&lt;max&gt;  &lt;!-- no max-prop! --&gt;
+  &lt;/transparency&gt;
+  &lt;texture&gt;texture&lt;/texture&gt;
+  &lt;threshold&gt;threshold&lt;/threshold&gt;
+&lt;/animation&gt;
+  </pre>
+ </blockquote>
+
+<p>A change to one of the components in each color group does always update
+all three color components. Unset values default to zero. The &lt;texture&gt; path
+is relative to the model's &lt;texture-path&gt; directory, or, if unset, to the model
+directory. All numerical values are clamped to 0.0-1.0, except &lt;shininess&gt;, which is
+clamped to 0.0-128.0. The &lt;alpha&gt; property (&lt;transparency&gt; group) makes an
+object fully transparent (and thus invisible) with 0.0, and fully opaque with 1.0.
+("alpha" could also be called "opaqueness".) The &lt;threshold&gt; property sets the
+alpha/opaqueness threshold. It is only relevant for semitransparent textures. Only parts
+of the texture that are more opaque than this are diplayed at all. If it is set
+to 0.0, all parts of the texture will be shown. If it is 0.5, only parts with
+opaqueness greater than 0.5 (or transparency less than 0.5) are shown.</p>
+
+<p>Note that defining two or more of these animations for the same object,
+or a mixture of "material" and "blend" animations, will probably not yield
+the result that you expect. Try to put all state manipulations for one
+object or material in one "material" animation, and use its "transparency"
+property instead of an extra "blend" animation.</p>
+
+<p>To make a texture replaceable at runtime, use a "material" animation
+like this:</p>
+
+ <blockquote>
+  <pre>&lt;animation&gt;
+  &lt;type&gt;material&lt;/type&gt;
+  &lt;object-name&gt;tail-vert&lt;/object-name&gt;
+  &lt;texture-prop&gt;/sim/model/foo/texture&lt;/texture-prop&gt;
+&lt;/animation&gt;
+  </pre>
+ </blockquote>
+
+<p>and put something like this into your aircraft's *-set.xml file:</p>
+
+ <blockquote>
+  <pre>&lt;sim&gt;
+  &lt;model&gt;
+    &lt;foo&gt;
+      &lt;texture&gt;logos/tail-logo.rgb&lt;/texture&gt;
+    &lt;/foo&gt;
+  &lt;/model&gt;
+&lt;/sim&gt;
+  </pre>
+ </blockquote>
+
+
+<p>You can explore the influence of material changes at runtime, if you use
+a material animation like the above complete example, and call the material
+dialog on it, like in the following Nasal example. Note, that the path is
+the same that you would set in &lt;property-base&gt;.
+</p>
+
+ <blockquote>
+  <pre>material.showDialog("/sim/model/foo/material/fuselage");</pre>
+ </blockquote>
+
+ <h3><a name="pick">"pick" animation type</h3>
+ <p>This animation type is used to execute a command binding when the mouse
+ is pressed on this particular object. The Commands are the usual bindings
+ like used elsewhere in flightgear.
+ <p>The visible property tells if the object should be visible as is. Setting
+ that to false make sense if you have small buttons on the instrument model
+ but you want to have huge active areas for interaction. It defaults to true.
+  <blockquote>
+   <pre>&lt;animation&gt;
+  &lt;type&gt;pick&lt;/type&gt;
+  &lt;object-name&gt;Button&lt;/object-name&gt;
+  &lt;visible&gt;true&lt;/visible&gt;
+  &lt;action&gt;
+    &lt;button&gt;0&lt;/button&gt;
+    &lt;repeatable&gt;true&lt;/repeatable&gt;
+    &lt;interval-sec&gt;0.1&lt;/interval-sec&gt;
+    &lt;binding&gt;
+      &lt;command&gt;property-assign&lt;/command&gt;
+      &lt;property&gt;instrumentation/button0-pressed&lt;/property&gt;
+      &lt;value&gt;1&lt;/value&gt;
+    &lt;/binding&gt;
+    &lt;mod-up&gt;
+      &lt;binding&gt;
+        &lt;command&gt;property-assign&lt;/command&gt;
+        &lt;property&gt;instrumentation/button0-pressed&lt;/property&gt;
+        &lt;value&gt;0&lt;/value&gt;
+      &lt;/binding&gt;
+    &lt;/mod-up&gt;
+  &lt;/action&gt;
+  &lt;action&gt;
+    &lt;button&gt;1&lt;/button&gt;
+    &lt;repeatable&gt;true&lt;/repeatable&gt;
+    &lt;interval-sec&gt;0.1&lt;/interval-sec&gt;
+    &lt;binding&gt;
+      &lt;command&gt;property-assign&lt;/command&gt;
+      &lt;property&gt;instrumentation/button1-pressed&lt;/property&gt;
+      &lt;value&gt;1&lt;/value&gt;
+    &lt;/binding&gt;
+    &lt;mod-up&gt;
+      &lt;binding&gt;
+        &lt;command&gt;property-assign&lt;/command&gt;
+        &lt;property&gt;instrumentation/button1-pressed&lt;/property&gt;
+        &lt;value&gt;0&lt;/value&gt;
+      &lt;/binding&gt;
+    &lt;/mod-up&gt;
+  &lt;/action&gt;
+&lt;/animation&gt;</pre>
+  </blockquote>
+ </p>
+
+<hr>
+<address>David Megginson, 11 March 2002</address>
+<address>Mathias Fr&ouml;hlich, 3 Jan 2007</address>
+
+<!-- Standard Footer Begin --></div>
+      </td></tr>
+    </tbody>
+  </table>
+  <br>
+</body>
+
+</html>
+
+<!-- Standard Footer End -->

@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+ <generic>
+
+  <input>
+   <line_separator>newline</line_separator>
+   <var_separator>tab</var_separator>
+
+
+   <chunk>
+    <name>time GMT (hhmmss)</name>
+    <type>string</type>
+    <node>/fdm/acms/sim/time</node>
+   </chunk>
+
+   <chunk>
+    <name>pressure altitude (feet)</name>
+    <type>int</type>
+    <node>/fdm/acms/position/altitude-ft</node>
+   </chunk>
+
+   <chunk>
+    <name>indicated speed (kt)</name>
+    <type>int</type>
+    <node>/fdm/acms/velocities/airspeed-kt</node>
+   </chunk>
+ 
+   <chunk>
+    <name>climb rate (ft/mn)</name>
+    <type>int</type>
+    <factor>0.01666667</factor>
+    <node>/fdm/acms/velocities/vertical-speed-fps</node>
+   </chunk>
+
+   <chunk>
+    <name>pitch att (deg)</name>
+    <type>float</type>
+    <factor>-0.0174533</factor>
+    <node>/fdm/acms/orientation/pitch-rad</node>
+   </chunk>
+
+   <chunk>
+    <name>roll att (deg)</name>
+    <type>float</type>
+    <factor>0.0174533</factor>
+    <node>/fdm/acms/orientation/roll-rad</node>
+   </chunk>
+
+   <chunk>
+    <name>magnetic heading (deg)</name>
+    <type>float</type>
+    <factor>0.0174533</factor>
+    <node>/fdm/acms/orientation/heading-rad</node>
+   </chunk>
+
+   <chunk>
+    <name>latteral acceleration (G's)</name>
+    <type>float</type>
+    <factor>32.2</factor>
+    <node>/fdm/acms/accelerations/ned/east-accel-fps_sec</node>
+   </chunk>
+
+   <chunk>
+    <name>longitudinal acceleration (G's)</name>
+    <type>float</type>
+    <factor>32.2</factor>
+    <node>/fdm/acms/accelerations/ned/north-accel-fps_sec</node>
+   </chunk>
+
+   <chunk>
+    <name>vertical acceleration (G's)</name>
+    <type>float</type>
+    <factor>32.2</factor>
+    <offset>-32.2</offset>
+    <node>/fdm/acms/accelerations/ned/down-accel-fps_sec</node>
+   </chunk>
+
+   <chunk>
+    <name>outside air temperarure (degC)</name>
+    <type>int</type>
+    <node>/fdm/acms/environment/temperature-degc</node>
+   </chunk>
+
+   <chunk>
+    <name>Weight on Wheels ("GND"/"AIR")</name>
+    <type>bool</type>
+    <node>/fdm/acms/gear/wow</node>
+   </chunk>
+
+   <chunk>
+    <name>date (yy/mm/dd)</name>
+    <type>string</type>
+    <node>/fdm/acms/sim/date</node>
+   </chunk>
+
+  </input>
+
+ </generic>
+
+</PropertyList>

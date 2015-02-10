@@ -1,0 +1,661 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Logitech, Inc. Flight System G940 configuration for Flightgear.
+Version 2.
+© 2011, 2013, 2014 Martin Měřinský, mermar@centrum.cz, GPLv2 or later.
+
+Axes:
+ 0 - Stick left/right              - Aileron 
+ 1 - Stick forward/backward        - Elevator
+ 2 - Pedals rudder                 - Rudder
+ 3 - Pedal right break             - Right differential break
+ 4 - Pedal left break              - Left differential break
+ 5 - TRIM3                         - Aileron trim
+ 6 - Trohttle right                - Throttle right engine
+ 7 - Throttle left                 - Throttle left engine
+ 8 - R1                            - Mixture
+ 9 - R2                            - Propeller pitch
+10 - Stick upper hat left/right    - 
+11 - Stick upper hat up/down       - 
+12 - Stick lower hat left/right    - View direction
+13 - Stick lower hat up/down       - View elevation
+14 - Throttle lower hat left/right - View zoom in/out
+15 - Throttle lower hat up/down    - Reset zoom to default/for greater overview
+16 - Throttle upper hat left/right - 
+17 - Throttle upper hat up/down    - 
+
+Buttons:
+ 0 - S0                   - Fire primary weapon
+ 1 - FIRE                 - Fire secondary weapon and smoke on/off toggle
+ 2 - S1                   - Drop bombs
+ 3 - S2                   - Master arm toggle (cycle through modes)
+ 4 - S3                   - Flare release
+ 5 - S4                   - View cycle
+ 6 - S5                   - Smoke
+ 7 - Stick upper hat push -
+ 8 - S0 second position   - Fire primary and secondary weapon and smoke on/off toggle
+ 9 - T1                   - Flaps up
+10 - T2                   - Flaps down
+11 - T3                   - Airbrake toggle
+12 - T4                   - Reverse thrust toggle
+13 - P1                   - Tailhook up/down toggle
+14 - P2                   - Floats up/down toggle
+15 - P3                   - External fuel tanks jettison
+16 - P4                   - Wing fold or oversweep toggle
+17 - P5                   - Landing gear up/down toggle
+18 - P6                   - Watter rudder up/down toggle
+19 - P7                   - Landing drag parachute reapack/deploy/jettison
+20 - P8                   - Refueling probe toggle
+
+Known issues:
+TRIM1, TRIM2, MODE, axis 16 and 17 do not work in GNU/Linux
+(js-demo nor Flightgear).
+
+Flightgear does not allow you to control "left" and "right" engines if you have
+even number of engines and all engines if you have odd number of engines. 
+This config file controls all engines at once, although you have two hardware
+axis. With simple editing, you can control throttle of engines 0 and 1.
+
+Properties for plane features in Flightgear are not standardized. So the same
+thing is done using different properties on different planes and you may see
+errors "undefined symbol" in console. Eg.:
+Nasal runtime error: undefined symbol: f14
+  at /input/joysticks/js/button[20]/binding, line 1
+
+Flightgear cannot invert left/right "lookat" view, so this is done using Nasal
+and thus it works when Flightgear is paused, unlike view elevation (up/down).
+-->
+<PropertyList>
+
+    <name type="string">G940</name>  <!-- GNU/Linux. -->
+
+    <!-- Stick ************************************************************ -->
+
+    <axis n="0">
+        <desc>Aileron</desc>
+        <binding>
+            <command>property-scale</command>
+            <property>/controls/flight/aileron</property>
+        </binding>
+    </axis>
+
+    <axis n="1">
+        <desc>Elevator</desc>
+        <binding>
+            <command>property-scale</command>
+            <property>/controls/flight/elevator</property>
+            <factor type="double">-1.0</factor>  <!-- Reverse axis. -->
+        </binding>
+    </axis>
+
+    <axis n="5">
+        <desc>Aileron trim</desc>
+        <binding>
+            <command>property-scale</command>
+            <property>/controls/flight/aileron-trim</property>
+        </binding>
+    </axis>
+
+    <button n="5">
+        <desc>View cycle</desc>
+        <repeatable>false</repeatable>
+        <binding>
+            <command>nasal</command>
+            <script>
+                view.stepView(1);
+                #gui.popupTip(sprintf("View index: %d, view type: %s", getprop("sim/current-view/view-number"), getprop("/sim/current-view/type")));
+            </script>
+        </binding>
+    </button>
+
+    <axis>
+        <desc>View direction</desc>
+        <number>
+            <unix>12</unix>
+        </number>
+        <low>
+            <desc>View left</desc>
+            <repeatable>true</repeatable>
+            <binding>
+                <!--
+                This also works, but LookAt views have inverted left/right.
+                <command>property-adjust</command>
+                <property>/sim/current-view/goal-heading-offset-deg</property>
+                <step type="double">3.0</step>
+                -->
+                <command>nasal</command>
+                <script>
+                    var valueDelta = -3.0;
+                    if (getprop("/sim/current-view/type") == "lookat")
+                    {
+                        valueDelta = 3.0;
+                    }
+                    setprop("/sim/current-view/heading-offset-deg", getprop("/sim/current-view/heading-offset-deg") - valueDelta);
+                </script>
+            </binding>
+        </low>
+        <high>
+            <desc>View right</desc>
+            <repeatable>true</repeatable>
+            <binding>
+                <!--
+                This also works, but LookAt views have inverted left/right.
+                <command>property-adjust</command>
+                <property>/sim/current-view/goal-heading-offset-deg</property>
+                <step type="double">-3.0</step>
+                -->
+                <command>nasal</command>
+                <script>
+                    var valueDelta = -3.0;
+                    if (getprop("/sim/current-view/type") == "lookat")
+                    {
+                        valueDelta = 3.0;
+                    }
+                    setprop("/sim/current-view/heading-offset-deg", getprop("/sim/current-view/heading-offset-deg") + valueDelta);
+                </script>
+            </binding>
+        </high>
+    </axis>
+
+    <axis>
+        <desc>View elevation</desc>
+        <number>
+            <unix>13</unix>
+        </number>
+        <low>
+            <desc>View down</desc>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>property-adjust</command>
+                <property>/sim/current-view/goal-pitch-offset-deg</property>
+                <step type="double">3.0</step>
+            </binding>
+        </low>
+        <high>
+            <desc>View up</desc>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>property-adjust</command>
+                <property>/sim/current-view/goal-pitch-offset-deg</property>
+                <step type="double">-3.0</step>
+            </binding>
+        </high>
+    </axis>
+
+    <button n="0">
+        <desc>Fire primary weapon</desc>
+        <binding>
+            <command>nasal</command>
+            <script>
+                setprop("/controls/armament/trigger", 1);
+                setprop("ai/submodels/trigger", 1);
+            </script>
+        </binding>
+        <mod-up>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    setprop("/controls/armament/trigger", 0);
+                    setprop("ai/submodels/trigger", 0);
+                </script>
+            </binding>
+        </mod-up>
+    </button>
+
+    <button n="1">
+        <desc>Fire secondary weapon</desc>
+        <binding>
+            <command>nasal</command>
+            <script>
+                setprop("/controls/armament/trigger1", 1);
+                setprop("ai/submodels/trigger1", 1);
+            </script>
+        </binding>
+        <mod-up>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    setprop("/controls/armament/trigger1", 0);
+                    setprop("ai/submodels/trigger1", 0);
+                </script>
+            </binding>
+        </mod-up>
+    </button>
+
+    <button n="2">
+        <desc>Drop bombs</desc>
+        <repeatable>false</repeatable>
+        <binding>
+            <command>nasal</command>
+            <script>
+                setprop("ai/submodels/red-beard-released", 1);
+            </script>
+        </binding>
+    </button>
+
+    <button n="3">
+        <desc>Master arm toggle (cycle through modes)</desc>
+        <repeatable>false</repeatable>
+        <binding>
+            <command>nasal</command>
+            <script>
+                f14.master_arm_cycle();
+            </script>
+        </binding>
+    </button>
+
+    <button n="4">
+        <desc>Flare release</desc>
+        <binding>
+            <command>nasal</command>
+            <script>
+                setprop("ai/submodels/submodel[0]/flare-release", 1);
+            </script>
+        </binding>
+        <mod-up>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    setprop("ai/submodels/submodel[0]/flare-release", 0);
+                </script>
+            </binding>
+        </mod-up>
+    </button>
+
+    <button n="6">
+        <desc>Smoke on/off toggle</desc>
+        <binding>
+            <command>nasal</command>
+            <script>
+                # Smoke toggle z50lx.
+                if (getprop("/controls/smoke") == 1)
+                    smokeNextState = 0;
+                else
+                    smokeNextState = 1;
+                setprop("/controls/smoke", smokeNextState);
+
+                # Smoke toggle Su-26M2.
+                if (getprop("/control/smoke") == 1)
+                    smokeNextState = 0;
+                else
+                    smokeNextState = 1;
+                setprop("/control/smoke", smokeNextState);
+            </script>
+        </binding>
+    </button>
+
+    <button n="8">
+        <desc>Fire primary and secondary weapon and smoke on/off toggle</desc>
+        <binding>
+            <command>nasal</command>
+            <script>
+                setprop("/controls/armament/trigger", 1);
+                setprop("ai/submodels/trigger", 1);
+                setprop("/controls/armament/trigger1", 1);
+                setprop("ai/submodels/trigger1", 1);
+                # Also smoke toggle.
+                if (getprop("/controls/smoke") == 1)
+                    smokeNextState = 0;
+                else
+                    smokeNextState = 1;
+                setprop("/controls/smoke", smokeNextState);
+            </script>
+        </binding>
+        <mod-up>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    setprop("/controls/armament/trigger", 0);
+                    setprop("ai/submodels/trigger", 0);
+                    setprop("/controls/armament/trigger1", 0);
+                    setprop("ai/submodels/trigger1", 0);
+                </script>
+            </binding>
+        </mod-up>
+    </button>
+
+    <!-- Throttle ********************************************************* -->
+
+    <axis>
+        <desc>Throttle right engine</desc>
+        <number>
+            <unix>6</unix>
+        </number>
+        <binding>
+            <!-- If you want to control left and right engine, use this.
+            <command>property-scale</command>
+            <property>/controls/engines/engine[1]/throttle</property>
+            <offset type="double">-1.0</offset>
+            <factor type="double">-0.5</factor>
+            -->
+            <command>nasal</command>
+            <script>controls.throttleAxis()</script>
+
+
+        </binding>
+    </axis>
+
+    <axis>
+        <desc>Throttle left engine</desc>
+        <number>
+            <unix>7</unix>
+        </number>
+        <binding>
+            <command>property-scale</command>
+            <property>/controls/engines/engine[0]/throttle</property>
+            <offset type="double">-1.0</offset>
+            <factor type="double">-0.5</factor>
+        </binding>
+    </axis>
+
+    <axis>
+        <desc>Mixture</desc>
+        <number>
+            <unix>9</unix>
+        </number>
+        <binding>
+            <command>property-scale</command>
+            <property>/controls/engines/engine/mixture</property>
+            <offset type="double">-1.0</offset>
+            <factor type="double">-0.5</factor>
+        </binding>
+    </axis>
+
+    <axis>
+        <desc>Propeller pitch</desc>
+        <number>
+            <unix>8</unix>
+        </number>
+        <binding>
+            <command>property-scale</command>
+            <property>/controls/engines/engine/propeller-pitch</property>
+            <offset type="double">-1.0</offset>
+            <factor type="double">-0.5</factor>
+        </binding>
+    </axis>
+
+    <axis>
+        <desc>View zoom</desc>
+        <number>
+            <unix>14</unix>
+        </number>
+        <low>
+            <desc>Zoom out</desc>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    view.increase();
+                </script>
+            </binding>
+        </low>
+        <high>
+            <desc>Zoom in</desc>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>nasal</command>
+                <script>view.decrease()</script>
+            </binding>
+        </high>
+    </axis>
+
+    <axis>
+        <desc>Reset zoom</desc>
+        <number>
+            <unix>15</unix>
+        </number>
+        <low>
+            <desc>Reset zoom to default</desc>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-assign</command>
+                <property>/sim/current-view/field-of-view</property>
+                <property>/sim/view/config/default-field-of-view-deg</property>
+            </binding>
+        </low>
+        <high>
+            <desc>Reset zoom for greater overview</desc>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    setprop("/sim/current-view/field-of-view", 100);
+                </script>
+            </binding>
+        </high>
+    </axis>
+
+    <button n="9">
+        <desc>Flaps up</desc>
+        <binding>
+            <command>nasal</command>
+            <script>controls.flapsDown(-1)</script>
+        </binding>
+        <mod-up>
+            <binding>
+                <command>nasal</command>
+                <script>controls.flapsDown(0)</script>
+            </binding>
+        </mod-up>
+    </button>
+
+    <button n="10">
+        <desc>Flaps down</desc>
+        <binding>
+            <command>nasal</command>
+            <script>controls.flapsDown(1)</script>
+        </binding>
+        <mod-up>
+            <binding>
+                <command>nasal</command>
+                <script>controls.flapsDown(0)</script>
+            </binding>
+        </mod-up>
+    </button>
+
+    <button n="11">
+        <desc>Airbrake toggle</desc>
+        <binding>
+            <command>nasal</command>
+            <script>
+                if (getprop("/controls/flight/speedbrake") == 1)
+                    speedbrakeNextState = 0;
+                else
+                    speedbrakeNextState = 1;
+                setprop("/controls/flight/speedbrake", speedbrakeNextState);
+            </script>
+        </binding>
+    </button>
+
+    <button n="12">
+        <desc>Reverse thrust toggle</desc>
+        <binding>
+            <command>nasal</command>
+            <script>
+                reverserNextState = !getprop("/controls/engines/engine[0]/reverser");
+                props.setAll("/controls/engines/engine", "reverser", reverserNextState);
+            </script>
+        </binding>
+    </button>
+
+    <button n="13">
+        <desc>Landing tailhook toggle</desc>
+        <repeatable>false</repeatable>
+        <binding>
+            <command>nasal</command>
+            <script>
+                if (getprop("/controls/gear/tailhook") == 1)
+                    hookNextState = 0;
+                else
+                    hookNextState = 1;
+                setprop("/controls/gear/tailhook", hookNextState); # F-14b
+                setprop("fdm/jsbsim/systems/hook/tailhook-cmd-norm", hookNextState); # F-16
+            </script>
+        </binding>
+    </button>
+
+    <button n="14">
+        <desc>Floats up/down toggle</desc>
+        <repeatable>false</repeatable>
+        <binding>
+            <command>nasal</command>
+            <script>
+                if (getprop("/controls/gear/float-down") == 1)
+                    floatNextState = 0;
+                else
+                    floatNextState = 1;
+                setprop("/controls/gear/float-down", floatNextState);
+            </script>
+        </binding>
+    </button>
+
+    <button n="15">
+        <desc>External fuel tanks jettison</desc>
+        <repeatable>false</repeatable>
+        <binding>
+            <command>nasal</command>
+            <script>
+                # Lightning.
+                setprop("/sim/model/lightning/controls/tank_jettisoned", 1);
+                # F-14b
+                #setprop("/sim/model/f-14b/systems/external-loads/external-tanks", 0);
+                f14.toggle_ext_tank_selected();
+            </script>
+        </binding>
+    </button>
+
+    <button n="16">
+        <desc>Wing fold or oversweep toggle</desc>
+        <repeatable>false</repeatable>
+        <binding>
+            <command>nasal</command>
+            <script>
+                f14.toggleOversweep();
+            </script>
+        </binding>
+    </button>
+
+    <button n="17">
+        <desc>Landing gear toggle</desc>
+        <repeatable>false</repeatable>
+        <binding>
+            <command>nasal</command>
+            <script>controls.gearToggle()</script>
+        </binding>
+    </button>
+
+    <button n="18">
+        <desc>Watter ruder toggle</desc>
+        <repeatable>false</repeatable>
+        <binding>
+            <command>nasal</command>
+            <script>
+                if (getprop("/controls/gear/water-rudder-down") == 1)
+                    waterRudderNextState = 0;
+                else
+                    waterRudderNextState = 1;
+                interpolate("/controls/gear/water-rudder-down", waterRudderNextState, 2.5);
+            </script>
+        </binding>
+    </button>
+
+    <button n="19">
+        <desc>Drag parachute repack - deploy - jettison</desc>
+        <repeatable>false</repeatable>
+        <binding>
+            <command>nasal</command>
+            <script>
+                # Chute states:
+                # 0 ... repacked
+                # 1 ... deployed
+                # 2 ... jettisoned
+                if (chuteState == 0)
+                {
+                    print("Command to chute (prepare for automatic or) deployment.");
+                    # F-117, prepare for automatic deployment.
+                    setprop("/sim/model/controls/chute", 1);
+                    # Lightning.
+                    setprop("sim/model/lightning/controls/flight/chute_open", 1);
+                    setprop("sim/model/lightning/controls/flight/chute_deployed", 1);
+                    setprop("sim/model/lightning/controls/flight/chute_jettisoned", 0);
+                    chuteState = 1;
+                }
+                else if (chuteState == 1)
+                {
+                    print("Command to chute jettison.");
+                    # F-117, jettsion is automatic.
+                    setprop("/sim/model/controls/chute", 0);
+                    setprop("/sim/model/controls/chute-available", 0);
+                    # Lightning.
+                    setprop("sim/model/lightning/controls/flight/chute_open", 1);
+                    setprop("sim/model/lightning/controls/flight/chute_deployed", 1);
+                    setprop("sim/model/lightning/controls/flight/chute_jettisoned", 1);
+                    chuteState = 2;
+                }
+                else
+                {
+                    print("Command to repack chute.");
+                    # F-117.
+                    setprop("/sim/model/controls/chute", 0);
+                    setprop("/sim/model/controls/chute-available", 0);
+                    # Lightning.
+                    setprop("sim/model/lightning/controls/flight/chute_open", 0);
+                    setprop("sim/model/lightning/controls/flight/chute_deployed", 0);
+                    setprop("sim/model/lightning/controls/flight/chute_jettisoned", 0);
+                    chuteState = 0;
+                }
+            </script>
+        </binding>
+    </button>
+
+    <button n="20">
+        <desc>Refueling probe toggle</desc>
+        <repeatable>false</repeatable>
+        <binding>
+            <command>nasal</command>
+            <script>f14.refuel_probe_switch_cycle();</script>
+        </binding>
+    </button>
+
+    <!-- Pedals *********************************************************** -->
+
+    <axis>
+        <desc>Rudder</desc>
+        <number>
+            <unix>2</unix>
+        </number>
+        <binding>
+            <command>property-scale</command>
+            <property>/controls/flight/rudder</property>
+            <power type="int">2</power>
+        </binding>
+    </axis>
+
+    <axis>
+        <number>
+            <unix>4</unix>
+        </number>
+        <desc>Left differential break</desc>
+        <binding>
+            <command>property-scale</command>
+            <property>/controls/gear/brake-left</property>
+            <offset>-1.0</offset>
+            <factor>-0.5</factor>
+        </binding>
+    </axis>
+
+    <axis>
+        <number>
+            <unix>3</unix>
+        </number>
+        <desc>Right differential break</desc>
+        <binding>
+            <command>property-scale</command>
+            <property>/controls/gear/brake-right</property>
+            <offset>-1.0</offset>
+            <factor>-0.5</factor>
+        </binding>
+    </axis>
+
+</PropertyList>
+

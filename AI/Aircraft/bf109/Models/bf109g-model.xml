@@ -1,0 +1,623 @@
+<?xml version="1.0"?>
+
+<!-- Messerschmitt Bf 109 G14 by Detlef Faber -->
+
+<PropertyList>
+
+ <path>bf109g-ai.ac</path>
+ <offsets>
+   <z-m>0.0</z-m>
+ </offsets>
+<!--
+	<model>
+		<path>Aircraft/bf109/Models/equipment.xml</path>
+	</model>
+-->
+
+ 
+ <animation>
+  <type>select</type>
+  <object-name>Prop</object-name>
+  <object-name>Propeller1</object-name>
+  <condition>
+   <less-than>
+    <property>engines/engine[0]/rpm</property>
+    <value>1000</value>
+   </less-than>
+  </condition>
+ </animation>
+
+<animation>
+  <type>select</type>
+  <object-name>Propturn</object-name>
+  <condition>
+   <greater-than>
+    <property>engines/engine[0]/rpm</property>
+    <value>1000</value>
+   </greater-than>
+  </condition>
+ </animation>
+
+<animation>
+  <type>spin</type>
+  <object-name>Propturn</object-name>
+    <property>engines/engine[0]/rpm</property>
+    <factor>-0.01</factor>
+  <center>
+   <x-m>3.40</x-m>
+   <y-m>0.0</y-m>
+   <z-m>0.0</z-m>
+  </center>
+  <axis>
+   <x>1.0</x>
+   <y>0.0</y>
+   <z>0.0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>spin</type>
+  <object-name>Propeller1</object-name>
+  <object-name>Prop</object-name>
+  <property>engines/engine[0]/rpm</property>
+  <factor>-0.479</factor>
+  <center>
+   <x-m>3.40</x-m>
+   <y-m>0.0</y-m>
+   <z-m>0.0</z-m>
+  </center>
+  <axis>
+   <x>1.0</x>
+   <y>0.0</y>
+   <z>0.0</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>select</type>
+  <object-name>propdisk</object-name>
+  <condition>
+   <greater-than>
+      <property>engines/engine[0]/rpm</property>
+    <value>1000</value>
+   </greater-than>
+  </condition>
+ </animation>
+
+ <animation>
+  <type>spin</type>
+  <object-name>Propturn</object-name>
+      <property>velocities/true-airspeed-kt</property>
+    <factor>-6</factor>
+  <center>
+   <x-m>3.40</x-m>
+   <y-m>0.0</y-m>
+   <z-m>0.0</z-m>
+  </center>
+  <axis>
+   <x>1.0</x>
+   <y>0.0</y>
+   <z>0.0</z>
+  </axis>
+ </animation> 
+
+
+
+ <animation>
+  <type>rotate</type>
+  <object-name>leftgear</object-name>
+  <property>gear/gear[0]/position-norm</property>
+  <interpolation>
+   <entry>
+    <ind>0.0</ind>
+    <dep>86.5</dep>
+   </entry>
+  <entry>
+    <ind>1.00</ind>
+    <dep>0.0</dep>
+   </entry>
+  </interpolation>
+  <center>
+   <x-m>2.25</x-m>
+   <y-m>-0.55</y-m>
+   <z-m>-0.37</z-m>
+  </center>
+  <axis>
+   <x>-0.90</x>
+   <y>-0.32</y>
+   <z>0.41</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>leftwheelstop</object-name>
+  <property>gear/gear[0]/position-norm</property>
+  <interpolation>
+   <entry>
+    <ind>0.0</ind>
+    <dep>86.5</dep>
+   </entry>
+   <entry>
+    <ind>1.00</ind>
+    <dep>0.0</dep>
+   </entry>
+  </interpolation>
+  <center>
+   <x-m>2.25</x-m>
+   <y-m>-0.55</y-m>
+   <z-m>-0.37</z-m>
+  </center>
+  <axis>
+   <x>-0.90</x>
+   <y>-0.32</y>
+   <z>0.41</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>rightgear</object-name>
+  <property>gear/gear[1]/position-norm</property>
+  <interpolation>
+   <entry>
+    <ind>0.0</ind>
+    <dep>86.5</dep>
+   </entry>
+   <entry>
+    <ind>0.33</ind>
+    <dep>86.5</dep>
+   </entry>
+   <entry>
+    <ind>1.00</ind>
+    <dep>0.0</dep>
+   </entry>
+  </interpolation>
+  <center>
+   <x-m>2.25</x-m>
+   <y-m>0.55</y-m>
+   <z-m>-0.37</z-m>
+  </center>
+  <axis>
+   <x>0.90</x>
+   <y>-0.32</y>
+   <z>-0.41</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>rightwheelstop</object-name>
+  <property>gear/gear[1]/position-norm</property>
+  <interpolation>
+   <entry>
+    <ind>0.0</ind>
+    <dep>86.5</dep>
+   </entry>
+   <entry>
+    <ind>0.33</ind>
+    <dep>86.5</dep>
+   </entry>
+   <entry>
+    <ind>1.00</ind>
+    <dep>0.0</dep>
+   </entry>
+  </interpolation>
+  <center>
+   <x-m>2.25</x-m>
+   <y-m>0.55</y-m>
+   <z-m>-0.37</z-m>
+  </center>
+  <axis>
+   <x>0.90</x>
+   <y>-0.32</y>
+   <z>-0.41</z>
+  </axis>
+ </animation>
+
+ 
+
+ <animation>
+  <type>select</type>
+  <object-name>rightwheel</object-name>
+  <condition>
+   <greater-than>
+    <property>gear/gear[1]/compression-norm</property>
+    <value>0.0</value>
+   </greater-than>
+  </condition>
+ </animation>
+
+ <animation>
+  <type>select</type>
+  <object-name>leftwheel</object-name>
+  <condition>
+   <greater-than>
+    <property>gear/gear[0]/compression-norm</property>
+    <value>0.0</value>
+   </greater-than>
+  </condition>
+ </animation>
+
+
+
+
+
+<animation>
+  <type>rotate</type>
+  <object-name>rightcoolflap</object-name>
+  <property>surface-positions/flap-pos-norm</property>
+  <factor>57.0</factor>
+
+   <center>
+    <x-m>3.650000</x-m>
+    <y-m>1.1000</y-m>
+    <z-m>-0.454000</z-m>
+  </center>
+
+  <axis>
+   <x>-0.125779</x>
+   <y>0.987738</y>
+   <z>0.092485</z>
+  </axis>
+ </animation>
+
+<animation>
+  <type>rotate</type>
+  <object-name>leftcoolflap</object-name>
+  <property>surface-positions/flap-pos-norm</property>
+  <factor>57.0</factor>
+
+  <center>
+   <x-m>3.650000</x-m>
+   <y-m>-1.1000</y-m>
+   <z-m>-0.454000</z-m>
+  </center>
+
+  <axis>
+   <x>0.125779</x>
+   <y>0.987738</y>
+   <z>-0.092485</z>
+  </axis>
+ </animation>
+
+
+ <animation>
+  <type>rotate</type>
+  <object-name>rightoutflap</object-name>
+  <property>surface-positions/flap-pos-norm</property>
+  <factor>47.0</factor>
+
+   <center>
+    <x-m>3.650000</x-m>
+    <y-m>1.1000</y-m>
+    <z-m>-0.34000</z-m>
+  </center>
+
+  <axis>
+   <x>-0.125779</x>
+   <y>0.987738</y>
+   <z>0.092485</z>
+  </axis>
+ </animation>
+
+
+ <animation>
+  <type>rotate</type>
+  <object-name>leftoutflap</object-name>
+  <property>surface-positions/flap-pos-norm</property>
+  <factor>47.0</factor>
+
+  <center>
+   <x-m>3.650000</x-m>
+   <y-m>-1.1000</y-m>
+   <z-m>-0.34000</z-m>
+  </center>
+
+  <axis>
+   <x>0.125779</x>
+   <y>0.987738</y>
+   <z>-0.092485</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>rightaileron</object-name>
+  <property>controls/flight/aileron</property>
+  <factor>-15.0</factor>
+
+  <center>
+   <x-m>3.27000</x-m>
+   <y-m>3.9000</y-m>
+   <z-m>-0.100000</z-m>
+  </center>
+
+  <axis>
+   <x>-0.124264</x>
+   <y>0.989513</y>
+   <z>0.063638</z>
+  </axis>
+
+ </animation>
+
+
+ <animation>
+  <type>rotate</type>
+  <object-name>LeftAileron</object-name>
+   <property>controls/flight/aileron</property>
+  <factor>15.0</factor>
+
+  <center>
+   <x-m>3.27000</x-m>
+   <y-m>-3.9000</y-m>
+   <z-m>-0.100000</z-m>
+  </center>
+
+  <axis>
+   <x>0.124264</x>
+   <y>0.989513</y>
+   <z>-0.063638</z>
+  </axis>
+
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>Rudder</object-name>
+  <property>surface-positions/rudder-pos-norm</property>
+  <factor>30.0</factor>
+
+  <center>
+   <x-m>8.250000</x-m>
+   <y-m>0.000000</y-m>
+   <z-m>0.765000</z-m>
+  </center>
+
+  <axis>
+   <x>0.000000</x>
+   <y>0.000000</y>
+   <z>1.000000</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>LeftElevator</object-name>
+  <property>surface-positions/elevator-pos-norm</property>
+  <interpolation>
+   <entry>
+    <ind>-1.0</ind>
+    <dep>-30.0</dep>
+   </entry>
+   <entry>
+    <ind>0.0</ind>
+    <dep>0</dep>
+   </entry>
+   <entry>
+    <ind>1.00</ind>
+    <dep>20.0</dep>
+   </entry>
+  </interpolation>
+  <center>
+   <x-m>8.25000</x-m>
+   <y-m>0.4000</y-m>
+   <z-m>0.580000</z-m>
+  </center>
+  <axis>
+   <x>0.000000</x>
+   <y>1.000000</y>
+   <z>0.000000</z>
+   </axis>
+ </animation>
+
+ <animation>
+  <type>translate</type>
+  <object-name>leftwheel</object-name>
+  <property>gear/gear[0]/compression-norm</property>
+  <interpolation>
+   <entry>
+    <ind>0.0</ind>
+    <dep>0</dep>
+   </entry>
+   <entry>
+    <ind>0.50</ind>
+    <dep>0.25</dep>
+   </entry>
+   <entry>
+    <ind>1.00</ind>
+    <dep>0.30</dep>
+   </entry>
+  </interpolation>
+  <axis>
+   <x>0.231261</x>
+   <y>0.000000</y>
+   <z>0.972892</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>translate</type>
+  <object-name>rightwheel</object-name>
+  <property>gear/gear[1]/compression-norm</property>
+  <interpolation>
+   <entry>
+    <ind>0.0</ind>
+    <dep>0</dep>
+   </entry>
+   <entry>
+    <ind>0.50</ind>
+    <dep>0.25</dep>
+   </entry>
+   <entry>
+    <ind>1.00</ind>
+    <dep>0.30</dep>
+   </entry>
+  </interpolation>
+  <axis>
+   <x>0.231261</x>
+   <y>0.000000</y>
+   <z>0.972892</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>spin</type>
+  <object-name>leftwheel</object-name>
+  <property>velocities/uBody-fps</property>
+  <factor>-1.5</factor>
+  <center>
+   <x-m>2.0325</x-m>
+   <y-m>-0.874</y-m>
+   <z-m>-1.373</z-m>
+  </center>
+  <axis>
+   <x>0.0</x>
+   <y>1.0</y>
+   <z>-0.17</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>spin</type>
+  <object-name>rightwheel</object-name>
+  <property>velocities/uBody-fps</property>
+  <factor>-1.5</factor>
+  <center>
+   <x-m>2.0325</x-m>
+   <y-m>0.874</y-m>
+   <z-m>-1.373</z-m>
+  </center>
+  <axis>
+   <x>0.0</x>
+   <y>1.0</y>
+   <z>0.17</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>select</type>
+  <object-name>rightwheelstop</object-name>
+  <condition>
+   <equals>
+    <property>gear/gear[1]/compression-norm</property>
+    <value>0.0</value>
+   </equals>
+  </condition>
+ </animation>
+
+ <animation>
+  <type>select</type>
+  <object-name>leftwheelstop</object-name>
+  <condition>
+   <equals>
+    <property>gear/gear[0]/compression-norm</property>
+    <value>0.0</value>
+   </equals>
+  </condition>
+ </animation>
+<!--
+  <model> 
+   <path>Aircraft/bf109/Models/blaze-l.xml</path>
+   <name>Blaze-l</name>
+    <offsets> 
+     <x-m>2.0</x-m>
+     <y-m>0.2000</y-m>
+     <z-m>0.506</z-m>
+    </offsets>
+  </model>
+  <model> 
+   <path>Aircraft/bf109/Models/blaze-r.xml</path>
+   <name>Blaze-l</name>
+    <offsets> 
+     <x-m>2.0</x-m>
+     <y-m>-0.2000</y-m>
+     <z-m>0.506</z-m>
+    </offsets>
+  </model>
+
+  <model> 
+   <path>Aircraft/bf109/Models/blaze.xml</path>
+   <name>Blaze-f</name>
+    <offsets> 
+     <x-m>0.0</x-m>
+     <y-m>0.0</y-m>
+     <z-m>0.0</z-m>
+    </offsets>
+  </model>
+  <model>
+
+   <path>Aircraft/bf109/Models/pdisk.xml</path>
+   <name>Blaze-f</name>
+    <offsets> 
+     <x-m>-1.1</x-m>
+     <y-m>0.0</y-m>
+     <z-m>0.0</z-m>
+    </offsets>
+  </model>
+--> 
+<!--Material 
+  <animation>
+    <type>material</type>
+    <object-name>Fuselage</object-name>
+    <property-base>sim/model/livery/material/fuselage</property-base>
+    <texture-prop>texture</texture-prop>
+  </animation>
+  <animation>
+    <type>material</type>
+    <object-name>leftwing</object-name>
+    <property-base>sim/model/livery/material/leftwing</property-base>
+    <texture-prop>texture</texture-prop>
+  </animation>
+  <animation>
+    <type>material</type>
+    <object-name>LeftAileron</object-name>
+    <property-base>sim/model/livery/material/leftwing</property-base>
+    <texture-prop>texture</texture-prop>
+  </animation>
+  <animation>
+    <type>material</type>
+    <object-name>leftoutflap</object-name>
+    <property-base>sim/model/livery/material/leftwing</property-base>
+    <texture-prop>texture</texture-prop>
+  </animation>
+
+  <animation>
+    <type>material</type>
+    <object-name>leftflap</object-name>
+    <property-base>sim/model/livery/material/leftwing</property-base>
+    <texture-prop>texture</texture-prop>
+  </animation>
+
+  <animation>
+    <type>material</type>
+    <object-name>rightwing</object-name>
+    <property-base>sim/model/livery/material/rightwing</property-base>
+    <texture-prop>texture</texture-prop>
+  </animation>
+  <animation>
+    <type>material</type>
+    <object-name>rightaileron</object-name>
+    <property-base>sim/model/livery/material/rightwing</property-base>
+    <texture-prop>texture</texture-prop>
+  </animation>
+  <animation>
+    <type>material</type>
+    <object-name>rightoutflap</object-name>
+    <property-base>sim/model/livery/material/rightwing</property-base>
+    <texture-prop>texture</texture-prop>
+  </animation>
+  <animation>
+    <type>material</type>
+    <object-name>rightflap</object-name>
+    <property-base>sim/model/livery/material/rightwing</property-base>
+    <texture-prop>texture</texture-prop>
+  </animation>
+
+  <animation>
+    <type>material</type>
+    <object-name>horstab</object-name>
+    <property-base>sim/model/livery/material/horstab</property-base>
+    <texture-prop>texture</texture-prop>
+  </animation>
+-->
+</PropertyList>

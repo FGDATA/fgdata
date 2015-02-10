@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+    
+    <path>Compass.ac</path>
+    
+    <animation>
+        <type>noshadow</type>
+    </animation>
+    
+    <animation>
+      <type>rotate</type>
+      <object-name>Ring</object-name>
+      <property>/instrumentation/magnetic-compass/indicated-heading-deg</property>
+      <axis>
+        <x>0.0</x>
+        <y>0.0</y>
+        <z>1.0</z>
+      </axis>
+      <center>
+        <x-m>0.0489643</x-m>
+        <y-m>0</y-m>
+        <z-m>0.0182509</z-m>
+      </center>
+    </animation>
+
+    <animation>
+      <type>range</type>
+      <object-name>Ring</object-name>
+      <min-m>0</min-m>
+      <max-m>5</max-m>
+    </animation>
+    
+    <animation>
+      <type>range</type>
+      <object-name>Chassis</object-name>
+      <min-m>0</min-m>
+      <max-m>15</max-m>
+    </animation>
+    
+</PropertyList>
+
+

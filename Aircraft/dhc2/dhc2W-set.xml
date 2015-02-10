@@ -1,0 +1,165 @@
+<?xml version="1.0"?>
+<!--
+************************************************************************
+de Havilland Beaver - Wheels
+July 2004 Syd Adams
+************************************************************************
+-->
+<PropertyList include="dhc2-base.xml">
+<sim>
+
+    <description>de Havilland Beaver - Wheels</description>
+    <author>Syd Adams,Tom Haigh (bumpmap)</author>
+    <flight-model>yasim</flight-model>
+    <aero>dhc2W</aero>
+    <fuel-fraction>0.75</fuel-fraction>
+    <startup>
+        <splash-texture>Aircraft/dhc2/dhc-2splashW.png</splash-texture>
+    </startup>
+
+     <help>
+        <title>De Havilland "Beaver"</title>
+        <line></line>
+        <key>
+            <name>f</name>
+            <desc>fuel tank select</desc>
+        </key>
+        <key>
+            <name>!</name>
+            <desc>toggle battery switch</desc>
+        </key>
+        <key>
+            <name>@</name>
+            <desc>toggle alternator switch</desc>
+        </key>
+        <key>
+            <name>#</name>
+            <desc>toggle fuel pump</desc>
+        </key>
+        <key>
+            <name>$</name>
+            <desc>toggle pitot heat</desc>
+        </key>
+        <key>
+            <name>%</name>
+            <desc>toggle landing light</desc>
+        </key>
+        <key>
+            <name>^</name>
+            <desc>toggle nav lights</desc>
+        </key>
+            <key>
+            <name>o</name>
+            <desc>connect tow cable</desc>
+        </key>
+        <key>
+            <name>O</name>
+            <desc>disconnect tow cable</desc>
+        </key>
+        <line>   Startup Procedure</line>
+        <line>1:Set magneto switch to ' both '</line>
+        <line>2:Set fuel tank switch to ' Rear Tank '</line>
+        <line>3:Engage battery switch</line>
+        <line>4:Engage fuel pump switch</line>
+        <line>5:Engage starter switch</line>
+        <line>6:Once engine is running,</line>
+        <line>  engage alternator switch</line>
+    </help>
+
+    <hitches>
+<!-- make sure some properties do exist, when the list for multiplayer transfere is defined-->
+<!-- they need to be in the same value, as they are initilized in the FDM, to get the same values after reset
+should fix this somehow-->
+        <aerotow>
+            <tow>
+                <length type="float">60</length>
+                <elastic-constant type="float">10000</elastic-constant>
+                <weight-per-m-kg-m type="float">1</weight-per-m-kg-m>
+                <dist type="float">1</dist>
+                <connected-to-property-node type="bool"></connected-to-property-node>
+                <brake-force type="float">100000</brake-force>
+                <connected-to-ai-or-mp-callsign type ="string">*</connected-to-ai-or-mp-callsign>
+                <end-force-x type ="float">0</end-force-x>
+                <end-force-y type ="float">0</end-force-y>
+                <end-force-z type ="float">0</end-force-z>
+            </tow>
+            <speed-in-tow-direction type="float">0</speed-in-tow-direction>
+            <open type="bool">true</open>
+            <local-pos-x type="float">0</local-pos-x>
+            <local-pos-y type="float">0</local-pos-y>
+            <local-pos-z type="float">0</local-pos-z>
+            <is-slave type="bool">false</is-slave>
+        </aerotow>
+    </hitches>
+
+    <menubar>
+        <default>
+            <menu n="10">
+                <label>Beaver</label>
+                <enabled type="bool">true</enabled>
+                <item>
+                    <label>Open tow-hook</label>
+                    <binding>
+                        <command>property-assign</command>
+                        <property>/sim/hitches/aerotow/open</property>
+                        <value type="bool">true</value>
+                    </binding>
+                </item>
+                <item>
+                    <label>Lock tow-hook</label>
+                    <binding>
+                        <command>property-assign</command>
+                        <property>/sim/hitches/aerotow/open</property>
+                        <value type="bool">false</value>
+                    </binding>
+                </item>
+                <item>
+                    <label>Show/Hide Yokes</label>
+                    <binding>
+                        <command>property-toggle</command>
+                        <property>sim/yokes-visible</property>
+                    </binding>
+                </item>
+                    <item>
+                        <label>Select Livery</label>
+                        <binding>
+                            <command>nasal</command>
+                            <script>aircraft.livery.dialog.toggle()</script>
+                        </binding>
+                    </item>
+            </menu>
+        </default>
+    </menubar>
+
+</sim>
+
+<input>
+    <keyboard>
+        <key n="79">
+            <name>O</name>
+            <desc>Open aerotow hook</desc>
+            <binding>
+                <command>property-assign</command>
+                <property>/sim/hitches/aerotow/open</property>
+                <value type="bool">true</value>
+            </binding>
+        </key>
+        <key n="111">
+            <name>o</name>
+            <desc>Lock aerotow hook</desc>
+            <binding>
+                <command>property-assign</command>
+                <property>/sim/hitches/aerotow/open</property>
+                <value type="bool">false</value>
+            </binding>
+        </key>
+    </keyboard>
+</input>
+
+<controls>
+    <gear>
+        <tailwheel-lock>0</tailwheel-lock>
+    </gear>
+</controls>
+
+</PropertyList>

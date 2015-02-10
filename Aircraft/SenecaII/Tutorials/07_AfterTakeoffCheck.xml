@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ This file is part of FlightGear, the free flight simulator
+ http://www.flightgear.org/
+
+ Copyright (C) 2009 Torsten Dreyer, Torsten (at) t3r _dot_ de
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation; either version 2 of the
+ License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+-->
+<PropertyList>
+  <name>After Takeoff Check</name>
+  <description>This is the after takeoff checklist. Check these items when workload permits after takeoff.</description>
+  <interval>0</interval>
+
+  <init>
+    <set>
+      <property>/sim/current-view/view-number</property>
+      <value>0</value>
+    </set>
+  </init>
+
+  <step>
+    <message>
+      LANDING LIGHT: off
+    </message>
+  </step>
+
+  <step>
+    <message>
+      GEAR: up
+    </message>
+  </step>
+
+  <step>
+    <message>
+      FLAPS: up
+    </message>
+  </step>
+
+  <step>
+    <message>
+      CLIMB POWER: 31"/2450RPM
+    </message>
+  </step>
+
+</PropertyList>

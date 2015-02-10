@@ -1,0 +1,153 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+  <name>static-lod</name>
+  <layout>vbox</layout>
+
+  <group>
+    <layout>hbox</layout>
+	  <empty><stretch>1</stretch></empty>
+
+    <text>
+      <label>Adjust Level Of Detail Ranges</label>
+    </text>
+
+	  <empty><stretch>1</stretch></empty>
+
+    <button>
+      <pref-width>16</pref-width>
+      <pref-height>16</pref-height>
+      <legend></legend>
+      <keynum>27</keynum>
+      <border>2</border>
+      <binding>
+        <command>dialog-close</command>
+      </binding>
+    </button>
+  </group>
+
+  <hrule/>
+
+  <group>
+    <layout>table</layout>
+    <halign>center</halign>
+
+    <text>
+      <row>0</row><col>1</col><colspan>3</colspan>
+      <label>Max. Ranges (m)</label>
+    </text>
+
+    <text>
+      <row>1</row><col>1</col>
+      <label>Detailed</label>
+    </text>
+    <text>
+      <row>1</row><col>2</col>
+      <label>Rough</label>
+    </text>
+    <text>
+      <row>1</row><col>3</col>
+      <label>Bare</label>
+    </text>
+
+    <text>
+      <row>2</row><col>0</col>
+      <halign>right</halign>
+      <label>Scenery</label>
+    </text>
+
+    <input>
+      <row>2</row><col>1</col>
+      <halign>fill</halign>
+      <property>/sim/rendering/static-lod/detailed</property>
+    </input>
+
+    <input>
+      <row>2</row><col>2</col>
+      <halign>fill</halign>
+      <property>/sim/rendering/static-lod/rough</property>
+    </input>
+
+    <input>
+      <row>2</row><col>3</col>
+      <halign>fill</halign>
+      <property>/sim/rendering/static-lod/bare</property>
+    </input>
+
+    <text>
+      <row>3</row><col>0</col>
+      <halign>right</halign>
+      <label>AI/MP Aircraft</label>
+    </text>
+
+    <input>
+      <row>3</row><col>1</col>
+      <halign>fill</halign>
+      <property>/sim/rendering/static-lod/ai-detailed</property>
+    </input>
+
+    <text>
+      <row>4</row><col>0</col>
+      <halign>right</halign>
+      <label>AI/MP Interior</label>
+    </text>
+
+    <input>
+      <row>4</row><col>1</col>
+      <halign>fill</halign>
+      <property>/sim/rendering/static-lod/ai-interior</property>
+    </input>
+
+<!-- // meaningless for now...
+    <input>
+      <row>3</row><col>3</col>
+      <halign>fill</halign>
+      <property>/sim/rendering/static-lod/ai-bare</property>
+    </input>
+-->
+
+  </group>
+
+  <hrule/>
+
+  <group>
+    <layout>hbox</layout>
+    <default-padding>10</default-padding>
+    <empty><stretch>true</stretch></empty>
+    <button>
+      <legend>OK</legend>
+      <default>true</default>
+      <equal>true</equal>
+      <binding>
+        <command>dialog-apply</command>
+      </binding>
+      <binding>
+        <command>dialog-close</command>
+      </binding>
+    </button>
+    <empty><stretch>true</stretch></empty>
+    <button>
+      <legend>Apply</legend>
+      <equal>true</equal>
+      <binding>
+        <command>dialog-apply</command>
+      </binding>
+    </button>
+    <empty><stretch>true</stretch></empty>
+    <button>
+      <legend>Reset</legend>
+      <equal>true</equal>
+      <binding>
+        <command>dialog-update</command>
+      </binding>
+    </button>
+    <empty><stretch>true</stretch></empty>
+    <button>
+      <legend>Cancel</legend>
+      <key>Esc</key>
+      <binding>
+        <command>dialog-close</command>
+      </binding>
+    </button>
+  </group>
+</PropertyList>

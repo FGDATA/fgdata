@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+
+
+<PropertyList>
+    <name>Mask</name>
+    <w-base>418</w-base>
+    <h-base>512</h-base>
+
+    <layers>
+
+    <layer>
+        <name>mask</name>
+        <w>418</w>
+        <h>512</h>
+        <texture>
+            <path>Aircraft/Instruments-3d/primus-1000/MFD/mfd-mask.png</path>
+            <x1>0.007</x1>
+            <y1>0.004</y1>
+            <x2>0.815</x2>
+            <y2>0.996</y2>
+        </texture>
+        <emissive>true</emissive>
+    </layer>
+
+    <layer>
+        <name>hdg pos arrow</name>
+        <condition>
+            <greater-than>
+                <property>autopilot/internal/fdm-heading-bug-error-deg</property>
+                <value>70.0</value>
+            </greater-than>
+        </condition>
+        <w>20</w>
+        <h>30</h>
+        <texture>
+            <path>Aircraft/Instruments-3d/primus-1000/MFD/mfd-mask.png</path>
+            <x1>0.852</x1>
+            <y1>0.405</y1>
+            <x2>0.903</x2>
+            <y2>0.482</y2>
+        </texture>
+        <emissive>true</emissive>
+        <transformations>
+            <transformation>
+               <type>y-shift</type>
+                <offset>140</offset>
+            </transformation>
+            <transformation>
+               <type>x-shift</type>
+                <offset>178</offset>
+            </transformation>
+        </transformations>
+    </layer>
+
+    <layer>
+        <name>hdg neg arrow</name>
+        <condition>
+            <less-than>
+                <property>autopilot/internal/fdm-heading-bug-error-deg</property>
+                <value>-70.0</value>
+            </less-than>
+        </condition>
+        <w>20</w>
+        <h>30</h>
+        <texture>
+            <path>Aircraft/Instruments-3d/primus-1000/MFD/mfd-mask.png</path>
+            <x1>0.922</x1>
+            <y1>0.405</y1>
+            <x2>0.973</x2>
+            <y2>0.482</y2>
+        </texture>
+        <emissive>true</emissive>
+        <transformations>
+            <transformation>
+               <type>y-shift</type>
+                <offset>140</offset>
+            </transformation>
+            <transformation>
+               <type>x-shift</type>
+                <offset>-178</offset>
+            </transformation>
+        </transformations>
+    </layer>
+
+    </layers>
+
+
+
+</PropertyList>

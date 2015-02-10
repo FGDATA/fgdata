@@ -1,0 +1,356 @@
+<?xml version="1.0"?>
+<!--
+  Zeppelin NT07 airship.
+
+  Copyright (C) 2008 - 2013  Anders Gidenstam  (anders(at)gidenstam.org)
+  This file is licensed under the GPL license v2 or later.
+-->
+<PropertyList>
+
+ <!-- No main model. -->
+ <!-- x/y/z == back/right/up -->
+
+ <!-- Preliminary instruments. Top-bottom, left-right  -->
+
+ <model>
+  <name>DME</name>
+  <path>Aircraft/Generic/DualControl/Instruments/KDI-572/kdi572.xml</path>
+  <offsets>
+   <x-m> 0.002</x-m>
+   <y-m> 0.215</y-m>
+   <z-m> 0.730</z-m>
+  </offsets>
+ </model>
+
+ <model>
+  <name>Backup Attitude Indicator</name>
+  <path>Aircraft/Instruments-3d/ai/ai.xml</path>
+  <offsets>
+   <x-m> 0.005</x-m>
+   <y-m> 0.300</y-m>
+   <z-m> 0.729</z-m>
+  </offsets>
+  <overlay>
+   <!-- Preliminary instrument lighting. -->
+   <animation n="0">
+    <type>material</type>
+    <emission>
+     <factor-prop>controls/lighting/panel-norm</factor-prop>
+     <red>0.8</red>
+     <green>0.8</green>
+     <blue>0.8</blue>
+    </emission>
+   </animation>
+  </overlay>
+ </model>
+
+ <model>
+  <name>PFD</name>
+  <path>Aircraft/Instruments-3d/primus-1000/PFD/PFD.xml</path>
+  <offsets>
+   <x-m> 0.000</x-m>
+   <y-m>-0.355</y-m>
+   <z-m> 0.645</z-m>
+  </offsets>
+ </model>
+
+ <!-- model>
+  <name>PFD Nav buttons</name>
+  <path>Aircraft/CitationX/Models/Instruments/fmc.xml</path>
+  <offsets>
+   <x-m> 0.000</x-m>
+   <y-m>-0.180</y-m>
+   <z-m> 0.720</z-m>
+  </offsets>
+ </model -->
+
+ <model>
+  <name>Envelope Pressure Indicator</name>
+  <path>Aircraft/ZLT-NT/Models/Instruments/EnvelopePressureIndicator/pressure_indicator.xml</path>
+  <offsets>
+   <x-m> 0.000</x-m>
+   <y-m>-0.220</y-m>
+   <z-m> 0.635</z-m>
+  </offsets>
+ </model>
+
+ <model>
+  <name>Center MFD</name>
+  <path>Aircraft/ZLT-NT/Models/Instruments/CenterMFD/CenterMFD.xml</path>
+  <offsets>
+   <x-m> 0.000</x-m>
+   <y-m> 0.000</y-m>
+   <z-m> 0.000</z-m> <!-- 0.507 -->
+  </offsets>
+ </model>
+
+ <model>
+  <name>Airspeed Indicator</name>
+  <path>Aircraft/Instruments-3d/asi/asi.xml</path>
+  <offsets>
+   <x-m> 0.010</x-m>
+   <y-m> 0.205</y-m>
+   <z-m> 0.642</z-m>
+  </offsets>
+  <overlay>
+   <!-- Preliminary instrument lighting. -->
+   <animation n="0">
+    <type>material</type>
+    <emission>
+     <factor-prop>controls/lighting/panel-norm</factor-prop>
+     <red>0.8</red>
+     <green>0.8</green>
+     <blue>0.8</blue>
+    </emission>
+   </animation>
+   <!-- Connect to the backup ASI. -->
+   <animation n="1">
+    <property>/instrumentation/airspeed-indicator[1]/indicated-speed-kt</property>
+   </animation>
+  </overlay>
+ </model>
+
+ <model>
+  <name>Radio Magnetic Indicator</name>
+  <path>Aircraft/ZLT-NT/Models/Instruments/RadioMagneticIndicator/rmi.xml</path>
+  <offsets>
+   <x-m> 0.000</x-m>
+   <y-m> 0.302</y-m>
+   <z-m> 0.642</z-m>
+  </offsets>
+  <overlay>
+   <params>
+    <card-heading-deg>instrumentation/rmi/indicated-heading-deg</card-heading-deg>
+    <card-serviceable-norm>instrumentation/rmi/spin</card-serviceable-norm>
+   </params>
+  </overlay>
+ </model>
+
+ <model>
+  <name>Altimeter</name>
+  <path>Aircraft/Instruments-3d/alt-2/alt2-3d.xml</path>
+  <offsets>
+   <x-m> 0.002</x-m>
+   <y-m> 0.391</y-m>
+   <z-m> 0.642</z-m>
+  </offsets>
+  <overlay>
+   <!-- Preliminary instrument lighting. -->
+   <animation n="0">
+    <type>material</type>
+    <emission>
+     <factor-prop>controls/lighting/panel-norm</factor-prop>
+     <red>0.8</red>
+     <green>0.8</green>
+     <blue>0.8</blue>
+    </emission>
+   </animation>
+   <!-- Connect to the backup altimeter. -->
+   <animation n="1">
+    <property>/instrumentation/altimeter[1]/indicated-altitude-ft</property>
+   </animation>
+   <animation n="2">
+    <property>/instrumentation/altimeter[1]/indicated-altitude-ft</property>
+   </animation>
+   <animation n="3">
+    <property>/instrumentation/altimeter[1]/indicated-altitude-ft</property>
+   </animation>
+   <animation n="4">
+    <property>/instrumentation/altimeter[1]/setting-inhg</property>
+   </animation>
+  </overlay>
+ </model>
+
+ <model>
+  <name>OAT and Superheat Indicator</name>
+  <path>Aircraft/ZLT-NT/Models/Instruments/Thermometer/thermometer.xml</path>
+  <offsets>
+   <x-m> 0.002</x-m>
+   <y-m>-0.213</y-m>
+   <z-m> 0.541</z-m>
+  </offsets>
+ </model>
+
+ <model>
+  <name>Vertical Velocity Indicator</name>
+  <path>Aircraft/Instruments-3d/vsi/vsi.xml</path>
+  <offsets>
+   <x-m> 0.005</x-m>
+   <y-m> 0.388</y-m>
+   <z-m> 0.553</z-m>
+  </offsets>
+  <overlay>
+   <!-- Preliminary instrument lighting. -->
+   <animation n="0">
+    <type>material</type>
+    <emission>
+     <factor-prop>controls/lighting/panel-norm</factor-prop>
+     <red>0.8</red>
+     <green>0.8</green>
+     <blue>0.8</blue>
+    </emission>
+   </animation>
+  </overlay>
+ </model>
+
+ <model>
+  <name>Chronometer</name>
+  <path>Aircraft/Instruments-3d/clock/M877/m877.xml</path>
+  <offsets>
+   <x-m> 0.000</x-m>
+   <y-m>-0.431</y-m>
+   <!-- z-m> 0.505</z-m -->
+   <z-m> 0.480</z-m>
+  </offsets>
+ </model>
+
+ <model>
+  <name>GPS and Navigation system</name>
+  <path>Aircraft/Instruments-3d/kns80/kns80.xml</path>
+  <offsets>
+   <x-m> 0.000</x-m>
+   <y-m>-0.230</y-m>
+   <z-m> 0.460</z-m>
+  </offsets>
+  <overlay>
+   <!-- Preliminary instrument lighting. -->
+   <animation n="0">
+    <type>material</type>
+    <emission>
+     <factor-prop>controls/lighting/panel-norm</factor-prop>
+     <red>0.8</red>
+     <green>0.8</green>
+     <blue>0.8</blue>
+    </emission>
+   </animation>
+  </overlay>
+ </model>
+
+ <model>
+  <name>Garmin 196 GPS</name>
+  <path>Aircraft/Instruments-3d/garmin196/garmin196.xml</path>
+  <offsets> 
+   <x-m> 0.050</x-m>
+   <y-m>-0.400</y-m>
+   <z-m> 0.430</z-m>
+   <pitch-deg>-45.0</pitch-deg>
+  </offsets>
+ </model>
+
+ <!-- Radios. Left to right -->
+ <model>
+  <name>Comm 1 radio</name>
+  <path>Aircraft/Generic/DualControl/Instruments/VHF-22/ctl22-com1.xml</path>
+  <offsets>
+   <x-m> 0.040</x-m>
+   <y-m>-0.197</y-m>
+   <z-m> 0.805</z-m>
+  </offsets>
+ </model>
+ <model>
+  <name>Nav 1 radio</name>
+  <path>Aircraft/Generic/DualControl/Instruments/VIR-32/ctl32-nav1.xml</path>
+  <offsets>
+   <x-m> 0.040</x-m>
+   <y-m>-0.125</y-m>
+   <z-m> 0.805</z-m>
+  </offsets>
+ </model>
+ <model>
+  <name>Transponder</name>
+  <path>Aircraft/Instruments-3d/TDR-94/ctl92-transponder.xml</path>
+  <offsets>
+   <x-m> 0.040</x-m>
+   <y-m>-0.055</y-m>
+   <z-m> 0.805</z-m>
+  </offsets>
+ </model>
+
+ <model>
+  <name>Comm 2 radio</name>
+  <path>Aircraft/Generic/DualControl/Instruments/VHF-22/ctl22-com2.xml</path>
+  <offsets>
+   <x-m> 0.040</x-m>
+   <y-m> 0.055</y-m>
+   <z-m> 0.805</z-m>
+  </offsets>
+ </model>
+ <model>
+  <name>Nav 2 radio</name>
+  <path>Aircraft/Generic/DualControl/Instruments/VIR-32/ctl32-nav2.xml</path>
+  <offsets>
+   <x-m> 0.040</x-m>
+   <y-m> 0.125</y-m>
+   <z-m> 0.805</z-m>
+  </offsets>
+ </model>
+ <model>
+  <name>ADF radio</name>
+  <path>Aircraft/Generic/DualControl/Instruments/ADF-462/ctl62-adf1.xml</path>
+  <offsets>
+   <x-m> 0.040</x-m>
+   <y-m> 0.197</y-m>
+   <z-m> 0.805</z-m>
+  </offsets>
+ </model>
+
+ <!--== Instrument override pick animations ================================-->
+
+ <!-- Backup altimeter setting knob. -->
+ <animation>
+  <type>pick</type>
+  <object-name>InhgKnob</object-name>
+  <visible>true</visible>
+  <action>
+   <name>increase calibrate</name>
+   <button>0</button>
+    <repeatable>true</repeatable>
+    <binding>
+      <command>property-adjust</command>
+      <property>instrumentation/altimeter[1]/setting-inhg</property>
+      <step>0.01</step>
+      <min>26.0</min>
+      <max>33.0</max>
+      <wrap>false</wrap>
+    </binding>
+   </action>
+   <action>
+    <name>decrease calibrate</name>
+    <button>1</button>
+    <repeatable>true</repeatable>
+    <binding>
+      <command>property-adjust</command>
+      <property>instrumentation/altimeter[1]/setting-inhg</property>
+      <step>-0.01</step>
+      <min>26.0</min>
+      <max>33.0</max>
+      <wrap>false</wrap>
+    </binding>
+  </action>
+ </animation>
+
+ <!-- Chronometer. -->
+ <animation>
+  <type>pick</type>
+  <object-name>SEL.btn</object-name>
+  <visible>true</visible>
+  <action>
+   <binding>
+    <command>property-adjust</command>
+    <property>instrumentation/clock/m877/mode</property>
+    <step>1</step>
+    <min>0</min>
+    <max>4</max>
+    <wrap>true</wrap>
+   </binding>
+  </action>
+ </animation>
+
+ <!-- LOD for the model as a whole =========================================-->
+ <animation>
+  <type>range</type>
+  <min-m>0</min-m>
+  <max-m>15</max-m>
+ </animation>
+
+</PropertyList>

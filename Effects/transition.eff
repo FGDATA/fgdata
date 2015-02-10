@@ -1,0 +1,713 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Transition effect  starting from the base texture of the scenery, and changing textures according to slope in one or two steps.
+
+parameters :
+    texture[0] -> base texture from the scenery
+    texture[2] -> intermediate texture if transitions is set to 2
+    texture[3] -> texture you want to transition to
+    texture[4] -> snow texture you want applied above snow-limit (I recommend using the corespondent winter texture for the base texture that you can find in terrain.winter)
+
+   transitions -> transitions number can be set to 1 or 2 (if set to 2 will allow for an intermediate step)
+       inverse -> if this is set to 1 will keep the base texture on steep slopes and transition to the texture you want (useful to add some grass patches in rocky areas)
+-->
+
+<PropertyList>
+	<name>Effects/transition</name>
+	<inherits-from>Effects/terrain-default</inherits-from>
+	<parameters>
+		<texture n="2">
+			<image>Textures/Terrain/transition1.dds</image>
+			<type>2d</type>
+			<filter>linear-mipmap-linear</filter>
+			<wrap-s>repeat</wrap-s>
+			<wrap-t>repeat</wrap-t>
+			<internal-format>normalized</internal-format>
+		</texture>
+		<texture n="3">
+			<image>Textures/Terrain/transition2.dds</image>
+			<type>2d</type>
+			<filter>linear-mipmap-linear</filter>
+			<wrap-s>repeat</wrap-s>
+			<wrap-t>repeat</wrap-t>
+			<internal-format>normalized</internal-format>
+		</texture>
+		<texture n="4">
+			<image>Textures/Terrain/snow3.dds</image>
+			<type>2d</type>
+			<filter>linear-mipmap-linear</filter>
+			<wrap-s>repeat</wrap-s>
+			<wrap-t>repeat</wrap-t>
+			<internal-format>normalized</internal-format>
+		</texture>
+
+		<rain-norm>
+			<use>/environment/rain-norm</use>
+		</rain-norm>
+		<snow-level>
+			<use>/environment/snow-level-m</use>
+		</snow-level>
+
+		<cloud-cover0>
+			<use>/environment/clouds/layer[0]/coverage-type</use>
+		</cloud-cover0>
+		<cloud-cover1>
+			<use>/environment/clouds/layer[1]/coverage-type</use>
+		</cloud-cover1>
+		<cloud-cover2>
+			<use>/environment/clouds/layer[2]/coverage-type</use>
+		</cloud-cover2>
+		<cloud-cover3>
+			<use>/environment/clouds/layer[3]/coverage-type</use>
+		</cloud-cover3>
+		<cloud-cover4>
+			<use>/environment/clouds/layer[4]/coverage-type</use>
+		</cloud-cover4>
+
+		<transitions type="float">2.0</transitions>
+		<inverse type="float">0.0</inverse>
+
+		<!-- 	fog include -->
+		<visibility>
+			<use>/environment/ground-visibility-m</use>
+		</visibility>
+		<avisibility>
+			<use>/environment/visibility-m</use>
+		</avisibility>
+		<lthickness>
+			<use>/environment/ground-haze-thickness-m</use>
+		</lthickness>
+		<scattering>
+			<use>/rendering/scene/scattering</use>
+		</scattering>
+		<terminator>
+			<use>/environment/terminator-relative-position-m</use>
+		</terminator>
+		<fogtype>
+			<use>/sim/rendering/shaders/skydome</use>
+		</fogtype>
+		<!-- 	END fog include -->
+	</parameters>
+
+	<!--<generate>
+	<tangent type="int">6</tangent>
+	<binormal type="int">7</binormal>
+    </generate>-->
+	<technique n="8">
+		<predicate>
+			<and>
+				<property>/sim/rendering/shaders/transition</property>
+				<property>/sim/rendering/rembrandt/enabled</property>
+				<or>
+					<less-equal>
+						<value type="float">2.0</value>
+						<glversion/>
+					</less-equal>
+					<and>
+						<extension-supported>GL_ARB_shader_objects</extension-supported>
+						<extension-supported>GL_ARB_shading_language_100</extension-supported>
+						<extension-supported>GL_ARB_vertex_shader</extension-supported>
+						<extension-supported>GL_ARB_fragment_shader</extension-supported>
+					</and>
+				</or>
+			</and>
+		</predicate>
+
+		<pass>
+			<lighting>true</lighting>
+			<!-- Use material values that are either inherited from the
+	    terrain-default effect or supplied by an effect derived
+	    from this one e.g., one created in the materials library. -->
+			<material>
+				<ambient>
+					<use>material/ambient</use>
+				</ambient>
+				<diffuse>
+					<use>material/diffuse</use>
+				</diffuse>
+				<specular>
+					<use>material/specular</use>
+				</specular>
+				<color-mode>ambient-and-diffuse</color-mode>
+			</material>
+
+			<blend>
+				<use>transparent</use>
+			</blend>
+
+			<alpha-test>
+				<use>transparent</use>
+			</alpha-test>
+
+			<shade-model>smooth</shade-model>
+			<cull-face>back</cull-face>
+
+			<render-bin>
+				<bin-number>
+					<use>render-bin/bin-number</use>
+				</bin-number>
+				<bin-name>
+					<use>render-bin/bin-name</use>
+				</bin-name>
+			</render-bin>
+
+			<texture-unit>
+				<unit>0</unit>
+				<type>
+					<use>texture[0]/type</use>
+				</type>
+				<image>
+					<use>texture[0]/image</use>
+				</image>
+				<filter>
+					<use>texture[0]/filter</use>
+				</filter>
+				<wrap-s>
+					<use>texture[0]/wrap-s</use>
+				</wrap-s>
+				<wrap-t>
+					<use>texture[0]/wrap-t</use>
+				</wrap-t>
+				<internal-format>
+					<use>texture[0]/internal-format</use>
+				</internal-format>
+			</texture-unit>
+
+			<texture-unit>
+				<unit>1</unit>
+				<type>
+					<use>texture[2]/type</use>
+				</type>
+				<image>
+					<use>texture[2]/image</use>
+				</image>
+				<filter>
+					<use>texture[2]/filter</use>
+				</filter>
+				<wrap-s>
+					<use>texture[2]/wrap-s</use>
+				</wrap-s>
+				<wrap-t>
+					<use>texture[2]/wrap-t</use>
+				</wrap-t>
+				<internal-format>
+					<use>texture[2]/internal-format</use>
+				</internal-format>
+			</texture-unit>
+
+			<texture-unit>
+				<unit>2</unit>
+				<type>
+					<use>texture[3]/type</use>
+				</type>
+				<image>
+					<use>texture[3]/image</use>
+				</image>
+				<filter>
+					<use>texture[3]/filter</use>
+				</filter>
+				<wrap-s>
+					<use>texture[3]/wrap-s</use>
+				</wrap-s>
+				<wrap-t>
+					<use>texture[3]/wrap-t</use>
+				</wrap-t>
+				<internal-format>
+					<use>texture[3]/internal-format</use>
+				</internal-format>
+			</texture-unit>
+
+			<texture-unit>
+				<unit>3</unit>
+				<type>
+					<use>texture[4]/type</use>
+				</type>
+				<image>
+					<use>texture[4]/image</use>
+				</image>
+				<filter>
+					<use>texture[4]/filter</use>
+				</filter>
+				<wrap-s>
+					<use>texture[4]/wrap-s</use>
+				</wrap-s>
+				<wrap-t>
+					<use>texture[4]/wrap-t</use>
+				</wrap-t>
+				<internal-format>
+					<use>texture[4]/internal-format</use>
+				</internal-format>
+			</texture-unit>
+
+			<texture-unit>
+				<unit>4</unit>
+				<type>noise</type>
+			</texture-unit>
+
+			<program>
+<!-- 				<vertex-shader>Shaders/include_fog.vert</vertex-shader> -->
+				<vertex-shader n="1">Shaders/transition-gbuffer.vert</vertex-shader>
+				<fragment-shader n="0">Shaders/transition-gbuffer.frag</fragment-shader>
+				<fragment-shader n="1">Shaders/gbuffer-functions.frag</fragment-shader>
+				<fragment-shader n="2">Shaders/gbuffer-encode.frag</fragment-shader>
+			</program>
+
+			<uniform>
+				<name>BaseTex</name>
+				<type>sampler-2d</type>
+				<value type="int">0</value>
+			</uniform>
+
+			<uniform>
+				<name>SecondTex</name>
+				<type>sampler-2d</type>
+				<value type="int">1</value>
+			</uniform>
+
+			<uniform>
+				<name>ThirdTex</name>
+				<type>sampler-2d</type>
+				<value type="int">2</value>
+			</uniform>
+
+			<uniform>
+				<name>SnowTex</name>
+				<type>sampler-2d</type>
+				<value type="int">3</value>
+			</uniform>
+
+			<uniform>
+				<name>NoiseTex</name>
+				<type>sampler-3d</type>
+				<value type="int">4</value>
+			</uniform>
+
+			<uniform>
+				<name>RainNorm</name>
+				<type>float</type>
+				<value>
+					<use>rain-norm</use>
+				</value>
+			</uniform>
+
+			<uniform>
+				<name>SnowLevel</name>
+				<type>float</type>
+				<value>
+					<use>snow-level</use>
+				</value>
+			</uniform>
+
+			<uniform>
+				<name>Transitions</name>
+				<type>float</type>
+				<value>
+					<use>transitions</use>
+				</value>
+			</uniform>
+
+			<uniform>
+				<name>InverseSlope</name>
+				<type>float</type>
+				<value>
+					<use>inverse</use>
+				</value>
+			</uniform>
+
+			<uniform>
+				<name>CloudCover0</name>
+				<type>float</type>
+				<value>
+					<use>cloud-cover0</use>
+				</value>
+			</uniform>
+
+			<uniform>
+				<name>CloudCover1</name>
+				<type>float</type>
+				<value>
+					<use>cloud-cover1</use>
+				</value>
+			</uniform>
+
+			<uniform>
+				<name>CloudCover2</name>
+				<type>float</type>
+				<value>
+					<use>cloud-cover2</use>
+				</value>
+			</uniform>
+
+			<uniform>
+				<name>CloudCover3</name>
+				<type>float</type>
+				<value>
+					<use>cloud-cover3</use>
+				</value>
+			</uniform>
+
+			<uniform>
+				<name>CloudCover4</name>
+				<type>float</type>
+				<value>
+					<use>cloud-cover4</use>
+				</value>
+			</uniform>
+
+			<!-- 	    BEGIN fog include -->
+			<uniform>
+				<name>visibility</name>
+				<type>float</type>
+				<value>
+					<use>visibility</use>
+				</value>
+			</uniform>
+			<uniform>
+				<name>avisibility</name>
+				<type>float</type>
+				<value>
+					<use>avisibility</use>
+				</value>
+			</uniform>
+			<uniform>
+				<name>hazeLayerAltitude</name>
+				<type>float</type>
+				<value>
+					<use>lthickness</use>
+				</value>
+			</uniform>
+			<uniform>
+				<name>scattering</name>
+				<type>float</type>
+				<value>
+					<use>scattering</use>
+				</value>
+			</uniform>
+			<uniform>
+				<name>terminator</name>
+				<type>float</type>
+				<value>
+					<use>terminator</use>
+				</value>
+			</uniform>
+			<uniform>
+				<name>fogType</name>
+				<type>int</type>
+				<value>
+					<use>fogtype</use>
+				</value>
+			</uniform>
+			<!-- 			END fog include -->
+		</pass>
+	</technique>
+
+	<technique n="9">
+		<predicate>
+			<and>
+				<property>/sim/rendering/shaders/quality-level</property>
+				<property>/sim/rendering/shaders/transition</property>
+				<equal>
+					<value type="float">0.0</value>
+					<float-property>/sim/rendering/rembrandt/enabled</float-property>
+				</equal>
+				<or>
+					<less-equal>
+						<value type="float">2.0</value>
+						<glversion/>
+					</less-equal>
+					<and>
+						<extension-supported>GL_ARB_shader_objects</extension-supported>
+						<extension-supported>GL_ARB_shading_language_100</extension-supported>
+						<extension-supported>GL_ARB_vertex_shader</extension-supported>
+						<extension-supported>GL_ARB_fragment_shader</extension-supported>
+					</and>
+				</or>
+			</and>
+		</predicate>
+
+		<pass>
+			<lighting>true</lighting>
+			<!-- Use material values that are either inherited from the
+	    terrain-default effect or supplied by an effect derived
+	    from this one e.g., one created in the materials library. -->
+			<material>
+				<ambient>
+					<use>material/ambient</use>
+				</ambient>
+				<diffuse>
+					<use>material/diffuse</use>
+				</diffuse>
+				<specular>
+					<use>material/specular</use>
+				</specular>
+				<color-mode>ambient-and-diffuse</color-mode>
+			</material>
+
+			<blend>
+				<use>transparent</use>
+			</blend>
+
+			<alpha-test>
+				<use>transparent</use>
+			</alpha-test>
+
+			<shade-model>smooth</shade-model>
+			<cull-face>back</cull-face>
+
+			<render-bin>
+				<bin-number>
+					<use>render-bin/bin-number</use>
+				</bin-number>
+				<bin-name>
+					<use>render-bin/bin-name</use>
+				</bin-name>
+			</render-bin>
+
+			<texture-unit>
+				<unit>0</unit>
+				<type>
+					<use>texture[0]/type</use>
+				</type>
+				<image>
+					<use>texture[0]/image</use>
+				</image>
+				<filter>
+					<use>texture[0]/filter</use>
+				</filter>
+				<wrap-s>
+					<use>texture[0]/wrap-s</use>
+				</wrap-s>
+				<wrap-t>
+					<use>texture[0]/wrap-t</use>
+				</wrap-t>
+				<internal-format>
+					<use>texture[0]/internal-format</use>
+				</internal-format>
+			</texture-unit>
+
+			<texture-unit>
+				<unit>1</unit>
+				<type>
+					<use>texture[2]/type</use>
+				</type>
+				<image>
+					<use>texture[2]/image</use>
+				</image>
+				<filter>
+					<use>texture[2]/filter</use>
+				</filter>
+				<wrap-s>
+					<use>texture[2]/wrap-s</use>
+				</wrap-s>
+				<wrap-t>
+					<use>texture[2]/wrap-t</use>
+				</wrap-t>
+				<internal-format>
+					<use>texture[2]/internal-format</use>
+				</internal-format>
+			</texture-unit>
+
+			<texture-unit>
+				<unit>2</unit>
+				<type>
+					<use>texture[3]/type</use>
+				</type>
+				<image>
+					<use>texture[3]/image</use>
+				</image>
+				<filter>
+					<use>texture[3]/filter</use>
+				</filter>
+				<wrap-s>
+					<use>texture[3]/wrap-s</use>
+				</wrap-s>
+				<wrap-t>
+					<use>texture[3]/wrap-t</use>
+				</wrap-t>
+				<internal-format>
+					<use>texture[3]/internal-format</use>
+				</internal-format>
+			</texture-unit>
+
+			<texture-unit>
+				<unit>3</unit>
+				<type>
+					<use>texture[4]/type</use>
+				</type>
+				<image>
+					<use>texture[4]/image</use>
+				</image>
+				<filter>
+					<use>texture[4]/filter</use>
+				</filter>
+				<wrap-s>
+					<use>texture[4]/wrap-s</use>
+				</wrap-s>
+				<wrap-t>
+					<use>texture[4]/wrap-t</use>
+				</wrap-t>
+				<internal-format>
+					<use>texture[4]/internal-format</use>
+				</internal-format>
+			</texture-unit>
+
+			<texture-unit>
+				<unit>4</unit>
+				<type>noise</type>
+			</texture-unit>
+
+			<program>
+<!-- 				<vertex-shader>Shaders/include_fog.vert</vertex-shader> -->
+				<vertex-shader n="1">Shaders/transition.vert</vertex-shader>
+				<fragment-shader n="0">Shaders/include_fog.frag</fragment-shader>
+				<fragment-shader n="1">Shaders/transition.frag</fragment-shader>
+			</program>
+
+			<uniform>
+				<name>BaseTex</name>
+				<type>sampler-2d</type>
+				<value type="int">0</value>
+			</uniform>
+
+			<uniform>
+				<name>SecondTex</name>
+				<type>sampler-2d</type>
+				<value type="int">1</value>
+			</uniform>
+
+			<uniform>
+				<name>ThirdTex</name>
+				<type>sampler-2d</type>
+				<value type="int">2</value>
+			</uniform>
+
+			<uniform>
+				<name>SnowTex</name>
+				<type>sampler-2d</type>
+				<value type="int">3</value>
+			</uniform>
+
+			<uniform>
+				<name>NoiseTex</name>
+				<type>sampler-3d</type>
+				<value type="int">4</value>
+			</uniform>
+
+			<uniform>
+				<name>RainNorm</name>
+				<type>float</type>
+				<value>
+					<use>rain-norm</use>
+				</value>
+			</uniform>
+
+			<uniform>
+				<name>SnowLevel</name>
+				<type>float</type>
+				<value>
+					<use>snow-level</use>
+				</value>
+			</uniform>
+
+			<uniform>
+				<name>Transitions</name>
+				<type>float</type>
+				<value>
+					<use>transitions</use>
+				</value>
+			</uniform>
+
+			<uniform>
+				<name>InverseSlope</name>
+				<type>float</type>
+				<value>
+					<use>inverse</use>
+				</value>
+			</uniform>
+
+			<uniform>
+				<name>CloudCover0</name>
+				<type>float</type>
+				<value>
+					<use>cloud-cover0</use>
+				</value>
+			</uniform>
+
+			<uniform>
+				<name>CloudCover1</name>
+				<type>float</type>
+				<value>
+					<use>cloud-cover1</use>
+				</value>
+			</uniform>
+
+			<uniform>
+				<name>CloudCover2</name>
+				<type>float</type>
+				<value>
+					<use>cloud-cover2</use>
+				</value>
+			</uniform>
+
+			<uniform>
+				<name>CloudCover3</name>
+				<type>float</type>
+				<value>
+					<use>cloud-cover3</use>
+				</value>
+			</uniform>
+
+			<uniform>
+				<name>CloudCover4</name>
+				<type>float</type>
+				<value>
+					<use>cloud-cover4</use>
+				</value>
+			</uniform>
+
+			<!-- 	    BEGIN fog include -->
+			<uniform>
+				<name>visibility</name>
+				<type>float</type>
+				<value>
+					<use>visibility</use>
+				</value>
+			</uniform>
+			<uniform>
+				<name>avisibility</name>
+				<type>float</type>
+				<value>
+					<use>avisibility</use>
+				</value>
+			</uniform>
+			<uniform>
+				<name>hazeLayerAltitude</name>
+				<type>float</type>
+				<value>
+					<use>lthickness</use>
+				</value>
+			</uniform>
+			<uniform>
+				<name>scattering</name>
+				<type>float</type>
+				<value>
+					<use>scattering</use>
+				</value>
+			</uniform>
+			<uniform>
+				<name>terminator</name>
+				<type>float</type>
+				<value>
+					<use>terminator</use>
+				</value>
+			</uniform>
+			<uniform>
+				<name>fogType</name>
+				<type>int</type>
+				<value>
+					<use>fogtype</use>
+				</value>
+			</uniform>
+			<!-- 			END fog include -->
+		</pass>
+	</technique>
+</PropertyList>

@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+  <!-- Wave-Off Light - Red -->
+  <PropertyList> 
+    <path>wave-off.ac</path>
+   
+	<animation> 
+      <type>scale</type>
+      <object-name>Wave-Off</object-name>
+      <property>controls/flols/distance-m</property>
+      <x-offset>1.0</x-offset>
+      <x-factor>0.0</x-factor>
+	  <y-offset>1.0</y-offset>
+      <y-factor>0.01</y-factor>
+      <z-offset>1.0</z-offset>
+      <z-factor>0.01</z-factor>
+    </animation>
+	
+    <!-- *** LoD *** -->
+    <animation> 
+      <type>range</type>
+      <object-name>Wave-Off</object-name>
+      <min-m>0</min-m>
+      <max-m>5000</max-m>
+    </animation>
+    
+  </PropertyList>

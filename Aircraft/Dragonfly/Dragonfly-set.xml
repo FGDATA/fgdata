@@ -1,0 +1,176 @@
+<?xml version="1.0"?>
+<!--
+-->
+
+<PropertyList>
+    <sim>
+
+        <description>Moyes Dragonfly</description>
+        <aircraft-version>1.0</aircraft-version>
+        <author>Torsten Dreyer</author>
+
+        <flight-model>jsb</flight-model>
+        <aero>Dragonfly-jsbsim</aero>
+        <fuel-fraction>0.8</fuel-fraction>
+        <status>production</status>
+
+        <startup>
+          <splash-texture>Aircraft/Dragonfly/Dragonfly-splash.png</splash-texture>
+          <splash-title>Dragonfly</splash-title>
+        </startup>
+
+        <submodels>
+          <serviceable type="bool">true</serviceable>
+          <path>Aircraft/Dragonfly/Models/Dragonfly-submodels.xml</path>
+        </submodels>
+
+        <sound>
+            <path>Aircraft/Generic/generic-sound.xml</path>
+        </sound>
+
+        <panel>
+            <visibility archive="n">false</visibility>
+        </panel>
+
+        <model>
+            <path archive="y">Aircraft/Dragonfly/Models/Dragonfly.xml</path>
+            <banner-on-hook type="bool">false</banner-on-hook>
+        </model>
+
+        <view n="0">
+            <internal archive="y">true</internal>
+            <config>
+                <x-offset-m archive="y">0.0</x-offset-m>
+                <y-offset-m archive="y">0.85</y-offset-m>
+                <z-offset-m archive="y">-0.23</z-offset-m>
+                <pitch-offset-deg>-12</pitch-offset-deg>
+            </config>
+        </view>
+        <view n="1">
+            <config>
+              <target-y-offset-m>1.0</target-y-offset-m>
+              <target-z-offset-m>1.5</target-z-offset-m>
+            </config>
+        </view>
+        <view n="2">
+            <config>
+              <target-y-offset-m>1.0</target-y-offset-m>
+              <target-z-offset-m>1.5</target-z-offset-m>
+            </config>
+        </view>
+        <view n="3">
+            <config>
+              <target-y-offset-m>1.0</target-y-offset-m>
+              <target-z-offset-m>1.5</target-z-offset-m>
+            </config>
+        </view>
+        <view n="5">
+            <config>
+              <target-y-offset-m>1.0</target-y-offset-m>
+              <target-z-offset-m>1.5</target-z-offset-m>
+            </config>
+        </view>
+        <view n="6">
+            <config>
+              <target-y-offset-m>1.0</target-y-offset-m>
+              <target-z-offset-m>1.5</target-z-offset-m>
+            </config>
+        </view>
+
+        <view n="100">
+          <name>Back Seat View</name>
+          <type>lookfrom</type>
+          <internal archive="y">true</internal>
+          <config>
+            <from-model type="bool">true</from-model>
+            <from-model-idx type="int">0</from-model-idx>
+            <ground-level-nearplane-m type="double">0.05</ground-level-nearplane-m>
+            <default-field-of-view-deg type="double">55</default-field-of-view-deg>
+            <pitch-offset-deg>-12</pitch-offset-deg>
+            <x-offset-m archive="y">0.0</x-offset-m>
+            <y-offset-m archive="y">0.85</y-offset-m>
+            <z-offset-m archive="y">1.10</z-offset-m>
+          </config>
+        </view>
+
+
+        <help>
+            <title>Moyes Dragonfly</title>
+            <line>- Speeds ----------------------------------------------------------------</line>
+            <line>Cruise speed:        45 mph</line>
+            <line>Never-exceed (Vne):  66 mph</line>
+            <line>Best Glide (Vglide): 35 mph</line>
+            <line>Maneuvering (Va):    56 mph</line>
+            <line>Approach speed:      35-40 mph</line>
+            <line>Stall speed (Vs):    20 mph (dual: 28 mph)</line>
+            <line>- Banner towing ---------------------------------------------------------</line>
+            <line>Read http://wiki.flightgear.org/flightgear_wiki/index.php?title=Dragonfly</line>
+            <line>After banner pickup, release the banner at any time hitting 'o'</line>
+        </help>
+
+    </sim>
+
+    <nasal>
+      <Dragonfly>
+        <file>Aircraft/Dragonfly/Nasal/Banner.nas</file>
+      </Dragonfly>
+    </nasal>
+
+    <controls>
+        <flight>
+            <aileron-trim>0.00</aileron-trim>
+            <elevator-trim>0.025</elevator-trim>
+            <rudder-trim>0.00</rudder-trim>
+        </flight>
+        <engines>
+            <engine n="0">
+                <magnetos>3</magnetos>
+            </engine>
+        </engines>
+        <banner-release type="bool">false</banner-release>
+    </controls>
+    <input>
+      <keyboard>
+        <key n="111">
+          <name>o</name>
+          <desc>release banner</desc>
+          <binding>
+            <command>property-assign</command>
+            <property>controls/banner-release</property>
+            <value type="bool">true</value>
+          </binding>
+        </key>
+      </keyboard>
+    </input>
+
+
+    <engines>
+        <engine>
+            <rpm type="double">1000</rpm>
+        </engine>
+    </engines>
+
+   <payload>
+      <weight>
+        <name type="string">Pilot</name>
+        <weight-lb alias="/fdm/jsbsim/inertia/pointmass-weight-lbs[0]"/>
+        <min-lb type="double">0.0</min-lb>
+        <max-lb type="double">240.0</max-lb>
+      </weight>
+      <weight>
+        <name type="string">Co Pilot</name>
+        <weight-lb alias="/fdm/jsbsim/inertia/pointmass-weight-lbs[1]"/>
+        <min-lb type="double">0.0</min-lb>
+        <max-lb type="double">240.0</max-lb>
+      </weight>
+   </payload>
+   <instrumentation>
+     <airspeed-indicator>
+       <texture>Airspeed-mph.png</texture>
+<!--
+       <texture>Airspeed-kmh.png</texture>
+       <texture>Airspeed-kts.png</texture>
+-->
+     </airspeed-indicator>
+   </instrumentation>
+</PropertyList>

@@ -1,0 +1,261 @@
+<?xml version="1.0"?>
+<!--from the bocian by AJ MacLeod--> 
+<!--from the ASK21 by Heiko Schulz--> 
+<PropertyList>
+
+ <fx>
+
+  <tyre-rumble>
+   <name>tyre-rumble</name>
+   <mode>looped</mode>
+   <path>Aircraft/ASK13/Sounds/ground_roll2.wav</path>
+   <condition>
+    <or>
+     <property>/gear/gear[0]/wow</property>
+     <property>/gear/gear[1]/wow</property>
+     <property>/gear/gear[2]/wow</property>
+    </or>
+   </condition>
+   <volume>
+    <property>velocities/groundspeed-kt</property>
+    <factor>0.25</factor>
+   </volume>
+  </tyre-rumble>
+  
+  <left-wing-tip>
+   <name>left-wing-tip</name>
+   <mode>once</mode>
+   <path>Aircraft/ASK13/Sounds/left-wing-tip.wav</path>
+   <condition>
+     <property>/gear/gear[4]/wow</property>
+   </condition>
+  </left-wing-tip>
+  
+   <right-wing-tip>
+   <name>right-wing-tip</name>
+   <mode>once</mode>
+   <path>Aircraft/ASK13/Sounds/right-wing-tip.wav</path>
+   <condition>
+     <property>/gear/gear[3]/wow</property>
+   </condition>
+  </right-wing-tip>
+  
+  <tail-tip>
+   <name>tail-tip</name>
+   <mode>once</mode>
+   <path>Aircraft/ASK13/Sounds/wing-tip.wav</path>
+   <condition>
+     <property>/gear/gear[2]/wow</property>
+   </condition>
+  </tail-tip>
+
+
+  <wind>
+   <name>wind</name>
+   <mode>looped</mode>
+   <path>Aircraft/ASK13/Sounds/wind-ask13.wav</path>
+   <property>velocities/airspeed-kt</property>
+   <volume>
+    <property>position/altitude-ft</property>
+    <factor>-0.000015</factor>
+    <offset>1.0</offset>
+    <min>0.1</min>
+    <max>1.0</max>
+   </volume>
+   <volume>
+     <property>velocities/airspeed-kt</property>
+     <factor>0.015</factor>
+     <min>0.03</min>
+     <max>5</max>
+   </volume>
+   <pitch>
+    <property>velocities/airspeed-kt</property>
+    <factor>0.002</factor>
+    <offset>1</offset>
+   </pitch> 
+  </wind>
+  
+  <airbrakes>
+   <name>airbrakes</name>
+   <mode>looped</mode>
+   <path>Aircraft/ASK13/Sounds/airbrakes.wav</path>
+   <property>velocities/airspeed-kt</property>
+   <volume>
+    <property>/surface-positions/speedbrake-pos-norm</property>
+    <factor>0.6</factor>
+    <offset>0.0</offset>
+    <min>0.0</min>
+    <max>2</max>
+   </volume>
+
+   <volume> 
+     <property>velocities/airspeed-kt</property>
+     <factor>0.015</factor>
+     <min>0.00</min>
+     <max>5</max>
+   </volume>
+   <pitch>
+    <property>velocities/airspeed-kt</property>
+    <factor>0.002</factor>
+    <offset>1</offset>
+   </pitch> 
+  </airbrakes>
+  
+  <airbrakes_lock>
+   <name>airbrakes_lock</name>
+   <mode>once</mode>
+   <path>Aircraft/ASK13/Sounds/airbrakes-lock.wav</path>
+   <condition>
+    <equals>
+      <property>surface-positions/speedbrake-pos-norm</property>
+      <value>0</value>
+    </equals>  
+   </condition>
+  </airbrakes_lock>
+
+  <buffet>
+   <name>alpha-buffet</name>
+   <mode>looped</mode>
+   <condition>
+    <greater-than>
+     <property>/fdm/jsbsim/aero/alpha-rad[0]</property>
+     <value>0.09</value>
+    </greater-than>
+   </condition>
+   <path>Sounds/rumble.wav</path>
+   <volume>
+    <property>/fdm/jsbsim/aero/alpha-rad[0]</property>
+    <factor>15.0</factor>
+    <max>1.0</max>
+   </volume>
+   <pitch>
+    <property>/fdm/jsbsim/aero/alpha-rad[0]</property>
+    <factor>0.1</factor>
+   </pitch>
+  </buffet>
+
+<variometer-up>
+   <name>variometer-up</name>
+   <mode>looped</mode>
+   <path>Aircraft/ASK13/Sounds/vario.wav</path>
+   <condition>
+   <and>
+     <greater-than>
+      <property>instrumentation/ilec-sc7/audio</property>
+     <value>0</value>
+     </greater-than>
+     <greater-than>
+	 <property>instrumentation/ilec-sc7/te-reading-mps</property>
+     <value>0.01</value>
+     </greater-than>
+     </and>
+    </condition>
+    <pitch>
+     <property>instrumentation/ilec-sc7/te-reading-mps</property> 
+     <factor>0.246</factor>
+     <offset>1.0</offset>
+    </pitch>
+    <volume>
+     <property>instrumentation/ilec-sc7/volume</property>
+     <max>1</max>
+    </volume>
+  </variometer-up>
+  
+<variometer-down>
+   <name>variometer-down</name>
+   <mode>looped</mode>
+   <path>Aircraft/ASK13/Sounds/vario2.wav</path>
+    <condition>
+    <and>
+     <equals>
+     <property>instrumentation/ilec-sc7/audio</property>
+     <value>2</value>
+     </equals>
+     <greater-than>
+      <property>instrumentation/ilec-sc7/te-reading-mps</property>
+      <value>-10.66</value>
+     </greater-than>
+    <less-than>
+      <property>instrumentation/ilec-sc7/te-reading-mps</property>
+      <value>-0.01</value>
+     </less-than>
+    </and>
+    </condition>
+    <pitch>
+     <property>instrumentation/ilec-sc7/te-reading-neg</property>
+     <factor>-0.05</factor>
+     <offset>1.0</offset>
+    </pitch>
+    <volume>
+     <property>instrumentation/ilec-sc7/volume</property>
+     <max>1</max>
+    </volume>
+    
+</variometer-down>
+
+
+  <winch_tow>
+   <name>winch_tow</name>
+   <mode>looped</mode>
+   <path>Aircraft/ASK13/Sounds/winch_tow.wav</path>
+   <condition>
+    <not>
+     <property>sim/hitches/winch/open</property>
+    </not>
+   </condition>
+   <volume>
+    <property>velocities/airspeed-kt</property>
+    <factor>0.01</factor>
+    <max>1</max>
+   </volume>
+  </winch_tow>
+
+
+
+  <creak-positive>
+   <name>creak-positive</name>
+   <mode>once</mode>
+   <path>Aircraft/ASK13/Sounds/creak.wav</path>
+   <condition>
+    <greater-than>
+     <property>accelerations/pilot-g</property>
+     <value>1.3</value>
+    </greater-than>
+   </condition>
+   <volume>
+    <property>accelerations/pilot-g</property>
+    <factor>0.3</factor>
+    <max>1</max>
+   </volume>
+  </creak-positive>
+
+  <whoosh-negative>
+   <name>whoosh-negative</name>
+   <mode>once</mode>
+   <path>Aircraft/ASK13/Sounds/creak.wav</path>
+   <condition>
+    <less-than>
+     <property>orientation/pitch-rate-degps</property>
+     <value>-10</value>
+    </less-than>
+   </condition>
+   <volume>
+    <property>orientation/pitch-rate-degps</property>
+    <factor>-0.02</factor>
+    <max>1</max>
+   </volume>
+  </whoosh-negative>
+
+  <cable_release>
+   <name>cable_release</name>
+   <mode>once</mode>
+   <path>Aircraft/ASK13/Sounds/winch_release.wav</path>
+   <condition>
+    <property>sim/hitches/winch/open</property>
+   </condition>
+  </cable_release>
+  
+
+</fx>
+ 
+</PropertyList>

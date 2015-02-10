@@ -1,0 +1,173 @@
+<?xml version="1.0"?>
+
+<!--
+Default turn coordinator instrument.
+
+Started summer 2000 by David Megginson, david@megginson.com.
+
+This is an instrument configuration file for the open-source flight
+simulator FlightGear (www.flightgear.org).  The file is an XML-encoded
+FlightGear property list defining the instrument's layers and actions.
+
+Each instrument is composed of layers stacked on top of each other.
+A layer may be a texture (with transparent parts to show the layers
+underneath), text, or a special layer that switches between two
+others (say, to turn an indicator light on or off).  Each layer can
+move independently in proportion to a property value, and text
+can be generated from property values as well: all of the layer's
+movements are defined as transformations.
+
+Actions are hotspots on the instrument that will respond to a mouse
+click.  Actions always modify the values of properties, either by
+adjusting them, toggling them, or swaping them with other
+properties' values.
+-->
+
+<PropertyList>
+ <name>Turn Coordinator</name>
+ <w-base>128</w-base>
+ <h-base>128</h-base>
+
+ <layers>
+
+  <layer>
+   <name>gauge face</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/faces-1.rgb</path>
+    <x1>0.51</x1>
+    <y1>0.0</y1>
+    <x2>1.0</x2>
+    <y2>0.49</y2>
+   </texture>
+   <w>114</w>
+   <h>114</h>
+  </layer>
+
+  <layer>
+   <name>tube-back</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/maintc.rgb</path>
+    <x1>0.01171875</x1>
+    <x2>0.9921875</x2>
+    <y1>0.7421875</y1>
+    <y2>1.0</y2>
+   </texture>
+   <w>60</w>
+   <h>20</h>
+  <transformations>
+  <transformation> 
+    <type>y-shift</type>
+	<offset>-25</offset>
+   </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>ball</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/maintc.rgb</path>
+    <x1>0.00390625</x1>
+    <x2>0.16796875</x2>
+    <y1>0.2890625</y1>
+    <y2>0.453125</y2>
+   </texture>
+   <w>10</w>
+   <h>11</h>
+   <transformations>
+    <transformation>
+     <type>rotation</type>
+     <property>/instrumentation/slip-skid-ball/indicated-slip-skid</property>
+     <min>-1.1</min>
+     <max>1.1</max>
+     <scale>50.0</scale>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <property>/instrumentation/slip-skid-ball/indicated-slip-skid</property>
+      <min>-1.1</min>
+      <max>0.0</max> 
+      <scale>5.0</scale>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <property>/instrumentation/slip-skid-ball/indicated-slip-skid</property>
+      <min>0.0</min>
+      <max>1.1</max> 
+      <scale>-5.0</scale>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-28</offset>
+    </transformation> 
+   </transformations>
+  </layer>
+  <layer>
+   <name>tube</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/maintc.rgb</path>
+    <x1>0.01171875</x1>
+    <x2>0.9921875</x2>
+    <y1>0.015625</y1>
+    <y2>0.2890625</y2>
+   </texture>
+   <w>60</w>
+   <h>20</h>
+  <transformations>
+  <transformation> 
+    <type>y-shift</type>
+	<offset>-25</offset>
+   </transformation>
+   </transformations>
+  </layer>
+  <layer>
+   <name>plane</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/misc-1.rgb</path>
+    <x1>0.0</x1>
+    <y1>0.375</y1>
+    <x2>0.375</x2>
+    <y2>0.5</y2>
+   </texture>
+   <w>88</w>
+   <h>32</h>
+   <transformations>
+    <transformation>
+     <type>rotation</type>
+     <property>/instrumentation/turn-indicator/indicated-turn-rate</property>
+     <min>-2.5</min>
+     <max>2.5</max>
+     <scale>20.0</scale>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>6</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>glare shield</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/bezel1.rgb</path>
+    <x1>0.5</x1>
+    <y1>0.0</y1>
+    <x2>1.0</x2>
+    <y2>0.5</y2>
+   </texture>
+  <w>128</w>
+  <h>128</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>2</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-2</offset>
+    </transformation>
+    </transformations>
+  </layer>
+
+ </layers>
+
+</PropertyList>

@@ -1,0 +1,131 @@
+<?xml version="1.0"?>
+
+<!--
+FF.xml
+
+Fuel Flow indicator for a SenecaII
+
+Torsten Dreyer torsten@t3r.de
+
+-->
+
+<PropertyList>
+
+    <name>Fuel Flow Indicator</name>
+    <w-base>512</w-base>
+    <h-base>512</h-base>
+
+    <params>
+        <left>/engines/engine[0]/fuel-flow-gph</left>
+        <right>/engines/engine[1]/fuel-flow-gph</right>
+    </params>
+
+    <layers>
+
+        <layer>
+            <name>Face</name>
+            <w>435</w>
+            <h>435    </h>
+            <texture>
+                <path>Aircraft/SenecaII/Panels/Textures/FF.rgb</path>
+                <x1>0.0</x1>
+                <x2>1.0</x2>
+                <y1>0.0</y1>
+                <y2>1.0</y2>
+            </texture>
+        </layer>
+
+        <layer>
+            <name>L/H Needle</name>
+            <w>54</w>
+            <h>310</h>
+
+            <texture>
+                <path>Aircraft/SenecaII/Panels/Textures/Misc.rgb</path>
+                <x1>0.1875</x1>
+                <x2>0.29296875</x2>
+                <y1>0.0625</y1>
+                <y2>0.892578125</y2>
+            </texture>
+
+            <transformations>
+
+                <transformation>
+                    <type>rotation</type>
+                    <property alias="../../../../../params/left"/>
+                    <interpolation>
+                        <entry>
+                            <ind>0</ind>
+                            <dep>-214</dep>
+                        </entry>
+                        <entry>
+                            <ind>25</ind>
+                            <dep>74</dep>
+                        </entry>
+                    </interpolation>
+                </transformation>
+
+                <transformation>
+                    <type>y-shift</type>
+                    <offset>50</offset>
+                </transformation>
+
+
+            </transformations>
+        </layer>
+
+        <layer>
+            <name>R/H Needle</name>
+            <w>54</w>
+            <h>310</h>
+
+            <texture>
+                <path>Aircraft/SenecaII/Panels/Textures/Misc.rgb</path>
+                <x1>0.326171875</x1>
+                <x2>0.435546875</x2>
+                <y1>0.0625</y1>
+                <y2>0.892578125</y2>
+            </texture>
+
+            <transformations>
+
+                <transformation>
+                    <type>rotation</type>
+                    <property alias="../../../../../params/right"/>
+                    <interpolation>
+                        <entry>
+                            <ind>0</ind>
+                            <dep>-214</dep>
+                        </entry>
+                        <entry>
+                            <ind>25</ind>
+                            <dep>74</dep>
+                        </entry>
+                    </interpolation>
+                </transformation>
+
+                <transformation>
+                    <type>y-shift</type>
+                    <offset>50</offset>
+                </transformation>
+
+
+            </transformations>
+        </layer>
+
+        <layer>
+            <name>Ring</name>
+            <w>512</w>
+            <h>512</h>
+            <texture>
+                <path>Aircraft/SenecaII/Panels/Textures/Ring.rgb</path>
+                <x1>0.0</x1>
+                <x2>1.0</x2>
+                <y1>0.0</y1>
+                <y2>1.0</y2>
+            </texture>
+        </layer>
+
+    </layers>
+
+</PropertyList>

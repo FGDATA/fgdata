@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+ <scenario>
+  <name>Thunderstorm (San Francisco)</name>
+  <description>
+     This scenario puts a thunderstorm with lightning and 
+     turbulence over San Francisco at 5000 feet MSL.  The 
+     "bottom" of the thunderstorm is at 5000 feet, with parts
+     extending above and rain below it.  The storm is moving
+     on a true heading of 100 degrees, at a ground speed of
+     25 knots.
+
+     The AI thunderstorm contains a cylindrical zone of
+     turbulence, with a diameter set by &lt;diameter-ft&gt;, a top set
+     by &lt;height-msl&gt;, a bottom equal to &lt;altitude&gt; minus 1000
+     feet, and a strength set by &lt;strength-norm&gt;.  It does not
+     interact with terrain. 
+
+     Dave Culp, davidculp2 at comcast.net 
+  </description>
+
+  <entry>
+   <type>thunderstorm</type>
+   <model>Models/Weather/bigstorm.xml</model>
+   <latitude>37.7</latitude>
+   <longitude>-122.5</longitude>
+   <speed>25.0</speed>
+   <altitude>5000.0</altitude>
+   <heading>100.0</heading>
+   <diameter-ft>21048.0</diameter-ft>
+   <height-msl>38000.0</height-msl>
+   <strength-norm>1.0</strength-norm>
+  </entry>
+
+ </scenario>
+
+</PropertyList>

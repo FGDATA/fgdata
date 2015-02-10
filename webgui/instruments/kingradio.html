@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>FlightGear - Radio Stack</title>
+<meta charset="UTF-8" />
+<meta name="description" content="FlightGear - Radio Stack" />
+<link href="kx165.css" type="text/css" rel="stylesheet" />
+</head>
+
+<body>
+	<div id="wrapper">
+		<div id="comnav1"></div>
+		<div style="clear: both"></div>
+
+		<div id="comnav2"></div>
+		<div style="clear: both"></div>
+
+		<div id="dme"></div>
+		<div style="clear: both"></div>
+
+		<div id="kr87"></div>
+		<div style="clear: both"></div>
+	</div>
+
+	<script src="../3rdparty/jquery/jquery-1.11.1.min.js"
+		type="text/javascript"></script>
+	<script src="../lib/fgcommand.js" type="text/javascript"></script>
+  <script src="../lib/props.js" type="text/javascript"></script>
+	<script src="kx165.js" type="text/javascript"></script>
+	
+	<script type="text/javascript">
+    $(document).ready(function() {
+      PropertyChangeListener(function() {
+
+        // load kx165.html, select the element with class .kx165
+        // and fill the element with id kx165-1 in above html
+        $('#comnav1').load("kx165.html .kx165", function() {
+          KX165.bind(0, this);
+        });
+        $('#comnav2').load("kx165.html .kx165", function() {
+          KX165.bind(1, this);
+        });
+        //$('#dme').load("kn62.html .kn62", function() {
+        //  KX165.bind(1, this);
+        //});
+      });
+    });
+  </script>
+
+</body>
+</html>

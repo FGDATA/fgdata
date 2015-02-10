@@ -1,0 +1,856 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+    <name>autopilot-dlg</name>
+    <layout>vbox</layout>
+
+    <text>
+        <label>Flight Director Active Modes</label>
+        <halign>center</halign>
+    </text>
+
+<!-- Autopilot Locks Display-->
+
+    <text>
+        <label>    Lateral Arm     Lateral      Vertical    Vertical Arm</label>
+        <halign>left</halign>
+    </text>
+
+
+    <frame>
+        <width>300</width>
+        <height>60</height>
+        <halign>center</halign>
+
+
+        <input>
+            <x>15</x>
+            <y>30</y>
+            <width>70</width>
+            <height>25</height>
+            <border>2</border>
+            <property>autopilot/locks/heading-arm</property>
+            <live>true</live>
+        </input>
+
+        <input>
+            <x>85</x>
+            <y>30</y>
+            <width>70</width>
+            <height>25</height>
+            <border>2</border>
+            <property>autopilot/locks/heading</property>
+            <live>true</live>
+        </input>
+
+        <input>
+            <x>155</x>
+            <y>30</y>
+            <width>70</width>
+            <height>25</height>
+            <property>autopilot/locks/altitude</property>
+            <live>true</live>
+        </input>
+
+        <input>
+            <x>225</x>
+            <y>30</y>
+            <width>70</width>
+            <height>25</height>
+            <property>autopilot/locks/altitude-arm</property>
+            <live>true</live>
+        </input>
+
+        <input>
+            <x>15</x>
+            <y>10</y>
+            <width>50</width>
+            <height>15</height>
+            <label>Nav Src</label>
+            <property>autopilot/settings/nav-source</property>
+            <live>true</live>
+            <binding>
+                <command>dialog-update</command>
+            </binding>
+        </input>
+
+        <checkbox>
+            <x>130</x>
+            <y>10</y>
+            <width>14</width>
+            <height>14</height>
+            <label>B/C active</label>
+            <property>instrumentation/nav/back-course-btn</property>
+            <live>true</live>
+            <binding>
+                <command>dialog-update</command>
+            </binding>
+        </checkbox>
+
+        <button>
+            <x>225</x>
+            <y>8</y>
+            <width>35</width>
+            <height>20</height>
+            <legend>FMS</legend>
+            <binding>
+                <command>nasal</command>
+                <script>citation.nav_src_set("fms");</script>
+            </binding>
+        </button>
+
+        <button>
+            <x>260</x>
+            <y>8</y>
+            <width>35</width>
+            <height>20</height>
+            <legend>NAV</legend>
+            <binding>
+                <command>nasal</command>
+                <script>citation.nav_src_set("nav");</script>
+            </binding>
+        </button>
+
+    </frame>
+
+    <text>
+        <label>Controls</label>
+    </text>
+
+<!-- Flight Director Push Buttons-->
+    <group>
+        <layout>hbox</layout>
+
+        <frame>
+            <layout>vbox</layout>
+            <halign>left</halign>
+            <padding>5</padding>
+
+            <group>
+                <layout>hbox</layout>
+                <halign>left</halign>
+
+                <button>
+                    <x>1</x>
+                    <y>1</y>
+                    <pref-width>50</pref-width>
+                    <height>30</height>
+                    <legend>HDG</legend>
+                    <binding>
+                        <command>nasal</command>
+                        <script>citation.FD_set_mode("hdg")</script>
+                    </binding>
+                </button>
+
+                <button>
+                    <x>1</x>
+                    <y>1</y>
+                    <pref-width>50</pref-width>
+                    <height>30</height>
+                    <legend>ALT</legend>
+                    <binding>
+                        <command>nasal</command>
+                        <script>citation.FD_set_mode("alt")</script>
+                    </binding>
+                </button>
+
+                <button>
+                    <x>1</x>
+                    <y>1</y>
+                    <pref-width>50</pref-width>
+                    <height>30</height>
+                    <legend>FLC</legend>
+                    <binding>
+                        <command>nasal</command>
+                        <script>citation.FD_set_mode("flc")</script>
+                    </binding>
+                </button>
+
+            </group>
+
+            <group>
+                <layout>hbox</layout>
+                <halign>left</halign>
+
+                <button>
+                    <x>1</x>
+                    <y>1</y>
+                    <pref-width>50</pref-width>
+                    <height>30</height>
+                    <legend>NAV</legend>
+                    <binding>
+                        <command>nasal</command>
+                        <script>citation.FD_set_mode("nav")</script>
+                    </binding>
+                </button>
+
+                <button>
+                    <x>1</x>
+                    <y>1</y>
+                    <pref-width>50</pref-width>
+                    <height>30</height>
+                    <legend>VNAV</legend>
+                    <binding>
+                        <command>nasal</command>
+                        <script>citation.FD_set_mode("vnav")</script>
+                    </binding>
+                </button>
+
+                <button>
+                    <x>1</x>
+                    <y>1</y>
+                    <pref-width>50</pref-width>
+                    <height>30</height>
+                    <legend>CO</legend>
+                    <binding>
+                        <command>property-toggle</command>
+                        <property>autopilot/settings/changeover</property>
+                    </binding>
+                </button>
+
+            </group>
+
+            <group>
+                <layout>hbox</layout>
+                <halign>left</halign>
+
+                <button>
+                    <x>1</x>
+                    <y>1</y>
+                    <pref-width>50</pref-width>
+                    <height>30</height>
+                    <legend>APP</legend>
+                    <binding>
+                        <command>nasal</command>
+                        <script>citation.FD_set_mode("app")</script>
+                    </binding>
+                </button>
+
+                <button>
+                    <x>1</x>
+                    <y>1</y>
+                    <pref-width>50</pref-width>
+                    <height>30</height>
+                    <legend>BANK</legend>
+                    <binding>
+                        <command>nasal</command>
+                        <script>citation.FD_set_mode("bank")</script>
+                    </binding>
+                </button>
+
+                <button>
+                    <x>1</x>
+                    <y>1</y>
+                    <pref-width>50</pref-width>
+                    <height>30</height>
+                    <legend>VS</legend>
+                    <binding>
+                        <command>nasal</command>
+                        <script>citation.FD_set_mode("vs")</script>
+                    </binding>
+                </button>
+
+            </group>
+
+            <group>
+                <layout>hbox</layout>
+                <halign>left</halign>
+
+                <button>
+                    <x>1</x>
+                    <y>1</y>
+                    <pref-width>50</pref-width>
+                    <height>30</height>
+                    <legend>BC</legend>
+                    <binding>
+                        <command>nasal</command>
+                        <script>citation.FD_set_mode("bc")</script>
+                    </binding>
+                </button>
+
+                <button>
+                    <x>1</x>
+                    <y>1</y>
+                    <pref-width>50</pref-width>
+                    <height>30</height>
+                    <legend>STBY</legend>
+                    <binding>
+                        <command>nasal</command>
+                        <script>citation.FD_set_mode("stby")</script>
+                    </binding>
+                </button>
+
+            </group>
+        </frame>
+
+        <frame>
+            <layout>vbox</layout>
+            <halign>center</halign>
+            <padding>5</padding>
+            <width>20</width>
+
+            <button>
+                <valign>top</valign>
+                <x>1</x>
+                <y>1</y>
+                <pref-width>30</pref-width>
+                <height>30</height>
+                <legend>DN</legend>
+                <binding>
+                    <command>nasal</command>
+                    <script>citation.pitch_wheel(-1)</script>
+                </binding>
+            </button>
+
+            <button>
+                <valign>bottom</valign>
+                <x>1</x>
+                <y>1</y>
+                <pref-width>30</pref-width>
+                <height>30</height>
+                <legend>UP</legend>
+                <binding>
+                    <command>nasal</command>
+                    <script>citation.pitch_wheel(1)</script>
+                </binding>
+            </button>
+
+        </frame>
+
+        <frame>
+            <layout>vbox</layout>
+            <halign>right</halign>
+            <padding>5</padding>
+
+            <button>
+                <x>1</x>
+                <y>1</y>
+                <pref-width>60</pref-width>
+                <height>30</height>
+                <legend>AP</legend>
+                <binding>
+                    <command>nasal</command>
+                    <script>citation.FD_set_mode("ap")</script>
+                </binding>
+            </button>
+
+            <button>
+                <x>1</x>
+                <y>1</y>
+                <pref-width>60</pref-width>
+                <height>30</height>
+                <legend>YD</legend>
+                <binding>
+                    <command>nasal</command>
+                    <script>citation.FD_set_mode("yd")</script>
+                </binding>
+            </button>
+
+            <button>
+                <x>1</x>
+                <y>1</y>
+                <pref-width>60</pref-width>
+                <height>30</height>
+                <legend>MTRIM</legend>
+                <binding>
+                    <command>nasal</command>
+                    <script>citation.FD_set_mode("mtrim")</script>
+                </binding>
+            </button>
+
+            <button>
+                <x>1</x>
+                <y>1</y>
+                <pref-width>60</pref-width>
+                <height>30</height>
+                <legend>PFD SEL</legend>
+                <binding>
+                    <command>nasal</command>
+                    <script>citation.FD_set_mode("pfdsel")</script>
+                </binding>
+            </button>
+
+        </frame>
+    </group>
+
+    <text>
+        <label>Inputs</label>
+    </text>
+
+    <group>
+        <layout>vbox</layout>
+        <halign>center</halign>
+        <padding>5</padding>
+
+        <frame>
+            <width>300</width>
+            <height>140</height>
+            <halign>center</halign>
+
+            <text>
+                <x>5</x>
+                <y>100</y>
+                <label>HDG bug:</label>
+            </text>
+
+            <button>
+                <x>75</x>
+                <y>100</y>
+                <width>30</width>
+                <height>20</height>
+                <legend>&lt;&lt;</legend>
+                <binding>
+                    <command>property-adjust</command>
+                    <property>autopilot/settings/heading-bug-deg</property>
+                    <step>-10</step>
+                    <min>0</min>
+                    <max>360</max>
+                    <wrap>1</wrap>
+                </binding>
+                <binding>
+                    <command>dialog-update</command>
+                </binding>
+            </button>
+
+            <button>
+                <x>105</x>
+                <y>100</y>
+                <width>30</width>
+                <height>20</height>
+                <legend>&lt;</legend>
+                <binding>
+                    <command>property-adjust</command>
+                    <property>autopilot/settings/heading-bug-deg</property>
+                    <step>-1</step>
+                    <min>0</min>
+                    <max>360</max>
+                    <wrap>1</wrap>
+                </binding>
+                <binding>
+                    <command>dialog-update</command>
+                </binding>
+            </button>
+
+            <input>
+                <x>140</x>
+                <y>100</y>
+                <width>50</width>
+                <height>20</height>
+                <property>autopilot/settings/heading-bug-deg</property>
+                <live>true</live>
+                <binding>
+                    <command>dialog-apply</command>
+                </binding>
+            </input>
+
+            <button>
+                <x>195</x>
+                <y>100</y>
+                <width>30</width>
+                <height>20</height>
+                <legend>&gt;</legend>
+                <binding>
+                    <command>property-adjust</command>
+                    <property>autopilot/settings/heading-bug-deg</property>
+                    <step>1</step>
+                    <min>0</min>
+                    <max>360</max>
+                    <wrap>1</wrap>
+                </binding>
+                <binding>
+                    <command>dialog-update</command>
+                </binding>
+            </button>
+
+            <button>
+                <x>225</x>
+                <y>100</y>
+                <width>30</width>
+                <height>20</height>
+                <legend>&gt;&gt;</legend>
+                <binding>
+                    <command>property-adjust</command>
+                    <property>autopilot/settings/heading-bug-deg</property>
+                    <step>10</step>
+                    <min>0</min>
+                    <max>360</max>
+                    <wrap>1</wrap>
+                </binding>
+                <binding>
+                    <command>dialog-update</command>
+                </binding>
+            </button>
+
+            <button>
+                <x>265</x>
+                <y>100</y>
+                <width>20</width>
+                <height>20</height>
+                <legend>@</legend>
+                <binding>
+                    <command>property-assign</command>
+                    <property>autopilot/settings/heading-bug-deg</property>
+                    <property>orientation/heading-magnetic-deg</property>
+                </binding>
+                <binding>
+                    <command>dialog-update</command>
+                </binding>
+            </button>
+
+<!--Nav 1 course -->
+
+            <text>
+                <x>5</x>
+                <y>75</y>
+                <label>NAV1 crs:</label>
+            </text>
+
+            <button>
+                <x>75</x>
+                <y>75</y>
+                <width>30</width>
+                <height>20</height>
+                <legend>&lt;&lt;</legend>
+                <binding>
+                    <command>property-adjust</command>
+                    <property>instrumentation/nav/radials/selected-deg</property>
+                    <step>-10</step>
+                    <min>0</min>
+                    <max>360</max>
+                    <wrap>1</wrap>
+                </binding>
+                <binding>
+                    <command>dialog-update</command>
+                </binding>
+            </button>
+
+            <button>
+                <x>105</x>
+                <y>75</y>
+                <width>30</width>
+                <height>20</height>
+                <legend>&lt;</legend>
+                <binding>
+                    <command>property-adjust</command>
+                    <property>instrumentation/nav/radials/selected-deg</property>
+                    <step>-1</step>
+                    <min>0</min>
+                    <max>360</max>
+                    <wrap>1</wrap>
+                </binding>
+                <binding>
+                    <command>dialog-update</command>
+                </binding>
+            </button>
+
+            <input>
+                <x>140</x>
+                <y>75</y>
+                <width>50</width>
+                <height>20</height>
+                <property>instrumentation/nav/radials/selected-deg</property>
+                <live>true</live>
+                <binding>
+                    <command>dialog-apply</command>
+                </binding>
+            </input>
+
+            <button>
+                <x>195</x>
+                <y>75</y>
+                <width>30</width>
+                <height>20</height>
+                <legend>&gt;</legend>
+                <binding>
+                    <command>property-adjust</command>
+                    <property>instrumentation/nav/radials/selected-deg</property>
+                    <step>1</step>
+                    <min>0</min>
+                    <max>360</max>
+                    <wrap>1</wrap>
+                </binding>
+                <binding>
+                    <command>dialog-update</command>
+                </binding>
+            </button>
+
+            <button>
+                <x>225</x>
+                <y>75</y>
+                <width>30</width>
+                <height>20</height>
+                <legend>&gt;&gt;</legend>
+                <binding>
+                    <command>property-adjust</command>
+                    <property>instrumentation/nav/radials/selected-deg</property>
+                    <step>10</step>
+                    <min>0</min>
+                    <max>360</max>
+                    <wrap>1</wrap>
+                </binding>
+                <binding>
+                    <command>dialog-update</command>
+                </binding>
+            </button>
+
+            <button>
+                <x>265</x>
+                <y>75</y>
+                <width>20</width>
+                <height>20</height>
+                <legend>@</legend>
+                <binding>
+                    <command>property-assign</command>
+                    <property>instrumentation/nav/radials/selected-deg</property>
+                    <property>orientation/heading-magnetic-deg</property>
+                </binding>
+                <binding>
+                    <command>dialog-update</command>
+                </binding>
+            </button>
+
+<!--Nav 2 course -->
+
+            <text>
+                <x>5</x>
+                <y>50</y>
+                <label>NAV2 crs:</label>
+            </text>
+
+            <button>
+                <x>75</x>
+                <y>50</y>
+                <width>30</width>
+                <height>20</height>
+                <legend>&lt;&lt;</legend>
+                <binding>
+                    <command>property-adjust</command>
+                    <property>instrumentation/nav[1]/radials/selected-deg</property>
+                    <step>-10</step>
+                    <min>0</min>
+                    <max>360</max>
+                    <wrap>1</wrap>
+                </binding>
+                <binding>
+                    <command>dialog-update</command>
+                </binding>
+            </button>
+
+            <button>
+                <x>105</x>
+                <y>50</y>
+                <width>30</width>
+                <height>20</height>
+                <legend>&lt;</legend>
+                <binding>
+                    <command>property-adjust</command>
+                    <property>instrumentation/nav[1]/radials/selected-deg</property>
+                    <step>-1</step>
+                    <min>0</min>
+                    <max>360</max>
+                    <wrap>1</wrap>
+                </binding>
+                <binding>
+                    <command>dialog-update</command>
+                </binding>
+            </button>
+
+            <input>
+                <x>140</x>
+                <y>50</y>
+                <width>50</width>
+                <height>20</height>
+                <property>instrumentation/nav[1]/radials/selected-deg</property>
+                <live>true</live>
+                <binding>
+                    <command>dialog-apply</command>
+                </binding>
+            </input>
+
+            <button>
+                <x>195</x>
+                <y>50</y>
+                <width>30</width>
+                <height>20</height>
+                <legend>&gt;</legend>
+                <binding>
+                    <command>property-adjust</command>
+                    <property>instrumentation/nav[1]/radials/selected-deg</property>
+                    <step>1</step>
+                    <min>0</min>
+                    <max>360</max>
+                    <wrap>1</wrap>
+                </binding>
+                <binding>
+                    <command>dialog-update</command>
+                </binding>
+            </button>
+
+            <button>
+                <x>225</x>
+                <y>50</y>
+                <width>30</width>
+                <height>20</height>
+                <legend>&gt;&gt;</legend>
+                <binding>
+                    <command>property-adjust</command>
+                    <property>instrumentation/nav[1]/radials/selected-deg</property>
+                    <step>10</step>
+                    <min>0</min>
+                    <max>360</max>
+                    <wrap>1</wrap>
+                </binding>
+                <binding>
+                    <command>dialog-update</command>
+                </binding>
+            </button>
+
+            <button>
+                <x>265</x>
+                <y>50</y>
+                <width>20</width>
+                <height>20</height>
+                <legend>@</legend>
+                <binding>
+                    <command>property-assign</command>
+                    <property>instrumentation/nav[1]/radials/selected-deg</property>
+                    <property>orientation/heading-magnetic-deg</property>
+                </binding>
+                <binding>
+                    <command>dialog-update</command>
+                </binding>
+            </button>
+
+<!-- ALT SELECT -->
+
+            <text>
+                <x>5</x>
+                <y>25</y>
+                <label>ASEL:</label>
+            </text>
+
+            <button>
+                <x>75</x>
+                <y>25</y>
+                <width>30</width>
+                <height>20</height>
+                <legend>&lt;&lt;</legend>
+                <binding>
+                    <command>property-adjust</command>
+                    <property>autopilot/settings/asel</property>
+                    <step>-10</step>
+                    <min>0</min>
+                    <max>510</max>
+                    <wrap>0</wrap>
+                </binding>
+                <binding>
+                    <command>dialog-update</command>
+                </binding>
+            </button>
+
+            <button>
+                <x>105</x>
+                <y>25</y>
+                <width>30</width>
+                <height>20</height>
+                <legend>&lt;</legend>
+                <binding>
+                    <command>property-adjust</command>
+                    <property>autopilot/settings/asel</property>
+                    <step>-1</step>
+                    <min>0</min>
+                    <max>510</max>
+                    <wrap>0</wrap>
+                </binding>
+                <binding>
+                    <command>dialog-update</command>
+                </binding>
+            </button>
+
+            <input>
+                <x>140</x>
+                <y>25</y>
+                <width>50</width>
+                <height>20</height>
+                <property>autopilot/settings/asel</property>
+                <live>true</live>
+                <binding>
+                    <command>dialog-apply</command>
+                </binding>
+            </input>
+
+            <button>
+                <x>195</x>
+                <y>25</y>
+                <width>30</width>
+                <height>20</height>
+                <legend>&gt;</legend>
+                <binding>
+                    <command>property-adjust</command>
+                    <property>autopilot/settings/asel</property>
+                    <step>1</step>
+                    <min>0</min>
+                    <max>510</max>
+                    <wrap>0</wrap>
+                </binding>
+                <binding>
+                    <command>dialog-update</command>
+                </binding>
+            </button>
+
+            <button>
+                <x>225</x>
+                <y>25</y>
+                <width>30</width>
+                <height>20</height>
+                <legend>&gt;&gt;</legend>
+                <binding>
+                    <command>property-adjust</command>
+                    <property>autopilot/settings/asel</property>
+                    <step>10</step>
+                    <min>0</min>
+                    <max>510</max>
+                    <wrap>0</wrap>
+                </binding>
+                <binding>
+                    <command>dialog-update</command>
+                </binding>
+            </button>
+
+            <button>
+                <x>265</x>
+                <y>25</y>
+                <width>20</width>
+                <height>20</height>
+                <legend>@</legend>
+                <binding>
+                    <command>property-assign</command>
+                    <property>autopilot/settings/asel</property>
+                    <value>100</value>
+                </binding>
+                <binding>
+                    <command>dialog-update</command>
+                </binding>
+            </button>
+
+        </frame>
+    </group>
+
+    <hrule/>
+
+    <button>
+        <pref-width>45</pref-width>
+        <pref-height>20</pref-height>
+        <legend>Close</legend>
+        <default>true</default>
+        <key>Esc</key>
+        <padding>5</padding>
+        <binding>
+            <command>dialog-apply</command>
+        </binding>
+        <binding>
+            <command>dialog-close</command>
+        </binding>
+    </button>
+
+</PropertyList>

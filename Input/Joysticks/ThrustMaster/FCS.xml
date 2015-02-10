@@ -1,0 +1,134 @@
+<?xml version="1.0"?>
+
+<!--
+
+$Id$
+
+************************************************************************
+Setup for a Thrustmaster FCS-compatible joystick with
+one stick, one digital hat, and four buttons.
+
+Layout:
+  Axis 0: ailerons
+  Axis 1: elevator
+
+  Hat:
+    Axis 2: view direction
+    Axis 3: view elevation
+
+  Button 0: brakes
+  Button 1: center view
+  Button 2: elevator trim up
+  Button 3: elevator trim down
+************************************************************************
+
+30-Jul-2004
+Eric Hathaway <hathaway@uplink.net> : "Nasal-ized" the joystick configuration,
+   drawing ideas from the Cyborg-Gold-3d-USB configuration file.  Also changed
+   some of the bindings, so the joystick setup is more like the default
+   four-axis-joystick config.
+
+-->
+
+<PropertyList>
+
+ <name>Analog 2-axis 4-button 1-hat FCS joystick</name>
+
+ <axis n="0">
+  <desc>Aileron</desc>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/aileron</property>
+   <power type="double">2</power>
+  </binding>
+ </axis>
+
+ <axis n="1">
+  <desc>Elevator</desc>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/elevator</property>
+   <factor type="double">-1.0</factor>
+   <power type="double">2</power>
+  </binding>
+ </axis>
+
+ <axis n="2">
+  <desc>View Direction</desc>
+  <low>
+   <repeatable type="bool">true</repeatable>
+   <binding>
+    <command>nasal</command>
+    <script>view.panViewDir(1)</script>
+   </binding>
+  </low>
+  <high>
+   <repeatable type="bool">true</repeatable>
+   <binding>
+    <command>nasal</command>
+    <script>view.panViewDir(-1)</script>
+   </binding>
+  </high>
+ </axis>
+
+ <axis n="3">
+  <desc>View Elevation</desc>
+  <low>
+   <repeatable type="bool">true</repeatable>
+   <binding>
+    <command>nasal</command>
+    <script>view.panViewPitch(-1)</script>
+   </binding>
+  </low>
+  <high>
+   <repeatable type="bool">true</repeatable>
+   <binding>
+    <command>nasal</command>
+    <script>view.panViewPitch(1)</script>
+   </binding>
+  </high>
+ </axis>
+
+ <button n="0">
+  <desc>Brakes</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.applyBrakes(1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.applyBrakes(0)</script>
+   </binding>
+  </mod-up>
+ </button>
+
+ <button n="1">
+  <desc>Center View</desc>
+  <binding>
+   <command>nasal</command>
+   <script>view.resetView()</script>
+  </binding>
+ </button>
+
+ <button n="2">
+  <desc>Elevator Trim Up</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.elevatorTrim(-1)</script>
+  </binding>
+ </button>
+
+ <button n="3">
+  <desc>Elevator Trim Down</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.elevatorTrim(1)</script>
+  </binding>
+ </button>
+
+</PropertyList>
+
+<!-- end of FCS.xml -->

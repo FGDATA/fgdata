@@ -1,0 +1,213 @@
+<?xml version="1.0"?>
+
+<!--
+
+Submodels are objects which can be dropped or launched from the user
+aircraft. The trigger is a boolean property, which you define, which when
+"true" causes the submodel to be released/launched.
+
+A submodel will create an AIBallistic object which will follow a ballistic
+path. By default one submodel will be released when the corresponding
+trigger is "true".
+
+Notes:
+   1.  This utility is intended for ballistic objects which align to the
+   trajectory. Drag is applied based on this assumption: no allowance is
+   for changes in drag for objects which do not conform to this asumption.
+   made
+
+  2.  While Inertia is calculated properly, Moment of Inertia and rotational
+  aerodynamic damping are simulated. It is assumed that the object is a cylinder
+  of uniform density - if your object does not conform to this, there will be
+  inaccuracies.
+
+  3.  The program does not calculate windage for ballistic objects well. While
+  adequate for smoke effects, etc., for bullets, bombs, droptanks this is probably
+  best left at "False". Since the effects of wind on various ballistic objects is
+  uncertain, there is no plan to change this situation.
+
+  4. Submodels can be ensted to any depth, thus a submodel on expiry or impact etc,
+  can launch a child submodel, which in turn can launch a submodel. and so on. This
+  is the basis for Persistent Contrails, but any use is possible.
+
+The initial conditions (IC) define the object's starting point (relative
+to the user aircraft's "reported position"), and its initial speed and
+direction (relative to the user aircraft).  If you want to release many
+similar objects with similar IC, then you may use the <repeat>, <delay>
+and <count> properties to define this.  The allowed properties are:
+
+<name>         The name of the submodel.
+<model>        The path to the visual model.
+<trigger>      The property which will act as the trigger. If this tag is not
+               included, the submodels will be released continuously, provided
+               <count> is set to -1.
+<speed>        Initial speed, in feet/sec, relative to user aircraft.
+<speed-prop>   The property containing the Initial speed, in feet/sec, relative to
+               user aircraft. If this path is found, <speed> will be overwritten.
+<repeat>       Set "true" if you want multiple releases of this submodel.
+<delay>        Time, in seconds, between repeated releases.
+<count>        Number of submodels available for multiple release.
+               -1 defines an unlimited number.
+<slaved>       If true, the submodel is slaved to the parent model.
+<x-offset>     Submodel's initial fore/aft position (in feet), relative to user
+               aircraft.  Fore is positive.
+<y-offset>     Submodel's initial left/right position (in feet), relative to user
+               aircraft.  Right is positive.
+<z-offset>     Submodel's initial up/down position (in feet), relative to user
+               aircraft.  Up is positive.
+<yaw-offset>   Submodel's initial azimuth, in degrees, relative to user
+               aircraft'snose. Right is positive.
+<pitch-offset> Submodel's initial elevation, in degrees, relative to user aircraft's
+               pitch. Up is positive.
+<life>         Life span in seconds.
+               Default is 900.0.
+<buoyancy>     In ft/sec/sec.  Works opposite acceleration of gravity.
+               For example, if set to 32 the submodel will feel no
+               gravity. If greater than 32 the object will rise.
+               Default is 0.
+<wind>         Set to true if you want the submodel to react to the wind. Default
+               is "false".
+<cd>           The Coeffient of Drag. Varies with submodel shape - 0.295 for a
+               bullet, 0.045 for an airfoil. Enter an appropriate value. Defaults to
+               0.295.
+<random>       When this is true the Cd is varied by +- 5%. Useful for smoke or
+               contrails.
+<eda>          Effective drag area (sq ft). Usually the cross-sectional area of the
+               submodel normal to the airflow.
+<weight>       The weight of the submodel (lbs). NOT set to 0 on submodel release.
+               You may wish to set this value to 0 by means of key bindings or Nasal
+               script. Defaults to 0.25.
+<contents>     The path to the contents of a submodel. The contents must be in lbs.
+               Intended for use with drop tanks. The property value will be set to
+               0 on release of the submodel: do not also set to 0 elsewhere e.g. in
+               key bindings. Defaults to 0.
+<random>       Varies CD by +- 10%, initial azimuth by +- 10 degs, and life by
+               <randomness>
+<randomness>   If <random> is true, <randomness> is applied to <life>. 0 > Value < 1
+               are valid. Defaults to 0.5.
+<no-roll>      If true the submodel does not roll.
+<impact>       If true, the impact location (lat/lon) on the terrain is calculated.
+               The Material (e.g Grass)of the terrain, load resistance, and impact
+               velocity. Altitude agl is calculated.
+<collision>    If true, collisions with other objects is tested. If a collision is
+               detected then the position data are written to the "Report Node".
+<fuze-range>   Used in detecting collisions. The distance in feet between an object
+               and a submodel at which a collision is deemed to have occurred.
+<expiry>       If true, the current position of the submodel is written to the
+               "Report Node" when the submodel life expires.
+<impact-reports> Defines a "Report Node". When an impact happens, then the path of
+               the submodel will be written to this node. An attached listener
+               function can evaluate the impact properties. If unset, reports go to
+               /ai/models/model-impact.
+
+***** experimental ****
+
+<external-force> If true the submodel is subjected to an external force
+<force-path> A string describing the property where the magnitude, azimuth and
+             elevation of the external force are to be found. The following child
+              properties are instantiated:
+               ~/force-lb
+              ~/force-azimuth-deg
+              ~/force-elevation-deg
+
+You will have to set these values by some means (Nasal script etc.) to make use of this
+utility.
+
+<PropertyList>
+
+  <submodel>
+    <name>left gun</name>
+    <model>Models/Geometry/tracer.ac</model>
+    <trigger>ai/submodels/submodel[0]/trigger</trigger>
+    <speed>2750.0</speed>
+    <repeat>true</repeat>
+    <delay>0.25</delay>
+    <count>100</count>
+    <x-offset>1.0</x-offset>
+    <y-offset>-7.0</y-offset>
+    <z-offset>-2.0</z-offset>
+    <yaw-offset>0.4</yaw-offset>
+    <pitch-offset>1.8</pitch-offset>
+    <life>2.0</life>
+  </submodel>
+
+  <submodel>
+    <name>right gun</name>
+    <model>Models/Geometry/tracer.ac</model>
+    <trigger>ai/submodels/submodel[0]/trigger</trigger>
+    <speed>2750.0</speed>
+    <repeat>true</repeat>
+    <delay>0.25</delay>
+    <count>100</count>
+    <x-offset>1.0</x-offset>
+    <y-offset>7.0</y-offset>
+    <z-offset>-2.0</z-offset>
+    <yaw-offset>-0.4</yaw-offset>
+    <pitch-offset>1.8</pitch-offset>
+    <life>2.0</life>
+  </submodel>
+
+  <submodel>
+    <name>droptank-l</name>
+    <model>Aircraft/Hunter/Models/droptank-100gal.ac</model>
+    <trigger>controls/armament/station[0]/jettison-all</trigger>
+    <speed>0</speed>
+    <repeat>false</repeat>
+    <count>1</count>
+    <x-offset>0.820</x-offset>
+    <y-offset>-9.61</y-offset>
+    <z-offset>-2.39</z-offset>
+    <yaw-offset>0</yaw-offset>
+    <pitch-offset>0</pitch-offset>
+    <wind>false</wind>
+    <eda>2.11348887</eda>
+    <weight>170</weight>
+    <cd>0.045</cd>
+    <contents>consumables/fuel/tank[2]/level-lbs</contents>
+  </submodel>
+
+  <submodel>
+    <name>droptank-r</name>
+    <model>Aircraft/Hunter/Models/droptank-100gal.ac</model>
+    <trigger>controls/armament/station[1]/jettison-all</trigger>
+    <speed>0</speed>
+    <repeat>false</repeat>
+    <count>1</count>
+    <x-offset>0.820</x-offset>
+    <y-offset>9.61</y-offset>
+    <z-offset>-2.39</z-offset>
+    <yaw-offset>0</yaw-offset>
+    <pitch-offset>0</pitch-offset>
+    <wind>false</wind>
+    <eda>2.11348887</eda>
+    <weight>170</weight>
+    <cd>0.045</cd>
+    <contents>consumables/fuel/tank[3]/level-lbs</contents>
+  </submodel>
+
+  <submodel>
+    <name>engine exhaust r</name>
+    <model>Aircraft/seahawk/Models/exhaust_s.xml</model>
+    <trigger>sim/ai/aircraft/exhaust</trigger>
+    <speed-node>engines/engine/n1</speed-node>
+    <speed>10</speed>
+    <repeat>true</repeat>
+    <delay>0.1</delay>
+    <count>-1</count>
+    <x-offset>-3.5</x-offset>
+    <y-offset>2.6768</y-offset>
+    <z-offset>-0.3937</z-offset>
+    <yaw-offset>170</yaw-offset>
+    <life>10</life>
+    <buoyancy>128</buoyancy>
+    <aero-stabilised>0</aero-stabilised>
+    <wind>true</wind>
+    <eda>1</eda>
+    <cd>0.95</cd>
+    <weight>1</weight>
+    <random>1</random>
+  </submodel>
+
+</PropertyList>
+
+-->

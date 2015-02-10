@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<PropertyList>
+  <description>McDonnel-Douglas-MD90</description>
+  <author>Innis Cunningham</author>
+  <path>Models/md-90.ac</path>
+  <texture-path>Textures/Delta</texture-path>
+  
+     <animation>
+		<type>select</type>
+		<object-name>gear</object-name>
+		<condition>
+			<less-than>
+				<property>velocities/true-airspeed-kt</property>
+				<value>150</value>
+			</less-than>
+		</condition>
+	</animation>
+  
+</PropertyList>
+
+

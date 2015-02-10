@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+
+<!-- MODESTO ARRIVAL, to KSFO, Runway 28R                  
+     The arrival can be found at http://www.airnav.com/airport/KSFO 
+     Format:                                                         
+       <name>       Waypoint name.  When a waypoint named END is reached
+                    the AI airplane will delete itself.                                       
+       <lat>        latitude, degrees (-90 to 90)                                    
+       <lon>        Longitude, degrees (-180 to 180)                                   
+       <alt>        altitude above sea level, feet                                       
+       <crossat>    Crossing altitude, feet                              
+       <ktas>       Knots true airspeed
+       <on-ground>  set true if on the ground
+       <gear-down>  set true for gear down, false for gear up
+       <flaps-down> set true for flaps down, false for flaps up
+-->
+ 
+<PropertyList>
+
+ <flightplan>
+
+  <wpt>
+   <name>MOD</name>
+   <lat>37.627333</lat>
+   <lon>-120.957833</lon>
+   <alt>20000.0</alt>
+   <ktas>350</ktas>
+  </wpt>
+
+  <wpt>
+   <name>GROAN</name>
+   <lat>37.590333</lat>
+   <lon>-121.285167</lon>
+   <crossat>15000.0</crossat>
+   <ktas>310</ktas>
+  </wpt>
+
+  <wpt>
+   <name>CEDES</name>
+   <lat>37.550833</lat>
+   <lon>-121.624667</lon>
+   <crossat>11000.0</crossat>
+   <ktas>260</ktas>
+  </wpt>
+ 
+  <wpt>
+   <name>FAITH</name>
+   <lat>37.401167</lat>
+   <lon>-121.861833</lon>
+   <crossat>5500.0</crossat>
+   <ktas>190</ktas>
+  </wpt>
+
+  <wpt>
+   <name>DUMBA</name>
+   <lat>37.503517</lat>
+   <lon>-122.096147</lon>
+   <crossat>4100.0</crossat>
+   <ktas>170</ktas>
+  </wpt>
+
+  <wpt>
+   <name>AXMUL</name>
+   <lat>37.571725</lat>
+   <lon>-122.257717</lon>
+   <crossat>1800.0</crossat>
+   <ktas>140</ktas>
+  </wpt>
+
+  <wpt>
+   <name>28R</name>
+   <lat>37.61353</lat>
+   <lon>-122.357138</lon>
+   <crossat>13.0</crossat>
+   <ktas>20</ktas>
+   <on-ground>true</on-ground>
+  </wpt>
+
+  <wpt>
+   <name>END</name>
+   <lat>37.628735</lat>
+   <lon>-122.393389</lon>
+   <crossat>6.0</crossat>
+  </wpt>
+
+  <wpt>
+   <name>EOF</name>
+  </wpt>
+
+ </flightplan>
+
+</PropertyList>

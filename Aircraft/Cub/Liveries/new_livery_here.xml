@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+  <sim>
+    <model>
+      
+      
+      
+      <livery>
+        <name type="string">new_name_here</name>
+	 <index type="int">1</index>
+	 <texture>Liveries/fuselage.png</texture>
+      </livery>
+      
+       <liverytail>
+	   <name type="string">new_name_here</name>
+	     <index type="int">1</index>
+	     <texture>Liveries/tail.png</texture>
+	    </liverytail>
+	    
+	 <liverywing>
+	    <name type="string">new_name_here</name>
+	     <index type="int">1</index>
+	     <texture>Liveries/wing.png</texture>
+	    </liverywing>
+	    
+	<Cub>
+	    <immat>true</immat>
+      <fairing1>false</fairing1>
+      <fairing2>false</fairing2>
+      <fairing3>false</fairing3>
+      </Cub>
+      
+    </model>
+   
+  </sim>
+</PropertyList>

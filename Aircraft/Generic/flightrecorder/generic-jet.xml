@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Generic flight recorder configuration for jets (2 jet engines/4 tanks/3 retractable gear).
+
+     Note: The generic configurations are provided as an example and for convenience only.
+     No need to use a generic configuration. You can copy the settings below to your aircraft's
+     flight recorder configuration and include a better combination of recorder components, if
+     none of the pre-defined configurations fits your aircraft.
+ -->
+
+<PropertyList>
+    <name type="string">Generic Flight Recorder for Jets (2 jet engines/4 tanks/3 retractable gear)</name>
+    <signals include="/Aircraft/Generic/flightrecorder/components/environment.xml"/>
+    <signals include="/Aircraft/Generic/flightrecorder/components/position.xml"/>
+    <signals include="/Aircraft/Generic/flightrecorder/components/controls.xml"/>
+    <signals include="/Aircraft/Generic/flightrecorder/components/surfaces.xml"/>
+    <signals include="/Aircraft/Generic/flightrecorder/components/engine-jet.xml">
+        <count type="int">2</count>
+    </signals>
+    <signals include="/Aircraft/Generic/flightrecorder/components/faults-engines.xml">
+        <count type="int">2</count>
+    </signals>
+    <signals include="/Aircraft/Generic/flightrecorder/components/tanks.xml">
+        <count type="int">4</count>
+    </signals>
+    <signals include="/Aircraft/Generic/flightrecorder/components/gear-retractable.xml">
+        <count type="int">3</count>
+    </signals>
+</PropertyList>

@@ -1,0 +1,131 @@
+<?xml version="1.0"?>
+
+<!--
+Default RPM gauge instrument.
+
+Started summer 2000 by David Megginson, david@megginson.com.
+
+This is an instrument configuration file for the open-source flight
+simulator FlightGear (www.flightgear.org).  The file is an XML-encoded
+FlightGear property list defining the instrument's layers and actions.
+
+Each instrument is composed of layers stacked on top of each other.
+A layer may be a texture (with transparent parts to show the layers
+underneath), text, or a special layer that switches between two
+others (say, to turn an indicator light on or off).  Each layer can
+move independently in proportion to a property value, and text
+can be generated from property values as well: all of the layer's
+movements are defined as transformations.
+
+Actions are hotspots on the instrument that will respond to a mouse
+click.  Actions always modify the values of properties, either by
+adjusting them, toggling them, or swaping them with other
+properties' values.
+
+Hacked by Lee Elliott to create an airspeed 1k indicator gauge
+instrument
+-->
+
+<PropertyList>
+ <name>Airspeed Indicator Gauge</name>
+ <w-base>128</w-base>
+ <h-base>128</h-base>
+
+ <params>
+  <pt0-select>/instrumentation/airspeed-indicator/indicated-speed-kt</pt0-select>
+ </params>
+
+ <layers>
+  <layer>
+   <name>gauge face</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/faces-LE2.rgb</path>
+    <x1>0.5</x1>
+    <x2>1.0</x2>
+    <y1>0.0</y1>
+    <y2>0.5</y2>
+   </texture>
+    <w>114</w>
+    <h>114</h>
+  </layer>
+
+  <layer>
+   <name>needle 1</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/misc-1.rgb</path>
+    <x1>0.6796875</x1>
+    <x2>0.7265625</x2>
+    <y1>0.68359375</y1>
+    <y2>1.0</y2>
+   </texture>
+   <w>6</w>
+   <h>48</h>
+   <transformations>
+    <transformation>
+     <type>rotation</type>
+     <property alias="../../../../../params/pt0-select"/>
+     <min>0</min>
+     <max>100000</max>
+     <scale>0.36</scale>
+     <offset>0</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>20</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>needle 0</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/misc-1.rgb</path>
+    <x1>0.8</x1>
+    <y1>0.78125</y1>
+    <x2>0.8375</x2>
+    <y2>1.0</y2>
+   </texture>
+   <w>6</w>
+   <h>48</h>
+   <transformations>
+    <transformation>
+     <type>rotation</type>
+     <property alias="../../../../../params/pt0-select"/>
+     <min>0</min>
+     <max>100000</max>
+     <scale>3.6</scale>
+     <offset>0</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>20</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>glare shield</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/bezel1.rgb</path>
+    <x1>0.5</x1>
+    <y1>0.0</y1>
+    <x2>1.0</x2>
+    <y2>0.5</y2>
+   </texture>
+  <w>124</w>
+  <h>124</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>2</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-2</offset>
+    </transformation>
+    </transformations>
+  </layer>
+
+  </layers>
+
+</PropertyList>

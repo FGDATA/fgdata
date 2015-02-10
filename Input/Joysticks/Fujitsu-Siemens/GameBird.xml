@@ -1,0 +1,63 @@
+<?xml version="1.0" ?>
+
+<PropertyList>
+
+ <name>GameBird</name>
+
+ <axis n="0">
+  <desc>Aileron</desc>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/aileron</property>
+   <dead-band type="double">0.02</dead-band>
+   <offset type="double">0.0</offset>
+   <factor type="double">1.0</factor>
+  </binding>
+ </axis>
+
+ <axis n="1">
+  <desc>Elevator</desc>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/elevator</property>
+   <dead-band type="double">0.02</dead-band>
+   <offset type="double">0.0</offset>
+   <factor type="double">-1.0</factor>
+  </binding>
+ </axis>
+
+ <axis n="2">
+  <desc>Throttle</desc>
+   <binding>
+    <command>nasal</command>
+    <script>controls.throttleAxis()</script>
+   </binding>
+ </axis>
+
+ <axis n="3">
+  <desc>Rudder</desc>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/rudder</property>
+   <dead-band type="double">0.02</dead-band>
+   <offset type="double">0.0</offset>
+   <factor type="double">1.0</factor>
+   <power type="double">2.0</power>
+  </binding>
+ </axis>
+
+ <button n="0">
+  <desc>Brakes</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.applyBrakes(1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.applyBrakes(0)</script>
+   </binding>
+  </mod-up>
+ </button>
+
+</PropertyList>

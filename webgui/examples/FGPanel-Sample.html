@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8 />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<title>FlightGear - FGPanel 2.0</title>
+<style type="text/css" media="screen">
+body,html {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	border: 0;
+	margin: 0;
+	padding: 0;
+}
+
+.big {
+	width: 512px;
+	height: 512px;
+}
+
+.instrument {
+}
+
+
+#Position1 {
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+
+</style>
+
+<script type="text/javascript" charset="utf-8"
+	src="/gui/3rdparty/jquery/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="/gui/lib/jquery.fganimate.js"></script>
+<script type="text/javascript" charset="utf-8" src="/gui/lib/fgfs.js"></script>
+</head>
+<body data-fgpanel="true" data-fgpanel-props="fgpanel.json">
+  <div id="Position1" class="big instrument" data-fgpanel-instrument="FGPanel-Sample.json"></div>
+</body>
+</html>

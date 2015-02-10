@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!--
+ This file is part of FlightGear, the free flight simulator
+ http://www.flightgear.org/
+
+ Copyright (C) 2009 Torsten Dreyer, Torsten (at) t3r _dot_ de
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation; either version 2 of the
+ License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+-->
+<PropertyList include="SenecaII-base.xml">
+    <sim>
+        <author>Torsten Dreyer</author>
+        <description>PA34-200T Seneca II</description>
+        <long-description>
+        The Seneca has been made by Piper since the early 1970's and some 4500 were made since then. It has six seats in a pretty large cabin, 
+        two turbocharged counterrotating engines producing 200hp up to 12,000 ft. It cruises at 170ktas in 12,000ft at 65% power. 
+        Certification for flights into known icing conditions and the nice single engine behaviour made the Seneca a popular multi engine trainer.
+        </long-description>
+        <fr>
+            <long-description>
+            Le Seneca est construit par Piper depuis le début des années 1970 et environ 4500 sont sortis d'usine. 
+            Il dispose de six sièges dans une cabine assez grande, deux moteurs turbo contrarotatifs produisant
+            200 ch jusqu'à 12000 pieds. Il atteint sa vitesse de croisière de 170kts à 12000 ft et à 65% de puissance.
+            Sa bonne capacité à voler en conditions givrantes et le bon comportement de son moteur fait du Seneca l'avion mutlimoteur le plus populaire.
+            </long-description>
+        </fr>
+        <tags>
+            <tag>ga</tag>
+            <tag>piper</tag>
+            <tag>piston</tag>
+            <tag>twin-engine</tag>
+            <tag>retractable-gear</tag>
+            <tag>ifr</tag>
+        </tags>
+        <aircraft-version>1.0</aircraft-version>
+        <status>production</status>
+        <rating>
+          <FDM type="int">5</FDM>
+          <systems type="int">5</systems>
+          <cockpit type="int">4</cockpit>
+          <model type="int">3</model>
+        </rating>
+        <flight-model>jsb</flight-model>
+        <aero>SenecaII-jsbsim</aero>
+        <model>
+            <path>Aircraft/SenecaII/Models/SenecaII.xml</path>
+        </model>
+    </sim>
+</PropertyList>

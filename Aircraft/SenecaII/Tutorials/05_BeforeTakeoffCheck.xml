@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ This file is part of FlightGear, the free flight simulator
+ http://www.flightgear.org/
+
+ Copyright (C) 2009 Torsten Dreyer, Torsten (at) t3r _dot_ de
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation; either version 2 of the
+ License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+-->
+<PropertyList>
+  <name>Before Takeoff Check</name>
+  <description>This is the before takeoff checklist. Use it at the holding position, before entering the runway for takeoff.</description>
+  <interval>0</interval>
+
+  <init>
+    <set>
+      <property>/sim/current-view/view-number</property>
+      <value>0</value>
+    </set>
+  </init>
+
+  <step>
+    <message>
+      FUEL SELECTORS: on
+    </message>
+    <view>
+      <heading-offset-deg>-51</heading-offset-deg>
+      <pitch-offset-deg>-64</pitch-offset-deg>
+      <field-of-view>31</field-of-view>
+    </view>
+
+    <exit>
+      <condition>
+        <equals>
+          <property>controls/fuel/tank[0]/fuel_selector-position</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>controls/fuel/tank[1]/fuel_selector-position</property>
+          <value>1</value>
+        </equals>
+      </condition>
+    </exit>
+  </step>
+
+  <step>
+    <message>
+      CLEARANCE: received
+    </message>
+  </step>
+
+  <step>
+    <message>
+      DEPARTURE BRIEFING: complete
+    </message>
+  </step>
+
+  <step>
+    <message>
+      EMERGENCY BRIEFING: complete
+    </message>
+  </step>
+
+</PropertyList>

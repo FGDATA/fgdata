@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE PropertyList SYSTEM "panel.dtd">
+
+<!-- A trivial simple panel conaining a single instrument -->
+<PropertyList>
+	<name>AoA Indexer Panel</name>
+	<background>Aircraft/Buccaneer/Models/transparent-bg.rgb</background>
+	<w>2</w>
+	<h>5</h>
+	<instruments>
+		<instrument include="/../../Instruments/aoa-indexer.xml">
+			<name>AoA</name>
+			<x>-2</x>
+			<y>2</y>
+			<w>2</w>
+			<h>5</h>
+		</instrument>
+	</instruments>
+</PropertyList>
+
+
+

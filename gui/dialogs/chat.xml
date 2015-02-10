@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+  <name>chat</name>
+  <modal>false</modal>
+  <resizable>true</resizable>
+  <x>-5</x>
+  <y>5</y>
+  <layout>hbox</layout>
+  <default-padding>5</default-padding>
+
+  <color>
+    <enabled>false</enabled>
+    <red>0.5</red>
+    <green>0.5</green>
+    <blue>0.5</blue>
+    <alpha>0.3</alpha>
+  </color>
+
+  <button-color>
+    <enabled>false</enabled>
+    <red>0.5</red>
+    <green>0.5</green>
+    <blue>0.5</blue>
+    <alpha>0.3</alpha>
+  </button-color>
+
+  <button>
+    <legend>Close</legend>
+    <pref-width>45</pref-width>
+    <pref-height>30</pref-height>
+    <equal>true</equal>
+    <binding>
+      <command>dialog-close</command>
+    </binding>
+    <color>
+      <red alias="../../../button-color/red"/>
+      <green alias="../../../button-color/green"/>
+      <blue alias="../../../button-color/blue"/>
+      <alpha alias="../../../button-color/alpha"/>
+    </color>
+  </button>
+
+  <button>
+    <legend>More</legend>
+    <equal>true</equal>
+    <pref-width>45</pref-width>
+    <pref-height>30</pref-height>
+    <binding>
+     <command>dialog-show</command>
+     <dialog-name>chat-full</dialog-name>
+    </binding>
+    <binding>
+      <command>dialog-close</command>
+    </binding>
+    <color>
+      <red alias="../../../button-color/red"/>
+      <green alias="../../../button-color/green"/>
+      <blue alias="../../../button-color/blue"/>
+      <alpha alias="../../../button-color/alpha"/>
+    </color>
+  </button>
+
+  <input>
+    <name>compose</name>
+    <pref-width>500</pref-width>
+    <stretch>true</stretch>
+    <halign>fill</halign>
+    <length>50</length>
+    <property>/sim/multiplay/chat-compose</property>
+    <color>
+      <red>0.5</red>
+      <green>0.5</green>
+      <blue>0.5</blue>
+      <alpha>0.3</alpha>
+    </color>
+    <color-legend>
+      <red>1</red>
+      <green>1</green>
+      <blue>1</blue>
+      <alpha>1</alpha>
+    </color-legend>
+    <font>
+      <name>FIXED_9x15</name>
+    </font>
+  </input>
+
+  <button>
+    <legend>Send</legend>
+    <default>true</default>
+    <pref-width>45</pref-width>
+    <pref-height>30</pref-height>
+    <equal>true</equal>
+    <binding>
+      <command>dialog-apply</command>
+    </binding>
+    <binding>
+      <command>nasal</command>
+      <script>
+        var lchat = getprop("/sim/multiplay/chat-compose");
+        if (lchat != "")
+        {
+          setprop("/sim/multiplay/chat", lchat);
+          setprop("/sim/multiplay/chat-compose", "");
+          gui.dialog_update("chat", "compose");
+        }
+      </script>
+    </binding>
+    <color>
+      <red alias="../../../button-color/red"/>
+      <green alias="../../../button-color/green"/>
+      <blue alias="../../../button-color/blue"/>
+      <alpha alias="../../../button-color/alpha"/>
+    </color>
+  </button>
+</PropertyList>

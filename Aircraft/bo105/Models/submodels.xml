@@ -1,0 +1,255 @@
+<?xml version="1.0"?>
+<!--
+	<name>		The name of the submodel.
+	<model>		The path to the visual model.
+	<trigger>	The property which will act as the trigger.
+	<speed>		Initial speed, in feet/sec, relative to user aircraft.
+	<repeat>	Set "true" if you want multiple releases of this submodel.
+	<delay>		Time, in seconds, between repeated releases.
+	<count>		Number of submodels available for multiple release.
+	<x-offset>	Submodel's initial fore/aft position relative to user aircraft.
+			Fore is positive.
+	<y-offset>	Submodel's initial left/right position relative to user aircraft.
+			Right is positive.
+	<z-offset>	Submodel's initial up/down position relative to user aircraft.
+			Up is positive.
+	<yaw-offset>	Submodel's initial azimuth, in degrees, relative to user aircraft's
+			nose.  Right is positive.
+	<pitch-offset>	Submodel's initial elevation, in degrees, relative to user aircraft's
+			pitch.  Up is positive.
+	<buoyancy>	Submodel's upward acceleration (fps) due to buoyancy in air. 32 is neutral
+			(contrails),  > 32 exhaust gas, smoke.
+	<wind>		If true, Submodel is affected by local wind. Defaults to false.
+	<cd>		The Coeffient of Drag. Varies with submodel shape - 0.295 for a bullet,
+			0.045 for an airfoil. Enter an appropriate value. Defaults to 0.295.
+	<eda>		Effective drag area (sq ft). Usually the cross-sectional area of the
+			submodel normal to the airflow.
+	<weight>	The weight of the submodel (lbs). Defaults to 0.25
+-->
+
+<PropertyList>
+<!--
+	M134: 2000 rpm; 1:9 tracers (can be switched to 4000 rpm)
+
+	Cartridge, 7.62mm, Ball, M59:
+	=============================
+	Cartridge Weight  393 gr (25.47 gm)
+	Cartridge Length  2.8 in (71.1 mm)
+	Propellant  46 gr (2.98 gm) WC 846
+	Bullet Weight  150.5 gr (9.75 gm)
+	Chamber Pressure  50,000 psi (3,515 kg/cm^2)
+	Muzzle Velocity @ 78ft  2,750 fps (838 mps)
+-->
+	<MG>
+		<model>Aircraft/bo105/Models/tracer.xml</model>
+		<speed>2750</speed>
+		<cd>0.295</cd>
+		<weight>0.0215</weight>
+		<eda>0.00049</eda>
+		<impact>/sim/model/bo105/weapons/impact/MG</impact>
+	</MG>
+
+	<submodel>
+		<name>MG_L</name>
+		<model alias="../../MG/model"/>
+		<trigger>sim/model/bo105/weapons/MG[0]/trigger</trigger>
+		<speed alias="../../MG/speed"/>
+		<repeat>true</repeat>
+		<delay>0.3</delay>
+		<count>0</count><!-- set from bo105.nas -->
+		<x-offset>-7.40</x-offset>
+		<y-offset>-3.00</y-offset>
+		<z-offset>-1.30</z-offset>
+		<yaw-offset>0</yaw-offset>
+		<pitch-offset>-1</pitch-offset>
+		<cd alias="../../MG/cd"/>
+		<weight alias="../../MG/weight"/>
+		<eda alias="../../eda"/>
+		<life>6</life>
+		<collision>true</collision>
+		<impact>true</impact>
+		<impact-reports alias="../../MG/impact"/>
+	</submodel>
+
+	<submodel>
+		<name>MG_R</name>
+		<model alias="../../MG/model"/>
+		<trigger>sim/model/bo105/weapons/MG[1]/trigger</trigger>
+		<speed alias="../../MG/speed"/>
+		<repeat>true</repeat>
+		<delay>0.31</delay>
+		<count>0</count><!-- set from bo105.nas -->
+		<x-offset>-7.40</x-offset>
+		<y-offset>3.00</y-offset>
+		<z-offset>-1.30</z-offset>
+		<yaw-offset>0</yaw-offset>
+		<pitch-offset>-1</pitch-offset>
+		<cd alias="../../MG/cd"/>
+		<weight alias="../../MG/weight"/>
+		<eda alias="../../eda"/>
+		<life>6</life>
+		<collision>true</collision>
+		<impact>true</impact>
+		<impact-reports alias="../../MG/impact"/>
+	</submodel>
+
+<!--
+	HOT (MBDA); weight 24 kg; length 1.25 m, diameter 0.15 m, speed 250 m/s
+	Range: 75 to 4000 m (4300 m when fired from a helicopter)
+	http://www.mbda.net/
+
+	These values aren't considered here, though, because they
+	are rocket driven, which the submodels system doesn't support.
+	Also, they are wire controlled, which I don't know how to
+	model yet. Use phantasy values for now ...
+-->
+	<hot>
+		<model>Aircraft/bo105/Models/hot.ac</model>
+		<x>-7.0</x>
+		<speed>820</speed>
+		<pitch>1</pitch><!--2?-->
+		<cd>0</cd>
+		<weight>0.000001</weight>
+		<eda>0.000001</eda>
+		<life>10</life>
+		<impact>/sim/model/bo105/weapons/impact/HOT</impact>
+	</hot>
+
+	<submodel>
+		<name>HOT_OR</name>
+		<model alias="../../hot/model"/>
+		<trigger>sim/model/bo105/weapons/HOT[0]/trigger</trigger>
+		<speed alias="../../hot/speed"/>
+		<repeat>false</repeat>
+		<delay>0.1</delay>
+		<count>0</count><!-- set from bo105.nas -->
+		<x-offset alias="../../hot/x"/>
+		<y-offset>5.18</y-offset>
+		<z-offset>-1.45</z-offset>
+		<yaw-offset>0</yaw-offset>
+		<pitch-offset alias="../../hot/pitch"/>
+		<cd alias="../../hot/cd"/>
+		<weight alias="../../hot/weight"/>
+		<eda alias="../../hot/eda"/>
+		<life alias="../../hot/life"/>
+		<aero-stabilised>true</aero-stabilised>
+		<collision>true</collision>
+		<impact>true</impact>
+		<impact-reports alias="../../hot/impact"/>
+	</submodel>
+
+	<submodel>
+		<name>HOT_OL</name>
+		<model alias="../../hot/model"/>
+		<trigger>sim/model/bo105/weapons/HOT[1]/trigger</trigger>
+		<speed alias="../../hot/speed"/>
+		<repeat>false</repeat>
+		<delay>0.1</delay>
+		<count>0</count><!-- set from bo105.nas -->
+		<x-offset alias="../../hot/x"/>
+		<y-offset>-5.18</y-offset>
+		<z-offset>-1.45</z-offset>
+		<yaw-offset>0</yaw-offset>
+		<pitch-offset alias="../../hot/pitch"/>
+		<cd alias="../../hot/cd"/>
+		<weight alias="../../hot/weight"/>
+		<eda alias="../../hot/eda"/>
+		<life alias="../../hot/life"/>
+		<aero-stabilised>true</aero-stabilised>
+		<collision>true</collision>
+		<impact>true</impact>
+		<impact-reports alias="../../hot/impact"/>
+	</submodel>
+
+	<submodel>
+		<name>HOT_MR</name>
+		<model alias="../../hot/model"/>
+		<trigger>sim/model/bo105/weapons/HOT[2]/trigger</trigger>
+		<speed alias="../../hot/speed"/>
+		<repeat>false</repeat>
+		<delay>0.1</delay>
+		<count>0</count><!-- set from bo105.nas -->
+		<x-offset alias="../../hot/x"/>
+		<y-offset>4.55</y-offset>
+		<z-offset>-0.9</z-offset>
+		<yaw-offset>0</yaw-offset>
+		<pitch-offset alias="../../hot/pitch"/>
+		<cd alias="../../hot/cd"/>
+		<weight alias="../../hot/weight"/>
+		<eda alias="../../hot/eda"/>
+		<life alias="../../hot/life"/>
+		<aero-stabilised>true</aero-stabilised>
+		<collision>true</collision>
+		<impact>true</impact>
+		<impact-reports alias="../../hot/impact"/>
+	</submodel>
+
+	<submodel>
+		<name>HOT_ML</name>
+		<model alias="../../hot/model"/>
+		<trigger>sim/model/bo105/weapons/HOT[3]/trigger</trigger>
+		<speed alias="../../hot/speed"/>
+		<repeat>false</repeat>
+		<delay>0.1</delay>
+		<count>0</count><!-- set from bo105.nas -->
+		<x-offset alias="../../hot/x"/>
+		<y-offset>-4.55</y-offset>
+		<z-offset>-0.9</z-offset>
+		<yaw-offset>0</yaw-offset>
+		<pitch-offset alias="../../hot/pitch"/>
+		<cd alias="../../hot/cd"/>
+		<weight alias="../../hot/weight"/>
+		<eda alias="../../hot/eda"/>
+		<life alias="../../hot/life"/>
+		<aero-stabilised>true</aero-stabilised>
+		<collision>true</collision>
+		<impact>true</impact>
+		<impact-reports alias="../../hot/impact"/>
+	</submodel>
+
+	<submodel>
+		<name>HOT_IR</name>
+		<model alias="../../hot/model"/>
+		<trigger>sim/model/bo105/weapons/HOT[4]/trigger</trigger>
+		<speed alias="../../hot/speed"/>
+		<repeat>false</repeat>
+		<delay>0.1</delay>
+		<count>0</count><!-- set from bo105.nas -->
+		<x-offset alias="../../hot/x"/>
+		<y-offset>3.92</y-offset>
+		<z-offset>-0.35</z-offset>
+		<yaw-offset>0</yaw-offset>
+		<pitch-offset alias="../../hot/pitch"/>
+		<cd alias="../../hot/cd"/>
+		<weight alias="../../hot/weight"/>
+		<eda alias="../../hot/eda"/>
+		<life alias="../../hot/life"/>
+		<aero-stabilised>true</aero-stabilised>
+		<collision>true</collision>
+		<impact>true</impact>
+		<impact-reports alias="../../hot/impact"/>
+	</submodel>
+
+	<submodel>
+		<name>HOT_IL</name>
+		<model alias="../../hot/model"/>
+		<trigger>sim/model/bo105/weapons/HOT[5]/trigger</trigger>
+		<speed alias="../../hot/speed"/>
+		<repeat>false</repeat>
+		<delay>0.1</delay>
+		<count>0</count><!-- set from bo105.nas -->
+		<x-offset alias="../../hot/x"/>
+		<y-offset>-3.92</y-offset>
+		<z-offset>-0.35</z-offset>
+		<yaw-offset>0</yaw-offset>
+		<pitch-offset alias="../../hot/pitch"/>
+		<cd alias="../../hot/cd"/>
+		<weight alias="../../hot/weight"/>
+		<eda alias="../../hot/eda"/>
+		<life alias="../../hot/life"/>
+		<aero-stabilised>true</aero-stabilised>
+		<collision>true</collision>
+		<impact>true</impact>
+		<impact-reports alias="../../hot/impact"/>
+	</submodel>
+</PropertyList>

@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+ <scenario>
+
+  <description>
+     This scenario has a J3 takeoff from runway 31L at
+     KRHV for aerotowing You can
+     change the aircraft type by substituting another model in
+     the &lt;model&gt; tag, and you can also change the "flight
+     plan" by changing the &lt;flightplan&gt; tag. Look in the
+     subdirectory FlightPlans to find some that I've already
+     defined, including some arrivals.  Normally, when an AI
+     aircraft gets to the end of its flight plan it deletes itself,
+     however the &lt;repeat&gt;1&lt;/repeat&gt; tag will cause the AI
+     aircraft to start again indefinitely. 
+
+     Maik Justus, based D. Culps demo
+  </description>
+
+  <entry>
+   <callsign>dragger</callsign>
+   <type>aircraft</type>
+   <class>aerotow-dragger</class>
+   <model>Aircraft/Cub/Models/Cub.xml</model>
+   <flightplan>KRHV_J3_towing_31L.xml</flightplan>
+   <repeat>1</repeat>
+  </entry>
+
+ </scenario>
+
+</PropertyList>

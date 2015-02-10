@@ -1,0 +1,42 @@
+AC3Db
+MATERIAL "ac3dmat1" rgb 1 1 1  amb 1 1 1  emis 0 0 0  spec 1 1 1  shi 0  trans 0
+OBJECT world
+kids 2
+OBJECT poly
+name "rect"
+loc -44.9418 27.4112 31.659
+texture "cirrocumulus_textures2.rgb"
+crease 45.000000
+numvert 4
+0 -267.953 -289.698
+0 -267.953 289.698
+0 267.953 289.698
+0 267.953 -289.698
+numsurf 1
+SURF 0x30
+mat 0
+refs 4
+3 0.277344 0.646484
+2 0.0253906 0.646484
+1 0.0253906 0.414062
+0 0.277344 0.414062
+kids 0
+OBJECT poly
+name "rect"
+loc -128.384 27.2652 -8.0334
+texture "cirrocumulus_textures2.rgb"
+crease 45.000000
+numvert 4
+0 -186.776 -267.228
+0 -186.776 267.228
+0 186.776 267.228
+0 186.776 -267.228
+numsurf 1
+SURF 0x30
+mat 0
+refs 4
+3 0.00976562 0.993863
+2 0.3125 0.993863
+1 0.3125 0.691406
+0 0.00976562 0.691406
+kids 0

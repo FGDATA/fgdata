@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+<!-- 
+This is a generic square shaped Logo which can be referenced by any Aircraft Model as a submodel.
+To use it you need add the Model to your Model XML file:
+
+ <model>    
+  <path>Aircraft/Generic/logo.xml</path>
+	<name>logo</name>
+  <offsets>
+   <x-m>0.45</x-m>
+   <y-m>-0.32</y-m>
+   <z-m>-1.1</z-m>
+  </offsets>
+ </model>
+ <animation>
+  <type>scale</type>
+  <object-name>logo</object-name>
+  <x-offset>0.75</x-offset>
+  <y-offset>1.0</y-offset>
+  <z-offset>0.75</z-offset>
+
+ </animation>
+ <animation>
+  <type>rotate</type>
+  <object-name>logo</object-name>
+	<offset-deg>5</offset-deg>
+  <center>
+   <x-m>0.45</x-m>
+   <y-m>-0.415</y-m>
+   <z-m>-1.1</z-m>
+  </center>
+  <axis>
+   <x>1.00</x>
+   <y>0.0</y>
+   <z>0.0</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>rotate</type>
+  <object-name>logo</object-name>
+	<offset-deg>3</offset-deg>
+  <center>
+   <x-m>0.45</x-m>
+   <y-m>-0.42</y-m>
+   <z-m>-1.1</z-m>
+  </center>
+  <axis>
+   <x>0.0</x>
+   <y>0.0</y>
+   <z>1.0</z>
+  </axis>
+ </animation>
+
+The above example adds the Logo to the default j3cub. The logo is scaled and rotated to fit the outline of the fuselage.
+There is a generic logo-include.xml file which adds an entry to the menubar, the necessary properties and nasal files. It can be included in the first line of your -set.xml file like this:
+
+<PropertyList include="../Generic/logo-include.xml">
+
+To use the Logo over Multiplayer, you need to add the following to the top of your model file:
+
+		<nasal>
+				<load>
+						var update = aircraft.overlay_update.new();
+						update.add("Aircraft/Generic/Logos", "sim/multiplay/generic/string");
+				</load>
+				<unload>
+						update.stop();
+				</unload>
+		</nasal>
+-->
+<PropertyList>
+
+ <path>Logos/fglogo.ac</path>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>upper</object-name>
+	<offset-deg>0</offset-deg>
+  <center>
+   <x-m>0.0</x-m>
+   <y-m>0.0</y-m>
+   <z-m>0.167</z-m>
+  </center>
+  <axis>
+   <x>1.00</x>
+   <y>0.0</y>
+   <z>0.0</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>rotate</type>
+  <object-name>lower</object-name>
+	<offset-deg>0</offset-deg>
+  <center>
+   <x-m>0.0</x-m>
+   <y-m>0.0</y-m>
+   <z-m>-0.167</z-m>
+  </center>
+  <axis>
+   <x>1.00</x>
+   <y>0.0</y>
+   <z>0.0</z>
+  </axis>
+ </animation>
+
+  <animation>
+    <type>material</type>
+    <object-name>upper</object-name>
+    <object-name>middle</object-name>
+    <object-name>lower</object-name>
+    <property-base>sim/model/logo</property-base>
+    <texture-prop>texture</texture-prop>
+    <texture>Logos/fgshield.png</texture>
+  </animation>
+</PropertyList>
+
+

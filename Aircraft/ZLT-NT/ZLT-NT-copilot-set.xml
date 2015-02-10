@@ -1,0 +1,390 @@
+<?xml version="1.0"?>
+<!--
+  Zeppelin NT-07 airship multiplayer copilot for FlightGear.
+
+  Copyright (C) 2008 - 2013 Anders Gidenstam  (anders(at)gidenstam.org)
+  This file is licensed under the GPL license version 2 or later.
+-->
+<!--
+  Usage: fgfs - -prop:/sim/remote/pilot-callsign="remote pilot callsign" - -aircraft=ZLT-NT-copilot
+-->
+<PropertyList>
+
+ <sim>
+
+  <description>Zeppelin NT07 multiplayer copilot</description>
+  <author>Anders Gidenstam</author>
+  <aircraft-version>$Id: ZLT-NT-copilot-set.xml,v 1.35 2013/05/12 12:37:37 anders Exp $</aircraft-version>
+  
+  <status type="string">beta</status>
+  <rating>
+   <FDM type="int">2</FDM>
+   <systems type="int">3</systems>
+   <cockpit type="int">3</cockpit>
+   <model type="int">3</model>
+  </rating>
+
+  <flight-model>null</flight-model>
+
+  <presets>
+   <onground type="bool">false</onground>
+   <altitude-agl-ft type="double">30.0</altitude-agl-ft>
+  </presets>
+  <startup>
+   <splash-texture>Aircraft/ZLT-NT/splash.png</splash-texture>
+  </startup>
+
+  <!-- 3d model -->
+  <model>
+   <path>Aircraft/ZLT-NT/Models/ZLT-NT-copilot.xml</path>
+  </model>
+
+  <!-- Views -->
+  <view n="0">
+   <!-- Pilot's position. -->
+   <name>Copilot View</name>
+   <type>lookfrom</type>
+   <config>
+    <internal type="bool">true</internal>
+    <from-model type="bool">false</from-model>
+    <from-model-idx type="int">0</from-model-idx>
+    <eye-lat-deg-path>/position/latitude-deg</eye-lat-deg-path>
+    <eye-lon-deg-path>/position/longitude-deg</eye-lon-deg-path>
+    <eye-alt-ft-path>/position/altitude-ft</eye-alt-ft-path>
+    <eye-heading-deg-path>/orientation/heading-deg</eye-heading-deg-path>
+    <eye-pitch-deg-path>/orientation/pitch-deg</eye-pitch-deg-path>
+    <eye-roll-deg-path>/orientation/roll-deg</eye-roll-deg-path>
+
+    <!-- x/y/z == right/up/back -->
+    <x-offset-m type="double">  0.45 </x-offset-m>
+    <y-offset-m type="double"> -7.75 </y-offset-m>
+    <z-offset-m type="double"> 18.65 </z-offset-m>
+    <pitch-offset-deg type="double"> -20.0 </pitch-offset-deg>
+   </config>
+  </view>
+  <!-- Views -->
+  <view n="100">
+   <!-- Pilot's position. -->
+   <name>Pilot View</name>
+   <type>lookfrom</type>
+   <config>
+    <!-- x/y/z == right/up/back -->
+    <internal type="bool">true</internal>
+    <from-model type="bool">false</from-model>
+    <eye-lat-deg-path>/position/latitude-deg</eye-lat-deg-path>
+    <eye-lon-deg-path>/position/longitude-deg</eye-lon-deg-path>
+    <eye-alt-ft-path>/position/altitude-ft</eye-alt-ft-path>
+    <eye-heading-deg-path>/orientation/heading-deg</eye-heading-deg-path>
+    <eye-pitch-deg-path>/orientation/pitch-deg</eye-pitch-deg-path>
+    <eye-roll-deg-path>/orientation/roll-deg</eye-roll-deg-path>
+
+    <x-offset-m type="double"> -0.45 </x-offset-m>
+    <y-offset-m type="double"> -7.75 </y-offset-m>
+    <z-offset-m type="double"> 18.65 </z-offset-m>
+    <pitch-offset-deg type="double"> -20.0 </pitch-offset-deg>
+    <default-field-of-view-deg type="double"> 65 </default-field-of-view-deg>
+   </config>
+  </view>
+  <view n="101">
+   <name>Passenger View</name>
+   <type>lookfrom</type>
+   <config>
+    <!-- x/y/z == right/up/back -->
+    <internal type="bool">true</internal>
+    <from-model type="bool">false</from-model>
+    <eye-lat-deg-path>/position/latitude-deg</eye-lat-deg-path>
+    <eye-lon-deg-path>/position/longitude-deg</eye-lon-deg-path>
+    <eye-alt-ft-path>/position/altitude-ft</eye-alt-ft-path>
+    <eye-heading-deg-path>/orientation/heading-deg</eye-heading-deg-path>
+    <eye-pitch-deg-path>/orientation/pitch-deg</eye-pitch-deg-path>
+    <eye-roll-deg-path>/orientation/roll-deg</eye-roll-deg-path>
+
+    <x-offset-m type="double">  0.10 </x-offset-m>
+    <y-offset-m type="double"> -7.75 </y-offset-m>
+    <z-offset-m type="double"> 26.50 </z-offset-m>
+    <heading-offset-deg type="double"> 180.0 </heading-offset-deg>
+    <pitch-offset-deg type="double"> 0.0 </pitch-offset-deg>
+    <default-field-of-view-deg type="double"> 65 </default-field-of-view-deg>
+   </config>
+  </view>
+
+  <!-- Move the center of the external views. -->
+  <view n="1">
+   <config>
+    <at-model type="bool">false</at-model>
+    <target-z-offset-m archive="y"> 20.0 </target-z-offset-m>
+   </config>
+  </view>
+  <view n="2">
+   <config>
+    <at-model type="bool">false</at-model>
+    <target-z-offset-m archive="y"> 20.0 </target-z-offset-m>
+   </config>
+  </view>
+  <view n="3">
+   <config>
+    <at-model type="bool">false</at-model>
+    <target-z-offset-m archive="y"> 20.0 </target-z-offset-m>
+   </config>
+  </view>
+  <view n="5">
+   <config>
+    <at-model type="bool">false</at-model>
+    <target-z-offset-m archive="y"> 20.0 </target-z-offset-m>
+   </config>
+  </view>
+  <view n="6">
+   <config>
+    <at-model type="bool">false</at-model>
+    <target-z-offset-m archive="y"> 20.0 </target-z-offset-m>
+   </config>
+  </view>
+
+  <chase-distance-m type="double">-120.0</chase-distance-m>
+
+  <sound>
+   <audible>true</audible>
+   <path>Aircraft/ZLT-NT/Sounds/ZLT-NT-copilot-sound.xml</path>
+  </sound>
+
+  <!-- Aircraft specific help. -->
+  <help include="help.xml"/>
+
+  <systems>
+   <electrical>
+    <path/>
+   </electrical>
+  </systems>
+  <instrumentation>
+   <path>Aircraft/ZLT-NT/Systems/copilot-instrumentation.xml</path>
+  </instrumentation>
+
+  <checklists include="Checklists/checklists.xml"/>
+
+  <menubar>
+   <default>
+    <menu n="100">
+     <label>Zeppelin NT</label>
+     <item>
+      <label>Select MP-pilot</label>
+      <binding>
+       <command>nasal</command>
+       <script>
+        dual_control_tools.
+          copilot_dialog.show(aircraft_dual_control.pilot_type);
+       </script>
+      </binding>
+     </item>
+     <item>
+      <label>About</label>
+      <binding>
+       <command>nasal</command>
+       <script>ZLTNT.about()</script>
+      </binding>
+     </item>
+    </menu>
+   </default>
+  </menubar>
+
+ </sim>
+
+ <instrumentation>
+  <airspeed-indicator n="0">
+   <serviceable type="bool">1</serviceable>
+  </airspeed-indicator>
+  <airspeed-indicator n="1">
+   <serviceable type="bool">1</serviceable>
+  </airspeed-indicator>
+  <altimeter n="0">
+   <serviceable type="bool">1</serviceable>
+  </altimeter>
+  <altimeter n="1">
+   <serviceable type="bool">1</serviceable>
+  </altimeter>
+  <encoder n="0">
+   <serviceable type="bool">1</serviceable>
+  </encoder>
+  <envelope-pressure-indicator>
+   <serviceable type="bool">1</serviceable>
+  </envelope-pressure-indicator>
+  <superheat-indicator>
+   <serviceable type="bool">1</serviceable>
+  </superheat-indicator>
+  <oat-indicator>
+   <serviceable type="bool">1</serviceable>
+  </oat-indicator>
+  <rmi n="0">
+   <serviceable type="bool">1</serviceable>
+  </rmi>
+ </instrumentation>
+
+ <nasal>
+  <ZLTNT>
+   <file>Aircraft/ZLT-NT/Systems/ZLT-NT-copilot.nas</file>
+   <file>Aircraft/ZLT-NT/Systems/mp-network.nas</file>
+   <script>
+    # Use the minimal remote_mooring instead of mooring.
+    ZLTNT.mooring = ZLTNT.remote_mooring;
+    # Initialize scenario network as observer.
+    ZLTNT.mp_network_init(0);
+   </script>
+  </ZLTNT>
+  <!--  Instrument drivers. -->
+  <m877>
+   <file>Aircraft/Instruments-3d/clock/M877/M877.nas</file>
+  </m877>
+  <VHF22>
+   <file>Aircraft/Generic/DualControl/Instruments/VHF-22/ctl22.nas</file>
+  </VHF22>
+  <VIR32>
+   <file>Aircraft/Generic/DualControl/Instruments/VIR-32/ctl32.nas</file>
+  </VIR32>
+  <KDI572>
+   <file>Aircraft/Generic/DualControl/Instruments/KDI-572/kdi572.nas</file>
+  </KDI572>
+  <ADF462>
+   <file>Aircraft/Generic/DualControl/Instruments/ADF-462/ctl62.nas</file>
+  </ADF462>
+  <CenterMFD>
+   <file>Aircraft/ZLT-NT/Models/Instruments/CenterMFD/CenterMFD.nas</file>
+  </CenterMFD>
+  <EPI>
+   <file>Aircraft/ZLT-NT/Models/Instruments/EnvelopePressureIndicator/EPI.nas</file>
+  </EPI>
+  <OAT_superheat>
+   <file>Aircraft/ZLT-NT/Models/Instruments/Thermometer/OAT_superheat.nas</file>
+  </OAT_superheat>
+  <!-- citation>
+   <file>Aircraft/CitationX/Nasal/flightdirector.nas</file>
+   <file>Aircraft/CitationX/Nasal/Primus1000.nas</file>
+  </citation -->
+  <systems>
+   <file>Aircraft/Instruments-3d/kns80/KNS80.nas</file>
+   <script>
+###########################################################################
+# Make the KNS 80 silent by default.
+props.globals.getNode("instrumentation/nav/ident").setValue(0);
+
+# Create aliases to drive a KNS-80 3d model in an AI/MP model. 
+var l_base = "instrumentation/kns-80";
+
+var animate_aimodel = func(airoot) {
+    # Assume the instrument is serviceable.
+    props.globals.initNode(l_base ~ "/serviceable", 1, "BOOL");
+    # Connect local nodes to aliases for the 3d model.
+    foreach (var p;
+             [l_base ~ "/serviceable",
+              l_base ~ "/data-mode",
+              l_base ~ "/displayed-distance",
+              l_base ~ "/displayed-radial",
+              l_base ~ "/display",
+              l_base ~ "/dme-hold",
+              l_base ~ "/flash",
+              l_base ~ "/nav-mode",
+              l_base ~ "/rnav/indicated-distance-nm",
+              l_base ~ "/use",
+              "systems/electrical/outputs/KNS80",
+              "instrumentation/nav/has-gs",
+              "instrumentation/nav/ident",
+              "instrumentation/nav/in-range"]) {
+        airoot.getNode(p, 1).alias(props.globals.getNode(p, 1));
+    }
+}
+###########################################################################
+   </script>
+  </systems>
+  <garmin196>
+   <file>Aircraft/Instruments-3d/garmin196/garmin196.nas</file>
+  </garmin196>
+  <dual_control_tools>
+   <file>Aircraft/Generic/DualControl/dual-control-tools.nas</file>
+  </dual_control_tools>
+  <aircraft_dual_control>
+   <file>Aircraft/ZLT-NT/Systems/ZLT-NT-dual-control.nas</file>
+  </aircraft_dual_control>
+  <dual_control>
+   <file>Aircraft/Generic/DualControl/copilot-dual-control.nas</file>
+  </dual_control>
+  <!-- Walk View -->
+  <walkview>
+   <file>Aircraft/Generic/WalkView/walkview.nas</file>
+  </walkview>
+  <PassengerView>
+   <file>Aircraft/ZLT-NT/Systems/passenger-view.nas</file>
+  </PassengerView>
+ </nasal>
+
+ <!--
+   Define some MP enabled properties.
+   NOTE: since the copilot isn't an aircraft many properties are free
+         for use.
+ -->
+ <surface-positions>
+  <!-- MP elevator trim -->
+  <left-aileron-pos-norm type="double"/>
+  <!-- MP ? -->
+  <!-- right-aileron-pos-norm type="double"/ -->
+  <!-- MP elevator cmd -->
+  <elevator-pos-norm type="double">0.0</elevator-pos-norm>
+  <!-- MP rudder cmd -->
+  <rudder-pos-norm type="double">0.0</rudder-pos-norm>
+  <!-- MP ? -->
+  <!-- flap-pos-norm type="double"/ -->
+  <!-- MP ? -->
+  <!-- speedbrake-pos-norm type="double"/ -->
+ </surface-positions>
+ <sim n="0">
+  <multiplay n="0">
+   <generic n="0">
+    <!-- MP switches 1 -->
+    <int n="0" type="int"/>
+    <!-- MP TDM1 -->
+    <string n="0" type="string"></string>
+    <!-- MP RPM select -->
+    <float n="0" alias="/controls/engines/engine[0]/throttle"/>
+    <float n="1" alias="/controls/engines/engine[1]/throttle"/>
+    <float n="2" alias="/controls/engines/engine[2]/throttle"/>
+    <!-- MP thrust -->
+    <float n="3" alias="/controls/engines/engine[0]/propeller-pitch"/>
+    <float n="4" alias="/controls/engines/engine[1]/propeller-pitch"/>
+    <float n="5" alias="/controls/engines/engine[2]/propeller-pitch"/>
+    <!-- MP mixture -->
+    <float n="6" alias="/controls/engines/engine[0]/mixture"/>
+    <float n="7" alias="/controls/engines/engine[1]/mixture"/>
+    <float n="8" alias="/controls/engines/engine[2]/mixture"/>
+   </generic>
+  </multiplay>
+ </sim>
+
+ <!-- Local input properties. -->
+ <controls>
+  <flight>
+   <!-- slats type="double"> 0.0 </slats -->
+   <!-- speedbrake type="double"> 0.0 </speedbrake -->
+   <!-- spoilers type="double"> 0.0 </spoilers -->
+   <engines>
+    <engine>
+     <throttle        type="double"/>   <!-- local cmd input -->
+     <mixture         type="double"/>   <!-- local cmd input -->
+     <propeller-pitch type="double"/>   <!-- local cmd input -->
+    </engine>
+    <engine>
+     <throttle        type="double"/>   <!-- local cmd input -->
+     <mixture         type="double"/>   <!-- local cmd input -->
+     <propeller-pitch type="double"/>   <!-- local cmd input -->
+    </engine>
+    <engine>
+     <throttle        type="double"/>   <!-- local cmd input -->
+     <mixture         type="double"/>   <!-- local cmd input -->
+     <propeller-pitch type="double"/>   <!-- local cmd input -->
+    </engine>
+   </engines>
+  </flight>
+ </controls>
+
+
+ <input>
+  <keyboard include="Systems/ZLT-NT-keys.xml"/>
+ </input>
+
+</PropertyList>

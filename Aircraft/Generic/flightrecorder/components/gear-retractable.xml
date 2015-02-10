@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- flight recorder configuration -->
+<!-- retractable gear properties -->
+
+<PropertyList>
+
+    <!--  include fixed gear properties -->
+    <signals include="gear-fixed.xml"/>
+    
+    <!--  add position of retractable gear -->
+    <signal>
+        <type>float</type>
+        <property type="string">/gear/gear[%i]/position-norm</property>
+    </signal>
+</PropertyList>

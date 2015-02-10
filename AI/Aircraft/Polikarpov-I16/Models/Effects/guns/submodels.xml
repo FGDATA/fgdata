@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<PropertyList>
+
+  <!-- Gauche -->
+  <submodel>
+    <name>exterieur left gun</name>
+    <model>Aircraft/Polikarpov-I16/Models/Effects/guns/apibullet-tracer.xml</model>
+    <trigger>controls/armament/trigger</trigger>
+    <speed>2460.0</speed>
+    <repeat>true</repeat>
+    <delay>0.6</delay>
+    <count>-1</count>
+    <x-offset>  6.96 </x-offset>    <!-- -2.120 m =  6.96 ft -->
+    <y-offset>  4.90 </y-offset>    <!-- -1.493 m =  4.90 ft -->
+    <z-offset> -0.78 </z-offset>    <!-- -0.238 m = -0.78ft -->
+    <yaw-offset> 0.0 </yaw-offset>
+    <pitch-offset> 0.1 </pitch-offset>
+    <life>4.0</life>
+    <wind>false</wind>
+    <weight>0.07495</weight>
+    <cd>0.193</cd>
+    <eda>0.00571198</eda> 
+    <collision>true</collision>
+    <collision-report>sim/ai/aircraft/collision/gun</collision-report>
+    <impact>true</impact>
+    <impact-report>sim/ai/aircraft/impact/bullet</impact-report>
+    <submodel-path>Aircraft/Polikarpov-I16/Models/Effects/guns/bullet-submodel.xml</submodel-path>
+  </submodel>
+
+  <!-- Droite -->
+  <submodel>
+    <name>center right gun</name>
+    <model>Aircraft/Polikarpov-I16/Models/Effects/guns/apibullet-tracer.xml</model>
+    <trigger>controls/armament/trigger</trigger>
+    <speed>2460.0</speed>
+    <repeat>true</repeat>
+    <delay>0.62</delay>
+    <count>-1</count>
+    <x-offset>  6.96 </x-offset>    <!-- -2.120 m =  6.96 ft -->
+    <y-offset> -4.90 </y-offset>    <!--  1.493 m = -4.90 ft -->
+    <z-offset> -0.78 </z-offset>    <!-- -0.238 m = -0.78 ft -->
+    <yaw-offset> 0.0 </yaw-offset>
+    <pitch-offset> 0.1 </pitch-offset>
+    <life>4.0</life>
+    <wind>false</wind>
+    <weight>0.07495</weight>
+    <cd>0.193</cd>
+    <eda>0.00571198</eda> 
+    <collision>true</collision>
+    <collision-report>sim/ai/aircraft/collision/gun</collision-report>
+    <impact>true</impact>
+    <impact-report>sim/ai/aircraft/impact/bullet</impact-report>
+    <submodel-path>Aircraft/Polikarpov-I16/Models/Effects/guns/bullet-submodel.xml</submodel-path>
+  </submodel>
+
+</PropertyList>
+

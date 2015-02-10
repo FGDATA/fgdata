@@ -1,0 +1,376 @@
+<?xml version="1.0"?>
+
+<!-- Flap and Aileron Droop control -->
+
+<PropertyList>
+
+	<path>../../../../Aircraft/Buccaneer/Models/flap.ac</path>
+
+	<!-- =========== flaps ========== -->
+	<animation>
+		<type>pick</type>
+		<object-name>pick-flaps-up</object-name>
+		<visible>false</visible>
+		<action>
+			<button>0</button>
+			<repeatable>true</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>
+					controls.flapsDown(-1)
+				</script>
+			</binding>
+			<mod-up>
+				<binding>
+					<command>nasal</command>
+					<script>controls.flapsDown(0)</script>
+				</binding>
+			</mod-up>
+			<binding>
+				<command>property-interpolate</command>
+				<property>/controls/flight/flap-lever</property>
+				<property>/controls/flight/flaps</property>
+				<time>1.0</time>
+			</binding>
+		</action>
+	</animation>
+
+	<animation>
+		<type>pick</type>
+		<object-name>pick-flaps-down</object-name>
+		<visible>false</visible>
+		<action>
+			<button>0</button>
+			<repeatable>true</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>
+					controls.flapsDown(1)
+				</script>
+			</binding>
+			<mod-up>
+				<binding>
+					<command>nasal</command>
+					<script>controls.flapsDown(0)</script>
+				</binding>
+			</mod-up>
+			<binding>
+				<command>property-interpolate</command>
+				<property>/controls/flight/flap-lever</property>
+				<property>/controls/flight/flaps</property>
+				<time>1.0</time>
+			</binding>
+		</action>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>lever-flaps</object-name>
+		<property>/controls/flight/flap-lever</property>
+		<offset-deg>-18</offset-deg>
+		<factor>36</factor>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+		<center>
+			<x-m>-0.0193591</x-m>
+			<y-m>-0.02309</y-m>
+			<z-m>0</z-m>
+		</center>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>pick-flaps-up</object-name>
+		<object-name>pick-flaps-down</object-name>
+		<property>/controls/flight/flap-lever</property>
+		<!--<offset-deg>-18</offset-deg>
+		<factor>36</factor>-->
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>-18</dep>
+			</entry>
+			<entry>
+				<ind>0.4</ind>
+				<dep>-6</dep>
+			</entry>
+			<entry>
+				<ind>0.80</ind>
+				<dep>6</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>18</dep>
+			</entry>
+		</interpolation>
+		<axis>
+			<x>0</x>
+			<y>-1</y>
+			<z>0</z>
+		</axis>
+		<center>
+			<!--0.0341796	0	-0.00118631-->
+			<x-m>0.0341796</x-m>
+			<y-m>-0.00118631</y-m>
+			<z-m>0</z-m>
+		</center>
+	</animation>
+
+
+	<!-- =========== droop ========== -->
+
+	<animation>
+		<type>pick</type>
+		<object-name>pick-droop-up</object-name>
+		<visible>false</visible>
+		<action>
+			<button>0</button>
+			<repeatable>true</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>
+					controls.stepProps("/controls/flight/aileron-droop","/sim/aileron-droop", -1);
+				</script>
+			</binding>
+			<mod-up>
+				<binding>
+					<command>nasal</command>
+					<script>
+						controls.stepProps("/controls/flight/aileron-droop","/sim/aileron-droop", 0);
+					</script>
+				</binding>
+			</mod-up>
+			<binding>
+				<command>property-interpolate</command>
+				<property>/controls/flight/aileron-droop-lever</property>
+				<property>/controls/flight/aileron-droop</property>
+				<time>1.0</time>
+			</binding>
+		</action>
+	</animation>
+
+	<animation>
+		<type>pick</type>
+		<object-name>pick-droop-down</object-name>
+		<visible>false</visible>
+		<action>
+			<button>0</button>
+			<repeatable>true</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>
+					controls.stepProps("/controls/flight/aileron-droop","/sim/aileron-droop", 1);
+				</script>
+			</binding>
+			<mod-up>
+				<binding>
+					<command>nasal</command>
+					<script>
+						controls.stepProps("/controls/flight/aileron-droop","/sim/aileron-droop", 0);
+					</script>
+				</binding>
+			</mod-up>
+			<binding>
+				<command>property-interpolate</command>
+				<property>/controls/flight/aileron-droop-lever</property>
+				<property>/controls/flight/aileron-droop</property>
+				<time>1.0</time>
+			</binding>
+		</action>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>lever-droop</object-name>
+		<property>/controls/flight/aileron-droop-lever</property>
+		<!--<offset-deg>-18</offset-deg>
+		<factor>36</factor>-->
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>-18</dep>
+			</entry>
+			<entry>
+				<ind>0.4</ind>
+				<dep>-6</dep>
+			</entry>
+			<entry>
+				<ind>0.80</ind>
+				<dep>6</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>18</dep>
+			</entry>
+		</interpolation>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+		<center>
+			<x-m>-0.0193591</x-m>
+			<y-m>0.02309</y-m>
+			<z-m>0</z-m>
+		</center>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>pick-droop-up</object-name>
+		<object-name>pick-droop-down</object-name>
+		<property>/controls/flight/aileron-droop-lever</property>
+		<!--<offset-deg>-18</offset-deg>
+		<factor>36</factor>-->
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>-18</dep>
+			</entry>
+			<entry>
+				<ind>0.4</ind>
+				<dep>-6</dep>
+			</entry>
+			<entry>
+				<ind>0.80</ind>
+				<dep>6</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>18</dep>
+			</entry>
+		</interpolation>
+		<axis>
+			<x>0</x>
+			<y>-1</y>
+			<z>0</z>
+		</axis>
+		<center>
+			<!--0.0341796	0	-0.00118631-->
+			<x-m>0.0341796</x-m>
+			<y-m>0.00118631</y-m>
+			<z-m>0</z-m>
+		</center>
+	</animation>
+
+
+	<!-- ========= both ==========-->
+	<animation>
+		<type>pick</type>
+		<object-name>pick-both-up</object-name>
+		<visible>false</visible>
+		<action>
+			<button>0</button>
+			<repeatable>true</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>
+					controls.flapsDown(-1)
+				</script>
+			</binding>
+			<mod-up>
+				<binding>
+					<command>nasal</command>
+					<script>controls.flapsDown(0)</script>
+				</binding>
+			</mod-up>
+			<binding>
+				<command>property-interpolate</command>
+				<property>/controls/flight/flap-lever</property>
+				<property>/controls/flight/flaps</property>
+				<time>1.0</time>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>
+					controls.stepProps("/controls/flight/aileron-droop","/sim/aileron-droop", -1);
+				</script>
+			</binding>
+			<mod-up>
+				<binding>
+					<command>nasal</command>
+					<script>
+						controls.stepProps("/controls/flight/aileron-droop","/sim/aileron-droop", 0);
+					</script>
+				</binding>
+			</mod-up>
+			<binding>
+				<command>property-interpolate</command>
+				<property>/controls/flight/aileron-droop-lever</property>
+				<property>/controls/flight/aileron-droop</property>
+				<time>1.0</time>
+			</binding>
+		</action>
+	</animation>
+
+	<animation>
+		<type>pick</type>
+		<object-name>pick-both-down</object-name>
+		<visible>false</visible>
+		<action>
+			<button>0</button>
+			<repeatable>true</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>
+					controls.flapsDown(1)
+				</script>
+			</binding>
+			<mod-up>
+				<binding>
+					<command>nasal</command>
+					<script>controls.flapsDown(0)</script>
+				</binding>
+			</mod-up>
+			<binding>
+				<command>property-interpolate</command>
+				<property>/controls/flight/flap-lever</property>
+				<property>/controls/flight/flaps</property>
+				<time>1.0</time>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>
+					controls.stepProps("/controls/flight/aileron-droop","/sim/aileron-droop", 1);
+				</script>
+			</binding>
+			<mod-up>
+				<binding>
+					<command>nasal</command>
+					<script>
+						controls.stepProps("/controls/flight/aileron-droop","/sim/aileron-droop", 0);
+					</script>
+				</binding>
+			</mod-up>
+			<binding>
+				<command>property-interpolate</command>
+				<property>/controls/flight/aileron-droop-lever</property>
+				<property>/controls/flight/aileron-droop</property>
+				<time>1.0</time>
+			</binding>
+		</action>
+	</animation>
+
+	<!-- Panel Lighting -->
+	<animation>
+		<type>material</type>
+		<object-name>lighting-group</object-name>
+		<emission>
+			<factor-prop>/systems/electrical/outputs/instrument-lighting</factor-prop>
+			<red>0.03125</red>
+			<green>0.0089</green>
+			<blue>0.0089</blue>
+		</emission>
+	</animation>
+
+	<!-- *** LoD *** -->
+	<animation>
+		<type>range</type>
+		<min-m>0</min-m>
+		<max-m>5</max-m>
+	</animation>
+
+</PropertyList>

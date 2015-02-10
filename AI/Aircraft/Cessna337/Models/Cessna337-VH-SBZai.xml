@@ -1,0 +1,926 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+<path>Cessna337_SkymasterVH-SBZ.ac</path>
+
+  <offsets>
+    <z-m>1.29</z-m>   
+  </offsets>
+
+
+	<!-- Front propeller cone ON/OFF
+
+<animation>
+	<type>select</type>
+	<object-name>HeliceDEL_02</object-name>
+	<object-name>GiroHeliceDEL_02</object-name>
+	<condition>
+		<property>sim/model/frontcone</property>
+	</condition>
+</animation>
+livery_EC-ISD.png
+	<!-- Rear propeller cone ON/OFF 
+
+<animation>
+	<type>select</type>
+	<object-name>HeliceTRAS_02</object-name>
+	<object-name>GiroHeliceTRAS_02</object-name>
+	<condition>
+		<property>sim/model/rearcone</property>
+	</condition>
+</animation>
+-->
+	<!-- wing fins ON/OFF
+
+<animation>
+	<type>select</type>
+	<object-name>AletasAlas</object-name>
+	<condition>
+		<property>sim/model/wingfins</property>
+	</condition>
+</animation> -->
+
+<!-- Propulsor delantero - Front Propeller -->
+
+ <animation>
+  <type>select</type>
+  <object-name>HeliceDEL_01</object-name>
+  <object-name>HeliceDEL_02</object-name>
+  <object-name>HeliceDEL_03</object-name>
+  <object-name>HeliceDEL_04</object-name>
+  <condition>
+   <less-than>
+    <property>velocities/true-airspeed-kt</property>
+    <value>10</value>
+   </less-than>
+  </condition>
+ </animation>
+
+ <animation>
+  <type>select</type>
+  <object-name>GiroHeliceDEL_01</object-name>
+  <object-name>GiroHeliceDEL_02</object-name>
+  <condition>
+   <greater-than>
+    <property>velocities/true-airspeed-kt</property>
+    <value>10</value>
+   </greater-than>
+  </condition>
+ </animation>
+
+ <animation>
+  <type>spin</type>
+  <object-name>HeliceDEL_01</object-name>
+  <object-name>HeliceDEL_02</object-name>
+  <object-name>HeliceDEL_03</object-name>
+  <object-name>HeliceDEL_04</object-name>
+  <property>velocities/true-airspeed-kt</property>
+  <factor>1</factor>
+  <axis>
+   <x1-m>-2.72221 </x1-m>
+   <y1-m> 0.00    </y1-m>
+   <z1-m>-0.112182</z1-m>
+   <x2-m>-2.05873 </x2-m>
+   <y2-m> 0.00    </y2-m>
+   <z2-m>-0.07741 </z2-m>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>spin</type>
+  <object-name>GiroHeliceDEL_01</object-name>
+  <object-name>GiroHeliceDEL_02</object-name>
+ <property>velocities/true-airspeed-kt</property>
+  <factor>-01</factor>
+  <axis>
+   <x1-m> -2.92325</x1-m>
+   <y1-m> 0.00    </y1-m>
+   <z1-m>-0.122718</z1-m>
+   <x2-m>-2.05873 </x2-m>
+   <y2-m> 0.00    </y2-m>
+   <z2-m>-0.07741 </z2-m>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>select</type>
+  <object-name>HeliceTRAS_01</object-name>
+  <object-name>HeliceTRAS_02</object-name>
+  <object-name>HeliceTRAS_03</object-name>
+  <object-name>HeliceTRAS_04</object-name>
+  <condition>
+   <less-than>
+    <property>velocities/true-airspeed-kt</property>
+         <value>10</value>
+   </less-than>
+  </condition>
+ </animation>
+
+ <animation>
+  <type>select</type>
+  <object-name>GiroHeliceTRAS_01</object-name>
+  <object-name>GiroHeliceTRAS_02</object-name>
+  <condition>
+   <greater-than>
+   <property>velocities/true-airspeed-kt</property>
+         <value>10</value>
+   </greater-than>
+  </condition>
+ </animation>
+
+ <animation>
+  <type>spin</type>
+  <object-name>HeliceTRAS_01</object-name> 
+  <object-name>HeliceTRAS_02</object-name>
+  <object-name>HeliceTRAS_03</object-name>
+  <object-name>HeliceTRAS_04</object-name>
+ <property>velocities/true-airspeed-kt</property>
+  <factor>1</factor>
+  <axis>
+   <x1-m> 3.2473  </x1-m>
+   <y1-m> 0.00    </y1-m>
+   <z1-m> 0.295342</z1-m>
+   <x2-m> 2.38159 </x2-m>
+   <y2-m> 0.00    </y2-m>
+   <z2-m> 0.295342</z2-m>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>spin</type>
+  <object-name>GiroHeliceTRAS_01</object-name>
+  <object-name>GiroHeliceTRAS_02</object-name>
+  <property>velocities/true-airspeed-kt</property>
+  <factor>01</factor>
+  <center>
+   <x-m> 2.85155 </x-m>
+   <y-m> 0.0     </y-m>
+   <z-m> 0.295342</z-m>
+  </center>
+  <axis>
+   <x>1.0</x>
+   <y>0.0</y>
+   <z>0.0</z>
+  </axis>
+ </animation>
+
+ <!--Delantero - Front-->
+    <animation>
+     <type>rotate</type>
+	 <!--wheel--> 
+     <object-name>RuedaDEL</object-name> 
+	 <!--arm-->
+     <object-name>TrenDEL_01</object-name>
+     <object-name>TrenDEL_02</object-name>
+     <object-name>TrenDEL_03</object-name>
+     <object-name>TrenDEL_04</object-name>
+     <object-name>TrenDEL_05</object-name>
+     <object-name>TrenDEL_06</object-name>
+	 <property>velocities/true-airspeed-kt</property>
+     <interpolation>
+		<entry><ind>0.0</ind><dep>0.0</dep></entry>
+		<entry><ind>60</ind><dep>0.0</dep></entry>
+		<entry><ind>70</ind><dep>100</dep></entry>
+		<entry><ind>80</ind><dep>100</dep></entry>
+     </interpolation>
+        <center>
+            <x-m>-1.53078</x-m>
+            <y-m> 0.00   </y-m>
+            <z-m>-0.61484</z-m>
+        </center>
+        <axis>
+            <x>0.0</x>
+            <y>1.0</y>
+            <z>0.0</z>
+        </axis>
+    </animation>
+    
+    <animation>
+     <type>rotate</type>
+     <object-name>RuedaDEL</object-name> 
+     <object-name>TrenDEL_01</object-name>
+     <object-name>TrenDEL_02</object-name>
+     <object-name>TrenDEL_03</object-name>
+     <object-name>TrenDEL_04</object-name>
+     <object-name>TrenDEL_05</object-name>
+     <object-name>TrenDEL_06</object-name>
+	 <property>velocities/true-airspeed-kt</property>
+       <interpolation>
+		<entry><ind>0.0</ind><dep>0.0</dep></entry>
+		<entry><ind>60</ind><dep>0.0</dep></entry>
+        <entry><ind>70</ind><dep>90</dep></entry>
+		<entry><ind>80</ind><dep>90</dep></entry>
+      </interpolation>
+        <axis>
+            <x1-m>-1.53078 </x1-m>
+            <y1-m> 0.00    </y1-m>
+            <z1-m>-0.61484 </z1-m>
+            <x2-m>-1.56766 </x2-m>
+            <y2-m> 0.00    </y2-m>
+            <z2-m>-0.894645</z2-m>
+        </axis>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>CompTrenDEL_03</object-name>
+        <object-name>CompTrenDEL_03_int</object-name>
+		<property>velocities/true-airspeed-kt</property>
+        <interpolation>
+		 <entry><ind>0.0</ind><dep>0.0</dep></entry>
+         <entry><ind>60</ind><dep>0.0</dep></entry>
+         <entry><ind>70</ind><dep>120</dep></entry>
+		 <entry><ind>80</ind><dep>120</dep></entry>
+        </interpolation>
+        <center>
+            <x-m>-1.43467 </x-m>
+            <y-m> 0.00    </y-m>
+            <z-m>-0.754121</z-m>
+        </center>
+        <axis>
+            <x>0.0</x>
+            <y>1.0</y>
+            <z>0.0</z>
+        </axis>
+    </animation>
+    
+    <animation>
+        <type>rotate</type>
+        <object-name>CompTrenDEL_01</object-name>
+        <object-name>CompTrenDEL_01_int</object-name>
+       <property>velocities/true-airspeed-kt</property>
+        <interpolation>
+			<entry><ind>0.0</ind><dep>0.0</dep></entry>
+			<entry><ind>50</ind><dep>0.0</dep></entry>
+			<entry><ind>60</ind><dep>-110.0</dep></entry>
+			<entry><ind>65</ind><dep>-110.0</dep></entry>
+			<entry><ind>70</ind><dep>0.0</dep></entry>
+			<entry><ind>80</ind><dep>0.0</dep></entry>
+        </interpolation>
+        <axis>
+            <x1-m>-2.08798 </x1-m>
+            <y1-m>-0.212493</y1-m>
+            <z1-m>-0.624575</z1-m>
+            <x2-m>-2.0115  </x2-m>
+            <y2-m>-0.219583</y2-m>
+            <z2-m>-0.654417</z2-m>
+        </axis>
+    </animation>
+    
+    <animation>
+        <type>rotate</type>
+        <object-name>CompTrenDEL_02</object-name>
+        <object-name>CompTrenDEL_02_int</object-name>
+        <property>velocities/true-airspeed-kt</property>
+        <interpolation>
+			<entry><ind>0.0</ind><dep>0.0</dep></entry>
+			<entry><ind>50</ind><dep>0.0</dep></entry>
+			<entry><ind>60</ind><dep>110.0</dep></entry>
+			<entry><ind>65</ind><dep>110.0</dep></entry>
+			<entry><ind>70</ind><dep>0.0</dep></entry>
+			<entry><ind>80</ind><dep>0.0</dep></entry>
+        </interpolation>
+        <axis>
+            <x1-m>-2.08798 </x1-m>
+            <y1-m> 0.216475</y1-m>
+            <z1-m>-0.624575</z1-m>
+            <x2-m>-2.0115  </x2-m>
+            <y2-m> 0.223565</y2-m>
+            <z2-m>-0.654417</z2-m>
+        </axis>
+    </animation>
+    
+<!--Trasero izquierdo - Left Rear-->
+    <animation>
+      <type>rotate</type>
+        <object-name>RuedaIZQ</object-name>
+        <object-name>TrenIZQ_01</object-name>
+        <object-name>TrenIZQ_02</object-name>
+        <object-name>TrenIZQ_03</object-name>
+     <property>velocities/true-airspeed-kt</property>
+        <interpolation>
+	     <entry><ind>0.0</ind><dep>0.0</dep></entry>
+		 <entry><ind>60</ind><dep>0.0</dep></entry>
+		 <entry><ind>70</ind><dep>-50.0</dep></entry>
+         <entry><ind>80</ind><dep>-50.0</dep></entry>
+		
+        </interpolation>
+      <axis>
+        <x1-m> 0.900309</x1-m>
+        <y1-m>-0.211212</y1-m>
+        <z1-m>-0.608023</z1-m>
+        <x2-m> 0.763211</x2-m>   
+        <y2-m>-0.211241</y2-m> 
+        <z2-m>-0.607862</z2-m> 
+      </axis>
+    </animation>
+    
+    <animation>
+      <type>rotate</type>
+        <object-name>RuedaIZQ</object-name>
+        <object-name>TrenIZQ_01</object-name>
+        <object-name>TrenIZQ_02</object-name>
+        <object-name>TrenIZQ_03</object-name>
+      <property>velocities/true-airspeed-kt</property>
+        <interpolation>
+		 <entry><ind>0.0</ind><dep>0.0</dep></entry>
+		 <entry><ind>60</ind><dep>0.0</dep></entry>
+         <entry><ind>70</ind><dep>107.0</dep></entry>
+		 <entry><ind>80</ind><dep>107.0</dep></entry>
+        </interpolation>
+      <center>
+          <x-m> 0.719796</x-m> 
+          <y-m>-0.36785 </y-m>  
+          <z-m>-0.593094</z-m>
+      </center> 
+        <axis>
+            <x> 0.0 </x>
+            <y>-0.35</y>
+            <z> 0.9 </z> 
+        </axis>
+    </animation>
+  
+    <animation>
+        <type>rotate</type>
+      <object-name>CompTrenIZQ_03</object-name>
+      <object-name>CompTrenIZQ_03_int</object-name>
+        <property>velocities/true-airspeed-kt</property>
+        <interpolation>	
+			<entry><ind>0.0</ind><dep>0.0</dep></entry>
+			<entry><ind>50</ind><dep>0.0</dep></entry>
+			<entry><ind>60</ind><dep>-110.0</dep></entry>
+            <entry><ind>70</ind><dep>-110.0</dep></entry>
+			<entry><ind>75</ind><dep>0.0</dep></entry>
+        </interpolation>
+        <axis>
+            <x1-m> 1.59174 </x1-m>
+            <y1-m>-0.524051</y1-m>
+            <z1-m>-0.282249</z1-m>
+            <x2-m> 2.00962 </x2-m>
+            <y2-m>-0.413693</y2-m>
+            <z2-m>-0.22371 </z2-m>
+        </axis>
+    </animation>
+    
+    <animation>
+        <type>rotate</type>
+      <object-name>CompTrenIZQ_01</object-name>
+      <object-name>CompTrenIZQ_02</object-name>
+      <object-name>CompTrenIZQ_01_int</object-name>
+      <object-name>CompTrenIZQ_02_int</object-name>
+        <property>velocities/true-airspeed-kt</property>
+        <interpolation>
+			<entry><ind>0.0</ind><dep>0.0</dep></entry>
+			<entry><ind>50</ind><dep>0.0</dep></entry>
+			<entry><ind>60</ind><dep>110.0</dep></entry>
+			<entry><ind>70</ind><dep>110.0</dep></entry>
+			<entry><ind>75</ind><dep>0.0</dep></entry> 
+        </interpolation>
+        <axis>
+            <x1-m> 1.13279 </x1-m>
+            <y1-m>-0.285813</y1-m>
+            <z1-m>-0.764917</z1-m>
+            <x2-m> 1.36023 </x2-m>
+            <y2-m>-0.277614</y2-m>
+            <z2-m>-0.724199</z2-m>
+        </axis>
+    </animation>
+    
+<!-- Trasero derecho - Right Rear-->
+    <animation>
+      <type>rotate</type>
+      <object-name>RuedaDER</object-name>
+      <object-name>TrenDER_01</object-name>
+      <object-name>TrenDER_02</object-name>
+      <object-name>TrenDER_03</object-name>
+     <property>velocities/true-airspeed-kt</property>
+        <interpolation>
+		 <entry><ind>0.0</ind><dep>0.0</dep></entry>
+		 <entry><ind>60</ind><dep>0.0</dep></entry>
+         <entry><ind>70</ind><dep>50.0</dep></entry>
+		 <entry><ind>80</ind><dep>50.0</dep></entry>
+        </interpolation>
+      <axis>
+        <x1-m> 0.900309</x1-m>
+        <y1-m> 0.211212</y1-m>
+        <z1-m>-0.608023</z1-m>
+        <x2-m> 0.763211</x2-m>   
+        <y2-m> 0.211241</y2-m> 
+        <z2-m>-0.607862</z2-m> 
+      </axis>
+    </animation>
+    
+    <animation>
+      <type>rotate</type>
+      <object-name>RuedaDER</object-name>
+      <object-name>TrenDER_01</object-name>
+      <object-name>TrenDER_02</object-name>
+      <object-name>TrenDER_03</object-name>
+      <property>velocities/true-airspeed-kt</property>
+        <interpolation>
+		  <entry><ind>0.0</ind><dep>0.0</dep></entry>
+		  <entry><ind>60</ind><dep>0.0</dep></entry>
+          <entry><ind>70</ind><dep>-107.0</dep></entry>
+		  <entry><ind>80</ind><dep>-107.0</dep></entry>
+        </interpolation>
+      <center>
+          <x-m> 0.719796</x-m>
+          <y-m> 0.36785 </y-m>  
+          <z-m>-0.593094</z-m>
+      </center> 
+        <axis>
+            <x> 0.0 </x>
+            <y> 0.35</y>
+            <z> 0.9 </z> 
+        </axis>
+    </animation>    
+    
+    <animation>
+        <type>rotate</type>
+        <object-name>CompTrenDER_03</object-name>
+        <object-name>CompTrenDER_03_int</object-name>
+        <property>velocities/true-airspeed-kt</property>
+        <interpolation>
+			<entry><ind>0.0</ind><dep>0.0</dep></entry>
+			<entry><ind>50</ind><dep>0.0</dep></entry>
+			<entry><ind>60</ind><dep>110.0</dep></entry>
+			<entry><ind>70</ind><dep>110.0</dep></entry>
+			<entry><ind>75</ind><dep>0.0</dep></entry> 
+        </interpolation>
+                <axis>
+            <x1-m> 1.59174 </x1-m>
+            <y1-m> 0.524051</y1-m>
+            <z1-m>-0.282249</z1-m>
+            <x2-m> 2.00962 </x2-m>
+            <y2-m> 0.413693</y2-m>
+            <z2-m>-0.22371 </z2-m>
+        </axis>
+    </animation>
+    
+    <animation>
+        <type>rotate</type>
+        <object-name>CompTrenDER_01</object-name>
+        <object-name>CompTrenDER_02</object-name>
+        <object-name>CompTrenDER_01_int</object-name>
+        <object-name>CompTrenDER_02_int</object-name>
+        <property>velocities/true-airspeed-kt</property>
+        <interpolation>
+			<entry><ind>0.0</ind><dep>0.0</dep></entry>
+			<entry><ind>50</ind><dep>0.0</dep></entry>
+			<entry><ind>60</ind><dep>-110.0</dep></entry>
+			<entry><ind>70</ind><dep>-110.0</dep></entry>
+			<entry><ind>75</ind><dep>0.0</dep></entry>
+        </interpolation>
+        <axis>
+            <x1-m> 1.13279 </x1-m>
+            <y1-m> 0.285813</y1-m>
+            <z1-m>-0.764917</z1-m>
+            <x2-m> 1.36023 </x2-m>
+            <y2-m> 0.277614</y2-m>
+            <z2-m>-0.724199</z2-m>
+        </axis>
+    </animation>
+    
+  <!-- Rotacion de las ruedas  - Wheel Rotation-->
+    <animation>
+        <type>spin</type>
+        <object-name>RuedaDEL</object-name>
+        <property>velocities/true-airspeed-kt</property>
+		<condition>
+		    <less-than>
+		        <property>velocities/true-airspeed-kt</property>
+		        <value>71</value>
+		    </less-than>
+		</condition>
+        <factor>-13.8</factor> 
+        <center>
+            <x-m>-1.59993</x-m>
+            <y-m> 0.00   </y-m>
+            <z-m>-1.14163</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+    </animation>
+    
+    <animation>
+        <type>spin</type>
+        <object-name>RuedaIZQ</object-name>
+        <property>velocities/true-airspeed-kt</property>
+		<condition>
+		    <less-than>
+		        <property>velocities/true-airspeed-kt</property>
+		        <value>71</value>
+		    </less-than>
+		</condition>
+        <factor>-13.8</factor>
+        <center>
+            <x-m> 0.802023</x-m>
+            <y-m>-1.342   </y-m>
+            <z-m>-1.05834 </z-m>
+        </center>        
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+    </animation>
+    
+    <animation>
+        <type>spin</type>
+        <object-name>RuedaDER</object-name>
+        <property>velocities/true-airspeed-kt</property>
+		<condition>
+		    <less-than>
+		        <property>velocities/true-airspeed-kt</property>
+		        <value>71</value>
+		    </less-than>
+		</condition>
+        <factor>-13.8</factor>
+        <center>
+            <x-m> 0.802022</x-m>
+            <y-m> 1.342   </y-m>
+            <z-m>-1.05834 </z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+    </animation>
+    
+    <animation>
+        <type>spin</type>
+        <object-name>RuedaDEL</object-name>
+	    <property>velocities/true-airspeed-kt</property>
+		<condition>
+		    <less-than>
+		        <property>velocities/true-airspeed-kt</property>
+		        <value>71</value>
+		    </less-than>
+		</condition>
+        <factor>-13.8</factor> 
+        <center>
+            <x-m>-1.59993</x-m>
+            <y-m> 0.00   </y-m>
+            <z-m>-1.14163</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+    </animation>
+    
+    <animation>
+        <type>spin</type>
+        <object-name>RuedaIZQ</object-name>
+        <property>velocities/true-airspeed-kt</property>
+		<condition>
+		    <less-than>
+		        <property>velocities/true-airspeed-kt</property>
+		        <value>71</value>
+		    </less-than>
+		</condition>
+        <factor>-13.8</factor>
+        <center>
+            <x-m> 0.802023</x-m>
+            <y-m>-1.342   </y-m>
+            <z-m>-1.05834 </z-m>
+        </center>        
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+    </animation>
+    
+    <animation>
+        <type>spin</type>
+        <object-name>RuedaDER</object-name>
+        <property>velocities/true-airspeed-kt</property>
+		<condition>
+		    <less-than>
+		        <property>velocities/true-airspeed-kt</property>
+		        <value>71</value>
+		    </less-than>
+		</condition>
+        <factor>-13.8</factor>
+        <center>
+            <x-m> 0.802022</x-m>
+            <y-m> 1.342   </y-m>
+            <z-m>-1.05834 </z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+    </animation>
+
+  <model>
+    <name>BeaconOn</name>
+    <path>Lights/Beacon.xml</path>
+    <offsets>
+      <x-m> 5.46929</x-m>
+		<y-m> 1.52348</y-m>
+		<z-m> 1.58905</z-m>
+    </offsets>
+  </model>
+  
+  <model>
+    <name>BeaconOff</name>
+    <path>Lights/ToggleLight.xml</path>
+    <offsets>
+      <x-m> 5.46929</x-m>
+		<y-m> 1.52348</y-m>
+		<z-m> 1.58905</z-m>
+    </offsets>
+  </model>
+  
+	<animation>
+	  <name>Beacon</name>
+	  <type>timed</type>
+	  <object-name>BeaconOn</object-name>
+	  <object-name>BeaconOff</object-name>
+	  <use-personality type="bool">true</use-personality>
+		  <branch-duration-sec>0.1</branch-duration-sec>
+		  <branch-duration-sec>1.0</branch-duration-sec>
+	 </animation>
+  
+  <animation>
+		<type>select</type>
+		<object-name>Beacon</object-name>
+	    <condition>
+	      <and>
+			<greater-than>
+				<property>/sim/time/sun-angle-rad</property>
+				<value>1.57</value>
+			</greater-than>
+			<greater-than>
+				<property>velocities/true-airspeed-kt</property>
+				<value>0</value>
+			</greater-than>
+		  </and>
+	    </condition>
+	</animation>	
+
+  <model>
+	<name>NavL</name>
+    <path>Lights/NavL.xml</path>
+    <offsets>
+      <x-m> 0.163207</x-m>
+      <y-m>-5.86852 </y-m>
+      <z-m> 0.771891</z-m>
+    </offsets>
+  </model>
+  
+  <model> 
+	<name>NavR</name>
+    <path>Lights/NavR.xml</path>
+    <offsets>
+      <x-m> 0.163206</x-m>
+      <y-m> 5.87148 </y-m>
+      <z-m> 0.771891</z-m>
+    </offsets>
+  </model>  
+  
+  <model> 
+	<name>NavBack</name>
+    <path>Lights/NavBack.xml</path>
+    <offsets>
+      <x-m> 5.62651 </x-m>
+      <y-m> 1.52342 </y-m>
+      <z-m> 0.093985</z-m>
+    </offsets>
+  </model> 
+  
+   <animation>
+   <name>NavLights</name>
+    <object-name>NavL</object-name>
+	<object-name>NavR</object-name>
+	<object-name>NavBack</object-name>
+  </animation>
+
+  <animation>
+  <type>select</type>
+  <object-name>NavLights</object-name>
+  <condition>
+      <and>
+		<greater-than>
+			<property>/sim/time/sun-angle-rad</property>
+			<value>1.57</value>
+		</greater-than>
+		<greater-than>
+			<property>velocities/true-airspeed-kt</property>
+			<value>0</value>
+		</greater-than>
+	  </and>
+  </condition>
+ </animation>
+  
+  <model> 
+	<name>LandingLightL</name>
+	<path>Lights/LandingLights.xml</path>
+    <offsets>
+      <x-m>-2.30516 </x-m>
+      <y-m>-0.108519</y-m>
+      <z-m>-0.446167</z-m>
+    </offsets>
+  </model>    
+  
+  <model>
+	<name>LandingLightR</name> 
+	<path>Lights/LandingLights.xml</path>
+    <offsets>
+      <x-m>-2.30516 </x-m>
+      <y-m> 0.111481</y-m>
+      <z-m>-0.446167</z-m>
+    </offsets>
+  </model>   
+  
+  <animation>
+    <name>LandingLights</name>
+	<object-name>LandingLightL</object-name>
+	<object-name>LandingLightR</object-name>
+  </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>LandingLights</object-name>
+    <condition>
+      <and>
+		<greater-than>
+			<property>/sim/time/sun-angle-rad</property>
+			<value>1.57</value>
+		</greater-than>
+		<greater-than>
+			<property>velocities/true-airspeed-kt</property>
+			<value>0</value>
+		</greater-than>
+	  </and>
+    </condition>
+ </animation>
+ 
+  <model> 
+    <path>Lights/taxi.xml</path>
+    <offsets>
+      <x-m>-2.30516 </x-m>
+      <y-m> 0.111481</y-m>
+      <z-m>-0.446167</z-m>
+    </offsets>
+  </model>  
+  
+  <model>
+  <name>StrobeLeftOn</name>
+  <path>Lights/Strobe.xml</path>
+    <offsets>
+      <x-m> 0.278507</x-m>
+      <y-m>-5.90852 </y-m>
+      <z-m> 0.753573</z-m>
+    </offsets>
+  </model>
+
+  <model>
+	<name>StrobeRightOn</name>
+    <path>Lights/Strobe.xml</path>
+    <offsets>
+      <x-m> 0.278507</x-m>
+      <y-m> 5.91148 </y-m>
+      <z-m> 0.753573</z-m>
+    </offsets>
+  </model>  
+  
+  <animation>
+    <name>AllStrobesOn</name>
+    <object-name>StrobeLeftOn</object-name>
+    <object-name>StrobeRightOn</object-name>
+  </animation>
+  
+  <model>
+    <name>StrobeLeftOff</name>
+    <path>Lights/ToggleLight.xml</path>
+    <offsets>
+      <x-m> 0.278507</x-m>
+      <y-m>-5.90852 </y-m>
+      <z-m> 0.753573</z-m>
+    </offsets>
+  </model>
+  
+  <model>
+    <name>StrobeRightOff</name>
+    <path>Lights/ToggleLight.xml</path>
+    <offsets>
+      <x-m> 0.278507</x-m>
+      <y-m> 5.91148 </y-m>
+      <z-m> 0.753573</z-m>
+    </offsets>
+  </model>
+  
+  <animation>
+    <name>AllStrobesOff</name>
+    <object-name>StrobeLeftOff</object-name>
+    <object-name>StrobeRightOff</object-name>
+  </animation>
+  
+  <animation>
+	  <name>Strobe</name>
+	  <type>timed</type>
+	  <object-name>AllStrobesOn</object-name>
+	  <object-name>AllStrobesOff</object-name>
+	  <use-personality type="bool">true</use-personality>
+		  <branch-duration-sec>0.1</branch-duration-sec>
+		  <branch-duration-sec>1.0</branch-duration-sec>
+  </animation>
+  
+  <animation>
+		<type>select</type>
+		<object-name>Strobe</object-name>
+	    <condition>
+	      <and>
+			<greater-than>
+				<property>/sim/time/sun-angle-rad</property>
+				<value>1.57</value>
+			</greater-than>
+			<greater-than>
+				<property>velocities/true-airspeed-kt</property>
+				<value>0</value>
+			</greater-than>
+		  </and>
+	    </condition>
+	</animation>	
+ 	
+<!-- Palanca Flaps 
+ <animation>
+  <type>translate</type>
+  <object-name>PalancaFlaps_01</object-name>
+  <object-name>PalancaFlaps_02</object-name>
+  <property>/controls/flight/flaps</property>
+  <interpolation>
+      <entry>
+          <ind>0.0</ind>
+          <dep>0.0</dep>
+      </entry>
+      <entry>
+          <ind>0.33</ind>
+          <dep>0.033977</dep>
+      </entry>
+      <entry>
+          <ind>0.66</ind>
+          <dep>0.0509655</dep>
+      </entry> 
+      <entry>
+          <ind>1.0</ind>
+          <dep>0.067954</dep>
+      </entry>
+  </interpolation>
+  <axis>
+   <x1-m>-0.976149</x1-m>
+   <y1-m> 0.13017 </y1-m>
+   <z1-m>-0.047244</z1-m>
+   <x2-m>-0.976685</x2-m>
+   <y2-m> 0.13017 </y2-m>
+   <z2-m>-0.115843</z2-m>
+  </axis>
+ </animation>
+ 
+ <animation>
+  <type>pick</type>
+  <object-name>PalancaFlaps_01</object-name>
+  <object-name>PalancaFlaps_02</object-name>
+  <visible>true</visible>
+   <action>
+     <button>0</button>
+     <repeatable>false</repeatable>
+      <binding>
+       <command>nasal</command>
+       <script>controls.flapsDown(1)</script>
+      </binding>
+      <mod-up>
+      <binding>
+        <command>nasal</command>
+        <script>controls.flapsDown(0)</script>
+      </binding>
+      </mod-up>
+   </action>
+   <action>
+     <button>1</button>
+     <repeatable>false</repeatable>
+      <binding>
+       <command>nasal</command>
+       <script>controls.flapsDown(-1)</script>
+      </binding>
+      <mod-up>
+      <binding>
+       <command>nasal</command>
+       <script>controls.flapsDown(0)</script>
+      </binding>
+      </mod-up>
+   </action>
+ </animation>
+-->
+
+</PropertyList>

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+ <path>sanmateo-fb.ac</path>
+ 
+ <animation>
+  <type>select</type>
+  <object-name>BotLight</object-name>
+  <object-name>StreetLight</object-name>
+  <condition>
+   <greater-than>
+    <property>/sim/time/sun-angle-rad</property>
+    <value>1.57</value>
+   </greater-than>
+  </condition>
+ </animation>
+
+</PropertyList>

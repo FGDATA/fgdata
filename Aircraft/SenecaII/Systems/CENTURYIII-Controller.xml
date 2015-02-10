@@ -1,0 +1,260 @@
+<?xml version="1.0"?>
+<!--
+ This file is part of FlightGear, the free flight simulator
+ http://www.flightgear.org/
+
+ Copyright (C) 2009 Torsten Dreyer, Torsten (at) t3r _dot_ de
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation; either version 2 of the
+ License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+-->
+<!-- Altimatic IIIc Autopilot Configuration -->
+<!-- Written by Torsten Dreyer to match the performance described in -->
+<!-- CENTURY III AUTOPILOT FLIGHT SYSTEM - PILOT'S OPERATING HANDBOOK -->
+<!-- Based heavily on work from Dave Perry, who implemented the first -->
+<!-- working CENTURYIII autopilot for FlightGear -->
+<!-- This file contains the controller logic -->
+<PropertyList>
+
+  <params include="CENTURYIII-IO.xml"/>
+
+  <!-- provide power and serviceable properties, also check for circuit breaker
+  -->
+  <logic>
+    <name>electrical Power</name>
+    <debug>false</debug>
+    <input>
+      <greater-than>
+        <property>/systems/electrical/battery-bus/u-volts</property>
+        <value type="double">10.0</value>
+      </greater-than>
+      <not>
+        <property>controls/electric/circuitbreaker/cb_0_12</property>
+      </not>
+    </input>
+    <output alias="../../params/power"/>
+    <output alias="../../params/serviceable"/>
+  </logic>
+
+  <!-- Switch interconnection logic -->
+  <flipflop>
+    <type>RS</type>
+    <name>RollSwitch</name>
+    <set>
+      <or>
+        <property alias="../../../../params/controls/roll/on"/>
+        <property alias="../../../../params/controls/hdg/on"/>
+      </or>
+    </set>
+    <reset>
+      <or>
+        <not>
+          <property alias="../../../../../params/serviceable"/>
+          <property alias="../../../../../params/power"/>
+        </not>
+        <property alias="../../../../params/controls/roll/off"/>
+        <property alias="../../../../params/controls/disconnect"/>
+        <not-equals>
+          <property alias="../../../../../params/controls/manual-trim"/>
+          <value>0</value>
+        </not-equals>
+      </or>
+    </reset>
+    <output alias="../../params/controls/roll/state"/>
+  </flipflop>
+
+  <flipflop>
+    <type>RS</type>
+    <name>HdgSwitch</name>
+    <set>
+      <property alias="../../../params/controls/hdg/on"/>
+    </set>
+    <reset>
+      <or>
+        <property alias="../../../../params/controls/hdg/off"/>
+        <not>
+          <property alias="../../../../../params/controls/roll/state"/>
+        </not>
+      </or>
+    </reset>
+    <output alias="../../params/controls/hdg/state"/>
+  </flipflop>
+
+  <flipflop>
+    <type>RS</type>
+    <name>PitchSwitch</name>
+    <set>
+      <or>
+        <property alias="../../../../params/controls/pitch/on"/>
+        <property alias="../../../../params/controls/alt/on"/>
+      </or>
+    </set>
+    <reset>
+      <or>
+        <property alias="../../../../params/controls/pitch/off"/>
+        <not>
+          <property alias="../../../../../params/controls/roll/state"/>
+        </not>
+      </or>
+    </reset>
+    <output alias="../../params/controls/pitch/state"/>
+  </flipflop>
+
+  <flipflop>
+    <type>RS</type>
+    <name>AltSwitch</name>
+    <set>
+      <property alias="../../../params/controls/alt/on"/>
+    </set>
+    <reset>
+      <or>
+        <property alias="../../../../params/controls/alt/off"/>
+        <not>
+          <property alias="../../../../../params/controls/pitch/state"/>
+        </not>
+      </or>
+    </reset>
+    <output alias="../../params/controls/alt/state"/>
+  </flipflop>
+
+  <!-- Glideslope coupler logic -->
+
+  <flipflop>
+    <debug>false</debug>
+    <!-- provides a 'true' signal if the ALT switch has
+         been on for at least 20 seconds -->
+    <type>monostable</type>
+    <name>ALT timer</name>
+    <inverted type="bool">true</inverted>
+    <S>
+      <not>
+        <property alias="../../../../params/controls/alt/state"/>
+      </not>
+    </S>
+    <J><true/></J>
+    <clock>
+      <property alias="../../../params/controls/alt/state"/>
+    </clock>
+    <time>20.0</time>
+    <output alias="../../params/controls/alt/lock-timer"/>
+  </flipflop>
+
+  <flipflop>
+    <!-- provides a 'true' signal if the Mode switch has
+         been at LOC NORM for at least 20 seconds -->
+    <type>monostable</type>
+    <name>LOC NORM timer</name>
+    <inverted type="bool">true</inverted>
+    <S>
+<!--
+      <property alias="../../../params/power"/>
+      <property alias="../../../params/serviceable"/>
+-->
+      <not-equals>
+        <property alias="../../../../params/controls/mode"/>
+        <value alias="../../../../params/const/mode-loc-norm"/>
+      </not-equals>
+    </S>
+    <J><true/></J>
+    <clock>
+      <equals>
+        <property alias="../../../../params/controls/mode"/>
+        <value alias="../../../../params/const/mode-loc-norm"/>
+      </equals>
+    </clock>
+    <time>20.0</time>
+    <output alias="../../params/controls/mode-timer"/>
+  </flipflop>
+
+  <flipflop>
+    <type>monostable</type>
+    <name>below GS and gs-valid timer</name>
+    <inverted type="bool">true</inverted>
+    <S>
+      <not>
+        <property alias="../../../../params/input/gs-valid"/>
+<!--
+        <property alias="../../../../params/power"/>
+        <property alias="../../../../params/serviceable"/>
+-->
+      </not>
+      <not-equals>
+        <property alias="../../../../params/controls/mode"/>
+        <value alias="../../../../params/const/mode-loc-norm"/>
+      </not-equals>
+    </S>
+    <J><true/></J>
+    <clock>
+      <greater-than>
+        <property alias="../../../../params/input/gs-deflection"/>
+        <value>0.6</value>
+      </greater-than>
+    </clock>
+    <time>20.0</time>
+    <output alias="../../params/input/gs-deflection-timer"/>
+  </flipflop>
+
+  <logic>
+    <name>Glideslope Coupler Armed</name>
+    <debug>false</debug>
+    <input>
+      <!-- if mode is LOC NORM -->
+      <equals> 
+        <property alias="../../../../params/controls/mode"/>
+        <value alias="../../../../params/const/mode-loc-norm"/>
+      </equals>
+      <greater-than-equals> <!-- and for a at least 20 seconds -->
+        <property alias="../../../../params/controls/mode-timer"/>
+        <value>1.0</value>
+      </greater-than-equals>
+
+      <!-- and altitude hold -->
+      <property alias="../../../params/controls/alt/state"/> 
+      <greater-than-equals> <!-- and for at least 20 seconds -->
+        <property alias="../../../../params/controls/alt/lock-timer"/>
+        <value>1.0</value>
+      </greater-than-equals>
+
+      <!-- and glideslope deflection up (min 60%) -->
+      <or>
+        <and>
+          <greater-than>
+            <property alias="../../../../../../params/input/gs-deflection"/>
+            <value>0.6</value>
+          </greater-than>
+          <greater-than-equals> <!-- and for at least 20 seconds -->
+            <property alias="../../../../../../params/input/gs-deflection-timer"/>
+            <value>1.0</value>
+          </greater-than-equals>
+        </and>
+        <property alias="../../../../params/controls/gs-armed"/>
+      </or>
+    </input>
+
+    <output alias="../../params/controls/gs-armed"/>
+  </logic>
+
+  <logic>
+    <name>Glideslope Captured</name>
+    <debug>false</debug>
+    <input>
+      <property alias="../../../params/controls/gs-armed"/>
+      <or>
+        <less-than>
+          <property alias="../../../../../params/input/gs-deflection"/>
+          <value>0.0</value>
+        </less-than>
+        <property alias="../../../../params/controls/gs-captured"/>
+      </or>
+    </input>
+    <output alias="../../params/controls/gs-captured"/>
+  </logic>
+
+</PropertyList>

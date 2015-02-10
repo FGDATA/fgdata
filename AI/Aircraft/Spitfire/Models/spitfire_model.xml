@@ -1,0 +1,1271 @@
+<?xml version="1.0"?>
+<!-- Spitfire IIa by Vivian Meazza
+$Id$
+-->
+
+<PropertyList>
+
+	<path>../../../../Aircraft/Spitfire/Models/spitfireIIa.ac</path>
+	<texture-path>../../../../Aircraft/Spifire/Models</texture-path>
+
+	<nasal>
+		<load>
+			print("LOAD Spitfire IIa ", cmdarg().getPath());
+			var self = cmdarg();
+			var aliases = [];
+			var generic_int = 0;
+			var generic_float = 0;
+			var generic_string = "";
+
+			for (i = 0; i &lt; 3; i += 1) {
+			j = i + 1;
+			var tyre_smoke = self.getNode("gear/gear[" ~ i ~ "]/tyre-smoke", 1);
+			generic_int = self.getNode("sim/multiplay/generic/int[" ~ j ~ "]", 1);
+			tyre_smoke.alias(generic_int);
+			append(aliases, tyre_smoke);
+			}
+
+			for (i = 0; i &lt; 3; i += 1) {
+			j = i ;
+			var spray_speed = self.getNode("gear/gear[" ~ i ~ "]/sprayspeed-ms", 1);
+			generic_float = self.getNode("sim/multiplay/generic/float[" ~ j ~ "]", 1);
+			spray_speed.alias(generic_float);
+			append(aliases, spray_speed);
+			}
+
+			for (i = 0; i &lt; 3; i += 1) {
+			j = i + 3;
+			var spray_density = self.getNode("gear/gear[" ~ i ~ "]/spray-density", 1);
+			generic_float = self.getNode("sim/multiplay/generic/float[" ~ j ~ "]", 1);
+			spray_density.alias(generic_float);
+			append(aliases, spray_density);
+			}
+
+			var engine_running = self.getNode("engines/engine[0]/running", 1);
+			generic_int = self.getNode("sim/multiplay/generic/int[0]", 1);
+			engine_running.alias(generic_int);
+			append(aliases, engine_running);
+
+			var height_agl = self.getNode("position/altitude-agl-ft", 1);
+			generic_float = self.getNode("sim/multiplay/generic/float[6]", 1);
+			height_agl.alias(generic_float);
+			append(aliases, height_agl);
+
+			var caster_angle = self.getNode("gear/gear[0]/caster-angle-deg", 1);
+			generic_float = self.getNode("sim/multiplay/generic/float[7]", 1);
+			caster_angle.alias(generic_float);
+			append(aliases, caster_angle);
+
+			var throttle = self.getNode("controls/engines/engine[0]/throttle", 1);
+			generic_float = self.getNode("sim/multiplay/generic/float[8]", 1);
+			throttle.alias(generic_float);
+			append(aliases, throttle);
+
+			var canopy = self.getNode("gear/canopy/position-norm", 1);
+			generic_float = self.getNode("sim/multiplay/generic/float[9]", 1);
+			canopy.alias(generic_float);
+			append(aliases, canopy);
+
+			var door = self.getNode("controls/flight/door-position-norm", 1);
+			generic_float = self.getNode("sim/multiplay/generic/float[10]", 1);
+			door.alias(generic_float);
+			append(aliases, door);
+
+			var dirt = self.getNode("sim/time/hobbs/engine[0]", 1);
+			generic_float = self.getNode("sim/multiplay/generic/float[11]", 1);
+			dirt.alias(generic_float);
+			append(aliases, dirt);
+
+			var rad_flap = self.getNode("engines/engine/rad-flap-norm", 1);
+			generic_float = self.getNode("sim/multiplay/generic/float[12]", 1);
+			rad_flap.alias(generic_float);
+			append(aliases, rad_flap);
+
+			var landing_light = self.getNode("controls/lighting/landing-light[0]", 1);
+			generic_int = self.getNode("sim/multiplay/generic/int[6]", 1);
+			landing_light.alias(generic_int);
+			append(aliases, landing_light);
+
+			var i = 0;
+			var j = 0;
+		</load>
+
+		<unload>
+			print("UNLOAD Spitfire IIa ", cmdarg().getPath());
+			foreach (var a; aliases)
+			a.unalias();
+		</unload>
+	</nasal>
+
+	<!-- Front hotspots -->
+	<!--<panel>
+		<path>Aircraft/Spitfire/Models/panel-hotspots.xml</path>
+		<bottom-left>
+			<x-m>3.265</x-m>
+			<y-m>-0.40</y-m>
+			<z-m>-0.10</z-m>
+		</bottom-left>
+		<bottom-right>
+			<x-m>3.265</x-m>
+			<y-m> 0.40</y-m>
+			<z-m>-0.10</z-m>
+		</bottom-right>
+		<top-left>
+			<x-m>3.265</x-m>
+			<y-m>-0.40</y-m>
+			<z-m> 0.70</z-m>
+		</top-left>
+	</panel>-->
+	<!-- ************* panel models ************* -->
+	<!-- blind flying instruments -->
+	<!--<model>
+		<path>Aircraft/Spitfire/Models/asi.xml</path>
+		<offsets>
+			<x-m>3.265</x-m>
+			<y-m>-0.10</y-m>
+			<z-m>0.28</z-m>
+		</offsets>
+	</model>
+	<model>
+		<path>Aircraft/Spitfire/Models/attitude.xml</path>
+		<name>Attitude</name>
+		<offsets>
+			<x-m>3.265</x-m>
+			<y-m>0.0</y-m>
+			<z-m>0.28</z-m>
+		</offsets>
+	</model>
+	<model>
+		<path>Aircraft/Spitfire/Models/vsi.xml</path>
+		<offsets>
+			<x-m>3.265</x-m>
+			<y-m>0.10</y-m>
+			<z-m>0.28</z-m>
+		</offsets>
+	</model>
+	<model>
+		<path>Aircraft/Spitfire/Models/altimeter.xml</path>
+		<name>Altimeter</name>
+		<offsets>
+			<x-m>3.265</x-m>
+			<y-m>-0.10</y-m>
+			<z-m>0.18</z-m>
+		</offsets>
+	</model>
+	<model>
+		<path>Aircraft/Spitfire/Models/compass.xml</path>
+		<offsets>
+			<x-m>3.265</x-m>
+			<y-m>0</y-m>
+			<z-m>0.18</z-m>
+		</offsets>
+	</model>
+	<model>
+		<path>Aircraft/Spitfire/Models/turn.xml</path>
+		<name>Turn</name>
+		<offsets>
+			<x-m>3.265</x-m>
+			<y-m>0.10</y-m>
+			<z-m>0.18</z-m>
+		</offsets>
+	</model>
+	--><!-- end blind flying instruments --><!--
+	--><!-- main panel --><!--
+	<model>
+		<path>Aircraft/Spitfire/Models/rgs-main-switch.xml</path>
+		<offsets>
+			<x-m>3.265</x-m>
+			<y-m>-0.09</y-m>
+			<z-m>0.38</z-m>
+		</offsets>
+	</model>
+	<model>
+		<path>Aircraft/Spitfire/Models/rgs-dimmer-switch.xml</path>
+		<offsets>
+			<x-m>3.265</x-m>
+			<y-m>-0.055</y-m>
+			<z-m>0.38</z-m>
+		</offsets>
+	</model>
+	--><!-- engine instruments --><!--
+	<model>
+		<path>Aircraft/Spitfire/Models/rpm.xml</path>
+		<offsets>
+			<x-m>3.265</x-m>
+			<y-m>0.19</y-m>
+			<z-m>0.32</z-m>
+		</offsets>
+	</model>
+	<model>
+		<path>Aircraft/Spitfire/Models/boost.xml</path>
+		<offsets>
+			<x-m>3.265</x-m>
+			<y-m>0.25</y-m>
+			<z-m>0.23</z-m>
+		</offsets>
+	</model>
+	<model>
+		<path>Aircraft/Spitfire/Models/oil-pressure.xml</path>
+		<offsets>
+			<x-m>3.265</x-m>
+			<y-m>0.17</y-m>
+			<z-m>0.15</z-m>
+		</offsets>
+	</model>
+	--><!----><!--
+	<model>
+		<path>Aircraft/Spitfire/Models/fuel.xml</path>
+		<offsets>
+			<x-m>3.265</x-m>
+			<y-m>0.27</y-m>
+			<z-m>0.08</z-m>
+		</offsets>
+	</model>
+	<model>
+		<path>Aircraft/Spitfire/Models/fuel-pressure.xml</path>
+		<offsets>
+			<x-m>3.265</x-m>
+			<y-m>0.17</y-m>
+			<z-m>0.23</z-m>
+		</offsets>
+	</model>
+	<model>
+		<path>Aircraft/Spitfire/Models/starter.xml</path>
+		<offsets>
+			<x-m>3.265</x-m>
+			<y-m>0.12</y-m>
+			<z-m>0.05</z-m>
+		</offsets>
+	</model>
+	<model>
+		<path>Aircraft/Spitfire/Models/ring-pull.xml</path>
+		<offsets>
+			<x-m>3.265</x-m>
+			<y-m>0.33</y-m>
+			<z-m>0.08</z-m>
+		</offsets>
+	</model>-->
+	<!--<model>
+		<path>Aircraft/Spitfire/Models/cut-off.xml</path>
+		<offsets>
+			<x-m>3.265</x-m>
+			<y-m>0.22</y-m>
+			<z-m>-0.05</z-m>
+		</offsets>
+	</model>
+	<model>
+		<path>Aircraft/Spitfire/Models/primer.xml</path>
+		<offsets>
+			<x-m>3.265</x-m>
+			<y-m>0.16</y-m>
+			<z-m>-0.06</z-m>
+		</offsets>
+	</model>
+	<model>
+		<path>Aircraft/Spitfire/Models/fuel-cocks.xml</path>
+		<offsets>
+			<x-m>3.265</x-m>
+			<y-m>0.09</y-m>
+			<z-m>-0.08</z-m>
+		</offsets>
+	</model>-->
+	<!--    end engine instruments -->
+	<!-- miscellaneous (left panel) instruments -->
+	<!--<model>
+		<path>Aircraft/Spitfire/Models/clock.xml</path>
+		<offsets>
+			<x-m>3.265</x-m>
+			<y-m>-0.29</y-m>
+			<z-m>0.19</z-m>
+		</offsets>
+	</model>
+	<model>
+		<path>Aircraft/Spitfire/Models/trim.xml</path>
+		<offsets>
+			<x-m>3.265</x-m>
+			<y-m>-0.19</y-m>
+			<z-m>0.13</z-m>
+		</offsets>
+	</model>
+	<model>
+		<path>Aircraft/Spitfire/Models/triple.xml</path>
+		<offsets>
+			<x-m>3.265</x-m>
+			<y-m>-0.25</y-m>
+			<z-m>0.05</z-m>
+		</offsets>
+	</model>-->
+	<!--<model>
+		<path>Aircraft/Spitfire/Models/magneto.xml</path>
+		<offsets>
+			<x-m>3.265</x-m>
+			<y-m>-0.32</y-m>
+			<z-m>0.08</z-m>
+		</offsets>
+	</model>
+	<model>
+		<path>Aircraft/Spitfire/Models/flaps.xml</path>
+		<offsets>
+			<x-m>3.265</x-m>
+			<y-m>-0.19</y-m>
+			<z-m>0.34</z-m>
+		</offsets>
+	</model>-->
+	<!--<model>
+		<path>Aircraft/Spitfire/Models/undercarriage-up-down.xml</path>
+		<name>Gear-Indicator</name>
+		<offsets>
+			<x-m>3.265</x-m>
+			<y-m>-0.20</y-m>
+			<z-m>0.22</z-m>
+		</offsets>
+	</model>
+	<model>
+		<path>Aircraft/Spitfire/Models/dimmer.xml</path>
+		<offsets>
+			<x-m>3.265</x-m>
+			<y-m>-0.06</y-m>
+			<z-m>0.05</z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<path>Aircraft/Spitfire/Models/nav-light-switch.xml</path>
+		<offsets>
+			<x-m>3.265</x-m>
+			<y-m>-0.23</y-m>
+			<z-m>0.34</z-m>
+		</offsets>
+	</model>-->
+
+	<!-- non-panel models -->
+	<model>
+		<path>Aircraft/Spitfire/Models/throttle.xml</path>
+		<offsets>
+			<x-m>3.40</x-m>
+			<y-m>-0.39</y-m>
+			<z-m>-0.10</z-m>
+		</offsets>
+	</model>
+	<model>
+		<path>Aircraft/Spitfire/Models/control-stick.xml</path>
+		<offsets>
+			<x-m>3.45</x-m>
+			<y-m>-0.0</y-m>
+			<z-m>-0.80</z-m>
+		</offsets>
+	</model>
+	<model>
+		<path>Aircraft/Spitfire/Models/trim-wheel-elev.xml</path>
+		<offsets>
+			<x-m>3.52</x-m>
+			<y-m>-0.3725</y-m>
+			<z-m>-0.135</z-m>
+		</offsets>
+	</model>
+	<model>
+		<path>Aircraft/Spitfire/Models/trim-knob-rudder.xml</path>
+		<offsets>
+			<x-m>3.64</x-m>
+			<y-m>-0.3725</y-m>
+			<z-m>-0.16</z-m>
+		</offsets>
+	</model>
+	<model>
+		<path>Aircraft/Spitfire/Models/rgs.xml</path>
+		<name>Gunsight</name>
+		<offsets>
+			<x-m>3.38</x-m>
+			<y-m>-0.0</y-m>
+			<z-m>0.53</z-m>
+		</offsets>
+	</model>
+
+	<!-- ***** Navigation Lights ****** -->
+	<model>
+		<path>Aircraft/Spitfire/Models/light-green.xml</path>
+		<name>Stbd-Light</name>
+		<offsets>
+			<x-m>2.35</x-m>
+			<y-m>5.4805</y-m>
+			<z-m>-0.26532</z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<path>Aircraft/Spitfire/Models/light-red.xml</path>
+		<name>Port-Light</name>
+		<offsets>
+			<x-m>2.35</x-m>
+			<y-m>-5.4805</y-m>
+			<z-m>-0.26532</z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<path>Aircraft/Spitfire/Models/light-white.xml</path>
+		<name>Tail-Light</name>
+		<offsets>
+			<x-m>9.05</x-m>
+			<y-m>0.0</y-m>
+			<z-m>0.837072</z-m>
+		</offsets>
+	</model>
+
+	<!-- Tutorial -->
+	<model>
+		<path>Models/Aircraft/marker.xml</path>
+	</model>
+
+	<!-- hide all of the model not visible from the cockpit -->
+	<animation>
+		<type>select</type>
+		<object-name>Hull-Aft</object-name>
+		<object-name>Stub-Wing-R</object-name>
+		<object-name>Stub-Wing-L</object-name>
+		<object-name>Flap-Inner-R</object-name>
+		<object-name>Flap-Inner-L</object-name>
+		<object-name>Flap-Outer-R</object-name>
+		<object-name>Flap-Outer-L</object-name>
+		<object-name>Cover-Lower-M</object-name>
+		<object-name>Cover-Lower-F</object-name>
+		<object-name>Cover-Lower-A</object-name>
+		<object-name>Cover-Engine-Side-L</object-name>
+		<object-name>Cover-Engine-Side-R</object-name>
+		<object-name>UC-Main-L</object-name>
+		<object-name>UC-Main-R</object-name>
+		<condition>
+			<not>
+				<equals>
+					<property>sim/current-view/view-number</property>
+					<value>0</value>
+				</equals>
+			</not>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>UC-Tail</object-name>
+		<object-name>Spinner</object-name>
+		<object-name>Exhausts</object-name>
+		<object-name>Wing-B-L</object-name>
+		<object-name>Wing-B-R</object-name>
+		<object-name>Wing-Tip-B-L</object-name>
+		<object-name>Wing-Tip-B-R</object-name>
+		<object-name>Oil-Cooler</object-name>
+		<object-name>Radiator</object-name>
+		<object-name>Carburettor-Air-Intake</object-name>
+		<object-name>Tail-Light</object-name>
+		<condition>
+			<not>
+				<equals>
+					<property>sim/current-view/view-number</property>
+					<value>0</value>
+				</equals>
+			</not>
+		</condition>
+	</animation>
+
+	<!-- make sure that all the rest of the aircraft is visible-->
+	<animation>
+		<!--<type>select</type>-->
+		<object-name>Hull</object-name>
+		<object-name>Port-Light</object-name>
+		<object-name>Stbd-Light</object-name>
+		<object-name>Gunsight</object-name>
+		<object-name>Altimeter</object-name>
+		<object-name>Attitude</object-name>
+		<object-name>Gear-Indicator</object-name>
+		<object-name>Turn</object-name>
+		<object-name>Pilot</object-name>
+		<object-name>Port-Nav-Lt-Cover</object-name>
+		<object-name>Stbd-Nav-Lt-Cover</object-name>
+		<object-name>Tail-Lt-Cover</object-name>
+		<object-name>Dirt-Oil</object-name>
+		<object-name>Dirt-Exhaust</object-name>
+		<object-name>Canopy</object-name>
+		<!--<object-name>Blackout</object-name>-->
+		<!--<condition> 
+        <greater-than-equals> 
+          <property>sim/current-view/view-number</property>
+          <value>0</value>
+        </greater-than-equals>
+      </condition>-->
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>Canopy-Rear-Rain</object-name>
+		<condition>
+			<greater-than>
+				<property>sim/model/rain/raining-norm</property>
+				<value>0.01</value>
+			</greater-than>
+		</condition>
+	</animation>
+	
+	<animation>
+		<type>select</type>
+		<nopreview/>
+		<object-name>Canopy-FP-Rain</object-name>
+		<condition>
+			<greater-than>
+				<property>sim/model/rain/raining-norm</property>
+				<value>0.01</value>
+			</greater-than>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<nopreview/>
+		<object-name>Canopy-F-Rain</object-name>
+		<condition>
+			<greater-than>
+				<property>sim/model/rain/raining-norm</property>
+				<value>0.01</value>
+			</greater-than>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<nopreview/>
+		<object-name>Canopy-Main-Rain</object-name>
+		<condition>
+			<greater-than>
+				<property>sim/model/rain/raining-norm</property>
+				<value>0.01</value>
+			</greater-than>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>Canopy-Main</object-name>
+		<object-name>Canopy-Rear</object-name>
+		<object-name>Canopy-FP</object-name>
+		<condition>
+			<less-than-equals>
+				<property>sim/model/rain/raining-norm</property>
+				<value>0.01</value>
+			</less-than-equals>
+		</condition>
+	</animation>
+	<!-- **************************** Pilot ******************************* -->
+
+	<animation>
+		<type>select</type>
+		<object-name>Pilot</object-name>
+		<condition>
+			<or>
+				<not>
+				<property>sim/model/spitfire/show-pilot</property>
+				</not>
+				<not>
+					<equals>
+						<property>sim/current-view/view-number</property>
+						<value>0</value>
+					</equals>
+				</not>
+			</or>
+		</condition>
+	</animation>
+
+	<!--  conceal Pilot Head etc in Cockpit View-->
+	<animation>
+		<type>select</type>
+		<object-name>Pilot-Head</object-name>
+		<condition>
+			<not>
+				<equals>
+					<property>sim/current-view/view-number</property>
+					<value>0</value>
+				</equals>
+			</not>
+		</condition>
+	</animation>
+	<!-- seat height -->
+	<animation>
+		<type>translate</type>
+		<object-name>Pilot</object-name>
+		<object-name>Seat</object-name>
+		<property>controls/seat/vertical-adjust</property>
+		<axis>
+			<x>0</x>
+			<y>0</y>
+			<z>1</z>
+		</axis>
+	</animation>
+
+	<!-- ***************** Flight Surfaces ************** -->
+	<!-- ailerons -->
+	<animation>
+		<type>rotate</type>
+		<object-name>Aileron-L</object-name>
+		<property>surface-positions/left-aileron-pos-norm</property>
+		<factor>-30</factor>
+		<axis>
+			<x1-m>3.49</x1-m>
+			<y1-m>-3.24</y1-m>
+			<z1-m>-0.54</z1-m>
+			<x2-m>3.27</x2-m>
+			<y2-m>-4.46</y2-m>
+			<z2-m>-0.39</z2-m>
+		</axis>
+	</animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>Aileron-R</object-name>
+		<property>surface-positions/right-aileron-pos-norm</property>
+		<factor>30</factor>
+		<axis>
+			<x1-m>3.49</x1-m>
+			<y1-m>3.24</y1-m>
+			<z1-m>-0.54</z1-m>
+			<x2-m>3.27</x2-m>
+			<y2-m>4.46</y2-m>
+			<z2-m>-0.39</z2-m>
+		</axis>
+	</animation>
+	<!-- flaps -->
+	<animation>
+		<type>rotate</type>
+		<object-name>Flap-Inner-L</object-name>
+		<property>surface-positions/flap-pos-norm</property>
+		<factor>-86</factor>
+		<axis>
+			<x1-m>4.04</x1-m>
+			<y1-m>-0.37</y1-m>
+			<z1-m>-0.80</z1-m>
+			<x2-m>4.0</x2-m>
+			<y2-m>-0.77</y2-m>
+			<z2-m>-0.80</z2-m>
+		</axis>
+	</animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>Flap-Inner-R</object-name>
+		<property>surface-positions/flap-pos-norm</property>
+		<factor>86</factor>
+		<axis>
+			<x1-m>4.04</x1-m>
+			<y1-m>0.37</y1-m>
+			<z1-m>-0.80</z1-m>
+			<x2-m>4.0</x2-m>
+			<y2-m>0.77</y2-m>
+			<z2-m>-0.80</z2-m>
+		</axis>
+	</animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>Flap-Outer-L</object-name>
+		<property>surface-positions/flap-pos-norm</property>
+		<factor>-86</factor>
+		<axis>
+			<x1-m>4.0</x1-m>
+			<y1-m>-0.77</y1-m>
+			<z1-m>-0.80</z1-m>
+			<x2-m>3.89</x2-m>
+			<y2-m>-1.85</y2-m>
+			<z2-m>-0.71</z2-m>
+		</axis>
+	</animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>Flap-Outer-R</object-name>
+		<property>surface-positions/flap-pos-norm</property>
+		<factor>86</factor>
+		<axis>
+			<x1-m>4.0</x1-m>
+			<y1-m>0.77</y1-m>
+			<z1-m>-0.80</z1-m>
+			<x2-m>3.89</x2-m>
+			<y2-m>1.85</y2-m>
+			<z2-m>-0.71</z2-m>
+		</axis>
+	</animation>
+	<!-- elevators -->
+	<animation>
+		<type>rotate</type>
+		<object-name>Elevator-L</object-name>
+		<property>surface-positions/elevator-pos-norm</property>
+		<factor>-15</factor>
+		<axis>
+			<x1-m>8.36</x1-m>
+			<y1-m>-0.05</y1-m>
+			<z1-m>0.23</z1-m>
+			<x2-m>8.37</x2-m>
+			<y2-m>-0.77</y2-m>
+			<z2-m>0.23</z2-m>
+		</axis>
+	</animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>Elevator-R</object-name>
+		<property>surface-positions/elevator-pos-norm</property>
+		<factor>15</factor>
+		<axis>
+			<x1-m>8.36</x1-m>
+			<y1-m>0.05</y1-m>
+			<z1-m>0.23</z1-m>
+			<x2-m>8.37</x2-m>
+			<y2-m>0.77</y2-m>
+			<z2-m>0.23</z2-m>
+		</axis>
+	</animation>
+	<!-- rudder -->
+	<animation>
+		<type>rotate</type>
+		<object-name>Rudder</object-name>
+		<object-name>Tail-Light</object-name>
+		<property>surface-positions/rudder-pos-norm</property>
+		<factor>-15</factor>
+		<axis>
+			<x1-m>8.51</x1-m>
+			<y1-m>0.00</y1-m>
+			<z1-m>1.20</z1-m>
+			<x2-m>8.51</x2-m>
+			<y2-m>0.00</y2-m>
+			<z2-m>-0.29</z2-m>
+		</axis>
+	</animation>
+
+
+	<!-- ***** Propeller ***** -->
+	<animation>
+		<type>select</type>
+		<object-name>Propeller</object-name>
+		<condition>
+			<less-than>
+				<property>engines/engine[0]/rpm</property>
+				<value>1000</value>
+			</less-than>
+		</condition>
+	</animation>
+	<animation>
+		<type>spin</type>
+		<object-name>Propeller</object-name>
+		<property>engines/engine[0]/rpm</property>
+		<factor>0.477</factor>
+		<center>
+			<x-m>-0.40</x-m>
+			<y-m>0.0</y-m>
+			<z-m>0.0</z-m>
+		</center>
+		<axis>
+			<x>-1.0</x>
+			<y>0.0</y>
+			<z>0.0</z>
+		</axis>
+	</animation>
+	<animation>
+		<type>spin</type>
+		<object-name>Spinner</object-name>
+		<property>engines/engine[0]/rpm</property>
+		<factor>0.477</factor>
+		<center>
+			<x-m>-0.40</x-m>
+			<y-m>0.0</y-m>
+			<z-m>0.0</z-m>
+		</center>
+		<axis>
+			<x>-1.0</x>
+			<y>0.0</y>
+			<z>0.0</z>
+		</axis>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>PropellerDisk</object-name>
+		<condition>
+			<greater-than>
+				<property>engines/engine[0]/rpm</property>
+				<value>900</value>
+			</greater-than>
+		</condition>
+	</animation>
+	<animation>
+		<type>blend</type>
+		<object-name>PropellerDisk</object-name>
+		<property>engines/engine[0]/rpm</property>
+		<factor>0.0005</factor>
+		<offset>-0.5</offset>
+		<min>0.0</min>
+		<max>1</max>
+	</animation>
+
+	<!-- ****** Undercarriage ***** -->
+	<animation>
+		<type>rotate</type>
+		<object-name>Door-L</object-name>
+		<property>gear/gear[0]/position-norm</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>0</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>96</dep>
+			</entry>
+		</interpolation>
+		<axis>
+			<x1-m>2.36</x1-m>
+			<y1-m>-0.67</y1-m>
+			<z1-m>-0.81</z1-m>
+			<x2-m>2.48</x2-m>
+			<y2-m>-0.64</y2-m>
+			<z2-m>-0.85</z2-m>
+		</axis>
+	</animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>Door-R</object-name>
+		<property>gear/gear[1]/position-norm</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>0</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>-96</dep>
+			</entry>
+		</interpolation>
+		<axis>
+			<x1-m>2.36</x1-m>
+			<y1-m>0.67</y1-m>
+			<z1-m>-0.81</z1-m>
+			<x2-m>2.48</x2-m>
+			<y2-m>0.64</y2-m>
+			<z2-m>-0.85</z2-m>
+		</axis>
+	</animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>Leg-Assembly-L</object-name>
+		<property>gear/gear/position-norm</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>-90.4</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>0</dep>
+			</entry>
+		</interpolation>
+		<axis>
+			<x1-m>2.43</x1-m>
+			<y1-m>-0.663</y1-m>
+			<z1-m>-0.75</z1-m>
+			<x2-m>2.53</x2-m>
+			<y2-m>-0.637</y2-m>
+			<z2-m>-0.785</z2-m>
+		</axis>
+	</animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>Leg-Assembly-R</object-name>
+		<property>gear/gear[1]/position-norm</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>90.4</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>0</dep>
+			</entry>
+		</interpolation>
+		<axis>
+			<x1-m>2.43</x1-m>
+			<y1-m>0.663</y1-m>
+			<z1-m>-0.75</z1-m>
+			<x2-m>2.53</x2-m>
+			<y2-m>0.637</y2-m>
+			<z2-m>-0.785</z2-m>
+		</axis>
+	</animation>
+	<!-- compression -->
+	<animation>
+		<type>translate</type>
+		<object-name>Leg-Lower-Assembly-L</object-name>
+		<property>gear/gear/compression-norm</property>
+		<factor>0.2</factor>
+		<axis>
+			<x>0.321</x>
+			<y>0.075</y>
+			<z>1</z>
+		</axis>
+	</animation>
+	<animation>
+		<type>translate</type>
+		<object-name>Leg-Lower-Assembly-R</object-name>
+		<property>gear/gear[1]/compression-norm</property>
+		<factor>0.2</factor>
+		<axis>
+			<x>0.321</x>
+			<y>-0.075</y>
+			<z>1</z>
+		</axis>
+	</animation>
+	<!-- tail wheel castering -->
+	<animation>
+		<type>rotate</type>
+		<object-name>Tail-Wheel-Assembly</object-name>
+		<property>gear/gear[2]/caster-angle-deg</property>
+		<factor>1</factor>
+		<center>
+			<x-m>8.27781</x-m>
+			<y-m>0</y-m>
+			<z-m>-0.502272</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>0</y>
+			<z>1</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>spin</type>
+		<object-name>Wheel-T</object-name>
+		<property>gear/gear[2]/rollspeed-ms</property>
+		<factor>67.24857</factor>
+		<axis>
+			<x1-m>8.48803</x1-m>
+			<y1-m>0.0295732</y1-m>
+			<z1-m>-0.519478</z1-m>
+			<x2-m>8.48803</x2-m>
+			<y2-m>-0.0295656</y2-m>
+			<z2-m>-0.519002</z2-m>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>spin</type>
+		<object-name>Wheel-L</object-name>
+		<property>gear/gear[0]/rollspeed-ms</property>
+		<factor>29.794997</factor>
+		<axis>
+			<x1-m>2.1962</x1-m>
+			<y1-m>-0.796587</y1-m>
+			<z1-m>-1.66508</z1-m>
+			<x2-m>2.1962</x2-m>
+			<y2-m>-0.929497</y2-m>
+			<z2-m>-1.67797</z2-m>
+		</axis>
+	</animation>
+	<animation>
+		<type>spin</type>
+		<object-name>Wheel-R</object-name>
+		<property>gear/gear[1]/rollspeed-ms</property>
+		<factor>-29.794997</factor>
+		<axis>
+			<x1-m>2.1962</x1-m>
+			<y1-m>0.796587</y1-m>
+			<z1-m>-1.66508</z1-m>
+			<x2-m>2.1962</x2-m>
+			<y2-m>0.929497</y2-m>
+			<z2-m>-1.67797</z2-m>
+		</axis>
+	</animation>
+
+	<!-- Radiator Duct -->
+	<animation>
+		<type>rotate</type>
+		<object-name>Flap</object-name>
+		<property>engines/engine/cowl-flaps-norm</property>
+		<factor>90</factor>
+		<axis>
+			<x1-m>3.46</x1-m>
+			<y1-m>0.52</y1-m>
+			<z1-m>-1.04</z1-m>
+			<x2-m>3.45</x2-m>
+			<y2-m>1.17</y2-m>
+			<z2-m>-1.03</z2-m>
+		</axis>
+	</animation>
+
+	<!-- ***************** Canopy *********************** -->
+	<animation>
+		<type>translate</type>
+		<object-name>Canopy-Main</object-name>
+		<object-name>Frame-Main</object-name>
+		<property>gear/canopy/position-norm</property>
+		<factor>0.575</factor>
+		<axis>
+			<x>1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<!-- ***************** Door *********************** -->
+	<animation>
+		<type>rotate</type>
+		<object-name>Door</object-name>
+		<property>controls/flight/door-position-norm</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>0</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>-170</dep>
+			</entry>
+		</interpolation>
+		<axis>
+			<x1-m>4.17</x1-m>
+			<y1-m>-0.42</y1-m>
+			<z1-m>-0.050</z1-m>
+			<x2-m>3.72</x2-m>
+			<y2-m>-0.42</y2-m>
+			<z2-m>-0.050</z2-m>
+		</axis>
+	</animation>
+
+	<!-- ***************** Radiator Flap*********************** -->
+	<animation>
+		<type>rotate</type>
+		<object-name>Lever-Rad-Flap</object-name>
+		<property>controls/engines/engine/cowl-flaps-norm</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>0</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>-90</dep>
+			</entry>
+		</interpolation>
+		<axis>
+			<x1-m>3.74</x1-m>
+			<y1-m>0.19</y1-m>
+			<z1-m>-0.80</z1-m>
+			<x2-m>3.74</x2-m>
+			<y2-m>-0.19</y2-m>
+			<z2-m>-0.80</z2-m>
+		</axis>
+	</animation>
+	<!-- 
+<animation>
+  <type>select</type>
+  <object-name>TailNavLightOn</object-name>
+  <condition>
+    <property>controls/lighting/nav-lights</property>
+  </condition>
+ </animation>
+
+ <animation>
+  <name>BeaconFlasher</name>
+  <type>timed</type>
+  <object-name>BeaconOff</object-name>
+  <object-name>BeaconOn</object-name>
+  <duration-sec>1.0</duration-sec>
+ </animation>
+
+ <animation>
+  <type>select</type>
+  <object-name>BeaconFlasher</object-name>
+  <condition>
+   <property>controls/lighting/beacon</property>
+  </condition>
+ </animation>
+-->
+	<animation>
+		<type>material</type>
+		<object-name>Panel</object-name>
+		<emission>
+			<factor-prop>/controls/lighting/panel-norm</factor-prop>
+			<red>0.6</red>
+			<green>0.20</green>
+			<blue>0.20</blue>
+		</emission>
+	</animation>
+
+	<!-- ========== Dirt textures ========= -->
+
+	<animation>
+		<type>material</type>
+		<object-name>Dirt-Exhaust</object-name>
+		<nopreview/>
+		<transparency>
+			<alpha-prop>sim/time/hobbs/engine[0]</alpha-prop>
+			<factor>0.00027</factor>
+			<offset>0</offset>
+			<max>0.7</max>
+			<min>0.0075</min>
+		</transparency>
+		<!--<threshold>0.001</threshold>-->
+	</animation>
+
+	<animation>
+		<type>material</type>
+		<object-name>Dirt-Oil</object-name>
+		<nopreview/>
+		<transparency>
+			<alpha-prop>sim/time/hobbs/engine[0]</alpha-prop>
+			<factor>0.00027</factor>
+			<offset>0</offset>
+			<max>0.9</max>
+			<min>0.0075</min>
+		</transparency>
+		<!--<threshold>0.001</threshold>-->
+	</animation>
+
+	<!-- ============= Rain Animations ============= -->
+
+	<model>
+		<path>Aircraft/Generic/Effects/tyre-smoke-port.xml</path>
+		<name>tyre-smoke-p</name>
+		<offsets>
+			<x-m>2.3191</x-m>
+			<y-m>-0.831494</y-m>
+			<z-m>-1.96577</z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<path>Aircraft/Generic/Effects/tyre-smoke-stbd.xml</path>
+		<name>tyre-smoke-s</name>
+		<offsets>
+			<x-m>2.3191</x-m>
+			<y-m>0.831494</y-m>
+			<z-m>-1.96577</z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<path>Aircraft/Generic/Effects/rain-port.xml</path>
+		<name>rain-p</name>
+		<offsets>
+			<offsets>
+				<x-m>2.3191</x-m>
+				<y-m>-0.831494</y-m>
+				<z-m>-1.96577</z-m>
+			</offsets>
+		</offsets>
+	</model>
+
+	<model>
+		<path>Aircraft/Generic/Effects/rain-stbd.xml</path>
+		<name>rain-s</name>
+		<offsets>
+			<x-m>2.3191</x-m>
+			<y-m>0.831494</y-m>
+			<z-m>-1.96577</z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<path>Aircraft/Generic/Effects/rain-tail.xml</path>
+		<name>rain-t</name>
+		<offsets>
+			<x-m>8.56606</x-m>
+			<y-m>0</y-m>
+			<z-m>-0.94651</z-m>
+		</offsets>
+	</model>
+
+	<animation>
+		<type>textranslate</type>
+		<object-name>Canopy-FP-Rain</object-name>
+		<property>sim/model/rain/flow-mps</property>
+		<factor>1</factor>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>textranslate</type>
+		<object-name>Canopy-F-Rain</object-name>
+		<property>sim/model/rain/flow-mps</property>
+		<factor>1</factor>
+		<offset>0.33</offset>
+		<axis>
+			<x>1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>textranslate</type>
+		<object-name>Canopy-Rear-Rain</object-name>
+		<property>sim/model/rain/flow-mps</property>
+		<factor>1</factor>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>textranslate</type>
+		<object-name>Canopy-Main-Rain</object-name>
+		<property>sim/model/rain/flow-mps</property>
+		<factor>1</factor>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>material</type>
+		<object-name>Canopy-FP-Rain</object-name>
+		<object-name>Canopy-Rear-Rain</object-name>
+		<object-name>Canopy-F-Rain</object-name>
+		<object-name>Canopy-Main-Rain</object-name>
+		<transparency>
+			<alpha-prop>velocities/airspeed-kt</alpha-prop>
+			<factor>-0.00333</factor>
+			<offset>1</offset>
+			<max>0.3</max>
+			<min>0.0075</min>
+		</transparency>
+		<!--<threshold>0.001</threshold>-->
+	</animation>
+
+	<animation>
+		<type>material</type>
+		<object-name>Canopy-FP-Rain</object-name>
+		<object-name>Canopy-Rear-Rain</object-name>
+		<object-name>Canopy-F-Rain</object-name>
+		<object-name>Canopy-Main-Rain</object-name>
+		<transparency>
+			<alpha-prop>sim/model/rain/raining-norm</alpha-prop>
+			<factor>0.7</factor>
+			<offset>0</offset>
+			<max>0.3</max>
+			<min>0.0075</min>
+		</transparency>
+		<!--<threshold>0.001</threshold>-->
+	</animation>
+
+	<animation>
+		<type>shader</type>
+		<shader>chrome</shader>
+		<texture>Aircraft/Generic/Effects/glass_shader.png</texture>
+		<object-name>Canopy-Main</object-name>
+		<object-name>Canopy-Rear</object-name>
+		<object-name>Canopy-F</object-name>
+	</animation>
+
+	<!-- *** LoD for the whole model *** -->
+	<animation>
+		<type>range</type>
+		<min-m>0</min-m>
+		<max-m>10000</max-m>
+	</animation>
+
+</PropertyList>

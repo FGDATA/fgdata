@@ -1,0 +1,398 @@
+<?xml version="1.0"?>
+<!--
+	Copyright (c) 2011   Melchior FRANZ   mfranz # aon : at
+
+	This driver supports joystick overlay files (see ./Warthog/README).
+
+	TMS ... Target Management Switch (black, rippled cursor switch, left side)
+	DMS ... Data Management Switch (black cursor switch with flat cross on top, right side)
+	CMS ... Countermeasures Management Switch  (grey)
+-->
+
+<PropertyList>
+	<name>Thustmaster Joystick - HOTAS Warthog</name>
+	<name>Thrustmaster Joystick - HOTAS Warthog</name> <!-- in case they ever manage to fix their name -->
+
+	<nasal>
+		<script>
+			var this = cmdarg().getParent();
+			var init = !contains(caller(0)[0], "init");
+			if (!contains(globals, "warthog"))
+				io.load_nasal(getprop("/sim/fg-root") ~ "/Input/Joysticks/ThrustMaster/Warthog/warthog.nas");
+
+			var jslistener = func init and call(setlistener, arg);
+			var popup = func gui.popupTip(call(sprintf, arg));
+			var is_helicopter = (func {(var n = props.globals.getNode("rotors", 0)) != nil and n.getAttribute("children")})();
+			var aircraft_type = getprop("/sim/type");
+
+			var load_overlay = func(name) {
+				foreach (var dir; [getprop("/sim/fg-home"), getprop("/sim/fg-root")]) {
+					var file = dir ~ "/Input/Joysticks/ThrustMaster/Warthog/Stick/" ~ name ~ ".xml";
+					if (io.stat(file) != nil) {
+						printlog("info", "WARTHOG: loading overlay " ~ file);
+						cmdarg().setValues({command: "nasal", script: ""});
+						io.read_properties(file, this);
+						props.runBinding(cmdarg());
+						break;
+					}
+				}
+			}
+
+			foreach (var b; this.getChildren("button")) {
+				if (b.getAttribute("children") == 1) {
+					var name = b.getNode("name", 1).getValue() or "??";
+					b.setValues({binding: {command: "nasal", script: 'popup("' ~ name ~ '")'}});
+				}
+			}
+
+			var mod = 0;
+			var m = props.globals.initNode("/devices/status/joysticks/warthog/modifier", mod, "INT");
+			jslistener(m, func(n) mod = n.getValue());
+
+			var trimstep = 0.75;
+			var viewstep = 0.5;
+			var button = {18: {id: 0}};
+
+			var reset_zoom = func setprop("/sim/current-view/field-of-view", 55);
+			var viewdir = props.globals.getNode("/sim").getChildren("view");
+			forindex (var i; viewdir) {
+				var t = viewdir[i].getNode("type");
+				viewdir[i] = t != nil and t.getValue() == "lookat" ? 1 : -1;
+			}
+
+			load_overlay("generic");
+			if (is_helicopter)
+				load_overlay("helicopter");
+			if (aircraft_type)
+				load_overlay(aircraft_type);
+			foreach (var o; split(":", getprop("/input/joysticks/overlays") or ""))
+				load_overlay(o);
+			load_overlay(getprop("/sim/aircraft"));
+		</script>
+	</nasal>
+
+	<axis n="0">
+		<name>X-axis</name>
+		<desc>aileron</desc>
+		<tolerance>0.00001</tolerance>
+		<binding>
+			<command>property-scale</command>
+			<property>/controls/flight/aileron</property>
+		</binding>
+	</axis>
+
+	<axis n="1">
+		<name>Y-axis</name>
+		<desc>elevator</desc>
+		<tolerance>0.00001</tolerance>
+		<binding>
+			<command>property-scale</command>
+			<property>/controls/flight/elevator</property>
+			<factor type="double">-1.0</factor>
+		</binding>
+	</axis>
+
+	<axis n="2">
+		<name>Trim Hat Switch Left/Right</name>
+		<desc>adjust aileron trim,  +mod: reset aileron trim</desc>
+		<low>
+			<repeatable>true</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>
+					if (mod)
+						setprop("/controls/flight/aileron-trim", 0);
+					else
+						controls.aileronTrim(-trimstep);
+				</script>
+			</binding>
+		</low>
+		<high>
+			<repeatable>true</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>
+					if (mod)
+						setprop("/controls/flight/aileron-trim", 0);
+					else
+						controls.aileronTrim(trimstep);
+				</script>
+			</binding>
+		</high>
+	</axis>
+
+	<axis n="3">
+		<name>Trim Hat Switch Down/Up</name>
+		<desc>adjust elevator trim,  +mod: reset elevator trim</desc>
+		<low>
+			<repeatable>true</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>
+					if (mod)
+						setprop("/controls/flight/elevator-trim", 0);
+					else
+						controls.elevatorTrim(trimstep);
+				</script>
+			</binding>
+		</low>
+		<high>
+			<repeatable>true</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>
+					if (mod)
+						setprop("/controls/flight/elevator-trim", 0);
+					else
+						controls.elevatorTrim(-trimstep);
+				</script>
+			</binding>
+		</high>
+	</axis>
+
+	<button n="0">
+		<name>Trigger Button/Half Pushed</name>
+		<desc>camera oper</desc>
+	</button>
+
+	<button n="1">
+		<name>Weapons Release</name>
+	</button>
+
+	<button n="2">
+		<name>Nosewheel Steering Button</name>
+		<desc>toggle nosewheel steering/tailwheel lock</desc>
+		<binding>
+			<command>nasal</command>
+			<script>
+				var i = !(getprop("/controls/gear/nose-wheel-steering") or 0);
+				setprop("/controls/gear/nose-wheel-steering", i);
+				setprop("/controls/gear/tailwheel-lock", !i);
+				popup("Tail Wheel %sLOCKED!", i ? "UN" : "");
+			</script>
+		</binding>
+	</button>
+
+	<button n="3">
+		<name>Paddle Switch</name>
+		<desc>modifier button</desc>
+		<binding>
+			<command>property-assign</command>
+			<property>/devices/status/joysticks/warthog/modifier</property>
+			<value>1</value>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>property-assign</command>
+				<property>/devices/status/joysticks/warthog/modifier</property>
+				<value>0</value>
+			</binding>
+		</mod-up>
+	</button>
+
+	<button n="4">
+		<name>Master Mode Control Button</name>
+	</button>
+
+	<button n="5">
+		<name>Trigger Button/Fully Pushed</name>
+		<desc>gun trigger</desc>
+		<binding>
+			<command>nasal</command>
+			<script>controls.trigger(1)</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>controls.trigger(0)</script>
+			</binding>
+		</mod-up>
+	</button>
+
+	<button n="6">
+		<name>left black curosr (TMS) up</name>
+		<desc>brakes,  +mod: toggle parking brake</desc>
+		<binding>
+			<command>nasal</command>
+			<script>controls.applyBrakes(1)</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>
+					if (mod) {
+						var i = controls.applyParkingBrake(1);
+						popup("Parking Brake %s", i ? "ON" : "OFF");
+					}
+					controls.applyBrakes(0)
+				</script>
+			</binding>
+		</mod-up>
+	</button>
+
+	<button n="7">
+		<name>left black cursor (TMS) right</name>
+		<desc>brakes right</desc>
+		<binding>
+			<command>nasal</command>
+			<script>controls.applyBrakes(1, 1)</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>controls.applyBrakes(0, 1)</script>
+			</binding>
+		</mod-up>
+	</button>
+
+	<button n="8">
+		<name>left black cursor (TMS) down</name>
+		<desc>brakes,  +mod: toggle parking brake</desc>
+		<binding>
+			<command>nasal</command>
+			<script>controls.applyBrakes(1)</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>
+					if (mod) {
+						var i = controls.applyParkingBrake(1);
+						popup("Parking Brake %s", i ? "ON" : "OFF");
+					}
+					controls.applyBrakes(0)
+				</script>
+			</binding>
+		</mod-up>
+	</button>
+
+	<button n="9">
+		<name>left black cursor (TMS) left</name>
+		<desc>brakes left</desc>
+		<binding>
+			<command>nasal</command>
+			<script>controls.applyBrakes(1, -1)</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>controls.applyBrakes(0, -1)</script>
+			</binding>
+		</mod-up>
+	</button>
+
+	<button n="10">
+		<name>right black cursor (DMS) up</name>
+		<desc>zoom in,  +mod: reset zoom</desc>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>
+				if (mod)
+					reset_zoom();
+				else
+					view.decrease(1);
+			</script>
+		</binding>
+	</button>
+
+	<button n="11">
+		<name>right black cursor (DMS) right</name>
+		<desc>next active view,  +mod: next view</desc>
+		<binding>
+			<command>nasal</command>
+			<script>view.stepView(1, mod)</script>
+		</binding>
+	</button>
+
+	<button n="12">
+		<name>right black cursor (DMS) down</name>
+		<desc>zoom out,  +mod: reset zoom</desc>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>
+				if (mod)
+					reset_zoom();
+				else
+					view.increase(1);
+			</script>
+		</binding>
+	</button>
+
+	<button n="13">
+		<name>right black cursor (DMS) left</name>
+		<desc>previous active view,  +mod: previous view</desc>
+		<binding>
+			<command>nasal</command>
+			<script>view.stepView(-1, mod)</script>
+		</binding>
+	</button>
+
+	<button n="14">
+		<name>grey cursor (CMS) up</name>
+		<desc>view up</desc>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>view.panViewPitch(viewstep)</script>
+		</binding>
+	</button>
+
+	<button n="15">
+		<name>grey cursor (CMS) right</name>
+		<desc>view right</desc>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>view.panViewDir(viewdir[view.index] * viewstep)</script>
+		</binding>
+	</button>
+
+	<button n="16">
+		<name>grey cursor (CMS) down</name>
+		<desc>view down</desc>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>view.panViewPitch(-viewstep)</script>
+		</binding>
+	</button>
+
+	<button n="17">
+		<name>grey cursor (CMS) left</name>
+		<desc>view left</desc>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>view.panViewDir(-viewdir[view.index] * viewstep)</script>
+		</binding>
+	</button>
+
+	<button n="18">
+		<name>grey cursor (CMS) push</name>
+		<desc>short: center view,  long (&gt;0.5 sec): centered cockpit view</desc>
+		<binding>
+			<command>nasal</command>
+			<script>
+				(func(id) {
+					settimer(func {
+						if (id == button[18].id) {
+							setprop("/sim/current-view/view-number", 0);
+							view.resetView();
+						}
+					}, 0.5, 1);
+				})(button[18].id += 1);
+			</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>
+					button[18].id += 1;
+					view.resetView();
+				</script>
+			</binding>
+		</mod-up>
+	</button>
+</PropertyList>

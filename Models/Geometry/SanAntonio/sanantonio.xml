@@ -1,0 +1,129 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+<description>USS SanAntonio</description>
+	<author>Naval Postgraduate School SAVAGE project, Vivian Meazza, Heiko Schulz</author>
+	<status>early-production</status>
+ <path>LPD17.ac</path>
+ <nasal>
+    <load>
+        var wind_node = props.globals.getNode("/environment/wind-speed-kt");
+        var time_node = props.globals.getNode("/sim/time/elapsed-sec");
+        var roll_node = props.globals.getNode("/ai/models/LPD17-boats/roll");
+        var pitch_node = props.globals.getNode("/ai/models/LPD17-boats/pitch");
+        var loopid = 1;
+        var loop = func(id) {
+            if (id != loopid) return;
+
+            var rollcyclesec = 40.55;
+            var pitchcyclesec = 40.08;
+
+            var rolltimer = time_node.getValue()/rollcyclesec - int(time_node.getValue()/rollcyclesec);
+            var rollwave = math.sin(2*math.pi*rolltimer);
+            roll_node.setValue(rollwave*(wind_node.getValue()+1));
+
+            var pitchtimer = (time_node.getValue()+1)/pitchcyclesec - int((time_node.getValue()+1)/pitchcyclesec);
+            var pitchwave = math.sin(2*math.pi*pitchtimer);
+            pitch_node.setValue(pitchwave*(wind_node.getValue()+1));
+            
+            settimer(func { loop(id); }, 0);
+        }
+        settimer(func { loop(loopid); }, 0);
+    </load>
+    <unload>
+       loopid += 1;
+    </unload>
+</nasal>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>ShapeIndexedFaceS.005</object-name>
+  <object-name>ShapeIndexedFaceS.004</object-name>
+  <object-name>ShapeIndexedFaceS.002</object-name>
+  <object-name>ShapeIndexedFaceS</object-name>
+   <object-name>ShapeIndexedFaceSet</object-name>
+   <object-name>ShapeIndexedFaceS.001</object-name>
+   <object-name>ShapeIndexedFaceS.006</object-name>
+   <object-name>ShapeIndexedFaceS.007</object-name>
+  <property>/ai/models/LPD17-boats/roll</property>
+  <factor>0.02</factor>
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+</animation>
+
+<animation>
+  <type>rotate</type>
+  <object-name>ShapeIndexedFaceS.005</object-name>
+  <object-name>ShapeIndexedFaceS.004</object-name>
+  <object-name>ShapeIndexedFaceS.002</object-name>
+  <object-name>ShapeIndexedFaceS</object-name>
+   <object-name>ShapeIndexedFaceSet</object-name>
+   <object-name>ShapeIndexedFaceS.001</object-name>
+   <object-name>ShapeIndexedFaceS.006</object-name>
+   <object-name>ShapeIndexedFaceS.007</object-name>
+  <property>/ai/models/LPD17-boats/pitch</property>
+  <factor>0.0025</factor>
+  <axis>
+   <x>1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+</animation>
+
+<animation>
+  <type>textranslate</type>
+  <object-name>rect</object-name>
+ <property>/sim/time/elapsed-sec</property>
+  <factor>-0.010</factor>
+    <axis>
+   <x>1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+ </animation>
+ 
+ <animation>
+<type>rotate</type>
+ <object-name>ShapeIndexedFaceS.007</object-name>
+<property>surface-positions/elevators-pos-norm</property>
+<factor>-90.0</factor>
+<center>
+			<x-m>94.936</x-m>
+			<y-m>0.00</y-m>
+			<z-m>3.968</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+</animation>
+
+<animation>
+<type>rotate</type>
+ <object-name>ShapeIndexedFaceS.006</object-name>
+<property>surface-positions/elevators-pos-norm</property>
+<factor>90.0</factor>
+<center>
+			<x-m>93.243</x-m>
+			<y-m>0.00</y-m>
+			<z-m>-6.464</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+</animation>
+ 
+
+ <animation>
+  <type>range</type>
+  <min-m>0</min-m>
+  <max-m>30000</max-m>
+ </animation>
+
+</PropertyList>

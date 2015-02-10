@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<PropertyList>
+
+    <path>cabin.ac</path>
+
+	<animation>
+	<type>translate</type>
+        <object-name>Cabin.inrdoor</object-name>
+        <property>sim/multiplay/generic/float</property>
+        <interpolation>
+            <entry><ind>0.0</ind><dep>0.0</dep></entry>
+            <entry><ind>1.0</ind><dep>0.4</dep></entry>
+        </interpolation>
+        <axis>
+            <x>0.0</x>
+            <y>0.0</y>
+            <z>-1.0</z>
+        </axis>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>Cabin.inrdoor</object-name>
+        <property>sim/multiplay/generic/float</property>
+        <interpolation>
+            <entry><ind>0.0</ind><dep>0.0</dep></entry>
+            <entry><ind>1.0</ind><dep>140.0</dep></entry>
+        </interpolation>
+        <center>
+            <x-m>-5.594</x-m>
+            <y-m>-0.813</y-m>
+            <z-m>-0.468</z-m>
+        </center>
+        <axis>
+            <x>1.0</x>
+            <y>0.0</y>
+            <z>0.0</z>
+        </axis>
+    </animation>
+
+</PropertyList>

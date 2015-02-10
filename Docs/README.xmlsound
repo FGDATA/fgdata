@@ -1,0 +1,308 @@
+Users Guide to FlightGear sound configuration
+Version 0.9.8, October 30, 2005
+Author: Erik Hofman <erik at ehofman dot com>
+
+This document is an attempt to describe the configuration of
+FlightGear flight simulator's aircraft sound in XML.
+
+Sound Architecture:
+------------------
+All of the sound configuration files are XML-encoded* property lists.
+The root element of each file is always named <PropertyList>. Tags are
+almost always found in pairs, with the closing tag having a slash
+prefixing the tag name, i.e </PropertyList>. The exception is the tag
+representing an aliased property. In this case a slash is prepended to
+the closing angle bracket.  (see section Aliasing)
+
+The top level sound configuration file is composed of a <fx>, a
+<name>, a <path> sound file and zero or more <volume> and/or <pitch>
+definitions.
+
+[ Paths are relative to $FG_ROOT (the root of the installed base package .) ]
+[ Absolute paths may be used. Comments are bracketed with <!-- -->.         ]
+
+A limited sound configuration file would look something like this:
+
+<PropertyList>
+ <fx>
+  <engine>
+   <name>engine</name>
+   <path>Sounds/wasp.wav</path>
+   <mode>looped</mode>
+   <condition>
+    <property>/engines/engine/running</property>
+   </condition>
+   <volume>
+    <property>/engines/engine/mp-osi</property>
+    <factor>0.005</factor>
+    <min>0.15</min>
+    <max>0.5</max>
+    <offset>0.15</offset>
+   </volume>
+   <pitch>
+    <property>/engines/engine/rpm</property>
+    <factor>0.0012</factor>
+    <min>0.3</min>
+    <max>5.0</max>
+    <offset>0.3</offset>
+   </pitch>
+  </engine>
+ </fx>
+</PropertyList>
+
+This would define an engine sound event handler for a piston engine driven
+aeroplane. The sound representing the engine is located in $FG_ROOT/Sounds
+and is named wasp.wav. The event is started when the property
+/engines/engine/running becomes non zero. 
+
+When that happens, the sound will be played looped (see <mode>) until the
+property returns zero again. As you can see the volume is mp-osi dependent,
+and the pitch of the sound depends on the engine rpm.
+
+Configuration description:
+-------------------------
+   
+<fx>
+        Named FX subtree living under /sim/sound
+ 
+ < ... >
+        This is the event separator. The text inside the brackets
+        can be anything. Bit it is advised to give it a meaningful name
+        like: crank, engine, rumble, gear, squeal, flap, wind or stall
+ 
+        The value can be defined multiple times, thus anything which is
+        related may have the same name (grouping them together).
+ 
+   <name>
+        This defines the name of the event. This name is used internally
+        and, although it can me defined multiple times in the same file,
+        should normally have an unique value.
+ 
+        Multiple definitions of the same name will allow multiple sections
+        to interfere in the starting and stopping of the sample.
+
+        This method can't be used to control the pitch or volume of the 
+        sample, but instead multiple volume or pitch section should be
+        included inside the same event.
+
+        The types "raise" and "fall" will stop the playback of the sample
+        regardless of any other event. This means that when the type "raise"
+        is supplied, sample playback will stop when the event turns false.
+        Using the type "fall" will stop playback when the event turns true.
+
+        IMPORTANT:
+        If the trigger is used for anything else but stopping the sound
+         at a certain event, all sections with the same name *should* have
+        exactly the same sections for everything but property and type.
+
+        In the case of just stopping the sample at a certain event, the
+        sections for path, volume and pitch may be omitted.
+
+   <path>
+        This defined th path to the sound file. The path is relative to the
+        FlightGear root directory but could be specified absolute.
+
+   <condition>
+        Define a condition that triggers the event.
+        For a complete description of the FlightGear conditions,
+        please read docs-mini/README.conditions
+
+        An event should define either a condition or a property.
+ 
+   <property>
+        Define which property triggers the event, and refers to a node
+        in the FlightGear property tree. Action is taken when the property
+        is non zero.
+
+        A more sophisticated mechanism to trigger the event is described
+        in <condition>
+ 
+   <mode>
+        This defines how the sample should be played:
+ 
+        once:           the sample is played once.
+                        this is the default.
+ 
+        looped:         the sample plays continuously,
+                        until the event turns false.
+
+        in-transit:     the sample plays continuously,
+                        while the property is changing its value.
+
+  <type>
+        This defines the type os this sample:
+
+        fx:             this is the default type and doesn't need to be defined.
+
+        avionics:       sounds set to this time don't have a position and
+                        orientation but are treated as if it's mounted to
+                        the aircraft panel. it's up to the user to define
+                        if it can always be heard or only when in cockpit
+                        view.
+   
+   <volume> / <pitch>
+        Volume or Pitch definition. Currently there may be up to 5
+        volume and up to 5 pitch definitions defined within one sound
+        event. Normally all offset values are added together and the
+        results after property calculations will be multiplied.
+        A special condition occurs when the value of factor is negative,
+        in which case the offset doesn't get added to the other offset values
+        but instead will be used in the multiplication section.
+ 
+     <property>
+        Defines which property supplies the value for the calculation.
+        Either a <property> or an <internal> should be defined.
+        The value is treated as a floating point number.
+
+     <internal>
+        Defines which internal variable should be used for the calculation.
+        The value is treated as a floating point number.
+        The following internals are available at this time:
+
+        dt_play:        the number of seconds since the sound started playing.
+
+        dt_stop:        the number of seconds after the sound has stopped.
+ 
+     <delay-sec>
+        Delay after which the sound starts playing. This is useful to let
+        a property start two sounds at the same time, where the second is
+        delayed until the first stopped playing.
+
+     <type>
+        Defines the function that should be used upon the property
+        before it is used for calculating the net result:
+
+        lin:            linear handling of the property value.
+                        this is the default.
+ 
+        ln:             convert the property value to a natural logarithmic
+                        value before scaling it. Anything below 1 will return
+                        zero.
+ 
+        log:            convert the property value to a true logarithmic
+                        value before scaling it. Anything below 1 will return
+                        zero.
+
+        inv:            inverse linear handling (1/x).
+
+        abs:            absolute handling of the value (always positive).
+
+        sqrt:           calculate the square root of the absolute value
+                        before scaling it.
+ 
+     <factor>
+        Defines the multiplication factor for the property value.
+        A special condition is when scale is defined as a negative
+        value. In this case the result of |<scale>| * <property) will be
+        subtracted from <default>
+ 
+     <offset>
+        The initial value for this sound. This value is also used as an
+        offset value for calculating the end result.
+ 
+     <min>
+        Minimum allowed value.
+        This is useful if sounds start to sound funny. Anything lower
+        will be truncated to this value.
+ 
+     <max>
+        Maximum allowed value.
+        This is useful if sounds gets to loud. Anything higher will be
+        truncated to this value.
+
+   <position>
+        Specify the position of the sounds source relative to the
+        aircraft center.  The coordinate system used is a left hand
+        coordinate system where +Y = left, -Y = right, -Z = down, +Z =
+        up, -X = forward, +X = aft.  Distances are in meters.
+        The volume calculation due to distance and orientation of the
+        sounds source ONLY work on mono samples!
+
+     <x>
+        X dimension offset
+
+     <y>
+        Y dimension offset
+
+     <z>
+        Z dimension offset
+
+
+   <orientation>
+        Specify the orientation of the sounds source.
+
+        The zero vector is default, indicating that a Source is not directional.
+        Specifying a non-zero vector will make the Source directional in
+        the X,Y,Z direction
+
+     <x>
+        X dimension
+
+     <y>
+        Y dimension
+
+     <z>
+        Z dimension
+
+     <inner-angle>
+        The inner edge of the audio cone in degrees (0.0 - 180.0).
+        Any sound withing that angle will be played at the current gain.
+
+     <outer-angle>
+        The outer edge of the audio cone in degrees (0.0 - 180.0).
+        Any sound beyond the outer cone will be played at "outer-gain" volume.
+
+     <outer-gain>
+        The gain at the outer edge of the cone.
+
+
+   <reference-dist>
+        Set a reference distance of sound in meters. This is the
+        distance where the volume is at its maximum.
+        Volume is clamped to this maximum for any distance below.
+        Volume is attenuated for any distance above.
+        Attenuation depends on reference and maximum distance. See
+        OpenAL specification on "AL_INVERSE_DISTANCE_CLAMPED" mode
+        for details on exact computation.
+
+   <max-dist>
+        Set the maximum audible distance for the sound in meters.
+        Sound is cut-off above this distance.
+
+
+Creating a configuration file:
+------------------------------
+
+To make things easy, there is a default value for most entries to allow a
+sane configuration when a certain entry is omitted.
+
+Default values are:
+
+type:   lin
+factor: 1.0
+offset: 0.0 for volume, 1.0 for pitch
+min:    0.0
+max:    0.0 (don't check)
+
+ 
+ 
+Calculations are made the following way (for both pitch and volume):
+ 
+   value = 0;
+   offs = 0;
+
+   for (n = 0;  n < max; n++) {
+      if (factor < 0)
+      {
+         value += offset[n] - abs(factor[n]) * function(property[n]);
+      }
+      else
+      {
+          value += factor[n] * function(property[n]);
+          offs += offset[n];
+      }
+   }
+
+   volume = offs + value;
+
+where function can be one of: lin, ln, log, inv, abs or sqrt

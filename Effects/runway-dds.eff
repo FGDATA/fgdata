@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PropertyList>
+	<name>Effects/runway-dds</name>
+	<inherits-from>Effects/runway</inherits-from>
+	<parameters>
+		<texture n="4">
+			<image>Textures/Runway/rwy-normalmap.dds</image>
+		</texture>
+		<normalmap_dds>1.0</normalmap_dds>
+	</parameters>
+</PropertyList>

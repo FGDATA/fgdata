@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+ <path>winter-vario-5stv5.ac</path>
+
+ <animation>
+  <type>material</type>
+  <object-name>Face</object-name>
+  <object-name>Needle</object-name>
+  <emission>
+	  <red>0.028</red>
+	  <green>0.014</green>
+	  <blue>0.007</blue>
+	  <factor-prop>systems/electrical/outputs/instrument-lights</factor-prop>
+        </emission>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>Needle</object-name>
+  <property>/instrumentation/variometer/te-reading-mps</property>
+  <interpolation>
+   <entry><ind>-6.33</ind><dep> -171</dep></entry>
+   <entry><ind> 6.33</ind><dep>  171</dep></entry>
+  </interpolation>     
+
+  <axis>
+   <x>-1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+ </animation>
+ 
+  <animation>
+  <type>rotate</type>
+  <object-name>mc-cready</object-name>
+  <property>/instrumentation/mc-cready/rot</property>
+  <factor>1</factor>
+  <axis>
+   <x>-1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+ </animation>
+ 
+  <animation>
+  <type>pick</type>
+  <object-name>mc-cready</object-name>
+  <action>
+    <name>increase mc-cready</name>
+    <button>0</button>
+    <button>3</button>
+    <repeatable>true</repeatable>
+    <binding>
+      <command>property-adjust</command>
+      <property>/instrumentation/mc-cready/rot</property>
+      <step>2</step>
+      <min>0</min>
+      <max>360</max>
+      <wrap>true</wrap>
+    </binding>
+  </action>
+  </animation>
+  
+  <animation>
+  <type>pick</type>
+  <object-name>mc-cready</object-name>
+  <action>
+    <name>decrease calibrate fine</name>
+    <button>1</button>
+    <button>4</button>
+    <repeatable>true</repeatable>
+    <binding>
+      <command>property-adjust</command>
+      <property>/instrumentation/mc-cready/rot</property>
+      <step>-2</step>
+      <min>0</min>
+      <max>360</max>
+      <wrap>true</wrap>
+    </binding>
+  </action>
+  </animation>
+
+</PropertyList>
+
+

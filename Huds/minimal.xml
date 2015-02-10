@@ -1,0 +1,284 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<name>Minimal Aircraft Hud</name>
+	<enable3d>true</enable3d>
+
+	<import>
+		<path>Huds/Instruments/turn-bank-indicator.xml</path>
+		<y-offset>-185</y-offset>
+	</import>
+
+	<import>
+		<path>Huds/Sets/coordinates.xml</path>
+		<y-offset>190</y-offset>
+	</import>
+
+	<import>
+		<path>Huds/Instruments/gload.xml</path>
+		<x-offset>-308</x-offset>
+		<y-offset>51</y-offset>
+	</import>
+
+	<import>
+		<path>Huds/Instruments/compass.xml</path>
+		<y-offset>190</y-offset>
+	</import>
+
+	<gauge>
+		<name>Aileron</name>
+		<x>-50</x>
+		<y>150</y>
+		<width>100</width>
+		<height>20</height>
+		<option>notext</option>
+		<option>bottom</option>
+		<major-divisions>50</major-divisions>
+		<minor-divisions>0</minor-divisions>
+		<tick-bottom>false</tick-bottom>
+		<tick-top>false</tick-top>
+		<tick-right>true</tick-right>
+		<tick-left>true</tick-left>
+		<cap-bottom>false</cap-bottom>
+		<cap-top>true</cap-top>
+		<cap-right>false</cap-right>
+		<cap-left>false</cap-left>
+		<marker-offset>0.0</marker-offset>
+		<enable-pointer>true</enable-pointer>
+		<pointer-type>fixed</pointer-type>
+		<input>
+			<property>/controls/flight/aileron</property>
+			<max>1.0</max>
+			<min>-1.0</min>
+		</input>
+	</gauge>
+
+	<gauge>
+		<name>Elevator</name>
+		<x>-300</x>
+		<y>-50</y>
+		<width>20</width>
+		<height>100</height>
+		<option>vertical</option>
+		<option>right</option>
+		<option>notext</option>
+		<major-divisions>50</major-divisions>
+		<minor-divisions>0</minor-divisions>
+		<marker-offset>0.0</marker-offset>
+		<tick-bottom>true</tick-bottom>
+		<tick-top>true</tick-top>
+		<tick-right>false</tick-right>
+		<tick-left>false</tick-left>
+		<cap-bottom>false</cap-bottom>
+		<cap-top>false</cap-top>
+		<cap-right>false</cap-right>
+		<cap-left>true</cap-left>
+		<enable-pointer>true</enable-pointer>
+		<pointer-type>fixed</pointer-type>
+		<input>
+			<property>/controls/flight/elevator</property>
+			<max>1.0</max>
+			<min>-1.0</min>
+		</input>
+	</gauge>
+
+	<gauge>
+		<name>Rudder</name>
+		<x>-50</x>
+		<y>-215</y>
+		<width>100</width>
+		<height>20</height>
+		<option>top</option>
+		<option>notext</option>
+		<major-divisions>50</major-divisions>
+		<minor-divisions>0</minor-divisions>
+		<tick-bottom>false</tick-bottom>
+		<tick-top>false</tick-top>
+		<tick-right>true</tick-right>
+		<tick-left>true</tick-left>
+		<cap-bottom>true</cap-bottom>
+		<cap-top>false</cap-top>
+		<cap-right>false</cap-right>
+		<cap-left>false</cap-left>
+		<marker-offset>0.0</marker-offset>
+		<enable-pointer>true</enable-pointer>
+		<pointer-type>fixed</pointer-type>
+		<input>
+			<property>/controls/flight/rudder</property>
+			<max>1.0</max>
+			<min>-1.0</min>
+		</input>
+	</gauge>
+
+	<gauge>
+		<name>Throttle</name>
+		<x>280</x>
+		<y>-80</y>
+		<width>20</width>
+		<height>160</height>
+		<option>vertical</option>
+		<option>left</option>
+		<option>notext</option>
+		<major-divisions>50</major-divisions>
+		<minor-divisions>0</minor-divisions>
+		<tick-bottom>true</tick-bottom>
+		<tick-top>true</tick-top>
+		<tick-right>false</tick-right>
+		<tick-left>false</tick-left>
+		<cap-bottom>false</cap-bottom>
+		<cap-top>false</cap-top>
+		<cap-right>true</cap-right>
+		<cap-left>false</cap-left>
+		<marker-offset>0.0</marker-offset>
+		<enable-pointer>true</enable-pointer>
+		<pointer-type>fixed</pointer-type>
+		<input>
+			<property>/controls/engines/engine/throttle</property>
+			<max>1.0</max>
+			<min>0.0</min>
+		</input>
+	</gauge>
+
+	<gauge>
+		<name>Elevator Trim</name>
+		<x>-310</x>
+		<y>-50</y>
+		<width>10</width>
+		<height>100</height>
+		<option>left</option>
+		<option>vertical</option>
+		<option>notext</option>
+		<major-divisions>50</major-divisions>
+		<minor-divisions>0</minor-divisions>
+		<marker-offset>0.0</marker-offset>
+		<tick-bottom>true</tick-bottom>
+		<tick-top>true</tick-top>
+		<tick-right>false</tick-right>
+		<tick-left>false</tick-left>
+		<cap-bottom>false</cap-bottom>
+		<cap-top>false</cap-top>
+		<cap-right>false</cap-right>
+		<cap-left>false</cap-left>
+		<enable-pointer>true</enable-pointer>
+		<pointer-type>fixed</pointer-type>
+		<input>
+			<property>/controls/flight/elevator-trim</property>
+			<max>1.0</max>
+			<min>-1.0</min>
+		</input>
+	</gauge>
+
+	<ladder>
+		<name>Pitch Ladder</name>
+		<type>pitch</type>
+		<x>0</x>
+		<y>0</y>
+		<width>0</width>
+		<height>0</height>
+
+		<roll-input>
+			<property>/orientation/roll-deg</property>
+		</roll-input>
+
+		<pitch-input>
+			<property>/orientation/pitch-deg</property>
+		</pitch-input>
+
+		<compression-factor>0</compression-factor>
+		<display-span>0.0</display-span>
+		<divisions>0.0</divisions>
+		<screen-hole>0</screen-hole>
+		<lbl-pos>0</lbl-pos>
+		<glide-slope>0.0</glide-slope>
+		<enable-fuselage-ref-line>false</enable-fuselage-ref-line>
+		<enable-target-spot>true</enable-target-spot>
+		<enable-velocity-vector>false</enable-velocity-vector>
+		<enable-drift-marker>false</enable-drift-marker>
+		<enable-alpha-bracket>false</enable-alpha-bracket>
+		<enable-energy-marker>false</enable-energy-marker>
+		<enable-climb-dive-marker>false</enable-climb-dive-marker>
+		<enable-glide-slope-marker>false</enable-glide-slope-marker>
+		<enable-energy-worm>false</enable-energy-worm>
+		<enable-waypoint-marker>false</enable-waypoint-marker>
+		<enable-zenith>true</enable-zenith>
+		<enable-nadir>true</enable-nadir>
+		<enable-hat>false</enable-hat>
+	</ladder>
+
+	<label>
+		<name>FOV</name>
+		<x>-281</x>
+		<y>-197</y>
+		<halign>left</halign>
+		<format>FOV           %7.1f</format>
+		<input>
+			<property>/sim/current-view/field-of-view</property>
+		</input>
+	</label>
+
+	<label>
+		<name>framerate</name>
+		<x>-281</x>
+		<y>-212</y>
+		<halign>left</halign>
+		<format>Frame rate    %7.1f</format>
+		<input>
+			<property>/sim/frame-rate</property>
+		</input>
+	</label>
+
+	<label>
+		<name>AOA</name>
+		<x>159</x>
+		<y>-168</y>
+		<halign>left</halign>
+		<format>AOA      %7.2f Deg</format>
+		<input>
+			<property>/position/alpha</property>
+		</input>
+	</label>
+
+	<label>
+		<name>airspeed</name>
+		<x>159</x>
+		<y>-183</y>
+		<halign>left</halign>
+		<format>Airspeed   %5.0f Kts</format>
+		<input>
+			<property>/velocities/airspeed-kt</property>
+		</input>
+	</label>
+
+	<label>
+		<name>altitude</name>
+		<x>159</x>
+		<y>-198</y>
+		<halign>left</halign>
+		<format>Altitude    %5.0f ft</format>
+		<input>
+			<property>/position/altitude-ft</property>
+		</input>
+	</label>
+
+	<label>
+		<name>elevation</name>
+		<x>159</x>
+		<y>-213</y>
+		<halign>left</halign>
+		<format>Elevation  %5.0f ft</format>
+		<input>
+			<property>/position/altitude-agl-ft</property>
+		</input>
+	</label>
+
+	<label>
+		<name>heading</name>
+		<x>159</x>
+		<y>-228</y>
+		<halign>left</halign>
+		<format>Heading    %5.1f Deg</format>
+		<input>
+			<property>/orientation/heading-deg</property>
+		</input>
+	</label>
+</PropertyList>

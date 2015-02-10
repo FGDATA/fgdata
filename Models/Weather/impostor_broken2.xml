@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+ <path>impostor_broken2.ac</path>
+
+
+<animation>
+  <object-name>rect</object-name>
+  <enable-hot type="bool">false</enable-hot>
+</animation>
+
+<effect>
+  <inherits-from>Effects/cloud-impostor</inherits-from>
+  <object-name>rect</object-name>
+</effect>
+
+</PropertyList>

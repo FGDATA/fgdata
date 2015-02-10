@@ -1,0 +1,125 @@
+<?xml version="1.0"?>
+<PropertyList>
+  <name>NTPS-target-task</name>
+  <layout>vbox</layout>
+
+  <nasal>
+    <open>
+      p = props.globals.getNode("/sim/gui/dialogs/NTPS/task", 1);
+      mode = {
+        straight: p.getNode("straight", 1),
+        turns:    p.getNode("turns", 1),
+        pitch:    p.getNode("pitch", 1),
+        both:     p.getNode("both", 1),
+      };
+
+      set_radio = func(m) {
+        foreach (k; keys(mode)) {
+          mode[k].setBoolValue(m == k);
+        }
+      }
+
+      initialized = 0;
+      foreach (k; keys(mode)) {
+        if (mode[k].getType() == "NONE") {
+          mode[k].setBoolValue(0);
+        }
+        initialized += mode[k].getBoolValue();
+      }
+      if (!initialized) {
+        set_radio("straight");
+      }
+    </open>
+
+    <close># just kept for educational purposes :-)</close>
+  </nasal>
+
+  <text>
+   <label>Target Task Selection</label>
+  </text>
+
+  <hrule/>
+
+  <group>
+    <layout>hbox</layout>
+    <default-padding>8</default-padding>
+
+    <group>
+     <layout>table</layout>
+     <radio>
+      <row>0</row><col>0</col>
+      <property>/sim/gui/dialogs/NTPS/task/straight</property>
+      <live>true</live>
+      <binding>
+       <command>nasal</command>
+       <script>set_radio("straight"); setprop("/autopilot/lead-target/task", "straight")</script>
+      </binding>
+     </radio>
+     <text>
+      <label>Straight and Level</label>
+      <halign>left</halign>
+      <row>0</row><col>1</col>
+     </text>
+
+     <radio>
+      <row>1</row><col>0</col>
+      <property>/sim/gui/dialogs/NTPS/task/turns</property>
+      <live>true</live>
+      <binding>
+       <command>nasal</command>
+       <script>set_radio("turns"); setprop("/autopilot/lead-target/task", "turns");</script>
+      </binding>
+     </radio>
+     <text>
+      <label>Level Turns</label>
+      <halign>left</halign>
+      <row>1</row><col>1</col>
+     </text>
+
+     <radio>
+      <row>2</row><col>0</col>
+      <property>/sim/gui/dialogs/NTPS/task/pitch</property>
+      <live>true</live>
+      <binding>
+       <command>nasal</command>
+       <script>set_radio("pitch"); setprop("/autopilot/lead-target/task", "pitch");</script>
+      </binding>
+     </radio>
+     <text>
+      <label>Straight Pitch Changes</label>
+      <halign>left</halign>
+      <row>2</row><col>1</col>
+     </text>
+
+     <radio>
+      <row>3</row><col>0</col>
+      <property>/sim/gui/dialogs/NTPS/task/both</property>
+      <live>true</live>
+      <binding>
+       <command>nasal</command>
+       <script>set_radio("both"); setprop("/autopilot/lead-target/task", "lazy-eights");</script>
+      </binding>
+     </radio>
+     <text>
+      <label>Lazy Eights</label>
+      <halign>left</halign>
+      <row>3</row><col>1</col>
+     </text>
+
+    </group>
+   </group>
+
+  <button>
+    <legend>Close</legend>
+    <default>true</default>
+    <key>Esc</key>
+    <padding>10</padding>
+    <binding>
+      <command>dialog-apply</command>
+    </binding>
+    <binding>
+      <command>dialog-close</command>
+    </binding>
+  </button>
+
+</PropertyList>

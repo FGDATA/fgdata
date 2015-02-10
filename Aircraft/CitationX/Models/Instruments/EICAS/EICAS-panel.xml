@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<PropertyList>
+
+    <name>EICAS Panel</name>
+    <background>Aircraft/CitationX/Models/Instruments/EICAS/transparent.png</background>
+    <w>200</w>
+    <h>200</h>
+
+    <instruments>
+        <instrument include="norm-text.xml">
+            <name>eicas page norm</name>
+            <condition>
+                <and>
+                    <property>instrumentation/primus1000/eicas/serviceable</property>
+                    <greater-than>
+                        <property>systems/electrical/outputs/efis</property>
+                        <value>15</value>
+                    </greater-than>
+                </and>
+            </condition>
+            <x>100</x>
+            <y>100</y>
+            <w>200</w>
+            <h>200</h>
+        </instrument>
+
+    </instruments>
+</PropertyList>

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+ <path>rear-right-pedal.ac</path>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>right-pedals-link-2</object-name>
+		<property>surface-positions/rudder-pos-norm</property>
+		<min-deg>-25</min-deg>
+		<max-deg>25</max-deg>
+		<factor>25</factor>
+		<center>
+			<x-m>-0.039732</x-m>
+			<y-m>0.06084</y-m>
+			<z-m>0.069135</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+ </animation>
+
+</PropertyList>
+
+

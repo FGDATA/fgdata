@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<PropertyList>
+
+	<path>dome_cone.ac</path>
+
+	<animation>
+		<type>light</type>
+		<light-type>point</light-type>
+		<name>DomeLight</name>
+		<object-name>Cone</object-name>
+		<nopreview/>
+		<position>
+			<x>0</x>
+			<y>0</y>
+			<z>0</z>
+		</position>
+		<ambient>
+			<r>1.0</r>
+			<g>1.0</g>
+			<b>1.0</b>
+			<a>1.0</a>
+		</ambient>
+		<diffuse>
+			<r>0.7</r>
+			<g>0.7</g>
+			<b>0.6</b>
+			<a>1.0</a>
+		</diffuse>
+		<specular>
+			<r>0.9529</r>
+			<g>0.851</g>
+			<b>0.0</b>
+			<a>1.0</a>
+		</specular>
+	<dim-factor>
+        <property>systems/electrical/domelight-int</property>
+	</dim-factor>
+  		<attenuation>
+			<c>0.3</c>
+			<l>2</l>
+			<q>5</q>
+		</attenuation>
+		<exponent>15.0</exponent>
+		<near-m>0.3</near-m>
+		<far-m>2</far-m>
+		<cutoff>5</cutoff>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>DomeLight</object-name>
+        <condition>
+			<property>sim/rendering/rembrandt/enabled</property>
+        </condition>
+	</animation>
+
+</PropertyList>

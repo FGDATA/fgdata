@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+    
+    <path>Banner.ac</path>
+    
+    <animation>
+      <type>range</type>
+      <min-m>0</min-m>
+      <max-m>2000</max-m>
+    </animation>
+
+    <animation>
+      <type>rotate</type>
+      <property>orientation/roll-deg</property>
+      <factor>1.0</factor>
+      <axis>
+        <x>1</x>
+        <y>0</y>
+        <z>0</z>
+      </axis>
+    </animation>
+
+    <animation>
+      <type>rotate</type>
+      <property>orientation/side-slip-deg</property>
+      <factor>1.0</factor>
+      <axis>
+        <x>0</x>
+        <y>0</y>
+        <z>1</z>
+      </axis>
+    </animation>
+
+    <animation>
+      <type>rotate</type>
+      <property>orientation/pitch-deg</property>
+      <factor>1.0</factor>
+      <axis>
+        <x>0</x>
+        <y>1</y>
+        <z></z>
+      </axis>
+    </animation>
+
+</PropertyList>
+
+
+

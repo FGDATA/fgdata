@@ -1,0 +1,260 @@
+<?xml version="1.0"?>
+
+
+<PropertyList>
+	<name>formation</name>
+	<modal>false</modal>
+	<layout>vbox</layout>
+
+	<!-- AI Wingman options -->
+  <group>
+    <layout>hbox</layout>
+	  <empty><stretch>1</stretch></empty>
+
+    <text>
+      <label>AI Wingman Controls</label>
+    </text>
+
+	  <empty><stretch>1</stretch></empty>
+
+    <button>
+      <pref-width>16</pref-width>
+      <pref-height>16</pref-height>
+      <legend></legend>
+      <keynum>27</keynum>
+      <border>2</border>
+      <binding>
+        <command>dialog-close</command>
+      </binding>
+    </button>
+  </group>
+
+  <hrule/>
+
+	<group>
+		<layout>hbox</layout>
+		<empty>
+			<pref-width>10</pref-width>
+		</empty>
+
+		<group>
+			<layout>vbox</layout>
+
+			<radio>
+				<halign>left</halign>
+				<label>Formate</label>
+				<property>/sim/ai/models/wingman/controls/formate-to-ac</property>
+				<live>true</live>
+				<binding>
+					<command>dialog-apply</command>
+				</binding>
+				<binding>
+					<command>nasal</command>
+					<script>
+						var v = getprop("/sim/ai/models/wingman/controls/formate-to-ac");
+						setprop("/sim/ai/models/wingman/controls/break",0);
+						setprop("/sim/ai/models/wingman/controls/join",0);
+						foreach (var c; props.globals.getNode("/ai/models").getChildren("wingman")){
+						c.getNode("controls/formate-to-ac").setBoolValue(v);
+						c.getNode("controls/break").setBoolValue(0);
+						c.getNode("controls/join").setBoolValue(0);
+						}
+					</script>
+				</binding>
+			</radio>
+
+			<radio>
+				<halign>left</halign>
+				<label>Break Formation</label>
+				<property>/sim/ai/models/wingman/controls/break</property>
+				<live>true</live>
+				<binding>
+					<command>dialog-apply</command>
+				</binding>
+				<binding>
+					<command>nasal</command>
+					<script>
+						var v = getprop("/sim/ai/models/wingman/controls/break");
+						setprop("/sim/ai/models/wingman/controls/formate-to-ac",0);
+						setprop("/sim/ai/models/wingman/controls/join",0);
+
+						foreach (var c; props.globals.getNode("/ai/models").getChildren("wingman")){
+						c.getNode("controls/break").setBoolValue(v);
+						c.getNode("controls/formate-to-ac").setBoolValue(0);
+						c.getNode("controls/join").setBoolValue(0);
+						}
+					</script>
+				</binding>
+			</radio>
+
+			<radio>
+				<halign>left</halign>
+				<label>Join</label>
+				<property>/sim/ai/models/wingman/controls/join</property>
+				<live>true</live>
+				<binding>
+					<command>dialog-apply</command>
+				</binding>
+				<binding>
+					<command>nasal</command>
+					<script>
+						var v = getprop("/sim/ai/models/wingman/controls/join");
+						setprop("/sim/ai/models/wingman/controls/formate-to-ac",0);
+						setprop("/sim/ai/models/wingman/controls/break",0);
+
+						foreach (var c; props.globals.getNode("/ai/models").getChildren("wingman")){
+						c.getNode("controls/join").setBoolValue(v);
+						c.getNode("controls/break").setBoolValue(0);
+						c.getNode("controls/formate-to-ac").setBoolValue(0);
+						}
+					</script>
+				</binding>
+			</radio>
+
+		</group>
+
+		<group>
+			<layout>vbox</layout>
+
+			<text>
+				<halign>left</halign>
+				<label>Break Heading Degrees Relative</label>
+			</text>
+
+			<text>
+				<label>Left/Right</label>
+			</text>
+
+			<group>
+				<layout>hbox</layout>
+				<text>
+					<halign>left</halign>
+					<label>-180</label>
+				</text>
+				<slider>
+					<width>75</width>
+					<height>25</height>
+					<min>-180</min>
+					<max>180</max>
+					<property>/ai/models/wingman/controls/break-deg-rel</property>
+					<binding>
+						<command>dialog-apply</command>
+					</binding>
+					<binding>
+						<command>nasal</command>
+						<script>
+							var v = getprop("/ai/models/wingman/controls/break-deg-rel");
+							foreach (var c; props.globals.getNode("/ai/models").getChildren("wingman")){
+							print("FFF ", v, " ", c.getNode("name").getValue());
+							c.getNode("controls/break-deg-rel",1).setDoubleValue(v);
+							}
+						</script>
+					</binding>
+				</slider>
+				<text>
+					<halign>left</halign>
+
+					<label>180</label>
+
+				</text>
+			</group>
+
+			<text>
+				<label>-100.00</label>
+				<format>%-0.1f deg</format>
+				<live>true</live>
+				<property>/ai/models/wingman/controls/break-deg-rel</property>
+			</text>
+
+		</group>
+
+	</group>
+
+	<group>
+		<layout>hbox</layout>
+
+		<text>
+			<halign>left</halign>
+			<label>Target Heading Degrees True</label>
+		</text>
+
+		<text>
+			<halign>left</halign>
+			<label>-100.00</label>
+			<format>%-0.1f deg</format>
+			<live>true</live>
+			<property>/ai/models/wingman/controls/tgt-heading-deg</property>
+		</text>
+	</group>
+
+	<group>
+		<layout>hbox</layout>
+
+		<text>
+			<halign>left</halign>
+			<label>Set Formation</label>
+		</text>
+
+		<button>
+			<x>40</x>
+			<y>10</y>
+			<legend>Open/Close</legend>
+			<binding>
+				<command>nasal</command>
+				<script>formation.formation_dialog.toggle()</script>
+			</binding>
+		</button>
+
+		</group>
+
+	<hrule/>
+
+	<group>
+		<layout>hbox</layout>
+		<default-padding>6</default-padding>
+		<empty>
+			<stretch>true</stretch>
+		</empty>
+
+		<button>
+			<legend>OK</legend>
+			<default>true</default>
+			<equal>true</equal>
+			<binding>
+				<command>dialog-apply</command>
+			</binding>
+			<binding>
+				<command>dialog-close</command>
+			</binding>
+		</button>
+
+		<button>
+			<legend>Apply</legend>
+			<equal>true</equal>
+			<binding>
+				<command>dialog-apply</command>
+			</binding>
+		</button>
+
+		<button>
+			<legend>Reset</legend>
+			<equal>true</equal>
+			<binding>
+				<command>dialog-update</command>
+			</binding>
+		</button>
+
+		<button>
+			<legend>Cancel</legend>
+			<equal>true</equal>
+			<key>Esc</key>
+			<binding>
+				<command>dialog-close</command>
+			</binding>
+		</button>
+
+		<empty>
+			<stretch>true</stretch>
+		</empty>
+	</group>
+</PropertyList>

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<PropertyList>
+
+    <name>PFD 2d Panel</name>
+    <background>Aircraft/Instruments-3d/primus-1000/PFD/transparent.png</background>
+    <w>500</w>
+    <h>400</h>
+
+    <instruments>
+
+        <instrument include="pfd-text.xml">
+            <name>pfd-text</name>
+            <condition>
+                <greater-than>
+                    <property>systems/electrical/outputs/efis</property>
+                    <value>15</value>
+                </greater-than>
+            </condition>
+            <x>250</x>
+            <y>200</y>
+            <w>500</w>
+            <h>400</h>
+        </instrument>
+    </instruments>
+</PropertyList>

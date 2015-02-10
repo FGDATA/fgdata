@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- flight recorder configuration -->
+<!-- fixed gear properties -->
+
+<PropertyList>
+
+    <signal>
+        <type>float</type>
+        <property type="string">/gear/gear[%i]/steering-norm</property>
+    </signal>
+
+    <signal>
+        <type>float</type>
+        <property type="string">/gear/gear[%i]/compression-norm</property>
+    </signal>
+
+    <signal>
+        <type>bool</type>
+        <property type="string">/gear/gear[%i]/wow</property>
+    </signal>
+
+    <signal>
+        <type>float</type>
+        <property type="string">/gear/gear[%i]/rollspeed-ms</property>
+    </signal>
+
+</PropertyList>

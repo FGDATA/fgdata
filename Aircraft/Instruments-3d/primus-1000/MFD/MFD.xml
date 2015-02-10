@@ -1,0 +1,168 @@
+<?xml version="1.0"?>
+<!--
+Author : Syd Adams
+Primus 1000 MFD
+-->
+<PropertyList>
+
+    <path>mfd.ac</path>
+
+    <panel>
+        <path>Aircraft/Instruments-3d/primus-1000/MFD/MFD-panel.xml</path>
+        <bottom-left>
+            <x-m>0.003</x-m>
+            <y-m>-0.076</y-m>
+            <z-m>-0.077</z-m>
+        </bottom-left>
+        <bottom-right>
+            <x-m>0.003</x-m>
+            <y-m>0.076</y-m>
+            <z-m>-0.077</z-m>
+        </bottom-right>
+        <top-left>
+            <x-m>0.003</x-m>
+            <y-m>-0.076</y-m>
+            <z-m>0.106</z-m>
+        </top-left>
+    </panel>
+
+    <panel>
+        <path>Aircraft/Instruments-3d/primus-1000/MFD/MFD-text-panel.xml</path>
+        <bottom-left>
+            <x-m>0.004</x-m>
+            <y-m>-0.076</y-m>
+            <z-m>-0.077</z-m>
+        </bottom-left>
+        <bottom-right>
+            <x-m>0.004</x-m>
+            <y-m>0.076</y-m>
+            <z-m>-0.077</z-m>
+        </bottom-right>
+        <top-left>
+            <x-m>0.004</x-m>
+            <y-m>-0.076</y-m>
+            <z-m>0.106</z-m>
+        </top-left>
+    </panel>
+
+<!-- OSG hotspots-->
+
+    <animation>
+        <type>pick</type>
+        <object-name>MFD.alt</object-name>
+        <action>
+            <button>0</button>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>nasal</command>
+                <script>efis.primus.mfd_menu("alt-inc")</script>
+            </binding>
+        </action>
+    </animation>
+
+    <animation>
+        <type>pick</type>
+        <object-name>MFD.alt</object-name>
+        <action>
+            <button>1</button>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>nasal</command>
+                <script>efis.primus.mfd_menu("alt-dec")</script>
+            </binding>
+        </action>
+    </animation>
+
+    <animation>
+        <type>pick</type>
+        <object-name>MFD.alt</object-name>
+        <action>
+            <button>3</button>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>nasal</command>
+                <script>efis.primus.mfd_menu("alt-inc")</script>
+            </binding>
+        </action>
+    </animation>
+
+    <animation>
+        <type>pick</type>
+        <object-name>MFD.alt</object-name>
+        <action>
+            <button>4</button>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>nasal</command>
+                <script>efis.primus.mfd_menu("alt-dec")</script>
+            </binding>
+        </action>
+    </animation>
+
+
+    <animation>
+        <type>pick</type>
+        <object-name>MFD.btn1</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <binding>
+                <command>nasal</command>
+                <script>efis.primus.mfd_menu("page0")</script>
+            </binding>
+        </action>
+    </animation>
+
+    <animation>
+        <type>pick</type>
+        <object-name>MFD.btn2</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <binding>
+                <command>nasal</command>
+                <script>efis.primus.mfd_menu("page1")</script>
+            </binding>
+        </action>
+    </animation>
+
+    <animation>
+        <type>pick</type>
+        <object-name>MFD.btn3</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <binding>
+                <command>nasal</command>
+                <script>efis.primus.mfd_menu("page2")</script>
+            </binding>
+        </action>
+    </animation>
+
+    <animation>
+        <type>pick</type>
+        <object-name>MFD.btn4</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <binding>
+                <command>nasal</command>
+                <script>efis.primus.mfd_menu("page3")</script>
+            </binding>
+        </action>
+    </animation>
+
+    <animation>
+        <type>pick</type>
+        <object-name>MFD.btn5</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <binding>
+                <command>nasal</command>
+                <script>efis.primus.mfd_menu("page4")</script>
+            </binding>
+        </action>
+    </animation>
+
+</PropertyList>

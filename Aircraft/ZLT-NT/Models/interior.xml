@@ -1,0 +1,618 @@
+<?xml version="1.0"?>
+<!--
+  Zeppelin NT07 airship.
+
+  Copyright (C) 2008 - 2013  Anders Gidenstam  (anders(at)gidenstam.org)
+  This file is licensed under the GPL license v2 or later.
+-->
+<PropertyList>
+
+ <!-- The hull. -->
+ <path>interior.ac</path>
+ <offsets>
+  <!-- x/y/z == back/right/up -->
+  <x-m> 0.0 </x-m>
+  <y-m> 0.0 </y-m>
+  <z-m> 0.0 </z-m>
+ </offsets>
+
+ <!-- Instrument panel =====================================================-->
+ <model>
+  <name>Panel instruments</name>
+  <path>Aircraft/ZLT-NT/Models/instrument_panel.xml</path>
+  <offsets>
+   <!-- x/y/z == back/right/up -->
+   <x-m> 18.20 </x-m>
+   <y-m>  0.00 </y-m>
+   <z-m> -8.80 </z-m>
+   <pitch-deg>-10.0</pitch-deg>
+  </offsets>
+ </model>
+
+ <!-- Ceiling control panel ================================================-->
+ <model>
+  <name>Ceiling console</name>
+  <path>Aircraft/ZLT-NT/Models/ceiling_console.xml</path>
+  <offsets>
+   <!-- x/y/z == back/right/up -->
+   <x-m> 18.20 </x-m>
+   <y-m>  0.00 </y-m>
+   <z-m> -8.80 </z-m>
+   <pitch-deg>0.0</pitch-deg>
+  </offsets>
+ </model>
+
+ <!-- Cockpit animations ===================================================-->
+
+ <!-- Animations for the side-sticks -->
+ <animation>
+  <type>rotate</type>
+  <object-name>sidestick_handle.L</object-name>
+  <object-name>sidestick_grip.L</object-name>
+  <property>fdm/jsbsim/fcs/pilot/pitch-cmd-norm</property>
+  <factor>-30.0</factor>
+  <offset-deg>0.0</offset-deg>
+  <center>
+   <x-m> 18.60 </x-m>
+   <y-m> -0.70 </y-m>
+   <z-m> -8.36 </z-m>
+  </center>
+  <axis>
+   <x> 0.0 </x>
+   <y> 1.0 </y>
+   <z> 0.0 </z>
+  </axis>
+ </animation>
+ <animation>
+  <type>rotate</type>
+  <object-name>sidestick_handle.L</object-name>
+  <object-name>sidestick_grip.L</object-name>
+  <property>fdm/jsbsim/fcs/pilot/yaw-cmd-norm</property>
+  <factor>-30.0</factor>
+  <offset-deg>0.0</offset-deg>
+  <center>
+   <x-m> 18.60 </x-m>
+   <y-m> -0.70 </y-m>
+   <z-m> -8.36 </z-m>
+  </center>
+  <axis>
+   <x> 1.0 </x>
+   <y> 0.0 </y>
+   <z> 0.0 </z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>sidestick_handle.R</object-name>
+  <object-name>sidestick_grip.R</object-name>
+  <property>fdm/jsbsim/fcs/copilot/pitch-cmd-norm</property>
+  <factor>-30.0</factor>
+  <offset-deg>0.0</offset-deg>
+  <center>
+   <x-m> 18.60 </x-m>
+   <y-m>  0.70 </y-m>
+   <z-m> -8.36 </z-m>
+  </center>
+  <axis>
+   <x> 0.0 </x>
+   <y> 1.0 </y>
+   <z> 0.0 </z>
+  </axis>
+ </animation>
+ <animation>
+  <type>rotate</type>
+  <object-name>sidestick_handle.R</object-name>
+  <object-name>sidestick_grip.R</object-name>
+  <property>fdm/jsbsim/fcs/copilot/yaw-cmd-norm</property>
+  <factor>-30.0</factor>
+  <offset-deg>0.0</offset-deg>
+  <center>
+   <x-m> 18.60 </x-m>
+   <y-m>  0.70 </y-m>
+   <z-m> -8.36 </z-m>
+  </center>
+  <axis>
+   <x> 1.0 </x>
+   <y> 0.0 </y>
+   <z> 0.0 </z>
+  </axis>
+ </animation>
+
+
+ <!-- Animations for the engine swivel controls -->
+ <animation>
+  <type>knob</type>
+  <object-name>left_swivel_arm</object-name>
+  <object-name>left_swivel_handle</object-name>
+  <property>fdm/jsbsim/fcs/etc/side-engine-swivel-cmd-rad[0]</property>
+  <factor>57.296</factor>
+  <offset-deg>10.0</offset-deg>
+  <center>
+   <x-m> 18.48 </x-m>
+   <y-m>  0.00 </y-m>
+   <z-m> -8.60 </z-m>
+  </center>
+  <axis>
+   <x> 0.0 </x>
+   <y> 1.0 </y>
+   <z> 0.0 </z>
+  </axis>
+  <increase>
+   <binding>
+    <command>nasal</command>
+    <script>controls.flapsDown(1);</script>
+   </binding>
+  </increase>
+  <decrease>
+   <binding>
+    <command>nasal</command>
+    <script>controls.flapsDown(-1);</script>
+   </binding>
+  </decrease>
+  <drag-direction>vertical</drag-direction>
+ </animation>
+
+ <animation>
+  <type>knob</type>
+  <object-name>right_swivel_arm</object-name>
+  <object-name>right_swivel_handle</object-name>
+  <property>fdm/jsbsim/fcs/etc/side-engine-swivel-cmd-rad[1]</property>
+  <factor>57.296</factor>
+  <offset-deg>10.0</offset-deg>
+  <center>
+   <x-m> 18.48 </x-m>
+   <y-m>  0.00 </y-m>
+   <z-m> -8.60 </z-m>
+  </center>
+  <axis>
+   <x> 0.0 </x>
+   <y> 1.0 </y>
+   <z> 0.0 </z>
+  </axis>
+  <increase>
+   <binding>
+    <command>nasal</command>
+    <script>controls.flapsDown(1);</script>
+   </binding>
+  </increase>
+  <decrease>
+   <binding>
+    <command>nasal</command>
+    <script>controls.flapsDown(-1);</script>
+   </binding>
+  </decrease>
+  <drag-direction>vertical</drag-direction>
+ </animation>
+
+ <animation>
+  <type>knob</type>
+  <object-name>rear_swivel_arm</object-name>
+  <object-name>rear_swivel_handle</object-name>
+  <property>fdm/jsbsim/fcs/etc/rear-engine-swivel-cmd-rad</property>
+  <factor>28.648</factor>
+  <offset-deg>-22.5</offset-deg>
+  <center>
+   <x-m> 18.65 </x-m>
+   <y-m>  0.00 </y-m>
+   <z-m> -8.54 </z-m>
+  </center>
+  <axis>
+   <x> 0.0 </x>
+   <y> 1.0 </y>
+   <z> 0.0 </z>
+  </axis>
+  <increase>
+   <binding>
+    <command>nasal</command>
+    <script>controls.gearDown(-1);</script>
+   </binding>
+  </increase>
+  <decrease>
+   <binding>
+    <command>nasal</command>
+    <script>controls.gearDown(1);</script>
+   </binding>
+  </decrease>
+  <drag-direction>vertical</drag-direction>
+ </animation>
+
+ <!-- Animations for the RPM select levers. -->
+ <animation>
+  <type>knob</type>
+  <object-name>throttle_arm.1</object-name>
+  <object-name>throttle_handle.1</object-name>
+  <property>fdm/jsbsim/fcs/propeller-speed-cmd-norm[0]</property>
+  <factor>-45.0</factor>
+  <offset-deg>22.5</offset-deg>
+  <center>
+   <x-m> 18.25 </x-m>
+   <y-m>  0.00 </y-m>
+   <z-m> -8.56 </z-m>
+  </center>
+  <axis>
+   <x> 0.0 </x>
+   <y> 1.0 </y>
+   <z> 0.0 </z>
+  </axis>
+  <action>
+   <repeatable>true</repeatable>
+   <interval-sec>0.2</interval-sec>
+   <binding>
+    <command>property-adjust</command>
+    <property>/controls/engines/engine[0]/throttle</property>
+    <factor type="double">0.02</factor>
+    <min type="double">0.0</min>
+    <max type="double">1.0</max>
+   </binding>
+  </action>
+  <drag-direction>vertical</drag-direction>
+ </animation>
+
+ <animation>
+  <type>knob</type>
+  <object-name>throttle_arm.3</object-name>
+  <object-name>throttle_handle.3</object-name>
+  <property>fdm/jsbsim/fcs/propeller-speed-cmd-norm[1]</property>
+  <factor>-45.0</factor>
+  <offset-deg>22.5</offset-deg>
+  <center>
+   <x-m> 18.25 </x-m>
+   <y-m>  0.00 </y-m>
+   <z-m> -8.56 </z-m>
+  </center>
+  <axis>
+   <x> 0.0 </x>
+   <y> 1.0 </y>
+   <z> 0.0 </z>
+  </axis>
+  <action>
+   <repeatable>true</repeatable>
+   <interval-sec>0.2</interval-sec>
+   <binding>
+    <command>property-adjust</command>
+    <property>/controls/engines/engine[1]/throttle</property>
+    <factor type="double">0.02</factor>
+    <min type="double">0.0</min>
+    <max type="double">1.0</max>
+   </binding>
+  </action>
+  <drag-direction>vertical</drag-direction>
+ </animation>
+
+ <animation>
+  <type>knob</type>
+  <object-name>throttle_arm.2</object-name>
+  <object-name>throttle_handle.2</object-name>
+  <property>fdm/jsbsim/fcs/propeller-speed-cmd-norm[2]</property>
+  <factor>-45.0</factor>
+  <offset-deg>22.5</offset-deg>
+  <center>
+   <x-m> 18.25 </x-m>
+   <y-m>  0.00 </y-m>
+   <z-m> -8.56 </z-m>
+  </center>
+  <axis>
+   <x> 0.0 </x>
+   <y> 1.0 </y>
+   <z> 0.0 </z>
+  </axis>
+  <action>
+   <repeatable>true</repeatable>
+   <interval-sec>0.2</interval-sec>
+   <binding>
+    <command>property-adjust</command>
+    <property>/controls/engines/engine[2]/throttle</property>
+    <factor type="double">0.02</factor>
+    <min type="double">0.0</min>
+    <max type="double">1.0</max>
+   </binding>
+  </action>
+  <drag-direction>vertical</drag-direction>
+ </animation>
+
+
+ <!-- Animations for the mixture levers. -->
+
+ <animation>
+  <type>knob</type>
+  <object-name>mixture_arm.1</object-name>
+  <object-name>mixture_handle.1</object-name>
+  <property>fdm/jsbsim/fcs/mixture-cmd-norm[0]</property>
+  <factor>-45.0</factor>
+  <offset-deg>22.5</offset-deg>
+  <center>
+   <x-m> 18.25 </x-m>
+   <y-m>  0.00 </y-m>
+   <z-m> -8.56 </z-m>
+  </center>
+  <axis>
+   <x> 0.0 </x>
+   <y> 1.0 </y>
+   <z> 0.0 </z>
+  </axis>
+  <action>
+   <repeatable>true</repeatable>
+   <interval-sec>0.2</interval-sec>
+   <binding>
+    <command>property-adjust</command>
+    <property>/controls/engines/engine[0]/mixture</property>
+    <factor type="double">0.02</factor>
+    <min type="double">0.0</min>
+    <max type="double">1.0</max>
+   </binding>
+  </action>
+  <drag-direction>vertical</drag-direction>
+ </animation>
+
+ <animation>
+  <type>knob</type>
+  <object-name>mixture_arm.2</object-name>
+  <object-name>mixture_handle.2</object-name>
+  <property>fdm/jsbsim/fcs/mixture-cmd-norm[2]</property>
+  <factor>-45.0</factor>
+  <offset-deg>22.5</offset-deg>
+  <center>
+   <x-m> 18.25 </x-m>
+   <y-m>  0.00 </y-m>
+   <z-m> -8.56 </z-m>
+  </center>
+  <axis>
+   <x> 0.0 </x>
+   <y> 1.0 </y>
+   <z> 0.0 </z>
+  </axis>
+  <action>
+   <repeatable>true</repeatable>
+   <interval-sec>0.2</interval-sec>
+   <binding>
+    <command>property-adjust</command>
+    <property>/controls/engines/engine[2]/mixture</property>
+    <factor type="double">0.02</factor>
+    <min type="double">0.0</min>
+    <max type="double">1.0</max>
+   </binding>
+  </action>
+  <drag-direction>vertical</drag-direction>
+ </animation>
+
+ <animation>
+  <type>knob</type>
+  <object-name>mixture_arm.3</object-name>
+  <object-name>mixture_handle.3</object-name>
+  <property>fdm/jsbsim/fcs/mixture-cmd-norm[1]</property>
+  <factor>-45.0</factor>
+  <offset-deg>22.5</offset-deg>
+  <center>
+   <x-m> 18.25 </x-m>
+   <y-m>  0.00 </y-m>
+   <z-m> -8.56 </z-m>
+  </center>
+  <axis>
+   <x> 0.0 </x>
+   <y> 1.0 </y>
+   <z> 0.0 </z>
+  </axis>
+  <action>
+   <repeatable>true</repeatable>
+   <interval-sec>0.2</interval-sec>
+   <binding>
+    <command>property-adjust</command>
+    <property>/controls/engines/engine[1]/mixture</property>
+    <factor type="double">0.02</factor>
+    <min type="double">0.0</min>
+    <max type="double">1.0</max>
+   </binding>
+  </action>
+  <drag-direction>vertical</drag-direction>
+ </animation>
+
+ <!-- Animations for the thrust levers. -->
+ <animation>
+  <type>knob</type>
+  <object-name>thrust_arm.1</object-name>
+  <object-name>thrust_handle.1</object-name>
+  <property>fdm/jsbsim/fcs/thrust-cmd-norm[0]</property>
+  <factor>-90.0</factor>
+  <offset-deg>45.0</offset-deg>
+  <center>
+   <x-m> 18.42 </x-m>
+   <y-m>  0.00 </y-m>
+   <z-m> -8.53 </z-m>
+  </center>
+  <axis>
+   <x> 0.0 </x>
+   <y> 1.0 </y>
+   <z> 0.0 </z>
+  </axis>
+  <action>
+   <repeatable>true</repeatable>
+   <interval-sec>0.2</interval-sec>
+   <binding>
+    <command>property-adjust</command>
+    <property>/controls/engines/engine[0]/propeller-pitch</property>
+    <factor type="double">0.02</factor>
+    <min type="double">0.0</min>
+    <max type="double">1.0</max>
+   </binding>
+  </action>
+  <drag-direction>vertical</drag-direction>
+ </animation>
+
+ <animation>
+  <type>knob</type>
+  <object-name>thrust_arm.2</object-name>
+  <object-name>thrust_handle.2</object-name>
+  <property>fdm/jsbsim/fcs/thrust-cmd-norm[1]</property>
+  <factor>-90.0</factor>
+  <offset-deg>45.0</offset-deg>
+  <center>
+   <x-m> 18.42 </x-m>
+   <y-m>  0.00 </y-m>
+   <z-m> -8.53 </z-m>
+  </center>
+  <axis>
+   <x> 0.0 </x>
+   <y> 1.0 </y>
+   <z> 0.0 </z>
+  </axis>
+  <action>
+   <repeatable>true</repeatable>
+   <interval-sec>0.2</interval-sec>
+   <binding>
+    <command>property-adjust</command>
+    <property>/controls/engines/engine[1]/propeller-pitch</property>
+    <factor type="double">0.02</factor>
+    <min type="double">0.0</min>
+    <max type="double">1.0</max>
+   </binding>
+  </action>
+  <drag-direction>vertical</drag-direction>
+ </animation>
+
+ <animation>
+  <type>knob</type>
+  <object-name>thrust_arm.3</object-name>
+  <object-name>thrust_handle.3</object-name>
+  <property>fdm/jsbsim/fcs/thrust-cmd-norm[2]</property>
+  <factor>-90.0</factor>
+  <offset-deg>45.0</offset-deg>
+  <center>
+   <x-m> 18.65 </x-m>
+   <y-m>  0.00 </y-m>
+   <z-m> -8.53 </z-m>
+  </center>
+  <axis>
+   <x> 0.0 </x>
+   <y> 1.0 </y>
+   <z> 0.0 </z>
+  </axis>
+  <action>
+   <repeatable>true</repeatable>
+   <interval-sec>0.2</interval-sec>
+   <binding>
+    <command>property-adjust</command>
+    <property>/controls/engines/engine[2]/propeller-pitch</property>
+    <factor type="double">0.02</factor>
+    <min type="double">0.0</min>
+    <max type="double">1.0</max>
+   </binding>
+  </action>
+  <drag-direction>vertical</drag-direction>
+ </animation>
+
+ <!-- Animations for the gas valve controls. --> 
+ <animation>
+  <type>knob</type>
+  <object-name>gas_arm.1</object-name>
+  <object-name>gas_handle.1</object-name>
+  <property>fdm/jsbsim/buoyant_forces/gas-cell/valve_open</property>
+  <factor>60.0</factor>
+  <offset-deg>-30.0</offset-deg>
+  <center>
+   <x-m> 18.40 </x-m>
+   <y-m>  0.00 </y-m>
+   <z-m> -7.30 </z-m>
+  </center>
+  <axis>
+   <x> 0.0 </x>
+   <y> 1.0 </y>
+   <z> 0.0 </z>
+  </axis>
+  <increase>
+   <binding>
+    <command>nasal</command>
+    <script>ZLTNT.step_gas_valve_cmd(0, 0.05);</script>
+   </binding>
+  </increase>
+  <decrease>
+   <binding>
+    <command>nasal</command>
+    <script>ZLTNT.step_gas_valve_cmd(0, -0.05);</script>
+   </binding>
+  </decrease>
+ </animation>
+
+ <!-- Animations for the ballonet valve controls. --> 
+ <animation>
+  <type>knob</type>
+  <object-name>ballonet_arm.2</object-name>
+  <object-name>ballonet_handle.2</object-name>
+  <property>fdm/jsbsim/fcs/ballonet-inflation-cmd-norm[0]</property>
+  <factor>30.0</factor>
+  <offset-deg>0.0</offset-deg>
+  <center>
+   <x-m> 18.40 </x-m>
+   <y-m>  0.00 </y-m>
+   <z-m> -7.30 </z-m>
+  </center>
+  <axis>
+   <x> 0.0 </x>
+   <y> 1.0 </y>
+   <z> 0.0 </z>
+  </axis>
+  <increase>
+   <binding>
+    <command>nasal</command>
+    <script>ZLTNT.step_ballonet_cmd(0, 0.05);</script>
+   </binding>
+  </increase>
+  <decrease>
+   <binding>
+    <command>nasal</command>
+    <script>ZLTNT.step_ballonet_cmd(0, -0.05);</script>
+   </binding>
+  </decrease>
+ </animation>
+
+ <animation>
+  <type>knob</type>
+  <object-name>ballonet_arm.3</object-name>
+  <object-name>ballonet_handle.3</object-name>
+  <property>fdm/jsbsim/fcs/ballonet-inflation-cmd-norm[1]</property>
+  <factor>30.0</factor>
+  <offset-deg>0.0</offset-deg>
+  <center>
+   <x-m> 18.40 </x-m>
+   <y-m>  0.00 </y-m>
+   <z-m> -7.30 </z-m>
+  </center>
+  <axis>
+   <x> 0.0 </x>
+   <y> 1.0 </y>
+   <z> 0.0 </z>
+  </axis>
+  <increase>
+   <binding>
+    <command>nasal</command>
+    <script>ZLTNT.step_ballonet_cmd(1, 0.05);</script>
+   </binding>
+  </increase>
+  <decrease>
+   <binding>
+    <command>nasal</command>
+    <script>ZLTNT.step_ballonet_cmd(1, -0.05);</script>
+   </binding>
+  </decrease>
+ </animation>
+
+ <!-- Preliminary panel lighting. -->
+ <animation>
+  <type>material</type>
+  <object-name>instrument_panel</object-name>
+  <emission>
+   <factor-prop>controls/lighting/panel-norm</factor-prop>
+   <red>0.1</red>
+   <green>0.1</green>
+   <blue>0.1</blue>
+  </emission>
+ </animation>
+
+ <!-- LOD for the model as a whole =========================================-->
+ <animation>
+  <type>range</type>
+  <min-m>0</min-m>
+  <max-m>500</max-m>
+ </animation>
+
+</PropertyList>

@@ -1,0 +1,184 @@
+<?xml version="1.0" ?>
+<!--
+ This file is part of FlightGear, the free flight simulator
+ http://www.flightgear.org/
+
+ Copyright (C) 2009 Torsten Dreyer, Torsten (at) t3r _dot_ de
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation; either version 2 of the
+ License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+-->
+<!--
+    This is the ka51b slaving meter 3d instrument.
+    Maintainer: Torsten Dreyer
+-->
+<PropertyList>
+    <path>ka51b.ac</path>
+
+    <animation>
+        <type>range</type>
+        <min-m>0</min-m>
+        <max-m>10</max-m>
+    </animation>
+    
+    <animation>
+      <type>material</type>
+      <property-base>sim/model/material/cockpit</property-base>
+      <object-name>face</object-name>
+      <object-name>auto</object-name>
+      <object-name>direction</object-name>
+      <emission>
+        <red-prop>red</red-prop>
+        <green-prop>green</green-prop>
+        <blue-prop>blue</blue-prop>
+        <factor-prop>factor</factor-prop>
+      </emission>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>auto.lever</object-name>
+        <property>instrumentation/kcs55/ka51/slaved</property>
+        <factor>-60</factor>
+        <offset-deg>60</offset-deg>
+        <axis>
+            <x>0</x>
+            <y>0</y>
+            <z>1</z>
+        </axis>
+        <center>
+            <x-m>0</x-m>
+            <y-m>0</y-m>
+            <z-m>0</z-m>
+        </center>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>direction.lever</object-name>
+        <property>instrumentation/kcs55/ka51/manual-slave</property>
+        <factor>30</factor>
+        <axis>
+            <x>0</x>
+            <y>0</y>
+            <z>1</z>
+        </axis>
+        <center>
+            <x-m>0</x-m>
+            <y-m>0</y-m>
+            <z-m>0</z-m>
+        </center>
+    </animation>
+    
+    <animation>
+        <type>translate</type>
+        <object-name>indicator</object-name>
+        <property>instrumentation/kcs55/kg102/slaving-meter-norm</property>
+        <factor>0.0021579</factor>
+        <axis>
+            <x>0</x>
+            <y>-1</y>
+            <z>0</z>
+        </axis>
+    </animation>
+
+    <animation>
+        <type>pick</type>
+        <object-name>auto</object-name>
+        <visible>true</visible>
+        <action>
+          <button>0</button>
+          <repeatable>false</repeatable>
+          <binding>
+            <command>property-toggle</command>
+            <property>instrumentation/kcs55/ka51/slaved</property>
+          </binding>
+        </action>
+    </animation>
+
+    <animation>
+        <type>pick</type>
+        <object-name>direction.lever.l</object-name>
+        <object-name>direction.base.l</object-name>
+        <object-name>direction.pick.ccw</object-name>
+        <visible>true</visible>
+        <action>
+          <button>0</button>
+          <repeatable>false</repeatable>
+          <binding>
+            <command>property-assign</command>
+            <property>instrumentation/kcs55/ka51/manual-slave</property>
+            <value type="int">-1</value>
+          </binding>
+          <mod-up>
+            <binding>
+              <command>property-assign</command>
+              <property>instrumentation/kcs55/ka51/manual-slave</property>
+              <value type="int">0</value>
+            </binding>
+          </mod-up>
+        </action>
+    </animation>
+
+    <animation>
+        <type>pick</type>
+        <object-name>direction.lever.r</object-name>
+        <object-name>direction.base.r</object-name>
+        <object-name>direction.pick.cw</object-name>
+        <visible>true</visible>
+        <action>
+          <button>0</button>
+          <repeatable>false</repeatable>
+          <binding>
+            <command>property-assign</command>
+            <property>instrumentation/kcs55/ka51/manual-slave</property>
+            <value type="int">1</value>
+          </binding>
+          <mod-up>
+            <binding>
+              <command>property-assign</command>
+              <property>instrumentation/kcs55/ka51/manual-slave</property>
+              <value type="int">0</value>
+            </binding>
+          </mod-up>
+        </action>
+    </animation>
+
+    <animation>
+        <type>pick</type>
+        <object-name>auto.pick</object-name>
+        <visible>false</visible>
+        <action>
+          <button>0</button>
+          <repeatable>false</repeatable>
+          <binding>
+            <command>property-assign</command>
+            <property>instrumentation/kcs55/ka51/slaved</property>
+            <value type="bool">1</value>
+          </binding>
+        </action>
+    </animation>
+
+    <animation>
+        <type>pick</type>
+        <object-name>man.pick</object-name>
+        <visible>false</visible>
+        <action>
+          <button>0</button>
+          <repeatable>false</repeatable>
+          <binding>
+            <command>property-assign</command>
+            <property>instrumentation/kcs55/ka51/slaved</property>
+            <value type="bool">0</value>
+          </binding>
+        </action>
+    </animation>
+
+</PropertyList>

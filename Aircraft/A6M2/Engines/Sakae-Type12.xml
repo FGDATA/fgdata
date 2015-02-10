@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<!--
+  File:     Sakae-Type12.xml
+  Author:   Aero-Matic v 0.8, and Tat Nishioka
+
+  Inputs:
+    name:           Sakae-Type12
+    type:           piston
+    power:          950 hp
+    minrpm:         1800
+    maxrpm:         2550
+    augmented?      no
+    injected?       no
+-->
+
+<piston_engine name="Sakae-Type12">
+  <minmp unit="INHG">         10.500 </minmp>
+  <maxmp unit="INHG">         29.592 </maxmp>
+  <displacement unit="IN3"> 1703.000 </displacement>
+  <maxhp>        940.00 </maxhp>
+  <cycles>         4.0 </cycles>
+  <idlerpm>      500.0 </idlerpm> <!-- should be 750 or so -->
+  <maxrpm>      2550.0 </maxrpm>
+  <maxthrottle>    1.0 </maxthrottle>
+  <minthrottle>    0.05 </minthrottle>
+  <bore unit="M"> 0.13</bore>
+  <stroke unit="M"> 0.15</stroke>
+  <compression-ratio> 6.7 </compression-ratio>
+  <cylinders> 14 </cylinders>
+  <cylinder-head-mass unit="KG"> 50 </cylinder-head-mass>
+  <sparkfaildrop> 0.1 </sparkfaildrop>
+
+  <!-- supercharger setting -->
+  <numboostspeeds> 1 </numboostspeeds>
+  <boostoverride>  0 </boostoverride>
+  <ratedboost1 unit="INHG"> 5.9 </ratedboost1> <!-- +150mmHg = 1.2 bar -->
+  <ratedpower1> 950 </ratedpower1>
+  <ratedrpm1> 2500 </ratedrpm1>
+  <ratedaltitude1> 13100 </ratedaltitude1> 
+  <takeoffboost  unit="INHG">9.85</takeoffboost> <!-- +250mmHg = 1.333 bar -->
+
+  <!-- increasing volumetric efficiency increases fuel-flow and HP produced, default = 0.8 -->
+  <volumetric-efficiency> .82 </volumetric-efficiency>
+  <!-- increasing bsfc decreases HP produced -->
+  <bsfc unit="LBS/HP*HR"> 0.492 </bsfc>
+
+<!-- Report actual engine RPM to JSBSim -->
+<function name="propulsion/engine[#]/rpm">
+ <product>
+  <property>propulsion/engine[#]/propeller-rpm</property>
+  <value>1.4545</value>
+ </product>
+</function>
+
+<!-- Adjust Engine Volumetric Effeciency based on The Internal Combustion Engine in Theory and Practice Vol I fig 6-13 -->
+<function name="propulsion/engine[#]/intake/mach-velocity-fps">
+ <description> Sonic velocity at the given intake manifold pressure </description>
+ <pow>
+  <quotient>
+   <product>
+    <property>propulsion/engine[#]/map-inhg</property>
+    <value>70.726</value> <!-- convert inHg to lbf/ft^2 -->
+    <value>1.4</value> <!-- gamma air-->
+   </product>
+   <property>atmosphere/rho-slugs_ft3</property>
+  </quotient>
+  <value>0.5</value>
+ </pow>
+</function>
+
+<function name="propulsion/engine[#]/intake/mean-piston-speed-fps">
+ <description> Average Speed of piston </description>
+  <quotient>
+   <product>
+    <property>propulsion/engine[#]/rpm</property>
+    <value>0.49213</value> <!-- Stroke, in feet-->
+   </product>
+   <value>30</value><!-- Convert revolutions per minute to strokes per second -->
+  </quotient>
+</function>
+
+<function name="propulsion/engine[#]/intake/z-index">
+ <description> Ratio of mach to inlet valve speed </description>
+ <product>
+  <value>4.0</value><!-- (bore/diameter of intake valve)^2 -->
+  <quotient>
+   <property>propulsion/engine[#]/intake/mean-piston-speed-fps</property>
+   <product>
+    <value>0.32</value> <!-- Ci-->
+    <property>propulsion/engine[#]/intake/mach-velocity-fps</property>
+   </product>
+  </quotient>
+ </product>
+</function>
+
+<fcs_function name="propulsion/engine[#]/intake/ve">
+ <function>
+  <table>
+   <independentVar lookup="row">propulsion/engine[0]/intake/z-index</independentVar>
+   <tableData>
+    0.6 0.82
+    1.0 0.65
+    1.5 0.45
+   </tableData>
+  </table>
+ </function>
+ <output>propulsion/engine[#]/volumetric-efficiency</output>
+</fcs_function>
+
+</piston_engine>

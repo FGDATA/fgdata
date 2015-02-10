@@ -1,0 +1,211 @@
+<?xml version="1.0"?>
+
+<!--
+************************************************************************
+* Bindings for Logitech WingMan Force joystick.
+*
+* This joystick is dual-mode: it can connect either through the
+* serial or through a USB port.  Bindings are as follow:
+*
+* Axis 0: ailerons
+* Axis 1: elevator
+* Axis 2 (slider): throttle
+* Axes 3 and 4 (hat): view direction
+*
+* Button 0 (trigger): all brakes
+* Button 2 (02): elevator trim up
+* Button 3 (03): elevator trim down
+* Button 4 (04): mixture richer
+* Button 5 (05): mixture leaner
+* Button 6 (06): left brake only
+* Button 7 (07): right brake only
+************************************************************************
+$Id$
+-->
+
+<PropertyList>
+
+ <name>Logitech WingMan Force</name>
+
+ <axis n="0">
+  <desc>Aileron</desc>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/aileron</property>
+   <squared>true</squared>
+  </binding>
+ </axis>
+
+ <axis n="1">
+  <desc>Elevator</desc>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/elevator</property>
+   <factor type="double">-1.0</factor>
+   <squared>true</squared>
+  </binding>
+ </axis>
+
+ <axis n="2">
+  <desc>Throttle</desc>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/engines/engine[0]/throttle</property>
+   <offset type="double">+1.0</offset>
+   <factor type="double">+0.5</factor>
+  </binding>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/engines/engine[1]/throttle</property>
+   <offset type="double">+1.0</offset>
+   <factor type="double">+0.5</factor>
+  </binding>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/engines/engine[2]/throttle</property>
+   <offset type="double">+1.0</offset>
+   <factor type="double">+0.5</factor>
+  </binding>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/engines/engine[3]/throttle</property>
+   <offset type="double">+1.0</offset>
+   <factor type="double">+0.5</factor>
+  </binding>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/engines/engine[4]/throttle</property>
+   <offset type="double">+1.0</offset>
+   <factor type="double">+0.5</factor>
+  </binding>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/engines/engine[5]/throttle</property>
+   <offset type="double">+1.0</offset>
+   <factor type="double">+0.5</factor>
+  </binding>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/engines/engine[6]/throttle</property>
+   <offset type="double">+1.0</offset>
+   <factor type="double">+0.5</factor>
+  </binding>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/engines/engine[7]/throttle</property>
+   <offset type="double">+1.0</offset>
+   <factor type="double">+0.5</factor>
+  </binding>
+ </axis>
+
+ <!-- The next two axes are the view hat -->
+
+ <axis n="3">
+  <desc>View left/right</desc>
+  <binding>
+   <command>property-scale</command>
+   <property>/sim/current-view/axes/lat</property>
+  </binding>
+ </axis>
+
+ <axis n="4">
+  <desc>View up/down</desc>
+  <binding>
+   <command>property-scale</command>
+   <property>/sim/current-view/axes/long</property>
+  </binding>
+ </axis>
+
+ <button n="0">
+  <desc>Brakes</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.applyBrakes(1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.applyBrakes(0)</script>
+   </binding>
+  </mod-up>
+ </button>
+
+ <button n="2">
+  <desc>Elevator trim down</desc>
+  <repeatable>true</repeatable>
+  <binding>
+   <command>property-adjust</command>
+   <property>/controls/flight/elevator-trim</property>
+   <step>0.001</step>
+  </binding>
+ </button>
+
+ <button n="3">
+  <desc>Elevator trim up</desc>
+  <repeatable>true</repeatable>
+  <binding>
+   <command>property-adjust</command>
+   <property>/controls/flight/elevator-trim</property>
+   <step>-0.001</step>
+  </binding>
+ </button>
+
+ <button n="4">
+  <desc>Mixture richer</desc>
+  <repeatable>true</repeatable>
+  <binding>
+   <command>property-adjust</command>
+   <property>/controls/engines/engine[0]/mixture</property>
+   <step>0.01</step>
+  </binding>
+  <binding>
+   <command>property-adjust</command>
+   <property>/controls/engines/engine[1]/mixture</property>
+   <step>0.01</step>
+  </binding>
+ </button>
+
+ <button n="5">
+  <desc>Mixture leaner</desc>
+  <repeatable>true</repeatable>
+  <binding>
+   <command>property-adjust</command>
+   <property>/controls/engines/engine[0]/mixture</property>
+   <step>-0.01</step>
+  </binding>
+  <binding>
+   <command>property-adjust</command>
+   <property>/controls/engines/engine[1]/mixture</property>
+   <step>-0.01</step>
+  </binding>
+ </button>
+
+ <button n="6">
+  <desc>Left brakes</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.applyBrakes(1, -1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.applyBrakes(0, -1)</script>
+   </binding>
+  </mod-up>
+ </button>
+
+ <button n="7">
+  <desc>Right brakes</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.applyBrakes(1, 1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.applyBrakes(0, 1)</script>
+   </binding>
+  </mod-up>
+ </button>
+
+</PropertyList>

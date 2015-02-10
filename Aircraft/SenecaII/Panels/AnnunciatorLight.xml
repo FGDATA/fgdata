@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+
+<!--
+-->
+
+<PropertyList>
+
+  <name>OverBoost</name>
+  <w-base>100</w-base>
+  <h-base>100</h-base>
+  
+  <params>
+    <test>instrumentation/annunciator/test</test>
+    <signal>instrumentation/annunciator/overboost[0]</signal>
+    <texture-path>Aircraft/SenecaII/Panels/Textures/Oil.png</texture-path>
+  </params>
+  
+  <layers>
+
+    <layer>
+      <name>LightOn</name>
+      <w>100</w>
+      <h>100</h>
+      <texture>
+        <path alias="../../../../params/texture-path"/>
+        <x1>0.50</x1>
+        <x2>1.00</x2>
+        <y1>0.0</y1>
+        <y2>1.0</y2>
+      </texture>
+      <condition>
+        <or>
+          <property alias="../../../../../params/test"/>
+          <property alias="../../../../../params/signal"/>
+        </or>
+      </condition>
+    </layer>
+
+    <layer>
+      <name>LightOff</name>
+      <w>100</w>
+      <h>100</h>
+      <texture>
+        <path alias="../../../../params/texture-path"/>
+        <x1>0.00</x1>
+        <x2>0.50</x2>
+        <y1>0.0</y1>
+        <y2>1.0</y2>
+      </texture>
+      <condition>
+        <not>
+          <or>
+            <property alias="../../../../../../params/test"/>
+            <property alias="../../../../../../params/signal"/>
+          </or>
+        </not>
+      </condition>
+    </layer>
+
+  </layers>
+
+</PropertyList>

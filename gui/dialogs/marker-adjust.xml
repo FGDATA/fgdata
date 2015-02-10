@@ -1,0 +1,551 @@
+<?xml version="1.0"?>
+<!--
+	Dialog for tutorial marker adjustment.
+	Can be opened with tutorial.dialog() in Help->Nasal Console.
+	Use Ctrl for coarser, and Shift for finer movements.
+-->
+
+<PropertyList>
+	<name>marker-adjust</name>
+	<layout>vbox</layout>
+	<x>-20</x>
+	<y>-20</y>
+
+	<group>
+		<layout>hbox</layout>
+		<empty><stretch>1</stretch></empty>
+
+		<text>
+			<label>Adjust marker</label>
+		</text>
+
+		<empty><stretch>1</stretch></empty>
+
+		<button>
+			<pref-width>16</pref-width>
+			<pref-height>16</pref-height>
+			<legend></legend>
+			<default>1</default>
+			<keynum>27</keynum>
+			<border>2</border>
+
+			<binding>
+				<command>dialog-close</command>
+			</binding>
+		</button>
+	</group>
+
+	<hrule/>
+
+	<nasal>
+		<open>
+			var self = cmdarg();
+			var dlgname = self.getNode("name").getValue();
+			var kbdctrl = props.globals.getNode("/devices/status/keyboard/ctrl", 1);
+			var kbdshift = props.globals.getNode("/devices/status/keyboard/shift", 1);
+
+			var Value = {
+				new : func(name, factor, init = 0) {
+					var m = { parents: [Value] };
+					m.name = name;
+					m.factor = factor;
+					m.init = init;
+					var n = props.globals.getNode("/sim/model/marker/" ~ m.name, 1);
+					m.sliderN = n.getNode("slider", 1);
+					m.offsetN = n.getNode("offset", 1);
+					m.valueN = n.getNode("value", 1);
+					m.offsetN.setDoubleValue(0);
+					m.sliderN.setDoubleValue(0);
+					m.valueN.setDoubleValue(m.init);
+					m.last_slider = 0;
+					m.center();
+					m.sliderL = setlistener(m.sliderN, func { m.update() });
+					return m;
+				},
+				del : func {
+					removelistener(me.sliderL);
+				},
+				reset : func {
+					me.center();
+					me.valueN.setDoubleValue(me.init);
+				},
+				update : func {
+					var offs = me.sliderN.getValue();
+					var v = me.offsetN.getValue() + me.sliderN.getValue() - me.last_slider;
+					var f = me.factor;
+					if (kbdctrl.getValue()) {
+						f *= 5;
+					} elsif (kbdshift.getValue()) {
+						f *= 0.1;
+					}
+					me.valueN.setValue(me.valueN.getValue() + v * f);
+					me.offsetN.setDoubleValue(0);
+					me.last_slider = offs;
+				},
+				center : func {
+					me.offsetN.setValue(me.offsetN.getValue() + me.sliderN.getValue());
+					me.sliderN.setDoubleValue(0);
+				},
+			};
+
+			var values = [
+				Value.new("x", 0.1),    # aft/fore
+				Value.new("y", 0.1),    # left/right
+				Value.new("z", 0.1),    # down/up
+				Value.new("scale", 2, 1),
+			];
+
+			var center = func {
+				foreach (var v; values) {
+					v.center();
+				}
+			}
+
+			var reset = func {
+				foreach (var v; values) {
+					v.reset();
+				}
+			}
+
+			var dump = func {
+				var v = props.globals.getNode("/sim/current-view", 1);
+				print("&lt;view>");
+				foreach (var n; ["heading-offset-deg", "pitch-offset-deg", "roll-offset-deg",
+						"x-offset-m", "y-offset-m", "z-offset-m", "field-of-view"]) {
+					print(sprintf("    &lt;%s>%.1f&lt;/%s>", n, v.getNode(n, 1).getValue(), n));
+				}
+				print("&lt;/view>\n");
+
+				print("&lt;marker>");
+				foreach (var v; values) {
+					var tag = v.name == "scale" ? "scale" : v.name ~ "-m";
+					print(sprintf("    &lt;%s>%.4f&lt;/%s>", tag, v.valueN.getValue(), tag));
+				}
+				print("&lt;/marker>\n");
+			}
+
+			var update = func(w) {
+				self.setValues({"dialog-name": dlgname, "object-name": w});
+				fgcommand("dialog-update", self);
+				center();
+			}
+
+			setprop("/sim/model/marker/arrow-enabled", 1);
+			setprop("/sim/model/marker/cross-enabled", 1);
+		</open>
+
+		<close>
+			setprop("/sim/model/marker/cross-enabled", 0);
+			setprop("/sim/model/marker/arrow-enabled", 0);
+			foreach (var v; values) {
+				v.del();
+			}
+		</close>
+	</nasal>
+
+	<group>
+		<layout>hbox</layout>
+		<default-padding>0</default-padding>
+
+		<button>
+			<legend>&lt;&lt;</legend>
+			<pref-width>22</pref-width>
+			<pref-height>22</pref-height>
+
+			<binding>
+				<command>property-adjust</command>
+				<property>/sim/model/marker/x/offset</property>
+				<step>10</step>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>update("x")</script>
+			</binding>
+		</button>
+
+		<button>
+			<legend>&lt;</legend>
+			<pref-width>22</pref-width>
+			<pref-height>22</pref-height>
+
+			<binding>
+				<command>property-adjust</command>
+				<property>/sim/model/marker/x/offset</property>
+				<step>1</step>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>update("x")</script>
+			</binding>
+		</button>
+
+		<slider>
+			<name>x</name>
+			<property>/sim/model/marker/x/slider</property>
+			<legend>aft/fore</legend>
+			<pref-width>250</pref-width>
+			<live>1</live>
+			<min>-1</min>
+			<max>1</max>
+
+			<color>
+				<red>1.0</red>
+				<green>0.6</green>
+				<blue>0.6</blue>
+				<alpha>1</alpha>
+			</color>
+
+			<binding>
+				<command>dialog-apply</command>
+				<object-name>x</object-name>
+			</binding>
+		</slider>
+
+		<button>
+			<legend>&gt;</legend>
+			<pref-width>22</pref-width>
+			<pref-height>22</pref-height>
+
+			<binding>
+				<command>property-adjust</command>
+				<property>/sim/model/marker/x/offset</property>
+				<step>-1</step>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>update("x")</script>
+			</binding>
+		</button>
+
+		<button>
+			<legend>&gt;&gt;</legend>
+			<pref-width>22</pref-width>
+			<pref-height>22</pref-height>
+
+			<binding>
+				<command>property-adjust</command>
+				<property>/sim/model/marker/x/offset</property>
+				<step>-10</step>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>update("x")</script>
+			</binding>
+		</button>
+	</group>
+
+	<group>
+		<layout>hbox</layout>
+		<default-padding>0</default-padding>
+
+		<button>
+			<legend>&lt;&lt;</legend>
+			<pref-width>22</pref-width>
+			<pref-height>22</pref-height>
+
+			<binding>
+				<command>property-adjust</command>
+				<property>/sim/model/marker/y/offset</property>
+				<step>-10</step>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>update("y")</script>
+			</binding>
+		</button>
+
+		<button>
+			<legend>&lt;</legend>
+			<pref-width>22</pref-width>
+			<pref-height>22</pref-height>
+
+			<binding>
+				<command>property-adjust</command>
+				<property>/sim/model/marker/y/offset</property>
+				<step>-1</step>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>update("y")</script>
+			</binding>
+		</button>
+
+		<slider>
+			<name>y</name>
+			<property>/sim/model/marker/y/slider</property>
+			<legend>left/right</legend>
+			<pref-width>250</pref-width>
+			<live>1</live>
+			<min>-1</min>
+			<max>1</max>
+
+			<color>
+				<red>0.6</red>
+				<green>1.0</green>
+				<blue>0.6</blue>
+				<alpha>1.0</alpha>
+			</color>
+
+			<binding>
+				<command>dialog-apply</command>
+				<object-name>y</object-name>
+			</binding>
+		</slider>
+
+		<button>
+			<legend>&gt;</legend>
+			<pref-width>22</pref-width>
+			<pref-height>22</pref-height>
+
+			<binding>
+				<command>property-adjust</command>
+				<property>/sim/model/marker/y/offset</property>
+				<step>1</step>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>update("y")</script>
+			</binding>
+		</button>
+
+		<button>
+			<legend>&gt;&gt;</legend>
+			<pref-width>22</pref-width>
+			<pref-height>22</pref-height>
+
+			<binding>
+				<command>property-adjust</command>
+				<property>/sim/model/marker/y/offset</property>
+				<step>10</step>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>update("y")</script>
+			</binding>
+		</button>
+	</group>
+
+	<group>
+		<layout>hbox</layout>
+		<default-padding>0</default-padding>
+
+		<button>
+			<legend>&lt;&lt;</legend>
+			<pref-width>22</pref-width>
+			<pref-height>22</pref-height>
+
+			<binding>
+				<command>property-adjust</command>
+				<property>/sim//model/marker/z/offset</property>
+				<step>-10</step>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>update("z")</script>
+			</binding>
+		</button>
+
+		<button>
+			<legend>&lt;</legend>
+			<pref-width>22</pref-width>
+			<pref-height>22</pref-height>
+
+			<binding>
+				<command>property-adjust</command>
+				<property>/sim/model/marker/z/offset</property>
+				<step>-1</step>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>update("z")</script>
+			</binding>
+		</button>
+
+		<slider>
+			<name>z</name>
+			<property>/sim/model/marker/z/slider</property>
+			<legend>down/up</legend>
+			<pref-width>250</pref-width>
+			<live>1</live>
+			<min>-1</min>
+			<max>1</max>
+
+			<color>
+				<red>0.6</red>
+				<green>0.6</green>
+				<blue>1.0</blue>
+				<alpha>1.0</alpha>
+			</color>
+
+			<binding>
+				<command>dialog-apply</command>
+				<object-name>z</object-name>
+			</binding>
+		</slider>
+
+		<button>
+			<legend>&gt;</legend>
+			<pref-width>22</pref-width>
+			<pref-height>22</pref-height>
+
+			<binding>
+				<command>property-adjust</command>
+				<property>/sim/model/marker/z/offset</property>
+				<step>1</step>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>update("z")</script>
+			</binding>
+		</button>
+
+		<button>
+			<legend>&gt;&gt;</legend>
+			<pref-width>22</pref-width>
+			<pref-height>22</pref-height>
+
+			<binding>
+				<command>property-adjust</command>
+				<property>/sim/model/marker/z/offset</property>
+				<step>10</step>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>update("z")</script>
+			</binding>
+		</button>
+	</group>
+
+	<group>
+		<layout>hbox</layout>
+		<default-padding>0</default-padding>
+
+		<button>
+			<legend>&lt;&lt;</legend>
+			<pref-width>22</pref-width>
+			<pref-height>22</pref-height>
+
+			<binding>
+				<command>property-adjust</command>
+				<property>/sim//model/marker/scale/offset</property>
+				<step>-10</step>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>update("scale")</script>
+			</binding>
+		</button>
+
+		<button>
+			<legend>&lt;</legend>
+			<pref-width>22</pref-width>
+			<pref-height>22</pref-height>
+
+			<binding>
+				<command>property-adjust</command>
+				<property>/sim/model/marker/scale/offset</property>
+				<step>-1</step>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>update("scale")</script>
+			</binding>
+		</button>
+
+		<slider>
+			<name>scale</name>
+			<property>/sim/model/marker/scale/slider</property>
+			<legend>size</legend>
+			<pref-width>250</pref-width>
+			<live>1</live>
+			<min>-1</min>
+			<max>1</max>
+
+			<color>
+				<red>1.0</red>
+				<green>0.6</green>
+				<blue>1.0</blue>
+				<alpha>1.0</alpha>
+			</color>
+
+			<binding>
+				<command>dialog-apply</command>
+				<object-name>scale</object-name>
+			</binding>
+		</slider>
+
+		<button>
+			<legend>&gt;</legend>
+			<pref-width>22</pref-width>
+			<pref-height>22</pref-height>
+
+			<binding>
+				<command>property-adjust</command>
+				<property>/sim/model/marker/scale/offset</property>
+				<step>1</step>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>update("scale")</script>
+			</binding>
+		</button>
+
+		<button>
+			<legend>&gt;&gt;</legend>
+			<pref-width>22</pref-width>
+			<pref-height>22</pref-height>
+
+			<binding>
+				<command>property-adjust</command>
+				<property>/sim/model/marker/scale/offset</property>
+				<step>10</step>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>update("scale")</script>
+			</binding>
+		</button>
+	</group>
+
+	<group>
+		<layout>hbox</layout>
+		<default-padding>2</default-padding>
+
+		<button>
+			<halign>left</halign>
+			<legend>Reset</legend>
+			<pref-height>22</pref-height>
+			<pref-width>60</pref-width>
+			<binding>
+				<command>nasal</command>
+				<script>reset()</script>
+			</binding>
+		</button>
+
+		<empty><stretch>1</stretch></empty>
+
+		<button>
+			<halign>center</halign>
+			<legend>Center</legend>
+			<pref-height>22</pref-height>
+			<pref-width>60</pref-width>
+			<binding>
+				<command>nasal</command>
+				<script>center()</script>
+			</binding>
+		</button>
+
+		<empty><stretch>1</stretch></empty>
+
+		<button>
+			<halign>right</halign>
+			<legend>Dump</legend>
+			<pref-height>22</pref-height>
+			<pref-width>60</pref-width>
+			<binding>
+				<command>nasal</command>
+				<script>dump()</script>
+			</binding>
+		</button>
+	</group>
+</PropertyList>

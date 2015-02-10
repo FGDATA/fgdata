@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!-- Set of generic farm buildings, for inclusion in a materials file -->
+<PropertyList>
+  <range-m>5000</range-m>
+  <object>
+    <path>Models/Buildings/silo.ac</path>
+    <path>Models/Buildings/red-barn.ac</path>
+    <path>Models/Buildings/horse-stable.ac</path>
+    <path>Models/Buildings/cow-stable.ac</path>
+    <path>Models/Agriculture/farmhouse1.ac</path>
+    <path>Models/Agriculture/farmhouse2.ac</path>
+    <path>Models/Agriculture/farmhouse3.ac</path>
+    <coverage-m2>5000</coverage-m2>
+    <heading-type>mask</heading-type>
+  </object>
+</PropertyList>

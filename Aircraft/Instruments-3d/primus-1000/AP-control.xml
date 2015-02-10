@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!--
+Author : Syd Adams
+Primus 1000 Autopilot Controller
+-->
+<PropertyList>
+<path>AP-control.ac</path>
+
+    <animation>
+        <type>select</type>
+        <object-name>AP-on</object-name>
+        <condition>
+            <not>
+                <property>autopilot/locks/passive-mode</property>
+            </not>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>YD-on</object-name>
+        <condition>
+            <property>controls/flight/yaw-damper</property>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>Low-on</object-name>
+        <condition>
+            <equals>
+                <property>autopilot/settings/low-bank-deg</property>
+                <value>14</value>
+            </equals>
+        </condition>
+    </animation>
+
+</PropertyList>

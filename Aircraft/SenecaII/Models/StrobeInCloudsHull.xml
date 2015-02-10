@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!--
+ This file is part of FlightGear, the free flight simulator
+ http://www.flightgear.org/
+
+ Copyright (C) 2009 Torsten Dreyer, Torsten (at) t3r _dot_ de
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation; either version 2 of the
+ License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+-->
+<PropertyList>
+    <path>StrobeInCloudsHull.ac</path>
+
+    <animation>
+        <type>noshadow</type>
+        <object-name>StrobeInCloudsHull</object-name>
+    </animation>
+
+    <animation>
+        <type>alpha-test</type>
+        <alpha-factor>0.01</alpha-factor>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>StrobeInCloudsHull</object-name>
+        <condition>
+            <property>sim/model/lights/strobe/state</property>
+            <equals>
+                <property>sim/current-view/view-number</property>
+                <value>0</value>
+            </equals>
+            <less-than>
+                <property>environment/effective-visibility-m</property>
+                <value>100</value>
+            </less-than>
+            <greater-than>
+                <property>environment/effective-visibility-m</property>
+                <value>0</value>
+            </greater-than>
+            <greater-than>
+                <property>sim/time/sun-angle-rad</property>
+                <value>1.57</value>
+            </greater-than>
+        </condition>
+    </animation>
+
+</PropertyList>

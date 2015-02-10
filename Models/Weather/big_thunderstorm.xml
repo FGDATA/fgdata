@@ -1,0 +1,386 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<path>bigstorm-3d.ac</path>
+	<nasal>
+		<load>
+			<![CDATA[
+#############################################################################
+#
+# Routines checking and adjusting weather close to AI thunderstorms
+# 
+# Thorsten Renk, started Feb. 2010
+#
+#############################################################################
+
+var transition = func {
+
+	var n_steps = 10;
+	var stepsize = 4000 / (n_steps - 1);	
+
+	if (transition_flag == 1) {visibility = 5000 - transition_counter * stepsize;}
+	else if (transition_flag == 2) {visibility = 1000 + transition_counter * stepsize;}
+
+	var econfig_aloftNode = props.globals.getNode("environment/config/aloft", 1);
+	var entries_aloft = econfig_aloftNode.getChildren("entry");
+	foreach (var e; entries_aloft) {
+		var v = e.getNode("visibility-m");
+		v.setValue(visibility);
+		}
+
+	var econfig_boundaryNode = props.globals.getNode("environment/config/boundary", 1);
+	var entries_boundary = econfig_boundaryNode.getChildren("entry");
+	foreach (var e; entries_boundary) {
+		var v = e.getNode("visibility-m");
+		v.setValue(visibility);
+		}
+	fgcommand("reinit", props.Node.new({subsystem:"environment"}));
+	transition_counter = transition_counter + 1;
+	if (transition_counter < n_steps) {settimer(transition, 0.1);}
+	else {
+		transition_counter = 0;
+		if (transition_flag==1) {transition_flag = 2;setprop("ai/models/thunderstorm[0]/in-cloud",'true');}
+		else {transition_flag = 1; setprop("ai/models/thunderstorm[0]/in-cloud",'false');};
+		}
+}
+
+
+var store = func {
+
+	setprop("tmp/clouds/layer[0]/elevation-ft",getprop("environment/clouds/layer[0]/elevation-ft"));
+	setprop("tmp/metar/rain-norm",getprop("environment/metar/rain-norm"));
+	setprop("tmp/metar/snow-norm",getprop("environment/metar/snow-norm"));
+
+	var econfig_aloftNode = props.globals.getNode("environment/config/aloft", 1);
+	var entries_aloft = econfig_aloftNode.getChildren("entry");
+	var i = 0;
+	foreach (var e; entries_aloft) {
+		var v = e.getNode("visibility-m");
+		aloft_vis[i] = v.getValue();
+		i=i+1;
+	}
+
+
+	var econfig_boundaryNode = props.globals.getNode("environment/config/boundary", 1);
+	var entries_boundary = econfig_boundaryNode.getChildren("entry");
+	i = 0;
+	foreach (var e; entries_boundary) {
+		var v = e.getNode("visibility-m");
+		boundary_vis[i] = v.getValue();
+		i=i+1;
+	}
+	
+}
+
+var reset = func {
+
+	setprop("environment/clouds/layer[0]/elevation-ft",getprop("tmp/clouds/layer[0]/elevation-ft"));
+	setprop("environment/metar/rain-norm",getprop("tmp/metar/rain-norm"));
+	setprop("environment/metar/snow-norm",getprop("tmp/metar/snow-norm"));
+
+	var econfig_aloftNode = props.globals.getNode("environment/config/aloft", 1);
+	var entries_aloft = econfig_aloftNode.getChildren("entry");
+	var i = 0;
+	foreach (var e; entries_aloft) {
+		var v = e.getNode("visibility-m");
+		v.setValue(aloft_vis[i]);
+		i = i + 1;
+	}
+
+
+	var econfig_boundaryNode = props.globals.getNode("environment/config/boundary", 1);
+	var entries_boundary = econfig_boundaryNode.getChildren("entry");
+	var i = 0;
+	foreach (var e; entries_boundary) {
+		var v = e.getNode("visibility-m");
+		v.setValue(boundary_vis[i]);
+		i = i + 1;
+	}
+
+	fgcommand("reinit", props.Node.new({subsystem:"environment"}));
+}
+
+var thunderstorm_loop = func {
+
+var clat = getprop("position/latitude-deg");
+var clong = getprop("position/longitude-deg");
+var altitude=getprop("position/altitude-ft");
+var ccart = geodtocart(clat,clong ,1000);
+
+var cx = ccart[0];
+var cy = ccart[1];
+
+var slat = getprop("ai/models/thunderstorm[0]/position/latitude-deg");
+var slong = getprop("ai/models/thunderstorm[0]/position/longitude-deg");
+var scart = geodtocart(slat,slong ,1000);
+var spos = geo.Coord.new().set_latlon(slat, slong);
+
+var sx=scart[0];
+var sy=scart[1];
+
+
+var sdistance = ((cx-sx)*(cx-sx) + (cy-sy)*(cy-sy) + 0.01);
+
+if (sdistance >  100.0)
+	{var distance = math.sqrt(sdistance);}
+else
+	{var distance = 0.0;}
+
+if ((distance < 3000) and (distance > 2000.0) and (altitude<38000))
+	{
+
+	if (flag==1) # store the original settings when entering cloud
+		{
+		store();
+		flag=2; # set flag to prevent further action
+		}
+
+
+	if (transition_flag==1)
+		{
+		transition();
+		}
+	else
+		{
+
+		setprop("environment/metar/rain-norm",getprop("tmp/metar/rain-norm"));
+		setprop("environment/metar/snow-norm",getprop("tmp/metar/snow-norm"));
+
+		var econfig_aloftNode = props.globals.getNode("environment/config/aloft", 1);
+		var entries_aloft = econfig_aloftNode.getChildren("entry");
+		foreach (var e; entries_aloft) {
+			var v = e.getNode("visibility-m");
+			v.setValue(1000);
+			}
+
+
+		var econfig_boundaryNode = props.globals.getNode("environment/config/boundary", 1);
+		var entries_boundary = econfig_boundaryNode.getChildren("entry");
+		foreach (var e; entries_boundary) {
+			var v = e.getNode("visibility-m");
+			v.setValue(1000);
+			}
+
+		fgcommand("reinit", props.Node.new({subsystem:"environment"}));
+		}
+	}
+else if ((distance < 2000) and (distance > 0.0) and (altitude<38000))
+	{
+	
+	setprop("environment/clouds/layer[0]/elevation-ft",20000);
+	if (altitude < 10000) 
+		{ 
+		setprop("environment/metar/rain-norm",0.8); 
+		setprop("environment/metar/snow-norm",0);		
+		}
+	else if ((altitude < 20000) and (altitude > 10000))
+		{ 
+		setprop("environment/metar/rain-norm",0); 
+		setprop("environment/metar/snow-norm",0.8);		
+		}
+	else
+		{
+		setprop("environment/metar/rain-norm",0); 
+		setprop("environment/metar/snow-norm",0);	
+	
+		}
+	if (altitude<5000)
+		{
+		var econfig_aloftNode = props.globals.getNode("environment/config/aloft", 1);
+		var entries_aloft = econfig_aloftNode.getChildren("entry");
+		foreach (var e; entries_aloft) {
+			var v = e.getNode("visibility-m");
+			v.setValue(1000);
+			}
+
+		var econfig_boundaryNode = props.globals.getNode("environment/config/boundary", 1);
+		var entries_boundary = econfig_boundaryNode.getChildren("entry");
+		foreach (var e; entries_boundary) {
+			var v = e.getNode("visibility-m");
+			v.setValue(1000);
+			}
+		fgcommand("reinit", props.Node.new({subsystem:"environment"}));
+		}
+	else
+		{
+		var econfig_aloftNode = props.globals.getNode("environment/config/aloft", 1);
+		var entries_aloft = econfig_aloftNode.getChildren("entry");
+		foreach (var e; entries_aloft) {
+			var v = e.getNode("visibility-m");
+			v.setValue(100);
+			}
+		var econfig_boundaryNode = props.globals.getNode("environment/config/boundary", 1);
+		var entries_boundary = econfig_boundaryNode.getChildren("entry");
+		foreach (var e; entries_boundary) {
+			var v = e.getNode("visibility-m");
+			v.setValue(1000);
+			}
+		fgcommand("reinit", props.Node.new({subsystem:"environment"}));
+		}
+	}
+
+else	# we're not in the cloud
+	{
+	
+	if ((flag==2) and (transition_flag==2)) # and  we just left the cloud
+		{
+		# restore cloud layer altitude before initializing transition		
+		setprop("environment/clouds/layer[0]/elevation-ft",getprop("tmp/clouds/layer[0]/elevation-ft"));
+		transition();
+		}
+	else if (flag==2) # we have left the cloud, restore the original settings
+		{
+		reset();
+		flag = 1;
+		}
+
+	}
+
+    settimer(thunderstorm_loop, 1);
+}
+
+
+
+var thunderstorm_turning_loop = func {
+
+var clat = getprop("position/latitude-deg");
+var clong = getprop("position/longitude-deg");
+var slat = getprop("ai/models/thunderstorm[0]/position/latitude-deg");
+var slong = getprop("ai/models/thunderstorm[0]/position/longitude-deg");
+var angle = math.mod(math.atan2(math.sin(slong-clong) * math.cos(slat), math.cos(clat) * math.sin(slat)- math.sin(clat) * math.cos(slat) * math.cos(slong-clong)), 2 * math.pi) * R2D;
+
+setprop("ai/models/thunderstorm[0]/orientation/rotation-deg",90-angle-heading);
+
+    settimer(thunderstorm_turning_loop, 0.05);
+}
+
+
+var count_nodes = func {
+	var econfig_aloftNode = props.globals.getNode("environment/config/aloft", 1);
+	var entries_aloft = econfig_aloftNode.getChildren("entry");
+	foreach (var e; entries_aloft) {
+		naloft=naloft+1;
+	}
+
+	var econfig_boundaryNode = props.globals.getNode("environment/config/boundary", 1);
+	var entries_boundary = econfig_boundaryNode.getChildren("entry");
+	foreach (var e; entries_boundary) {
+		nboundary=nboundary+1;
+	}
+	setsize(aloft_vis,naloft);
+	setsize(boundary_vis,nboundary);
+}
+
+
+
+print("Starting thunderstorm routines...");
+var flag = 1;
+var transition_flag = 1;
+var transition_counter = 0;
+var aloft_vis=[];
+var naloft=0;
+var boundary_vis=[];
+var nboundary=0;
+
+var heading = getprop("ai/models/thunderstorm[0]/orientation/true-heading-deg");
+
+
+setprop("ai/models/thunderstorm[0]/in-cloud",'false');
+
+settimer(count_nodes,1);
+settimer(thunderstorm_loop,1.5);        # start loop
+settimer(thunderstorm_turning_loop,1.5);        # start alignment transformation
+
+print("Done.");  
+]]>
+		</load>
+
+		<unload>
+			<![CDATA[
+            print("Unloading thunderstorm routines!"); 
+	]]>
+		</unload>
+	</nasal>
+
+	<!--<animation>
+  <type>billboard</type>
+  <spherical>false</spherical>
+ </animation> -->
+
+
+	<!--<animation>
+  <type>translate</type>
+  <property>orientation/rotation-deg</property>
+  <factor>1.0</factor>
+  <axis>
+   <x>0.0</x>
+   <y>0.0</y>
+   <z>1.0</z>
+  </axis>
+</animation>-->
+
+	<animation>
+		<type>rotate</type>
+		<property>orientation/rotation-deg</property>
+		<factor>1.0</factor>
+		<axis>
+			<x>0</x>
+			<y>0</y>
+			<z>1</z>
+		</axis>
+	</animation>
+
+
+	<animation>
+		<type>select</type>
+		<object-name>lightning</object-name>
+
+		<condition>
+			<property>/environment/lightning/flash</property>
+		</condition>
+	</animation>
+
+	<animation>
+		<enable-hot type="bool">false</enable-hot>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>rain</object-name>
+		<object-name>main cloud layer</object-name>
+		<object-name>background cloud layer</object-name>
+		<object-name>foreground cloud layer</object-name>
+		<condition>
+			<not>
+				<property>in-cloud</property>
+			</not>
+		</condition>
+	</animation>
+
+	<!--<animation>
+  <type>select</type>
+  <object-name>rain</object-name>
+  <condition>
+    <not>
+      <property>in-cloud</property>
+    </not>
+  </condition>
+ </animation>-->
+
+	<!--
+      turning rain off during a lightning flash helps make
+      the flash more visible, but it's kind of cheezy :) 
+ -->
+
+	<!--<animation>
+  <type>select</type>
+  <object-name>rain</object-name>
+  <condition>
+    <not>
+      <property>/environment/lightning/flash</property>
+    </not>
+  </condition>
+ </animation>-->
+
+
+</PropertyList>

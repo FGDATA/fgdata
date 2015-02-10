@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!--  KI 227-01 
+Bendix/King Slaved Magnetic Heading Indicator
+Syd Adams 
+Anders Gidenstam (changed to gyro slaved compass card) 
+-->
+<PropertyList>
+
+ <path>Aircraft/Instruments-3d/kr87-adf/ki227.ac</path>
+ <texture-path>Aircraft/Instruments-3d/kr87-adf/</texture-path>
+
+ <animation>
+  <type>material</type>
+  <object-name>KI227card</object-name>
+  <object-name>KI227.needle</object-name>
+  <object-name>KI227.knob</object-name>
+  <object-name>KI227.face</object-name>
+  <emission>
+   <red>0.8</red>
+   <green>0.4</green>
+   <blue>0.2</blue>
+   <factor-prop>/systems/electrical/outputs/instrument-lights</factor-prop>
+  </emission>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>KI227card</object-name>
+  <!-- Slave the compass card to the HSI gyro - a single needle RMI. -->
+  <property>/instrumentation/heading-indicator/indicated-heading-deg</property>
+  <factor>-1</factor>
+  <axis>
+   <x>-1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+ </animation>
+ 
+ <animation>
+ <type>rotate</type>
+ <object-name>KI227.needle</object-name>
+ <property>/instrumentation/adf/indicated-bearing-deg</property>
+ <axis>
+  <x>-1</x>
+  <y>0</y>
+  <z>0</z>
+  </axis>
+ </animation>
+
+</PropertyList>
+

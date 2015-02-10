@@ -1,0 +1,141 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+  <name>input-config</name>
+
+  <nasal>
+    <open>
+        var syncRadioState = func()
+        {
+            var cycle = getprop("/sim/mouse/right-button-mode-cycle-enabled");
+            setprop("/sim/gui/dialogs/input-config/right-mouse-look", !cycle);
+            setprop("/sim/gui/dialogs/input-config/right-mouse-cycle", cycle);
+        }
+
+        var rightMouseMode = func(newMode)
+        {
+            var doCycle = (newMode == "cycle");
+            setprop("/sim/mouse/right-button-mode-cycle-enabled", doCycle);
+            syncRadioState();
+        }
+
+        syncRadioState();
+    </open>
+  </nasal>
+
+  <modal>false</modal>
+  <layout>vbox</layout>
+
+  <group>
+    <layout>hbox</layout>
+    <empty><stretch>1</stretch></empty>
+
+    <text>
+      <label>Input Options</label>
+    </text>
+
+    <empty><stretch>1</stretch></empty>
+
+    <button>
+      <pref-width>16</pref-width>
+      <pref-height>16</pref-height>
+      <legend></legend>
+      <keynum>27</keynum>
+      <border>2</border>
+      <binding>
+        <command>dialog-close</command>
+      </binding>
+    </button>
+  </group>
+
+  <hrule/>
+
+    <group>
+      <halign>center</halign>
+      <valign>top</valign>
+
+      <layout>table</layout>
+
+      <group>
+          <pref-width>600</pref-width>
+          <row>0</row>
+          <col>0</col>
+          <colspan>2</colspan>
+
+          <layout>vbox</layout>
+
+          <text>
+              <halign>left</halign>
+              <label>Pressing TAB cycles the mouse between different behaviours - normal, flight-controls and look.</label>
+          </text>
+          <text>
+              <halign>left</halign>
+              <label>The right-mouse button can be used in two different ways:</label>
+          </text>
+     </group>
+
+
+      <text>
+          <label>Press and hold right mouse to look around</label>
+          <halign>right</halign>
+          <row>1</row>
+          <col>0</col>
+      </text>
+      <radio>
+          <row>1</row>
+          <col>1</col>
+          <property>/sim/gui/dialogs/input-config/right-mouse-look</property>
+          <live>true</live>
+          <binding>
+              <command>nasal</command>
+              <script>rightMouseMode("look")</script>
+          </binding>
+      </radio>
+
+      <text>
+          <label>Click right mouse to cycle mouse behaviour</label>
+          <halign>right</halign>
+          <row>2</row>
+          <col>0</col>
+      </text>
+      <radio>
+          <row>2</row>
+          <col>1</col>
+          <property>/sim/gui/dialogs/input-config/right-mouse-cycle</property>
+          <live>true</live>
+          <binding>
+              <command>nasal</command>
+              <script>rightMouseMode("cycle")</script>
+          </binding>
+      </radio>
+
+      <checkbox>
+          <row>3</row>
+          <col>0</col>
+          <colspan>2</colspan>
+        <halign>left</halign>
+        <label>Disable flight-controls via mouse</label>
+        <property>/sim/mouse/skip-flight-controls-mode</property>
+        <binding>
+          <command>dialog-apply</command>
+        </binding>
+      </checkbox>
+
+
+    </group>
+
+  <hrule/>
+
+  <button>
+    <legend>Close</legend>
+    <default>true</default>
+    <key>Esc</key>
+    <binding>
+      <command>dialog-apply</command>
+    </binding>
+    <binding>
+      <command>dialog-close</command>
+    </binding>
+  </button>
+
+</PropertyList>

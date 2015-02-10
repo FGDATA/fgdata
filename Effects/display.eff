@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PropertyList>
+	<name>Effects/display</name>
+	<parameters>
+		<show-buffers type="bool"><use>/sim/rendering/rembrandt/show-buffers</use></show-buffers>
+		<bloom type="bool"><use>/sim/rendering/rembrandt/bloom</use></bloom>
+		<bloom-strength type="float"><use>/sim/rendering/rembrandt/bloom-strength</use></bloom-strength>
+		<bloom-buffers type="bool"><use>/sim/rendering/rembrandt/bloom-buffers</use></bloom-buffers>
+		<texture n="0">
+			<image>Textures\noise_tex.jpg</image>
+			<filter>linear-mipmap-linear</filter>
+			<wrap-s>repeat</wrap-s>
+			<wrap-t>repeat</wrap-t>
+			<internal-format>normalized</internal-format>
+		</texture>
+		<texture n="1">
+			<image>Textures\film-dirt.png</image>
+			<filter>linear-mipmap-linear</filter>
+			<wrap-s>repeat</wrap-s>
+			<wrap-t>repeat</wrap-t>
+			<internal-format>normalized</internal-format>
+		</texture>
+
+		<cinema>
+			<vignette><use>/sim/rendering/rembrandt/cinema/vignette</use></vignette>
+			<inner-circle><use>/sim/rendering/rembrandt/cinema/inner-circle</use></inner-circle>
+			<outer-circle><use>/sim/rendering/rembrandt/cinema/outer-circle</use></outer-circle>
+			<color-shift><use>/sim/rendering/rembrandt/cinema/color-shift</use></color-shift>
+			<red-shift><use>/sim/rendering/rembrandt/cinema/red-shift</use></red-shift>
+			<green-shift><use>/sim/rendering/rembrandt/cinema/green-shift</use></green-shift>
+			<blue-shift><use>/sim/rendering/rembrandt/cinema/blue-shift</use></blue-shift>
+			<distortion><use>/sim/rendering/rembrandt/cinema/distortion</use></distortion>
+			<distortion-factor><use>/sim/rendering/rembrandt/cinema/distortion-factor</use></distortion-factor>
+			<color-fringe><use>/sim/rendering/rembrandt/cinema/color-fringe</use></color-fringe>
+			<color-fringe-factor><use>/sim/rendering/rembrandt/cinema/color-fringe-factor</use></color-fringe-factor>
+			<film-wear><use>/sim/rendering/rembrandt/cinema/film-wear</use></film-wear>
+		</cinema>
+
+		<buffer-nw-enabled><use>/sim/rendering/rembrandt/debug-buffer[0]/enabled</use></buffer-nw-enabled>
+		<buffer-nw-name><use>/sim/rendering/rembrandt/debug-buffer[0]/name</use></buffer-nw-name>
+		<buffer-ne-enabled><use>/sim/rendering/rembrandt/debug-buffer[1]/enabled</use></buffer-ne-enabled>
+		<buffer-ne-name><use>/sim/rendering/rembrandt/debug-buffer[1]/name</use></buffer-ne-name>
+		<buffer-sw-enabled><use>/sim/rendering/rembrandt/debug-buffer[2]/enabled</use></buffer-sw-enabled>
+		<buffer-sw-name><use>/sim/rendering/rembrandt/debug-buffer[2]/name</use></buffer-sw-name>
+		<buffer-se-enabled><use>/sim/rendering/rembrandt/debug-buffer[3]/enabled</use></buffer-se-enabled>
+		<buffer-se-name><use>/sim/rendering/rembrandt/debug-buffer[3]/name</use></buffer-se-name>
+	</parameters>
+	<technique n="9">
+		<predicate>
+			<and>
+				<property>/sim/rendering/rembrandt/night-vision</property>
+				<equal>
+					<value type="float">0.0</value>
+					<float-property>/sim/rendering/rembrandt/show-buffers</float-property>
+				</equal>
+			</and>
+		</predicate>
+		<pass>
+			<render-bin>
+				<bin-number>99999</bin-number>
+				<bin-name>RenderBin</bin-name>
+			</render-bin>
+			<texture-unit>
+				<unit>0</unit>
+				<type>buffer</type>
+				<name>lighting</name>
+			</texture-unit>
+			<texture-unit>
+				<unit>1</unit>
+				<type>buffer</type>
+				<name>bloom-3</name>
+			</texture-unit>
+			<texture-unit>
+				<unit>2</unit>
+				<type>buffer</type>
+				<name>spec-emis</name>
+			</texture-unit>
+			<texture-unit>
+				<unit>3</unit>
+				<type>buffer</type>
+				<name>diffuse</name>
+			</texture-unit>
+			<texture-unit>
+				<unit>4</unit>
+				<image><use>texture[0]/image</use></image>
+				<filter><use>texture[0]/filter</use></filter>
+				<wrap-s><use>texture[0]/wrap-s</use></wrap-s>
+				<wrap-t><use>texture[0]/wrap-t</use></wrap-t>
+				<internal-format><use>texture[0]/internal-format</use></internal-format>
+			</texture-unit>
+
+			<program>
+				<vertex-shader>Shaders/fullscreen.vert</vertex-shader>
+				<fragment-shader>Shaders/night-vision.frag</fragment-shader>
+			</program>
+			<uniform>
+				<name>lighting_tex</name>
+				<type>sampler-2d</type>
+				<value type="int">0</value>
+			</uniform>
+			<uniform>
+				<name>bloom_tex</name>
+				<type>sampler-2d</type>
+				<value type="int">1</value>
+			</uniform>
+			<uniform>
+				<name>spec_emis_tex</name>
+				<type>sampler-2d</type>
+				<value type="int">2</value>
+			</uniform>
+			<uniform>
+				<name>color_tex</name>
+				<type>sampler-2d</type>
+				<value type="int">3</value>
+			</uniform>
+			<uniform>
+				<name>noise_tex</name>
+				<type>sampler-2d</type>
+				<value type="int">4</value>
+			</uniform>
+
+			<uniform>
+				<name>bloomEnabled</name>
+				<type>bool</type>
+				<value type="bool"><use>bloom</use></value>
+			</uniform>
+			<uniform>
+				<name>bloomStrength</name>
+				<type>float</type>
+				<value><use>bloom-strength</use></value>
+			</uniform>
+			<uniform>
+				<name>bloomBuffers</name>
+				<type>bool</type>
+				<value><use>bloom-buffers</use></value>
+			</uniform>
+		</pass>
+	</technique>
+	<technique n="10">
+		<predicate>
+			<and>
+				<or>
+					<property>/sim/rendering/rembrandt/cinema/vignette</property>
+					<property>/sim/rendering/rembrandt/cinema/color-shift</property>
+					<property>/sim/rendering/rembrandt/cinema/distortion</property>
+				</or>
+				<equal>
+					<value type="float">0.0</value>
+					<float-property>/sim/rendering/rembrandt/show-buffers</float-property>
+				</equal>
+			</and>
+		</predicate>
+		<pass>
+			<render-bin>
+				<bin-number>99999</bin-number>
+				<bin-name>RenderBin</bin-name>
+			</render-bin>
+			<texture-unit>
+				<unit>0</unit>
+				<type>buffer</type>
+				<name>lighting</name>
+			</texture-unit>
+			<texture-unit>
+				<unit>1</unit>
+				<type>buffer</type>
+				<name>bloom-3</name>
+			</texture-unit>
+			<texture-unit>
+				<unit>2</unit>
+				<image><use>texture[1]/image</use></image>
+				<filter><use>texture[1]/filter</use></filter>
+				<wrap-s><use>texture[1]/wrap-s</use></wrap-s>
+				<wrap-t><use>texture[1]/wrap-t</use></wrap-t>
+				<internal-format><use>texture[1]/internal-format</use></internal-format>
+			</texture-unit>
+
+			<program>
+				<vertex-shader>Shaders/fullscreen.vert</vertex-shader>
+				<fragment-shader>Shaders/cinema.frag</fragment-shader>
+			</program>
+			<uniform>
+				<name>lighting_tex</name>
+				<type>sampler-2d</type>
+				<value type="int">0</value>
+			</uniform>
+			<uniform>
+				<name>bloom_tex</name>
+				<type>sampler-2d</type>
+				<value type="int">1</value>
+			</uniform>
+			<uniform>
+				<name>film_tex</name>
+				<type>sampler-2d</type>
+				<value type="int">2</value>
+			</uniform>
+
+			<uniform>
+				<name>bloomEnabled</name>
+				<type>bool</type>
+				<value type="bool"><use>bloom</use></value>
+			</uniform>
+			<uniform>
+				<name>bloomStrength</name>
+				<type>float</type>
+				<value><use>bloom-strength</use></value>
+			</uniform>
+			<uniform>
+				<name>bloomBuffers</name>
+				<type>bool</type>
+				<value><use>bloom-buffers</use></value>
+			</uniform>
+
+			<uniform>
+				<name>vignette</name>
+				<type>bool</type>
+				<value><use>cinema/vignette</use></value>
+			</uniform>
+			<uniform>
+				<name>innerCircle</name>
+				<type>float</type>
+				<value><use>cinema/inner-circle</use></value>
+			</uniform>
+			<uniform>
+				<name>outerCircle</name>
+				<type>float</type>
+				<value><use>cinema/outer-circle</use></value>
+			</uniform>
+			<uniform>
+				<name>colorShift</name>
+				<type>bool</type>
+				<value><use>cinema/color-shift</use></value>
+			</uniform>
+			<uniform>
+				<name>redShift</name>
+				<type>float-vec3</type>
+				<value><use>cinema/red-shift</use></value>
+			</uniform>
+			<uniform>
+				<name>greenShift</name>
+				<type>float-vec3</type>
+				<value><use>cinema/green-shift</use></value>
+			</uniform>
+			<uniform>
+				<name>blueShift</name>
+				<type>float-vec3</type>
+				<value><use>cinema/blue-shift</use></value>
+			</uniform>
+
+			<uniform>
+				<name>distortion</name>
+				<type>bool</type>
+				<value><use>cinema/distortion</use></value>
+			</uniform>
+			<uniform>
+				<name>distortionFactor</name>
+				<type>float-vec3</type>
+				<value><use>cinema/distortion-factor</use></value>
+			</uniform>
+
+			<uniform>
+				<name>colorFringe</name>
+				<type>bool</type>
+				<value><use>cinema/color-fringe</use></value>
+			</uniform>
+			<uniform>
+				<name>colorFringeFactor</name>
+				<type>float</type>
+				<value><use>cinema/color-fringe-factor</use></value>
+			</uniform>
+
+			<uniform>
+				<name>filmWear</name>
+				<type>bool</type>
+				<value><use>cinema/film-wear</use></value>
+			</uniform>
+		</pass>
+	</technique>
+	<technique n="11">
+		<pass>
+			<render-bin>
+				<bin-number>99999</bin-number>
+				<bin-name>RenderBin</bin-name>
+			</render-bin>
+			<texture-unit>
+				<unit>0</unit>
+				<type>buffer</type>
+				<name>lighting</name>
+			</texture-unit>
+			<texture-unit>
+				<unit>1</unit>
+				<type>buffer</type>
+				<name>bloom-3</name>
+			</texture-unit>
+
+			<texture-unit>
+				<unit>2</unit>
+				<type>buffer</type>
+				<name><use>buffer-nw-name</use></name>
+			</texture-unit>
+			<texture-unit>
+				<unit>3</unit>
+				<type>buffer</type>
+				<name><use>buffer-ne-name</use></name>
+			</texture-unit>
+			<texture-unit>
+				<unit>4</unit>
+				<type>buffer</type>
+				<name><use>buffer-sw-name</use></name>
+			</texture-unit>
+			<texture-unit>
+				<unit>5</unit>
+				<type>buffer</type>
+				<name><use>buffer-se-name</use></name>
+			</texture-unit>
+
+			<program>
+				<vertex-shader>Shaders/fullscreen.vert</vertex-shader>
+				<fragment-shader>Shaders/display.frag</fragment-shader>
+			</program>
+			<uniform>
+				<name>lighting_tex</name>
+				<type>sampler-2d</type>
+				<value type="int">0</value>
+			</uniform>
+			<uniform>
+				<name>bloom_tex</name>
+				<type>sampler-2d</type>
+				<value type="int">1</value>
+			</uniform>
+			<uniform>
+				<name>bufferNW_tex</name>
+				<type>sampler-2d</type>
+				<value type="int">2</value>
+			</uniform>
+			<uniform>
+				<name>bufferNE_tex</name>
+				<type>sampler-2d</type>
+				<value type="int">3</value>
+			</uniform>
+			<uniform>
+				<name>bufferSW_tex</name>
+				<type>sampler-2d</type>
+				<value type="int">4</value>
+			</uniform>
+			<uniform>
+				<name>bufferSE_tex</name>
+				<type>sampler-2d</type>
+				<value type="int">5</value>
+			</uniform>
+			<uniform>
+				<name>showBuffers</name>
+				<type>bool</type>
+				<value type="bool"><use>show-buffers</use></value>
+			</uniform>
+
+			<uniform>
+				<name>bufferNW_enabled</name>
+				<type>bool</type>
+				<value type="bool"><use>buffer-nw-enabled</use></value>
+			</uniform>
+			<uniform>
+				<name>bufferNE_enabled</name>
+				<type>bool</type>
+				<value type="bool"><use>buffer-ne-enabled</use></value>
+			</uniform>
+			<uniform>
+				<name>bufferSW_enabled</name>
+				<type>bool</type>
+				<value type="bool"><use>buffer-sw-enabled</use></value>
+			</uniform>
+			<uniform>
+				<name>bufferSE_enabled</name>
+				<type>bool</type>
+				<value type="bool"><use>buffer-se-enabled</use></value>
+			</uniform>
+
+			<uniform>
+				<name>bloomEnabled</name>
+				<type>bool</type>
+				<value type="bool"><use>bloom</use></value>
+			</uniform>
+			<uniform>
+				<name>bloomStrength</name>
+				<type>float</type>
+				<value><use>bloom-strength</use></value>
+			</uniform>
+			<uniform>
+				<name>bloomBuffers</name>
+				<type>bool</type>
+				<value><use>bloom-buffers</use></value>
+			</uniform>
+		</pass>
+	</technique>
+</PropertyList>

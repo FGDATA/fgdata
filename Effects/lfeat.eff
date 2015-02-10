@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PropertyList>
+  <name>Effects/lfeat</name>
+  <inherits-from>Effects/runway</inherits-from>
+  <parameters>
+	<material>
+	  <ambient type="vec4d">
+		1.0 1.0 1.0 1.0
+	  </ambient>
+	  <diffuse type="vec4d">
+		1.0 1.0 1.0 1.0
+	  </diffuse>
+	  <specular type="vec4d">
+		1.0 1.0 1.0 1.0
+	  </specular>
+	  <emissive type="vec4d">
+		0.0 0.0 0.0 1.0
+	  </emissive>
+	  <shininess>1.2</shininess>
+	</material>
+    <transparent>true</transparent>
+    <raise_vertex type="bool">true</raise_vertex>
+  </parameters>
+  <technique n="1">
+    <predicate>
+     <equal>
+       <property>/sim/rendering/shaders/skydome</property>
+       <value type="bool" >false</value>
+     </equal>
+    </predicate>
+    <pass>
+		<lighting>true</lighting>
+		<depth>
+			<write-mask type="bool">false</write-mask>
+		</depth>
+	  <material>
+		<ambient>
+		  <use>material/ambient</use>
+		</ambient>
+		<diffuse>
+		  <use>material/diffuse</use>
+		</diffuse>
+		<specular>
+		  <use>material/specular</use>
+		</specular>
+		<emissive>
+		  <use>material/emissive</use>
+		</emissive>
+		<shininess>
+		  <use>material/shininess</use>
+		</shininess>
+		<color-mode>ambient-and-diffuse</color-mode>
+	  </material>
+	  <blend>
+		<use>transparent</use>
+	  </blend>
+	  <alpha-test>
+		<use>transparent</use>
+	  </alpha-test>
+	  <shade-model>smooth</shade-model>
+	  <cull-face>back</cull-face>
+	  <render-bin>
+		<bin-number>7</bin-number>
+		<bin-name>DepthSortedBin</bin-name>
+	  </render-bin>
+	  <texture-unit>
+		<unit>0</unit>
+		<image>
+		  <use>texture[0]/image</use>
+		</image>
+        <type>
+            <use>texture[0]/type</use>
+        </type>
+		<filter>
+		  <use>texture[0]/filter</use>
+		</filter>
+		<wrap-s>
+		  <use>texture[0]/wrap-s</use>
+		</wrap-s>
+		<wrap-t>
+		  <use>texture[0]/wrap-t</use>
+		</wrap-t>
+		<internal-format>
+		  <use>texture[0]/internal-format</use>
+		</internal-format>
+		<environment>
+		  <mode>modulate</mode>
+		</environment>
+	  </texture-unit>
+	  <polygon-offset>
+		<factor>-0.5</factor>
+		<units>-2.0</units>
+	  </polygon-offset>
+	</pass>
+  </technique>
+</PropertyList>

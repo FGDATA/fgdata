@@ -1,0 +1,619 @@
+<?xml version="1.0"?>
+
+<!--
+_______________________________________________________________________________
+KAP140 Two Axis autopilot instrument.
+
+Started 2004 by Roy Vegard Ovesen, rvovesen@tiscali.no.
+
+This is an instrument configuration file for the open-source flight
+simulator FlightGear (www.flightgear.org).  The file is an XML-encoded
+FlightGear property list defining the instrument's layers and actions.
+
+Each instrument is composed of layers stacked on top of each other.
+A layer may be a texture (with transparent parts to show the layers
+underneath), text, or a special layer that switches between two
+others (say, to turn an indicator light on or off).  Each layer can
+move independently in proportion to a property value, and text
+can be generated from property values as well: all of the layer's
+movements are defined as transformations.
+
+Actions are hotspots on the instrument that will respond to a mouse
+click.  Actions always modify the values of properties, either by
+adjusting them, toggling them, or swaping them with other
+properties' values.
+-->
+
+<PropertyList>
+ <name>KAP140TwoAxis</name>
+ <w-base>512</w-base>
+ <h-base>133</h-base>
+
+<!-- Layers -->
+
+ <layers>
+
+  <layer>
+   <name>background</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/KAP140.rgb</path>
+    <x1>0.0</x1>
+    <x2>1.0</x2>
+    <y1>0.265625</y1>
+    <y2>0.529296875</y2>
+   </texture>
+   <w>512</w>
+   <h>133</h>
+  </layer>
+
+  <layer>
+   <name>AP Anunciator</name>
+   <condition>
+    <equals>
+     <property>/autopilot/KAP140/annunciators/ap/state</property>
+     <value type="bool">true</value>
+    </equals>
+   </condition>
+   <texture>
+    <path>Aircraft/Instruments/Textures/KAP140.rgb</path>
+    <x1>0.32421875</x1>
+    <x2>0.392578125</x2>
+    <y1>0.802734375</y1>
+    <y2>0.845703125</y2>
+   </texture>
+   <w>35</w>
+   <h>21</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-160</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>40</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>ROL Anunciator</name>
+   <condition>
+    <equals>
+     <property>/autopilot/KAP140/annunciators/rol</property>
+     <value type="bool">true</value>
+    </equals>
+   </condition>
+   <texture>
+    <path>Aircraft/Instruments/Textures/KAP140.rgb</path>
+    <x1>0.0</x1>
+    <x2>0.09765625</x2>
+    <y1>0.802734375</y1>
+    <y2>0.845703125</y2>
+   </texture>
+   <w>50</w>
+   <h>21</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-152</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>40</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>HDG Anunciator</name>
+   <condition>
+    <equals>
+     <property>/autopilot/KAP140/annunciators/hdg/state</property>
+     <value type="bool">true</value>
+    </equals>
+   </condition>
+   <texture>
+    <path>Aircraft/Instruments/Textures/KAP140.rgb</path>
+    <x1>0.1015625</x1>
+    <x2>0.205078125</x2>
+    <y1>0.802734375</y1>
+    <y2>0.845703125</y2>
+   </texture>
+   <w>52</w>
+   <h>21</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-150</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>40</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>NAV Anunciator</name>
+   <condition>
+    <equals>
+     <property>/autopilot/KAP140/annunciators/nav</property>
+     <value type="bool">true</value>
+    </equals>
+   </condition>
+   <texture>
+    <path>Aircraft/Instruments/Textures/KAP140.rgb</path>
+    <x1>0.2109375</x1>
+    <x2>0.31640625</x2>
+    <y1>0.802734375</y1>
+    <y2>0.845703125</y2>
+   </texture>
+   <w>53</w>
+   <h>21</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-150</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>40</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>NAV ARM Anunciator</name>
+   <condition>
+    <equals>
+     <property>/autopilot/KAP140/annunciators/nav-arm</property>
+     <value type="bool">true</value>
+    </equals>
+   </condition>
+   <texture>
+    <path>Aircraft/Instruments/Textures/KAP140.rgb</path>
+    <x1>0.0</x1>
+    <x2>0.12890625</x2>
+    <y1>0.939453125</y1>
+    <y2>1.0</y2>
+   </texture>
+   <w>64</w>
+   <h>30</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-145</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>15</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>APR Anunciator</name>
+   <condition>
+    <equals>
+     <property>/autopilot/KAP140/annunciators/apr</property>
+     <value type="bool">true</value>
+    </equals>
+   </condition>
+   <texture>
+    <path>Aircraft/Instruments/Textures/KAP140.rgb</path>
+    <x1>0.32421875</x1>
+    <x2>0.4296875</x2>
+    <y1>0.802734375</y1>
+    <y2>0.845703125</y2>
+   </texture>
+   <w>53</w>
+   <h>21</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-150</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>40</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>APR-ARM Anunciator</name>
+   <condition>
+    <equals>
+     <property>/autopilot/KAP140/annunciators/apr-arm</property>
+     <value type="bool">true</value>
+    </equals>
+   </condition>
+   <texture>
+    <path>Aircraft/Instruments/Textures/KAP140.rgb</path>
+    <x1>0.13671875</x1>
+    <x2>0.265625</x2>
+    <y1>0.939453125</y1>
+    <y2>1.0</y2>
+   </texture>
+   <w>64</w>
+   <h>30</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-145</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>15</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+<layer>
+   <name>REV Anunciator</name>
+   <condition>
+    <equals>
+     <property>/autopilot/KAP140/annunciators/rev</property>
+     <value type="bool">true</value>
+    </equals>
+   </condition>
+   <texture>
+    <path>Aircraft/Instruments/Textures/KAP140.rgb</path>
+    <x1>0.4375</x1>
+    <x2>0.54296875</x2>
+    <y1>0.802734375</y1>
+    <y2>0.845703125</y2>
+   </texture>
+   <w>53</w>
+   <h>21</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-150</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>40</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>REV-ARM Anunciator</name>
+   <condition>
+    <equals>
+     <property>/autopilot/KAP140/annunciators/rev-arm</property>
+     <value type="bool">true</value>
+    </equals>
+   </condition>
+   <texture>
+    <path>Aircraft/Instruments/Textures/KAP140.rgb</path>
+    <x1>0.2734375</x1>
+    <x2>0.40234375</x2>
+    <y1>0.939453125</y1>
+    <y2>1.0</y2>
+   </texture>
+   <w>64</w>
+   <h>30</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-145</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>15</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>VS Anunciator</name>
+   <condition>
+    <equals>
+     <property>/autopilot/KAP140/annunciators/vs</property>
+     <value type="bool">true</value>
+    </equals>
+   </condition>
+   <texture>
+    <path>Aircraft/Instruments/Textures/KAP140.rgb</path>
+    <x1>0.732421875</x1>
+    <x2>0.787109375</x2>
+    <y1>0.802734375</y1>
+    <y2>0.845703125</y2>
+   </texture>
+   <w>28</w>
+   <h>21</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-47</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>40</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>FPM Anunciator</name>
+   <condition>
+    <equals>
+     <property>/autopilot/KAP140/annunciators/fpm</property>
+     <value type="bool">true</value>
+    </equals>
+   </condition>
+   <texture>
+    <path>Aircraft/Instruments/Textures/KAP140.rgb</path>
+    <x1>0.91015625</x1>
+    <x2>0.955078125</x2>
+    <y1>0.978515625</y1>
+    <y2>0.998046875</y2>
+   </texture>
+   <w>23</w>
+   <h>10</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>70</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>20</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>VS Number</name>
+   <condition>
+    <equals>
+     <property>/autopilot/KAP140/annunciators/vs-number</property>
+     <value type="bool">true</value>
+    </equals>
+   </condition>
+   <type>text</type>
+   <font>led</font>
+   <point-size>11</point-size>
+   <color>
+    <red>1.0</red>
+    <green>0.5</green>
+    <blue>0.0</blue>
+   </color>
+   <chunks>
+    <chunk>
+     <type>number-value</type>
+     <property>/autopilot/KAP140/settings/target-pressure-rate</property>
+     <scale>-58000</scale>
+     <format>%03.0f</format>
+    </chunk>
+   </chunks>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>50</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>30</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>ALT Anunciator</name>
+   <condition>
+    <equals>
+     <property>/autopilot/KAP140/annunciators/alt</property>
+     <value type="bool">true</value>
+    </equals>
+   </condition>
+   <texture>
+    <path>Aircraft/Instruments/Textures/KAP140.rgb</path>
+    <x1>0.623046875</x1>
+    <x2>0.724609375</x2>
+    <y1>0.802734375</y1>
+    <y2>0.845703125</y2>
+   </texture>
+   <w>52</w>
+   <h>21</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-60</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>40</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>GS Anunciator</name>
+   <condition>
+    <equals>
+     <property>/autopilot/KAP140/annunciators/gs</property>
+     <value type="bool">true</value>
+    </equals>
+   </condition>
+   <texture>
+    <path>Aircraft/Instruments/Textures/KAP140.rgb</path>
+    <x1>0.791015625</x1>
+    <x2>0.85546875</x2>
+    <y1>0.802734375</y1>
+    <y2>0.845703125</y2>
+   </texture>
+   <w>31</w>
+   <h>21</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-47</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>40</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>GS-ARM Anunciator</name>
+   <condition>
+    <equals>
+     <property>/autopilot/KAP140/annunciators/gs-arm</property>
+     <value type="bool">true</value>
+    </equals>
+   </condition>
+   <texture>
+    <path>Aircraft/Instruments/Textures/KAP140.rgb</path>
+    <x1>0.548828125</x1>
+    <x2>0.640625</x2>
+    <y1>0.939453125</y1>
+    <y2>1.0</y2>
+   </texture>
+   <w>45</w>
+   <h>30</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-136</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>15</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+ </layers>
+
+<!-- Actions -->
+
+ <actions>
+
+  <action>
+   <name>AP Button</name>
+   <button>0</button>
+   <x>-239</x>
+   <y>-54</y>
+   <w>30</w>
+   <h>20</h>
+   <binding>
+    <command>nasal</command>
+     <script>
+      kap140.apButton();
+     </script>
+   </binding>
+  </action>
+
+  <action>
+   <name>HDG Button</name>
+   <button>0</button>
+   <x>-149</x>
+   <y>-54</y>
+   <w>30</w>
+   <h>20</h>
+   <binding>
+    <command>nasal</command>
+     <script>
+      kap140.hdgButton();
+     </script>
+   </binding>
+  </action>
+
+  <action>
+   <name>NAV Button</name>
+   <button>0</button>
+   <x>-90</x>
+   <y>-54</y>
+   <w>30</w>
+   <h>20</h>
+   <binding>
+    <command>nasal</command>
+     <script>
+      kap140.navButton();
+     </script>
+   </binding>
+  </action>
+
+  <action>
+   <name>APR Button</name>
+   <button>0</button>
+   <x>-30</x>
+   <y>-54</y>
+   <w>30</w>
+   <h>20</h>
+   <binding>
+    <command>nasal</command>
+     <script>
+      kap140.aprButton();
+     </script>
+   </binding>
+  </action>
+
+  <action>
+   <name>ALT Button</name>
+   <button>0</button>
+   <x>80</x>
+   <y>-54</y>
+   <w>30</w>
+   <h>20</h>
+   <binding>
+    <command>nasal</command>
+     <script>
+      kap140.altButton();
+     </script>
+   </binding>
+  </action>
+
+  <action>
+   <name>REV Button</name>
+   <button>0</button>
+   <x>30</x>
+   <y>-54</y>
+   <w>30</w>
+   <h>20</h>
+   <binding>
+    <command>nasal</command>
+     <script>
+      kap140.revButton();
+     </script>
+   </binding>
+  </action>
+
+  <action>
+   <name>DN Button</name>
+   <button>0</button>
+   <x>128</x>
+   <y>-48</y>
+   <w>30</w>
+   <h>20</h>
+   <binding>
+    <command>nasal</command>
+     <script>
+      kap140.downButton();
+     </script>
+   </binding>
+  </action>
+
+  <action>
+   <name>UP Button</name>
+   <button>0</button>
+   <x>128</x>
+   <y>-8</y>
+   <w>30</w>
+   <h>20</h>
+   <binding>
+    <command>nasal</command>
+     <script>
+      kap140.upButton();
+     </script>
+   </binding>
+  </action>
+
+ </actions>
+
+</PropertyList>

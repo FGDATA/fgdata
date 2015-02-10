@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+
+<!--
+RPM.xml
+
+RPM indicator for a SenecaII
+
+Torsten Dreyer torsten@t3r.de
+
+-->
+
+<PropertyList>
+
+    <name>RPM Indicator</name>
+    <w-base>512</w-base>
+    <h-base>512</h-base>
+    
+    <params>
+        <source>/engines/engine[0]/rpm</source>
+    </params>
+    
+    <layers>
+
+        <layer>
+            <name>Face</name>
+            <w>512</w>
+            <h>512</h>
+            <texture>
+                <path>Aircraft/SenecaII/Panels/Textures/RPM.rgb</path>
+                <x1>0.0</x1>
+                <x2>1.0</x2>
+                <y1>0.0</y1>
+                <y2>1.0</y2>
+            </texture>
+        </layer>
+
+        <layer>
+            <name>Needle</name>
+            <w>56</w>
+            <h>272</h>
+
+            <texture>
+                <path>Aircraft/Instruments/Textures/misc1.rgb</path>
+                <x1>0.71875</x1>
+                <x2>0.828125</x2>
+                <y1>0.46875</y1>
+                <y2>1.0</y2>
+            </texture>
+
+            <transformations>
+                <transformation>
+                    <type>rotation</type>
+                    <property alias="../../../../../params/source"/>
+                    <scale>1.0</scale>
+                    <interpolation>
+                        <entry>
+                            <ind>300</ind>
+                            <dep>-128</dep>
+                        </entry>
+                        <entry>
+                            <ind>1900</ind>
+                            <dep>0</dep>
+                        </entry>
+                        <entry>
+                            <ind>3500</ind>
+                            <dep>128</dep>
+                        </entry>
+                        
+                    </interpolation>
+                    <offset>0</offset>
+                </transformation>
+                <transformation>
+                    <type>y-shift</type>
+                    <offset>57</offset>
+                </transformation>
+            </transformations>
+        </layer>
+
+        <layer>
+            <name>Ring</name>
+            <w>512</w>
+            <h>512</h>
+            <texture>
+                <path>Aircraft/SenecaII/Panels/Textures/Ring.rgb</path>
+                <x1>0.0</x1>
+                <x2>1.0</x2>
+                <y1>0.0</y1>
+                <y2>1.0</y2>
+            </texture>
+        </layer>
+
+    </layers>
+
+</PropertyList>

@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************
+Genius F-31U VIBRATION USB Joystick Configuration for Flightgear.
+Version 2.
+© 2011, 2014 Martin Měřinský, mermar@centrum.cz, GPLv2 or later.
+
+Axes:
+0 - Aileron
+1 - Elevator
+2 - Rudder
+3 - Throttle
+4 - View left/right hat
+5 - View up/down hat
+
+Buttons:
+0 - Fire primary and secondary weapon (armament trigger).
+1 - Cycle view
+2 - Elevator trim up
+3 - Elevator trim down
+4 - Flaps up
+5 - Mixture richer
+6 - Brakes
+7 - Flaps down
+8 - Mixture leaner
+9 - Landing gear toggle
+
+Known issues:
+Flightgear cannot invert left/right "lookat" view, so this is done using Nasal
+and thus it works when Flightgear is paused, unlike view elevation (up/down).
+
+In Windows up and down view is inverted.
+*******************************************************************************
+-->
+<PropertyList>
+    <name type="string">Padix Co. Ltd. 10-Button USB Joystick</name>  <!-- GNU/Linux. -->
+    <name type="string">10-Button USB Joystick with Vibration</name>  <!-- Windows with vibration driver.-->
+    <name type="string">10-Button USB Joystick</name>                 <!-- Windows without vibration driver.-->
+
+    <axis n="0">
+        <desc>Aileron</desc>
+        <binding>
+            <command>property-scale</command>
+            <property>/controls/flight/aileron</property>
+            <power type="int">2</power>
+        </binding>
+    </axis>
+
+    <axis n="1">
+        <desc>Elevator</desc>
+        <binding>
+            <command>property-scale</command>
+            <property>/controls/flight/elevator</property>
+            <power type="int">2</power>
+            <factor type="double">-1.0</factor>  <!-- Reverse axis. -->
+        </binding>
+    </axis>
+
+    <axis>
+        <desc>Rudder</desc>
+        <number>
+            <unix>2</unix>
+            <windows>3</windows>
+        </number>
+        <binding>
+            <command>property-scale</command>
+            <property>/controls/flight/rudder</property>
+            <power type="int">2</power>
+            <factor type="double">-1.0</factor>  <!-- Reverse axis. -->
+        </binding>
+    </axis>
+
+    <axis>
+        <desc>Throttle</desc>
+        <number>
+            <unix>3</unix>
+            <windows>2</windows>
+        </number>
+        <binding>
+            <command>nasal</command>
+            <script>controls.throttleAxis()</script>
+        </binding>
+    </axis>
+
+    <axis>
+        <desc>View direction</desc>
+        <number>
+            <unix>4</unix>
+            <windows>6</windows>
+        </number>
+        <low>
+            <desc>View left</desc>
+            <repeatable>true</repeatable>
+            <binding>
+                <!--
+                This also works, but LookAt views have inverted left/right.
+                <command>property-adjust</command>
+                <property>/sim/current-view/goal-heading-offset-deg</property>
+                <step type="double">3.0</step>
+                -->
+                <command>nasal</command>
+                <script>
+                    var valueDelta = -3.0;
+                    if (getprop("/sim/current-view/type") == "lookat")
+                    {
+                        valueDelta = 3.0;
+                    }
+                    setprop("/sim/current-view/heading-offset-deg", getprop("/sim/current-view/heading-offset-deg") - valueDelta);
+                </script>
+            </binding>
+        </low>
+        <high>
+            <desc>View right</desc>
+            <repeatable>true</repeatable>
+            <binding>
+                <!--
+                This also works, but LookAt views have inverted left/right.
+                <command>property-adjust</command>
+                <property>/sim/current-view/goal-heading-offset-deg</property>
+                <step type="double">-3.0</step>
+                -->
+                <command>nasal</command>
+                <script>
+                    var valueDelta = -3.0;
+                    if (getprop("/sim/current-view/type") == "lookat")
+                    {
+                        valueDelta = 3.0;
+                    }
+                    setprop("/sim/current-view/heading-offset-deg", getprop("/sim/current-view/heading-offset-deg") + valueDelta);
+                </script>
+            </binding>
+        </high>
+    </axis>
+
+    <axis>
+        <desc>View elevation</desc>
+        <number>
+            <unix>5</unix>
+            <windows>7</windows>
+        </number>
+        <low>
+            <desc>View down</desc>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>property-adjust</command>
+                <property>/sim/current-view/goal-pitch-offset-deg</property>
+                <step type="double">3.0</step>
+            </binding>
+        </low>
+        <high>
+            <desc>View up</desc>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>property-adjust</command>
+                <property>/sim/current-view/goal-pitch-offset-deg</property>
+                <step type="double">-3.0</step>
+            </binding>
+        </high>
+    </axis>
+
+    <button n="0">
+        <desc>Fire</desc>
+        <binding>
+            <command>nasal</command>
+            <script>
+                setprop("/controls/armament/trigger", 1);
+                setprop("ai/submodels/trigger", 1);
+                setprop("/controls/armament/trigger1", 1);
+                setprop("ai/submodels/trigger1", 1);
+            </script>
+        </binding>
+        <mod-up>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    setprop("/controls/armament/trigger", 0);
+                    setprop("ai/submodels/trigger", 0);
+                    setprop("/controls/armament/trigger1", 0);
+                    setprop("ai/submodels/trigger1", 0);
+                </script>
+            </binding>
+        </mod-up>
+    </button>
+
+    <button n="1">
+        <desc>View cycle</desc>
+        <repeatable>false</repeatable>
+        <binding>
+            <command>nasal</command>
+            <script>
+                view.stepView(1);
+                #gui.popupTip(sprintf("View index: %d, view type: %s", getprop("sim/current-view/view-number"), getprop("/sim/current-view/type")));
+            </script>
+        </binding>
+    </button>
+
+    <button n="2">
+        <desc>Elevator trim up</desc>
+        <repeatable type="bool">true</repeatable>
+        <binding>
+            <command>nasal</command>
+            <script>controls.elevatorTrim(1)</script>
+        </binding>
+    </button>
+
+    <button n="3">
+        <desc>Elevator trim down</desc>
+        <repeatable type="bool">true</repeatable>
+        <binding>
+            <command>nasal</command>
+            <script>controls.elevatorTrim(-1)</script>
+        </binding>
+    </button>
+
+    <button n="4">
+        <desc>Flaps up</desc>
+        <repeatable>false</repeatable>
+        <binding>
+            <command>nasal</command>
+            <script>controls.flapsDown(-1)</script>
+        </binding>
+        <mod-up>
+            <binding>
+                <command>nasal</command>
+                <script>controls.flapsDown(0)</script>
+            </binding>
+        </mod-up>
+    </button>
+
+    <button n="5">
+        <desc>Mixture richer</desc>
+        <repeatable>true</repeatable>
+        <binding>
+            <command>nasal</command>
+            <script>controls.adjMixture(1)</script>
+        </binding>
+    </button>
+
+    <button n="6">
+        <desc>Brakes</desc>
+        <binding>
+            <command>nasal</command>
+            <script>controls.applyBrakes(1)</script>
+        </binding>
+        <mod-up>
+            <binding>
+                <command>nasal</command>
+                <script>controls.applyBrakes(0)</script>
+            </binding>
+        </mod-up>
+    </button>
+
+    <button n="7">
+        <desc>Flaps down</desc>
+        <binding>
+            <command>nasal</command>
+            <script>controls.flapsDown(1)</script>
+        </binding>
+        <mod-up>
+            <binding>
+                <command>nasal</command>
+                <script>controls.flapsDown(0)</script>
+            </binding>
+        </mod-up>
+    </button>
+
+    <button n="8">
+        <desc>Mixture leaner</desc>
+        <repeatable>true</repeatable>
+        <binding>
+            <command>nasal</command>
+            <script>controls.adjMixture(-1)</script>
+        </binding>
+    </button>
+
+    <button n="9">
+        <desc>Landing Gear Toggle</desc>
+        <repeatable>false</repeatable>
+        <binding>
+            <command>nasal</command>
+            <script>controls.gearToggle()</script>
+        </binding>
+    </button>
+
+</PropertyList>
+

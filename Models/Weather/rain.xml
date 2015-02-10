@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+ <path>rain.ac</path>
+
+<!--
+ <animation>
+  <type>blend</type>
+  <object-name>rect</object-name>
+  <property>/velocities/airspeed-kt</property>
+  <factor>0.2</factor>
+  <min>0.4</min>
+  <max>1.0</max>
+ </animation>
+-->
+
+ <animation>
+  <type>select</type>
+  <object-name>rect</object-name>
+  <condition>
+   <and>
+    <equals>
+     <property>/sim/current-view/internal</property>
+     <value>true</value>
+    </equals>
+    <greater-than>
+     <property>/environment/metar/rain-norm</property>
+     <value>0</value>
+    </greater-than>
+    <less-than>
+     <property>/position/altitude-ft</property>
+     <property>/environment/clouds/layer[0]/elevation-ft</property>
+    </less-than>
+   </and>
+  </condition>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>rect</object-name>
+  <property>/velocities/airspeed-kt</property>
+  <factor>-1.0</factor>
+  <min-deg>-90</min-deg>
+  <max-deg>0</max-deg>
+  <center>
+   <x-m>0.0</x-m>
+   <y-m>0.0</y-m>
+   <z-m>0.0</z-m>
+  </center>
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>texmultiple</type>
+  <object-name>rect</object-name>
+  <transform>
+   <subtype>textranslate</subtype>
+   <property>/sim/time/elapsed-sec</property>
+   <factor>1.0</factor>
+   <axis>
+    <x>0</x>
+    <y>1</y>
+    <z>0</z>
+   </axis>
+  </transform>
+  <transform>
+   <subtype>textranslate</subtype>
+   <property>/velocities/airspeed-kt</property>
+   <factor>0.01</factor>
+   <axis>
+    <x>0</x>
+    <y>1</y>
+    <z>0</z>
+   </axis>
+  </transform>
+ </animation>
+
+</PropertyList>

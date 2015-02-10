@@ -1,0 +1,455 @@
+<?xml version="1.0"?>
+
+<!--
+Default NAV1 gauge instrument.
+
+Started summer 2000 by David Megginson, david@megginson.com.
+
+This is an instrument configuration file for the open-source flight
+simulator FlightGear (www.flightgear.org).  The file is an XML-encoded
+FlightGear property list defining the instrument's layers and actions.
+
+Each instrument is composed of layers stacked on top of each other.
+A layer may be a texture (with transparent parts to show the layers
+underneath), text, or a special layer that switches between two
+others (say, to turn an indicator light on or off).  Each layer can
+move independently in proportion to a property value, and text
+can be generated from property values as well: all of the layer's
+movements are defined as transformations.
+
+Actions are hotspots on the instrument that will respond to a mouse
+click.  Actions always modify the values of properties, either by
+adjusting them, toggling them, or swaping them with other
+properties' values.
+-->
+
+<PropertyList>
+ <name>Nav1</name>
+ <w-base>128</w-base>
+ <h-base>128</h-base>
+
+ <params>
+  <nav-to-flag>/instrumentation/nav[0]/to-flag</nav-to-flag>
+  <nav-from-flag>/instrumentation/nav[0]/from-flag</nav-from-flag>
+  <nav-radial-selected>/instrumentation/nav[0]/radials/selected-deg</nav-radial-selected>
+  <nav-gs-needle-deflection>/instrumentation/nav[0]/gs-needle-deflection-norm</nav-gs-needle-deflection>
+  <nav-heading-needle-deflection>/instrumentation/nav[0]/heading-needle-deflection</nav-heading-needle-deflection>
+  <nav-has-gs-needle>/sim/instrument-options/nav[0]/has-gs-needle</nav-has-gs-needle>
+  <nav-needles-pivot>/sim/instrument-options/nav[0]/needles-pivot</nav-needles-pivot>
+ </params>
+
+ <layers>
+  <layer>
+   <name>gauge face</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/faces-1.rgb</path>
+    <x1>0.0</x1>
+    <y1>0.51</y1>
+    <x2>0.49</x2>
+    <y2>1.0</y2>
+   </texture>
+    <w>104</w>
+    <h>104</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>1</offset>
+    </transformation>
+    <transformation>
+     <type>rotation</type>
+     <property alias="../../../../../params/nav-radial-selected"/>
+     <min>0.0</min>
+     <max>360.0</max>
+     <scale>-1.0</scale>
+    </transformation>
+   </transformations>
+  </layer>
+  <layer>
+   <name>TO/FROM/OFF flag</name>
+   <type>switch</type>
+   <layer>
+    <condition>
+     <property alias="../../../../../params/nav-to-flag"/>
+    </condition>
+    <name>TO flag</name>
+    <texture>
+     <path>Aircraft/Instruments/Textures/misc-1.rgb</path>
+     <x1>0.9375</x1>
+     <y1>0.578125</y1>
+     <x2>1.0</x2>
+     <y2>0.625</y2>
+    </texture>
+    <w>16</w>
+    <h>16</h>
+   </layer>
+   <layer>
+    <name>FROM/OFF flag</name>
+    <type>switch</type>
+    <layer>
+     <condition>
+      <property alias="../../../../../../params/nav-from-flag"/>
+     </condition>
+     <name>FROM flag</name>
+     <texture>
+      <path>Aircraft/Instruments/Textures/misc-1.rgb</path>
+      <x1>0.9375</x1>
+      <y1>0.625</y1>
+      <x2>1.0</x2>
+      <y2>0.671875</y2>
+     </texture>
+     <w>16</w>
+     <h>16</h>
+    </layer>
+    <layer>
+     <name>OFF flag</name>
+     <texture>
+      <path>Aircraft/Instruments/Textures/misc-1.rgb</path>
+      <x1>0.9375</x1>
+      <y1>0.5</y1>
+      <x2>1.0</x2>
+      <y2>0.546875</y2>
+     </texture>
+     <w>16</w>
+     <h>16</h>
+    </layer>
+   </layer>
+   <transformations>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-24</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>pivoting vertical needle</name>
+   <condition>
+    <equals>
+    <property alias="../../../../../params/nav-needles-pivot"/>
+    <value>1</value>
+    </equals>
+   </condition>
+   <texture>
+    <path>Aircraft/Instruments/Textures/misc-1.rgb</path>
+    <x1>0.439</x1>
+    <y1>0.5</y1>
+    <x2>0.4575</x2>
+    <y2>1.0</y2>
+   </texture>
+   <w>6</w>
+   <h>64</h>
+   <transformations>
+    <transformation>
+     <type>y-shift</type>
+     <offset>32</offset>
+    </transformation>
+    <transformation>
+     <type>rotation</type>
+     <property alias="../../../../../params/nav-heading-needle-deflection"/>
+     <min>-10.0</min>
+     <max>10.0</max>
+     <scale>-3.2</scale>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-32</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>arcing vertical needle</name>
+   <condition>
+    <equals>
+    <property alias="../../../../../params/nav-needles-pivot"/>
+    <value>0</value>
+    </equals>
+   </condition>
+   <texture>
+    <path>Aircraft/Instruments/Textures/misc-1.rgb</path>
+    <x1>0.439</x1>
+    <y1>0.5</y1>
+    <x2>0.4575</x2>
+    <y2>1.0</y2>
+   </texture>
+   <w>6</w>
+   <h>64</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <property alias="../../../../../params/nav-heading-needle-deflection"/>
+     <min>-10.0</min>
+     <max>10.0</max>
+     <scale>3.2</scale>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>pivoting glidescope needle</name>
+   <condition>
+    <equals>
+    <property alias="../../../../../params/nav-has-gs-needle"/>
+    <value>1</value>
+    </equals>
+    <equals>
+    <property alias="../../../../../params/nav-needles-pivot"/>
+    <value>1</value>
+    </equals>
+   </condition>
+   <texture>
+    <path>Aircraft/Instruments/Textures/misc-1.rgb</path>
+    <x1>0.439</x1>
+    <y1>0.5</y1>
+    <x2>0.4575</x2>
+    <y2>1.0</y2>
+   </texture>
+   <w>6</w>
+   <h>64</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-32</offset>
+    </transformation> 
+    <transformation>
+     <type>rotation</type>
+     <property alias="../../../../../params/nav-gs-needle-deflection"/>
+     <scale>-24.5</scale>
+    </transformation>
+    <transformation>
+     <type>x-shift</type>
+     <offset>32</offset>
+    </transformation> 
+    <transformation>
+     <type>rotation</type>
+     <offset>90</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+ <layer>
+  <name>sliding glidescope needle</name>
+  <condition>
+   <equals>
+   <property alias="../../../../../params/nav-has-gs-needle"/>
+   <value>1</value>
+   </equals>
+   <equals>
+   <property alias="../../../../../params/nav-needles-pivot"/>
+   <value>0</value>
+   </equals>
+  </condition>
+  <texture>
+   <path>Aircraft/Instruments/Textures/misc-1.rgb</path>
+   <x1>0.439</x1>
+   <y1>0.5</y1>
+   <x2>0.4575</x2>
+   <y2>1.0</y2>
+  </texture>
+  <w>6</w>
+  <h>64</h>
+  <transformations>
+   <transformation>
+    <type>y-shift</type>
+    <property alias="../../../../../params/nav-gs-needle-deflection"/>
+    <min>-1</min>
+    <max>1</max>
+    <scale>25.6</scale>
+   </transformation>
+   <transformation>
+    <type>rotation</type>
+    <offset>90</offset>
+   </transformation>
+  </transformations>
+  </layer>
+
+<!-- fix misc.rgb -->
+  <layer>
+   <name>face</name>
+   <w>55</w>
+   <h>70</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/misc-1.rgb</path>
+    <x1>0</x1>
+    <y1>0</y1>
+    <x2>0.25</x2>
+    <y2>0.3125</y2>
+   </texture>
+  </layer>
+
+  <layer>
+   <name>bezel</name>
+   <condition>
+    <not-equals>
+     <property>/sim/aero</property>
+     <value>c310u3a</value>
+    </not-equals>
+   </condition>
+   <texture>
+    <path>Aircraft/Instruments/Textures/bezel.rgb</path>
+    <x1>0.0</x1>
+    <y1>0.0</y1>
+    <x2>1.0</x2>
+    <y2>1.0</y2>
+   </texture>
+   <transformations>
+    <transformation>
+    <type>x-shift</type>
+    <offset>-1</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>glare shield</name>
+   <texture>
+     <path>Aircraft/Instruments/Textures/bezel1.rgb</path>
+     <x1>0.5</x1>
+     <y1>0.0</y1>
+     <x2>1.0</x2>
+     <y2>0.5</y2>
+   </texture>
+   <w>124</w>
+   <h>124</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>2</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-2</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>OBS Knob</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/blister.rgb</path>
+    <x1>0.25</x1>
+    <y1>0.75</y1>
+    <x2>0.5</x2>
+    <y2>1.0</y2>
+   </texture>
+   <h>24</h>
+   <w>24</w>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-45</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-45</offset>
+    </transformation>
+    <transformation>
+     <type>rotation</type>
+     <property alias="../../../../../params/nav-radial-selected"/>
+     <scale>5</scale>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>OBS label</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/misc-1.rgb</path>
+    <x1>0.0078125</x1>
+    <y1>0.66015625</y1>
+    <x2>0.1640625</x2>
+    <y2>0.82421875</y2>
+   </texture>
+   <w>15</w>
+   <h>15</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-45</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-45</offset>
+    </transformation>
+    <transformation>
+     <type>rotation</type>
+     <property alias="../../../../../params/nav-radial-selected"/>
+     <scale>5</scale>
+    </transformation>
+   </transformations>
+  </layer>
+
+ </layers>
+
+ <actions>
+  <action>
+   <name>small clockwise rotation</name>
+   <button>0</button>
+   <x>-56</x>
+   <y>-56</y>
+   <w>12</w>
+   <h>24</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/nav-radial-selected"/>
+    <step>-1.0</step>
+    <min>0</min>
+    <max>360</max>
+    <wrap>1</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>large clockwise rotation</name>
+   <button>1</button>
+   <x>-56</x>
+   <y>-56</y>
+   <w>12</w>
+   <h>24</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/nav-radial-selected"/>
+    <step>-5.0</step>
+    <min>0</min>
+    <max>360</max>
+    <wrap>1</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>small counter-clockwise rotation</name>
+   <button>0</button>
+   <x>-46</x>
+   <y>-56</y>
+   <w>12</w>
+   <h>24</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/nav-radial-selected"/>
+    <step>1.0</step>
+    <min>0</min>
+    <max>360</max>
+    <wrap>1</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>large counter-clockwise rotation</name>
+   <button>1</button>
+   <x>-46</x>
+   <y>-56</y>
+   <w>12</w>
+   <h>24</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/nav-radial-selected"/>
+    <step>5.0</step>
+    <min>0</min>
+    <max>360</max>
+    <wrap>1</wrap>
+   </binding>
+  </action>
+ </actions>
+
+</PropertyList>
+

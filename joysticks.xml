@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+	To override or add "named" joystick drivers list them in
+	<js-named> entries with paths relative to the directory where
+	the joysticks.xml file resides (first example). Such "named"
+	drivers are only picked up if one of their <name>s matches
+	the joystick hardware (see output of the js_demo application).
+	These drivers have precedence over already existing drivers
+	with the same <name>. (You can also add a <name>default</name>
+	entry to the driver to make it the default choice.)
+
+	The second example shows how to load a driver directly to
+	position 0. This will then be used for the first joystick on
+	your system and FlightGear will not overwrite it.
+-->
+
+<PropertyList>
+<!--
+	<js-named include="Input/Joysticks/Local/X45-modified.xml"/>
+
+	<js n="0" include="Input/Joysticks/Local/joystick_0.xml"/>
+-->
+</PropertyList>

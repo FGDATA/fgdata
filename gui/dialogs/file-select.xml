@@ -1,0 +1,285 @@
+<?xml version="1.0"?>
+
+<!--
+ Ctrl-click on "."    toggles display of hidden Unix filex (dotfiles)
+ Ctrl-click on ".."   enters $FG_ROOT
+ Shift-click on ".."  enters $FG_HOME
+ Alt-click on ".."    enters current working directory
+-->
+
+<PropertyList>
+	<name>file-select</name>
+	<dialog-name>file-select</dialog-name>
+	<layout>vbox</layout>
+	<resizable>true</resizable>
+	<pref-width>450</pref-width>
+
+	<group>
+		<layout>hbox</layout>
+		<empty><stretch>1</stretch></empty>
+
+		<text>
+			<label>Select File</label>
+		</text>
+
+		<empty><stretch>1</stretch></empty>
+
+		<button>
+			<pref-width>16</pref-width>
+			<pref-height>16</pref-height>
+			<legend></legend>
+			<default>1</default>
+			<keynum>27</keynum>
+			<border>2</border>
+			<binding>
+				<command>nasal</command>
+				<script>close()</script>
+			</binding>
+			<binding>
+				<command>dialog-close</command>
+			</binding>
+		</button>
+	</group>
+
+	<hrule/>
+
+	<input>
+		<name>dir-input</name>
+		<pref-width>442</pref-width>
+		<halign>fill</halign>
+		<property>/sim/gui/dialogs/file-select/directory</property>
+		<live>1</live>
+		<binding>
+			<command>dialog-apply</command>
+			<object-name>dir-input</object-name>
+		</binding>
+		<binding>
+			<command>nasal</command>
+			<script>dir_input()</script>
+		</binding>
+	</input>
+
+	<list>
+		<name>list</name>
+		<halign>fill</halign>
+		<valign>fill</valign>
+		<stretch>true</stretch>
+		<pref-height>300</pref-height>
+		<property>/sim/gui/dialogs/file-select/selection</property>
+		<binding>
+			<command>dialog-apply</command>
+			<object-name>list</object-name>
+		</binding>
+		<binding>
+			<command>nasal</command>
+			<script>select()</script>
+		</binding>
+	</list>
+
+	<group>
+		<layout>hbox</layout>
+
+		<input>
+			<name>file-input</name>
+			<pref-width>230</pref-width>
+			<halign>fill</halign>
+			<stretch>true</stretch>
+			<property>/sim/gui/dialogs/file-select/selection</property>
+			<live>1</live>
+			<binding>
+				<command>dialog-apply</command>
+				<object-name>file-input</object-name>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>file_input()</script>
+			</binding>
+			<visible>
+				<equals>  <!-- yes, odd condition. easier ways somehow fail,
+				               since we're changing the values with Nasal below... -->
+					<value>1</value>
+					<value>1</value>
+				</equals>
+			</visible>
+		</input>
+
+		<button>
+			<legend>OK</legend>
+			<live>1</live>
+			<pref-width>200</pref-width>
+			<default>true</default>
+			<binding>
+				<command>dialog-apply</command>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>ok()</script>
+			</binding>
+			<binding>
+				<command>dialog-close</command>
+			</binding>
+		</button>
+	</group>
+
+	<nasal>
+		<open>
+			var self = cmdarg();
+			var list = self.getNode("list");
+
+			# cloning
+			var dlgname = self.getNode("name").getValue();
+			self.getNode("input/property").setValue("/sim/gui/dialogs/" ~ dlgname ~ "/directory");
+			self.getNode("list/property").setValue("/sim/gui/dialogs/" ~ dlgname ~ "/selection");
+			self.getNode("group[1]/input/property").setValue("/sim/gui/dialogs/" ~ dlgname ~ "/selection");
+
+			var dlg = props.globals.getNode("/sim/gui/dialogs/" ~ dlgname, 1);
+			var selection = dlg.getNode("selection", 1);
+			var title = dlg.getNode("title", 1);
+			var button = dlg.getNode("button", 1);
+			var dir = dlg.getNode("directory", 1);
+			var file = dlg.getNode("file", 1);
+			var path = dlg.getNode("path", 1);
+			var dotfiles = dlg.getNode("dotfiles", 1);
+			dotfiles.setBoolValue(dotfiles.getValue());
+			# disable files to show a directory dialog only
+			self.show_files = dlg.getNode("show-files",1).getValue();
+			self.getNode("group[1]/input/visible/equals/value").setValue(self.show_files);
+
+			var kbdctrl = props.globals.getNode("/devices/status/keyboard/ctrl", 1);
+			var kbdshift = props.globals.getNode("/devices/status/keyboard/shift", 1);
+			var kbdalt = props.globals.getNode("/devices/status/keyboard/alt", 1);
+			var current = { dir : "", file : "" };
+			var pattern = [];
+			foreach (var p; dlg.getChildren("pattern"))
+				append(pattern, p.getValue());
+
+			var matches = func(s) {
+				foreach (var p; pattern)
+					if (string.match(s, p))
+						return 1;
+				return 0;
+			}
+
+			var update = func(d) {
+				var entries = directory(d);
+				if (entries == nil)  # dir doesn't exist or no permissions
+					return 0;
+
+				var files = [];
+				var dirs = [];
+				var hide = !dotfiles.getValue();
+				foreach (var e; entries) {
+					if (e == ".") {
+						append(dirs, e);
+						continue;
+					}
+					if (e == "..") {
+						if (d != "/")
+							append(dirs, e);
+						continue;
+					}
+					if (hide and e[0] == `.`)
+						continue;
+
+					var stat = io.stat(d ~ "/" ~ e);
+					if (stat == nil)  # dead link
+						continue;
+
+					if (stat[11] == "dir")
+						append(dirs, e ~ "/");
+					elsif (self.show_files and (!size(pattern) or matches(e)))
+						append(files, e);
+				}
+
+				list.removeChildren("value");
+				var entries = sort(dirs, cmp) ~ sort(files, cmp);
+				forindex (var i; entries)
+					list.getChild("value", i, 1).setValue(entries[i]);
+
+				dir.setValue(d);
+				gui.dialog_update(dlgname, "dir-input", "list");
+				return 1;
+			}
+
+			var select = func {
+				var e = selection.getValue();
+				current.file = "";
+				var new = nil;
+				if (e == ".") {
+					new = current.dir;
+					if (kbdctrl.getValue())
+						dotfiles.setBoolValue(!dotfiles.getValue());
+				} elsif (e == "..") {
+					if (kbdctrl.getValue())
+						new = getprop("/sim/fg-root");
+					elsif (kbdshift.getValue())
+						new = getprop("/sim/fg-home");
+					elsif (kbdalt.getValue())
+						new = getprop("/sim/fg-current");
+					else
+						new = current.dir ~ "/..";
+				} elsif (e[size(e) - 1] == `/`) {
+					new = current.dir ~ "/" ~ e;
+				} else {
+					current.file = e;
+					gui.dialog_update(dlgname, "file-input");
+				}
+				if (new != nil) {
+					var p = string.normpath(new);
+					if (update(p))
+						current.dir = p;
+					selection.setValue("");
+				}
+			}
+
+			var file_input = func {
+				current.file = selection.getValue();
+			}
+
+			var dir_input = func {
+				var p = string.normpath(dir.getValue());
+				if (update(p))
+					current.dir = p;
+				gui.dialog_update(dlgname, "list");
+			}
+
+			var close = func {
+				call(func { gui.Dialog.instance[dlgname].close() }, nil, var err = []);
+			}
+
+			var ok = func {
+				dir_input();
+				if (self.show_files)
+					file_input();
+				else
+					current.file = "";
+				var p = string.normpath(current.dir ~ "/" ~ current.file);
+				var stat = io.stat(p);
+				path.setValue(stat != nil and stat[11] == "dir" ? p ~ "/" : p);
+				file.setValue(current.file);
+				close();
+			}
+
+			var op = button.getValue();
+			if (op == nil or op == "")
+				op = "OK";
+			self.getNode("group[1]/button/legend").setValue(op);
+
+			var t = title.getValue();
+			if (t == nil or t == "")
+			{
+				if (self.show_files)
+					t = "Select Directory";
+				else
+					t = "Select File";
+			}
+			self.getNode("group[0]/text/label").setValue(t);
+
+			current.dir = (var d = dir.getValue()) != nil and d != "" ? d : getprop("/sim/fg-current");
+			current.file = (var d = file.getValue()) != nil and d != "" ? d : "";
+			gui.dialog_update(dlgname, "file-input"); ## dir-input ?
+			update(string.normpath(current.dir));
+			dir.setValue(current.dir);
+		</open>
+	</nasal>
+</PropertyList>

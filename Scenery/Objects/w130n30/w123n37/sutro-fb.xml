@@ -1,0 +1,1212 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+ <path>sutro-fb.ac</path>
+
+ <animation>
+  <type>range</type>
+  <min-m>0</min-m>
+  <max-m>15000</max-m>
+ </animation>
+
+ <animation>
+  <type>range</type>
+  <object-name>Guy</object-name>
+  <min-m>0</min-m>
+  <max-m>1500</max-m>
+ </animation>
+
+ <animation>
+  <type>alpha-test</type>
+  <alpha-factor>0.01</alpha-factor>
+ </animation>
+
+<!--  -->
+ <animation>
+  <name>StrobesOn</name>
+  <object-name>StrobeLight.1</object-name>
+  <object-name>StrobeLight.2</object-name>
+  <object-name>StrobeLight.3</object-name>
+  <object-name>StrobeLight.4</object-name>
+  <object-name>StrobeLight.5</object-name>
+  <object-name>StrobeLight.6</object-name>
+  <object-name>StrobeLight.7</object-name>
+  <object-name>StrobeLight.8</object-name>
+  <object-name>StrobeLight.9</object-name>
+  <object-name>StrobeLight.10</object-name>
+  <object-name>StrobeLight.11</object-name>
+  <object-name>StrobeLight.12</object-name>
+ </animation>
+
+ <animation>
+  <name>StrobesOff</name>
+  <object-name>RedLight.4</object-name>
+  <object-name>RedLight.5</object-name>
+  <object-name>RedLight.6</object-name>
+  <object-name>RedLight.13</object-name>
+  <object-name>RedLight.14</object-name>
+  <object-name>RedLight.15</object-name>
+  <object-name>RedLight.19</object-name>
+  <object-name>RedLight.20</object-name>
+  <object-name>RedLight.21</object-name>
+  <object-name>RedLight.25</object-name>
+  <object-name>RedLight.26</object-name>
+  <object-name>RedLight.27</object-name>
+ </animation>
+
+ <animation>
+  <name>Solid</name>
+  <object-name>RedLight.1</object-name>
+  <object-name>RedLight.2</object-name>
+  <object-name>RedLight.3</object-name>
+  <object-name>RedLight.7</object-name>
+  <object-name>RedLight.8</object-name>
+  <object-name>RedLight.9</object-name>
+  <object-name>RedLight.10</object-name>
+  <object-name>RedLight.11</object-name>
+  <object-name>RedLight.12</object-name>
+  <object-name>RedLight.16</object-name>
+  <object-name>RedLight.17</object-name>
+  <object-name>RedLight.18</object-name>
+  <object-name>RedLight.22</object-name>
+  <object-name>RedLight.23</object-name>
+  <object-name>RedLight.24</object-name>
+ </animation>
+ 
+ <animation>
+  <name>TimedAnim</name>
+  <type>timed</type>
+  <object-name>StrobesOn</object-name>
+  <object-name>StrobesOff</object-name>
+  <use-personality type="bool">true</use-personality>
+  <branch-duration-sec>
+   <random>
+    <min>0.9</min>
+    <max>1.1</max>
+   </random>
+  </branch-duration-sec>
+  <branch-duration-sec>
+   <random>
+    <min>0.9</min>
+    <max>1.1</max>
+   </random>
+  </branch-duration-sec>
+ </animation>
+
+<!-- Antenna top -->
+<!--  -->
+ <animation>
+  <type>translate</type>
+  <object-name>RedLight.1</object-name>
+  <offset-m>298.438</offset-m>
+  <axis>
+   <x>14.002</x>
+   <y>-8.084</y>
+   <z>298</z>
+  </axis>
+ </animation>
+ 
+ <animation>
+  <type>billboard</type>
+  <object-name>RedLight.1</object-name>
+  <spherical type="bool">true</spherical>
+ </animation>
+
+ <animation>
+  <type>dist-scale</type>
+  <object-name>RedLight.1</object-name>
+  <interpolation>
+   <entry><ind>0</ind><dep>0.5</dep></entry>
+   <entry><ind>500</ind><dep>1</dep></entry>
+   <entry><ind>16000</ind><dep>10</dep></entry>
+  </interpolation>
+ </animation>
+
+<!--  -->
+ <animation>
+  <type>translate</type>
+  <object-name>RedLight.2</object-name>
+  <offset-m>298.438</offset-m>
+  <axis>
+   <x>0</x>
+   <y>16.168</y>
+   <z>298</z>
+  </axis>
+ </animation>
+ 
+ <animation>
+  <type>billboard</type>
+  <object-name>RedLight.2</object-name>
+  <spherical type="bool">true</spherical>
+ </animation>
+
+ <animation>
+  <type>dist-scale</type>
+  <object-name>RedLight.2</object-name>
+  <interpolation>
+   <entry><ind>0</ind><dep>0.5</dep></entry>
+   <entry><ind>500</ind><dep>1</dep></entry>
+   <entry><ind>16000</ind><dep>10</dep></entry>
+  </interpolation>
+ </animation>
+
+<!--  -->
+ <animation>
+  <type>translate</type>
+  <object-name>RedLight.3</object-name>
+  <offset-m>298.438</offset-m>
+  <axis>
+   <x>-14.002</x>
+   <y>-8.084</y>
+   <z>298</z>
+  </axis>
+ </animation>
+ 
+ <animation>
+  <type>billboard</type>
+  <object-name>RedLight.3</object-name>
+  <spherical type="bool">true</spherical>
+ </animation>
+
+ <animation>
+  <type>dist-scale</type>
+  <object-name>RedLight.3</object-name>
+  <interpolation>
+   <entry><ind>0</ind><dep>0.5</dep></entry>
+   <entry><ind>500</ind><dep>1</dep></entry>
+   <entry><ind>16000</ind><dep>10</dep></entry>
+  </interpolation>
+ </animation>
+
+<!-- Antenna middle -->
+<!--  -->
+ <animation>
+  <type>translate</type>
+  <object-name>RedLight.4</object-name>
+  <offset-m>270.562</offset-m>
+  <axis>
+   <x>15.094</x>
+   <y>-8.715</y>
+   <z>270</z>
+  </axis>
+ </animation>
+ 
+ <animation>
+  <type>billboard</type>
+  <object-name>RedLight.4</object-name>
+  <spherical type="bool">true</spherical>
+ </animation>
+
+ <animation>
+  <type>dist-scale</type>
+  <object-name>RedLight.4</object-name>
+  <interpolation>
+   <entry><ind>0</ind><dep>0.5</dep></entry>
+   <entry><ind>500</ind><dep>1</dep></entry>
+   <entry><ind>16000</ind><dep>10</dep></entry>
+  </interpolation>
+ </animation>
+
+<!--  -->
+ <animation>
+  <type>translate</type>
+  <object-name>RedLight.5</object-name>
+  <offset-m>270.562</offset-m>
+  <axis>
+   <x>0</x>
+   <y>17.429</y>
+   <z>270</z>
+  </axis>
+ </animation>
+ 
+ <animation>
+  <type>billboard</type>
+  <object-name>RedLight.5</object-name>
+  <spherical type="bool">true</spherical>
+ </animation>
+
+ <animation>
+  <type>dist-scale</type>
+  <object-name>RedLight.5</object-name>
+  <interpolation>
+   <entry><ind>0</ind><dep>0.5</dep></entry>
+   <entry><ind>500</ind><dep>1</dep></entry>
+   <entry><ind>16000</ind><dep>10</dep></entry>
+  </interpolation>
+ </animation>
+
+<!--  -->
+ <animation>
+  <type>translate</type>
+  <object-name>RedLight.6</object-name>
+  <offset-m>270.562</offset-m>
+  <axis>
+   <x>-15.094</x>
+   <y>-8.715</y>
+   <z>270</z>
+  </axis>
+ </animation>
+ 
+ <animation>
+  <type>billboard</type>
+  <object-name>RedLight.6</object-name>
+  <spherical type="bool">true</spherical>
+ </animation>
+
+ <animation>
+  <type>dist-scale</type>
+  <object-name>RedLight.6</object-name>
+  <interpolation>
+   <entry><ind>0</ind><dep>0.5</dep></entry>
+   <entry><ind>500</ind><dep>1</dep></entry>
+   <entry><ind>16000</ind><dep>10</dep></entry>
+  </interpolation>
+ </animation>
+
+<!-- Top beams -->
+<!--  -->
+ <animation>
+  <type>translate</type>
+  <object-name>RedLight.7</object-name>
+  <offset-m>237.142</offset-m>
+  <axis>
+   <x>31</x>
+   <y>-7.084</y>
+   <z>235</z>
+  </axis>
+ </animation>
+ 
+ <animation>
+  <type>billboard</type>
+  <object-name>RedLight.7</object-name>
+  <spherical type="bool">true</spherical>
+ </animation>
+
+ <animation>
+  <type>dist-scale</type>
+  <object-name>RedLight.7</object-name>
+  <interpolation>
+   <entry><ind>0</ind><dep>0.5</dep></entry>
+   <entry><ind>500</ind><dep>1</dep></entry>
+   <entry><ind>16000</ind><dep>10</dep></entry>
+  </interpolation>
+ </animation>
+
+<!--  -->
+ <animation>
+  <type>translate</type>
+  <object-name>RedLight.8</object-name>
+  <offset-m>237.142</offset-m>
+  <axis>
+   <x>-31</x>
+   <y>-7.084</y>
+   <z>235</z>
+  </axis>
+ </animation>
+ 
+ <animation>
+  <type>billboard</type>
+  <object-name>RedLight.8</object-name>
+  <spherical type="bool">true</spherical>
+ </animation>
+
+ <animation>
+  <type>dist-scale</type>
+  <object-name>RedLight.8</object-name>
+  <interpolation>
+   <entry><ind>0</ind><dep>0.5</dep></entry>
+   <entry><ind>500</ind><dep>1</dep></entry>
+   <entry><ind>16000</ind><dep>10</dep></entry>
+  </interpolation>
+ </animation>
+
+<!--  -->
+ <animation>
+  <type>translate</type>
+  <object-name>RedLight.9</object-name>
+  <offset-m>237.142</offset-m>
+  <axis>
+   <x>-21.635</x>
+   <y>-23.305</y>
+   <z>235</z>
+  </axis>
+ </animation>
+ 
+ <animation>
+  <type>billboard</type>
+  <object-name>RedLight.9</object-name>
+  <spherical type="bool">true</spherical>
+ </animation>
+
+ <animation>
+  <type>dist-scale</type>
+  <object-name>RedLight.9</object-name>
+  <interpolation>
+   <entry><ind>0</ind><dep>0.5</dep></entry>
+   <entry><ind>500</ind><dep>1</dep></entry>
+   <entry><ind>16000</ind><dep>10</dep></entry>
+  </interpolation>
+ </animation>
+
+<!--  -->
+ <animation>
+  <type>translate</type>
+  <object-name>RedLight.10</object-name>
+  <offset-m>237.142</offset-m>
+  <axis>
+   <x>21.635</x>
+   <y>-23.305</y>
+   <z>235</z>
+  </axis>
+ </animation>
+ 
+ <animation>
+  <type>billboard</type>
+  <object-name>RedLight.10</object-name>
+  <spherical type="bool">true</spherical>
+ </animation>
+
+ <animation>
+  <type>dist-scale</type>
+  <object-name>RedLight.10</object-name>
+  <interpolation>
+   <entry><ind>0</ind><dep>0.5</dep></entry>
+   <entry><ind>500</ind><dep>1</dep></entry>
+   <entry><ind>16000</ind><dep>10</dep></entry>
+  </interpolation>
+ </animation>
+
+<!--  -->
+ <animation>
+  <type>translate</type>
+  <object-name>RedLight.11</object-name>
+  <offset-m>237.142</offset-m>
+  <axis>
+   <x>9.365</x>
+   <y>30.389</y>
+   <z>235</z>
+  </axis>
+ </animation>
+ 
+ <animation>
+  <type>billboard</type>
+  <object-name>RedLight.11</object-name>
+  <spherical type="bool">true</spherical>
+ </animation>
+
+ <animation>
+  <type>dist-scale</type>
+  <object-name>RedLight.11</object-name>
+  <interpolation>
+   <entry><ind>0</ind><dep>0.5</dep></entry>
+   <entry><ind>500</ind><dep>1</dep></entry>
+   <entry><ind>16000</ind><dep>10</dep></entry>
+  </interpolation>
+ </animation>
+
+<!--  -->
+ <animation>
+  <type>translate</type>
+  <object-name>RedLight.12</object-name>
+  <offset-m>237.142</offset-m>
+  <axis>
+   <x>-9.365</x>
+   <y>30.389</y>
+   <z>235</z>
+  </axis>
+ </animation>
+ 
+ <animation>
+  <type>billboard</type>
+  <object-name>RedLight.12</object-name>
+  <spherical type="bool">true</spherical>
+ </animation>
+
+ <animation>
+  <type>dist-scale</type>
+  <object-name>RedLight.12</object-name>
+  <interpolation>
+   <entry><ind>0</ind><dep>0.5</dep></entry>
+   <entry><ind>500</ind><dep>1</dep></entry>
+   <entry><ind>16000</ind><dep>10</dep></entry>
+  </interpolation>
+ </animation>
+
+<!--  -->
+<!--  -->
+ <animation>
+  <type>translate</type>
+  <object-name>RedLight.13</object-name>
+  <offset-m>215.631</offset-m>
+  <axis>
+   <x>14.272</x>
+   <y>-8.240</y>
+   <z>215</z>
+  </axis>
+ </animation>
+ 
+ <animation>
+  <type>billboard</type>
+  <object-name>RedLight.13</object-name>
+  <spherical type="bool">true</spherical>
+ </animation>
+
+ <animation>
+  <type>dist-scale</type>
+  <object-name>RedLight.13</object-name>
+  <interpolation>
+   <entry><ind>0</ind><dep>0.5</dep></entry>
+   <entry><ind>500</ind><dep>1</dep></entry>
+   <entry><ind>16000</ind><dep>10</dep></entry>
+  </interpolation>
+ </animation>
+
+<!--  -->
+ <animation>
+  <type>translate</type>
+  <object-name>RedLight.14</object-name>
+  <offset-m>215.631</offset-m>
+  <axis>
+   <x>0</x>
+   <y>16.480</y>
+   <z>215</z>
+  </axis>
+ </animation>
+ 
+ <animation>
+  <type>billboard</type>
+  <object-name>RedLight.14</object-name>
+  <spherical type="bool">true</spherical>
+ </animation>
+
+ <animation>
+  <type>dist-scale</type>
+  <object-name>RedLight.14</object-name>
+  <interpolation>
+   <entry><ind>0</ind><dep>0.5</dep></entry>
+   <entry><ind>500</ind><dep>1</dep></entry>
+   <entry><ind>16000</ind><dep>10</dep></entry>
+  </interpolation>
+ </animation>
+
+<!--  -->
+ <animation>
+  <type>translate</type>
+  <object-name>RedLight.15</object-name>
+  <offset-m>215.631</offset-m>
+  <axis>
+   <x>-14.272</x>
+   <y>-8.240</y>
+   <z>215</z>
+  </axis>
+ </animation>
+ 
+ <animation>
+  <type>billboard</type>
+  <object-name>RedLight.15</object-name>
+  <spherical type="bool">true</spherical>
+ </animation>
+
+ <animation>
+  <type>dist-scale</type>
+  <object-name>RedLight.15</object-name>
+  <interpolation>
+   <entry><ind>0</ind><dep>0.5</dep></entry>
+   <entry><ind>500</ind><dep>1</dep></entry>
+   <entry><ind>16000</ind><dep>10</dep></entry>
+  </interpolation>
+ </animation>
+
+<!--  -->
+<!--  -->
+ <animation>
+  <type>translate</type>
+  <object-name>RedLight.16</object-name>
+  <offset-m>168.401</offset-m>
+  <axis>
+   <x>10.057</x>
+   <y>-5.806</y>
+   <z>168</z>
+  </axis>
+ </animation>
+ 
+ <animation>
+  <type>billboard</type>
+  <object-name>RedLight.16</object-name>
+  <spherical type="bool">true</spherical>
+ </animation>
+
+ <animation>
+  <type>dist-scale</type>
+  <object-name>RedLight.16</object-name>
+  <interpolation>
+   <entry><ind>0</ind><dep>0.5</dep></entry>
+   <entry><ind>500</ind><dep>1</dep></entry>
+   <entry><ind>16000</ind><dep>10</dep></entry>
+  </interpolation>
+ </animation>
+
+<!--  -->
+ <animation>
+  <type>translate</type>
+  <object-name>RedLight.17</object-name>
+  <offset-m>168.401</offset-m>
+  <axis>
+   <x>0</x>
+   <y>11.613</y>
+   <z>168</z>
+  </axis>
+ </animation>
+ 
+ <animation>
+  <type>billboard</type>
+  <object-name>RedLight.17</object-name>
+  <spherical type="bool">true</spherical>
+ </animation>
+
+ <animation>
+  <type>dist-scale</type>
+  <object-name>RedLight.17</object-name>
+  <interpolation>
+   <entry><ind>0</ind><dep>0.5</dep></entry>
+   <entry><ind>500</ind><dep>1</dep></entry>
+   <entry><ind>16000</ind><dep>10</dep></entry>
+  </interpolation>
+ </animation>
+
+<!--  -->
+ <animation>
+  <type>translate</type>
+  <object-name>RedLight.18</object-name>
+  <offset-m>168.401</offset-m>
+  <axis>
+   <x>-10.057</x>
+   <y>-5.806</y>
+   <z>168</z>
+  </axis>
+ </animation>
+ 
+ <animation>
+  <type>billboard</type>
+  <object-name>RedLight.18</object-name>
+  <spherical type="bool">true</spherical>
+ </animation>
+
+ <animation>
+  <type>dist-scale</type>
+  <object-name>RedLight.18</object-name>
+  <interpolation>
+   <entry><ind>0</ind><dep>0.5</dep></entry>
+   <entry><ind>500</ind><dep>1</dep></entry>
+   <entry><ind>16000</ind><dep>10</dep></entry>
+  </interpolation>
+ </animation>
+
+<!--  -->
+<!--  -->
+ <animation>
+  <type>translate</type>
+  <object-name>RedLight.19</object-name>
+  <offset-m>127.985</offset-m>
+  <axis>
+   <x>13.725</x>
+   <y>-7.924</y>
+   <z>127</z>
+  </axis>
+ </animation>
+ 
+ <animation>
+  <type>billboard</type>
+  <object-name>RedLight.19</object-name>
+  <spherical type="bool">true</spherical>
+ </animation>
+
+ <animation>
+  <type>dist-scale</type>
+  <object-name>RedLight.19</object-name>
+  <interpolation>
+   <entry><ind>0</ind><dep>0.5</dep></entry>
+   <entry><ind>500</ind><dep>1</dep></entry>
+   <entry><ind>16000</ind><dep>10</dep></entry>
+  </interpolation>
+ </animation>
+
+<!--  -->
+ <animation>
+  <type>translate</type>
+  <object-name>RedLight.20</object-name>
+  <offset-m>127.985</offset-m>
+  <axis>
+   <x>0</x>
+   <y>15.848</y>
+   <z>127</z>
+  </axis>
+ </animation>
+ 
+ <animation>
+  <type>billboard</type>
+  <object-name>RedLight.20</object-name>
+  <spherical type="bool">true</spherical>
+ </animation>
+
+ <animation>
+  <type>dist-scale</type>
+  <object-name>RedLight.20</object-name>
+  <interpolation>
+   <entry><ind>0</ind><dep>0.5</dep></entry>
+   <entry><ind>500</ind><dep>1</dep></entry>
+   <entry><ind>16000</ind><dep>10</dep></entry>
+  </interpolation>
+ </animation>
+
+<!--  -->
+ <animation>
+  <type>translate</type>
+  <object-name>RedLight.21</object-name>
+  <offset-m>127.985</offset-m>
+  <axis>
+   <x>-13.725</x>
+   <y>-7.924</y>
+   <z>127</z>
+  </axis>
+ </animation>
+ 
+ <animation>
+  <type>billboard</type>
+  <object-name>RedLight.21</object-name>
+  <spherical type="bool">true</spherical>
+ </animation>
+
+ <animation>
+  <type>dist-scale</type>
+  <object-name>RedLight.21</object-name>
+  <interpolation>
+   <entry><ind>0</ind><dep>0.5</dep></entry>
+   <entry><ind>500</ind><dep>1</dep></entry>
+   <entry><ind>16000</ind><dep>10</dep></entry>
+  </interpolation>
+ </animation>
+
+<!--  -->
+<!--  -->
+ <animation>
+  <type>translate</type>
+  <object-name>RedLight.22</object-name>
+  <offset-m>86.492</offset-m>
+  <axis>
+   <x>17.851</x>
+   <y>-10.306</y>
+   <z>84</z>
+  </axis>
+ </animation>
+ 
+ <animation>
+  <type>billboard</type>
+  <object-name>RedLight.22</object-name>
+  <spherical type="bool">true</spherical>
+ </animation>
+
+ <animation>
+  <type>dist-scale</type>
+  <object-name>RedLight.22</object-name>
+  <interpolation>
+   <entry><ind>0</ind><dep>0.5</dep></entry>
+   <entry><ind>500</ind><dep>1</dep></entry>
+   <entry><ind>16000</ind><dep>10</dep></entry>
+  </interpolation>
+ </animation>
+
+<!--  -->
+ <animation>
+  <type>translate</type>
+  <object-name>RedLight.23</object-name>
+  <offset-m>86.492</offset-m>
+  <axis>
+   <x>0</x>
+   <y>20.613</y>
+   <z>84</z>
+  </axis>
+ </animation>
+ 
+ <animation>
+  <type>billboard</type>
+  <object-name>RedLight.23</object-name>
+  <spherical type="bool">true</spherical>
+ </animation>
+
+ <animation>
+  <type>dist-scale</type>
+  <object-name>RedLight.23</object-name>
+  <interpolation>
+   <entry><ind>0</ind><dep>0.5</dep></entry>
+   <entry><ind>500</ind><dep>1</dep></entry>
+   <entry><ind>16000</ind><dep>10</dep></entry>
+  </interpolation>
+ </animation>
+
+<!--  -->
+ <animation>
+  <type>translate</type>
+  <object-name>RedLight.24</object-name>
+  <offset-m>86.492</offset-m>
+  <axis>
+   <x>-17.851</x>
+   <y>-10.306</y>
+   <z>84</z>
+  </axis>
+ </animation>
+ 
+ <animation>
+  <type>billboard</type>
+  <object-name>RedLight.24</object-name>
+  <spherical type="bool">true</spherical>
+ </animation>
+
+ <animation>
+  <type>dist-scale</type>
+  <object-name>RedLight.24</object-name>
+  <interpolation>
+   <entry><ind>0</ind><dep>0.5</dep></entry>
+   <entry><ind>500</ind><dep>1</dep></entry>
+   <entry><ind>16000</ind><dep>10</dep></entry>
+  </interpolation>
+ </animation>
+
+<!--  -->
+<!--  -->
+ <animation>
+  <type>translate</type>
+  <object-name>RedLight.25</object-name>
+  <offset-m>49.716</offset-m>
+  <axis>
+   <x>21.611</x>
+   <y>-12.477</y>
+   <z>43</z>
+  </axis>
+ </animation>
+ 
+ <animation>
+  <type>billboard</type>
+  <object-name>RedLight.25</object-name>
+  <spherical type="bool">true</spherical>
+ </animation>
+
+ <animation>
+  <type>dist-scale</type>
+  <object-name>RedLight.25</object-name>
+  <interpolation>
+   <entry><ind>0</ind><dep>0.5</dep></entry>
+   <entry><ind>500</ind><dep>1</dep></entry>
+   <entry><ind>16000</ind><dep>10</dep></entry>
+  </interpolation>
+ </animation>
+
+<!--  -->
+ <animation>
+  <type>translate</type>
+  <object-name>RedLight.26</object-name>
+  <offset-m>49.716</offset-m>
+  <axis>
+   <x>0</x>
+   <y>24.955</y>
+   <z>43</z>
+  </axis>
+ </animation>
+ 
+ <animation>
+  <type>billboard</type>
+  <object-name>RedLight.26</object-name>
+  <spherical type="bool">true</spherical>
+ </animation>
+
+ <animation>
+  <type>dist-scale</type>
+  <object-name>RedLight.26</object-name>
+  <interpolation>
+   <entry><ind>0</ind><dep>0.5</dep></entry>
+   <entry><ind>500</ind><dep>1</dep></entry>
+   <entry><ind>16000</ind><dep>10</dep></entry>
+  </interpolation>
+ </animation>
+
+<!--  -->
+ <animation>
+  <type>translate</type>
+  <object-name>RedLight.27</object-name>
+  <offset-m>49.716</offset-m>
+  <axis>
+   <x>-21.611</x>
+   <y>-12.477</y>
+   <z>43</z>
+  </axis>
+ </animation>
+ 
+ <animation>
+  <type>billboard</type>
+  <object-name>RedLight.27</object-name>
+  <spherical type="bool">true</spherical>
+ </animation>
+
+ <animation>
+  <type>dist-scale</type>
+  <object-name>RedLight.27</object-name>
+  <interpolation>
+   <entry><ind>0</ind><dep>0.5</dep></entry>
+   <entry><ind>500</ind><dep>1</dep></entry>
+   <entry><ind>16000</ind><dep>10</dep></entry>
+  </interpolation>
+ </animation>
+
+
+
+
+<!-- Antenna middle -->
+<!--  -->
+ <animation>
+  <type>translate</type>
+  <object-name>StrobeLight.1</object-name>
+  <offset-m>270.562</offset-m>
+  <axis>
+   <x>15.094</x>
+   <y>-8.715</y>
+   <z>270</z>
+  </axis>
+ </animation>
+ 
+ <animation>
+  <type>billboard</type>
+  <object-name>StrobeLight.1</object-name>
+  <spherical type="bool">true</spherical>
+ </animation>
+
+ <animation>
+  <type>dist-scale</type>
+  <object-name>StrobeLight.1</object-name>
+  <interpolation>
+   <entry><ind>0</ind><dep>0.6</dep></entry>
+   <entry><ind>500</ind><dep>1</dep></entry>
+   <entry><ind>16000</ind><dep>10</dep></entry>
+  </interpolation>
+ </animation>
+
+<!--  -->
+ <animation>
+  <type>translate</type>
+  <object-name>StrobeLight.2</object-name>
+  <offset-m>270.562</offset-m>
+  <axis>
+   <x>0</x>
+   <y>17.429</y>
+   <z>270</z>
+  </axis>
+ </animation>
+ 
+ <animation>
+  <type>billboard</type>
+  <object-name>StrobeLight.2</object-name>
+  <spherical type="bool">true</spherical>
+ </animation>
+
+ <animation>
+  <type>dist-scale</type>
+  <object-name>StrobeLight.2</object-name>
+  <interpolation>
+   <entry><ind>0</ind><dep>0.6</dep></entry>
+   <entry><ind>500</ind><dep>1</dep></entry>
+   <entry><ind>16000</ind><dep>10</dep></entry>
+  </interpolation>
+ </animation>
+
+<!--  -->
+ <animation>
+  <type>translate</type>
+  <object-name>StrobeLight.3</object-name>
+  <offset-m>270.562</offset-m>
+  <axis>
+   <x>-15.094</x>
+   <y>-8.715</y>
+   <z>270</z>
+  </axis>
+ </animation>
+ 
+ <animation>
+  <type>billboard</type>
+  <object-name>StrobeLight.3</object-name>
+  <spherical type="bool">true</spherical>
+ </animation>
+
+ <animation>
+  <type>dist-scale</type>
+  <object-name>StrobeLight.3</object-name>
+  <interpolation>
+   <entry><ind>0</ind><dep>0.6</dep></entry>
+   <entry><ind>500</ind><dep>1</dep></entry>
+   <entry><ind>16000</ind><dep>10</dep></entry>
+  </interpolation>
+ </animation>
+
+<!--  -->
+<!--  -->
+ <animation>
+  <type>translate</type>
+  <object-name>StrobeLight.4</object-name>
+  <offset-m>215.631</offset-m>
+  <axis>
+   <x>14.272</x>
+   <y>-8.240</y>
+   <z>215</z>
+  </axis>
+ </animation>
+ 
+ <animation>
+  <type>billboard</type>
+  <object-name>StrobeLight.4</object-name>
+  <spherical type="bool">true</spherical>
+ </animation>
+
+ <animation>
+  <type>dist-scale</type>
+  <object-name>StrobeLight.4</object-name>
+  <interpolation>
+   <entry><ind>0</ind><dep>0.6</dep></entry>
+   <entry><ind>500</ind><dep>1</dep></entry>
+   <entry><ind>16000</ind><dep>10</dep></entry>
+  </interpolation>
+ </animation>
+
+<!--  -->
+ <animation>
+  <type>translate</type>
+  <object-name>StrobeLight.5</object-name>
+  <offset-m>215.631</offset-m>
+  <axis>
+   <x>0</x>
+   <y>16.480</y>
+   <z>215</z>
+  </axis>
+ </animation>
+ 
+ <animation>
+  <type>billboard</type>
+  <object-name>StrobeLight.5</object-name>
+  <spherical type="bool">true</spherical>
+ </animation>
+
+ <animation>
+  <type>dist-scale</type>
+  <object-name>StrobeLight.5</object-name>
+  <interpolation>
+   <entry><ind>0</ind><dep>0.6</dep></entry>
+   <entry><ind>500</ind><dep>1</dep></entry>
+   <entry><ind>16000</ind><dep>10</dep></entry>
+  </interpolation>
+ </animation>
+
+<!--  -->
+ <animation>
+  <type>translate</type>
+  <object-name>StrobeLight.6</object-name>
+  <offset-m>215.631</offset-m>
+  <axis>
+   <x>-14.272</x>
+   <y>-8.240</y>
+   <z>215</z>
+  </axis>
+ </animation>
+ 
+ <animation>
+  <type>billboard</type>
+  <object-name>StrobeLight.6</object-name>
+  <spherical type="bool">true</spherical>
+ </animation>
+
+ <animation>
+  <type>dist-scale</type>
+  <object-name>StrobeLight.6</object-name>
+  <interpolation>
+   <entry><ind>0</ind><dep>0.6</dep></entry>
+   <entry><ind>500</ind><dep>1</dep></entry>
+   <entry><ind>16000</ind><dep>10</dep></entry>
+  </interpolation>
+ </animation>
+
+<!--  -->
+<!--  -->
+ <animation>
+  <type>translate</type>
+  <object-name>StrobeLight.7</object-name>
+  <offset-m>127.985</offset-m>
+  <axis>
+   <x>13.725</x>
+   <y>-7.924</y>
+   <z>127</z>
+  </axis>
+ </animation>
+ 
+ <animation>
+  <type>billboard</type>
+  <object-name>StrobeLight.7</object-name>
+  <spherical type="bool">true</spherical>
+ </animation>
+
+ <animation>
+  <type>dist-scale</type>
+  <object-name>StrobeLight.7</object-name>
+  <interpolation>
+   <entry><ind>0</ind><dep>0.6</dep></entry>
+   <entry><ind>500</ind><dep>1</dep></entry>
+   <entry><ind>16000</ind><dep>10</dep></entry>
+  </interpolation>
+ </animation>
+
+<!--  -->
+ <animation>
+  <type>translate</type>
+  <object-name>StrobeLight.8</object-name>
+  <offset-m>127.985</offset-m>
+  <axis>
+   <x>0</x>
+   <y>15.848</y>
+   <z>127</z>
+  </axis>
+ </animation>
+ 
+ <animation>
+  <type>billboard</type>
+  <object-name>StrobeLight.8</object-name>
+  <spherical type="bool">true</spherical>
+ </animation>
+
+ <animation>
+  <type>dist-scale</type>
+  <object-name>StrobeLight.8</object-name>
+  <interpolation>
+   <entry><ind>0</ind><dep>0.6</dep></entry>
+   <entry><ind>500</ind><dep>1</dep></entry>
+   <entry><ind>16000</ind><dep>10</dep></entry>
+  </interpolation>
+ </animation>
+
+<!--  -->
+ <animation>
+  <type>translate</type>
+  <object-name>StrobeLight.9</object-name>
+  <offset-m>127.985</offset-m>
+  <axis>
+   <x>-13.725</x>
+   <y>-7.924</y>
+   <z>127</z>
+  </axis>
+ </animation>
+ 
+ <animation>
+  <type>billboard</type>
+  <object-name>StrobeLight.9</object-name>
+  <spherical type="bool">true</spherical>
+ </animation>
+
+ <animation>
+  <type>dist-scale</type>
+  <object-name>StrobeLight.9</object-name>
+  <interpolation>
+   <entry><ind>0</ind><dep>0.6</dep></entry>
+   <entry><ind>500</ind><dep>1</dep></entry>
+   <entry><ind>16000</ind><dep>10</dep></entry>
+  </interpolation>
+ </animation>
+
+<!--  -->
+<!--  -->
+ <animation>
+  <type>translate</type>
+  <object-name>StrobeLight.10</object-name>
+  <offset-m>49.716</offset-m>
+  <axis>
+   <x>21.611</x>
+   <y>-12.477</y>
+   <z>43</z>
+  </axis>
+ </animation>
+ 
+ <animation>
+  <type>billboard</type>
+  <object-name>StrobeLight.10</object-name>
+  <spherical type="bool">true</spherical>
+ </animation>
+
+ <animation>
+  <type>dist-scale</type>
+  <object-name>StrobeLight.10</object-name>
+  <interpolation>
+   <entry><ind>0</ind><dep>0.6</dep></entry>
+   <entry><ind>500</ind><dep>1</dep></entry>
+   <entry><ind>16000</ind><dep>10</dep></entry>
+  </interpolation>
+ </animation>
+
+<!--  -->
+ <animation>
+  <type>translate</type>
+  <object-name>StrobeLight.11</object-name>
+  <offset-m>49.716</offset-m>
+  <axis>
+   <x>0</x>
+   <y>24.955</y>
+   <z>43</z>
+  </axis>
+ </animation>
+ 
+ <animation>
+  <type>billboard</type>
+  <object-name>StrobeLight.11</object-name>
+  <spherical type="bool">true</spherical>
+ </animation>
+
+ <animation>
+  <type>dist-scale</type>
+  <object-name>StrobeLight.11</object-name>
+  <interpolation>
+   <entry><ind>0</ind><dep>0.6</dep></entry>
+   <entry><ind>500</ind><dep>1</dep></entry>
+   <entry><ind>16000</ind><dep>10</dep></entry>
+  </interpolation>
+ </animation>
+
+<!--  -->
+ <animation>
+  <type>translate</type>
+  <object-name>StrobeLight.12</object-name>
+  <offset-m>49.716</offset-m>
+  <axis>
+   <x>-21.611</x>
+   <y>-12.477</y>
+   <z>43</z>
+  </axis>
+ </animation>
+ 
+ <animation>
+  <type>billboard</type>
+  <object-name>StrobeLight.12</object-name>
+  <spherical type="bool">true</spherical>
+ </animation>
+
+ <animation>
+  <type>dist-scale</type>
+  <object-name>StrobeLight.12</object-name>
+  <interpolation>
+   <entry><ind>0</ind><dep>0.6</dep></entry>
+   <entry><ind>500</ind><dep>1</dep></entry>
+   <entry><ind>16000</ind><dep>10</dep></entry>
+  </interpolation>
+ </animation>
+
+ <animation>
+  <!-- Force object order to fix transparency problems.
+       No need to struggle with Blender anymore -->
+  <object-name>Masts</object-name>
+  <object-name>TimedAnim</object-name>
+  <object-name>Solid</object-name>
+ </animation>
+
+</PropertyList>

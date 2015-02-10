@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<path>RP-3.ac</path>
+
+	<model>
+		<path>Models/Geometry/RP-3/impact-smoke.xml</path>
+		<name>Impact Smoke</name>
+		<offsets>
+			<x-m>1</x-m>
+			<y-m>0</y-m>
+			<z-m>0</z-m>
+		</offsets>
+	</model>
+
+	<animation>
+		<type>select</type>>
+		<object-name>Shot-25lbs</object-name>
+		<object-name>Rail Assmbly</object-name>
+	</animation>
+
+</PropertyList>

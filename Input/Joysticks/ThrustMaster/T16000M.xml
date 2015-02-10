@@ -1,0 +1,399 @@
+<?xml version="1.0"?>
+
+<!--
+************************************************************************
+*
+* Bindings or Thrustmaster T.16000M USB joystick (see joysticks.xml in fgfsbase dir)
+*
+*
+* Axis 0: ailerons
+* Axis 1: elevator
+* Axis 2: rudder (twistable stick)
+* Axis 3: throttle
+* Axis 4: Horizontal Hat
+* Axis 5: Vertical Hat
+* Axis 6: view left/right 
+* Axis 7: view Up/down
+*
+* Button 0: (fire) all brakes 
+* Button 1: gear up/down
+* Button 4: trim up
+* Button 9: trim down
+* Button 10: flaps up
+* Button 15: flaps down
+* Button 2: trim aileron left
+* Button 3: trim aileron right
+* Button 5: Mixture up
+* Button 8: Mixture down
+* Button 6: Propeller up
+* Button 7: Propeller down
+* Button 12: Battery On/Off
+* Button 13: Fuel selector
+* Button 11: Magnetos
+* Button 14: starter  
+************************************************************************
+-->
+
+
+<PropertyList>
+  <name type="string">Thrustmaster T.16000M</name>
+  <name type="string">T.16000M</name>
+
+ <axis>
+  <number>
+   <unix>0</unix>
+   <windows>0</windows>
+   <mac>0</mac>
+  </number>
+  <desc>Aileron</desc>
+  <dead-band type="double">0.02</dead-band>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/aileron</property>
+   <offset type="double">+0.0</offset>
+   <factor type="double">+1.0</factor>
+  </binding>
+ </axis>
+
+<axis>
+  <number>
+   <unix>1</unix>
+   <windows>1</windows>
+   <mac>1</mac>
+  </number>
+  <desc>Elevator</desc>
+  <dead-band type="double">0.02</dead-band>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/elevator</property>
+   <offset type="double">+0.0</offset>
+   <factor type="double">-1.0</factor>
+  </binding>
+ </axis>
+
+<axis>
+  <number>
+   <unix>2</unix>
+   <windows>3</windows>
+   <mac>2</mac>
+  </number>
+  <desc>Rudder</desc>
+  <dead-band type="double">0.02</dead-band>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/rudder</property>
+   <offset type="double">0.0</offset>
+   <factor type="double">1.0</factor>
+  </binding>
+ </axis>
+
+ <axis>
+  <desc>Throttle</desc>
+  <number>
+   <unix>3</unix>
+   <mac>3</mac>
+   <windows>2</windows>
+  </number>
+  <binding>
+   <command>nasal</command>
+   <script>controls.throttleAxis()</script>
+  </binding>
+ </axis>
+
+  <axis>
+     <desc>View Direction</desc>
+      <number>
+       <unix>4</unix>
+        <windows>6</windows>
+        </number>
+        <low>
+        <repeatable>true</repeatable>
+        <binding>
+         <command>property-adjust</command>
+         <property>/sim/current-view/goal-heading-offset-deg</property>
+         <step type="double">5.0</step>
+        </binding>
+        </low>
+        <high>
+           <repeatable>true</repeatable>
+                <binding>
+                 <command>property-adjust</command>
+                 <property>/sim/current-view/goal-heading-offset-deg</property>
+                 <step type="double">-5.0</step>
+              </binding>
+         </high>
+   </axis>
+
+
+  <axis>
+      <desc>View Elevation</desc>
+         <number>
+            <unix>5</unix>
+            <windows>7</windows>
+        </number>
+       <low>
+        <repeatable>true</repeatable>
+           <binding>
+              <command>property-adjust</command>
+              <property>/sim/current-view/goal-pitch-offset-deg</property>
+              <step type="double">5.0</step>
+           </binding>
+       </low>
+       <high>
+       <repeatable>true</repeatable>
+         <binding>
+           <command>property-adjust</command>
+           <property>/sim/current-view/goal-pitch-offset-deg</property>
+           <step type="double">-5.0</step>
+         </binding>
+        </high>
+    </axis>
+
+
+<button n="0">
+  <desc>Brakes</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.applyBrakes(1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.applyBrakes(0)</script>
+   </binding>
+  </mod-up>
+ </button>
+
+<button n="4">
+     <desc>Trigger</desc>
+     <binding>
+     <command>property-assign</command>
+     <property>ai/submodels/trigger</property>
+     <value type="bool">1</value>
+     </binding>
+     <mod-up>
+     <binding>
+     <command>property-assign</command>
+     <property>ai/submodels/trigger</property>
+     <value type="bool">0</value>
+     </binding>
+     </mod-up>
+</button>
+
+
+  <button n="4">
+  <desc>Elevator trim up</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+  <command>nasal</command>
+  <script>controls.elevatorTrim(-1)</script>
+  </binding>
+  </button>
+
+  <button n="9">
+  <desc>Elevator trim down</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+  <command>nasal</command>
+  <script>controls.elevatorTrim(1)</script>
+  </binding>
+  </button>
+
+  <button n="15">
+  <desc>Flaps up</desc>
+  <repeatable>false</repeatable>
+  <binding>
+  <command>nasal</command>
+  <script>controls.flapsDown(1)</script>
+  </binding>
+  <mod-up>
+  <binding>
+  <command>nasal</command>
+  <script>controls.flapsDown(0)</script>
+  </binding>
+  </mod-up>
+  </button>
+ 
+ <button n="10">
+ <desc>Flaps down</desc>
+ <repeatable>false</repeatable>
+ <binding>
+ <command>nasal</command>
+ <script>controls.flapsDown(-1)</script>
+ </binding>
+ <mod-up>
+ <binding>
+ <command>nasal</command>
+ <script>controls.flapsDown(0)</script>
+ </binding>
+ </mod-up>
+ </button>
+
+ <button n="1">
+  <desc>Landing Gear Toggle</desc>
+  <repeatable type="bool">false</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.gearToggle()</script>
+  </binding>
+ </button>
+
+
+<button n="2">
+  <desc>Aileron trim left</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+  <command>nasal</command>
+  <script>controls.aileronTrim(-0.5)</script>
+  </binding>
+  </button>
+
+<button n="3">
+  <desc>Aileron trim right</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+  <command>nasal</command>
+  <script>controls.aileronTrim(0.5)</script>
+  </binding>
+  </button>
+
+<button n="5">
+  <desc>mixture up</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+  <command>nasal</command>
+  <script>controls.adjMixture(0.25)</script>
+  </binding>
+  </button>
+
+<button n="8">
+  <desc>mixture up</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+  <command>nasal</command>
+  <script>controls.adjMixture(-0.25)</script>
+  </binding>
+  </button>
+
+<button n="6">
+  <desc>propeller up</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+  <command>nasal</command>
+  <script>controls.adjPropeller(0.25)</script>
+  </binding>
+  </button>
+
+<button n="7">
+  <desc>propeller down</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+  <command>nasal</command>
+  <script>controls.adjPropeller(-0.25)</script>
+  </binding>
+  </button>
+
+<button n="12">
+  <desc>batterie switch</desc>
+  <repeatable type="bool">false</repeatable>
+  <binding>
+  <command>nasal</command>
+  <script>
+<![CDATA[
+  j = getprop("/controls/electric/battery-switch");
+ if (j == 0)
+ {  
+  setprop("/controls/electric/battery-switch", 1);
+} else
+{ setprop("/controls/electric/battery-switch", 0);
+}
+]]>
+  </script>
+  </binding>
+  </button>
+
+<button n="13">
+  <desc>fuel selector</desc>
+  <repeatable type="bool">false</repeatable>
+  <binding>
+  <command>nasal</command>
+  <script>
+<![CDATA[
+  k = getprop("/controls/fuel/tank/fuel_selector");
+ if (k == 0)
+ {
+  setprop("/controls/fuel/tank/fuel_selector", 1);
+  setprop("/controls/engines/engine/fuel-pump", 1);
+} else
+{ 
+  setprop("/controls/fuel/tank/fuel_selector", 0);
+  setprop("/controls/engines/engine/fuel-pump", 0);
+}
+]]>
+  </script>
+  </binding>
+  </button>
+
+<button n="11">
+  <desc>selecteur megneto</desc>
+  <repeatable type="bool">false</repeatable>
+  <binding>
+  <command>nasal</command>
+  <script>
+<![CDATA[
+  l = getprop("/controls/engines/engine/magnetos");
+if (l == 0)
+{
+ props.setAll("/controls/engines/engine", "magnetos", 1);
+} 
+elsif ( l == 1 )
+{
+ props.setAll("/controls/engines/engine", "magnetos", 2);
+}
+elsif ( l == 2 )
+{
+ props.setAll("/controls/engines/engine", "magnetos", 3);
+}
+elsif ( l == 3 )
+{
+ props.setAll("/controls/engines/engine", "magnetos", 0);
+}
+]]>
+  </script>
+  </binding>
+  </button>
+
+<button n="14">
+ <desc> starter </desc>
+ <repeatable>false</repeatable>
+ <binding>
+ <command>nasal</command>
+ <script>
+         setprop("/controls/engines/engine/starter", 1);
+         setprop("/controls/engines/engine[1]/starter", 1);
+         setprop("/controls/engines/engine[2]/starter", 1);
+         setprop("/controls/engines/engine[3]/starter", 1);
+         setprop("/controls/engines/engine[4]/starter", 1);
+ </script>
+ </binding>
+ <mod-up>
+ <binding>
+ <command>nasal</command>
+ <script>setprop("/controls/engines/engine/starter", 0);
+         setprop("/controls/engines/engine[1]/starter", 0);
+         setprop("/controls/engines/engine[2]/starter", 0);
+         setprop("/controls/engines/engine[3]/starter", 0);
+         setprop("/controls/engines/engine[4]/starter", 0);
+ </script>
+ </binding>
+ </mod-up>
+ </button>
+
+
+
+
+</PropertyList>
+
+
+<!-- end of TGF2PROUSB.xml -->
+

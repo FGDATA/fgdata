@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+ <path>front-trim-handle.ac</path>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>trim-handles-link</object-name>
+		<property>controls/flight/spoilers</property>
+		<min-deg>-50</min-deg>
+		<max-deg>50</max-deg>
+		<factor>-100</factor>
+		<center>
+			<x-m>-0.000281</x-m>
+			<y-m>0.002826</y-m>
+			<z-m>0.023785</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>-0.003923</y>
+			<z>0</z>
+		</axis>
+ </animation>
+ 
+  <animation>
+  <type>rotate</type>
+  <object-name>trim-handles-link2</object-name>
+		<property>controls/flight/spoilers</property>
+		<min-deg>-50</min-deg>
+		<max-deg>50</max-deg>
+		<factor>-100</factor>
+		<center>
+			<x-m>-0.000281</x-m>
+			<y-m>0.002826</y-m>
+			<z-m>-0.023883</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>-0.003923</y>
+			<z>0</z>
+		</axis>
+ </animation>
+
+</PropertyList>
+
+

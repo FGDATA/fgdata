@@ -1,0 +1,36 @@
+<tat> anyway an ace pilot of Zero wrote:
+<tat> When you finish climbing and go to cruise mode,
+<tat> decrease throttle so boost shows -200mmHg, (22.05 inHg)
+<tat> and then start pushing the pitch lever gradually, carefully monitoring rpm and speed.
+<tat> while pushing the lever, the rpm decreases but the boost increases to -100mmHg(26.98 inHg), which means the pitch is increasing
+<tat> when the engine RPM drops to 1850 (1272 prop rpm), Zero's speed is stable at around 130 kt, the most fuel efficient speed.
+<tat> when you climb or in a combat, you need to bring the pitch lever back to 0 position.
+<tat> while you're flying at 1850 engine rpm (at full pitch), you cannot reach to the max speed even with full boost.
+<tat> and you can adjust the speed by pushing and pulling the throttle. the pitch changes as the throttle changes, but the engine rpm stays the same.
+<tat> so this is how the Zero's constant speed prop works.
+
+Today I built a JSBSim script that starts at 2550 RPM and 35.8 inHg (+150 mmHg) at 110 knots. It is allowed to accelerate for 20 seconds then the 
+manifold pressure is reduced to 22 inHg (-200 mmHg) it begins to decelerate until the RPMs are reduced to 1850 at 35 seconds. Unfortunately 
+the manifold pressure does not rise. Manually setting the manifold pressure to 27 inHg (-100 mmHg) holds speed of 135 knots in level flight.
+
+
+<tat> Fuel: Aviation fuel 92 
+<tat> Density: 0.735 kg/L  @ 15 deg-C
+<tat> Octane: 92
+<tat> Fuel Pressure: 0.25 to 0.35 kg / square-cm
+<tat> Cylinder temp: 200 deg-C
+ 
+
+[tat] Fuel consumption (Liter per hour)
+[tat]   Normal-Use (+50mmHg) : 245 L/hour 
+ [ron]    0.1143 lb/s
+ observed 0.1931 lb/s, 704 hp@2200 RPM 12000ft
+ re-tuned 0.1189 lb/s, 708 hp@2200 RPM 12000ft
+[tat]   Typical:  (+150mmHg) : 322 L/hour
+ [ron]    0.1449 lb/s
+ observed 0.2320 lb/s, 830 hp@2400 RPM 12000ft
+ re-tuned 0.1430 lb/s, 860 hp@2400 RPM 12000ft
+[tat]   Take-off: (+250mmHg) : 390 L/hour
+ [ron]    0.1755 lb/s
+ observed 0.2740 lb/s, 1030 hp@2550 RPM 12000ft
+ re-tuned 0.1687 lb/s, 1030 hp@2550 RPM 12000ft

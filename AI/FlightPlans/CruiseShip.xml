@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+
+<!-- Departs Victoria ferry terminal                 
+     sails out of the harbour, turns S into Strait of Juan deFuca, 
+		 crosses to Port Angeles, to terminal dock and returns.
+     
+     Format:                                                         
+       <name>       Waypoint name.  When a waypoint named END is reached
+                    the AI airplane will delete itself.                                       
+       <lat>        latitude, degrees (-90 to 90)                                    
+       <lon>        Longitude, degrees (-180 to 180)                                   
+       <alt>        altitude above sea level, feet                                       
+       <crossat>    Crossing altitude, feet                              
+       <ktas>       Knots true airspeed
+       <on-ground>  set true if on the ground
+       <gear-down>  set true for gear down, false for gear up
+       <flaps-down> set true for flaps down, false for flaps up
+-->
+
+<PropertyList>
+
+	<flightplan>
+		<wpt>
+			<name>#1</name>
+			<lat>37.72</lat>
+			<lon>-123.65</lon>
+			<alt>0.0</alt>
+			<ktas>22.5</ktas>
+			<on-ground>true</on-ground>
+		</wpt>
+		
+		<wpt>
+			<name>#2</name> 
+			<lat>37.720</lat>
+			<lon>-123.470</lon>
+			<alt>0.0</alt>
+			<ktas>22.5</ktas>
+			<on-ground>true</on-ground>
+		</wpt>
+
+		<wpt>
+			<name>#3</name>
+			<lat>37.7</lat>
+			<lon>-123.6</lon>
+			<alt>0.0</alt>
+			<ktas>22.5</ktas>
+			<on-ground>true</on-ground>
+		</wpt>
+
+		<wpt>
+			<name>END</name>
+		</wpt>
+
+	</flightplan>
+
+</PropertyList>

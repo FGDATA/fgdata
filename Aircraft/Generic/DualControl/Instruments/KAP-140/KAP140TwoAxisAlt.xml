@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+ <path>null.ac</path> <!-- A suitably empty AC3D file. -->
+
+ <model>
+  <path>Aircraft/Instruments-3d/kap140/KAP140TwoAxisAlt.xml</path>
+ </model>
+
+ <!-- Override OSG Hotspots for dual control -->
+ <!-- Not even needed at this stage. -->
+</PropertyList>

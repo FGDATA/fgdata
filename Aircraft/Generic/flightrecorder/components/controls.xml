@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- flight recorder configuration -->
+<!-- main controls -->
+
+<PropertyList>
+
+    <signal>
+        <type>float</type>
+        <property type="string">/controls/flight/aileron</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">/controls/flight/elevator</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">/controls/flight/rudder</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">/controls/flight/aileron-trim</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">/controls/flight/elevator-trim</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">/controls/flight/rudder-trim</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">/controls/flight/flaps</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">/controls/flight/speedbrake</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">/controls/flight/spoilers</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">/controls/gear/brake-left</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">/controls/gear/brake-right</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">/controls/gear/copilot-brake-left</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">/controls/gear/copilot-brake-right</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">/controls/gear/brake-parking</property>
+    </signal>
+    <signal>
+        <type>bool</type>
+        <property type="string">/controls/gear/gear-down</property>
+    </signal>
+    <signal>
+        <type>bool</type>
+        <property type="string">/controls/switches/master-avionics</property>
+    </signal>
+
+</PropertyList>

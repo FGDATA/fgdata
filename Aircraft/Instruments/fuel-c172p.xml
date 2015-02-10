@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+<!--
+-->
+<PropertyList>
+
+    <name>Fuel</name>
+    <w-base>100</w-base>
+    <h-base>100</h-base>
+
+    <params>
+      <fuel1>/consumables/fuel/tank[0]/level-gal_us</fuel1>
+      <fuel2>/consumables/fuel/tank[1]/level-gal_us</fuel2>
+    </params>
+
+    <layers>
+  
+        <layer>
+            <name>Fuel1</name>
+            <w>20</w>
+            <h>100</h>
+            <texture>
+                <path>Aircraft/Instruments/Textures/FuelOilAmps.png</path>
+                <x1>0.0</x1>
+                <x2>0.5</x2>
+                <y1>0.50</y1>
+                <y2>0.75</y2>
+            </texture>
+            <transformations>
+                <transformation>
+                    <type>x-shift</type>
+                    <offset>-10</offset>
+                </transformation>
+            </transformations>
+        </layer>
+
+        <layer>
+            <name>Fuel2</name>
+            <w>20</w>
+            <h>100</h>
+            <texture>
+                <path>Aircraft/Instruments/Textures/FuelOilAmps.png</path>
+                <x1>0.0</x1>
+                <x2>0.5</x2>
+                <y1>0.50</y1>
+                <y2>0.75</y2>
+            </texture>
+            <transformations>
+                <transformation>
+                    <type>x-shift</type>
+                    <offset>10</offset>
+                </transformation>
+            </transformations>
+        </layer>
+
+        <layer>
+            <name>FuelNeedle1</name>
+            <w>3</w>
+            <h>96</h>
+            
+            <texture>
+                <path>Aircraft/Instruments/Textures/misc1.rgb</path>
+                <x1>0.71875</x1>
+                <x2>0.828125</x2>
+                <y1>0.46875</y1>
+                <y2>1.0</y2>
+            </texture>
+            
+            <transformations>
+                <transformation>
+                    <type>x-shift</type>
+                    <offset>-10</offset>
+                </transformation>
+                <transformation>
+                    <type>y-shift</type>
+                    <offset>-110</offset>
+                </transformation>
+                <transformation>
+                    <type>rotation</type>
+                    <property alias="../../../../../params/fuel1"/>
+                    <interpolation>
+                        <entry>
+                            <ind>0</ind>
+                            <dep>-30</dep>
+                        </entry>
+                        <entry>
+                            <ind>61.5</ind>
+                            <dep>30</dep>
+                        </entry>
+                    </interpolation>
+                </transformation>
+                <transformation>
+                    <type>y-shift</type>
+                    <offset>120</offset>
+                </transformation>
+            </transformations>
+        </layer>
+
+        <layer>
+            <name>FuelNeedle2</name>
+            <w>3</w>
+            <h>96</h>
+            
+            <texture>
+                <path>Aircraft/Instruments/Textures/misc1.rgb</path>
+                <x1>0.71875</x1>
+                <x2>0.828125</x2>
+                <y1>0.46875</y1>
+                <y2>1.0</y2>
+            </texture>
+            
+            <transformations>
+                <transformation>
+                    <type>x-shift</type>
+                    <offset>10</offset>
+                </transformation>
+                <transformation>
+                    <type>y-shift</type>
+                    <offset>-110</offset>
+                </transformation>
+                <transformation>
+                    <type>rotation</type>
+                    <property alias="../../../../../params/fuel2"/>
+                    <interpolation>
+                        <entry>
+                            <ind>0</ind>
+                            <dep>-30</dep>
+                        </entry>
+                        <entry>
+                            <ind>61.5</ind>
+                            <dep>30</dep>
+                        </entry>
+                    </interpolation>
+                </transformation>
+                <transformation>
+                    <type>y-shift</type>
+                    <offset>120</offset>
+                </transformation>
+            </transformations>
+        </layer>
+
+    </layers>
+
+</PropertyList>

@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+ <generic>
+
+  <output>
+   <line_separator>newline</line_separator>
+   <var_separator>newline</var_separator>
+
+   <chunk>
+    <name>speed</name>
+    <format>V=%d</format>
+    <node>/velocities/airspeed-kt</node>
+   </chunk>
+
+   <chunk>
+    <name>heading</name>
+    <format>H=%02d</format>
+    <node>/orientation/heading-deg</node>
+    <factor>57.29578</factor>  <!-- radians to degrees -->
+   </chunk>
+
+   <chunk>
+    <name>altitude</name>
+    <format>A=%02d</format>
+    <node>/position/altitude-ft</node>
+   </chunk>
+
+   <chunk>
+    <name>rate of climb</name>
+    <format>R=%02d</format>
+    <node>/velocities/vertical-speed-fps</node>
+   </chunk>
+
+   <chunk>
+    <name>pitch angle</name>
+    <format>P=%05.1f</format>
+    <type>float</type>
+    <node>/orientation/pitch-deg</node>
+   </chunk>
+
+   <chunk>
+    <name>bank angle</name>
+    <format>B=%05.1f</format>
+    <type>float</type>
+    <node>/orientation/roll-deg</node>
+   </chunk>
+
+   <chunk>
+    <name>engine</name>
+    <format>E=%02d</format>
+    <node>/engines/engine[0]/rpm</node>
+   </chunk>
+  </output>
+
+ </generic>
+
+</PropertyList>

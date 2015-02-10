@@ -1,0 +1,405 @@
+                             ##############                 GPL
+			     # GPS ZKV500 #                 Sébastien MARQUE
+                             ##############                 2008, Paris (France)
+
+note that it is still under heavy development, some functions planned haven't
+been 100% tested yet... there surely will be bugs or errors (most of the time:
+nasal runtime error : props.setValue() with non number, etc.)
+
+
+CONTENTS
+=========
+1. A bit of history
+2. Install onboard
+  1. Normal installation
+  2. Debugging installation
+  3. Without 3D interface
+3. Global presentation
+4. User's Manual
+  1. Powering ON / Enlight / Switch OFF
+  2. List of screens
+  3. The modes
+  4. Editing some text
+5. FG integration
+6. Examples
+7. The future
+
+1. A BIT OF HISTORY
+===================
+Don't search on the market this device, it doesn't exists! :p Indeed I was 
+looking how to create a GPS device in my favorite aircraft, I found the 
+nice 3D object in the not less nice Grob-G115, which it was told me it
+is intented for the LX5000 gps (http://www.wingsandwheels.com/manuals.htm).
+
+So I began to write some nasal code, using the C++ implementation of KLN89
+already built-in FG, to fit as much as possible the LX5000 specifications.
+But after some tries, I began to create on my own way the interface (which
+is much more funny for me than following a manual :)). The ZKV500 was born.
+(read ZaKharoV, which is my current nickname, from Proktor Zakharov in Sid 
+Meyer's Alpha Centauri game :))
+It keeps by default the very nice 3D object from Jon Stockill, a bit modified.
+I created also for this device a special font in order to make the LCD diplay
+more... lcd-compliant (see Fonts/lcd.README).
+
+2. INSTALL THE ZKV500 ONBOARD
+=============================
+
+  1. Normal installation
+
+For now the ZKV500 seats in Aircraft/Instruments-3d/zvk500/, making it easily
+available for all aircrafts. To install it, just add these lines in your config
+files, inside the <nasal> section:
+  <zkv500>
+      <file>Aircraft/Instruments-3d/zkv500/ZKV500.nas</file>
+  </zkv500>
+[example from Lionceau: Aircraft/Lionceau/lionceau-base.xml]
+Please note that <zkv500> is mandatory for namespaces reasons.
+
+Then in your panel configuration file, just put the 3D model, as usual:
+  <!-- GPS -->
+  <model>
+    <path>Aircraft/Instruments-3d/zkv500/ZKV500.xml</path>
+    <offsets>
+      <x-m>  0.002 </x-m>
+      <y-m> -0.051 </y-m>
+      <z-m> -0.022 </z-m>
+    </offsets>
+  </model>
+[example from Lionceau: Aircraft/Lionceau/Models/Panel/front-panel.xml]
+Your ZKV500 is ready to be powered on!
+
+It comes with "vi-like" multikey system, accessible with ":g" sequence.
+To intall it, just add in the <input> section of your configuration file the
+following line:
+  <keyboard n="0" include="../Instruments-3d/zkv500/multikey.xml"/>
+NOTE: to avoid creation of multiple instances of keyboard node, it is 
+recommanded to explicit n="0" for each call of keyboard tag.
+Now turning knobs is as simple as using up or down arrow!
+The next sequence's keys are described below.
+
+The ZKV500 has IO capacities: routes are red from $FGHOME/Routes and
+written in $FGHOME/Export, the bookmarks are red and written in
+$FGHOME/Export/bookmarks.xml
+
+An easy way to populate your $FGHOME/Routes directory is a perl script 
+of my own (see the end of file for an how-to). You can also editing by 
+hand, the format is simple and conform to the format used by the KLN89
+<PropertyList>
+ <Waypoint n="0">
+  <ID type="double">TL</ID>
+  <latitude-deg type="double">43.28838900</latitude-deg>
+  <longitude-deg type="double">000.04963900</longitude-deg>
+  <altitude-ft type="double">0</altitude-ft>
+  <waypoint-type type="string">NBD</waypoint-type>
+  <name type="string">TARBES NDB</name>
+  <desc type="string">Xroads freq: 321</desc>
+ </Waypoint>
+ <Waypoint n="1">
+  <ID type="string">LFCB</ID>
+  <latitude-deg type="double">42.800000</latitude-deg>
+  <longitude-deg type="double">000.600000</longitude-deg>
+  <altitude-ft type="double">2028</altitude-ft>
+  <waypoint-type type="string">APT</waypoint-type>
+  <name type="string">Bagneres de Luchon</name>
+  <desc type="string">In a valley</desc>
+ </Waypoint>
+</PropertyList>
+The less easy way is to edit your flightplan direcly from the ZKV500, but
+as it has very limited editing capacities, and the search of already-known
+waypoints is limited to airports, it is not a really recommended way.
+
+The $FGHOME/Export/bookmarks.xml file contains favorites points, it has 
+quite the same format than a route file:
+<PropertyList>
+ ...
+  <bookmark n="2">
+    <ID type="string">LFBT</ID>
+    <latitude-deg type="double">43.178643</latitude-deg>
+    <longitude-deg type="double">-0.006341</longitude-deg>
+    <altitude-ft type="double">1179.785445</altitude-ft>
+    <name type="string">Tarbes Ossun Lourdes</name>
+    <desc type="string">no infos</desc>
+    <waypoint-type type="string">APT</waypoint-type>
+  </bookmark>
+ ...
+</PropertyList>
+The ZKV500 is quite useful to create bookmarks on the fly.
+
+   2. Debugging installation
+
+if you want to debug the nasal, you can use the "debugging tool" I've created:
+ - edit the Aircraft/Instruments-3d/zkv500/*.nas files with your favourite 
+   text editor
+ - in the Nasal console from FGside type:
+var zkv_dir = getprop("/sim/fg-root") ~ "/Aircraft/Instruments-3d/zkv500/";
+io.load_nasal(zkv_dir ~ "zkv_dbg.nas", "zkv_dbg");
+zkv_dbg.reload_zkv_code();
+ - click on "Execute"
+ - find errors
+ - modify source code then re-click on "Execute" until satisfaction (or death :D)
+
+   3. Without 3D interface
+
+if you want to use the zkv500 without the 3D interface and all installation steps
+as described above, type in a Nasal console:
+var zkv_dir = getprop("/sim/fg-root") ~ "/Aircraft/Instruments-3d/zkv500/";
+io.load_nasal(zkv_dir ~ "zkv_dbg.nas", "zkv_dbg");
+zkv_dbg.test();
+
+3. GLOBAL PRESENTATION
+======================
+The interface is simple:
+(http://seb.marque.free.fr/fichiers/flightgear/zkv500/presentation.png)
+* 4 knobs turning left (left mouse click) or right (right mouse click)
+* 3 white buttons
+* 1 LCD display
+* 2 LEDs (red and green)
+
+     enter    escape    start
+     button   button    button
+PAGE|------------------------|SELECT
+KNOB|                        |KNOB
+    |        LCD DISPLAY     |
+    |        5 LINES         |
+MODE|                        |POWER
+KNOB|------------------------|KNOB
+          red       green
+	  led        led
+
+-> PAGE knob allows you to cycle in the different pages available for
+   each mode.
+   key sequence ":gl"
+-> SELECT knob allows yo to navigate in a page, or select element, or
+   edit some simple text (depending of screen).
+   key sequence ":gr"
+-> MODE knob allows you to select a mode, and acces to the ZKV500 settings
+   you can access this knob at any time, any screen.
+   key sequence ":gm"
+-> POWER knob allows you to turn ON and OFF the ZKV500, and set the 
+   LCD enlightment.
+   key sequence ":gp"
+The goal of each button depends of the displayed screen.
+
+4. USER'S MANUAL
+================
+  1. Powering ON / Enlight / Switch OFF
+To power ON, just left click on the ON/OFF knob. Clicking again will make it
+more and more enlighted.
+When powered ON, you are on the ModeAndSettings screen.
+Right-click on POWER knob will first decrease enlightment intensity until
+switch the ZKV500 off.
+key sequence ":gp [up/down x times]"
+
+  2. Screens list
+[] -> button
+() -> knob
+*** ModeAndSettings ***
+From this screen you can change from a mode to another mode (see 4.3 Modes, below)
+ [START]  enter in a mode
+ (PAGE)   enter in settings pages (cycle)
+ (SELECT) modify settings
+
+the available settings are:
+ * units
+   you can change the displayed unit for altitude, distance and speed.
+   the units are long named, on other screens only short name wilm be
+   displayed.
+ * thresolds
+   you can change the thresold from when the ZKV500 will alert you about
+   next waypoint approach, or will load the next waypoint into calculation.
+
+*** PositionMain ***
+This page gives you infos about the aircraft position.
+You find it in every modes.
+ [ENTER] save the position as a bookmark (entering in Edit screen)
+
+ LAT: latitude in deg:min:sec
+ LON: longitude in deg:min:sec
+ ALT: altitude
+ HDG: geographic cap (! not magnetic cap, or aircraft heading)
+ SPD: speed
+
+*** Odometers ***
+This screen gives you odo-values. You can find it in every modes.
+ [ESCAPE] reset odometers, except TRIP
+
+ ODO:     travelled distance
+ TRIP:    total travelled distance
+ TIME:    elapsed time from last reset
+ AVG HDG: average heading
+ AVG SPD: average speed
+
+*** WindInfos *** 
+This screens gives you infos about wind as it should be calculated by the
+GPS, indeed, as the calculation is already done elsewhere, it takes the value
+from /environnement/* node (btw I don't really know how to calculate correctly
+these values). You need to have a airspped > 10kts for having it work. This 
+screen is available on every modes
+
+ SPEED: windspeed
+ FROM:  the direction where the wind come from (geographic North)
+
+*** NavigationMain ***
+This screen gives the related position of the aircraft about the calcualted
+route. It is only available in TURNPOINT and TASK modes.
+
+ [ENTER] TURNPOINT mode: add the actual position to the route, 
+         TASK mode: jump to next waypoint
+ [START] save the route (mode TURNPOINT only)
+
+ ID:   Id of the waypoint to go [waypoint type]
+ BRG:  bearing from the aircraft to the waypoint (geographic)
+ DST:  remaining distance
+ XCRS: course error in degree (in distance unit)
+ TTW:  remaining estimated time
+The graph represents the position in nautic miles, of the aircraft on the leg. 
+The precision depends on the remaining distance before the waypoint. If less than
+5 nm, each + means 0.1 nm, if greater than 5nm each + means 0.5 nm.
+the | symbol represents the route, the little aircraft represents... the aircraft.
+
+*** AirportMain ***
+This screen gives infos about the nearest, or a specific searched airport (see 
+SearcAirport screen, below). It is only reachable from AIRPORT mode.
+
+ [ENTER]  add the airport to route
+ [ESCAPE] get the nearest airport
+ [START]  add airport to bookmarks, and enter TURNPOINT mode, to go directly
+
+ NEAREST or SEARCHED APT: OACI code of airport
+ ELEV: airport altitude
+ DIST: distance between aircraft and airport
+ BRG:  bearing from aircraft to airport (geographic)
+ RWY:  best runway calculated from known wind, it is to say not really useful
+       when airport is very far away...
+ ETE: estimated time enroute to go
+ 
+*** AirportInfos ***
+This screen gives infos about the airport (nearest or searched). It is only 
+reachable from AIRPORT mode.
+
+ (SELECT) navigate in the runway list (not yet implemented)
+
+First line gives the full name of airport
+Lines below show the runways with the format
+ heading (length in meters / width in meters)
+
+*** SearchAirport ***
+This screen allows you to search an airport from OACI code. It is reachable from
+AIRPORT mode.
+If the search is successful, the AirportMain screen is shown, in other case the text
+is erased, and you are invited to retry.
+
+ (SELECT) modify letter (from A to Z then 0 to 9, cycled)
+ [ENTER]  next step
+ [ESCAPE] back to AirportMain screen, without search
+ [START]  search the given OACI code
+
+*** TurnpointSelect ***
+This screen shows a list of already bookmarked gps points. It is only available
+in TURNPOINT mode.
+
+ (SELECT) navigate through the list (eventually through multiple pages)
+ [START]  begin the navigation from actual position to the bookmark
+
+*** TurnpointInfos ***
+This screen is not yet implemented. It will gives infos about the bookmark
+
+*** TaskSelect ***
+This screen allows you to choose a route (if one available). It is only available
+in TASK mode.
+
+ (SELECT) navigate through the routes list (eventually through multiple pages)
+ [START]  load the route, and begins navigation
+
+*** WaypointInfos ***
+Not yet implemented, will give infos about waypoint. Only available in TASK mode.
+
+*** WaypointsList ***
+This screen shows the list of waypoint loaded from a route.
+ (SELECT) navigate through the list
+
+*** WaypointEdit ***
+This screen allows you to name a gps point in order to bookmark it.
+
+ (SELECT) cycle letters (from A to Z then 1 to 9)
+ [ENTER]  next step
+ [ESCAPE] abort saving bookmark
+ [START]  save bookmark
+
+  3. the 4 modes
+*** POSITION ***
+The simpliest one, just give information about the aircraft position. You can
+save bookmarks from this mode (pressing ENTER in PositionMain screen).
+ (PAGE) cycle through these screens (both ways):
+PositionMain, Odometers, WindInfos
+
+*** AIRPORT ***
+Useful to know wher you can put you aircraft safely on the ground, gives other infos 
+as the best runway, it is possible to search an airport (turn the PAGE knob until
+Search airport page), add the airport to a route or as a bookmark (automatically
+called by airports ID and name).
+ (PAGE) cycle through these screens (both ways)
+AirportMain, NavigationMain, PositionMain, Odometers, WindInfos, AirportInfos, SearchAirport
+
+*** TURNPOINT ***
+Useful mode to join a specific point of interest, or to navigate around.
+ (PAGE) cycle through these screens (both ways)
+TurnpointSelect, NavigationMain, PositionMain, Odometers, WindInfos, TurnpointInfos
+
+*** TASK ***
+Most useful mode :). Follow the route to go through long distances, without being
+lost at anytime (even with no VOR or NDB near enough to get capted by radios). Or
+if you aren't IFR skilled :D
+When approaching a waypoint, a red led blink (this can be set in ModeAndSettings screens)
+When on the point (idem), it loads autmatically the next point and calculate the leg infos
+When the last point is reached, it come back to TaskSelect screen to allow chosing an other
+route.
+ (PAGE) cycle through these screens (both ways)
+TaskSelect, NavigationMain, PositionMain, Odometers, WindInfos, WaypointInfos, WaypointsList
+
+5. FG INTEGRATION
+=================
+You can change the waypoints directly from the property tree (/instrumentation/gps)
+or using the GUI (Menu Instruments -> GPS Settings).
+Please note that, at this stage of development, I haven't yes set listeners
+on the properties, when changing the waypoint, new route is automatically 
+calculated, but changing them don't call yet the correct mode and page.
+
+6. PRACTICAL EXAMPLES
+=====================
+
+7. THE FUTURE
+=============
+The ZKV500 still lacks many features I plan to implement. I stop adding features
+for now, as I want it to be the more bug-free possible before creating other bugs.
+ 1. PLANNED FEATURES
+* integrated help
+* description pages (waypoints and airports)
+* more useful informations
+* make use of green led (for which use? surely depends of the above)
+* altitude control
+* two ways routes (toward and back)
+
+ 2. PLANNED FEATURES LIMITED BY FG "API'S"
+* search for VOR/TAC, NDB and FIX capacities
+
+ 2. NOT PLANNED FEATURES
+* graphical view of regions
+
+8. ANNEXES
+==========
+ 1. creating flightplans with ./flightplan
+You can get ./flightplan from this link: 
+http://seb.marque.free.fr/fichiers/scripts/perl/flightplan
+
+-> Make it executable, 
+-> best to set $FGROOT and $FGHOME to respectives folders
+-> For creating a flightplan from LFPT to LFBD:
+$ ./flightplan -d lfpt -a lfbd --wpt
+
+This will write in $FGHOME/Routes a file named lfpt-lfbd.xml, suitable for the
+ZKV500
+
+Sébastien MARQUE
+seb.marque@free.fr
+

@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+ <path>baybridge-e-fb.ac</path>
+
+ <!-- LOD for the bridge -->
+
+ <animation>
+  <type>range</type>
+  <object-name>Detailed</object-name>
+  <min-m>0</min-m>
+<!--
+  <max-property>/sim/rendering/static-lod/detailed</max-property>
+ </animation>
+
+ <animation>
+  <type>range</type>
+  <object-name>Rough</object-name>
+  <min-property>/sim/rendering/static-lod/detailed</min-property>
+-->
+  <max-property>/sim/rendering/static-lod/rough</max-property>
+ </animation>
+
+ <animation>
+  <type>range</type>
+  <object-name>Bare</object-name>
+  <min-property>/sim/rendering/static-lod/rough</min-property>
+  <max-property>/sim/rendering/static-lod/bare</max-property>
+ </animation>
+ 
+ <animation>
+  <type>alpha-test</type>
+  <object-name>Detailed</object-name>
+  <alpha-factor>0.01</alpha-factor>
+ </animation>
+ 
+ <animation>
+  <type>alpha-test</type>
+  <object-name>Bare</object-name>
+  <alpha-factor>0.01</alpha-factor>
+ </animation>
+ 
+ <animation>
+  <type>select</type>
+  <object-name>TopLight.1</object-name>
+  <object-name>TopLight.2</object-name>
+  <object-name>TopLight.3</object-name>
+  <object-name>BotLight.1</object-name>
+  <object-name>BotLight.2</object-name>
+  <object-name>StreetLight</object-name>
+  <condition>
+   <greater-than>
+    <property>/sim/time/sun-angle-rad</property>
+    <value>1.57</value>
+   </greater-than>
+  </condition>
+ </animation>
+
+ <animation>
+  <type>range</type>
+  <object-name>TopLight.1</object-name>
+  <min-m>0</min-m>
+  <max-m>2000</max-m>
+ </animation>
+
+ <animation>
+  <type>range</type>
+  <object-name>TopLight.2</object-name>
+  <min-m>2000</min-m>
+  <max-m>6000</max-m>
+ </animation>
+
+ <animation>
+  <type>range</type>
+  <object-name>TopLight.3</object-name>
+  <min-m>6000</min-m>
+  <max-m>100000</max-m>
+ </animation>
+
+</PropertyList>

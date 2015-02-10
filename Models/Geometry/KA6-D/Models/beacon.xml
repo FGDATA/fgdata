@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<!-- Red Revolving Beacon -->
+<PropertyList>
+  <path>beacon.ac</path>
+
+  <!--<animation>
+		<type>select</type>
+		  <object-name>Dome</object-name>
+		</animation>-->
+		
+	<animation>
+    <type>scale</type>
+    <object-name>Beacon</object-name>
+    <property>/sim/time/sun-angle-rad</property>
+    <offset>-1.4</offset>
+    <x-min>1.0</x-min>
+    <y-min>1.0</y-min>
+    <z-min>1.0</z-min>
+    <x-factor>1.4</x-factor>
+    <y-factor>1.4</y-factor>
+    <z-factor>1.4</z-factor>
+  </animation>
+
+  <animation>
+    <type>dist-scale</type>
+    <object-name>Beacon</object-name>
+    <factor>5</factor>
+    <offset>0.0</offset>
+    <min>0.0</min>
+    <max>5</max>
+    <center>
+      <x-m>0.0</x-m>
+      <y-m>0.0</y-m>
+      <z-m>0.0</z-m>
+    </center>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>Beacon</object-name>
+    <property>/sim/time/elapsed-sec</property>
+    <factor>180.0</factor>
+    <center>
+      <x-m>0</x-m>
+      <y-m>0</y-m>
+      <z-m>0</z-m>
+    </center>
+    <axis>
+      <x>0</x>
+      <y>0</y>
+      <z>1</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>flash</type>
+    <object-name>Beacon</object-name>
+    <offset>0.0</offset>
+    <factor>1.0</factor>
+    <power>2</power>
+    <two-sides type="bool">false</two-sides>
+    <min>0.0</min>
+    <max>1.0</max>
+    <center>
+      <x-m>0.0</x-m>
+      <y-m>0.0</y-m>
+      <z-m>0.0</z-m>
+    </center>
+    <axis>
+      <x>0.0</x>
+      <y>-1</y>
+      <z>0.1</z>
+    </axis>
+  </animation>
+
+  <!--animation>
+    <type>select</type>
+    <object-name>Plume</object-name>
+  </animation-->
+
+  
+  <!-- *** LoD *** 
+    <animation> 
+      <type>range</type>
+      <object-name>Beacon</object-name>
+      <max-m>10000</max-m>
+    </animation>-->
+</PropertyList>

@@ -1,0 +1,54 @@
+AC3Db
+MATERIAL "Plane.014Xmat" rgb 1 1 1  amb 0 0 0  emis 1 1 1  spec 0 0 0  shi 0  trans 0
+OBJECT world
+kids 2
+OBJECT poly
+name "Strobe"
+data 14
+Plane.014Xmesh
+texture "transparent.png"
+crease 30.000000
+numvert 4
+-0.6 -3.57629e-008 0.6
+0.6 -3.57629e-008 0.6
+0.6 3.57629e-008 -0.6
+-0.6 3.57629e-008 -0.6
+numsurf 2
+SURF 0x20
+mat 0
+refs 3
+0 0.618248 0.118003
+1 0.893472 0.118003
+2 0.893472 0.391763
+SURF 0x20
+mat 0
+refs 3
+0 0.618248 0.118003
+2 0.893472 0.391763
+3 0.618248 0.391763
+kids 0
+OBJECT poly
+name "Strobe"
+data 14
+Plane.014Xmesh
+texture "transparent.png"
+crease 30.000000
+numvert 4
+-0.6 0.6 0
+0.6 0.6 0
+0.6 -0.6 0
+-0.6 -0.6 0
+numsurf 2
+SURF 0x20
+mat 0
+refs 3
+3 0.618248 0.118003
+1 0.893472 0.391763
+0 0.618248 0.391763
+SURF 0x20
+mat 0
+refs 3
+3 0.618248 0.118003
+2 0.893472 0.118003
+1 0.893472 0.391763
+kids 0

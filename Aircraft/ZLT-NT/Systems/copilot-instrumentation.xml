@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<!--
+  Zeppelin NT-07 airship for FlightGear.
+
+  Copyright (C) 2008 - 2015  Anders Gidenstam  (anders(at)gidenstam.org)
+  This file is licensed under the GPL license version 2 or later.
+-->
+<PropertyList>
+
+  <!-- Local: setting-inhg is set by the pilot over MP. -->
+  <altimeter>
+    <number>1</number>
+    <static-pressure>/systems/static/pressure-inhg</static-pressure>
+    <quantum>0</quantum>
+    <tau>0</tau>
+  </altimeter>
+
+  <!-- Local: Should be sluggish enough to behave correctly -->
+  <vertical-speed-indicator>
+    <number>0</number>
+    <static-pressure>/systems/static/pressure-inhg</static-pressure>
+  </vertical-speed-indicator>
+
+  <!-- Local: Uncertain if it will behave correctly. Appears OK. -->
+  <magnetic-compass>
+    <number>0</number>
+  </magnetic-compass>
+
+  <!-- Local. -->
+  <clock>
+    <number>0</number>
+  </clock>
+
+  <!-- Remote: Local doesn't behave correctly. -->
+  <!-- slip-skid-ball>
+    <name>slip-skid-ball</name>
+    <number>0</number>
+  </slip-skid-ball -->
+
+  <!-- Remote: Local doesn't behave correctly. -->
+  <!-- turn-indicator>
+    <name>turn-indicator</name>
+    <number>0</number>
+  </turn-indicator -->
+
+  <!-- Local: Works ok. -->
+  <marker-beacon>
+    <number>0</number>
+  </marker-beacon>
+
+  <!-- Radio set. -->
+  <!-- Local: Works ok. -->
+  <comm-radio>
+    <name>comm</name>
+    <number>0</number>
+  </comm-radio>
+
+  <comm-radio>
+    <name>comm</name>
+    <number>1</number>
+  </comm-radio>
+
+  <nav-radio>
+    <number>0</number>
+  </nav-radio>
+  <nav-radio>
+    <number>1</number>
+  </nav-radio>
+
+  <!-- Local: Works ok. -->
+  <adf>
+    <number>0</number>
+  </adf>
+
+  <!-- Local: Works ok. -->
+  <dme>
+    <number>0</number>
+  </dme>
+
+ <gps>
+  <number>0</number>
+ </gps>
+
+</PropertyList>

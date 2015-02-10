@@ -1,0 +1,178 @@
+<?xml version="1.0"?>
+
+<!--
+Default EGT/fuel-flow gauge.
+
+Started summer 2000 by David Megginson, david@megginson.com.
+
+This is an instrument configuration file for the open-source flight
+simulator FlightGear (www.flightgear.org).  The file is an XML-encoded
+FlightGear property list defining the instrument's layers and actions.
+
+Each instrument is composed of layers stacked on top of each other.
+A layer may be a texture (with transparent parts to show the layers
+underneath), text, or a special layer that switches between two
+others (say, to turn an indicator light on or off).  Each layer can
+move independently in proportion to a property value, and text
+can be generated from property values as well: all of the layer's
+movements are defined as transformations.
+
+Actions are hotspots on the instrument that will respond to a mouse
+click.  Actions always modify the values of properties, either by
+adjusting them, toggling them, or swaping them with other
+properties' values.
+-->
+
+<PropertyList>
+ <name>EGT/Fuel-Flow Gauge</name>
+ <w-base>120</w-base>
+ <h-base>120</h-base>
+ 
+ <params>
+  <engine-egt-select>/engines[0]/engine[0]/egt-degf</engine-egt-select>
+  <engine-fuel-flow-select>/engines[0]/engine[0]/fuel-flow-gph</engine-fuel-flow-select>
+ </params>
+
+ <layers>
+
+  <layer>
+   <name>gauge face</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/egt-fuel.rgb</path>
+    <x1>0.376</x1>
+    <y1>0.01</y1>
+    <x2>0.7425</x2>
+    <y2>0.374</y2>
+   </texture>
+   <w>102</w>
+   <h>102</h>
+  </layer>
+
+   <layer>
+   <name>bezel</name>
+   <texture>
+   <path>Aircraft/Instruments/Textures/bezel.rgb</path>
+   <x1>0.0</x1>
+   <y1>0.0</y1>
+   <x2>1.0</x2>
+   <y2>1.0</y2>
+   </texture>
+   <transformations>
+   <transformation>
+   <type>y-shift</type>
+   <offset>-0</offset>
+   </transformation>
+   <transformation>
+   <type>x-shift</type>
+   <offset>-0</offset>
+   </transformation>
+  </transformations>
+  <w>120</w>
+  <h>120</h>
+</layer>
+  <layer>
+   <name>egt needle</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/misc-1.rgb</path>
+    <x1>0.8</x1>
+    <y1>0.78125</y1>
+    <x2>0.8375</x2>
+    <y2>1.0</y2>
+   </texture>
+   <w>6</w>
+   <h>36</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-46</offset>
+    </transformation>
+    <transformation>
+     <type>rotation</type>
+     <property alias="../../../../../params/engine-egt-select"/>
+     <min>50.0</min>
+     <max>1600.0</max>
+     <scale>-0.03</scale>
+     <offset>-230</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>19</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>fuel flow needle</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/misc-1.rgb</path>
+    <x1>0.8</x1>
+    <y1>0.78125</y1>
+    <x2>0.8375</x2>
+    <y2>1.0</y2>
+   </texture>
+   <w>6</w>
+   <h>36</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>46</offset>
+    </transformation>
+    <transformation>
+     <type>rotation</type>
+     <property alias="../../../../../params/engine-fuel-flow-select"/>
+     <min>0.0</min>
+     <max>20.0</max>
+     <scale>4.25</scale>
+     <offset>-135</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>19</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>gauge labels</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/egt-fuel.rgb</path>
+    <x1>0.0078125</x1>
+    <y1>0.0</y1>
+    <x2>0.359375</x2>
+    <y2>0.359375</y2>
+   </texture>
+   <transformations>
+    <transformation>
+    <type>x-shift</type>
+    <offset>-3</offset>
+    </transformation>
+   </transformations>
+   <w>100</w>
+   <h>100</h>
+   </layer>
+  <layer>
+   <name>glare shield</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/bezel1.rgb</path>
+    <x1>0.5</x1>
+    <y1>0.0</y1>
+    <x2>1.0</x2>
+    <y2>0.5</y2>
+   </texture>
+  <w>114</w>
+  <h>114</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>2</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-2</offset>
+    </transformation>
+    </transformations>
+  </layer>
+       
+ </layers>
+
+</PropertyList>

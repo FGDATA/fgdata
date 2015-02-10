@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+  <!-- Tractor White 19 -->
+  <PropertyList> 
+    <path>mule-11.ac</path>
+    <model> 
+      <path>Models/Geometry/Nimitz/Models/beacon.xml</path>
+      <offsets> 
+        <x-m>-0.369</x-m>
+        <y-m>0.653</y-m>
+        <z-m>1.028</z-m>
+      </offsets>
+    </model>
+    <!-- *** LoD *** -->
+    <animation> 
+      <type>range</type>
+      <object-name>Mule-11</object-name>
+      <max-m>5000</max-m>
+    </animation>
+  </PropertyList>

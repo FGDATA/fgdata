@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<PropertyList>
+	<scenario>
+		<entry>
+			<type>ship</type>
+			<model>Models/Geometry/Ferry/FerryBoat1.xml</model>
+			<name>Ferry-1</name>
+			<turn-radius-ft>1500</turn-radius-ft>
+			<flightplan>PA_Victoria-PA.xml</flightplan>
+			<repeat>1</repeat>
+		</entry>
+
+		<entry>
+			<type>ship</type>
+			<model>Models/Geometry/Ferry/FerryBoat2.xml</model>
+			<name>Ferry-2</name>
+			<flightplan>PA_PA-Victoria.xml</flightplan>
+			<repeat>1</repeat>
+		</entry>
+	</scenario>
+</PropertyList>

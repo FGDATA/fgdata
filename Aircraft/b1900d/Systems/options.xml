@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+    <name>options</name>
+    <layout>vbox</layout>
+
+    <text>
+        <label>Options</label>
+        <halign>center</halign>
+    </text>
+
+    <checkbox>
+        <halign>left</halign>
+        <label>Enable 2d shadow</label>
+        <property>sim/model/shadow-2d</property>
+        <binding>
+            <command>dialog-apply</command>
+        </binding>
+    </checkbox>
+
+    <checkbox>
+        <halign>left</halign>
+        <label>Show/Hide Yokes</label>
+        <property>sim/model/yokes-visible</property>
+        <binding>
+            <command>dialog-apply</command>
+        </binding>
+    </checkbox>
+
+  <button>
+    <legend>Close</legend>
+    <default>true</default>
+    <key>Esc</key>
+    <binding>
+      <command>dialog-close</command>
+    </binding>
+  </button>
+
+</PropertyList>

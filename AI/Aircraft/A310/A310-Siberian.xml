@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+ <path>Models/A310.ac</path>
+ <texture-path>Textures/Siberian</texture-path>
+
+    	<animation>
+		<type>select</type>
+		<object-name>main-wheels</object-name>
+		<object-name>nose-wheels</object-name>   
+		<object-name>uc-doors</object-name> 
+        <object-name>uc-legs</object-name> 
+		<condition>
+			<less-than>
+				<property>velocities/true-airspeed-kt</property>
+				<value>150</value>
+			</less-than>
+		</condition>
+	</animation>
+ 
+</PropertyList>

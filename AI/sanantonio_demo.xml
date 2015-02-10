@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<PropertyList>
+  <scenario>
+
+    <name>LPD17 - USS San Antonio</name>
+    <description>
+      SanAntonio-class (LPD17)
+      x, y, z-offset-m   The distance in meters of the Fresnel Lens
+      Optical Landing System (FLOLS) from the
+      carrier model origin.
+      max-lat, min-lat   Defines an operating box in terms of the
+      max and min lat excursions from the start
+      position
+      max-lon, min-lon   Defines an operating box in terms of the
+      max and min lon excursions from the start
+      position
+      TACAN-channel-ID   Defines a TACAN channel for display
+      purposes only
+    </description>
+
+    <entry>
+      <type>carrier</type>
+      <name>San Antonio</name>
+      <pennant-number>LPD-17</pennant-number>
+      <TACAN-channel-ID>028X</TACAN-channel-ID>
+      <model>Models/Geometry/SanAntonio/sanantonio.xml</model>
+      <latitude>32.75</latitude>
+      <longitude>-117.34</longitude>
+      <speed>10</speed>
+      <heading>300</heading>
+      <rudder>0</rudder>
+      <turn-radius-ft>8000</turn-radius-ft>
+      <parking-pos>
+        <name>park1</name>
+        <heading-offset-deg>0</heading-offset-deg>
+        <x-offset-m>79</x-offset-m>
+        <y-offset-m>0</y-offset-m>
+        <z-offset-m>5.908</z-offset-m>
+      </parking-pos>
+      <parking-pos>
+        <name>park2</name>
+        <heading-offset-deg>0</heading-offset-deg>
+        <x-offset-m>44.789</x-offset-m>
+        <y-offset-m>0</y-offset-m>
+        <z-offset-m>5.908</z-offset-m>
+      </parking-pos>
+      <parking-pos>
+        <name>park5</name>
+        <heading-offset-deg>-45</heading-offset-deg>
+        <x-offset-m>45</x-offset-m>
+        <y-offset-m>-8.8</y-offset-m>
+        <z-offset-m>5.908</z-offset-m>
+      </parking-pos>
+      <parking-pos>
+        <name>park3</name>
+        <heading-offset-deg>-45</heading-offset-deg>
+        <x-offset-m>78.704</x-offset-m>
+        <y-offset-m>-8.8</y-offset-m>
+        <z-offset-m>5.908</z-offset-m>
+      </parking-pos>
+      <parking-pos>
+        <name>park4</name>
+        <heading-offset-deg>45</heading-offset-deg>
+        <x-offset-m>78.704</x-offset-m>
+        <y-offset-m>8.8</y-offset-m>
+        <z-offset-m>5.908</z-offset-m>
+      </parking-pos>
+      <parking-pos>
+        <name>park6</name>
+        <heading-offset-deg>-45</heading-offset-deg>
+        <x-offset-m>45</x-offset-m>
+        <y-offset-m>8.8</y-offset-m>
+        <z-offset-m>5.908</z-offset-m>
+      </parking-pos>
+    </entry>
+  </scenario>
+</PropertyList>

@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+ <scenario>
+
+  <name>Flying balloons</name>
+  <description>
+     Places 7 balloons that will drift with the wind.
+     nasal code by Detlef Faber and Torsten Dreyer
+     needs balloon.nas in the data/Nasal directory to place
+     the models initially at your position.
+     This file Modified from refueling_demo.xml by Dave Culp
+
+     Brett Harrison Feb. 2009
+  </description>
+ 
+  <nasal>
+    <load><![CDATA[
+      var position = geo.aircraft_position();
+      var elevation = geo.elevation( position.lat(), position.lon() );
+      position.set_alt( elevation != nil ? elevation : 0.0 );
+
+      foreach( var tanker; props.globals.getNode("/ai/models",1).getChildren("tanker") ) {
+        var callsign = tanker.getNode("callsign").getValue();
+        if( callsign == nil ) continue;
+        if( string.match(callsign,"ballon*") ) {
+          tanker.getNode("position/latitude-deg",1).setDoubleValue( position.lat() - 0.002 );
+          tanker.getNode("position/longitude-deg",1).setDoubleValue( position.lon() - 0.002 );
+          tanker.getNode("position/altitude-ft", 1 ).setDoubleValue( position.alt() );
+        }
+      }
+      debug.dump('balloon scenario load script complete');
+      ]]>
+    </load>
+  </nasal>
+ 
+  <entry>
+   <callsign>ballon01</callsign>
+   <type>tanker</type>
+   <class>tanker</class>
+   <model>Aircraft/balloon/flightgear.xml</model>
+  </entry>
+
+  <entry>
+   <callsign>ballon02</callsign>
+   <type>tanker</type>
+   <class>tanker</class>
+   <model>Aircraft/balloon/balloon4.xml</model>
+  </entry>
+
+
+  <entry>
+   <callsign>ballon03</callsign>
+   <type>tanker</type>
+   <class>tanker</class>
+   <model>Aircraft/balloon/balloon3.xml</model>
+  </entry>
+
+  <entry>
+   <callsign>ballon04</callsign>
+   <type>tanker</type>
+   <class>tanker</class>
+   <model>Aircraft/balloon/balloon2.xml</model>
+  </entry>
+
+
+  <entry>
+   <callsign>ballon05</callsign>
+   <type>tanker</type>
+   <class>tanker</class>
+   <model>Aircraft/balloon/balloon5.xml</model>
+  </entry>
+
+
+  <entry>
+   <callsign>ballon06</callsign>
+   <type>tanker</type>
+   <class>tanker</class>
+   <model>Aircraft/balloon/miss-velma.xml</model>
+  </entry>
+
+  <entry>
+   <callsign>ballon07</callsign>
+   <type>tanker</type>
+   <class>tanker</class>
+   <model>Aircraft/balloon/iva.xml</model>
+  </entry>
+
+  <entry>
+   <callsign>ballon08</callsign>
+   <type>tanker</type>
+   <class>tanker</class>
+   <model>Aircraft/balloon/appleoon.xml</model>
+  </entry>
+
+  <entry>
+   <callsign>ballon09</callsign>
+   <type>tanker</type>
+   <class>tanker</class>
+   <model>Aircraft/balloon/tuxalloon.xml</model>
+  </entry>
+
+ </scenario>
+
+
+</PropertyList>

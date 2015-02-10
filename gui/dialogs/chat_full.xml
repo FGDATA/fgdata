@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+  <name>chat-full</name>
+  <modal>false</modal>
+  <layout>vbox</layout>
+  <resizable>true</resizable>
+  <x>-20</x>
+  <y>20</y>
+
+  <group>
+    <layout>hbox</layout>
+
+    <button>
+      <legend>-</legend>
+      <pref-width>16</pref-width>
+      <pref-height>16</pref-height>
+      <border>2</border>
+      <binding>
+       <command>dialog-show</command>
+       <dialog-name>chat</dialog-name>
+      </binding>
+      <binding>
+        <command>dialog-close</command>
+      </binding>
+    </button>
+
+    <empty><stretch>1</stretch></empty>
+
+    <text>
+      <label>Multiplayer Chat</label>
+    </text>
+
+    <empty><stretch>1</stretch></empty>
+
+    <button>
+      <legend></legend>
+      <key>Esc</key>
+      <pref-width>16</pref-width>
+      <pref-height>16</pref-height>
+      <border>2</border>
+      <binding>
+        <command>dialog-close</command>
+      </binding>
+    </button>
+  </group>
+
+  <hrule/>
+
+  <textbox>
+    <halign>fill</halign>
+    <valign>fill</valign>
+    <stretch>true</stretch>
+    <pref-width>350</pref-width>
+    <pref-height>150</pref-height>
+    <padding>5</padding>
+    <slider>20</slider>
+    <live>true</live>
+    <wrap>true</wrap>
+    <editable>false</editable>
+    <top-line>-1</top-line>
+    <property>/sim/multiplay/chat-history</property>
+  </textbox>
+
+  <group>
+    <layout>hbox</layout>
+    <padding>4</padding>
+
+    <input>
+      <name>compose</name>
+      <stretch>true</stretch>
+      <halign>fill</halign>
+      <stretch>true</stretch>
+      <length>50</length>
+      <property>/sim/multiplay/chat-compose</property>
+    </input>
+
+    <button>
+      <legend>Send</legend>
+      <default>true</default>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>compose</object-name>
+      </binding>
+      <binding>
+        <command>nasal</command>
+        <script>
+          var lchat = getprop("/sim/multiplay/chat-compose");
+          if (lchat != "")
+          {
+            setprop("/sim/multiplay/chat", lchat);
+            setprop("/sim/multiplay/chat-compose", "");
+            gui.dialog_update("chat-full", "compose");
+          }
+        </script>
+      </binding>
+    </button>
+  </group>
+</PropertyList>

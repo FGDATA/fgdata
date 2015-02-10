@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+<path>turn-gauge.ac</path>
+
+    <animation>
+        <type>material</type>
+        <object-name>TURNneedle</object-name>
+        <object-name>TURNgauge.001</object-name>        <emission>
+            <red>0.5</red>
+            <green>0.2</green>
+            <blue>0.0</blue>
+            <factor-prop>/systems/electrical/outputs/instrument-lights-norm</factor-prop>
+        </emission></animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>TURNneedle</object-name>
+        <property>/instrumentation/turn-indicator/indicated-turn-rate</property>
+        <factor>20.0</factor>
+        <axis>
+            <x>-1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+        <center>
+            <x-m>0</x-m>
+            <y-m>0</y-m>
+            <z-m>0</z-m>
+        </center>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>slipball</object-name>
+        <property>/instrumentation/slip-skid-ball/indicated-slip-skid</property>
+        <interpolation>
+            <entry><ind>-0.5</ind><dep>-18.5</dep></entry>
+            <entry><ind>0.5</ind><dep>18.5</dep></entry>
+        </interpolation>
+        <axis>
+            <x>-1.0</x>
+            <y>0.0</y>
+            <z>0.0</z>
+        </axis>
+        <center>
+            <x-m>0</x-m>
+            <y-m>0</y-m>
+            <z-m>0.036</z-m>
+        </center>
+    </animation>
+
+</PropertyList>

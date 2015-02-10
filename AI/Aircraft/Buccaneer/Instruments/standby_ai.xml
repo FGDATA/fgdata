@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<!-- Attitude -->
+<PropertyList> 
+	<path>../../../../Aircraft/Buccaneer/Instruments/standby_ai.ac</path>
+	<animation>
+		<type>select</type>
+		<object-name>flag</object-name>
+		<condition>
+			<less-than>
+				<property>/systems/electrical/outputs/flight-instruments</property>
+				<value type="int">22</value>
+			</less-than>
+		</condition>
+	</animation>
+	<animation> 
+		<type>rotate</type>
+		<object-name>bankline</object-name>
+		<object-name>horizonline</object-name>
+		<!--<property>/instrumentation/attitude-indicator/indicated-roll-deg</property>-->
+		<property>orientation/roll-deg</property>
+			<axis> 
+				<x>1</x>
+				<y>0</y>
+				<z>0</z>
+			</axis>
+	</animation>
+	<animation> 
+		<type>translate</type>
+		<object-name>horizonline</object-name>
+		<!--<property>/instrumentation/attitude-indicator/indicated-pitch-deg</property>-->
+		<property>orientation/pitch-deg</property>
+		<interpolation> 
+			<entry>
+				<ind>-180</ind>
+				<dep>0.03</dep>
+			</entry>
+			<entry>
+				<ind>-90</ind>
+				<dep>0.03</dep>
+			</entry>
+			<entry>
+				<ind>-40</ind>
+				<dep>0.020</dep>
+			</entry>
+			<entry>
+				<ind>-20</ind>
+				<dep>0.010</dep>
+			</entry>
+			<entry>
+				<ind>0</ind>
+				<dep>0</dep>
+			</entry>
+			<entry>
+				<ind>20</ind>
+				<dep>-0.010</dep>
+			</entry>
+			<entry>
+				<ind>40</ind>
+				<dep>-0.020</dep>
+			</entry>
+			<entry>
+				<ind>90</ind>
+				<dep>-0.03</dep>
+			</entry>
+			<entry>
+				<ind>180</ind>
+				<dep>-0.03</dep>
+			</entry>
+		</interpolation>
+		<axis> 
+			<x>0</x>
+			<y>0</y>
+			<z>1</z>
+		</axis>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>horizonline</object-name>
+		<condition>
+			<and>
+				<greater-than>
+					<property>/instrumentation/attitude-indicator/indicated-pitch-deg</property>
+					<value type="int">-40</value>
+				</greater-than>
+				<less-than>
+					<property>/instrumentation/attitude-indicator/indicated-pitch-deg</property>
+					<value type="int">40</value>
+				</less-than>
+			</and>
+		</condition>
+	</animation>
+	
+	<!-- Lighting -->
+
+	<animation>
+		<type>material</type>
+		<object-name>panel-lighting-group</object-name>
+		<emission>
+			<factor-prop>/systems/electrical/outputs/panel-floodlighting</factor-prop>
+			<red>0.03125</red>
+			<green>0.0089</green>
+			<blue>0.0089</blue>
+		</emission>
+	</animation>
+
+	<animation>
+		<type>material</type>
+		<object-name>lighting-group</object-name>
+		<emission>
+			<factor-prop>/systems/electrical/outputs/instrument-lighting</factor-prop>
+			<red>0.03125</red>
+			<green>0.0089</green>
+			<blue>0.0089</blue>
+		</emission>
+	</animation>
+	
+	<!-- *** LoD *** -->
+	<animation> 
+		<type>range</type>
+		<min-m>0</min-m>
+		<max-m>5</max-m>
+	</animation>
+</PropertyList>

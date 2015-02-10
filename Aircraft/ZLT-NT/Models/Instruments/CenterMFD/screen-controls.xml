@@ -1,0 +1,377 @@
+<!-- $Id$ -->
+<!--
+  Zeppelin NT07 airship.
+
+  Copyright (C) 2009  Anders Gidenstam  (anders(at)gidenstam.org)
+  This file is licensed under the GPL license v2 or later.
+-->
+<PropertyList>
+
+ <path>screen-controls.ac</path>
+ <offsets>
+  <!-- x/y/z == back/right/up -->
+  <x-m> 0.0 </x-m>
+  <y-m> 0.0 </y-m>
+  <z-m> 0.0 </z-m>
+ </offsets>
+
+ <!-- =========================================================================
+  Propeller pitch
+ -->
+ <model>
+  <path>Aircraft/ZLT-NT/Models/Instruments/CenterMFD/display-text.xml</path>
+  <offsets>
+   <x-m> 0.001</x-m>
+   <y-m>-0.077</y-m>
+   <z-m> 0.129</z-m>
+  </offsets>
+  <overlay>
+   <params>
+    <property type="string">fdm/jsbsim/propulsion/engine[0]/blade-angle</property>
+    <format type="string">%2.0f*</format>
+    <color>
+     <red   type="double">0.0</red>
+     <green type="double">0.0</green>
+     <blue  type="double">0.0</blue>
+    </color>
+   </params>
+  </overlay>
+ </model>
+ <model>
+  <path>Aircraft/ZLT-NT/Models/Instruments/CenterMFD/display-text.xml</path>
+  <offsets>
+   <x-m> 0.001</x-m>
+   <y-m>-0.056</y-m>
+   <z-m> 0.129</z-m>
+  </offsets>
+  <overlay>
+   <params>
+    <property type="string">fdm/jsbsim/propulsion/engine[1]/blade-angle</property>
+    <format type="string">%2.0f*</format>
+    <color>
+     <red   type="double">0.0</red>
+     <green type="double">0.0</green>
+     <blue  type="double">0.0</blue>
+    </color>
+   </params>
+  </overlay>
+ </model>
+ <model>
+  <path>Aircraft/ZLT-NT/Models/Instruments/CenterMFD/display-text.xml</path>
+  <offsets>
+   <x-m> 0.001</x-m>
+   <y-m>-0.007</y-m>
+   <z-m> 0.129</z-m>
+  </offsets>
+  <overlay>
+   <params>
+    <property type="string">fdm/jsbsim/propulsion/engine[2]/blade-angle</property>
+    <format type="string">%2.0f*</format>
+    <color>
+     <red   type="double">0.0</red>
+     <green type="double">0.0</green>
+     <blue  type="double">0.0</blue>
+    </color>
+   </params>
+  </overlay>
+ </model>
+
+ <!-- =========================================================================
+  Engine swivel angles
+ -->
+ <model>
+  <path>Aircraft/ZLT-NT/Models/Instruments/CenterMFD/display-text.xml</path>
+  <offsets>
+   <x-m> 0.001</x-m>
+   <y-m>-0.077</y-m>
+   <z-m> 0.083</z-m>
+  </offsets>
+  <overlay>
+   <params>
+    <property type="string">fdm/jsbsim/propulsion/engine[0]/pitch-angle-rad</property>
+    <factor type="double">57.2958</factor>
+    <format type="string">%3.1f*</format>
+    <color>
+     <red   type="double">0.0</red>
+     <green type="double">0.0</green>
+     <blue  type="double">0.0</blue>
+    </color>
+   </params>
+  </overlay>
+ </model>
+ <model>
+  <path>Aircraft/ZLT-NT/Models/Instruments/CenterMFD/display-text.xml</path>
+  <offsets>
+   <x-m> 0.001</x-m>
+   <y-m>-0.077</y-m>
+   <z-m> 0.119</z-m>
+  </offsets>
+  <overlay>
+   <params>
+    <property type="string">fdm/jsbsim/propulsion/engine[1]/pitch-angle-rad</property>
+    <factor type="double">57.2958</factor>
+    <format type="string">%3.1f*</format>
+    <color>
+     <red   type="double">0.0</red>
+     <green type="double">0.0</green>
+     <blue  type="double">0.0</blue>
+    </color>
+   </params>
+  </overlay>
+ </model>
+ <model>
+  <path>Aircraft/ZLT-NT/Models/Instruments/CenterMFD/display-text.xml</path>
+  <offsets>
+   <x-m> 0.001</x-m>
+   <y-m>-0.004</y-m>
+   <z-m> 0.106</z-m>
+  </offsets>
+  <overlay>
+   <params>
+    <property type="string">fdm/jsbsim/propulsion/engine[2]/pitch-angle-rad</property>
+    <factor type="double">57.2958</factor>
+    <format type="string">%3.1f*</format>
+    <color>
+     <red   type="double">0.0</red>
+     <green type="double">0.0</green>
+     <blue  type="double">0.0</blue>
+    </color>
+   </params>
+  </overlay>
+ </model>
+
+ <!-- =========================================================================
+  Ballonet fillstand
+ -->
+ <model>
+  <path>Aircraft/ZLT-NT/Models/Instruments/CenterMFD/display-text.xml</path>
+  <offsets>
+   <x-m> 0.001</x-m>
+   <y-m>-0.033</y-m>
+   <z-m> 0.060</z-m>
+  </offsets>
+  <overlay>
+   <params>
+    <property type="string">fdm/jsbsim/buoyant_forces/gas-cell/ballonet[0]/volume-ft3</property>
+    <factor type="double">0.00258</factor>
+    <offset type="double">0.0</offset>
+    <format type="string">%2.0f%</format>
+    <color>
+     <red   type="double">0.0</red>
+     <green type="double">0.0</green>
+     <blue  type="double">0.0</blue>
+    </color>
+   </params>
+  </overlay>
+ </model>
+ <model>
+  <path>Aircraft/ZLT-NT/Models/Instruments/CenterMFD/display-text.xml</path>
+  <offsets>
+   <x-m> 0.001</x-m>
+   <y-m>-0.013</y-m>
+   <z-m> 0.060</z-m>
+  </offsets>
+  <overlay>
+   <params>
+    <property type="string">fdm/jsbsim/buoyant_forces/gas-cell/ballonet[1]/volume-ft3</property>
+    <factor type="double">0.00258</factor>
+    <offset type="double">0.0</offset>
+    <format type="string">%2.0f%</format>
+    <color>
+     <red   type="double">0.0</red>
+     <green type="double">0.0</green>
+     <blue  type="double">0.0</blue>
+    </color>
+   </params>
+  </overlay>
+ </model>
+
+ <!-- =========================================================================
+  Flight control surface position indicators.
+ -->
+ <model>
+  <path>Aircraft/ZLT-NT/Models/Instruments/CenterMFD/display-text.xml</path>
+  <offsets>
+   <x-m> 0.001</x-m>
+   <y-m>-0.022</y-m>
+   <z-m> 0.052</z-m>
+  </offsets>
+  <overlay>
+   <params>
+    <property type="string">surface-positions/rudder-pos-norm</property>
+    <factor type="double">20.0</factor>
+    <offset type="double">0.0</offset>
+    <format type="string">%2.0f*</format>
+    <color>
+     <red   type="double">1.0</red>
+     <green type="double">1.0</green>
+     <blue  type="double">1.0</blue>
+    </color>
+   </params>
+  </overlay>
+ </model>
+ <model>
+  <path>Aircraft/ZLT-NT/Models/Instruments/CenterMFD/display-text.xml</path>
+  <offsets>
+   <x-m> 0.001</x-m>
+   <y-m>-0.030</y-m>
+   <z-m> 0.006</z-m>
+  </offsets>
+  <overlay>
+   <params>
+    <property type="string">surface-positions/elevator-pos-norm</property>
+    <factor type="double">20.0</factor>
+    <offset type="double">0.0</offset>
+    <format type="string">%2.0f*</format>
+    <color>
+     <red   type="double">1.0</red>
+     <green type="double">1.0</green>
+     <blue  type="double">1.0</blue>
+    </color>
+   </params>
+  </overlay>
+ </model>
+ <model>
+  <path>Aircraft/ZLT-NT/Models/Instruments/CenterMFD/display-text.xml</path>
+  <offsets>
+   <x-m> 0.001</x-m>
+   <y-m>-0.015</y-m>
+   <z-m> 0.006</z-m>
+  </offsets>
+  <overlay>
+   <params>
+    <property type="string">surface-positions/elevator-pos-norm</property>
+    <factor type="double">20.0</factor>
+    <offset type="double">0.0</offset>
+    <format type="string">%2.0f*</format>
+    <color>
+     <red   type="double">1.0</red>
+     <green type="double">1.0</green>
+     <blue  type="double">1.0</blue>
+    </color>
+   </params>
+  </overlay>
+ </model>
+
+ <animation>
+  <type>translate</type>
+  <object-name>rudder_bar</object-name>
+  <property>instrumentation/CenterMFD/controls/rudder-pos-norm</property>
+  <factor>0.00425</factor>
+  <axis>
+   <x>0.0</x>
+   <y>1.0</y>
+   <z>0.0</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>scale</type>
+  <object-name>rudder_bar</object-name>
+  <property>instrumentation/CenterMFD/controls/abs-rudder-pos-norm</property>
+  <x-factor>0.0</x-factor>
+  <x-offset>1.0</x-offset>
+  <y-factor>0.5</y-factor>
+  <y-offset>0.0</y-offset>
+  <z-factor>0.0</z-factor>
+  <z-offset>1.0</z-offset>
+  <y-min>0.05</y-min>
+  <center>
+   <x-m> 0.000</x-m>
+   <y-m>-0.022</y-m>
+   <z-m> 0.000</z-m>
+  </center>
+ </animation>
+
+ <animation>
+  <type>translate</type>
+  <object-name>left_elevator_bar</object-name>
+  <property>instrumentation/CenterMFD/controls/elevator-pos-norm</property>
+  <factor>-0.00425</factor>
+  <axis>
+   <x>0.0</x>
+   <y>-0.423</y>
+   <z>0.906</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>rotate</type>
+  <object-name>left_elevator_bar</object-name>
+  <property>constants/zero</property>
+  <factor>0.0</factor>
+  <offset-deg>115.0</offset-deg>
+  <axis>
+   <x>1.0</x>
+   <y>0.0</y>
+   <z>0.0</z>
+  </axis>
+  <center>
+   <x-m> 0.000</x-m>
+   <y-m>-0.030</y-m>
+   <z-m> 0.021</z-m>
+  </center>
+ </animation>
+ <animation>
+  <type>scale</type>
+  <object-name>left_elevator_bar</object-name>
+  <property>instrumentation/CenterMFD/controls/abs-elevator-pos-norm</property>
+  <x-factor>0.0</x-factor>
+  <x-offset>1.0</x-offset>
+  <y-factor>0.5</y-factor>
+  <y-offset>0.0</y-offset>
+  <z-factor>0.0</z-factor>
+  <z-offset>1.0</z-offset>
+  <y-min>0.05</y-min>
+  <center>
+   <x-m> 0.000</x-m>
+   <y-m>-0.030</y-m>
+   <z-m> 0.021</z-m>
+  </center>
+ </animation>
+
+ <animation>
+  <type>translate</type>
+  <object-name>right_elevator_bar</object-name>
+  <property>instrumentation/CenterMFD/controls/elevator-pos-norm</property>
+  <factor>-0.00425</factor>
+  <axis>
+   <x>0.0</x>
+   <y>0.423</y>
+   <z>0.906</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>rotate</type>
+  <object-name>right_elevator_bar</object-name>
+  <property>constants/zero</property>
+  <factor>0.0</factor>
+  <offset-deg>-115.0</offset-deg>
+  <axis>
+   <x>1.0</x>
+   <y>0.0</y>
+   <z>0.0</z>
+  </axis>
+  <center>
+   <x-m> 0.000</x-m>
+   <y-m>-0.015</y-m>
+   <z-m> 0.021</z-m>
+  </center>
+ </animation>
+ <animation>
+  <type>scale</type>
+  <object-name>right_elevator_bar</object-name>
+  <property>instrumentation/CenterMFD/controls/abs-elevator-pos-norm</property>
+  <x-factor>0.0</x-factor>
+  <x-offset>1.0</x-offset>
+  <y-factor>0.5</y-factor>
+  <y-offset>0.0</y-offset>
+  <z-factor>0.0</z-factor>
+  <z-offset>1.0</z-offset>
+  <y-min>0.05</y-min>
+  <center>
+   <x-m> 0.000</x-m>
+   <y-m>-0.015</y-m>
+   <z-m> 0.021</z-m>
+  </center>
+ </animation>
+
+</PropertyList>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    $Id$
+    This is the Century IIB Autopilot "Coupler Mode Selector" hotspot panel.
+    Maintainer: Torsten Dreyer, Dave Perry
+    
+    $Log$
+    Revision 1.1  2007/10/10 20:48:37  mfranz
+    Dave PERRY:
+
+    "For more than a month, I have been working with Torsten Dryer to model
+    these three autopilots that are very common in aircraft manufactured in
+    the 1960s through the late 1980s.  The Altimatic IIIc in the SenecaII is
+    a variation on the Century III and uses the same nasal model."
+
+    Revision 1.0  2007-08-27 ??:??:??  mfranz
+-->
+<PropertyList>
+    <name>AutopilotModePanel</name>
+    <background>Aircraft/Instruments-3d/Century-III/transparent.rgb</background>
+    <w>59</w>
+    <h>58</h>
+    <instruments>
+        <instrument>
+            <name>panel hotspots</name>
+            <x>29</x>
+            <y>29</y>
+            <w>58</w>
+            <h>59</h>
+            <w-base>58</w-base>
+            <h-base>58</h-base>
+
+            <actions>
+                <!--  decrease -->
+                <action>
+                    <name>AP mode decrease</name>
+                    <button>0</button>
+                    <x>-29</x>
+                    <y>-29</y>
+                    <w>29</w>
+                    <h>58</h>
+                    <binding>
+                        <command>property-adjust</command>
+                        <property>/autopilot/CENTURYIII/controls/mode</property>
+                        <step>-1</step>
+                        <min>0</min>
+                        <max>4</max>
+                    </binding>
+                    <binding>
+                        <command>nasal</command>
+                        <script>century3.apModeControlsChange()</script>
+                    </binding>
+                </action>
+
+                <!--  increase -->
+                <action>
+                    <name>AP mode increase</name>
+                    <button>0</button>
+                    <x>0</x>
+                    <y>-29</y>
+                    <w>29</w>
+                    <h>58</h>
+                    <binding>
+                        <command>property-adjust</command>
+                        <property>/autopilot/CENTURYIII/controls/mode</property>
+                        <step>1</step>
+                        <min>0</min>
+                        <max>4</max>
+                    </binding>
+                    <binding>
+                        <command>nasal</command>
+                        <script>century3.apModeControlsChange()</script>
+                    </binding>
+                </action>
+            </actions>
+        </instrument>
+    </instruments>
+</PropertyList>

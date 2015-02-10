@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PropertyList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../XMLSchemas/panel.xsd">
+    <name>AltimaticIIIc</name>
+    <background>Aircraft/Instruments-3d/Century-III/transparent.rgb</background>
+    <w>158</w>
+    <h>74</h>
+    <instruments>
+        <instrument>
+            <name>panel hotspots</name>
+            <x>79</x>
+            <y>37</y>
+            <w>158</w>
+            <h>74</h>
+            <w-base>158</w-base>
+            <h-base>74</h-base>
+
+            <actions>
+                <!-- Roll Button -->
+                <action>
+                    <name>RollButton</name>
+                    <button>0</button>
+                    <x>-57</x>
+                    <y>0</y>
+                    <w>20</w>
+                    <h>33</h>
+                    <binding>
+                        <command>property-toggle</command>
+                        <property>/autopilot/CENTURYIII/controls/roll</property>
+                    </binding>
+                    <binding>
+                        <command>nasal</command>
+                        <script>century3.apRollControl()</script>
+                    </binding>
+                </action>
+
+                <!-- HDG Button -->
+                <action>
+                    <name>HdgButton</name>
+                    <button>0</button>
+                    <x>-37</x>
+                    <y>0</y>
+                    <w>20</w>
+                    <h>33</h>
+                    <binding>
+                        <command>property-toggle</command>
+                        <property>/autopilot/CENTURYIII/controls/hdg</property>
+                    </binding>
+                    <binding>
+                        <command>nasal</command>
+                        <script>century3.apHdgControl()</script>
+                    </binding>
+                </action>
+
+                <!-- ALT Button -->
+                <action>
+                    <name>AltButton</name>
+                    <button>0</button>
+                    <x>-17</x>
+                    <y>0</y>
+                    <w>20</w>
+                    <h>33</h>
+                    <binding>
+                        <command>property-toggle</command>
+                        <property>/autopilot/CENTURYIII/controls/alt</property>
+                    </binding>
+                    <binding>
+                        <command>nasal</command>
+                        <script>century3.apAltControl()</script>
+                    </binding>
+                </action>
+
+                <!-- PITCH Button -->
+                <action>
+                    <name>PitchButton</name>
+                    <button>0</button>
+                    <x>3</x>
+                    <y>0</y>
+                    <w>20</w>
+                    <h>33</h>
+                    <binding>
+                        <command>property-toggle</command>
+                        <property>/autopilot/CENTURYIII/controls/pitch</property>
+                    </binding>
+                    <binding>
+                        <command>nasal</command>
+                        <script>century3.apPitchControl()</script>
+                    </binding>
+                </action>
+
+                <!-- ROLL decrease -->
+                <action>
+                    <name>ROLL decrease</name>
+                    <button>0</button>
+                    <x>-53</x>
+                    <y>-38</y>
+                    <w>15</w>
+                    <h>35</h>
+                    <binding>
+                        <command>property-adjust</command>
+                        <property>/autopilot/CENTURYIII/settings/roll-knob-deg</property>
+                        <step>-0.5</step>
+                        <min>-30</min>
+                        <max>30</max>
+                    </binding>
+                    <binding>
+                        <command>nasal</command>
+                        <script>century3.rollKnobUpdate()</script>
+                    </binding>
+                </action>
+
+                <!-- ROLL increase -->
+                <action>
+                    <name>ROLL increase</name>
+                    <button>0</button>
+                    <x>-38</x>
+                    <y>-38</y>
+                    <w>15</w>
+                    <h>35</h>
+                    <binding>
+                        <command>property-adjust</command>
+                        <property>/autopilot/CENTURYIII/settings/roll-knob-deg</property>
+                        <step>0.5</step>
+                        <min>-30</min>
+                        <max>30</max>
+                    </binding>
+                    <binding>
+                        <command>nasal</command>
+                        <script>century3.rollKnobUpdate()</script>
+                    </binding>
+                </action>
+
+                <!-- PITCH increase -->
+                <action>
+                    <name>PITCH increase</name>
+                    <button>0</button>
+                    <x>44</x>
+                    <y>-23</y>
+                    <w>12</w>
+                    <h>25</h>
+                    <binding>
+                        <command>property-adjust</command>
+                        <property>/autopilot/CENTURYIII/settings/pitch-wheel-deg</property>
+                        <step>0.5</step>
+                        <min>-10.0</min>
+                        <max>10.0</max>
+                    </binding>
+                    <binding>
+                        <command>nasal</command>
+                        <script>century3.pitchWheelUpdate()</script>
+                    </binding>
+                </action>
+
+                <!-- PITCH decrease -->
+                <action>
+                    <name>PITCH decrease</name>
+                    <button>0</button>
+                    <x>44</x>
+                    <y>2</y>
+                    <w>12</w>
+                    <h>25</h>
+                    <binding>
+                        <command>property-adjust</command>
+                        <property>/autopilot/CENTURYIII/settings/pitch-wheel-deg</property>
+                        <step>-0.5</step>
+                        <min>-10.0</min>
+                        <max>10.0</max>
+                    </binding>
+                    <binding>
+                        <command>nasal</command>
+                        <script>century3.pitchWheelUpdate()</script>
+                    </binding>
+                </action>
+
+            </actions>
+        </instrument>
+    </instruments>
+</PropertyList>

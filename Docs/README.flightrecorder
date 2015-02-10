@@ -1,0 +1,294 @@
+FlightGear Flight Recorder Mini-HOWTO
+
+Thorsten Brehm
+Started in August 2011
+Last revised: 2011-09-26
+
+
+FlightGear provides a customizable flight recorder capable of capturing
+any selection of properties described via XML configuration files.
+The recorder is currently used for the replay system.
+
+
+Feature Brief
+-------------
+* Generic recording system, adaptable to any aircraft/data, provided that
+  data is accessible via the property tree. No hard-coded selections or
+  assumptions on properties to be recorded.
+* Configuration read from XML files or the property tree itself.
+* Interpolation method configurable per recorded/replayed signal.
+* Adaptable recording resolution per signal.
+* Multiple configurations supported.
+
+
+Quick Start: Basic Configuration
+--------------------------------
+To configure and adapt the flight recorder, add a "/sim/flight-recorder"
+section to your aircraft -set.xml file.
+
+Example:
+
+<sim>
+
+  <!-- ... -->
+
+  <flight-recorder>
+    <replay-config type="int">0</replay-config>
+    <config n="0" 
+        include="/Aircraft/Generic/flightrecorder/generic-piston-propeller-1.xml">
+      <name type="string">My Aircraft's Flight Recorder</name>
+      <!-- Custom properties -->
+      <signal>
+        <type>float</type>
+        <property type="string">/controls/gear/nosegear-steering-cmd-norm</property>
+        <interpolation>linear</interpolation>
+      </signal>
+      <!-- More custom signals here -->
+    </config>
+  </flight-recorder>
+
+      <!-- ... -->
+
+</sim>
+
+Default type for each signal is "float". Default "interpolation" method
+is "linear" (for float/double). Default values may be omitted. See
+configuration details below.
+
+
+Generic Configuration Files
+---------------------------
+Select one of the default configuration files to specify the basic
+properties to be recorded. It's not recommended to specify all
+properties to be recorded individually.
+The following generic files are provided:
+
+* /Aircraft/Generic/flightrecorder/generic-piston-propeller-4.xml
+  Matches propeller aircraft with 4 piston engines, 4 tanks,
+  3 retractable gear.
+  It is the same configuration that was hard-coded for the replay system
+  up to FlightGear 2.4.0. To provide backward compatibility this
+  configuration is loaded by default, unless an aircraft provides a
+  specific flight recorder configuration.
+
+* /Aircraft/Generic/flightrecorder/generic-piston-propeller-1.xml
+  Matches propeller aircraft with 1 piston engines, 2 tanks, 3 fixed
+  gear.
+
+* /Aircraft/Generic/flightrecorder/generic-turboprop-2.xml
+  Matches turboprop aircraft with 2 turbines/propellers, 4 tanks,
+  3 retractable gear.
+
+* /Aircraft/Generic/flightrecorder/generic-jet.xml
+  Matches jet aircraft with 2 jet engines, 4 tanks.
+
+* /Aircraft/Generic/flightrecorder/generic-glider.xml
+  Matches gliders (no engines, no tanks, single fixed gear).
+
+* /Aircraft/Generic/flightrecorder/generic-helicopter.xml
+  Matches helicopters with main and tail rotor (tested with YASim).
+
+If none of the generic files matches your aircraft, simply use a
+configuration which covers more than you need. Alternatively, copy the
+contents of one of these generic files to your aircraft, and adapt as
+needed (see below).
+
+FDM experts are welcome to add more generic configuration files to
+/Aircraft/Generic/flightrecorder - such as YASim-/JSBSim-specific
+configurations, and configurations for other types of aircraft
+(balloons, airships, ...).
+
+
+Generic Components
+-----------------
+The generic configuration files in turn include a set of generic
+components. If you copy the contents of a generic file to your aircraft,
+you can adapt the components to your needs. See examples.
+It is not recommended to copy the contents of the _component_ files to
+an aircraft though (causes too much hassle and dependencies).
+
+Engine Selection:
+ * /Aircraft/Generic/flightrecorder/components/engine-jet.xml
+   Records properties of a single jet engine.
+   For multiple jet engines, use "count". Example for 4 jets:
+     <signals include="/Aircraft/Generic/flightrecorder/components/engine-jet.xml">
+       <count>4</count>
+     </signals>
+
+ * /Aircraft/Generic/flightrecorder/components/engine-piston.xml
+   Records properties of a single piston engine and propeller.
+   For multiple piston engines, use "count" (see "jet" example).
+
+ * /Aircraft/Generic/flightrecorder/components/rotor.xml
+   Records properties of a single helicopter rotor (tested with YASim).
+   To use this, provide the base property path to the rotor as "prefix".
+   Example recording the rotor below "/rotors/main":
+     <signals include="/Aircraft/Generic/flightrecorder/components/rotor.xml">
+         <prefix type="string">/rotors/main</prefix>
+     </signals>
+
+Gear Selection:
+ * /Aircraft/Generic/flightrecorder/components/gear-fixed.xml
+   Records properties of a single non-retractable gear.
+   For multiple fixed gear, use "count" (see "jet" example).
+
+ * /Aircraft/Generic/flightrecorder/components/gear-retractable.xml
+   Records properties of a single retractable gear.
+   For multiple retractable gear, use "count" (see "jet" example).
+
+Tanks:
+ * /Aircraft/Generic/flightrecorder/components/tanks.xml
+   Records properties of a single fuel tank.
+   For multiple fuel tanks, use "count" (see "jet" example).
+
+Other:
+ * /Aircraft/Generic/flightrecorder/components/surfaces.xml
+   Records properties of flight control surfaces. Include this
+   for aircraft (with wings). Not useful for helicopters,
+   balloons, ...
+
+ * /Aircraft/Generic/flightrecorder/components/faults-engines.xml
+   Records fault properties of a single engine. Only include this
+   if your aircraft supports fault simulation.
+   For multiple engines, use "count" (see "jet" example). If used,
+   it should be compined with piston or jet engine.
+
+ * /Aircraft/Generic/flightrecorder/components/environment.xml
+   Records properties of environment/weather (visibility,
+   temperature - but _not_ cloud position...).
+
+ * /Aircraft/Generic/flightrecorder/components/position.xml
+   Records properties of a the aircrafts main position (latitude,
+   longitude, velocities, ...).
+   This is the most important component. Always include this.
+
+ * /Aircraft/Generic/flightrecorder/components/controls.xml
+   Records most important flight controls (rudder, aileron,
+   elevator, ...). Always include this.
+
+
+Custom Properties
+-----------------
+When the generic or component files are not be sufficient to record or
+replay aircraft-specific effects, you can add custom properties (signals
+to be recorded) to the configuration.
+Each signal consits of a recording type/resolution (which does _not_
+need to match the actual type in the property tree!), the path to the
+property and interpolation type.
+
+Example recording some additional custom properties:
+  <sim>
+    <flight-recorder>
+      <config n="0" 
+        include="/Aircraft/Generic/flightrecorder/generic-piston-propeller-1.xml">
+        <!-- Add custom properties here -->
+        <signal>
+          <type>float</type>
+          <property type="string">/controls/gear/nosegear-steering-cmd-norm</property>
+        </signal>
+        <signal>
+          <type>double</type>
+          <interpolation>rotational-deg</interpolation>
+          <property type="string">/ai/model/carrier/alpha-angle-deg</property>
+        </signal>
+        <signal>
+          <type>bool</type>
+          <property type="string">/controls/panel/custom-switch</property>
+        </signal>
+      </config>
+    </flight-recorder>
+  </sim>
+
+
+Signal Configuration
+--------------------
+Template:
+  <signal>
+    <type>bool</type>
+    <interpolation>angular-deg</interpolation>
+    <property type="string">/controls/panel/custom-switch</property>
+  </signal>
+
+* type: The signal's type specifies the recording resolution - not the
+  type of the original property. The following types are supported:
+
+  - double: 8 byte/sample
+  - float:  4 byte/sample (default)
+  - int:    4 byte/sample, integer
+  - int16:  2 byte/sample, integer
+  - int8:   1 byte/sample, integer
+  - bool:   1 bit/sample (yes, 1 bit. 8 bools per byte).
+  
+  String type is unsupported (too expensive).
+
+* interpolation: Specifies how values are interpolated during replay, i.e.
+  when replay is in slow-motion mode and more frames/second are required
+  than recorded, or when replaying data from the medium/long term memory.
+  Supported methods:
+    - discrete: No interpolation. Default for integer/bool types.
+    - linear: Standard linear interpolation. Default for float/double.
+    - angular-rad (or angular): Angular values in radians (0-2pi).
+    - angular-deg: Angular values in degrees (0-360).
+
+* property: Path to the property to be recorded.
+
+
+Advanced Configuration
+----------------------
+- Multipe recorder configurations for a single aircraft are supported
+  (multiple "<config n=..>" sections for n=0,1,...).
+  Active configuration to be used for the replay system is selected via
+     /sim/flight-recorder/replay-config (= 0,1,...).
+  This can be useful for specific recorders for specific scenarios,
+  which should not be used by default. For example, a specific recorder
+  configuration could be provided which also records the position of
+  an aircraft carrier, of other AI aircraft, ...
+  This may also be useful for future use, i.e. to select another flight
+  recorded configuration for a different purpose, such as for the
+  multiplayer system.
+
+- Flight recorder configuration can be adapted during run-time
+  (configuration is visible in the property browser below
+  /sim/flight-recorder). However it is necessary to reset (reinit) the
+  replay subsystem first - which also erases earlier recordings. It is
+  not possible to mix recordings of different configurations on to a
+  single "tape".
+
+- Each configuration should be given a name. Useful for a (future)
+  selection GUI, when multiple configurations are available.
+
+
+Optimizing Performance
+----------------------
+- Recording properties consumes memory and also CPU time. A few
+  additional properties don't matter much, but avoid execessive numbers.
+  Reduce the resolution (type) of signals to the minimum necessary to
+  save space.
+- Use "bool" types where possible, they are most efficient.
+- Avoid recording with "double" resolution (type "double"). Use "float"
+  instead - even if the original property in the property tree is a
+  "double" (almost all of them do). "float" precision is almost always
+  sufficient for recording/replay purposes, with few exceptions (like
+  latitude/longitude properties).
+- Use int16/int8 for "small" integer values.
+
+
+Recording/Replay Limits
+-----------------------
+- All properties can be recorded, however, only writable properties can
+  be replayed. Properties marked as read-only, or tied properties not
+  implementing the "set" method cannot be replayed.
+- Replaying a property overwrites the property's value. However, other
+  sources may also write to the same property - such as Nasal code,
+  autopilot rules etc. When multiple sources "fight" over a property's
+  value then the last update "wins" - resulting in a dependency to an
+  unknown/random sequence. Hence, during deplay, try to disable other
+  sources writing to properties which were recorded and should be
+  replayed.
+  If the other source cannot be disabled, check if you're recording the
+  right property. It may be better to record the input properties of the
+  other source instead (i.e. the inputs processed by the Nasal or
+  autopilot rule).
+
+__end__
+

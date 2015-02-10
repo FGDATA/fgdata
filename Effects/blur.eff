@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PropertyList>
+	<name>Effects/blur</name>
+	<parameters>
+		<blurOffset_x>0.0</blurOffset_x>
+		<blurOffset_y>0.0</blurOffset_y>
+		<buffer-name></buffer-name>
+	</parameters>
+	<technique n="11">
+		<pass>
+			<texture-unit>
+				<unit>0</unit>
+				<type>buffer</type>
+				<name><use>buffer-name</use></name>
+			</texture-unit>
+			<program>
+				<vertex-shader>Shaders/fullscreen.vert</vertex-shader>
+				<fragment-shader>Shaders/blur.frag</fragment-shader>
+			</program>
+			<uniform>
+				<name>input_tex</name>
+				<type>sampler-2d</type>
+				<value type="int">0</value>
+			</uniform>
+			<uniform>
+				<name>blurOffset_x</name>
+				<type>float</type>
+				<value type="float"><use>blurOffset_x</use></value>
+			</uniform>
+			<uniform>
+				<name>blurOffset_y</name>
+				<type>float</type>
+				<value type="float"><use>blurOffset_y</use></value>
+			</uniform>
+		</pass>
+	</technique>
+</PropertyList>

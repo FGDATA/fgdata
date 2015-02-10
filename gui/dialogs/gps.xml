@@ -1,0 +1,699 @@
+<?xml version="1.0"?>
+<PropertyList>
+    <width>620</width>
+    <height>430</height>
+    <modal>false</modal>
+    <nasal>
+        <open><![CDATA[
+
+        if (!defined("_gps_dialog_search_results")) {
+            globals._gps_dialog_search_results = [];
+        }
+            
+		var gps = props.globals.getNode("/instrumentation/gps/", 1);
+		var dlg = props.globals.getNode("/sim/gui/dialogs/gps", 1);
+		var cmd = gps.getNode("command", 1);
+		
+		var scratch = gps.getNode("scratch", 1);
+    	var scratchValid = dlg.getNode("scratch/valid", 1);
+	    var searchIsWaypoints = 0;
+	    var anySpec = 'vor,airport,heliport,ils,seaport,fix,ndb,waypoint,tacan,city,town';
+        dlg.getNode("search-type", 1).setValue("airport");
+        
+	    var updateSearchResults = func(isWpts, index = 0)
+	    {
+	      searchIsWaypoints = isWpts;
+	      dlg.getNode("scratch-index", 1).setValue(index);
+      
+	      var lastIndex = size(globals._gps_dialog_search_results) - 1;
+	      dlg.getNode("scratch-has-next", 1).setValue((index + 1) < lastIndex);
+            
+	      if (size(globals._gps_dialog_search_results) < 1) {
+	        scratchValid.setBoolValue(0);
+	        return;
+	      }
+      
+	      updateScratch();
+	    }
+    
+    var updateScratch = func
+    {
+      var index = dlg.getNode("scratch-index").getValue();
+      var result = globals._gps_dialog_search_results[index];
+      if (result == nil) {
+        scratchValid.setBoolValue(0);
+        return;
+      }
+      
+      scratchValid.setBoolValue(1);
+      scratch.getNode("latitude-deg", 1).setValue(result.lat);
+      scratch.getNode("longitude-deg", 1).setValue(result.lon);
+      scratch.getNode("ident", 1).setValue(result.id);
+      var cd = nil;
+      
+      if (searchIsWaypoints) {
+        scratch.getNode("type", 1).setValue('WPT');
+        
+        cd = result.courseAndDistanceFrom(geo.aircraft_position());
+      } else {
+        var ty = result.type;
+        scratch.getNode("type", 1).setValue(ty);
+        scratch.getNode("name", 1).setValue(result.name);
+        scratch.getNode("altitude-ft", 1).setValue(result.elevation);
+        
+        if (ty == 'vor') {
+          scratch.getNode("frequency-mhz", 1).setValue(result.frequency);
+        } elsif (ty == 'ndb') {
+          scratch.getNode("frequency-khz", 1).setValue(result.frequency);
+        }
+        
+        cd = positioned.courseAndDistance(result);
+      }
+  
+      
+      dlg.getNode("scratch-mag-bearing-deg", 1).setValue(cd[0] + magvar());
+      dlg.getNode("scratch-distance-nm", 1).setValue(cd[1]);
+      
+      gui.dialog_update("gps");
+    }
+
+    var doSearch = func()
+    {
+      var ty = dlg.getNode("search-type").getValue();
+      if (ty == 'any') ty = anySpec;
+      
+      var query = dlg.getNode("search-query").getValue();      
+      globals._gps_dialog_search_results = positioned.sortByRange(positioned.findByIdent(query, ty));
+      updateSearchResults(0);
+    }
+    
+    var doSearchNames = func
+    {
+      var ty = dlg.getNode("search-type").getValue();
+      if (ty == 'any') ty = anySpec;
+      var query = dlg.getNode("search-query").getValue();      
+      globals._gps_dialog_search_results = positioned.sortByRange(positioned.findByName(query, ty));
+      updateSearchResults(0);
+    }
+    
+    var doSearchNearest = func
+    {
+      var ty = dlg.getNode("search-type").getValue();
+      if (ty == 'any') ty = anySpec;
+      
+      globals._gps_dialog_search_results = positioned.findWithinRange(200.0, ty);
+      updateSearchResults(0);
+    }
+    
+    var doLoadRouteWaypoint = func
+    {
+      var fp = flightplan();
+      var wps = [];
+      for (var i=0; i < fp.getPlanSize(); i+=1) {
+        append(wps, fp.getWP(i));
+      }
+      globals._gps_dialog_search_results = wps;
+      updateSearchResults(1, fp.current);
+    }
+    
+    var doScratchPrevious = func
+    {
+      var index = dlg.getNode("scratch-index").getValue();
+      if (index == 0) return;
+      dlg.getNode("scratch-index").setValue(index - 1);
+      dlg.getNode("scratch-has-next", 1).setValue(size(globals._gps_dialog_search_results) > 1);
+      updateScratch();
+    }
+    
+    var doScratchNext = func
+    {
+      var index = dlg.getNode("scratch-index").getValue();
+      var lastIndex = size(globals._gps_dialog_search_results) - 1;
+      if (index == lastIndex) return;
+      
+      dlg.getNode("scratch-has-next", 1).setValue((index + 1) < lastIndex);
+      dlg.getNode("scratch-index").setValue(index + 1);
+      updateScratch();
+    }
+    
+    # restore state from previous time the dialog was open
+    # default to 0 if no prior value
+        var curIndex = dlg.getNode("scratch-index", 1).getValue() or 0;
+        updateSearchResults(0, curIndex);
+    
+		var slaved = props.globals.getNode("/instrumentation/nav[0]/slaved-to-gps", 1);
+	]]></open>
+  
+    </nasal>
+    <name>gps</name>
+    <layout>vbox</layout>
+    <group>
+      <layout>hbox</layout>
+      <empty><stretch>1</stretch></empty>
+
+      <text>
+        <label>GPS</label>
+      </text>
+
+      <empty><stretch>1</stretch></empty>
+
+      <button>
+        <pref-width>16</pref-width>
+        <pref-height>16</pref-height>
+        <legend></legend>
+        <keynum>27</keynum>
+        <border>2</border>
+        <binding>
+          <command>dialog-close</command>
+        </binding>
+      </button>
+    </group>
+    <hrule/>
+    <!-- show current state -->
+    <group>
+        <layout>table</layout>
+        <text>
+            <row>0</row>
+            <col>0</col>
+            <label>MMMM</label>
+            <format>Mode: %s</format>
+            <property>/instrumentation/gps/mode</property>
+            <live>true</live>
+        </text>
+        <text>
+            <visible>
+                <equals>
+                    <property>/instrumentation/gps/mode</property>
+                    <value>leg</value>
+                </equals>
+            </visible>
+            <row>0</row>
+            <col>1</col>
+            <label>MMM</label>
+            <format>Current Route Wp: %03d</format>
+            <property>/autopilot/route-manager/current-wp</property>
+            <live>true</live>
+        </text>
+        <text>
+            <visible>
+                <not>
+                    <equals>
+                        <property>/instrumentation/gps/mode</property>
+                        <value>leg</value>
+                    </equals>
+                </not>
+            </visible>
+            <row>0</row>
+            <col>1</col>
+            <label>MMM</label>
+            <format>Desired Course: %5.1f*</format>
+            <property>/instrumentation/gps/desired-course-deg</property>
+            <live>true</live>
+        </text>
+        <text>
+            <row>0</row>
+            <col>2</col>
+            <label>MMM</label>
+            <format>Xtrack: %5.2fnm</format>
+            <property>/instrumentation/gps/wp/wp[1]/course-error-nm</property>
+            <live>true</live>
+        </text>
+        <text>
+            <row>1</row>
+            <col>0</col>
+            <label>MMMMMM</label>
+            <format>Longitude: %6.3f</format>
+            <property>/instrumentation/gps/indicated-longitude-deg</property>
+            <live>true</live>
+        </text>
+        <text>
+            <row>1</row>
+            <col>1</col>
+            <label>MMMMMM</label>
+            <format>Latitude: %6.3f</format>
+            <property>/instrumentation/gps/indicated-latitude-deg</property>
+            <live>true</live>
+        </text>
+        <text>
+            <row>1</row>
+            <col>2</col>
+            <label>MMMMMM</label>
+            <format>Altitude: %6.0fft</format>
+            <property>/instrumentation/gps/indicated-altitude-ft</property>
+            <live>true</live>
+        </text>
+        <text>
+            <row>2</row>
+            <col>0</col>
+            <label>MMMM</label>
+            <format>Groundspeed: %4.0fkts</format>
+            <property>/instrumentation/gps/indicated-ground-speed-kt</property>
+            <live>true</live>
+        </text>
+        <text>
+            <row>2</row>
+            <col>1</col>
+            <label>MMM</label>
+            <format>Track: %3.0f*</format>
+            <property>/instrumentation/gps/indicated-track-magnetic-deg</property>
+            <live>true</live>
+        </text>
+        <text>
+            <row>2</row>
+            <col>2</col>
+            <label>MMMMMM</label>
+            <format>VS: %4.0ffpm</format>
+            <property>/instrumentation/gps/indicated-vertical-speed</property>
+            <live>true</live>
+        </text>
+        <text>
+            <row>3</row>
+            <col>0</col>
+            <label>MMMM</label>
+            <format>Odometer: %4.1fnm</format>
+            <property>/instrumentation/gps/odometer</property>
+            <live>true</live>
+        </text>
+        <text>
+            <row>3</row>
+            <col>1</col>
+            <label>MMMM</label>
+            <format>RAIM: %3.2f</format>
+            <property>/instrumentation/gps/raim</property>
+            <live>true</live>
+        </text>
+        <!-- mode dependent properties -->
+        <text>
+            <row>4</row>
+            <col>0</col>
+            <label>MMMMMM</label>
+            <format>Ident: %s</format>
+            <property>/instrumentation/gps/wp/wp[1]/ID</property>
+            <live>true</live>
+        </text>
+        <text>
+            <row>4</row>
+            <col>1</col>
+            <colspan>2</colspan>
+            <label>MMMMMMMMMMM</label>
+            <format>Name: %s</format>
+            <property>/instrumentation/gps/wp/wp[1]/name</property>
+            <live>true</live>
+        </text>
+        <text>
+            <row>5</row>
+            <col>0</col>
+            <label>MMMMMM</label>
+            <format>Longitude: %6.3f</format>
+            <property>/instrumentation/gps/wp/wp[1]/longitude-deg</property>
+            <live>true</live>
+        </text>
+        <text>
+            <row>5</row>
+            <col>1</col>
+            <label>MMMMMM</label>
+            <format>Latitude: %6.3f</format>
+            <property>/instrumentation/gps/wp/wp[1]/latitude-deg</property>
+            <live>true</live>
+        </text>
+        <text>
+            <row>5</row>
+            <col>2</col>
+            <label>MMMMMM</label>
+            <format>Altitude: %6.0fft</format>
+            <property>/instrumentation/gps/wp/wp[1]/altitude-ft</property>
+            <live>true</live>
+        </text>
+        <!-- distance / bearing info -->
+        <text>
+            <row>6</row>
+            <col>0</col>
+            <label>MMMMMM</label>
+            <format>Bearing: %3.0f</format>
+            <property>/instrumentation/gps/wp/wp[1]/bearing-mag-deg</property>
+            <live>true</live>
+        </text>
+        <text>
+            <row>6</row>
+            <col>1</col>
+            <label>MMMMMM</label>
+            <format>Distance: %5.2fnm</format>
+            <property>/instrumentation/gps/wp/wp[1]/distance-nm</property>
+            <live>true</live>
+        </text>
+        <text>
+            <row>6</row>
+            <col>2</col>
+            <label>MMMMMMMM</label>
+            <format>TTW: %s</format>
+            <property>/instrumentation/gps/wp/wp[1]/TTW</property>
+            <live>true</live>
+        </text>
+        <text>
+            <visible>
+                <equals>
+                    <property>/instrumentation/gps/mode</property>
+                    <value>leg</value>
+                </equals>
+            </visible>
+            <row>7</row>
+            <col>0</col>
+            <label>MMMMMM</label>
+            <format>Leg Course: %3.0f</format>
+            <property>/instrumentation/gps/wp/leg-mag-course-deg</property>
+            <live>true</live>
+        </text>
+        <text>
+            <visible>
+                <equals>
+                    <property>/instrumentation/gps/mode</property>
+                    <value>leg</value>
+                </equals>
+            </visible>
+            <row>7</row>
+            <col>1</col>
+            <label>MMMMMM</label>
+            <format>Leg Distance: %5.1fnm</format>
+            <property>/instrumentation/gps/wp/leg-distance-nm</property>
+            <live>true</live>
+        </text>
+        <text>
+            <visible>
+                <equals>
+                    <property>/instrumentation/gps/mode</property>
+                    <value>obs</value>
+                </equals>
+                <property>/instrumentation/gps/to-flag</property>
+            </visible>
+            <row>7</row>
+            <col>0</col>
+            <label>TO</label>
+        </text>
+        <text>
+            <visible>
+                <equals>
+                    <property>/instrumentation/gps/mode</property>
+                    <value>obs</value>
+                </equals>
+                <property>/instrumentation/gps/from-flag</property>
+            </visible>
+            <row>7</row>
+            <col>0</col>
+            <label>FROM</label>
+        </text>
+    </group>
+    <hrule/>
+    <!--  ident text field, type combo, next/prev paging buttons
+		nearest and search buttons
+	-->
+    <group>
+        <layout>hbox</layout>
+        <valign>fill</valign>
+        <group>
+            <layout>vbox</layout>
+            <group>
+                <layout>hbox</layout>
+                <valign>fill</valign>
+                <text>
+                    <label>Type:</label>
+                    <pref-width>80</pref-width>
+                </text>
+                <combo>
+                    <name>searchType</name>
+                    <property>/sim/gui/dialogs/gps/search-type</property>
+                    <value>any</value>
+                    <value>airport</value>
+                    <value>vor</value>
+                    <value>ndb</value>
+                    <value>fix</value>
+                    <value>wpt</value>
+                    <value>city</value>
+                    <value>town</value>
+                    <live>true</live>
+                    <binding>
+                        <command>dialog-apply</command>
+                    </binding>
+                </combo>
+            </group>
+            <group>
+                <layout>hbox</layout>
+                <valign>fill</valign>
+                <text>
+                    <label>Search:</label>
+                    <pref-width>80</pref-width>
+                </text>
+                <input>
+                    <name>search-query</name>
+                    <halign>fill</halign>
+                    <stretch>true</stretch>
+                    <pref-width>150</pref-width>
+                    <live>true</live>
+                    <property>/sim/gui/dialogs/gps/search-query</property>
+                    <binding>
+                        <command>dialog-apply</command>
+                    </binding>
+                </input>
+            </group>
+            <group>
+                <layout>hbox</layout>
+                <valign>fill</valign>
+                <button>
+                    <legend>Search</legend>
+                    <binding>
+                        <command>nasal</command>
+                        <script>doSearch()</script>
+                    </binding>
+                </button>
+                <button>
+                    <legend>Search Names</legend>
+                    <binding>
+                        <command>nasal</command>
+                        <script>doSearchNames()</script>
+                    </binding>
+                </button>
+                <button>
+                    <legend>Nrst</legend>
+                    <binding>
+                        <command>nasal</command>
+                        <script>doSearchNearest()</script>
+                    </binding>
+                </button>
+                <button>
+                    <enable>
+                        <property>/autopilot/route-manager/active</property>
+                    </enable>
+                    <legend>Actv RTE WPT</legend>
+                    <binding>
+                        <command>nasal</command>
+                        <script>doLoadRouteWaypoint()</script>
+                    </binding>
+                </button>
+                <empty>
+                    <stretch>true</stretch>
+                </empty>
+            </group>
+        </group>
+        <vrule/>
+        <group>
+            <visible>
+                <property>/sim/gui/dialogs/gps/scratch/valid</property>
+            </visible>
+            <layout>table</layout>
+            <text>
+                <row>0</row>
+                <col>0</col>
+                <label>MMMMMM</label>
+                <format>Ident: %s</format>
+                <property>/instrumentation/gps/scratch/ident</property>
+                <live>true</live>
+            </text>
+            <text>
+                <row>0</row>
+                <col>1</col>
+                <colspan>2</colspan>
+                <label>MMMMMMMMMMM</label>
+                <format>Name: %s</format>
+                <property>/instrumentation/gps/scratch/name</property>
+                <live>true</live>
+            </text>
+            <text>
+                <row>1</row>
+                <col>0</col>
+                <label>MMMMMM</label>
+                <format>Lon: %6.3f</format>
+                <property>/instrumentation/gps/scratch/longitude-deg</property>
+                <live>true</live>
+            </text>
+            <text>
+                <row>1</row>
+                <col>1</col>
+                <label>MMMMMM</label>
+                <format>Lat: %6.3f</format>
+                <property>/instrumentation/gps/scratch/latitude-deg</property>
+                <live>true</live>
+            </text>
+            <text>
+                <row>1</row>
+                <col>2</col>
+                <label>MMMMMM</label>
+                <format>Alt: %6.0fft</format>
+                <property>/instrumentation/gps/scratch/altitude-ft</property>
+                <live>true</live>
+            </text>
+            <!-- distance / bearing info -->
+            <text>
+                <row>2</row>
+                <col>0</col>
+                <label>MMMMMM</label>
+                <format>Bearing: %3.0f</format>
+                <property>/sim/gui/dialogs/gps/scratch-mag-bearing-deg</property>
+                <live>true</live>
+            </text>
+            <text>
+                <row>2</row>
+                <col>1</col>
+                <label>MMMMMM</label>
+                <format>Distance: %5.1fnm</format>
+                <property>/sim/gui/dialogs/gps/scratch-distance-nm</property>
+                <live>true</live>
+            </text>
+            <!-- navaid info -->
+            <text>
+                <visible>
+                    <equals>
+                        <property>/instrumentation/gps/scratch/type</property>
+                        <value>vor</value>
+                    </equals>
+                </visible>
+                <row>3</row>
+                <col>0</col>
+                <label>MMMMMM</label>
+                <format>Frequency: %5.1fMhz</format>
+                <property>/instrumentation/gps/scratch/frequency-mhz</property>
+                <live>true</live>
+            </text>
+            <text>
+                <visible>
+                    <equals>
+                        <property>/instrumentation/gps/scratch/type</property>
+                        <value>ndb</value>
+                    </equals>
+                </visible>
+                <row>3</row>
+                <col>0</col>
+                <label>MMMMMM</label>
+                <format>Frequency: %5.1fKhz</format>
+                <property>/instrumentation/gps/scratch/frequency-khz</property>
+                <live>true</live>
+            </text>
+            <!-- prev/next buttons -->
+            <button>
+                <enable>
+                    <greater-than>
+                        <property>/sim/gui/dialogs/gps/scratch-index</property>
+                        <value>0</value>
+                    </greater-than>
+                </enable>
+                <row>5</row>
+                <col>0</col>
+                <legend>Prev</legend>
+                <key>left</key>
+                <binding>
+                    <command>nasal</command>
+                    <script>doScratchPrevious()</script>
+                </binding>
+            </button>
+            <button>
+                <enable>
+                    <property>/sim/gui/dialogs/gps/scratch-has-next</property>
+                </enable>
+                <row>5</row>
+                <col>1</col>
+                <legend>Next</legend>
+                <key>right</key>
+                <binding>
+                    <command>nasal</command>
+                    <script>doScratchNext()</script>
+                </binding>
+            </button>
+        </group>
+    </group>
+    <hrule/>
+    <group>
+        <layout>hbox</layout>
+        <halign>fill</halign>
+        <default-padding>6</default-padding>
+        <button>
+            <legend>LEG</legend>
+            <equal>true</equal>
+            <binding>
+                <command>nasal</command>
+                <script>cmd.setValue("leg")</script>
+            </binding>
+        </button>
+        <button>
+            <legend>DTO</legend>
+            <binding>
+                <command>nasal</command>
+                <script>cmd.setValue("direct")</script>
+            </binding>
+        </button>
+        <button>
+            <legend>OBS</legend>
+            <binding>
+                <command>nasal</command>
+                <script>cmd.setValue("obs")</script>
+            </binding>
+        </button>
+        <text>
+            <visible>
+                <equals>
+                    <property>/instrumentation/gps/mode</property>
+                    <value>obs</value>
+                </equals>
+            </visible>
+            <pref-width>100</pref-width>
+            <label>MMM</label>
+            <format>Selected Course: %03d*</format>
+            <property>/instrumentation/gps/selected-course-deg</property>
+            <live>true</live>
+        </text>
+        <dial>
+            <visible>
+                <equals>
+                    <property>/instrumentation/gps/mode</property>
+                    <value>obs</value>
+                </equals>
+            </visible>
+            <pref-width>30</pref-width>
+            <pref-height>30</pref-height>
+            <wrap>true</wrap>
+            <min>0</min>
+            <max>359</max>
+            <stretch>true</stretch>
+            <property>/instrumentation/gps/selected-course-deg</property>
+            <binding>
+                <command>dialog-apply</command>
+            </binding>
+        </dial>
+        <empty>
+            <stretch>true</stretch>
+        </empty>
+        <checkbox>
+            <halign>left</halign>
+            <label>NAV1 Slave</label>
+            <property>/instrumentation/nav[0]/slaved-to-gps</property>
+            <binding>
+                <command>dialog-apply</command>
+            </binding>
+        </checkbox>
+        <button>
+            <legend>Close</legend>
+            <default>true</default>
+            <key>Esc</key>
+            <binding>
+                <command>dialog-close</command>
+            </binding>
+        </button>
+    </group>
+</PropertyList>

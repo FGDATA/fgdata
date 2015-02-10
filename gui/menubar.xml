@@ -1,0 +1,840 @@
+<?xml version="1.0"?>
+<PropertyList>
+
+	<menu>
+		<name>file</name>
+
+		<item>
+			<name>reset</name>
+			<key>Shift-Esc</key>
+			<binding>
+				<command>reset</command>
+			</binding>
+		</item>
+
+		<item>
+			<name>load-tape</name>
+			<key>Shift-F1</key>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>flight-recorder-load</dialog-name>
+			</binding>
+		</item>
+
+		<item>
+			<name>save-tape</name>
+			<key>Shift-F2</key>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>flight-recorder-save</dialog-name>
+			</binding>
+		</item>
+
+		<item>
+			<name>snap-shot</name>
+			<key>F3</key>
+			<binding>
+				<command>nasal</command>
+				<script>
+					gui.popdown();
+					fgcommand("screen-capture");
+				</script>
+			</binding>
+		</item>
+
+		<item>
+			<name>snap-shot-dir</name>
+			<binding>
+				<command>nasal</command>
+				<script>gui.set_screenshotdir()</script>
+			</binding>
+		</item>
+
+		<item>
+			<name>sound-config</name>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>sound-dialog</dialog-name>
+			</binding>
+			<enabled>false</enabled>
+		</item>
+
+		<item>
+			<name>input-config</name>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>input-config</dialog-name>
+			</binding>
+		</item>
+        
+		<item>
+			<name>terrasync</name>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>terrasync</dialog-name>
+			</binding>
+		</item>
+
+		<item>
+			<name>aircraft-center</name>
+			<binding>
+				<command>nasal</command>
+				<script>
+				  canvas.loadDialog("AircraftCenter");
+				</script>
+			</binding>
+		</item>
+
+		<item>
+			<name>exit</name>
+			<key>Esc</key>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>exit</dialog-name>
+			</binding>
+		</item>
+	</menu>
+
+	<menu>
+		<name>view</name>
+
+		<item>
+			<name>toggle-fullscreen</name>
+			<key>Shift-F10</key>
+			<binding>
+				<command>toggle-fullscreen</command>
+			</binding>
+		</item>
+
+		<item>
+			<name>rendering-options</name>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>rendering</dialog-name>
+			</binding>
+		</item>
+
+		<item>
+			<name>view-options</name>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>view</dialog-name>
+			</binding>
+		</item>
+
+		<item>
+			<name>cockpit-view-options</name>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>cockpit-view</dialog-name>
+			</binding>
+		</item>
+
+		<item>
+			<name>adjust-lod</name>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>static-lod</dialog-name>
+			</binding>
+		</item>
+
+		<item>
+			<name>pilot-offset</name>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>pilot_offset</dialog-name>
+			</binding>
+		</item>
+
+		<item>
+			<name>adjust-hud</name>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>hud</dialog-name>
+			</binding>
+		</item>
+
+		<item>
+			<name>toggle-glide-slope</name>
+			<binding>
+				<command>nasal</command>
+				<script>
+					var p = "/sim/rendering/glide-slope-tunnel";
+					setprop(p, var i = !getprop(p));
+					gui.popupTip("Glide slope tunnel " ~ (i ? "enabled" : "disabled"));
+				</script>
+			</binding>
+		</item>
+
+		<item>
+			<name>replay</name>
+			<key>Ctrl-R</key>
+			<binding>
+				<command>replay</command>
+			</binding>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>replay</dialog-name>
+			</binding>
+		</item>
+
+		<item>
+			<label>Earthview orbital rendering</label>
+			<name>earthview</name>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>earthview</dialog-name>
+			</binding>
+			<enabled>true</enabled>
+		</item>
+
+		<item>
+			<name>stereoscopic-options</name>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>stereoscopic-view-options</dialog-name>
+			</binding>
+			<enabled>false</enabled>
+		</item>
+	</menu>
+
+	<menu>
+		<name>location</name>
+
+		<item>
+			<name>position-in-air</name>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>location-in-air</dialog-name>
+			</binding>
+		</item>
+
+		<item>
+			<name>goto-airport</name>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>airports</dialog-name>
+			</binding>
+		</item>
+
+		<item>
+			<name>random-attitude</name>
+			<binding>
+				<command>property-assign</command>
+				<property>/sim/presets/trim</property>
+				<value>false</value>
+			</binding>
+			<binding>
+				<command>property-randomize</command>
+				<property>/orientation/pitch-deg</property>
+				<min>0</min>
+				<max>360</max>
+			</binding>
+			<binding>
+				<command>property-randomize</command>
+				<property>/orientation/roll-deg</property>
+				<min>0</min>
+				<max>360</max>
+			</binding>
+			<binding>
+				<command>property-randomize</command>
+				<property>/orientation/heading-deg</property>
+				<min>0</min>
+				<max>360</max>
+			</binding>
+		</item>
+
+		<item>
+			<name>tower-position</name>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>location-of-tower</dialog-name>
+			</binding>
+		</item>
+
+	</menu>
+
+	<menu>
+		<name>autopilot</name>
+
+		<item>
+			<key>F11</key>
+			<name>autopilot-settings</name>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>autopilot</dialog-name>
+			</binding>
+		</item>
+
+		<item>
+			<name>route-manager</name>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>route-manager</dialog-name>
+			</binding>
+		</item>
+
+		<item>
+			<name>previous-waypoint</name>
+			<binding>
+				<command>nasal</command>
+				<script>setprop("/autopilot/route-manager/input", "@previous")</script>
+			</binding>
+		</item>
+
+		<item>
+			<name>next-waypoint</name>
+			<binding>
+				<command>nasal</command>
+				<script>setprop("/autopilot/route-manager/input", "@next")</script>
+			</binding>
+		</item>
+	</menu>
+
+	<menu>
+		<name>environment</name>
+		
+		<item>
+			<name>global-weather</name>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>weather</dialog-name>
+			</binding>
+		</item>
+
+		<item>
+			<name>environment-settings</name>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>environment-settings</dialog-name>
+			</binding>
+		</item>
+
+		<item>
+			<name>time-settings</name>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>timeofday</dialog-name>
+			</binding>
+		</item>
+
+		<item>
+			<name>wildfire-settings</name>
+			<binding>
+				<command>nasal</command>
+				<script>wildfire.dialog.show()</script>
+			</binding>
+		</item>
+	</menu>
+
+	<menu>
+		<name>equipment</name>
+
+		<item>
+			<name>map</name>
+            		<key>Ctrl-M</key>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>map</dialog-name>
+			</binding>
+		</item>
+
+		<item>
+			<name>map-canvas</name>
+            		<!-- <key>Ctrl-M</key> -->
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>map-canvas</dialog-name>
+			</binding>
+		</item>
+
+		<item>
+			<name>map-browser</name>
+			<binding>
+				<command>nasal</command>
+                                <script>
+                                  var n = props.globals.getNode("/sim/http/running");
+                                  if( props.globals.getNode("/").getValue("sim/http/running",0) != 1 ) {
+                                    gui.popupTip("Internal webserver not running. Restart FlightGear with -httpd=8080", 5.0);
+                                  } else {
+                                    var _url = "http://localhost:" ~ getprop("/sim/http/options/listening-port") ~ "/gui/map/";
+                                    fgcommand("open-browser", props.Node.new({ "url": _url }));
+                                  }
+                                </script>
+			</binding>
+		</item>
+
+
+		<item>
+			<name>stopwatch</name>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>stopwatch-dialog</dialog-name>
+			</binding>
+		</item>
+
+		<item>
+			<name>fuel-and-payload</name>
+			<binding>
+				<command>nasal</command>
+				<script>gui.showWeightDialog()</script>
+			</binding>
+		</item>
+
+		<item>
+			<key>F12</key>
+			<name>radio</name>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>radios</dialog-name>
+			</binding>
+		</item>
+
+		<item>
+			<name>gps</name>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>gps</dialog-name>
+			</binding>
+		</item>
+
+		<item>
+			<name>instrument-settings</name>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>instruments</dialog-name>
+			</binding>
+		</item>
+
+		<item>
+			<name>failure-submenu</name>
+			<enabled>false</enabled>
+		</item>
+
+		<item>
+			<name>random-failures</name>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>random-failures</dialog-name>
+			</binding>
+		</item>
+
+		<item>
+			<name>system-failures</name>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>system-failures</dialog-name>
+			</binding>
+		</item>
+
+		<item>
+			<name>instrument-failures</name>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>instrument-failures</dialog-name>
+			</binding>
+		</item>
+	</menu>
+
+	<menu>
+		<name>ai</name>
+
+		<item>
+			<name>scenario</name>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>scenario</dialog-name>
+			</binding>
+		</item>
+
+		<item>
+			<name>atc-in-range</name>
+			<binding>
+				<command>ATC-freq-search</command>
+			</binding>
+		</item>
+
+		<item>
+			<name>wingman</name>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>formation</dialog-name>
+			</binding>
+		</item>
+
+		<item>
+			<name>tanker</name>
+			<enabled>false</enabled>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>tanker</dialog-name>
+			</binding>
+		</item>
+
+		<item>
+			<name>carrier</name>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>AIcarrier</dialog-name>
+			</binding>
+		</item>
+
+		<item>
+			<name>jetway</name>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>jetways</dialog-name>
+			</binding>
+		</item>
+
+	</menu>
+
+	<menu>
+		<name>multiplayer</name>
+
+		<item>
+			<name>mp-settings</name>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>multiplayer</dialog-name>
+			</binding>
+		</item>
+
+		<item>
+			<name>fgcom-settings</name>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>fgcom</dialog-name>
+			</binding>
+		</item>
+
+		<item>
+			<name>mp-chat</name>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>chat-full</dialog-name>
+			</binding>
+		</item>
+
+		<item>
+			<key>-</key>
+			<name>mp-chat-menu</name>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>chat-menu</dialog-name>
+			</binding>
+		</item>
+
+		<item>
+			<name>mp-list</name>
+			<binding>
+				<command>nasal</command>
+				<script>multiplayer.dialog.show()</script>
+			</binding>
+		</item>
+
+		<item>
+			<name>mp-carrier</name>
+			<binding>
+				<command>nasal</command>
+				<script>
+					if (contains(globals, "MPCarriers")) {
+						MPCarriers.carrier_dialog.show();
+					} else {
+						gui.popupTip("Found no MPCarriers for activated carrier AI scenarios within range.", 5.0);
+					}
+				</script>
+			</binding>
+		</item>
+
+	</menu>
+
+	<menu>
+		<name>debug</name>
+
+		<item>
+			<name>reload-gui</name>
+			<binding>
+				<command>reinit</command>
+				<subsystem>gui</subsystem>
+			</binding>
+		</item>
+
+		<item>
+			<name>reload-input</name>
+			<binding>
+				<command>reinit</command>
+				<subsystem>input</subsystem>
+			</binding>
+		</item>
+
+		<item>
+			<name>reload-hud</name>
+			<binding>
+				<command>reinit</command>
+				<subsystem>hud</subsystem>
+			</binding>
+		</item>
+
+		<item>
+			<name>reload-panel</name>
+			<binding>
+				<command>panel-load</command>
+			</binding>
+		</item>
+
+		<item>
+			<name>reload-autopilot</name>
+			<binding>
+				<command>reinit</command>
+				<subsystem>xml-autopilot</subsystem>
+			</binding>
+		</item>
+
+		<item>
+			<name>reload-network</name>
+			<binding>
+				<command>reinit</command>
+				<subsystem>io</subsystem>
+			</binding>
+		</item>
+
+		<item>
+			<name>reload-model</name>
+			<binding>
+				<command>reinit</command>
+				<subsystem>aircraft-model</subsystem>
+		        </binding>
+		</item>
+
+		<item>
+			<name>reload-materials</name>
+			<binding>
+				<command>reload-materials</command>
+			</binding>
+		</item>
+
+		<item>
+			<name>reload-scenery</name>
+			<binding>
+				<command>reinit</command>
+				<subsystem>tile-manager</subsystem>
+			</binding>
+		</item>
+
+		<item>
+			<name>nasal-console</name>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>nasal-console</dialog-name>
+			</binding>
+		</item>
+
+		<item>
+			<name>nasal-repl-interpreter</name>
+			<binding>
+				<command>nasal</command>
+				<script>console.CanvasPlacement.new()</script>
+			</binding>
+		</item>
+
+		<item>
+			<name>development-keys</name>
+			<binding>
+				<command>nasal</command>
+				<script>gui.showHelpDialog("/sim/help/debug")</script>
+			</binding>
+		</item>
+
+		<item>
+			<name>configure-dev-extension</name>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>devel-extensions</dialog-name>
+			</binding>
+		</item>
+
+		<item>
+			<name>display-marker</name>
+			<binding>
+				<command>nasal</command>
+				<script>
+					setprop("/nasal/tutorial/enabled",1); # load module on demand
+					tutorial.dialog();
+				</script>
+			</binding>
+		</item>
+
+		<item>
+			<name>dump-scene-graph</name>
+			<binding>
+				<command>dump-scenegraph</command>
+			</binding>
+		</item>
+
+		<item>
+			<name>print-rendering-statistics</name>
+			<binding>
+				<command>property-assign</command>
+				<property>/sim/rendering/print-statistics</property>
+				<value>true</value>
+			</binding>
+		</item>
+
+		<item>
+			<name>statistics-display</name>
+			<binding>
+				<command>property-adjust</command>
+				<property>/sim/rendering/on-screen-statistics</property>
+				<step type="int">1</step>
+			</binding>
+		</item>
+
+		<item>
+			<name>performance-monitor</name>
+			<binding>
+				<command>property-assign</command>
+				<property>/nasal/performance_monitor/enabled</property>
+				<value>true</value>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>performance_monitor.dialog.show()</script>
+			</binding>
+		</item>
+
+		<item>
+			<name>property-browser</name>
+			<binding>
+				<command>nasal</command>
+				<script>gui.property_browser()</script>
+			</binding>
+		</item>
+
+		<item>
+			<name>logging</name>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>logging</dialog-name>
+			</binding>
+		</item>
+
+		<item>
+			<name>local_weather</name>
+			<enabled>false</enabled>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>local_weather</dialog-name>
+			</binding>
+		</item>
+
+		<item>
+			<name>print-scene-info</name>
+			<binding>
+				<command>print-visible-scene</command>
+			</binding>
+		</item>
+
+		<item>
+			<name>rendering-buffers</name>
+			<binding>
+				<command>property-toggle</command>
+				<property>/sim/rendering/rembrandt/show-buffers</property>
+			</binding>
+			<enabled>false</enabled>
+		</item>
+
+		<item>
+			<name>rembrandt-buffers-choice</name>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>rembrandt-buffers</dialog-name>
+			</binding>
+			<enabled>false</enabled>
+		</item>
+
+	</menu>
+
+	<menu>
+		<name>help</name>
+
+		<item>
+			<name>help-browser</name>
+			<binding>
+				<command>open-browser</command>
+				<path>Docs/index.html</path>
+			</binding>
+		</item>
+
+		<item>
+			<name>doc-browser</name>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>doc-browser</dialog-name>
+			</binding>
+		</item>
+
+		<item>
+			<key>?</key>
+			<name>aircraft-keys</name>
+			<binding>
+				<command>nasal</command>
+				<script>gui.showHelpDialog("/sim/help")</script>
+			</binding>
+		</item>
+		
+		<item>
+			<name>aircraft-checklists</name>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>checklist</dialog-name>
+			</binding>
+		</item>
+
+		<item>
+			<name>common-keys</name>
+			<binding>
+				<command>nasal</command>
+				<script>gui.showHelpDialog("/sim/help/common")</script>
+			</binding>
+		</item>
+
+		<item>
+			<name>basic-keys</name>
+			<binding>
+				<command>nasal</command>
+				<script>gui.showHelpDialog("/sim/help/basic")</script>
+			</binding>
+		</item>
+
+		<item>
+			<name>joystick-config</name>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>joystick-config</dialog-name>
+			</binding>
+		</item>
+
+		<item>
+			<label>------------------</label>
+			<enabled>false</enabled>
+		</item>
+
+		<item>
+			<name>tutorial-start</name>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>tutorial</dialog-name>
+			</binding>
+		</item>
+
+		<item>
+			<name>menu-about</name>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>about</dialog-name>
+			</binding>
+		</item>
+	</menu>
+
+</PropertyList>

@@ -1,0 +1,168 @@
+<?xml version="1.0"?>
+<!--
+ This file is part of FlightGear, the free flight simulator
+ http://www.flightgear.org/
+
+ Copyright (C) 2010 Torsten Dreyer, Torsten (at) t3r _dot_ de
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation; either version 2 of the
+ License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+-->
+
+<PropertyList>
+  <name>scenario</name>
+  <modal>false</modal>
+  <layout>vbox</layout>
+  <resizable>false</resizable>
+  <default-padding>3</default-padding>
+
+  <group>
+    <layout>hbox</layout>
+    <default-padding>1</default-padding>
+
+    <empty><stretch>true</stretch></empty>
+
+    <text>
+      <label>AI Traffic and Scenario Settings</label>
+    </text>
+
+    <empty><stretch>true</stretch></empty>
+
+    <button>
+      <legend></legend>
+      <key>Esc</key>
+      <pref-width>16</pref-width>
+      <pref-height>16</pref-height>
+      <border>2</border>
+      <binding>
+        <command>dialog-close</command>
+      </binding>
+    </button>
+  </group>
+
+  <hrule/>
+
+  <checkbox>
+    <halign>left</halign>
+    <label>Enable AI traffic</label>
+    <name>enable-ai-traffic</name>
+    <property>/sim/traffic-manager/enabled</property>
+    <live>true</live>
+    <binding>
+        <command>dialog-apply</command>
+        <object-name>enable-ai-traffic</object-name>
+    </binding>
+  </checkbox>
+
+  <text><label/></text>
+
+  <text>
+    <label>Choose active scenario(s) </label>
+  </text>
+
+  <hrule/>
+
+  <group>
+    <layout>hbox</layout>
+
+    <group>
+      <name>left-column</name>
+      <layout>vbox</layout>
+    </group>
+
+    <group>
+      <layout>vbox</layout>
+      <name>right-column</name>
+    </group>
+
+  </group>
+
+  <hrule/>
+
+  <group>
+    <layout>hbox</layout>
+      <halign>center</halign>
+
+    <button>
+      <legend>Close</legend>
+      <key>Esc</key>
+      <binding>
+        <command>dialog-close</command>
+      </binding>
+    </button>
+
+    <empty><stretch>true</stretch></empty>
+  </group>
+
+  <nasal>
+    <open><![CDATA[
+      var dlg_root = cmdarg();
+
+      var isEnabledScenario = func(scenario) {
+        foreach( var n; props.globals.getNode("sim/ai",1).getChildren("scenario") )
+          if( n.getValue() == scenario )
+            return 1;
+        return 0;
+      };
+
+      var columns = [ "left-column", "right-column" ];
+      var processScenario = func(nr,file, rootN) {
+        var scenarioN = rootN.getNode("scenario");
+        if( scenarioN == nil ) return;
+        var descriptionN = rootN.getNode("description");
+        var nameN = rootN.getNode("name");
+        if( (descriptionN == nil)and(nameN == nil) )
+        {
+          descriptionN = scenarioN.getNode("description");
+          nameN = scenarioN.getNode("name");
+        }
+        var description = descriptionN != nil ? descriptionN.getValue() : "";
+        var propertyRoot = props.globals.getNode("sim/gui/dialogs/scenario",1).getChild( "scenario", nr, 1 );
+        propertyRoot.getNode("selected",1).setBoolValue(isEnabledScenario(file));
+        propertyRoot.getNode("name",1).setValue(file);
+
+        var group = gui.findElementByName( dlg_root, columns[math.mod(nr,2)] ).getChild("group", nr, 1 );
+        group.getNode("layout",1).setValue("hbox");
+        var cb = group.getNode("checkbox",1);
+        cb.getNode("property",1).setValue(propertyRoot.getNode("selected").getPath());
+        var label = string.replace(file, "_", " ");
+        if (nameN != nil)
+            label = nameN.getValue();
+        
+        cb.getNode("label",1).setValue(label);
+        cb.getNode("name",1).setValue(file);
+        
+        var applyBind = cb.addChild("binding", 0);
+        applyBind.getNode("command", 1).setValue("dialog-apply");
+        
+        var bind = cb.addChild("binding", 1);
+        bind.getNode("command", 1).setValue("load-scenario");
+        bind.getNode("name", 1).setValue(file);
+        bind.getNode("load-property", 1).setValue(propertyRoot.getNode("selected").getPath());
+        
+        #cb.getNode("enable/property",1).setValue("/sim/ai/scenarios-enabled");
+        
+        group.getNode("empty",1).getNode("stretch",1).setValue("true");
+      }
+
+      var path = getprop("/sim/fg-root") ~ "/AI";
+      var i = -1;
+      foreach(var file; sort(directory(path), cmp))
+        if(size(file) > 4 and substr(file, -4) == ".xml")
+          processScenario( i+=1, substr(file,0,size(file)-4), io.read_properties(path ~ "/" ~ file) );
+
+    ]]></open>
+
+    <close><![CDATA[
+    ]]></close>
+
+  </nasal>
+</PropertyList>
+

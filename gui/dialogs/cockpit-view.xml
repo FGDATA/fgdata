@@ -1,0 +1,240 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+  <name>cockpit-view</name>
+  <layout>vbox</layout>
+  <modal>false</modal>
+
+  <group>
+    <layout>hbox</layout>
+	<empty><stretch>1</stretch></empty>
+
+    <text>
+      <label>Cockpit View Options</label>
+    </text>
+
+	<empty><stretch>1</stretch></empty>
+
+	<button>
+	  <pref-width>16</pref-width>
+	  <pref-height>16</pref-height>
+	  <legend></legend>
+	  <keynum>27</keynum>
+	  <border>2</border>
+	  <binding>
+	  	<command>dialog-close</command>
+	  </binding>
+	</button>
+
+  </group>
+
+  <hrule/>
+
+  <checkbox>
+    <halign>left</halign>
+    <label>Enable dynamic cockpit view</label>
+    <property>/sim/current-view/dynamic-view</property>
+    <binding>
+      <command>dialog-apply</command>
+    </binding>
+  </checkbox>
+
+  <checkbox>
+    <halign>left</halign>
+    <label>Enable view movement due to G-force</label>
+    <property>/sim/rendering/headshake/enabled</property>
+    <binding>
+      <command>dialog-apply</command>
+    </binding>
+  </checkbox>
+
+  <checkbox>
+    <halign>left</halign>
+    <label>Enable Blackout and Redout due to G-force</label>
+    <property>/sim/rendering/redout/enabled</property>
+    <binding>
+      <command>dialog-apply</command>
+    </binding>
+  </checkbox>
+
+  <hrule/>
+
+  <text>
+    <halign>center</halign>
+    <label>Blackout</label>
+    <enable>
+      <property>/sim/rendering/redout/enabled</property>
+    </enable>
+  </text>
+
+  <group>
+    <layout>table</layout>
+    <text>
+      <row>0</row>
+      <col>0</col>
+      <label>Onset</label>
+      <enable>
+        <property>/sim/rendering/redout/enabled</property>
+      </enable>
+    </text>
+
+    <text>
+      <row>0</row>
+      <col>1</col>
+      <halign>center</halign>
+      <label>15.0</label>
+      <format>%2.1f</format>
+      <live>true</live>
+      <property>/sim/rendering/redout/parameters/blackout-onset-g</property>
+      <enable>
+        <property>/sim/rendering/redout/enabled</property>
+      </enable>
+    </text>
+
+    <slider>
+      <row>0</row>
+      <col>2</col>
+      <min>1.0</min>
+      <max>15</max>
+      <property>/sim/rendering/redout/parameters/blackout-onset-g</property>
+      <binding>
+        <command>dialog-apply</command>
+      </binding>
+      <enable>
+        <property>/sim/rendering/redout/enabled</property>
+      </enable>
+    </slider>
+
+    <text>
+      <row>1</row>
+      <col>0</col>
+      <label>Complete</label>
+      <enable>
+        <property>/sim/rendering/redout/enabled</property>
+      </enable>
+    </text>
+
+    <text>
+      <row>1</row>
+      <col>1</col>
+      <halign>center</halign>
+      <label>15.0</label>
+      <format>%2.1f</format>
+      <live>true</live>
+      <property>/sim/rendering/redout/parameters/blackout-complete-g</property>
+      <enable>
+        <property>/sim/rendering/redout/enabled</property>
+      </enable>
+    </text>
+
+    <slider>
+      <row>1</row>
+      <col>2</col>
+      <min>1.0</min>
+      <max>15</max>
+      <property>/sim/rendering/redout/parameters/blackout-complete-g</property>
+      <binding>
+        <command>dialog-apply</command>
+      </binding>
+      <enable>
+        <property>/sim/rendering/redout/enabled</property>
+      </enable>
+    </slider>
+  </group>
+
+  <hrule/>
+
+  <text>
+    <halign>center</halign>
+    <label>Redout</label>
+    <enable>
+      <property>/sim/rendering/redout/enabled</property>
+    </enable>
+  </text>
+
+  <group>
+    <layout>table</layout>
+    <text>
+      <row>0</row>
+      <col>0</col>
+      <label>Onset</label>
+      <enable>
+        <property>/sim/rendering/redout/enabled</property>
+      </enable>
+    </text>
+
+    <text>
+      <row>0</row>
+      <col>1</col>
+      <halign>center</halign>
+      <label>15.0</label>
+      <format>%2.1f</format>
+      <live>true</live>
+      <property>/sim/rendering/redout/parameters/redout-onset-g</property>
+      <enable>
+        <property>/sim/rendering/redout/enabled</property>
+      </enable>
+    </text>
+
+    <slider>
+      <row>0</row>
+      <col>2</col>
+      <min>-15.0</min>
+      <max>-1.0</max>
+      <property>/sim/rendering/redout/parameters/redout-onset-g</property>
+      <binding>
+        <command>dialog-apply</command>
+      </binding>
+      <enable>
+        <property>/sim/rendering/redout/enabled</property>
+      </enable>
+    </slider>
+
+    <text>
+      <row>1</row>
+      <col>0</col>
+      <label>Complete</label>
+      <enable>
+        <property>/sim/rendering/redout/enabled</property>
+      </enable>
+    </text>
+
+    <text>
+      <row>1</row>
+      <col>1</col>
+      <label>15.0</label>
+      <format>%2.1f</format>
+      <live>true</live>
+      <property>/sim/rendering/redout/parameters/redout-complete-g</property>
+      <enable>
+        <property>/sim/rendering/redout/enabled</property>
+      </enable>
+    </text>
+
+    <slider>
+      <row>1</row>
+      <col>2</col>
+      <min>-15.0</min>
+      <max>-1.0</max>
+      <property>/sim/rendering/redout/parameters/redout-complete-g</property>
+      <binding>
+        <command>dialog-apply</command>
+      </binding>
+      <enable>
+        <property>/sim/rendering/redout/enabled</property>
+      </enable>
+    </slider>
+  </group>
+
+  <hrule/>
+
+  <button>
+    <legend>Close</legend>
+    <default>true</default>
+    <key>Esc</key>
+    <binding>
+      <command>dialog-close</command>
+    </binding>
+  </button>
+
+</PropertyList>

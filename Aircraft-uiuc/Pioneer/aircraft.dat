@@ -1,0 +1,86 @@
+# Jeff Scott
+# IAI Pioneer
+# single piston engine unmanned aircraft (UAV)
+# This model was generated from wind tunnel tests done on a full 
+# scale model of the Pioneer UAV.  This version of the Pioneer 
+# utilizes stability derivatives (all constants).  Data is taken from
+#       Bray, Robert M.  A Wind Tunnel Investigation of the Pioneer 
+#         Remotely Piloted Vehicle.  Montery, CA:  Naval 
+#         Postgraduate School, June 1991.
+#       Selig, Michael S.  Pioneer aircraft notes.
+# 01-25-2000    file creation
+# 03-23-2000    corrected sign error on Cn_r
+
+init Dz_cg     2.5      # [ft]
+
+geometry bw   16.90     # [ft]        Bray pg 31
+geometry cbar  1.80     # [ft]        Bray pg 31
+geometry Sw   30.42     # [ft^2]      Bray pg 31
+#geometry iw    3        # [deg]       Bray pg 31
+#geometry bh    6.07     # [ft]        Bray pg 31
+#geometry ch    1.0      # [ft]        Bray pg 31
+#geometry Sh    6.07     # [sq-ft]     Bray pg 31
+#geometry ih   -3        # [deg]       Bray pg 31
+#geometry bv    2.17     # [ft]        Bray pg 31
+#geometry cv    6.07     # [ft]        Bray pg 31
+#geometry Sv    2.17     # [ft^2]      Bray pg 31
+
+controlSurface de 20 20 # [deg]       Bray pg 31
+controlSurface da 20 20 # [deg]       Bray pg 31
+controlSurface dr 20 20 # [deg]       Bray pg 31
+
+mass Weight  420        # [lb]        Bray pg 33
+mass I_xx     34.832    # [slug-ft^2] IAI, MSS notes
+mass I_yy     67.08     # [slug-ft^2] IAI, MSS notes
+mass I_zz     82.22     # [slug-ft^2] IAI, MSS notes
+mass I_xz     -4.902    # [slug-ft^2] IAI, MSS notes
+
+
+# aircraft specs: 27 hp
+#                ~100 lb static thrust
+engine simpleSingle 100 # [lb] guess
+
+
+CL CLo         0.385              # []          Bray pg 33
+CL CL_a        4.78               # [/rad]      Bray pg 33
+CL CL_adot     2.42               # [/rad]      Bray pg 33
+CL CL_q        8.05               # [/rad]      Bray pg 33
+CL CL_de       0.401              # [/rad]      Bray pg 33
+#CL CLfa CLfa.dat 0 1              #             Bray pg 50, Table 4.7
+#CL CLfade CLfade.dat 0 1 1        #             Bray pg 41, Table 4.4
+
+CD CDo         0.060              # []          Bray pg 33
+CD CD_a        0.430              # [/rad]      Bray pg 33
+CD CD_de       0.0180             # [/rad]      Bray pg 33
+#CD CDfa Cdfa.dat 0 1              #             Bray pg 50, Table 4.7
+#CD CDfade CDfade.dat 0 1 1        #             Bray pg 45, Table 4.6
+
+Cm Cmo         0.194              # []          Bray pg 33
+Cm Cm_a       -2.12               # [/rad]      Bray pg 33
+Cm Cm_adot   -11.0                # [/rad]      Bray pg 33
+Cm Cm_q      -36.6                # [/rad]      Bray pg 33
+Cm Cm_de      -1.76               # [/rad]      Bray pg 33
+#Cm Cmfade Cmfade.dat 0 1 1        #             Bray pg 34, Figure 4.2
+
+CY CY_beta    -0.819              # [/rad]      Bray pg 33
+#CY CY_p      <CY_p>               # [/rad]      no data
+#CY CY_r      <CY_r>               # [/rad]      no data
+#CY CY_da     <CY_da>              # [/rad]      no data
+CY CY_dr       0.191              # [/rad]      Bray pg 33
+#CY CYfada <CYfada.dat>            # []          no data
+#CY CYfbetadr CYfbetadr.dat 0 1 1  # []          Bray pg 62, Figure 4.19
+
+Cl Cl_beta    -0.023              # [/rad]      Bray pg 33
+Cl Cl_p       -0.450              # [/rad]      Bray pg 33
+Cl Cl_r        0.265              # [/rad]      Bray pg 33
+Cl Cl_da      -0.161              # [/rad]      Bray pg 33 (sign reversed)
+Cl Cl_dr      -0.00229            # [/rad]      Bray pg 33
+#Cl Clfada Clfada.dat 0 1 1        #             Bray pg 58, Table 4.8
+
+Cn Cn_beta     0.109              # [/rad]      Bray pg 33
+Cn Cn_p       -0.110              # [/rad]      Bray pg 33
+Cn Cn_r       -0.200              # [/rad]      Bray pg 33
+Cn Cn_da       0.0200             # [/rad]      Bray pg 33 (sign reversed)
+Cn Cn_dr      -0.0917             # [/rad]      Bray pg 33
+#Cn Cnfada Cnfada.dat 0 1 1        #             Bray pg 61, Table 4.9
+#Cn Cnfbetadr Cnfbetadr.dat 0 1 1  #             Bray pg 63, Figure 4.20

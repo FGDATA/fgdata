@@ -1,0 +1,32 @@
+# See: http://wiki.flightgear.org/MapStructure
+# Class things:
+var name = 'ALT-profile';
+var parents = [DotSym];
+var __self__ = caller(0)[0];
+DotSym.makeinstance( name, __self__ );
+
+SymbolLayer.get(name).df_style = {
+	radius: 13,
+};
+
+var element_type = "group";
+
+var init = func {
+	var name = me.model.getName();
+	var disptext = chr(string.toupper(name[0]))~"/"~chr(string.toupper(name[1]));
+	var radius = me.style.radius;
+	me.element.createChild("path")
+		.setStrokeLineWidth(5)
+		.moveTo(-radius, 0)
+	    .arcLargeCW(radius, radius, 0,  2 * radius, 0)
+	    .arcLargeCW(radius, radius, 0,  -2 * radius, 0)
+		.setColor(0.195,0.96,0.097);
+	me.element.createChild("text")
+		.setDrawMode( canvas.Text.TEXT )
+		.setText(disptext)
+		.setFont("LiberationFonts/LiberationSans-Regular.ttf")
+		.setFontSize(28)
+		.setTranslation(25,35)
+		.setColor(0.195,0.96,0.097);
+}
+

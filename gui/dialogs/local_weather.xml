@@ -1,0 +1,1024 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+ <!-- Cloud placement methods -->
+
+ <name>local_weather</name>
+ <width>800</width>
+ <height>600</height>
+ <modal>false</modal>
+
+
+
+
+<text>
+  <x>10</x>
+  <y>570</y>
+  <label>Place a single cloud</label>
+ </text>
+
+<group>
+  <x>0</x>
+  <y>550</y>
+
+  <text>
+   <x>10</x>
+   <y>0</y>
+   <label>Type</label>
+  </text>
+
+  <text>
+   <x>130</x>
+   <y>0</y>
+   <label>subtype</label>
+  </text>
+
+  <text>
+   <x>203</x>
+   <y>0</y>
+   <label>lat (deg)</label>
+  </text>
+
+  <text>
+   <x>276</x>
+   <y>0</y>
+   <label>lon (deg)</label>
+  </text>
+
+  <text>
+   <x>349</x>
+   <y>0</y>
+   <label>alt (ft)</label>
+  </text>
+
+  <text>
+   <x>422</x>
+   <y>0</y>
+   <label>dir (deg)</label>
+  </text>
+ </group>
+
+
+<group>
+  <x>0</x>
+  <y>525</y>
+
+
+<combo>
+   <x>10</x>
+   <y>0</y>
+   <width>117</width>
+   <height>25</height>
+   <live>true</live>
+   <property>/local-weather/tmp/scloud-type</property>
+   <value>Altocumulus</value>
+   <value>Cirrus</value>
+   <value>Cirrostratus</value>
+   <value>Cumulus</value>
+   <value>Cumulus (cloudlet)</value>
+   <value>Cumulonimbus</value>
+   <value>Fog (thin)</value>
+   <value>Fog (thick)</value>
+   <value>Nimbus</value>
+   <value>Stratus</value>
+   <value>Stratus (structured)</value>
+   <value>Stratus (thin)</value>
+   <value>Test</value>
+   <binding>
+    <command>dialog-apply</command>
+   </binding>
+  </combo>
+
+<combo>
+   <x>130</x>
+   <y>0</y>
+   <width>70</width>
+   <height>25</height>
+   <live>true</live>
+   <property>/local-weather/tmp/scloud-subtype</property>
+   <value>large</value>
+   <value>small</value>
+   <binding>
+    <command>dialog-apply</command>
+   </binding>
+  </combo>
+
+
+  <input>
+   <x>203</x>
+   <y>0</y>
+   <width>70</width>
+   <height>25</height>
+   <property>/local-weather/tmp/scloud-lat</property>
+  </input>
+
+  <input>
+   <x>276</x>
+   <y>0</y>
+   <width>70</width>
+   <height>25</height>
+   <property>/local-weather/tmp/scloud-lon</property>
+  </input>
+
+  <input>
+   <x>349</x>
+   <y>0</y>
+   <width>70</width>
+   <height>25</height>
+   <property>/local-weather/tmp/scloud-alt</property>
+  </input>
+
+  <input>
+   <x>422</x>
+   <y>0</y>
+   <width>70</width>
+   <height>25</height>
+   <property>/local-weather/tmp/scloud-dir</property>
+  </input>
+
+<button>
+   <x>500</x>
+   <y>0</y>
+   <legend>Place</legend>
+   <default>true</default>
+   <equal>true</equal>
+   <binding>
+    <command>dialog-apply</command>
+   </binding>
+   <binding>
+     <command>nasal</command>
+     <script>local_weather.single_cloud_wrapper()</script>
+   </binding>
+  </button>
+
+ </group>
+
+
+<text>
+  <x>10</x>
+  <y>485</y>
+  <label>Place a cloud streak</label>
+ </text>
+
+<group>
+  <x>0</x>
+  <y>465</y>
+
+  <text>
+   <x>10</x>
+   <y>0</y>
+   <label>Type</label>
+  </text>
+
+  <text>
+   <x>130</x>
+   <y>0</y>
+   <label>alt. (ft)</label>
+  </text>
+
+  <text>
+   <x>203</x>
+   <y>0</y>
+   <label>number x</label>
+  </text>
+
+  <text>
+   <x>276</x>
+   <y>0</y>
+   <label>Delta x (m)</label>
+  </text>
+
+  <text>
+   <x>349</x>
+   <y>0</y>
+   <label>x edge</label>
+  </text>
+
+  <text>
+   <x>422</x>
+   <y>0</y>
+   <label>number y</label>
+  </text>
+
+  <text>
+   <x>495</x>
+   <y>0</y>
+   <label>Delta y (m)</label>
+  </text>
+
+  <text>
+   <x>568</x>
+   <y>0</y>
+   <label>y edge</label>
+  </text>
+
+  <text>
+   <x>641</x>
+   <y>0</y>
+   <label>Dir. (deg)</label>
+  </text>
+
+<text>
+   <x>714</x>
+   <y>0</y>
+   <label>Triang.</label>
+  </text>
+
+
+ </group>
+
+
+<group>
+  <x>0</x>
+  <y>440</y>
+
+
+<combo>
+   <x>10</x>
+   <y>0</y>
+   <width>117</width>
+   <height>25</height>
+   <live>true</live>
+   <property>/local-weather/tmp/cloud-type</property>
+   <value>Altocumulus</value>
+   <value>Cirrus</value>
+   <value>Cirrocumulus (cloudlet)</value>
+   <value>Cirrostratus</value>
+   <value>Cumulus</value>
+   <value>Cumulus (cloudlet)</value>
+   <value>Cumulonimbus</value>
+   <value>Cumulonimbus (rain)</value>
+   <value>Fog (thin)</value>
+   <value>Fog (thick)</value>
+   <value>Nimbus</value>
+   <value>Stratus</value>
+   <value>Stratus (structured)</value>
+   <value>Stratus (thin)</value>
+   <value>Test</value>
+   <binding>
+    <command>dialog-apply</command>
+   </binding>
+  </combo>
+
+
+  <input>
+   <x>130</x>
+   <y>0</y>
+   <width>70</width>
+   <height>25</height>
+   <property>/local-weather/tmp/alt</property>
+  </input>
+
+  <input>
+   <x>203</x>
+   <y>0</y>
+   <width>70</width>
+   <height>25</height>
+   <property>/local-weather/tmp/nx</property>
+  </input>
+
+  <input>
+   <x>276</x>
+   <y>0</y>
+   <width>70</width>
+   <height>25</height>
+   <property>/local-weather/tmp/xoffset</property>
+  </input>
+
+  <input>
+   <x>349</x>
+   <y>0</y>
+   <width>70</width>
+   <height>25</height>
+   <property>/local-weather/tmp/xedge</property>
+  </input>
+
+  <input>
+   <x>422</x>
+   <y>0</y>
+   <width>70</width>
+   <height>25</height>
+   <property>/local-weather/tmp/ny</property>
+  </input>
+
+  <input>
+   <x>495</x>
+   <y>0</y>
+   <width>70</width>
+   <height>25</height>
+   <property>/local-weather/tmp/yoffset</property>
+  </input>
+
+  <input>
+   <x>568</x>
+   <y>0</y>
+   <width>70</width>
+   <height>25</height>
+   <property>/local-weather/tmp/yedge</property>
+  </input>
+
+  <input>
+   <x>641</x>
+   <y>0</y>
+   <width>70</width>
+   <height>25</height>
+   <property>/local-weather/tmp/dir</property>
+  </input>
+
+ <input>
+   <x>714</x>
+   <y>0</y>
+   <width>70</width>
+   <height>25</height>
+   <property>/local-weather/tmp/tri</property>
+  </input>
+
+
+ </group>
+
+<group>
+ <x>0</x>
+ <y>410</y>
+
+ <text>
+   <x>10</x>
+   <y>0</y>
+   <label>rand. x (m)</label>
+  </text>
+
+<input>
+   <x>90</x>
+   <y>0</y>
+   <width>70</width>
+   <height>25</height>
+   <property>/local-weather/tmp/rnd-pos-x</property>
+  </input>
+
+<text>
+   <x>165</x>
+   <y>0</y>
+   <label>rand. y (m)</label>
+  </text>
+
+<input>
+   <x>245</x>
+   <y>0</y>
+   <width>70</width>
+   <height>25</height>
+   <property>/local-weather/tmp/rnd-pos-y</property>
+  </input>
+
+<text>
+   <x>320</x>
+   <y>0</y>
+   <label>rand. alt. (ft)</label>
+  </text>
+
+<input>
+   <x>410</x>
+   <y>0</y>
+   <width>70</width>
+   <height>25</height>
+   <property>/local-weather/tmp/rnd-alt</property>
+  </input>
+
+<button>
+   <x>490</x>
+   <y>0</y>
+   <legend>Draw streak</legend>
+   <default>true</default>
+   <equal>true</equal>
+   <binding>
+    <command>dialog-apply</command>
+   </binding>
+   <binding>
+     <command>nasal</command>
+     <script>local_weather.streak_wrapper()</script>
+   </binding>
+  </button>
+</group>
+
+
+<text>
+  <x>10</x>
+  <y>370</y>
+  <label>Start the convective system</label>
+ </text>
+
+<group>
+  <x>0</x>
+  <y>345</y>
+
+<text>
+  <x>10</x>
+  <y>0</y>
+  <label>strength</label>
+ </text>
+
+<input>
+   <x>90</x>
+   <y>0</y>
+   <width>70</width>
+   <height>25</height>
+   <property>/local-weather/tmp/conv-strength</property>
+  </input>
+
+<text>
+  <x>165</x>
+  <y>0</y>
+  <label>alt (ft)</label>
+ </text>
+
+<input>
+   <x>245</x>
+   <y>0</y>
+   <width>70</width>
+   <height>25</height>
+   <property>/local-weather/tmp/conv-alt</property>
+  </input>
+
+<text>
+  <x>320</x>
+  <y>0</y>
+  <label>size (km)</label>
+ </text>
+
+<input>
+   <x>410</x>
+   <y>0</y>
+   <width>70</width>
+   <height>25</height>
+   <property>/local-weather/tmp/conv-size</property>
+  </input>
+
+<button>
+   <x>490</x>
+   <y>0</y>
+   <legend>Create</legend>
+   <default>true</default>
+   <equal>true</equal>
+   <binding>
+    <command>dialog-apply</command>
+   </binding>
+   <binding>
+     <command>nasal</command>
+     <script>local_weather.convection_wrapper()</script>
+   </binding>
+  </button>
+
+</group>
+
+<text>
+  <x>10</x>
+  <y>305</y>
+  <label>Create barrier clouds</label>
+ </text>
+
+<group>
+ <x>0</x>
+ <y>280</y>
+
+<text>
+   <x>10</x>
+   <y>0</y>
+   <label>alt. (ft)</label>
+  </text>
+
+<input>
+   <x>80</x>
+   <y>0</y>
+   <width>70</width>
+   <height>25</height>
+   <property>/local-weather/tmp/bar-alt</property>
+  </input>
+
+<text>
+   <x>155</x>
+   <y>0</y>
+   <label>number</label>
+  </text>
+
+<input>
+   <x>225</x>
+   <y>0</y>
+   <width>70</width>
+   <height>25</height>
+   <property>/local-weather/tmp/bar-n</property>
+  </input>
+
+<text>
+   <x>300</x>
+   <y>0</y>
+   <label>wind (deg)</label>
+  </text>
+
+<input>
+   <x>370</x>
+   <y>0</y>
+   <width>70</width>
+   <height>25</height>
+   <property>/local-weather/tmp/bar-dir</property>
+  </input>
+
+<text>
+   <x>445</x>
+   <y>0</y>
+   <label>dist (km)</label>
+  </text>
+
+<input>
+   <x>515</x>
+   <y>0</y>
+   <width>70</width>
+   <height>25</height>
+   <property>/local-weather/tmp/bar-dist</property>
+  </input>
+
+<text>
+   <x>590</x>
+   <y>0</y>
+   <label>size (km)</label>
+  </text>
+
+<input>
+   <x>660</x>
+   <y>0</y>
+   <width>70</width>
+   <height>25</height>
+   <property>/local-weather/tmp/bar-size</property>
+  </input>
+
+<button>
+   <x>735</x>
+   <y>0</y>
+   <legend>Create</legend>
+   <default>true</default>
+   <equal>true</equal>
+   <binding>
+    <command>dialog-apply</command>
+   </binding>
+   <binding>
+     <command>nasal</command>
+     <script>local_weather.barrier_wrapper()</script>
+   </binding>
+  </button>
+
+</group>
+
+
+
+
+
+
+
+
+<text>
+  <x>10</x>
+  <y>240</y>
+  <label>Place a cloud layer</label>
+ </text>
+
+<group>
+  <x>0</x>
+  <y>220</y>
+
+  <text>
+   <x>10</x>
+   <y>0</y>
+   <label>Type</label>
+  </text>
+
+  <text>
+   <x>130</x>
+   <y>0</y>
+   <label>rad. x (km)</label>
+  </text>
+
+  <text>
+   <x>203</x>
+   <y>0</y>
+   <label>rad. y (km) </label>
+  </text>
+
+  <text>
+   <x>276</x>
+   <y>0</y>
+   <label>dir (deg)</label>
+  </text>
+
+  <text>
+   <x>349</x>
+   <y>0</y>
+   <label>alt (ft)</label>
+  </text>
+
+  <text>
+   <x>422</x>
+   <y>0</y>
+   <label>thick. (ft)</label>
+  </text>
+
+  <text>
+   <x>495</x>
+   <y>0</y>
+   <label>density</label>
+  </text>
+
+  <text>
+   <x>568</x>
+   <y>0</y>
+   <label>edge</label>
+  </text>
+
+  <text>
+   <x>641</x>
+   <y>0</y>
+   <label>rain flag</label>
+  </text>
+
+<text>
+   <x>714</x>
+   <y>0</y>
+   <label>rain dens.</label>
+  </text>
+
+
+ </group>
+
+
+<group>
+  <x>0</x>
+  <y>195</y>
+
+
+<combo>
+   <x>10</x>
+   <y>0</y>
+   <width>117</width>
+   <height>25</height>
+   <live>true</live>
+   <property>/local-weather/tmp/layer-type</property>
+   <value>Altocumulus</value>
+   <value>Cirrus</value>
+   <value>Cirrostratus</value>
+   <value>Cumulus</value>
+   <value>Cumulus (cloudlet)</value>
+   <value>Cumulonimbus</value>
+   <value>Fog (thin)</value>
+   <value>Fog (thick)</value>
+   <value>Nimbus</value>
+   <value>Stratus</value>
+   <value>Stratus (structured)</value>
+   <value>Stratus (thin)</value>
+   <value>Test</value>
+   <binding>
+    <command>dialog-apply</command>
+   </binding>
+  </combo>
+
+
+  <input>
+   <x>130</x>
+   <y>0</y>
+   <width>70</width>
+   <height>25</height>
+   <property>/local-weather/tmp/layer-rx</property>
+  </input>
+
+  <input>
+   <x>203</x>
+   <y>0</y>
+   <width>70</width>
+   <height>25</height>
+   <property>/local-weather/tmp/layer-ry</property>
+  </input>
+
+  <input>
+   <x>276</x>
+   <y>0</y>
+   <width>70</width>
+   <height>25</height>
+   <property>/local-weather/tmp/layer-phi</property>
+  </input>
+
+  <input>
+   <x>349</x>
+   <y>0</y>
+   <width>70</width>
+   <height>25</height>
+   <property>/local-weather/tmp/layer-alt</property>
+  </input>
+
+  <input>
+   <x>422</x>
+   <y>0</y>
+   <width>70</width>
+   <height>25</height>
+   <property>/local-weather/tmp/layer-thickness</property>
+  </input>
+
+  <input>
+   <x>495</x>
+   <y>0</y>
+   <width>70</width>
+   <height>25</height>
+   <property>/local-weather/tmp/layer-density</property>
+  </input>
+
+  <input>
+   <x>568</x>
+   <y>0</y>
+   <width>70</width>
+   <height>25</height>
+   <property>/local-weather/tmp/layer-edge</property>
+  </input>
+
+  <input>
+   <x>641</x>
+   <y>0</y>
+   <width>70</width>
+   <height>25</height>
+   <property>/local-weather/tmp/layer-rain-flag</property>
+  </input>
+
+ <input>
+   <x>714</x>
+   <y>0</y>
+   <width>70</width>
+   <height>25</height>
+   <property>/local-weather/tmp/layer-rain-density</property>
+  </input>
+
+
+ </group>
+
+<button>
+   <x>10</x>
+   <y>160</y>
+   <legend>Create</legend>
+   <default>true</default>
+   <equal>true</equal>
+   <binding>
+    <command>dialog-apply</command>
+   </binding>
+   <binding>
+     <command>nasal</command>
+     <script>local_weather.layer_wrapper()</script>
+   </binding>
+  </button>
+
+
+<text>
+  <x>10</x>
+  <y>130</y>
+  <label>Make a cloud box</label>
+</text>
+
+<group>
+  <x>0</x>
+  <y>110</y>
+
+  <text>
+   <x>10</x>
+   <y>0</y>
+   <label>x [m]</label>
+  </text>
+
+ <text>
+   <x>80</x>
+   <y>0</y>
+   <label>y [m]</label>
+  </text>
+
+ <text>
+   <x>150</x>
+   <y>0</y>
+   <label>alt [ft]</label>
+  </text>
+
+ <text>
+   <x>220</x>
+   <y>0</y>
+   <label>number</label>
+  </text>
+
+<text>
+   <x>290</x>
+   <y>0</y>
+   <label>core frac.</label>
+  </text>
+
+<text>
+   <x>360</x>
+   <y>0</y>
+   <label>core offset</label>
+  </text>
+
+<text>
+   <x>430</x>
+   <y>0</y>
+   <label>core height</label>
+  </text>
+
+<text>
+   <x>500</x>
+   <y>0</y>
+   <label>core num.</label>
+  </text>
+
+<text>
+   <x>570</x>
+   <y>0</y>
+   <label>bottom size</label>
+  </text>
+
+<text>
+   <x>640</x>
+   <y>0</y>
+   <label>bot. height</label>
+  </text>
+
+<text>
+   <x>710</x>
+   <y>0</y>
+   <label>bot. num.</label>
+  </text>
+
+</group>
+
+
+<group>
+  <x>0</x>
+  <y>85</y>
+
+  <input>
+   <x>10</x>
+   <y>0</y>
+   <width>65</width>
+   <height>25</height>
+   <property>/local-weather/tmp/box-x-m</property>
+  </input>
+
+ <input>
+   <x>80</x>
+   <y>0</y>
+   <width>65</width>
+   <height>25</height>
+   <property>/local-weather/tmp/box-y-m</property>
+  </input>
+
+<input>
+   <x>150</x>
+   <y>0</y>
+   <width>65</width>
+   <height>25</height>
+   <property>/local-weather/tmp/box-alt-ft</property>
+  </input>
+
+<input>
+   <x>220</x>
+   <y>0</y>
+   <width>65</width>
+   <height>25</height>
+   <property>/local-weather/tmp/box-n</property>
+  </input>
+
+<input>
+   <x>290</x>
+   <y>0</y>
+   <width>65</width>
+   <height>25</height>
+   <property>/local-weather/tmp/box-core-fraction</property>
+  </input>
+
+<input>
+   <x>360</x>
+   <y>0</y>
+   <width>65</width>
+   <height>25</height>
+   <property>/local-weather/tmp/box-core-offset</property>
+  </input>
+
+<input>
+   <x>430</x>
+   <y>0</y>
+   <width>65</width>
+   <height>25</height>
+   <property>/local-weather/tmp/box-core-height</property>
+  </input>
+
+<input>
+   <x>500</x>
+   <y>0</y>
+   <width>65</width>
+   <height>25</height>
+   <property>/local-weather/tmp/box-core-n</property>
+  </input>
+
+<input>
+   <x>570</x>
+   <y>0</y>
+   <width>65</width>
+   <height>25</height>
+   <property>/local-weather/tmp/box-bottom-fraction</property>
+  </input>
+
+<input>
+   <x>640</x>
+   <y>0</y>
+   <width>65</width>
+   <height>25</height>
+   <property>/local-weather/tmp/box-bottom-thickness</property>
+  </input>
+
+<input>
+   <x>710</x>
+   <y>0</y>
+   <width>65</width>
+   <height>25</height>
+   <property>/local-weather/tmp/box-bottom-n</property>
+  </input>
+
+</group>
+
+
+<button>
+   <x>10</x>
+   <y>50</y>
+   <legend>Create</legend>
+   <default>true</default>
+   <equal>true</equal>
+   <binding>
+    <command>dialog-apply</command>
+   </binding>
+   <binding>
+     <command>nasal</command>
+     <script>local_weather.box_wrapper()</script>
+   </binding>
+  </button>
+
+
+
+ <!-- Button Box -->
+
+ <group>
+  <x>105</x>
+  <y>10</y>
+
+  <button>
+   <x>0</x>
+   <y>0</y>
+   <legend>OK</legend>
+   <default>true</default>
+   <equal>true</equal>
+   <binding>
+    <command>dialog-apply</command>
+   </binding>
+   <binding>
+    <command>reinit</command>
+    <subsystem>environment</subsystem>
+   </binding>
+   <binding>
+    <command>dialog-close</command>
+   </binding>
+  </button>
+
+
+<button>
+   <x>80</x>
+   <y>0</y>
+   <legend>Clear clouds</legend>
+   <default>true</default>
+   <equal>true</equal>
+   <binding>
+     <command>nasal</command>
+     <script>local_weather.clear_all()</script>
+   </binding>
+  </button>
+
+  <button>
+   <x>200</x>
+   <y>0</y>
+   <legend>Cancel</legend>
+   <equal>true</equal>
+   <key>Esc</key>
+   <binding>
+    <command>dialog-close</command>
+   </binding>
+  </button>
+
+<!--<button>
+   <x>300</x>
+   <y>0</y>
+   <legend>Test</legend>
+   <equal>true</equal>
+   <binding>
+    <command>nasal</command>
+     <script>local_weather.test()</script>
+   </binding>
+  </button>-->
+
+ </group>
+
+</PropertyList>

@@ -1,0 +1,11 @@
+{       
+  "instrumentSelector": ".instrument",
+  "instrumentDataKey": "fgpanel-instrument",
+  "updateInterval": 50,
+
+  "propertyMirror": [
+    [ "roll",      "/instrumentation/attitude-indicator/indicated-roll-deg" ],
+    [ "pitch",     "/instrumentation/attitude-indicator/indicated-pitch-deg" ]
+  ]
+}
+

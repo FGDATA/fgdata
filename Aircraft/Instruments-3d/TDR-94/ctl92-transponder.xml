@@ -1,0 +1,256 @@
+<?xml version="1.0"?>
+<!-- CTL 92 Control for TDR-94 transponder
+2.375"W x 2.625"H
+Syd Adams
+ -->
+
+<PropertyList>
+
+    <path>ctl92.ac</path>
+
+    <animation>
+        <type>select</type>
+        <object-name>C92freq.001</object-name>
+        <object-name>C92freq.002</object-name>
+        <object-name>C92freq.003</object-name>
+        <object-name>C92freq.004</object-name>
+        <object-name>C92mem.annun</object-name>
+        <condition>
+            <and>
+                <greater-than>
+                    <property>systems/electrical/outputs/transponder</property>
+                    <value>1</value>
+                </greater-than>
+                <greater-than>
+                    <property>instrumentation/kt-70/inputs/knob-mode</property>
+                    <value>0</value>
+                </greater-than>
+            </and>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>C92mem.annun</object-name>
+        <condition>
+            <property>instrumentation/tdr-94/mem-selected</property>
+        </condition>
+    </animation>
+
+
+    <animation>
+        <type>knob</type>
+        <object-name>CTL-92.pwr</object-name>
+        
+        <action>
+            <binding>
+                <command>property-cycle</command>
+                <property>instrumentation/kt-70/inputs/knob-mode</property>
+                <wrap>0</wrap> <!-- don't wrap at the ends -->
+                
+                <value>0</value>
+                <value>1</value>
+                <value>4</value> <!-- ON -->
+                <value>5</value> <!-- altitude -->
+                
+            </binding>
+        </action>
+        
+
+        <property>instrumentation/kt-70/inputs/knob-mode</property>
+        <interpolation>
+            <entry><ind>0</ind><dep>0.0</dep></entry><!--OFF-->
+            <entry><ind>1</ind><dep>30.0</dep></entry><!--STBY-->
+        
+            <!-- these two should never happen any more -->
+            <entry><ind>2</ind><dep>30.0</dep></entry><!--TEST-->
+            <entry><ind>3</ind><dep>30.0</dep></entry><!--GRND-->
+            
+			<entry><ind>4</ind><dep>60.0</dep></entry><!--ON-->
+			<entry><ind>5</ind><dep>90.0</dep></entry><!--ALT-->
+        </interpolation>
+        <center>
+            <x-m>0.0</x-m>
+            <y-m>-0.014</y-m>
+            <z-m>-0.018</z-m>
+        </center>
+        <axis>
+            <x>-1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+    </animation>
+
+    <animation>
+        <type>textranslate</type>
+        <object-name>C92freq.001</object-name>
+        <property>instrumentation/kt-70/inputs/digit[3]</property>
+        <factor>0.1</factor>
+        <step>1</step>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+    </animation>
+
+    <animation>
+        <type>textranslate</type>
+        <object-name>C92freq.002</object-name>
+        <property>instrumentation/kt-70/inputs/digit[2]</property>
+        <factor>0.1</factor>
+        <step>1</step>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+    </animation>
+
+    <animation>
+        <type>textranslate</type>
+        <object-name>C92freq.003</object-name>
+        <property>instrumentation/kt-70/inputs/digit[1]</property>
+        <factor>0.1</factor>
+        <step>1</step>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+    </animation>
+
+    <animation>
+        <type>textranslate</type>
+        <object-name>C92freq.004</object-name>
+        <property>instrumentation/kt-70/inputs/digit[0]</property>
+        <factor>0.1</factor>
+        <step>1</step>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+    </animation>
+
+<!--    OSG hotspots    -->
+
+    <animation>
+        <type>pick</type>
+        <object-name>atc.ident</object-name>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+            <command>property-toggle</command>
+            <property>instrumentation/kt-70/inputs/ident-btn</property>
+        </binding>
+        </action>
+    </animation>
+
+    <animation>
+        <type>pick</type>
+        <object-name>act.pre</object-name>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+            <command>property-assign</command>
+            <property>instrumentation/kt-70/id-code</property>
+            <value>1200</value>
+        </binding>
+        </action>
+    </animation>
+    
+    <animation>
+        <type>pick</type>
+        <object-name>act.toggle</object-name>
+        <action>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-toggle</command>
+                <property>instrumentation/tdr-94/mem-selected</property>
+            </binding>
+        </action>
+    </animation>
+    
+    <animation>
+        <type>pick</type>
+        <object-name>atc.test</object-name>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-assign</command>
+                <property>instrumentation/tdr-94/saved-mode</property>
+                <property>instrumentation/kt-70/inputs/knob-mode</property>
+            </binding>
+            <binding>
+                <command>property-assign</command>
+                <property>instrumentation/kt-70/inputs/knob-mode</property>
+                <value>2</value> <!-- test mode -->
+            </binding>
+            
+            <mod-up>
+                <!-- restore previous mode on button release -->
+                <binding>
+                    <command>property-assign</command>
+                    <property>instrumentation/kt-70/inputs/knob-mode</property>
+                    <property>instrumentation/tdr-94/saved-mode</property>
+                </binding>
+            </mod-up>
+        </action>
+    </animation>
+    
+    <animation>
+        <type>knob</type>
+        <object-name>CTL92.knob</object-name>
+        <action>
+           <binding>
+               <command>nasal</command>
+               <script><![CDATA[
+                   var loDigit = getprop('instrumentation/kt-70/inputs/digit[2]');
+                   var hiDigit = getprop('instrumentation/kt-70/inputs/digit[3]');
+                   
+                   var offset = int(cmdarg().getNode('offset').getValue());
+                   var incr = (offset > 0);
+
+                   if ((incr and loDigit == 7) or (!incr and loDigit == 0)) {
+                     hiDigit = math.mod(hiDigit + offset, 8);
+                   }
+                   
+                   loDigit = math.mod(loDigit + offset, 8);
+                   setprop('instrumentation/kt-70/inputs/digit[2]', loDigit);
+                   setprop('instrumentation/kt-70/inputs/digit[3]', hiDigit);
+               ]]></script>
+            </binding>
+        </action>
+    </animation>
+
+    <animation>
+        <type>knob</type>
+        <object-name>CTL92.knob1</object-name>
+        <action>
+            <binding>
+                <command>nasal</command>
+                <script><![CDATA[
+                    var loDigit = getprop('instrumentation/kt-70/inputs/digit[0]');
+                    var hiDigit = getprop('instrumentation/kt-70/inputs/digit[1]');
+                   
+                    var offset = int(cmdarg().getNode('offset').getValue());
+                    var incr = (offset > 0);
+
+                    if ((incr and loDigit == 7) or (!incr and loDigit == 0)) {
+                      hiDigit = math.mod(hiDigit + offset, 8);
+                    }
+                   
+                    loDigit = math.mod(loDigit + offset, 8);
+                    setprop('instrumentation/kt-70/inputs/digit[0]', loDigit);
+                    setprop('instrumentation/kt-70/inputs/digit[1]', hiDigit);
+                ]]></script>
+            </binding>
+        </action>
+    </animation>
+
+
+</PropertyList>

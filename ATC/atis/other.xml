@@ -1,0 +1,110 @@
+<?xml version="1.0" ?>
+<!--
+ This file is part of FlightGear, the free flight simulator
+ http://www.flightgear.org/
+
+ Copyright (C) 2014  Curtis L. Olson  - http://www.flightgear.org/~curt
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation; either version 2 of the
+ License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+-->
+<PropertyList>
+  <!--station-starts-with></station-starts-with-->
+  <atis>
+    <text>This is </text>
+    <token>airport-name</token>
+    <text> airport information </text>
+    <token>id</token>
+    <text>. Time </text>
+    <token>time</token>
+    <text> Zulu. Expect </text>
+    <token>approach-type</token>
+    <text> approach.</text>
+    <if>
+      <equals>
+        <token>rwy-land</token>
+        <token>rwy-to</token>
+      </equals>
+      <then>
+        <text> Landing and departing runway </text>
+        <token>rwy-land</token>
+      </then>
+      <else>
+        <text> Landing runway </text>
+        <token>rwy-land</token>
+        <text> and departing runway </text>
+        <token>rwy-to</token>
+      </else>
+    </if>
+    <text>. Weather. Wind </text>
+    <token>wind-dir</token>
+    <text> degrees at </text>
+    <token>wind-speed-kn</token>
+    <text> knots</text>
+    <if>
+      <not-empty>
+        <token>gusts</token>
+      </not-empty>
+      <then>
+        <text> gusts up to </text>
+        <token>gusts</token>
+        <text> knots </text>
+      </then>
+    </if>
+    <text>. </text>
+    <if>
+      <not-empty>
+        <token>cavok</token>
+      </not-empty>
+      <then>
+        <text>CAVOK</text>
+      </then>
+      <else>
+        <text>Visibility </text>
+        <token>visibility-metric</token>
+        <text>. </text>
+        <if>
+          <not-empty>
+            <token>phenomena</token>
+          </not-empty>
+          <then>
+             <token>phenomena</token>
+             <text>. </text>
+          </then>
+        </if>
+        <if>
+          <not-empty>
+            <token>clouds</token>
+          </not-empty>
+          <then>
+            <text>Clouds </text>
+            <token>clouds</token>
+          </then>
+          <else>
+            <text>No significant clouds</text>
+          </else>
+        </if>
+      </else>
+    </if>
+    <text>. Temperature </text>
+    <token>temperature-deg</token>
+    <text> dewpoint </text>
+    <token>dewpoint-deg</token>
+    <text>. QNH </text>
+    <token>qnh</token>
+    <text> hektopascal or </text>
+    <token>inhg</token>
+    <text> inches. </text>
+    <token>trend</token>
+    <text>. Advise on initial contact you have information </text>
+    <token>id</token>
+    <text>.</text>
+  </atis>
+</PropertyList>

@@ -1,0 +1,475 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<name>shaders-lightfield</name>
+	<modal>false</modal>
+	<layout>vbox</layout>
+	<padding>20</padding>
+
+	<group>
+		<layout>hbox</layout>
+		<empty>
+			<stretch>1</stretch>
+		</empty>
+
+		<text>
+			<label>Shader options</label>
+		</text>
+
+		<empty>
+			<stretch>1</stretch>
+		</empty>
+
+		<button>
+			<pref-width>16</pref-width>
+			<pref-height>16</pref-height>
+			<legend></legend>
+			<keynum>27</keynum>
+			<border>2</border>
+			<binding>
+				<command>dialog-close</command>
+			</binding>
+		</button>
+	</group>
+
+	<hrule/>
+
+	<group>
+		<layout>hbox</layout>
+		<text>
+			<label>General</label>
+			<halign>left</halign>
+		</text>
+		<hrule>
+			<stretch>true</stretch>
+		</hrule>
+	</group>
+
+	<group>
+		<layout>hbox</layout>
+		<halign>right</halign>
+
+		<text>
+			<halign>left</halign>
+			<label>Landmass</label>
+		</text>
+		<slider>
+			<name>landmass</name>
+			<min>0.0</min>
+			<max>6.0</max>
+			<step>1.0</step>
+			<fraction>0.17</fraction>
+			<live>true</live>
+			<property>/sim/rendering/shaders/landmass</property>
+			<binding>
+				<command>dialog-apply</command>
+				<object-name>landmass</object-name>
+			</binding>
+		</slider>
+		<empty>
+			<pref-width>55</pref-width>
+		</empty>
+	</group>
+	
+	<group>
+		<layout>hbox</layout>
+		<halign>right</halign>
+
+		<text>
+			<halign>left</halign>
+			<label>Transition</label>
+		</text>
+		<slider>
+			<name>transition</name>
+			<min>0.0</min>
+			<max>6.0</max>
+			<step>1.0</step>
+			<fraction>0.17</fraction>
+			<live>true</live>
+			<property>/sim/rendering/shaders/transition</property>
+			<binding>
+				<command>dialog-apply</command>
+				<object-name>transition</object-name>
+			</binding>
+		</slider>
+		<empty>
+			<pref-width>55</pref-width>
+		</empty>
+	</group>
+
+
+	<group>
+		<layout>hbox</layout>
+		<halign>right</halign>
+
+		<text>
+			<halign>left</halign>
+			<label>Urban</label>
+		</text>
+		<slider>
+			<name>urban</name>
+			<min>0.0</min>
+			<max>5.0</max>
+			<step>1.0</step>
+			<fraction>0.17</fraction>
+			<live>true</live>
+			<property>/sim/rendering/shaders/urban</property>
+			<binding>
+				<command>dialog-apply</command>
+				<object-name>urban</object-name>
+			</binding>
+		</slider>
+		<empty>
+			<pref-width>55</pref-width>
+		</empty>
+	</group>
+
+	<group>
+		<layout>hbox</layout>
+		<halign>right</halign>
+
+		<text>
+			<halign>left</halign>
+			<label>Agriculture</label>
+		</text>
+		<slider>
+			<name>agriculture</name>
+			<min>0.0</min>
+			<max>1.0</max>
+			<step>1.0</step>
+			<fraction>0.17</fraction>
+			<live>true</live>
+			<property>/sim/rendering/shaders/crop</property>
+			<binding>
+				<command>dialog-apply</command>
+				<object-name>agriculture</object-name>
+			</binding>
+		</slider>
+		<empty>
+			<pref-width>55</pref-width>
+		</empty>
+	</group>
+
+
+	<group>
+		<layout>hbox</layout>
+		<halign>right</halign>
+		<text>
+			<label>Water</label>
+		</text>
+		<slider>
+			<name>water</name>
+			<min>0.0</min>
+			<max>5.0</max>
+			<step>1.0</step>
+			<fraction>0.17</fraction>
+			<live>true</live>
+			<property>/sim/rendering/shaders/water</property>
+			<binding>
+				<command>dialog-apply</command>
+				<object-name>water</object-name>
+			</binding>
+		</slider>
+		<empty>
+			<pref-width>55</pref-width>
+		</empty>
+	</group>
+
+	<group>
+		<layout>hbox</layout>
+		<halign>right</halign>
+		<text>
+			<label>Model</label>
+		</text>
+		<slider>
+			<name>model</name>
+			<min>0.0</min>
+			<max>3.0</max>
+			<step>1.0</step>
+			<fraction>0.17</fraction>
+			<live>true</live>
+			<property>/sim/rendering/shaders/model</property>
+			<binding>
+				<command>dialog-apply</command>
+				<object-name>model</object-name>
+			</binding>
+		</slider>
+		<empty>
+			<pref-width>55</pref-width>
+		</empty>
+	</group>
+
+	<group>
+		<layout>hbox</layout>
+		<halign>right</halign>
+		<text>
+			<label>Forest</label>
+		</text>
+		<slider>
+			<name>forest</name>
+			<min>0.0</min>
+			<max>1.0</max>
+			<step>1.0</step>
+			<fraction>0.17</fraction>
+			<live>true</live>
+			<property>/sim/rendering/shaders/forest</property>
+			<binding>
+				<command>dialog-apply</command>
+				<object-name>forest</object-name>
+			</binding>
+		</slider>
+		<empty>
+			<pref-width>55</pref-width>
+		</empty>
+	</group>
+
+	<group>
+		<layout>hbox</layout>
+		<halign>right</halign>
+		<text>
+			<label>Wind Effects</label>
+		</text>
+		<slider>
+			<name>wind</name>
+			<min>0.0</min>
+			<max>2.0</max>
+			<step>1.0</step>
+			<fraction>0.17</fraction>
+			<live>true</live>
+			<property>/sim/rendering/shaders/wind-effects</property>
+			<binding>
+				<command>dialog-apply</command>
+				<object-name>wind</object-name>
+			</binding>
+		</slider>
+		<empty>
+			<pref-width>55</pref-width>
+		</empty>
+	</group>
+	<!--
+	<group>
+		<layout>hbox</layout>
+		<visible>
+			<not>
+				<property>/local-weather/tiles/tile-counter</property>
+			</not>
+		</visible>
+		<text>
+			<label>Atmospheric effects</label>
+			<halign>left</halign>
+		</text>
+		<hrule>
+			<stretch>true</stretch>
+		</hrule>
+	</group>
+	
+	<group>
+		<layout>hbox</layout>
+		<halign>right</halign>
+		<visible>
+			<not>
+				<property>/local-weather/tiles/tile-counter</property>
+			</not>
+		</visible>
+		<text>
+			<label>Mie factor</label>
+		</text>
+		<slider>
+			<name>mie-factor</name>
+			<min>0.0</min>
+			<max>0.01</max>
+			<step>0.001</step>
+			<live>true</live>
+			<property>/sim/rendering/mie</property>
+			<binding>
+				<command>dialog-apply</command>
+				<object-name>mie-factor</object-name>
+			</binding>
+		</slider>
+		<text>
+			<label>12345678</label>
+			<format>%.3f</format>
+			<live>true</live>
+			<property>/sim/rendering/mie</property>
+		</text>
+	</group>
+
+	<group>
+		<layout>hbox</layout>
+		<halign>right</halign>
+		<visible>
+			<not>
+				<property>/local-weather/tiles/tile-counter</property>
+			</not>
+		</visible>
+		<text>
+			<label>Rayleigh factor</label>
+		</text>
+		<slider>
+			<name>rayleigh-factor</name>
+			<min>0.0</min>
+			<max>0.001</max>
+			<step>0.0001</step>
+			<property>/sim/rendering/rayleigh</property>
+			<binding>
+				<command>dialog-apply</command>
+				<object-name>rayleigh-factor</object-name>
+			</binding>
+		</slider>
+		<text>
+			<label>12345678</label>
+			<format>%.4f</format>
+			<live>true</live>
+			<property>/sim/rendering/rayleigh</property>
+		</text>
+	</group>
+
+	<group>
+		<layout>hbox</layout>
+		<halign>right</halign>
+		<visible>
+			<not>
+				<property>/local-weather/tiles/tile-counter</property>
+			</not>
+		</visible>
+		<text>
+			<label>Density factor</label>
+		</text>
+		<slider>
+			<name>density-factor</name>
+			<min>0.0</min>
+			<max>1.0</max>
+			<step>0.1</step>
+			<property>/sim/rendering/dome-density</property>
+			<binding>
+				<command>dialog-apply</command>
+				<object-name>density-factor</object-name>
+			</binding>
+		</slider>
+		<text>
+			<label>12345678</label>
+			<format>%.1f</format>
+			<live>true</live>
+			<property>/sim/rendering/dome-density</property>
+		</text>
+	</group>-->
+
+	<group>
+		<layout>hbox</layout>
+		<text>
+			<label>Aircraft</label>
+			<halign>left</halign>
+		</text>
+		<hrule>
+			<stretch>true</stretch>
+		</hrule>
+	</group>
+
+	<nasal>
+		<open>
+			if (props.globals.getNode("/sim/rendering/shaders/aircraft") != nil) {
+			var group = cmdarg().getChildren("group")[11];
+			group.removeChildren("slider");
+			group.removeChildren("hrule");
+			group.removeChildren("text");
+			var shaders = props.globals.getNode("/sim/rendering/shaders/aircraft").getChildren();
+			for(i=0; size(shaders) > i; i+=1) {
+
+			var fraction 	= 0.5;
+			var min 		= 0;
+			var max 		= 1;
+			var step 		= 1;
+
+			var name 	= shaders[i].getNode("name");
+
+			if (shaders[i].getNode("step") != nil){
+			step	= shaders[i].getNode("step");
+			}
+			if (shaders[i].getNode("min") != nil){
+			min 	= shaders[i].getNode("min");
+			}
+			if (shaders[i].getNode("max") != nil){
+			max 	= shaders[i].getNode("max");
+			}
+
+			if (min != nil and max != nil and step != nil){
+			fraction = step/(max+step);
+			}
+
+			var target = group.getChild("slider", i, 1);
+			props.copy(group.getNode("slider-template"), target);
+			target.getNode("label").setValue(name != nil ? name.getValue() : (shaders[i].getName()));
+			target.getNode("name").setValue("aircraftshader"~i);
+			target.getNode("binding").getNode("object-name").setValue("aircraftshader"~i);
+			target.getNode("min").setValue(min);
+			target.getNode("max").setValue(max);
+			target.getNode("step").setValue(step);
+			target.getNode("fraction").setValue(fraction);
+			target.getNode("property").setValue(shaders[i].getPath()~"/quality-level");
+			}
+			}
+
+		</open>
+	</nasal>
+
+	<group>
+		<layout>vbox</layout>
+		<halign>left</halign>
+
+		<slider-template>
+			<name>
+				<!---->
+			</name>
+			<label>
+				<!---->
+			</label>
+			<min>
+				<!---->
+			</min>
+			<max>
+				<!---->
+			</max>
+			<step>
+				<!---->
+			</step>
+			<fraction>
+				<!---->
+			</fraction>
+			<property>
+				<!---->
+			</property>
+			<binding>
+				<command>dialog-apply</command>
+				<object-name>
+					<!---->
+				</object-name>
+			</binding>
+		</slider-template>
+	</group>
+
+	<hrule/>
+	
+	<group>
+		<layout>hbox</layout>
+
+		<button>
+			<legend>Back</legend>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>rendering</dialog-name>
+			</binding>
+			<binding>
+				<command>dialog-close</command>
+			</binding>
+		</button>
+		<button>
+			<legend>Close</legend>
+			<default>true</default>
+			<key>Esc</key>
+			<binding>
+				<command>dialog-close</command>
+			</binding>
+		</button>
+	</group>
+
+</PropertyList>

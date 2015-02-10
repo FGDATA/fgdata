@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+
+<!-- Depart KSFO to the east over OAK and LIN                  
+     The departure can be found at http://www.airnav.com/airport/KSFO 
+     Format:                                                         
+       <name>       Waypoint name.  When a waypoint named END is reached
+                    the AI airplane will delete itself.                                       
+       <lat>        latitude, degrees (-90 to 90)                                    
+       <lon>        Longitude, degrees (-180 to 180)                                   
+       <alt>        altitude above sea level, feet                                       
+       <crossat>    Crossing altitude, feet                              
+       <ktas>       Knots true airspeed
+       <on-ground>  set true if on the ground
+       <gear-down>  set true for gear down, false for gear up
+       <flaps-down> set true for flaps down, false for flaps up
+-->
+ 
+<PropertyList>
+
+ <flightplan>
+
+  <wpt>
+   <name>01R</name>
+   <lat>37.606844</lat>
+   <lon>-122.380667</lon>
+   <alt>11.0</alt>
+   <ktas>20</ktas>
+   <on-ground>true</on-ground>
+   <gear-down>true</gear-down>
+  </wpt>
+
+  <wpt>
+   <name>accel</name>
+   <lat>37.607269</lat>
+   <lon>-122.380391</lon>
+   <alt>11.0</alt>
+   <ktas>150</ktas>
+   <on-ground>true</on-ground>
+  </wpt>
+
+  <wpt>
+   <name>rotate</name>
+   <lat>37.618127</lat>
+   <lon>-122.373221</lon>
+   <alt>400.0</alt>
+   <ktas>180</ktas>
+   <gear-down>false</gear-down>
+  </wpt>
+
+  <wpt>
+   <name>runway-end</name>
+   <lat>37.626579</lat>
+   <lon>-122.367638</lon>
+   <alt>10000.0</alt>
+   <ktas>280</ktas>
+  </wpt>
+
+  <wpt>
+   <name>OAK</name>  <!-- Oakland VOR, 116.8 -->
+   <lat>37.726</lat>
+   <lon>-122.223667</lon>
+   <alt>30000.0</alt>
+   <ktas>360</ktas>
+  </wpt>
+
+  <wpt>
+   <name>END</name>  <!-- Linden VOR, 114.8 -->
+   <lat>38.0745</lat>
+   <lon>-121.00383</lon>
+   <crossat>30000.0</crossat>
+  </wpt>
+
+  <wpt>
+   <name>EOF</name>
+  </wpt>
+
+ </flightplan>
+
+</PropertyList>

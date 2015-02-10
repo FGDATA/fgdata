@@ -1,0 +1,931 @@
+<?xml version="1.0"?>
+
+<!--
+Throttle qquadrant.
+
+December 2001 by John Check, j4strngs@rockfish.net
+
+This is an instrument configuration file for the open-source flight
+simulator FlightGear (www.flightgear.org).  The file is an XML-encoded
+FlightGear property list defining the instrument's layers and actions.
+
+Each instrument is composed of layers stacked on top of each other.
+A layer may be a texture (with transparent parts to show the layers
+underneath), text, or a special layer that switches between two
+others (say, to turn an indicator light on or off).  Each layer can
+move independently in proportion to a property value, and text
+can be generated from property values as well: all of the layer's
+movements are defined as transformations.
+
+Actions are hotspots on the instrument that will respond to a mouse
+click.  Actions always modify the values of properties, either by
+adjusting them, toggling them, or swaping them with other
+properties' values.
+-->
+
+<PropertyList>
+ <name>throttle quadrant</name>
+ <w-base>150</w-base>
+ <h-base>70</h-base>
+
+ <params>
+  <engine-throttle0-select>/controls/engines/engine[0]/throttle</engine-throttle0-select>
+  <engine-throttle1-select>/controls/engines/engine[1]/throttle</engine-throttle1-select>
+  <prop-advance0-select>/controls/engines/engine[0]/propeller-pitch</prop-advance0-select>
+  <prop-advance1-select>/controls/engines/engine[1]/propeller-pitch</prop-advance1-select>
+  <engine-mixture0-select>/controls/engines/engine[0]/mixture</engine-mixture0-select>
+  <engine-mixture1-select>/controls/engines/engine[1]/mixture</engine-mixture1-select>
+ </params>
+
+ <layers>
+
+  <layer>
+   <name>backplate</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/flaps.rgb</path>
+    <x1>0.378125</x1>
+    <y1>0.65</y1>
+    <x2>1.0</x2>
+    <y2>1.0</y2>
+   </texture>
+   <w>150</w>
+   <h>70</h>
+  </layer>
+
+<!--throttles -->
+
+  <layer>
+   <name>throttle 0 handle </name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/handles.rgb</path>
+    <x1>0.0</x1>
+    <x2>0.37890625</x2>
+    <y1>0.875</y1>
+    <y2>1.0</y2>
+   </texture>
+   <w>20</w>
+   <h>30</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-65</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <property alias="../../../../../params/engine-throttle0-select"/>
+     <min>0.0</min>
+     <max>1.0</max>
+     <scale>40</scale>
+     <offset>-20</offset>
+    </transformation>
+   </transformations>
+  </layer>
+  <layer>
+   <name>throttle 1 handle</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/handles.rgb</path>
+    <x1>0.0</x1>
+    <x2>0.37890625</x2>
+    <y1>0.875</y1>
+    <y2>1.0</y2>
+   </texture>
+   <w>20</w>
+   <h>30</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-45</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <property alias="../../../../../params/engine-throttle1-select"/>
+     <min>0.0</min>
+     <max>1.0</max>
+     <scale>40</scale>
+     <offset>-20</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+<!-- prop advances -->
+
+  <layer>
+   <name>prop advance0 handle</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/handles.rgb</path>
+    <x1>0.0</x1>
+    <x2>0.37890625</x2>
+    <y1>0.6015625</y1>
+    <y2>0.72265625</y2>
+   </texture>
+   <w>20</w>
+   <h>30</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-10</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <property alias="../../../../../params/prop-advance0-select"/>
+     <min>0.0</min>
+     <max>1.0</max>
+     <scale>40</scale>
+     <offset>-20</offset>
+    </transformation>
+   </transformations>
+  </layer>
+  
+  <layer>
+   <name>prop advance1 handle</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/handles.rgb</path>
+    <x1>0.0</x1>
+    <x2>0.37890625</x2>
+    <y1>0.6015625</y1>
+    <y2>0.72265625</y2>
+   </texture>
+   <w>20</w>
+   <h>30</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>10</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <property alias="../../../../../params/prop-advance1-select"/>
+     <min>0.0</min>
+     <max>1.0</max>
+     <scale>40</scale>
+     <offset>-20</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+<!-- mixture -->
+
+  <layer>
+   <name>mixture 0 handle</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/handles.rgb</path>
+    <x1>0.0</x1>
+    <x2>0.37890625</x2>
+    <y1>0.73828125</y1>
+    <y2>0.86328125</y2>
+   </texture>
+   <w>20</w>
+   <h>30</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>45</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <property alias="../../../../../params/engine-mixture0-select"/>
+     <min>0.0</min>
+     <max>1.0</max>
+     <scale>40</scale>
+     <offset>-22</offset>
+    </transformation>
+   </transformations>
+  </layer>
+  <layer>
+   <name>mixture 1 handle</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/handles.rgb</path>
+    <x1>0.0</x1>
+    <x2>0.37890625</x2>
+    <y1>0.73828125</y1>
+    <y2>0.86328125</y2>
+   </texture>
+   <w>20</w>
+   <h>30</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>65</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <property alias="../../../../../params/engine-mixture1-select"/>
+     <min>0.0</min>
+     <max>1.0</max>
+     <scale>40</scale>
+     <offset>-22</offset>
+    </transformation>
+   </transformations>
+  </layer>
+</layers>
+
+ <actions>
+<!-- throttle 0 -->
+  <action>
+   <name>small decrease</name>
+   <button>0</button>
+   <x>-75</x>
+   <y>-35</y>
+   <w>10</w>
+   <h>35</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/engine-throttle0-select"/>
+    <step>-0.01</step>
+    <min>0</min>
+    <max>1.0</max>
+    <wrap>false</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>small increase</name>
+   <button>0</button>
+   <x>-65</x>
+   <y>-35</y>
+   <w>10</w>
+   <h>35</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/engine-throttle0-select"/>
+    <step>0.01</step>
+    <min>0</min>
+    <max>1.0</max>
+    <wrap>false</wrap>
+   </binding>
+  </action>
+  <action>
+   <name>big decrease</name>
+   <button>1</button>
+   <x>-75</x>
+   <y>-35</y>
+   <w>10</w>
+   <h>35</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/engine-throttle0-select"/>
+    <step>-0.1</step>
+    <min>0</min>
+    <max>1.0</max>
+    <wrap>false</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>big increase</name>
+   <button>1</button>
+   <x>-65</x>
+   <y>-35</y>
+   <w>10</w>
+   <h>35</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/engine-throttle0-select"/>
+    <step>0.1</step>
+    <min>0</min>
+    <max>1.0</max>
+    <wrap>false</wrap>
+   </binding>
+  </action>
+  <!-- throttle 1 -->
+  <action>
+   <name>small decrease</name>
+   <button>0</button>
+   <x>-45</x>
+   <y>-35</y>
+   <w>10</w>
+   <h>35</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/engine-throttle1-select"/>
+    <step>-0.01</step>
+    <min>0</min>
+    <max>1.0</max>
+    <wrap>false</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>small increase</name>
+   <button>0</button>
+   <x>-55</x>
+   <y>-35</y>
+   <w>10</w>
+   <h>35</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/engine-throttle1-select"/>
+    <step>0.01</step>
+    <min>0</min>
+    <max>1.0</max>
+    <wrap>false</wrap>
+   </binding>
+  </action>
+  <action>
+   <name>big decrease</name>
+   <button>1</button>
+   <x>-45</x>
+   <y>-35</y>
+   <w>10</w>
+   <h>35</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/engine-throttle1-select"/>
+    <step>-0.1</step>
+    <min>0</min>
+    <max>1.0</max>
+    <wrap>false</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>big increase</name>
+   <button>1</button>
+   <x>-55</x>
+   <y>-35</y>
+   <w>10</w>
+   <h>35</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/engine-throttle1-select"/>
+    <step>0.1</step>
+    <min>0</min>
+    <max>1.0</max>
+    <wrap>false</wrap>
+   </binding>
+  </action>
+<!-- throttle 0 and 1 -->
+  <action>
+   <name>small decrease</name>
+   <button>0</button>
+   <x>-75</x>
+   <y>0</y>
+   <w>20</w>
+   <h>35</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/engine-throttle0-select"/>
+    <step>-0.01</step>
+    <min>0</min>
+    <max>1.0</max>
+    <wrap>false</wrap>
+   </binding>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/engine-throttle1-select"/>
+    <step>-0.01</step>
+    <min>0</min>
+    <max>1.0</max>
+    <wrap>false</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>small increase</name>
+   <button>0</button>
+   <x>-55</x>
+   <y>0</y>
+   <w>20</w>
+   <h>35</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/engine-throttle0-select"/>
+    <step>0.01</step>
+    <min>0</min>
+    <max>1.0</max>
+    <wrap>false</wrap>
+   </binding>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/engine-throttle1-select"/>
+    <step>0.01</step>
+    <min>0</min>
+    <max>1.0</max>
+    <wrap>false</wrap>
+   </binding>
+  </action>
+  <action>
+   <name>big decrease</name>
+   <button>1</button>
+   <x>-75</x>
+   <y>0</y>
+   <w>20</w>
+   <h>35</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/engine-throttle0-select"/>
+    <step>-0.1</step>
+    <min>0</min>
+    <max>1.0</max>
+    <wrap>false</wrap>
+   </binding>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/engine-throttle1-select"/>
+    <step>-0.1</step>
+    <min>0</min>
+    <max>1.0</max>
+    <wrap>false</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>big increase</name>
+   <button>1</button>
+   <x>-55</x>
+   <y>-0</y>
+   <w>20</w>
+   <h>35</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/engine-throttle0-select"/>
+    <step>0.1</step>
+    <min>0</min>
+    <max>1.0</max>
+    <wrap>false</wrap>
+   </binding>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/engine-throttle1-select"/>
+    <step>0.1</step>
+    <min>0</min>
+    <max>1.0</max>
+    <wrap>false</wrap>
+   </binding>
+  </action>
+<!-- prop advance 0 --> 
+  <action>
+   <name>small decrease</name>
+   <button>0</button>
+   <x>-20</x>
+   <y>-35</y>
+   <w>10</w>
+   <h>35</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/prop-advance0-select"/>
+    <step>-0.01</step>
+    <min>0</min>
+    <max>1.0</max>
+    <wrap>false</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>small increase</name>
+   <button>0</button>
+   <x>-10</x>
+   <y>-35</y>
+   <w>10</w>
+   <h>35</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/prop-advance0-select"/>
+    <step>0.01</step>
+    <min>0</min>
+    <max>1.0</max>
+    <wrap>false</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>big decrease</name>
+   <button>1</button>
+   <x>-20</x>
+   <y>-35</y>
+   <w>10</w>
+   <h>35</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/prop-advance0-select"/>
+    <step>-0.1</step>
+    <min>0</min>
+    <max>1.0</max>
+    <wrap>false</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>big increase</name>
+   <button>1</button>
+   <x>-10</x>
+   <y>-35</y>
+   <w>10</w>
+   <h>35</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/prop-advance0-select"/>
+    <step>0.1</step>
+    <min>0</min>
+    <max>1.0</max>
+    <wrap>false</wrap>
+   </binding>
+  </action>
+
+<!-- prop advance 1 -->
+ <action>
+   <name>small decrease</name>
+   <button>0</button>
+   <x>10</x>
+   <y>-35</y>
+   <w>10</w>
+   <h>35</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/prop-advance1-select"/>
+    <step>-0.01</step>
+    <min>0</min>
+    <max>1.0</max>
+    <wrap>false</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>small increase</name>
+   <button>0</button>
+   <x>0</x>
+   <y>-35</y>
+   <w>10</w>
+   <h>35</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/prop-advance1-select"/>
+    <step>0.01</step>
+    <min>0</min>
+    <max>1.0</max>
+    <wrap>false</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>big decrease</name>
+   <button>1</button>
+   <x>10</x>
+   <y>-35</y>
+   <w>10</w>
+   <h>35</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/prop-advance1-select"/>
+    <step>-0.1</step>
+    <min>0</min>
+    <max>1.0</max>
+    <wrap>false</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>big increase</name>
+   <button>1</button>
+   <x>0</x>
+   <y>-35</y>
+   <w>10</w>
+   <h>35</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/prop-advance1-select"/>
+    <step>0.1</step>
+    <min>0</min>
+    <max>1.0</max>
+    <wrap>false</wrap>
+   </binding>
+  </action>
+<!-- prop-advance 0 and 1 -->
+  <action>
+   <name>small decrease</name>
+   <button>0</button>
+   <x>-20</x>
+   <y>0</y>
+   <w>20</w>
+   <h>35</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/prop-advance0-select"/>
+    <step>-0.01</step>
+    <min>0</min>
+    <max>1.0</max>
+    <wrap>false</wrap>
+   </binding>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/prop-advance1-select"/>
+    <step>-0.01</step>
+    <min>0</min>
+    <max>1.0</max>
+    <wrap>false</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>small increase</name>
+   <button>0</button>
+   <x>0</x>
+   <y>0</y>
+   <w>20</w>
+   <h>35</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/prop-advance0-select"/>
+    <step>0.01</step>
+    <min>0</min>
+    <max>1.0</max>
+    <wrap>false</wrap>
+   </binding>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/prop-advance1-select"/>
+    <step>0.01</step>
+    <min>0</min>
+    <max>1.0</max>
+    <wrap>false</wrap>
+   </binding>
+  </action>
+  <action>
+   <name>big decrease</name>
+   <button>1</button>
+   <x>-20</x>
+   <y>0</y>
+   <w>20</w>
+   <h>35</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/prop-advance0-select"/>
+    <step>-0.1</step>
+    <min>0</min>
+    <max>1.0</max>
+    <wrap>false</wrap>
+   </binding>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/prop-advance1-select"/>
+    <step>-0.1</step>
+    <min>0</min>
+    <max>1.0</max>
+    <wrap>false</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>big increase</name>
+   <button>1</button>
+   <x>0</x>
+   <y>0</y>
+   <w>20</w>
+   <h>35</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/prop-advance0-select"/>
+    <step>0.1</step>
+    <min>0</min>
+    <max>1.0</max>
+    <wrap>false</wrap>
+   </binding>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/prop-advance1-select"/>
+    <step>0.1</step>
+    <min>0</min>
+    <max>1.0</max>
+    <wrap>false</wrap>
+   </binding>
+  </action>
+  
+<!-- mixture 0--> 
+  <action>
+   <name>small decrease</name>
+   <button>0</button>
+   <x>35</x>
+   <y>-35</y>
+   <w>10</w>
+   <h>35</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/engine-mixture0-select"/>
+    <step>-0.01</step>
+    <min>0</min>
+    <max>1.0</max>
+    <wrap>false</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>small increase</name>
+   <button>0</button>
+   <x>45</x>
+   <y>-36</y>
+   <w>10</w>
+   <h>35</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/engine-mixture0-select"/>
+    <step>0.01</step>
+    <min>0</min>
+    <max>1.0</max>
+    <wrap>false</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>big decrease</name>
+   <button>1</button>
+   <x>35</x>
+   <y>-35</y>
+   <w>10</w>
+   <h>35</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/engine-mixture0-select"/>
+    <step>-0.1</step>
+    <min>0</min>
+    <max>1.0</max>
+    <wrap>false</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>big increase</name>
+   <button>1</button>
+   <x>45</x>
+   <y>-35</y>
+   <w>10</w>
+   <h>35</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/engine-mixture0-select"/>
+    <step>0.1</step>
+    <min>0</min>
+    <max>1.0</max>
+    <wrap>false</wrap>
+   </binding>
+ </action>
+<!-- engine mixture 1 -->
+ <action>
+   <name>small decrease</name>
+   <button>0</button>
+   <x>65</x>
+   <y>-35</y>
+   <w>10</w>
+   <h>35</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/engine-mixture1-select"/>
+    <step>-0.01</step>
+    <min>0</min>
+    <max>1.0</max>
+    <wrap>false</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>small increase</name>
+   <button>0</button>
+   <x>55</x>
+   <y>-35</y>
+   <w>10</w>
+   <h>35</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/engine-mixture1-select"/>
+    <step>0.01</step>
+    <min>0</min>
+    <max>1.0</max>
+    <wrap>false</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>big decrease</name>
+   <button>1</button>
+   <x>65</x>
+   <y>-35</y>
+   <w>10</w>
+   <h>35</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/engine-mixture1-select"/>
+    <step>-0.1</step>
+    <min>0</min>
+    <max>1.0</max>
+    <wrap>false</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>big increase</name>
+   <button>1</button>
+   <x>55</x>
+   <y>-35</y>
+   <w>10</w>
+   <h>35</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/engine-mixture1-select"/>
+    <step>0.1</step>
+    <min>0</min>
+    <max>1.0</max>
+    <wrap>false</wrap>
+   </binding>
+  </action>
+<!-- engine-mixture 0 and 1 -->
+  <action>
+   <name>small decrease</name>
+   <button>0</button>
+   <x>35</x>
+   <y>0</y>
+   <w>20</w>
+   <h>35</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/engine-mixture0-select"/>
+    <step>-0.01</step>
+    <min>0</min>
+    <max>1.0</max>
+    <wrap>false</wrap>
+   </binding>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/engine-mixture1-select"/>
+    <step>-0.01</step>
+    <min>0</min>
+    <max>1.0</max>
+    <wrap>false</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>small increase</name>
+   <button>0</button>
+   <x>55</x>
+   <y>0</y>
+   <w>20</w>
+   <h>35</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/engine-mixture0-select"/>
+    <step>0.01</step>
+    <min>0</min>
+    <max>1.0</max>
+    <wrap>false</wrap>
+   </binding>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/engine-mixture1-select"/>
+    <step>0.01</step>
+    <min>0</min>
+    <max>1.0</max>
+    <wrap>false</wrap>
+   </binding>
+  </action>
+  <action>
+   <name>big decrease</name>
+   <button>1</button>
+   <x>35</x>
+   <y>0</y>
+   <w>20</w>
+   <h>35</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/engine-mixture0-select"/>
+    <step>-0.1</step>
+    <min>0</min>
+    <max>1.0</max>
+    <wrap>false</wrap>
+   </binding>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/engine-mixture1-select"/>
+    <step>-0.1</step>
+    <min>0</min>
+    <max>1.0</max>
+    <wrap>false</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>big increase</name>
+   <button>1</button>
+   <x>55</x>
+   <y>0</y>
+   <w>20</w>
+   <h>35</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/engine-mixture0-select"/>
+    <step>0.1</step>
+    <min>0</min>
+    <max>1.0</max>
+    <wrap>false</wrap>
+   </binding>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/engine-mixture1-select"/>
+    <step>0.1</step>
+    <min>0</min>
+    <max>1.0</max>
+    <wrap>false</wrap>
+   </binding>
+  </action>
+
+</actions>
+
+</PropertyList>

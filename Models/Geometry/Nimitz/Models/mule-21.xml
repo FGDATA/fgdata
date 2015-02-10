@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+  <!-- Tractor Yellow 1B -->
+  <PropertyList> 
+    <path>mule-21.ac</path>
+	 <model> 
+      <path>Models/Geometry/Nimitz/Models/beacon.xml</path>
+      <offsets> 
+        <x-m>0.38</x-m>
+        <y-m>0.653</y-m>
+        <z-m>1.01</z-m>
+      </offsets>
+    </model>
+    <!-- *** LoD *** -->
+    <animation> 
+      <type>range</type>
+      <object-name>Mule-21</object-name>
+      <max-m>5000</max-m>
+    </animation>
+  </PropertyList>

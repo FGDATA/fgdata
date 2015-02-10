@@ -1,0 +1,156 @@
+A YASim Nasal-based engine control system
+By Ryan Miller (based on Syd Adams's jet/turboprop models)
+==========================================================
+
+Introduction:
+-------------
+
+YASim jets and turboprops are not very sophisticated engines. Jets are always on and cannot turn off (except by fuel starvation), and turboprops can be turned on simply by moving the condition lever beyond 0.1%. This Nasal script provides an easy way for casual aircraft modelers to implement a basic jet/turboprop engine control system, and provide a framework for extending the system to meet their aircrafts' needs.
+
+How to use:
+-----------
+
+1) Copy the nasal script (generic-yasim-engine.nas) to your aircraft directory and reference it in -set.xml. An example:
+
+	<nasal>
+		<engines>
+			<file>Aircraft/HelloWorld/Nasal/generic-yasim-engine.nas</file>
+		</engines>
+	</nasal>
+
+-------------
+FOR JETS ONLY
+-------------
+
+2) In another script, call the new() functions for each engine. Use the following syntax:
+
+var engine = <module name>.Jet.new(<number> [, <running> [, <idle throttle> [, <max N1 start> [, <N1 start threshold> [, <spool time> [, <start spool time> [, <shutdown time>]]]]]]])
+
+(Arguments in brackets are optional)
+
+Where:
+<module name>		the module name you added the script under (in the example, it is "engines")
+<number>		engine number in FDM
+<running>		whether or not the engine should be running on startup (boolean 0/1) (default 0)
+<idle throttle>		throttle setting % on idle; this is intended to be used to simulate thrust/fuel consumption of the engine at idle power, since YASim cannot do this (default 0.01/1%)
+<max N1 start>		maximum N1 % that can be reached using the starter switch (default 5.21, same value in JSBSim jets)
+<N1 start threshold>	at this N1 %, the engine can be fully started by turning off the cutoff switch (default 3)
+<spool time>		engine spool time in N1 %/sec (default 4)
+<start spool time>	engine start spool time in N1 %/sec (default 2)
+<shutdown time>		engine shutdown time in N1 %/sec (default 4)
+
+You can then call the following functions in the new object:
+
+engine.init()		initializes the engine and creates an update loop; should be called AFTER THE FDM IS INITIALIZED (completely optional; you can call update() whenever you want to update the engine)
+engine.update()		update the engine
+engine.autostart()	a simple autostart function; you can use an XML binding like this
+
+	<binding>
+		<command>nasal</command>
+		<script>engine.autostart();</script>
+	</binding>
+
+Some examples:
+
+var engine = engines.Jet.new(0, 0, 0.03, 5.21, 3, 5, 1, 6);
+setlistener("sim/signals/fdm-initialized", func engine.init(), 0, 0);
+
+- or -
+
+	<nasal>
+		<engines>
+			<file>Aircraft/HelloWorld/Nasal/generic-yasim-engine.nas</file>
+			<script>
+				var engine1 = engines.Jet.new(0, 0, 0.03, 5.21, 3, 5, 1, 6);
+				var engine2 = engines.Jet.new(1, 0, 0.03, 5.21, 3, 5, 1, 6);
+				setlistener("sim/signals/fdm-initialized", func
+				{
+					engine1.init();
+					engine2.init();
+				}, 0, 0);
+			</script>
+		</engines>
+	</nasal>
+
+-------------------
+FOR TURBOPROPS ONLY
+-------------------
+
+2) In another script, call the new() functions for each engine. Use the following syntax:
+
+var engine = <module name>.Turboprop.new(<number> [, <min condition>]);
+
+Where:
+<module name>		the module name you added the script under (in the example, it is "engines")
+<number>		engine number in FDM
+<min condition>		minimum condition setting for the engine to turn on (default 0.2)
+
+You can then call the following functions in the new object:
+
+engine.init()		initializes the engine and creates an update loop; should be called AFTER THE FDM IS INITIALIZED (completely optional; you can call update() whenever you want to update the engine)
+engine.update()		update the engine
+engine.autostart()	a simple autostart function; you can use an XML binding like this
+
+	<binding>
+		<command>nasal</command>
+		<script>engine.autostart();</script>
+	</binding>
+
+Some examples:
+
+var engine = engines.Turboprop.new(0, 0.4);
+setlistener("sim/signals/fdm-initialized", func engine.init(), 0, 0);
+
+- or -
+
+	<nasal>
+		<engines>
+			<file>Aircraft/HelloWorld/Nasal/generic-yasim-engine.nas</file>
+			<script>
+				var engine1 = engines.Jet.new(0, 0.4);
+				var engine2 = engines.Jet.new(1, 0.4);
+				setlistener("sim/signals/fdm-initialized", func
+				{
+					engine1.init();
+					engine2.init();
+				}, 0, 0);
+			</script>
+		</engines>
+	</nasal>
+
+-------------------------
+FOR BOTH TYPES OF ENGINES
+-------------------------
+
+3) Adapt your FDM, controls, and animations to suit the new control system, refer to the tables below:
+
++-------------------------------------------------------+
+|Jet control system                                     |
++---------------+---------------------------------------+
+|Control        |Property                               |
++---------------+---------------------------------------+
+|Throttle (user)|/controls/engines/engine/throttle      |
+|Throttle (FDM) |/controls/engines/engine/throttle-lever|
+|Starter        |/controls/engines/engine/starter       |
+|Cutoff         |/controls/engines/engine/cutoff        |
++---------------+---------------------------------------+
+|Output         |Property                               |
++---------------+---------------------------------------+
+|N1             |/engines/engine/rpm                    |
++---------------+---------------------------------------+
+
++---------------------------------------------------------+
+|Turboprop control system                                 |
++----------------+----------------------------------------+
+|Control         |Property                                |
++----------------+----------------------------------------+
+|Throttle        |/controls/engines/engine/throttle       |
+|Condition (user)|/controls/engines/engine/condition      |
+|Condition (FDM) |/controls/engines/engine/condition-lever|
+|Starter         |/controls/engines/engine/starter        |
+|Cutoff          |/controls/engines/engine/cutoff         |
++----------------+----------------------------------------+
+|Output          |Property                                |
++----------------+----------------------------------------+
+|N2/RPM          |/engines/engine/n1                      |
++----------------+----------------------------------------+

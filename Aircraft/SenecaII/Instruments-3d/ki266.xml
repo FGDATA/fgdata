@@ -1,0 +1,493 @@
+<?xml version="1.0" ?>
+<!--
+ This file is part of FlightGear, the free flight simulator
+ http://www.flightgear.org/
+
+ Copyright (C) 2009 Torsten Dreyer, Torsten (at) t3r _dot_ de
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation; either version 2 of the
+ License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+-->
+<!--
+    This is the ki266 3d instrument.
+    Modeled after King KI266 DME Indicator
+    To function properly, dme.nas has to be included in the aircraft-set.xml
+    Maintainer: Torsten Dreyer
+-->
+<PropertyList>
+    <params>
+        <in-range>instrumentation/dme[0]/in-range</in-range>
+        <right-display>instrumentation/dme[0]/min-kts-display</right-display>
+        <left-display>instrumentation/dme[0]/miles-display</left-display>
+        <left-display-dot>instrumentation/dme[0]/left-dot</left-display-dot>
+        <power-btn>instrumentation/dme[0]/power-btn</power-btn>
+        <serviceable>instrumentation/dme[0]/serviceable</serviceable>
+    </params>
+
+    <path>ki266.ac</path>
+
+    <!-- turn it off, when u/s or switched off -->
+    <animation>
+        <type>select</type>
+        <object-name>Indicators</object-name>
+        <condition>
+            <and>
+                <property alias="../../../../params/serviceable"/>
+                <property alias="../../../../params/power-btn"/>
+            </and>
+        </condition>
+    </animation>
+
+    <!-- little thingie does no shadow -->
+    <animation>
+        <type>noshadow</type>
+    </animation>
+    <animation>
+        <type>range</type>
+        <min-m>0</min-m>
+        <max-m>10</max-m>
+    </animation>
+
+    <animation>
+        <type>material</type>
+        <object-name>ModeSwitch</object-name>
+        <emission>
+            <red-prop>sim/model/instrument-lighting/emission/red</red-prop>
+            <green-prop>sim/model/instrument-lighting/emission/green</green-prop>
+            <blue-prop>sim/model/instrument-lighting/emission/blue</blue-prop>
+            <factor-prop>controls/lighting/instruments-norm</factor-prop>
+        </emission>
+    </animation>
+
+    <!-- the power switch -->
+    <animation>
+        <type>rotate</type>
+        <object-name>PowerSwitch.Lever</object-name>
+        <property alias="../../params/power-btn"/>
+        <factor>-60</factor>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <center>
+            <x-m>0.000862624</x-m>
+            <y-m>-0.0328855</y-m>
+            <z-m>0</z-m>
+        </center>
+    </animation>
+
+    <animation>
+        <type>pick</type>
+        <object-name>on</object-name>
+        <visible>true</visible>
+        <action>
+          <button>0</button>
+          <repeatable>false</repeatable>
+          <binding>
+            <command>property-assign</command>
+            <property alias="../../../../params/power-btn"/>
+            <value>1</value>
+          </binding>
+        </action>
+    </animation>
+
+    <animation>
+        <type>pick</type>
+        <object-name>off</object-name>
+        <visible>true</visible>
+        <action>
+          <button>0</button>
+          <repeatable>false</repeatable>
+          <binding>
+            <command>property-assign</command>
+            <property alias="../../../../params/power-btn"/>
+            <value>0</value>
+          </binding>
+        </action>
+    </animation>
+
+    <animation>
+        <type>pick</type>
+        <object-name>PowerSwitch</object-name>
+        <visible>true</visible>
+        <action>
+          <button>0</button>
+          <repeatable>false</repeatable>
+          <binding>
+            <command>property-toggle</command>
+            <property alias="../../../../params/power-btn"/>
+          </binding>
+        </action>
+    </animation>
+
+    <!-- the source switch -->
+    <animation>
+        <type>rotate</type>
+        <object-name>SourceSelectorKnob</object-name>
+        <property>instrumentation/dme/switch-position</property>
+        <factor>-30</factor>
+        <min-deg>-60</min-deg>
+        <max-deg>0</max-deg>
+        <offset-deg>30</offset-deg>
+        <axis>
+            <x>1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+        <center>
+            <x-m>0.005</x-m>
+            <y-m>-0.0589436</y-m>
+            <z-m>0</z-m>
+        </center>
+    </animation>
+
+    <animation>
+        <type>pick</type>
+        <object-name>SourceSelectorPick.R</object-name>
+        <visible>false</visible>
+        <action>
+          <button>0</button>
+          <repeatable>false</repeatable>
+          <binding>
+              <command>property-adjust</command>
+              <property>instrumentation/dme/switch-position</property>
+              <step>1</step>
+              <min>1</min>
+              <max>3</max>
+              <wrap>0</wrap>
+          </binding>
+          <binding>
+              <condition>
+                  <equals>
+                      <property>instrumentation/dme/switch-position</property>
+                      <value type="int">1</value>
+                  </equals>
+              </condition>
+              <command>property-assign</command>
+              <property>instrumentation/dme/frequencies/source</property>
+              <value>instrumentation/nav[0]/frequencies/selected-mhz</value>
+          </binding>
+          <binding>
+              <condition>
+                  <equals>
+                      <property>instrumentation/dme/switch-position</property>
+                      <value type="int">2</value>
+                  </equals>
+              </condition>
+              <command>property-assign</command>
+              <property>instrumentation/dme/frequencies/source</property>
+              <value>instrumentation/dme/frequencies/selected-mhz</value>
+          </binding>
+          <binding>
+              <condition>
+                  <equals>
+                      <property>instrumentation/dme/switch-position</property>
+                      <value type="int">2</value>
+                  </equals>
+              </condition>
+              <command>property-assign</command>
+              <property>instrumentation/dme/frequencies/selected-mhz</property>
+              <property>instrumentation/nav[0]/frequencies/selected-mhz</property>
+          </binding>
+          <binding>
+              <condition>
+                  <equals>
+                      <property>instrumentation/dme/switch-position</property>
+                      <value type="int">3</value>
+                  </equals>
+              </condition>
+              <command>property-assign</command>
+              <property>instrumentation/dme/frequencies/source</property>
+              <value>instrumentation/nav[1]/frequencies/selected-mhz</value>
+          </binding>
+        </action>
+    </animation>
+
+    <animation>
+        <type>pick</type>
+        <object-name>SourceSelectorPick.L</object-name>
+        <visible>false</visible>
+        <action>
+          <button>0</button>
+          <repeatable>false</repeatable>
+          <binding>
+              <command>property-adjust</command>
+              <property>instrumentation/dme/switch-position</property>
+              <step>-1</step>
+              <min>1</min>
+              <max>3</max>
+              <wrap>0</wrap>
+          </binding>
+          <binding>
+              <condition>
+                  <equals>
+                      <property>instrumentation/dme/switch-position</property>
+                      <value type="int">1</value>
+                  </equals>
+              </condition>
+              <command>property-assign</command>
+              <property>instrumentation/dme/frequencies/source</property>
+              <value>instrumentation/nav[0]/frequencies/selected-mhz</value>
+          </binding>
+          <binding>
+              <condition>
+                  <equals>
+                      <property>instrumentation/dme/switch-position</property>
+                      <value type="int">2</value>
+                  </equals>
+              </condition>
+              <command>property-assign</command>
+              <property>instrumentation/dme/frequencies/source</property>
+              <value>instrumentation/dme/frequencies/selected-mhz</value>
+          </binding>
+          <binding>
+              <condition>
+                  <equals>
+                      <property>instrumentation/dme/switch-position</property>
+                      <value type="int">2</value>
+                  </equals>
+              </condition>
+              <command>property-assign</command>
+              <property>instrumentation/dme/frequencies/selected-mhz</property>
+              <property>instrumentation/nav[1]/frequencies/selected-mhz</property>
+          </binding>
+        </action>
+    </animation>
+
+    <!-- the mode switch do display min/kts -->
+    <animation>
+        <type>select</type>
+        <object-name>Min</object-name>
+        <condition>
+            <not>
+                <property>instrumentation/dme/switch-min-kts</property>
+            </not>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>Kts</object-name>
+        <condition>
+            <property>instrumentation/dme/switch-min-kts</property>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>translate</type>
+        <object-name>ModeSwitch</object-name>
+        <factor>-0.003</factor>
+        <property>instrumentation/dme/switch-min-kts</property>
+        <axis>
+            <x>1.0</x>
+            <y>0.0</y>
+            <z>0.0</z>
+        </axis>
+    </animation>
+
+    <animation>
+        <type>pick</type>
+        <object-name>ModeSwitch</object-name>
+        <visible>true</visible>
+        <action>
+          <button>0</button>
+          <repeatable>false</repeatable>
+          <binding>
+            <command>property-toggle</command>
+            <property>instrumentation/dme/switch-min-kts</property>
+          </binding>
+        </action>
+    </animation>
+
+    <!-- distance display, allways on. 
+            Shows nn.n when distance is less than 100NM and
+            shows nnn when distance is greater than or equal to 100NM
+    -->
+    <animation>
+        <name>LeftDecimalDot</name>
+        <type>select</type>
+        <object-name>Left.Dot1</object-name>
+        <condition>
+            <property alias="../../../params/left-display-dot"/>
+        </condition>
+    </animation>
+
+    <!-- blank leading zeros -->
+    <animation>
+        <name>miles_100_blank</name>
+        <type>select</type>
+        <object-name>Left.100</object-name>
+        <condition>
+            <greater-than-equals>
+                <property alias="../../../../params/left-display"/>
+                <value>100.0</value>
+            </greater-than-equals>
+        </condition>
+    </animation>
+
+    <animation>
+        <name>miles_10_blank</name>
+        <type>select</type>
+        <object-name>Left.10</object-name>
+        <condition>
+            <or>
+                <greater-than-equals>
+                    <property alias="../../../../../params/left-display"/>
+                    <value>10.0</value>
+                </greater-than-equals>
+                <and>
+                    <property alias="../../../../../params/left-display-dot"/>
+                    <greater-than-equals>
+                        <property alias="../../../../../../params/left-display"/>
+                        <value>1.0</value>
+                    </greater-than-equals>
+                </and>
+            </or>
+        </condition>
+    </animation>
+
+    <animation>
+        <name>miles_1_blank</name>
+        <type>select</type>
+        <object-name>Left.1</object-name>
+        <condition>
+            <greater-than-equals>
+                <property alias="../../../../params/left-display"/>
+                <value>1.0</value>
+            </greater-than-equals>
+        </condition>
+    </animation>
+
+    <!-- left display, left digit -->
+    <animation>
+        <name>miles_100_lo</name>
+        <type>textranslate</type>
+        <object-name>Left.100</object-name>
+        <property alias="../../params/left-display"/>
+        <step>100</step>
+        <factor>0.001</factor>
+        <axis>
+            <x>1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+    </animation>
+
+    <!-- left display, center digit -->
+    <animation>
+        <name>miles_10_lo</name>
+        <type>textranslate</type>
+        <object-name>Left.10</object-name>
+        <property alias="../../params/left-display"/>
+        <step>10</step>
+        <factor>0.01</factor>
+        <axis>
+            <x>1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+    </animation>
+
+    <!-- left display, right digit -->
+    <animation>
+        <name>miles_1_lo</name>
+        <type>textranslate</type>
+        <object-name>Left.1</object-name>
+        <property alias="../../params/left-display"/>
+        <step>1</step>
+        <factor>0.1</factor>
+        <axis>
+            <x>1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+    </animation>
+
+    <!--
+        Right display, showing either kts or min, handled by dme.nas
+    -->
+    <animation>
+        <condition>
+            <greater-than-equals>
+                <property alias="../../../../params/right-display"/>
+                <value>100</value>
+            </greater-than-equals>
+        </condition>
+        <name>kts_100_select</name>
+        <type>select</type>
+        <object-name>Right.100</object-name>
+    </animation>
+
+    <animation>
+        <condition>
+            <greater-than-equals>
+                <property alias="../../../../params/right-display"/>
+                <value>10</value>
+            </greater-than-equals>
+        </condition>
+        <name>kts_10_select</name>
+        <type>select</type>
+        <object-name>Right.10</object-name>
+    </animation>
+
+    <animation>
+        <condition>
+            <property alias="../../../params/in-range"/>
+        </condition>
+        <name>kts_1_select</name>
+        <type>select</type>
+        <object-name>Right.1</object-name>
+    </animation>
+
+    <animation>
+        <name>kts_100</name>
+        <type>textranslate</type>
+        <object-name>Right.100</object-name>
+        <property alias="../../params/right-display"/>
+        <step>100</step>
+        <factor>0.001</factor>
+        <axis>
+            <x>1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+    </animation>
+
+    <animation>
+        <name>kts_10</name>
+        <type>textranslate</type>
+        <object-name>Right.10</object-name>
+        <property alias="../../params/right-display"/>
+        <step>10</step>
+        <factor>0.01</factor>
+        <axis>
+            <x>1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+    </animation>
+
+    <animation>
+        <name>kts_1</name>
+        <type>textranslate</type>
+        <object-name>Right.1</object-name>
+        <property alias="../../params/right-display"/>
+        <step>1</step>
+        <factor>0.1</factor>
+        <axis>
+            <x>1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+    </animation>
+
+
+</PropertyList>

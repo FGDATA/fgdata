@@ -1,0 +1,208 @@
+<?xml version="1.0"?>
+<!-- Speedlink Black Widow Force
+
+  Copyright (C) 2010 Michael Landwehr (potholer(at)web.de).
+  This file is released under the GPL license.
+
+  Overview over the Functions of Axes and Buttons:
+
+  Axes on the Stick:
+   Axis 0 = Aileron
+   Axis 1 = Elevator
+   Axis 2 = Throttle
+   Axis 3 = Rudder
+   Axis 4 = View Direction
+   Axis 5 = View Elevation
+
+  Buttons on the Stick:
+   Button 0 = Center View (F1; backside)
+   Button 1 = Brakes (F2)
+   Button 2 = Elevator Trim up (F3)
+   Button 3 = Elevator Trim down (F4)
+   Button 4 = Flaps down (F5)
+   Button 5 = Flaps up (F6)
+   Button 6 = Gear down (F7)
+   Button 7 = Gear up (F8)
+-->
+
+<PropertyList>
+
+ <name>Black Widow Force</name>
+
+ <axis n="0">
+  <desc>Aileron</desc>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/aileron</property>
+   <power type="double">2</power>
+  </binding>
+ </axis>
+
+ <axis n="1">
+  <desc>Elevator</desc>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/elevator</property>
+   <factor type="double">-1.0</factor>
+   <power type="double">2</power>
+  </binding>
+ </axis>
+
+ <axis n="2">
+  <desc>Throttle</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.throttleAxis()</script>
+  </binding>
+ </axis>
+
+ <axis n="3">
+  <desc>Rudder</desc>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/rudder</property>
+   <power type="double">2</power>
+  </binding>
+ </axis>
+
+<axis n="4">
+   <desc>View Direction</desc>
+   <low>
+    <repeatable>true</repeatable>
+    <binding>
+     <command>property-adjust</command>
+     <property>/sim/current-view/goal-heading-offset-deg</property>
+     <step type="double">2.0</step>
+    </binding>
+   </low>
+   <high>
+    <repeatable>true</repeatable>
+    <binding>
+     <command>property-adjust</command>
+     <property>/sim/current-view/goal-heading-offset-deg</property>
+     <step type="double">-2.0</step>
+    </binding>
+   </high>
+  </axis>
+
+  <axis n="5">
+   <desc>View Elevation</desc>
+   <low>
+    <repeatable>true</repeatable>
+    <binding>
+     <command>property-adjust</command>
+     <property>/sim/current-view/goal-pitch-offset-deg</property>
+     <step type="double">-2.0</step>
+    </binding>
+   </low>
+   <high>
+    <repeatable>true</repeatable>
+    <binding>
+     <command>property-adjust</command>
+     <property>/sim/current-view/goal-pitch-offset-deg</property>
+     <step type="double">2.0</step>
+    </binding>
+   </high>
+  </axis>
+
+ <button n="0">
+  <desc>Center View</desc>
+  <repeatable type="bool">false</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>view.resetView()</script>
+  </binding>
+ </button>
+
+ <button n="1">
+  <desc>Brakes</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.applyBrakes(1, 0)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.applyBrakes(0, 0)</script>
+   </binding>
+  </mod-up>
+ </button>
+
+ <button n="2">
+  <desc>Elevator trim up</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.elevatorTrim(1)</script>
+  </binding>
+ </button>
+
+ <button n="3">
+  <desc>Elevator trim down</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.elevatorTrim(-1)</script>
+  </binding>
+ </button>
+
+ <button n="4">
+  <desc>Flaps down</desc>
+  <repeatable>false</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.flapsDown(1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.flapsDown(0)</script>
+   </binding>
+  </mod-up>
+ </button>
+
+ <button n="5">
+  <desc>Flaps up</desc>
+  <repeatable>false</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.flapsDown(-1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.flapsDown(0)</script>
+   </binding>
+  </mod-up>
+ </button>
+
+ <button n="6">
+  <desc>Gear down</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.gearDown(1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.gearDown(0)</script>
+   </binding>
+  </mod-up>
+ </button>
+
+ <button n="7">
+  <desc>Gear up</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.gearDown(-1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.gearDown(0)</script>
+   </binding>
+  </mod-up>
+ </button>
+
+</PropertyList>
+

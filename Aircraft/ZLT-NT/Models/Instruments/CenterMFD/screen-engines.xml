@@ -1,0 +1,1357 @@
+<!-- $Id$ -->
+<!--
+  Zeppelin NT07 airship.
+
+  Copyright (C) 2008 - 2009  Anders Gidenstam  (anders(at)gidenstam.org)
+  This file is licensed under the GPL license v2 or later.
+-->
+<PropertyList>
+
+ <!-- Note: this screen model is not moved to the origin. -->
+ <path>screen-engines.ac</path>
+ <offsets>
+  <!-- x/y/z == back/right/up -->
+  <x-m> 0.0 </x-m>
+  <y-m> 0.0 </y-m>
+  <z-m> 0.0 </z-m>
+ </offsets>
+
+ <!-- =========================================================================
+  Manifold pressure display
+  Display range: 0 - 32 IN HG over 30mm. Z origin 0.632.
+ -->
+ <model>
+  <path>Aircraft/ZLT-NT/Models/Instruments/CenterMFD/display-text.xml</path>
+  <offsets>
+   <x-m> 0.011</x-m>
+   <y-m>-0.090</y-m>
+   <z-m> 0.628</z-m>
+  </offsets>
+  <overlay>
+   <params>
+    <property type="string">engines/engine[0]/mp-inhg</property>
+    <factor type="double">1.0</factor>
+    <offset type="double">0.0</offset>
+    <format type="string">%2.1f</format>
+    <color>
+     <red   type="double">1.0</red>
+     <green type="double">1.0</green>
+     <blue  type="double">1.0</blue>
+    </color>
+   </params>
+  </overlay>
+ </model>
+ <model>
+  <path>Aircraft/ZLT-NT/Models/Instruments/CenterMFD/display-text.xml</path>
+  <offsets>
+   <x-m> 0.011</x-m>
+   <y-m>-0.070</y-m>
+   <z-m> 0.628</z-m>
+  </offsets>
+  <overlay>
+   <params>
+    <property type="string">engines/engine[2]/mp-inhg</property>
+    <factor type="double">1.0</factor>
+    <offset type="double">0.0</offset>
+    <format type="string">%2.1f</format>
+    <color>
+     <red   type="double">1.0</red>
+     <green type="double">1.0</green>
+     <blue  type="double">1.0</blue>
+    </color>
+   </params>
+  </overlay>
+ </model>
+ <model>
+  <path>Aircraft/ZLT-NT/Models/Instruments/CenterMFD/display-text.xml</path>
+  <offsets>
+   <x-m> 0.011</x-m>
+   <y-m>-0.050</y-m>
+   <z-m> 0.628</z-m>
+  </offsets>
+  <overlay>
+   <params>
+    <property type="string">engines/engine[1]/mp-inhg</property>
+    <factor type="double">1.0</factor>
+    <offset type="double">0.0</offset>
+    <format type="string">%2.1f</format>
+    <color>
+     <red   type="double">1.0</red>
+     <green type="double">1.0</green>
+     <blue  type="double">1.0</blue>
+    </color>
+   </params>
+  </overlay>
+ </model>
+
+ <animation>
+  <type>translate</type>
+  <object-name>MP_arrow.1</object-name>
+  <property>engines/engine[0]/mp-inhg</property>
+  <interpolation>
+   <entry><ind>0.0</ind>   <dep>0.0</dep></entry>
+   <entry><ind>32.00</ind> <dep>0.03</dep></entry>
+  </interpolation>
+  <axis>
+   <x>0.0</x>
+   <y>0.0</y>
+   <z>1.0</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>scale</type>
+  <object-name>MP_bar.1</object-name>
+  <property>engines/engine[0]/mp-inhg</property>
+  <x-factor>0.0</x-factor>
+  <x-offset>1.0</x-offset>
+  <y-factor>0.0</y-factor>
+  <y-offset>1.0</y-offset>
+  <z-factor>0.03125</z-factor>
+  <z-offset>0.0</z-offset>
+  <z-min>0.0</z-min>
+  <z-max>1.0</z-max>
+  <center>
+   <x-m> 0.0</x-m>
+   <y-m> 0.0</y-m>
+   <z-m> 0.632</z-m>
+  </center>
+ </animation>
+
+ <animation>
+  <type>translate</type>
+  <object-name>MP_arrow.2</object-name>
+  <property>engines/engine[2]/mp-inhg</property>
+  <interpolation>
+   <entry><ind>0.0</ind>   <dep>0.0</dep></entry>
+   <entry><ind>32.00</ind> <dep>0.03</dep></entry>
+  </interpolation>
+  <axis>
+   <x>0.0</x>
+   <y>0.0</y>
+   <z>1.0</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>scale</type>
+  <object-name>MP_bar.2</object-name>
+  <property>engines/engine[2]/mp-inhg</property>
+  <x-factor>0.0</x-factor>
+  <x-offset>1.0</x-offset>
+  <y-factor>0.0</y-factor>
+  <y-offset>1.0</y-offset>
+  <z-factor>0.03125</z-factor>
+  <z-offset>0.0</z-offset>
+  <z-min>0.0</z-min>
+  <z-max>1.0</z-max>
+  <center>
+   <x-m> 0.0</x-m>
+   <y-m> 0.0</y-m>
+   <z-m> 0.632</z-m>
+  </center>
+ </animation>
+
+ <animation>
+  <type>translate</type>
+  <object-name>MP_arrow.3</object-name>
+  <property>engines/engine[1]/mp-inhg</property>
+  <interpolation>
+   <entry><ind>0.0</ind>   <dep>0.0</dep></entry>
+   <entry><ind>32.00</ind> <dep>0.03</dep></entry>
+  </interpolation>
+  <axis>
+   <x>0.0</x>
+   <y>0.0</y>
+   <z>1.0</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>scale</type>
+  <object-name>MP_bar.3</object-name>
+  <property>engines/engine[1]/mp-inhg</property>
+  <x-factor>0.0</x-factor>
+  <x-offset>1.0</x-offset>
+  <y-factor>0.0</y-factor>
+  <y-offset>1.0</y-offset>
+  <z-factor>0.03125</z-factor>
+  <z-offset>0.0</z-offset>
+  <z-min>0.0</z-min>
+  <z-max>1.0</z-max>
+  <center>
+   <x-m> 0.0</x-m>
+   <y-m> 0.0</y-m>
+   <z-m> 0.632</z-m>
+  </center>
+ </animation>
+
+ <!-- =========================================================================
+  RPM display
+  Display range: 0 - 30x100 RPM over 30mm. Z origin 0.586.
+  The maximum allowable value is 2700 RPM according to the type certificate
+  FAA AS1CE.
+ -->
+ <model>
+  <path>Aircraft/ZLT-NT/Models/Instruments/CenterMFD/display-text.xml</path>
+  <offsets>
+   <x-m> 0.011</x-m>
+   <y-m>-0.090</y-m>
+   <z-m> 0.582</z-m>
+  </offsets>
+  <overlay>
+   <params>
+    <property type="string">engines/engine[0]/rpm</property>
+    <factor type="double">1.0</factor>
+    <offset type="double">0.0</offset>
+    <format type="string">%4.0f</format>
+    <color>
+     <red   type="double">1.0</red>
+     <green type="double">1.0</green>
+     <blue  type="double">1.0</blue>
+    </color>
+   </params>
+  </overlay>
+ </model>
+ <model>
+  <path>Aircraft/ZLT-NT/Models/Instruments/CenterMFD/display-text.xml</path>
+  <offsets>
+   <x-m> 0.011</x-m>
+   <y-m>-0.070</y-m>
+   <z-m> 0.582</z-m>
+  </offsets>
+  <overlay>
+   <params>
+    <property type="string">engines/engine[2]/rpm</property>
+    <factor type="double">1.0</factor>
+    <offset type="double">0.0</offset>
+    <format type="string">%4.0f</format>
+    <color>
+     <red   type="double">1.0</red>
+     <green type="double">1.0</green>
+     <blue  type="double">1.0</blue>
+    </color>
+   </params>
+  </overlay>
+ </model>
+ <model>
+  <path>Aircraft/ZLT-NT/Models/Instruments/CenterMFD/display-text.xml</path>
+  <offsets>
+   <x-m> 0.011</x-m>
+   <y-m>-0.050</y-m>
+   <z-m> 0.582</z-m>
+  </offsets>
+  <overlay>
+   <params>
+    <property type="string">engines/engine[1]/rpm</property>
+    <factor type="double">1.0</factor>
+    <offset type="double">0.0</offset>
+    <format type="string">%4.0f</format>
+    <color>
+     <red   type="double">1.0</red>
+     <green type="double">1.0</green>
+     <blue  type="double">1.0</blue>
+    </color>
+   </params>
+  </overlay>
+ </model>
+
+ <animation>
+  <type>translate</type>
+  <object-name>RPM_arrow.1</object-name>
+  <property>engines/engine[0]/rpm</property>
+  <factor>0.00001</factor>
+  <offset>0</offset>
+  <min>0.0</min>
+  <max>0.03</max>
+  <axis>
+   <x>0.0</x>
+   <y>0.0</y>
+   <z>1.0</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>scale</type>
+  <object-name>RPM_bar.1</object-name>
+  <property>engines/engine[0]/rpm</property>
+  <x-factor>0.0</x-factor>
+  <x-offset>1.0</x-offset>
+  <y-factor>0.0</y-factor>
+  <y-offset>1.0</y-offset>
+  <z-factor>0.000333</z-factor>
+  <z-offset>0.0</z-offset>
+  <z-min>0.0</z-min>
+  <z-max>1.0</z-max>
+  <center>
+   <x-m> 0.0</x-m>
+   <y-m> 0.0</y-m>
+   <z-m> 0.586</z-m>
+  </center>
+ </animation>
+
+ <animation>
+  <type>translate</type>
+  <object-name>RPM_arrow.2</object-name>
+  <property>engines/engine[2]/rpm</property>
+  <factor>0.00001</factor>
+  <offset>0</offset>
+  <min>0.0</min>
+  <max>0.03</max>
+  <axis>
+   <x>0.0</x>
+   <y>0.0</y>
+   <z>1.0</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>scale</type>
+  <object-name>RPM_bar.2</object-name>
+  <property>engines/engine[2]/rpm</property>
+  <x-factor>0.0</x-factor>
+  <x-offset>1.0</x-offset>
+  <y-factor>0.0</y-factor>
+  <y-offset>1.0</y-offset>
+  <z-factor>0.000333</z-factor>
+  <z-offset>0.0</z-offset>
+  <z-min>0.0</z-min>
+  <z-max>1.0</z-max>
+  <center>
+   <x-m> 0.0</x-m>
+   <y-m> 0.0</y-m>
+   <z-m> 0.586</z-m>
+  </center>
+ </animation>
+
+ <animation>
+  <type>translate</type>
+  <object-name>RPM_arrow.3</object-name>
+  <property>engines/engine[1]/rpm</property>
+  <factor>0.00001</factor>
+  <offset>0</offset>
+  <min>0.0</min>
+  <max>0.03</max>
+  <axis>
+   <x>0.0</x>
+   <y>0.0</y>
+   <z>1.0</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>scale</type>
+  <object-name>RPM_bar.3</object-name>
+  <property>engines/engine[1]/rpm</property>
+  <x-factor>0.0</x-factor>
+  <x-offset>1.0</x-offset>
+  <y-factor>0.0</y-factor>
+  <y-offset>1.0</y-offset>
+  <z-factor>0.000333</z-factor>
+  <z-offset>0.0</z-offset>
+  <z-min>0.0</z-min>
+  <z-max>1.0</z-max>
+  <center>
+   <x-m> 0.0</x-m>
+   <y-m> 0.0</y-m>
+   <z-m> 0.586</z-m>
+  </center>
+ </animation>
+
+ <!-- =========================================================================
+  Exhaust Gas Temperature display
+  Display range: 60 - 90 x10 degC over 30mm. Z origin 0.540.
+  The EGT computed by JSBSim seems low compared to the range of the
+  display. Could this be due to assumed probe location?
+  The FDM uses a bogus mapping to give egt-degc a suitable range.
+ -->
+ <model>
+  <path>Aircraft/ZLT-NT/Models/Instruments/CenterMFD/display-text.xml</path>
+  <offsets>
+   <x-m> 0.011</x-m>
+   <y-m>-0.090</y-m>
+   <z-m> 0.536</z-m>
+  </offsets>
+  <overlay>
+   <params>
+    <property type="string">engines/engine[0]/egt-degc</property>
+    <format type="string">%3.0f</format>
+    <color>
+     <red   type="double">1.0</red>
+     <green type="double">1.0</green>
+     <blue  type="double">1.0</blue>
+    </color>
+   </params>
+  </overlay>
+ </model>
+ <model>
+  <path>Aircraft/ZLT-NT/Models/Instruments/CenterMFD/display-text.xml</path>
+  <offsets>
+   <x-m> 0.011</x-m>
+   <y-m>-0.070</y-m>
+   <z-m> 0.536</z-m>
+  </offsets>
+  <overlay>
+   <params>
+    <property type="string">engines/engine[2]/egt-degc</property>
+    <interpolation>
+     <entry><ind>-148.0</ind> <dep>-100.0</dep></entry>
+     <entry><ind>212.0</ind>  <dep>100.0</dep></entry>
+     <entry><ind>572.0</ind>  <dep>300.0</dep></entry>
+     <entry><ind>1112.0</ind> <dep>600.0</dep></entry>
+    </interpolation>
+    <format type="string">%3.0f</format>
+    <color>
+     <red   type="double">1.0</red>
+     <green type="double">1.0</green>
+     <blue  type="double">1.0</blue>
+    </color>
+   </params>
+  </overlay>
+ </model>
+ <model>
+  <path>Aircraft/ZLT-NT/Models/Instruments/CenterMFD/display-text.xml</path>
+  <offsets>
+   <x-m> 0.011</x-m>
+   <y-m>-0.050</y-m>
+   <z-m> 0.536</z-m>
+  </offsets>
+  <overlay>
+   <params>
+    <property type="string">engines/engine[1]/egt-degc</property>
+    <format type="string">%3.0f</format>
+    <color>
+     <red   type="double">1.0</red>
+     <green type="double">1.0</green>
+     <blue  type="double">1.0</blue>
+    </color>
+   </params>
+  </overlay>
+ </model>
+
+ <animation>
+  <type>translate</type>
+  <object-name>EGT_arrow.1</object-name>
+  <property>engines/engine[0]/egt-degc</property>
+  <interpolation>
+   <entry><ind>600</ind> <dep>0.0</dep></entry>
+   <entry><ind>900</ind> <dep>0.03</dep></entry>
+  </interpolation>
+  <axis>
+   <x>0.0</x>
+   <y>0.0</y>
+   <z>1.0</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>scale</type>
+  <object-name>EGT_bar.1</object-name>
+  <property>engines/engine[0]/egt-degc</property>
+  <x-factor>0.0</x-factor>
+  <x-offset>1.0</x-offset>
+  <y-factor>0.0</y-factor>
+  <y-offset>1.0</y-offset>
+  <z-factor>0.00333333</z-factor>
+  <z-offset>-2.00</z-offset>
+  <z-min>0.0</z-min>
+  <z-max>1.0</z-max>
+  <center>
+   <x-m> 0.0</x-m>
+   <y-m> 0.0</y-m>
+   <z-m> 0.54</z-m>
+  </center>
+ </animation>
+
+ <animation>
+  <type>translate</type>
+  <object-name>EGT_arrow.2</object-name>
+  <property>engines/engine[2]/egt-degc</property>
+  <interpolation>
+   <entry><ind>600</ind> <dep>0.0</dep></entry>
+   <entry><ind>900</ind> <dep>0.03</dep></entry>
+  </interpolation>
+  <axis>
+   <x>0.0</x>
+   <y>0.0</y>
+   <z>1.0</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>scale</type>
+  <object-name>EGT_bar.2</object-name>
+  <property>engines/engine[2]/egt-degc</property>
+  <x-factor>0.0</x-factor>
+  <x-offset>1.0</x-offset>
+  <y-factor>0.0</y-factor>
+  <y-offset>1.0</y-offset>
+  <z-factor>0.00333333</z-factor>
+  <z-offset>-2.00</z-offset>
+  <z-min>0.0</z-min>
+  <z-max>1.0</z-max>
+  <center>
+   <x-m> 0.0</x-m>
+   <y-m> 0.0</y-m>
+   <z-m> 0.5396</z-m>
+  </center>
+ </animation>
+
+ <animation>
+  <type>translate</type>
+  <object-name>EGT_arrow.3</object-name>
+  <property>engines/engine[1]/egt-degc</property>
+  <interpolation>
+   <entry><ind>600</ind> <dep>0.0</dep></entry>
+   <entry><ind>900</ind> <dep>0.03</dep></entry>
+  </interpolation>
+  <axis>
+   <x>0.0</x>
+   <y>0.0</y>
+   <z>1.0</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>scale</type>
+  <object-name>EGT_bar.3</object-name>
+  <property>engines/engine[1]/egt-degc</property>
+  <x-factor>0.0</x-factor>
+  <x-offset>1.0</x-offset>
+  <y-factor>0.0</y-factor>
+  <y-offset>1.0</y-offset>
+  <z-factor>0.00333333</z-factor>
+  <z-offset>-2.00</z-offset>
+  <z-min>0.0</z-min>
+  <z-max>1.0</z-max>
+  <center>
+   <x-m> 0.0</x-m>
+   <y-m> 0.0</y-m>
+   <z-m> 0.54</z-m>
+  </center>
+ </animation>
+
+ <!-- =========================================================================
+  Cylinder Head Temperature display
+  Display range: 0 - 300 degC over 30mm. Z origin 0.632.
+  The maximum allowable value is 260 degC according to the type certificate
+  FAA AS1CE.
+ -->
+ <model>
+  <path>Aircraft/ZLT-NT/Models/Instruments/CenterMFD/display-text.xml</path>
+  <offsets>
+   <x-m> 0.011</x-m>
+   <y-m>-0.030</y-m>
+   <z-m> 0.628</z-m>
+  </offsets>
+  <overlay>
+   <params>
+    <property type="string">engines/engine[0]/cht-degc</property>
+    <format type="string">%3.0f</format>
+    <color>
+     <red   type="double">1.0</red>
+     <green type="double">1.0</green>
+     <blue  type="double">1.0</blue>
+    </color>
+   </params>
+  </overlay>
+ </model>
+ <model>
+  <path>Aircraft/ZLT-NT/Models/Instruments/CenterMFD/display-text.xml</path>
+  <offsets>
+   <x-m> 0.011</x-m>
+   <y-m>-0.010</y-m>
+   <z-m> 0.628</z-m>
+  </offsets>
+  <overlay>
+   <params>
+    <property type="string">engines/engine[2]/cht-degc</property>
+    <format type="string">%3.0f</format>
+    <color>
+     <red   type="double">1.0</red>
+     <green type="double">1.0</green>
+     <blue  type="double">1.0</blue>
+    </color>
+   </params>
+  </overlay>
+ </model>
+ <model>
+  <path>Aircraft/ZLT-NT/Models/Instruments/CenterMFD/display-text.xml</path>
+  <offsets>
+   <x-m> 0.011</x-m>
+   <y-m> 0.010</y-m>
+   <z-m> 0.628</z-m>
+  </offsets>
+  <overlay>
+   <params>
+    <property type="string">engines/engine[1]/cht-degc</property>
+    <format type="string">%3.0f</format>
+    <color>
+     <red   type="double">1.0</red>
+     <green type="double">1.0</green>
+     <blue  type="double">1.0</blue>
+    </color>
+   </params>
+  </overlay>
+ </model>
+
+ <animation>
+  <type>translate</type>
+  <object-name>CHT_arrow.1</object-name>
+  <property>engines/engine[0]/cht-degc</property>
+  <interpolation>
+   <entry><ind>0</ind> <dep>0.0</dep></entry>
+   <entry><ind>300</ind><dep>0.03</dep></entry>
+  </interpolation>
+  <axis>
+   <x>0.0</x>
+   <y>0.0</y>
+   <z>1.0</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>scale</type>
+  <object-name>CHT_bar.1</object-name>
+  <property>engines/engine[0]/cht-degc</property>
+  <x-factor>0.0</x-factor>
+  <x-offset>1.0</x-offset>
+  <y-factor>0.0</y-factor>
+  <y-offset>1.0</y-offset>
+  <z-factor>0.00333333</z-factor>
+  <z-offset>0.0</z-offset>
+  <z-min>0.0</z-min>
+  <z-max>1.0</z-max>
+  <center>
+   <x-m> 0.0</x-m>
+   <y-m> 0.0</y-m>
+   <z-m> 0.632</z-m>
+  </center>
+ </animation>
+
+ <animation>
+  <type>translate</type>
+  <object-name>CHT_arrow.2</object-name>
+  <property>engines/engine[2]/cht-degc</property>
+  <interpolation>
+   <entry><ind>0</ind> <dep>0.0</dep></entry>
+   <entry><ind>300</ind><dep>0.03</dep></entry>
+  </interpolation>
+  <axis>
+   <x>0.0</x>
+   <y>0.0</y>
+   <z>1.0</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>scale</type>
+  <object-name>CHT_bar.2</object-name>
+  <property>engines/engine[2]/cht-degc</property>
+  <x-factor>0.0</x-factor>
+  <x-offset>1.0</x-offset>
+  <y-factor>0.0</y-factor>
+  <y-offset>1.0</y-offset>
+  <z-factor>0.00333333</z-factor>
+  <z-offset>0.0</z-offset>
+  <z-min>0.0</z-min>
+  <z-max>1.0</z-max>
+  <center>
+   <x-m> 0.0</x-m>
+   <y-m> 0.0</y-m>
+   <z-m> 0.632</z-m>
+  </center>
+ </animation>
+
+ <animation>
+  <type>translate</type>
+  <object-name>CHT_arrow.3</object-name>
+  <property>engines/engine[1]/cht-degc</property>
+  <interpolation>
+   <entry><ind>0</ind> <dep>0.0</dep></entry>
+   <entry><ind>300</ind><dep>0.03</dep></entry>
+  </interpolation>
+  <axis>
+   <x>0.0</x>
+   <y>0.0</y>
+   <z>1.0</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>scale</type>
+  <object-name>CHT_bar.3</object-name>
+  <property>engines/engine[1]/cht-degc</property>
+  <x-factor>0.0</x-factor>
+  <x-offset>1.0</x-offset>
+  <y-factor>0.0</y-factor>
+  <y-offset>1.0</y-offset>
+  <z-factor>0.00333333</z-factor>
+  <z-offset>0.0</z-offset>
+  <z-min>0.0</z-min>
+  <z-max>1.0</z-max>
+  <center>
+   <x-m> 0.0</x-m>
+   <y-m> 0.0</y-m>
+   <z-m> 0.632</z-m>
+  </center>
+ </animation>
+
+ <!-- =========================================================================
+  Oil temperature display
+  Display range: 0 - 150 degC over 30mm. Z origin 0.586.
+  The maximum allowable value is 118 degC (100F) and take-off
+  minimum is 37.8 degC (240F) according to the type certificates
+  FAA AS1CE and E1CE.
+ -->
+ <model>
+  <path>Aircraft/ZLT-NT/Models/Instruments/CenterMFD/display-text.xml</path>
+  <offsets>
+   <x-m> 0.011</x-m>
+   <y-m>-0.030</y-m>
+   <z-m> 0.582</z-m>
+  </offsets>
+  <overlay>
+   <params>
+    <property type="string">engines/engine[0]/oil-temperature-degc</property>
+    <format type="string">%3.0f</format>
+    <color>
+     <red   type="double">1.0</red>
+     <green type="double">1.0</green>
+     <blue  type="double">1.0</blue>
+    </color>
+   </params>
+  </overlay>
+ </model>
+ <model>
+  <path>Aircraft/ZLT-NT/Models/Instruments/CenterMFD/display-text.xml</path>
+  <offsets>
+   <x-m> 0.011</x-m>
+   <y-m>-0.010</y-m>
+   <z-m> 0.582</z-m>
+  </offsets>
+  <overlay>
+   <params>
+    <property type="string">engines/engine[2]/oil-temperature-degc</property>
+    <format type="string">%3.0f</format>
+    <color>
+     <red   type="double">1.0</red>
+     <green type="double">1.0</green>
+     <blue  type="double">1.0</blue>
+    </color>
+   </params>
+  </overlay>
+ </model>
+ <model>
+  <path>Aircraft/ZLT-NT/Models/Instruments/CenterMFD/display-text.xml</path>
+  <offsets>
+   <x-m> 0.011</x-m>
+   <y-m> 0.010</y-m>
+   <z-m> 0.582</z-m>
+  </offsets>
+  <overlay>
+   <params>
+    <property type="string">engines/engine[1]/oil-temperature-degc</property>
+    <format type="string">%3.0f</format>
+    <color>
+     <red   type="double">1.0</red>
+     <green type="double">1.0</green>
+     <blue  type="double">1.0</blue>
+    </color>
+   </params>
+  </overlay>
+ </model>
+
+ <animation>
+  <type>translate</type>
+  <object-name>OilT_arrow.1</object-name>
+  <property>engines/engine[0]/oil-temperature-degc</property>
+  <interpolation>
+   <entry><ind>0</ind> <dep>0.0</dep></entry>
+   <entry><ind>150</ind><dep>0.03</dep></entry>
+  </interpolation>
+  <axis>
+   <x>0.0</x>
+   <y>0.0</y>
+   <z>1.0</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>scale</type>
+  <object-name>OilT_bar.1</object-name>
+  <property>engines/engine[0]/oil-temperature-degc</property>
+  <x-factor>0.0</x-factor>
+  <x-offset>1.0</x-offset>
+  <y-factor>0.0</y-factor>
+  <y-offset>1.0</y-offset>
+  <z-factor>0.00666667</z-factor>
+  <z-offset>0.0</z-offset>
+  <z-min>0.0</z-min>
+  <z-max>1.0</z-max>
+  <center>
+   <x-m> 0.0</x-m>
+   <y-m> 0.0</y-m>
+   <z-m> 0.586</z-m>
+  </center>
+ </animation>
+
+ <animation>
+  <type>translate</type>
+  <object-name>OilT_arrow.2</object-name>
+  <property>engines/engine[2]/oil-temperature-degc</property>
+  <interpolation>
+   <entry><ind>0</ind> <dep>0.0</dep></entry>
+   <entry><ind>150</ind><dep>0.03</dep></entry>
+  </interpolation>
+  <axis>
+   <x>0.0</x>
+   <y>0.0</y>
+   <z>1.0</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>scale</type>
+  <object-name>OilT_bar.2</object-name>
+  <property>engines/engine[2]/oil-temperature-degc</property>
+  <x-factor>0.0</x-factor>
+  <x-offset>1.0</x-offset>
+  <y-factor>0.0</y-factor>
+  <y-offset>1.0</y-offset>
+  <z-factor>0.00666667</z-factor>
+  <z-offset>0.0</z-offset>
+  <z-min>0.0</z-min>
+  <z-max>1.0</z-max>
+  <center>
+   <x-m> 0.0</x-m>
+   <y-m> 0.0</y-m>
+   <z-m> 0.586</z-m>
+  </center>
+ </animation>
+
+ <animation>
+  <type>translate</type>
+  <object-name>OilT_arrow.3</object-name>
+  <property>engines/engine[1]/oil-temperature-degc</property>
+  <interpolation>
+   <entry><ind>0</ind> <dep>0.0</dep></entry>
+   <entry><ind>150</ind><dep>0.03</dep></entry>
+  </interpolation>
+  <axis>
+   <x>0.0</x>
+   <y>0.0</y>
+   <z>1.0</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>scale</type>
+  <object-name>OilT_bar.3</object-name>
+  <property>engines/engine[1]/oil-temperature-degc</property>
+  <x-factor>0.0</x-factor>
+  <x-offset>1.0</x-offset>
+  <y-factor>0.0</y-factor>
+  <y-offset>1.0</y-offset>
+  <z-factor>0.00666667</z-factor>
+  <z-offset>0.0</z-offset>
+  <z-min>0.0</z-min>
+  <z-max>1.0</z-max>
+  <center>
+   <x-m> 0.0</x-m>
+   <y-m> 0.0</y-m>
+   <z-m> 0.586</z-m>
+  </center>
+ </animation>
+
+ <!-- =========================================================================
+  Oil pressure display
+  Display range: 0 - 10 bar over 30mm. Z origin 0.540.
+  Limits according to type certificate FAA 1E10:
+    Normal max  95 psi min 55 psi
+    Idle               min 25 psi
+    Warmup max 115 psi
+ -->
+ <model>
+  <path>Aircraft/ZLT-NT/Models/Instruments/CenterMFD/display-text.xml</path>
+  <offsets>
+   <x-m> 0.011</x-m>
+   <y-m>-0.030</y-m>
+   <z-m> 0.536</z-m>
+  </offsets>
+  <overlay>
+   <params>
+    <property type="string">engines/engine[0]/oil-pressure-psi</property>
+    <factor type="double">0.068947573</factor>
+    <offset type="double">0.0</offset>
+    <format type="string">%2.1f</format>
+    <color>
+     <red   type="double">1.0</red>
+     <green type="double">1.0</green>
+     <blue  type="double">1.0</blue>
+    </color>
+   </params>
+  </overlay>
+ </model>
+ <model>
+  <path>Aircraft/ZLT-NT/Models/Instruments/CenterMFD/display-text.xml</path>
+  <offsets>
+   <x-m> 0.011</x-m>
+   <y-m>-0.010</y-m>
+   <z-m> 0.536</z-m>
+  </offsets>
+  <overlay>
+   <params>
+    <property type="string">engines/engine[2]/oil-pressure-psi</property>
+    <factor type="double">0.068947573</factor>
+    <offset type="double">0.0</offset>
+    <format type="string">%2.1f</format>
+    <color>
+     <red   type="double">1.0</red>
+     <green type="double">1.0</green>
+     <blue  type="double">1.0</blue>
+    </color>
+   </params>
+  </overlay>
+ </model>
+ <model>
+  <path>Aircraft/ZLT-NT/Models/Instruments/CenterMFD/display-text.xml</path>
+  <offsets>
+   <x-m> 0.011</x-m>
+   <y-m> 0.010</y-m>
+   <z-m> 0.536</z-m>
+  </offsets>
+  <overlay>
+   <params>
+    <property type="string">engines/engine[1]/oil-pressure-psi</property>
+    <factor type="double">0.068947573</factor>
+    <offset type="double">0.0</offset>
+    <format type="string">%2.1f</format>
+    <color>
+     <red   type="double">1.0</red>
+     <green type="double">1.0</green>
+     <blue  type="double">1.0</blue>
+    </color>
+   </params>
+  </overlay>
+ </model>
+
+ <animation>
+  <type>translate</type>
+  <object-name>OilP_arrow.1</object-name>
+  <property>engines/engine[0]/oil-pressure-psi</property>
+  <factor>0.0002068</factor>
+  <offset>0</offset>
+  <min>0.0</min>
+  <max>0.03</max>
+  <axis>
+   <x>0.0</x>
+   <y>0.0</y>
+   <z>1.0</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>scale</type>
+  <object-name>OilP_bar.1</object-name>
+  <property>engines/engine[0]/oil-pressure-psi</property>
+  <x-factor>0.0</x-factor>
+  <x-offset>1.0</x-offset>
+  <y-factor>0.0</y-factor>
+  <y-offset>1.0</y-offset>
+  <z-factor>0.006895</z-factor>
+  <z-offset>0.0</z-offset>
+  <z-min>0.0</z-min>
+  <z-max>1.0</z-max>
+  <center>
+   <x-m> 0.0</x-m>
+   <y-m> 0.0</y-m>
+   <z-m> 0.54</z-m>
+  </center>
+ </animation>
+
+ <animation>
+  <type>translate</type>
+  <object-name>OilP_arrow.2</object-name>
+  <property>engines/engine[2]/oil-pressure-psi</property>
+  <factor>0.0002068</factor>
+  <offset>0</offset>
+  <min>0.0</min>
+  <max>0.03</max>
+  <axis>
+   <x>0.0</x>
+   <y>0.0</y>
+   <z>1.0</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>scale</type>
+  <object-name>OilP_bar.2</object-name>
+  <property>engines/engine[2]/oil-pressure-psi</property>
+  <x-factor>0.0</x-factor>
+  <x-offset>1.0</x-offset>
+  <y-factor>0.0</y-factor>
+  <y-offset>1.0</y-offset>
+  <z-factor>0.006895</z-factor>
+  <z-offset>0.0</z-offset>
+  <z-min>0.0</z-min>
+  <z-max>1.0</z-max>
+  <center>
+   <x-m> 0.0</x-m>
+   <y-m> 0.0</y-m>
+   <z-m> 0.54</z-m>
+  </center>
+ </animation>
+
+ <animation>
+  <type>translate</type>
+  <object-name>OilP_arrow.3</object-name>
+  <property>engines/engine[1]/oil-pressure-psi</property>
+  <factor>0.0002068</factor>
+  <offset>0</offset>
+  <min>0.0</min>
+  <max>0.03</max>
+  <axis>
+   <x>0.0</x>
+   <y>0.0</y>
+   <z>1.0</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>scale</type>
+  <object-name>OilP_bar.3</object-name>
+  <property>engines/engine[1]/oil-pressure-psi</property>
+  <x-factor>0.0</x-factor>
+  <x-offset>1.0</x-offset>
+  <y-factor>0.0</y-factor>
+  <y-offset>1.0</y-offset>
+  <z-factor>0.006895</z-factor>
+  <z-offset>0.0</z-offset>
+  <z-min>0.0</z-min>
+  <z-max>1.0</z-max>
+  <center>
+   <x-m> 0.0</x-m>
+   <y-m> 0.0</y-m>
+   <z-m> 0.54</z-m>
+  </center>
+ </animation>
+
+ <!-- =========================================================================
+  Fuel quantity display
+  Display range: 0 - 280 KG over 30mm. Z origin 0.609.
+ -->
+ <model>
+  <path>Aircraft/ZLT-NT/Models/Instruments/CenterMFD/display-text.xml</path>
+  <offsets>
+   <x-m> 0.011</x-m>
+   <y-m> 0.029</y-m>
+   <z-m> 0.605</z-m>
+  </offsets>
+  <overlay>
+   <params>
+    <property type="string">consumables/fuel/tank[0]/level-lbs</property>
+    <factor type="double">0.45359237</factor>
+    <offset type="double">0.0</offset>
+    <format type="string">%3.0f</format>
+    <color>
+     <red   type="double">1.0</red>
+     <green type="double">1.0</green>
+     <blue  type="double">1.0</blue>
+    </color>
+   </params>
+  </overlay>
+ </model>
+ <model>
+  <path>Aircraft/ZLT-NT/Models/Instruments/CenterMFD/display-text.xml</path>
+  <offsets>
+   <x-m> 0.011</x-m>
+   <y-m> 0.049</y-m>
+   <z-m> 0.605</z-m>
+  </offsets>
+  <overlay>
+   <params>
+    <property type="string">consumables/fuel/tank[2]/level-lbs</property>
+    <factor type="double">0.45359237</factor>
+    <offset type="double">0.0</offset>
+    <format type="string">%3.0f</format>
+    <color>
+     <red   type="double">1.0</red>
+     <green type="double">1.0</green>
+     <blue  type="double">1.0</blue>
+    </color>
+   </params>
+  </overlay>
+ </model>
+ <model>
+  <path>Aircraft/ZLT-NT/Models/Instruments/CenterMFD/display-text.xml</path>
+  <offsets>
+   <x-m> 0.011</x-m>
+   <y-m> 0.069</y-m>
+   <z-m> 0.605</z-m>
+  </offsets>
+  <overlay>
+   <params>
+    <property type="string">consumables/fuel/tank[1]/level-lbs</property>
+    <factor type="double">0.45359237</factor>
+    <offset type="double">0.0</offset>
+    <format type="string">%3.0f</format>
+    <color>
+     <red   type="double">1.0</red>
+     <green type="double">1.0</green>
+     <blue  type="double">1.0</blue>
+    </color>
+   </params>
+  </overlay>
+ </model>
+
+ <animation>
+  <type>translate</type>
+  <object-name>FL_arrow.1</object-name>
+  <property>consumables/fuel/tank[0]/level-lbs</property>
+  <factor>0.00004860</factor>
+  <offset>0</offset>
+  <min>0.0</min>
+  <max>0.03</max>
+  <axis>
+   <x>0.0</x>
+   <y>0.0</y>
+   <z>1.0</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>scale</type>
+  <object-name>FL_bar.1</object-name>
+  <property>consumables/fuel/tank[0]/level-lbs</property>
+  <x-factor>0.0</x-factor>
+  <x-offset>1.0</x-offset>
+  <y-factor>0.0</y-factor>
+  <y-offset>1.0</y-offset>
+  <z-factor>0.001620</z-factor>
+  <z-offset>0.0</z-offset>
+  <z-min>0.0</z-min>
+  <z-max>1.0</z-max>
+  <center>
+   <x-m> 0.0</x-m>
+   <y-m> 0.0</y-m>
+   <z-m> 0.609</z-m>
+  </center>
+ </animation>
+
+ <animation>
+  <type>translate</type>
+  <object-name>FL_arrow.2</object-name>
+  <property>consumables/fuel/tank[2]/level-lbs</property>
+  <factor>0.00004860</factor>
+  <offset>0</offset>
+  <min>0.0</min>
+  <max>0.03</max>
+  <axis>
+   <x>0.0</x>
+   <y>0.0</y>
+   <z>1.0</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>scale</type>
+  <object-name>FL_bar.2</object-name>
+  <property>consumables/fuel/tank[2]/level-lbs</property>
+  <x-factor>0.0</x-factor>
+  <x-offset>1.0</x-offset>
+  <y-factor>0.0</y-factor>
+  <y-offset>1.0</y-offset>
+  <z-factor>0.001620</z-factor>
+  <z-offset>0.0</z-offset>
+  <z-min>0.0</z-min>
+  <z-max>1.0</z-max>
+  <center>
+   <x-m> 0.0</x-m>
+   <y-m> 0.0</y-m>
+   <z-m> 0.609</z-m>
+  </center>
+ </animation>
+
+ <animation>
+  <type>translate</type>
+  <object-name>FL_arrow.3</object-name>
+  <property>consumables/fuel/tank[1]/level-lbs</property>
+  <factor>0.00004860</factor>
+  <offset>0</offset>
+  <min>0.0</min>
+  <max>0.03</max>
+  <axis>
+   <x>0.0</x>
+   <y>0.0</y>
+   <z>1.0</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>scale</type>
+  <object-name>FL_bar.3</object-name>
+  <property>consumables/fuel/tank[1]/level-lbs</property>
+  <x-factor>0.0</x-factor>
+  <x-offset>1.0</x-offset>
+  <y-factor>0.0</y-factor>
+  <y-offset>1.0</y-offset>
+  <z-factor>0.001620</z-factor>
+  <z-offset>0.0</z-offset>
+  <z-min>0.0</z-min>
+  <z-max>1.0</z-max>
+  <center>
+   <x-m> 0.0</x-m>
+   <y-m> 0.0</y-m>
+   <z-m> 0.609</z-m>
+  </center>
+ </animation>
+
+ <!-- =========================================================================
+  Fuel flow display
+  Display range: 0 - 50 KGS/HR over 30mm. Z origin 0.563
+ -->
+ <model>
+  <path>Aircraft/ZLT-NT/Models/Instruments/CenterMFD/display-text.xml</path>
+  <offsets>
+   <x-m> 0.011</x-m>
+   <y-m> 0.029</y-m>
+   <z-m> 0.559</z-m>
+  </offsets>
+  <overlay>
+   <params>
+    <property type="string">engines/engine[0]/fuel-flow-gph</property>
+    <factor type="double">2.7254965</factor>
+    <offset type="double">0.0</offset>
+    <format type="string">%2.0f</format>
+    <color>
+     <red   type="double">1.0</red>
+     <green type="double">1.0</green>
+     <blue  type="double">1.0</blue>
+    </color>
+   </params>
+  </overlay>
+ </model>
+ <model>
+  <path>Aircraft/ZLT-NT/Models/Instruments/CenterMFD/display-text.xml</path>
+  <offsets>
+   <x-m> 0.011</x-m>
+   <y-m> 0.049</y-m>
+   <z-m> 0.559</z-m>
+  </offsets>
+  <overlay>
+   <params>
+    <property type="string">engines/engine[2]/fuel-flow-gph</property>
+    <factor type="double">2.7254965</factor>
+    <offset type="double">0.0</offset>
+    <format type="string">%2.0f</format>
+    <color>
+     <red   type="double">1.0</red>
+     <green type="double">1.0</green>
+     <blue  type="double">1.0</blue>
+    </color>
+   </params>
+  </overlay>
+ </model>
+ <model>
+  <path>Aircraft/ZLT-NT/Models/Instruments/CenterMFD/display-text.xml</path>
+  <offsets>
+   <x-m> 0.011</x-m>
+   <y-m> 0.069</y-m>
+   <z-m> 0.559</z-m>
+  </offsets>
+  <overlay>
+   <params>
+    <property type="string">engines/engine[1]/fuel-flow-gph</property>
+    <factor type="double">2.7254965</factor>
+    <offset type="double">0.0</offset>
+    <format type="string">%2.0f</format>
+    <color>
+     <red   type="double">1.0</red>
+     <green type="double">1.0</green>
+     <blue  type="double">1.0</blue>
+    </color>
+   </params>
+  </overlay>
+ </model>
+
+ <animation>
+  <type>translate</type>
+  <object-name>FF_arrow.1</object-name>
+  <property>engines/engine[0]/fuel-flow-gph</property>
+  <interpolation>
+   <entry><ind>0.0</ind>   <dep>0.0</dep></entry>
+   <entry><ind>18.35</ind> <dep>0.03</dep></entry>
+  </interpolation>
+  <axis>
+   <x>0.0</x>
+   <y>0.0</y>
+   <z>1.0</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>scale</type>
+  <object-name>FF_bar.1</object-name>
+  <property>engines/engine[0]/fuel-flow-gph</property>
+  <x-factor>0.0</x-factor>
+  <x-offset>1.0</x-offset>
+  <y-factor>0.0</y-factor>
+  <y-offset>1.0</y-offset>
+  <z-factor>0.05450</z-factor>
+  <z-offset>0.0</z-offset>
+  <z-min>0.0</z-min>
+  <z-max>1.0</z-max>
+  <center>
+   <x-m> 0.0</x-m>
+   <y-m> 0.0</y-m>
+   <z-m> 0.563</z-m>
+  </center>
+ </animation>
+
+ <animation>
+  <type>translate</type>
+  <object-name>FF_arrow.2</object-name>
+  <property>engines/engine[2]/fuel-flow-gph</property>
+  <interpolation>
+   <entry><ind>0.0</ind>   <dep>0.0</dep></entry>
+   <entry><ind>18.35</ind> <dep>0.03</dep></entry>
+  </interpolation>
+  <axis>
+   <x>0.0</x>
+   <y>0.0</y>
+   <z>1.0</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>scale</type>
+  <object-name>FF_bar.2</object-name>
+  <property>engines/engine[2]/fuel-flow-gph</property>
+  <x-factor>0.0</x-factor>
+  <x-offset>1.0</x-offset>
+  <y-factor>0.0</y-factor>
+  <y-offset>1.0</y-offset>
+  <z-factor>0.05450</z-factor>
+  <z-offset>0.0</z-offset>
+  <z-min>0.0</z-min>
+  <z-max>1.0</z-max>
+  <center>
+   <x-m> 0.0</x-m>
+   <y-m> 0.0</y-m>
+   <z-m> 0.563</z-m>
+  </center>
+ </animation>
+
+ <animation>
+  <type>translate</type>
+  <object-name>FF_arrow.3</object-name>
+  <property>engines/engine[1]/fuel-flow-gph</property>
+  <interpolation>
+   <entry><ind>0.0</ind>   <dep>0.0</dep></entry>
+   <entry><ind>18.35</ind> <dep>0.03</dep></entry>
+  </interpolation>
+  <axis>
+   <x>0.0</x>
+   <y>0.0</y>
+   <z>1.0</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>scale</type>
+  <object-name>FF_bar.3</object-name>
+  <property>engines/engine[1]/fuel-flow-gph</property>
+  <x-factor>0.0</x-factor>
+  <x-offset>1.0</x-offset>
+  <y-factor>0.0</y-factor>
+  <y-offset>1.0</y-offset>
+  <z-factor>0.05450</z-factor>
+  <z-offset>0.0</z-offset>
+  <z-min>0.0</z-min>
+  <z-max>1.0</z-max>
+  <center>
+   <x-m> 0.0</x-m>
+   <y-m> 0.0</y-m>
+   <z-m> 0.563</z-m>
+  </center>
+ </animation>
+
+</PropertyList>

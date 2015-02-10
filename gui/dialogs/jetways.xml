@@ -1,0 +1,132 @@
+<?xml version="1.0" ?>
+
+<PropertyList>
+
+	<name>jetways</name>
+	<modal>false</modal>
+	<layout>vbox</layout>
+
+	<nasal>
+		<open><![CDATA[
+		 var self = cmdarg();
+		 var aptlist = props.globals.getNode(self.getNode("text/property").getValue(), 1);
+		 var loadedN = props.globals.getNode("/nasal/jetways/loaded", 1);
+		 var UPDATE_PERIOD = 5;
+		 var update = func
+		  {
+		  if (loadedN.getBoolValue())
+		   {
+		   var list = "";
+		   foreach (var apt; jetways.loaded_airports)
+		    {
+		   list ~= apt ~ " ";
+		    }
+		   aptlist.setValue(list == "" ? "No airports loaded" : "Loaded airports: " ~ list);
+		   }
+		  settimer(update, UPDATE_PERIOD);
+		  };
+		 settimer(update, 0);
+		]]></open>
+	</nasal>
+
+	<group>
+		<layout>hbox</layout>
+		<empty><stretch>1</stretch></empty>
+
+		<text>
+			<label>Jetway Settings</label>
+		</text>
+
+		<empty><stretch>1</stretch></empty>
+
+		<button>
+			<pref-width>16</pref-width>
+			<pref-height>16</pref-height>
+			<legend></legend>
+			<default>1</default>
+			<keynum>27</keynum>
+			<border>2</border>
+			<binding>
+				<command>dialog-close</command>
+			</binding>
+			<binding>
+				<command>dialog-apply</command>
+			</binding>
+		</button>
+	</group>
+
+	<hrule />
+
+	<checkbox>
+		<halign>left</halign>
+		<label>Enable animated jetways</label>
+		<property>/nasal/jetways/enabled</property>
+		<live type="bool">true</live>
+		<binding>
+			<command>dialog-apply</command>
+		</binding>
+	</checkbox>
+	<checkbox>
+		<halign>left</halign>
+		<label>Connect to multiplayer aircraft</label>
+		<property>/sim/jetways/interact-with-multiplay</property>
+		<live type="bool">true</live>
+		<enable>
+			<property>/nasal/jetways/enabled</property>
+		</enable>
+		<binding>
+		        <command>dialog-apply</command>
+		</binding>
+	</checkbox>
+	<checkbox>
+		<halign>left</halign>
+		<label>Enable jetway editor</label>
+		<property>/nasal/jetways_edit/enabled</property>
+		<live type="bool">true</live>
+		<enable>
+			<property>/nasal/jetways/enabled</property>
+		</enable>
+		<binding>
+		        <command>dialog-apply</command>
+		</binding>
+	</checkbox>
+	<checkbox>
+		<halign>left</halign>
+		<label>Debug mode</label>
+		<property>/sim/jetways/debug</property>
+		<live type="bool">true</live>
+		<enable>
+			<property>/nasal/jetways/enabled</property>
+		</enable>
+		<binding>
+		        <command>dialog-apply</command>
+		</binding>
+	</checkbox>
+
+	<group>
+		<layout>hbox</layout>
+		<button>
+			<legend>Open editor</legend>
+			<enable>
+				<and>
+					<property>/nasal/jetways/enabled</property>
+					<property>/nasal/jetways_edit/enabled</property>
+				</and>
+			</enable>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>jetways-adjust</dialog-name>
+			</binding>
+		</button>
+	</group>
+
+	<hrule />
+
+	<text>
+		<halign>left</halign>
+		<label>No airports loaded</label>
+		<property>/sim/gui/dialogs/jetways/loaded-airports</property>
+		<live type="bool">true</live>
+	</text>
+
+</PropertyList>

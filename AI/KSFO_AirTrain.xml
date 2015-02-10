@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="iso-8859-1"?> 
+<PropertyList>
+
+	<scenario>
+		<name>KSFO AirTrain (San Francisco)</name>
+		<entry>
+			<type>groundvehicle</type>
+			<model>Models/Transport/KSFO_AirTrain.xml</model>
+			<name>Train-11</name>
+			<flightplan>KSFO_AirTrain_blueline.xml</flightplan>
+			<tunnel>true</tunnel>
+			<restart>1</restart>
+			<turn-radius-ft>50</turn-radius-ft>
+			<fixed-turn-radius-ft>50</fixed-turn-radius-ft>
+			<lead-angle-gain>1</lead-angle-gain>
+			<lead-angle-limit-deg>5.0</lead-angle-limit-deg>
+			<lead-angle-proportion>0.5</lead-angle-proportion>
+			<rudder-constant>50</rudder-constant>
+			<speed-constant>3</speed-constant>
+			<pitch-coefficient>0.1</pitch-coefficient>
+			<elevation-coefficient>0.1</elevation-coefficient>
+			<contact-x1-offset>-18.90</contact-x1-offset>
+			<contact-x2-offset>18.90</contact-x2-offset>
+			<hitch-x-offset>20.00</hitch-x-offset>
+		</entry>
+		
+		<entry>
+			<type>groundvehicle</type>
+			<model>Models/Transport/KSFO_AirTrain.xml</model>
+			<name>Train-12</name>
+			<flightplan>KSFO_AirTrain_blueline.xml</flightplan>
+			<tunnel>true</tunnel>
+			<restart>1</restart>
+			<turn-radius-ft>50</turn-radius-ft>
+			<fixed-turn-radius-ft>50</fixed-turn-radius-ft>
+			<lead-angle-gain>1</lead-angle-gain>
+			<lead-angle-limit-deg>5.0</lead-angle-limit-deg>
+			<lead-angle-proportion>0.5</lead-angle-proportion>
+			<rudder-constant>50</rudder-constant>
+			<speed-constant>3</speed-constant>
+			<pitch-coefficient>0.1</pitch-coefficient>
+			<elevation-coefficient>0.1</elevation-coefficient>
+			<contact-x1-offset>-18.90</contact-x1-offset>
+			<contact-x2-offset>18.90</contact-x2-offset>
+			<hitch-x-offset>20.00</hitch-x-offset>
+			<tow-angle-gain>0.25</tow-angle-gain>
+			<tow-angle-limit-deg>1.0</tow-angle-limit-deg>
+			<parent>Train-11</parent>
+		</entry>
+		
+		<entry>
+			<type>groundvehicle</type>
+			<model>Models/Transport/KSFO_AirTrain.xml</model>
+			<name>Train-21</name>
+			<flightplan>KSFO_AirTrain_redline.xml</flightplan>
+			<tunnel>true</tunnel>
+			<repeat>1</repeat>
+			<turn-radius-ft>50</turn-radius-ft>
+			<fixed-turn-radius-ft>50</fixed-turn-radius-ft>
+			<lead-angle-gain>1</lead-angle-gain>
+			<lead-angle-limit-deg>5.0</lead-angle-limit-deg>
+			<lead-angle-proportion>0.5</lead-angle-proportion>
+			<rudder-constant>50</rudder-constant>
+			<speed-constant>3</speed-constant>
+			<pitch-coefficient>0.1</pitch-coefficient>
+			<elevation-coefficient>0.1</elevation-coefficient>
+			<contact-x1-offset>-18.90</contact-x1-offset>
+			<contact-x2-offset>18.90</contact-x2-offset>
+			<hitch-x-offset>20.00</hitch-x-offset>
+		</entry>
+		
+		<entry>
+			<type>groundvehicle</type>
+			<model>Models/Transport/KSFO_AirTrain.xml</model>
+			<name>Train-22</name>
+			<flightplan>KSFO_AirTrain_redline.xml</flightplan>
+			<tunnel>true</tunnel>
+			<repeat>1</repeat>
+			<turn-radius-ft>50</turn-radius-ft>
+			<fixed-turn-radius-ft>50</fixed-turn-radius-ft>
+			<lead-angle-gain>1</lead-angle-gain>
+			<lead-angle-limit-deg>5.0</lead-angle-limit-deg>
+			<lead-angle-proportion>0.5</lead-angle-proportion>
+			<rudder-constant>50</rudder-constant>
+			<speed-constant>3</speed-constant>
+			<pitch-coefficient>0.1</pitch-coefficient>
+			<elevation-coefficient>0.1</elevation-coefficient>
+			<contact-x1-offset>-18.90</contact-x1-offset>
+			<contact-x2-offset>18.90</contact-x2-offset>
+			<hitch-x-offset>20.00</hitch-x-offset>
+			<tow-angle-gain>0.25</tow-angle-gain>
+			<tow-angle-limit-deg>1.0</tow-angle-limit-deg>
+			<parent>Train-21</parent>
+		</entry>
+
+	</scenario>
+
+</PropertyList> 

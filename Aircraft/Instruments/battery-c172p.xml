@@ -1,0 +1,160 @@
+<?xml version="1.0"?>
+
+<!--
+battery1.xml
+
+Battery Gauge
+
+Thorsten Brehm
+October 6, 2011
+
+-->
+
+<PropertyList>
+
+ <name>Battery Gauge</name>
+ <w-base>512</w-base>
+ <h-base>512</h-base>
+ <params>
+  <volts>/systems/electrical/volts</volts>
+  <amps>/systems/electrical/amps</amps>
+ </params>
+ 
+ <layers>
+ 
+  <layer>
+   <name>Backplate</name>
+   <w>292</w>
+   <h>456</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/battery-c172p.rgb</path>
+    <x1>0.0</x1>
+    <x2>0.570312</x2>
+    <y1>0.109375</y1>
+    <y2>1.0</y2>
+   </texture>
+  </layer>
+
+  <layer>
+   <name>Volt Needle</name>
+   <w>148</w>
+   <h>32</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/misc2.rgb</path>
+    <x1>0.0</x1>
+    <x2>0.289062</x2>
+    <y1>0.554688</y1>
+    <y2>0.617188</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-142</offset>
+    </transformation>
+    <transformation>
+     <type>rotation</type>
+     <property alias="../../../../../params/amps"/>
+     <min>-40.0</min>
+     <max>40.0</max>
+     <scale>-1.375005</scale>
+     <offset>0</offset>
+    </transformation>
+    <transformation>
+     <type>x-shift</type>
+     <offset>78</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>AMP Needle</name>
+   <w>148</w>
+   <h>32</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/misc2.rgb</path>
+    <x1>0.0</x1>
+    <x2>0.289062</x2>
+    <y1>0.554688</y1>
+    <y2>0.617188</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>142</offset>
+    </transformation>
+    <transformation>
+     <type>rotation</type>
+     <property alias="../../../../../params/volts"/>
+     <min>0.0</min>
+     <max>40.0</max>
+     <scale>2.7</scale>
+     <offset>126</offset>
+    </transformation>
+    <transformation>
+     <type>x-shift</type>
+     <offset>78</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>Foreground</name>
+   <w>512</w>
+   <h>512</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/smlf.rgb</path>
+    <x1>0.0</x1>
+    <x2>1.0</x2>
+    <y1>0.0</y1>
+    <y2>1.0</y2>
+   </texture>
+  </layer>
+				  
+  <layer>
+   <name>AMP label</name>
+   <w>32</w>
+   <h>120</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/misc2.rgb</path>
+    <x1>0.640625</x1>
+    <x2>0.703125</x2>
+    <y1>0.53125</y1>
+    <y2>0.765625</y2>   </texture>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-145</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>2</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>Volt label</name>
+   <w>52</w>
+   <h>52</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/misc2.rgb</path>
+    <x1>0.640625</x1>
+    <x2>0.703125</x2>
+    <y1>0.94</y1>
+    <y2>1.0</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>150</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-1</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+ </layers>
+
+</PropertyList>

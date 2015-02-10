@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+ <name>ASI</name>
+ <path>asi.ac</path>
+
+ <animation>
+  <type>material</type>
+  <object-name>Ring</object-name>
+  <object-name>Face</object-name>
+  <object-name>Needle</object-name>
+  <emission>
+   <red>1.0</red>
+   <green>0.2</green>
+   <blue>0.0</blue>
+   <factor-prop>/sim/model//material/instruments/factor</factor-prop>
+  </emission>
+ </animation>
+
+ <animation>
+  <type>material</type>
+  <object-name>PA-Knob</object-name>
+  <emission>
+   <red>0.45</red>
+   <green>0.09</green>
+   <blue>0.00001</blue>
+   <factor-prop>/sim/model//material/instruments/factor</factor-prop>
+  </emission>
+ </animation>
+
+<!--		ASI Pressure Altitude adjust  -->
+ <animation>
+   <type>pick</type>
+   <object-name>PAdecrease</object-name>
+   <visible>false</visible>
+   <action>
+     <name>decrease PA</name>
+     <button>0</button>
+     <repeatable type="bool">true</repeatable>
+     <binding>
+       <command>property-adjust</command>
+       <property>/instrumentation/airspeed-indicator/pressure-alt-offset-deg</property>
+       <step>-1</step>
+       <min>0</min>
+       <max>360</max>
+       <wrap>1</wrap>
+     </binding>
+   </action>
+ </animation>
+
+ <animation>
+   <type>pick</type>
+   <object-name>PAincrease</object-name>
+   <visible>false</visible>
+   <action>
+     <name>increase PA</name>
+     <button>0</button>
+     <repeatable type="bool">true</repeatable>
+     <binding>
+       <command>property-adjust</command>
+       <property>/instrumentation/airspeed-indicator/pressure-alt-offset-deg</property>
+       <step>1</step>
+       <min>0</min>
+       <max>360</max>
+       <wrap>1</wrap>
+     </binding>
+   </action>
+ </animation>
+
+ <animation>
+  <name>RingTransform</name>
+  <type>rotate</type>
+  <object-name>Ring</object-name>
+   <property>/instrumentation/airspeed-indicator/pressure-alt-offset-deg</property>
+  <factor>1</factor>
+  <axis>
+   <x>-1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>rotate</type>
+  <object-name>Needle</object-name>
+  <property>/instrumentation/airspeed-indicator/indicated-speed-kt</property>
+  <interpolation>
+   <entry><ind>  10</ind><dep>    3</dep></entry>
+   <entry><ind>  40</ind><dep>   35</dep></entry>
+   <entry><ind>  60</ind><dep>   70</dep></entry>
+   <entry><ind>  80</ind><dep>  105</dep></entry>
+   <entry><ind> 100</ind><dep>  155</dep></entry>
+   <entry><ind> 120</ind><dep>  190</dep></entry>
+   <entry><ind> 140</ind><dep>  225</dep></entry>
+   <entry><ind> 160</ind><dep>  260</dep></entry>
+   <entry><ind> 180</ind><dep>  295</dep></entry>
+  </interpolation>
+  <center>
+   <x-m>0.0</x-m>
+   <y-m>0.001</y-m>
+   <z-m>0.001</z-m>
+  </center>
+  <axis>
+   <x>-1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+<!--
+ <animation>
+  <name>Alpha Order Group</name>
+  <object-name>Ring</object-name>
+  <object-name>Face</object-name>
+  <object-name>Needle</object-name>
+  <object-name>PA-Knob</object-name>
+ </animation>
+-->
+</PropertyList>
+
+

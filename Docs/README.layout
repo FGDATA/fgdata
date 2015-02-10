@@ -1,0 +1,85 @@
+I just commited an implementation of GUI layout management, ported
+over from my game project last year*.  What this means is that you no
+longer need to position your widgets manually in dialogs, and can
+instead lay them out in tables and boxes like the pros do. :) I've
+redone a few of the dialogs using the new scheme (I'm especially proud
+of the autopilot dialog: http://plausible.org/andy/autopilot-new.png),
+so you can see what the possibilities look like.
+
+* FWIW, this is almost the last of my useful code from last spring.
+  Nasal and the Plib vertex splitting code are two other bits that
+  were useful in isolation.  I also had a terrain engine and stencil
+  shadow implementation, but those weren't really production quality.
+ 
+Basically, the implementation is a preprocessor on top of the existing
+dialog properties, which sets x/y/width/height values based on
+constraints.  The <group> objects, including the top-level one which
+represents the whole dialog, can now have a <layout> property, which
+can be "hbox", "vbox", or "table".
+
+The boxes simply lay out their children in order, either top-to-bottom
+or left-to-right.  The box name comes from Qt and Gtk, but this is
+also the same thing that Java calls a "flow layout", or what the Tk
+"packer" does.  You can set "constraint" properties on the children,
+to give the layout manager hints as to how to place the children.  For
+the boxes, these are:
+
+  equal:   The box manager makes sure that all the widgets with this
+           constraint set to true get equal sizes big enough to fit the
+           largest one.  This is very useful for button boxes to make
+           the "OK" and "Cancel" buttons match, for example.
+  stretch: Cells with "stretch" set to true get all the extra space,
+           if any, the box has to allocate.  These are useful for
+           alignment purposes, especially when combined with <empty>
+           "widgets" (which are ignored by the dialog creation code,
+           but honored by the layout engine).
+
+The table layout will be a little more familiar to anyone with HTML
+experience.  Children of tables get the following constraints:
+
+  row:     The row number containing the upper left corner of the widget.
+           Table rows are zero-indexed.
+  col:     The column number containing the upper left corner of the widget.
+           Table columns are zero-indexed.
+  rowspan: The number of rows spanned by the widget. Defaults to one.
+  colspan: The number of columns spanned by the widget.  Defaults to
+           one. 
+
+Inside of each "cell", regardless of parent layout, there are some
+constraints that are used to position the widget within the space
+available:
+
+  halign:      The horizontal alignment.  Can be "left", "right",
+               "center", or "fill" (i.e. stretch to available space).
+  valign:      The vertical alignment.  Can be "top", "bottom",
+               "center", or "fill".
+  padding:     The number of pixels to leave between the edge of the
+               cell and the widget.
+  pref-height:
+  pref-width:  Overrides the default preferred size of the widget.
+               Note that this is the size of the widget only, not the
+               cell (which includes padding).
+
+Also, the padding values for cells in a group can be set to a default
+value with a <default-padding> property on the group widget.
+
+Some will ask why didn't I implement this as part of Pui.  The problem
+is the pui just isn't set up for it.  Not only is there no notion of
+"preferred" size for a widget, there isn't anything remote like a
+"constraint" system for attaching arbitrary values to widgets.  With
+the property system, I have that for free (the original code was
+written to work with Nasal objects, btw).  I can do the layout with
+the properties and on the properties, and our existing dialog code
+hardly needs to change at all.
+
+Anyway, give it a try and see if I've broken anything.  Also, note
+that some of these changes *do* modify the visual appearance of the
+GUI.  I think it looks better, but opinions will no doubt vary.  Shout
+if you hate it.
+
+And finally, the text alignment doesn't quite look right with current
+plib due to some minor rendering bugs.  Bug Steve to apply the patch I
+submitted a week or so ago. :)
+
+Andy
+

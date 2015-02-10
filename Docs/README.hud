@@ -1,0 +1,413 @@
+This document describes the *new* HUD system that will be first released
+with fgfs >0.9.10. For the old system see $FG_ROOT/Docs/README.xmlhud.
+Note that the old system is scheduled for removal, and that the new system
+is work in progress. So it's up to you to choose the lower risk.  :-)
+
+
+
+
+
+
+###############################################################################
+
+
+A HUD configuration file may contain 3 types of information:
+
+  (1) global settings
+  (2) HUD instrument definitions
+  (3) imports of further HUD config files
+
+
+
+
+
+(1) global settings ===========================================================
+
+These can be used to override settings in the global property tree. Currently
+only bool <enbale-3d> is supported. It allows a HUD to define itself if it is
+a 2D HUD (false) or a 3D HUD (true). 2D HUDs always remain in the screen plane,
+while 3D HUDs always remain in a position relative to the aircraft.
+
+Example:
+
+    <enable-3d>true</enable-3d>
+
+
+
+
+
+(2) HUD instrument definitions ================================================
+
+These define one single HUD "item" (instrument or label), and consist of several
+properties. Some of those are standardized property groups that can be used
+in many places. These shall be explained first.
+
+
+
+(2.1) standardized property groups --------------------------------------------
+
+  1. <condition> group
+  2. input channel group
+  3. <option>s
+
+
+
+(2.1.1) <condition> ...........................................................
+
+These define conditions that are either "true" or "false". They are used to
+hide/unhide whole items, or to set other item states (blinking on/off) etc.
+You find detailed documentation about them in $FG_ROOT/Docs/README.conditions.
+
+
+
+(2.1.2) input channel groups .................................................
+
+These define an input channel to the HUD instrument and serve as interface
+between property system and the instrument. A complete channel definition
+looks like this (defaults in comments):
+
+  <input>
+      <property>/position/altitude-agl-ft</property>  <!-- no default -->
+      <factor>0.3048</factor>                         <!-- 1.0 -->
+      <offset>2.0</offset>                            <!-- 0.0 -->
+      <damp>1.5</damp>                                <!-- 0.0 (no damping) -->
+      <min>0.0</min>                                  <!-- -infinity -->
+      <max>10000</max>                                <!-- +infinity -->
+  </input>
+
+Input channels are only called <input> for instruments that only have one
+channel. Other instruments may have two or more channels, called <bank-input>,
+<pitch-input> etc. All of them will have the same member properties and behave
+the same.
+
+An input channel will preprocess the raw property value for the HUD instrument.
+The property may be of any type (bool, int, long, float, double, string), but
+not all types will make sense in every situation. The HUD instrument will only
+see the final value, which is calculated as:
+
+
+  v = <property> * <factor> + <offset>
+  if (<damp>)     v = EWMA_lowpass(v, <damp>)
+  if (v < <min>)  v = <min>
+  if (v > <max>)  v = <max>
+
+
+The EWMA_lowpass filter (Exponentially Weighted Moving Average) is calculated
+like so:
+
+
+  coeff = 1.0 - 1.0 / 10^<damp>
+  v = average = (average * coeff) + (v * (1.0 - coeff))
+
+
+That is, a <damp> value of 0 will cause no damping. A damping value of 1 will
+make a coefficient of 0.9, which means that the resulting value will be 9/10
+of the average plus 1/10 of the new value. A damping value of 2 will make
+a coefficient of 0.99 and hence result in a value of 99/100 the average plus
+1/100 the new value etc. The higher the <damp> value, the more damped will
+the output value be.
+
+
+
+
+2.1.3 <option> ................................................................
+
+Most HUD instruments accept one or more options from a common set. It will be
+explaind in the respective intrument descriptions which options are actually
+used by that instrument. Possible values are:
+
+  <option> autoticks </option>
+  <option> vertical </option>   \___orientation of <tape>
+  <option> horizontal </option> /
+  <option> top </option>          \
+  <option> left </option>         |___place of numbers in <tape>, <gauge>
+  <option> bottom </option>       |   top/bottom for turn-bank-indicator, etc.
+  <option> right </option>        /
+  <option> both </option>           _left/right for vert. and top/bottom for hor.
+  <option> noticks </option>
+  <option> arithtic </option>
+  <option> decitics </option>
+  <option> notext </option>       ___no numbers on <tape>
+
+
+Example:
+
+  <tape>
+      <option>left</option>
+      <option>vertical</option>
+      ...
+  </tape>
+
+
+
+
+
+
+(2.1) properties common to all instruments ------------------------------------
+
+All HUD instruments will accept the following common properties (shown on
+a <tape> instrument):
+
+
+  <tape>
+      <name>foo tape</name>
+      <x>-100</x>                        <!-- 0 == center -->
+      <y>-60</y>                         <!-- 0 == center -->
+      <width>20</width>                  <!-- 0 -->
+      <height>120</height>               <!-- 0 -->
+      <condition>...</condition>         <!-- see section 2.1.1; default: true -->
+      ...
+  </tape>
+
+The <name> is only a description for the instrument to make reading the config
+easier. It's output in --log-level=info, but not otherwise used. The coordinates
+define the place and size of the instrument. They are relative to the origin of
+their parent, which is the middle of the HUD/screen by default. Positive <x> are
+on the right, positive <y> in the upper half. The <condition> hides/reveals the
+whole instrument.
+
+
+
+
+
+
+(2.2) HUD instruments ---------------------------------------------------------
+
+
+
+
+(2.2.1) <label> ...............................................................
+
+Draws a formatted string or number.
+
+Text:
+  <format>   ... printf-style format with only one % item.  Example:  "%2.3lf ft"
+  <prefix>   ... prefix text  \___ in addition to the <format>
+  <postfix>  ... postfix text /
+  <halign>   ... one of "left", "center" (default), "right".
+
+Box:
+  <box>      ... draw box around label (default: false)
+  <option>   ... one of (left|right|top|bottom)  ... draw arrow on this side
+  <pointer-width>  ... size of pointer base
+  <pointer-lenfth> ... distance of base--peak
+
+  <blinking>
+      <interval>                  ... on/off-time in seconds (default: -1 == off)
+      <condition>...</condition>  ... see secion 2.1.1       (default: true)
+  </blinking>
+
+TODO:
+  <digit>    ... number of insignificant digits (those will be printed smaller)
+
+
+
+Example:
+
+  <label>
+      <name>G Load</name>
+      <x>-40</x>
+      <y>25.5</y>
+      <width>1</width>
+      <height>1</height>
+
+      <input>
+          <property>/accelerations/pilot/z-accel-fps_sec</property>
+          <factor>-0.03108095</factor>
+          <damp>1.3</damp>
+      </input>
+
+      <format>%2.1f</format>
+      <halign>right</halign>
+      <box>true</box>
+      <option>bottom</option>    <!-- pointer on the lower edge -->
+
+      <blinking>
+          <interval>0.25</interval>
+          <condition>
+              <or>
+                  <less-than>      <!-- G load > 2.0 -->
+                      <property>/accelerations/pilot/z-accel-fps_sec</property>
+                      <value>-64.3481</value>
+                  </less-than>
+
+                  <greater-than>   <!-- G load < -1.0 -->
+                      <property>/accelerations/pilot/z-accel-fps_sec</property>
+                      <value>31.17405</value>
+                  </greater-than>
+              </or>
+          </condition>
+      </blinking>
+  </label>
+
+
+
+
+
+
+
+
+
+(2.2.2) <tape> ................................................................
+SCALE:
+    input
+    major-divisions
+    minor-divisions
+    modulo
+    display-span
+
+TAPE:
+    tick-bottom
+    tick-top
+    tick-right
+    tick-left
+    cap-bottom
+    cap-top
+    cap-right
+    cap-left
+    marker-offset
+    enable-pointer
+    zoom
+
+    pointer-type   (moving|fixed)
+    tick-type      (circle|line)
+    tick-length    (constant|variable)
+
+
+
+
+
+
+
+
+
+(2.2.3) <dial> ................................................................
+SCALE:
+    input
+    major-divisions
+    minor-divisions
+    modulo
+    display-span
+
+TAPE:
+    radius
+    divisions
+
+
+
+
+
+
+
+
+(2.2.4) <gauge> ...............................................................
+SCALE:
+    input
+    major-divisions
+    minor-divisions
+    modulo
+    display-span
+
+
+
+
+
+
+(2.2.5) <turn-bank-indicator> .................................................
+    bank-input
+    sideslip-input
+    gap-width
+    bank-scale
+
+
+
+
+
+
+
+
+(2.2.6) <ladder> ..............................................................
+    pitch-input
+    roll-input
+    display-span
+    divisions
+    screen-hole
+    compression-factor
+    enable-fuselage-ref-line
+    enable-target-spot
+    enable-velocity-vector
+    enable-drift-marker
+    enable-alpha-bracket
+    enable-energy-marker
+    enable-climb-dive-marker
+    enable-glide-slope-marker
+    glide-slope
+    enable-energy-marker
+    enable-waypoint-marker
+    enable-zenith
+    enable-nadir
+    enable-hat
+    type       (pitch|climb-dive)
+
+
+
+
+
+
+
+
+
+(2.2.7) <runway> ..............................................................
+    arrow-scale
+    arrow-radius
+    line-scale
+    scale-dist-nm
+    outer_stipple
+    center-stipple
+    arrow-always
+
+reads directly:
+    /position/altitude-agl-ft,
+    /sim/view[0]/config/pitch-pitch-deg
+    /sim/view[0]/config/pitch-heading-deg
+
+
+
+
+
+(2.2.8) <aiming-reticle> ......................................................
+
+Draws MIL-STD-1787B aiming reticle. Size of bullet and inner circle are
+determined from <width>. The outer circle radius is changeable at runtime.
+
+  <active-condition> ... true:  stadiametric (4.2.4.4)  (default)
+                         false: standby (4.2.4.5)
+  <diameter-input>   ... input channel: diameter of outer circle relative to
+                         inner circle; default: 2.0 (= twice as big)
+
+
+
+
+
+
+
+(3) <import> ==================================================================
+
+Imports another HUD config into the current one. This can be a file defining
+a single instrument ($FG_ROOT/Huds/Instruments/*.xml), a set of instruments
+($FG_ROOT/Huds/Sets/*.xml) or a mixture of both (for example a complete HUD
+on its own). The x/y offets moves the reference point for the included items
+relative to the current reference point.
+
+    <import>
+        <path>Huds/Sets/controls.xml</path>
+        <x-offset>-100</x-offset>
+        <y-offset>70</y-offset>
+    </import>
+
+Imported files can import further files. This is allowed for up to 10 levels.
+This is an arbitrary number and can easily be changed in the code if necessary.
+
+When fgfs is called with --log-level=info, then it outputs a graphical trees
+of all loaded/imported files, with the instruments shown as leafs.
+

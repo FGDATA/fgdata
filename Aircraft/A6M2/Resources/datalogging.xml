@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<output name="A6M2.csv" type="CSV" rate="10">
+ <property>propulsion/engine[0]/rpm</property>
+ <property>propulsion/engine[0]/thrust-lbs</property>
+ <property>propulsion/engine[0]/map-inhg</property>
+ <property>propulsion/engine/fuel-flow-rate-pps</property>
+ <property>propulsion/engine/power-hp</property>
+ <property>propulsion/engine[0]/advance-ratio</property>
+ <property>propulsion/engine[0]/blade-angle</property>
+ <property>velocities/vc-kts</property>
+ <property>fcs/left-aileron-pos-rad</property>
+ <property>fcs/elevator-pos-rad</property>
+ <property>fcs/rudder-pos-rad</property>
+ <property>position/h-agl-ft</property>
+ <property>velocities/mach</property>
+ <property>accelerations/n-pilot-z-norm</property>
+ <property>aero/alpha-deg</property>
+ <property>aero/beta-deg</property>
+ <property> aero/qbar-psf</property>
+ <property> aero/qbarUW-psf</property>
+ <property> aero/qbarUV-psf</property>
+ <property>attitude/phi-rad</property>
+ <property>attitude/theta-rad</property>
+ <property>attitude/psi-rad</property>
+ <property>fcs/throttle-pos-norm</property>
+ <property>fcs/mixture-pos-norm</property>
+ <property>fcs/advance-pos-norm</property>
+ <property>propulsion/engine/egt-degF</property>
+ <property>propulsion/engine/cht-degF</property>
+ <property>propulsion/engine/oil-temperature-degF</property>
+ <property>propulsion/engine/oil-pressure-psi</property>
+</output>

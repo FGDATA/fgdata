@@ -1,0 +1,82 @@
+AC3Db
+MATERIAL "LCD_White" rgb 1 1 1 amb 1 1 1 emis 1 1 1 spec 1 1 1 shi 32 trans 0
+OBJECT world
+kids 4
+OBJECT poly
+name "controls_screen"
+data 9
+Plane.052
+texture "screen-controls.png"
+texrep 1 1
+crease 30.000000
+numvert 4
+0 0.1373 -0.08928
+0 0.1373 0.08928
+0 0 0.08928
+0 0 -0.08928
+numsurf 1
+SURF 0x00
+mat 0
+refs 4
+0 1.0 0.999999880791
+1 8.3451780597e-08 1.0
+2 0.0 1.08293306766e-07
+3 0.999999940395 0.0
+kids 0
+OBJECT poly
+name "left_elevator_bar"
+data 9
+Plane.055
+crease 30.000000
+numvert 4
+0.001 0.02128 0.021724
+0.001 0.02128 0.038723
+0.001 0.03528 0.038723
+0.001 0.03528 0.021724
+numsurf 1
+SURF 0x00
+mat 0
+refs 4
+0 0 0
+3 0 0
+2 0 0
+1 0 0
+kids 0
+OBJECT poly
+name "right_elevator_bar"
+data 9
+Plane.054
+crease 30.000000
+numvert 4
+0.001 0.02128 0.006375
+0.001 0.02128 0.023375
+0.001 0.03528 0.023375
+0.001 0.03528 0.006375
+numsurf 1
+SURF 0x00
+mat 0
+refs 4
+0 0 0
+3 0 0
+2 0 0
+1 0 0
+kids 0
+OBJECT poly
+name "rudder_bar"
+data 9
+Plane.053
+crease 30.000000
+numvert 4
+0.001 0.034 0.014
+0.001 0.034 0.031
+0.001 0.048 0.031
+0.001 0.048 0.014
+numsurf 1
+SURF 0x00
+mat 0
+refs 4
+0 0 0
+3 0 0
+2 0 0
+1 0 0
+kids 0

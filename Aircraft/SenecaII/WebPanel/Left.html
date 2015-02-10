@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8 />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<title>FlightGear - SenecaII Left Panel</title>
+<style type="text/css" media="screen">
+body,html {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	background-color: #203040;
+	border: 0;
+	margin: 0;
+	padding: 0;
+}
+
+.big {
+	width: 100%;
+	height: 100%;
+}
+
+.instrument {
+	
+}
+
+#Position1 {
+	position: absolute;
+	left: 0cm;
+	top: 0cm;
+}
+</style>
+
+<script type="text/javascript" charset="utf-8"
+	src="/gui/3rdparty/jquery/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="fgfs.js"></script>
+<script type="text/javascript" charset="utf-8" src="jquery.fganimate.js"></script>
+<script type="text/javascript" charset="utf-8">
+
+// define the properties we mirror from FlightGear
+var fgProps = {
+    ias:  new FGFS.Property("/instrumentation/airspeed-indicator/indicated-speed-kt"),
+    tas:  new FGFS.Property("/instrumentation/airspeed-indicator/tas-face-rotation"),
+};
+
+function fgGetNode( path ) 
+{
+  var keys = Object.keys(fgProps);
+  for( var i = 0; i < keys.length; i++ ) {
+    if( fgProps[keys[i]].getPath() == path )
+      return fgProps[keys[i]];
+  }
+  return null;
+}
+
+var mirror = new FGFS.PropertyMirror(fgProps);
+
+$(document).ready(function() {
+
+  var instruments = [];
+
+  [
+    "ASI.json"
+  ].forEach(function(instrumentDefinitionFile) {
+    $.ajax({
+      type: "GET",
+      url: instrumentDefinitionFile,
+      success: function (data,status,xhr) {
+        instruments[instruments.length] = new FGFS.Instrument(data);
+      },
+      error: function(xhr,status,msg) {
+        alert(status + " while reading '" + instrumentDefinitionFile + "': " + msg.toString() );
+      },
+    });
+  });
+
+  window.setInterval( function() {
+
+    instruments.forEach(function(instrument) {
+      instrument.update();
+    });
+
+  }, 50 );
+});
+
+</script>
+</head>
+<body>
+	<div id="Position1" class="big instrument"></div>
+</body>
+</html>

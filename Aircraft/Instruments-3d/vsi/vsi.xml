@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+ <path>vsi.ac</path>
+
+ <animation>
+  <type>material</type>
+  <object-name>Face</object-name>
+  <object-name>Needle</object-name>
+  <emission>
+   <red>1.0</red>
+   <green>0.2</green>
+   <blue>0.0</blue>
+   <factor-prop>/sim/model//material/instruments/factor</factor-prop>
+  </emission>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>Needle</object-name>
+  <property>/instrumentation/vertical-speed-indicator/indicated-speed-fpm</property>
+  <interpolation>
+   <entry><ind>  -2000.0</ind><dep>-173.5</dep></entry>
+   <entry><ind>  -1500.0</ind><dep>-131.5</dep></entry>
+   <entry><ind>  -1000.0</ind><dep> -81.5</dep></entry>
+   <entry><ind>   -500.0</ind><dep> -35.3</dep></entry>
+   <entry><ind>      0.0</ind><dep>   0.0</dep></entry>
+   <entry><ind>    500.0</ind><dep>  35.7</dep></entry>
+   <entry><ind>   1000.0</ind><dep>  81.5</dep></entry>
+   <entry><ind>   1500.0</ind><dep> 131.0</dep></entry>
+   <entry><ind>   2000.0</ind><dep> 172.9</dep></entry>
+  </interpolation>     
+  <axis>
+   <x>-1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+</PropertyList>
+
+

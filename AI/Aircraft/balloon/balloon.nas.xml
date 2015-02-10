@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<!--
+This is the nasal part for a balloon model
+Use by adding <nasal include="balloon.nas.xml"/> to your AI model
+After loading the model, it is placed on the ground randomly 800-1200m 
+in front of your aircraft within +/- 10 degrees. It will leave ground
+after 5-25 seconds and climb up to 1500-2500ft above ground elevation.
+-->
+<PropertyList>
+  <load><![CDATA[
+  var self = cmdarg();
+  printlog("info", "loading ballon at ", self.getPath() );
+
+  self.getNode("controls/flight/lateral-mode",1).setValue("yaw");
+  var windh = props.globals.getNode("environment/wind-from-heading-deg",1);
+  var winds = props.globals.getNode("environment/wind-speed-kt",1);   
+  var speed = self.getNode("controls/flight/target-spd",1);
+  var head = self.getNode("controls/flight/target-hdg",1);
+  var running = self.getNode("engines/engine[0]/running",1);
+  var flame_on_time = 10.0 + 10.0*rand();
+  var flame_off_time = 30.0 + 10.0*rand();
+  var position = nil;
+
+  # this init sequence needs to be done on init (duh?) and after the fdm
+  # has been initialized _and_ after the listener on fdm-initialized in
+  # Nasal/balloons.nas has finished his job. See note below.
+  var init = func {
+    printlog("debug", self.getPath(), " initializing" );
+    running.setBoolValue(0); # start with engine (flame) off
+    position = geo.aircraft_position();
+    position.apply_course_distance( 
+      props.globals.getNode("orientation/heading-deg", 1).getValue()-10.0+20*rand(), 
+      800 + 400*rand());
+    var elevation = geo.elevation( position.lat(), position.lon() ) * globals.M2FT;
+    position.set_alt( elevation != nil ? elevation : 0.0 );
+    self.getNode("controls/flight/target-alt", 1 ).setValue( position.alt() );
+
+    self.getNode("position/latitude-deg",1).setDoubleValue( position.lat() );
+    self.getNode("position/longitude-deg",1).setDoubleValue( position.lon() );
+    self.getNode("position/altitude-ft", 1 ).setValue( position.alt() );
+  }
+
+  init();
+
+  var initListener = setlistener( "/sim/signals/reinit", func(n) {
+    var b = n.getValue();
+    if( b == nil or b == 0 ) return;
+    # hide balloon deep under the surface after reset
+    self.getNode("position/altitude-ft", 1 ).setValue( -9999.0 );
+  });
+
+  # note: there is a listener on fdm-initialized Nasal/balloons.nas which shall 
+  # allways be triggered before us. This should be guaranteed by being registered
+  # before this balloon loads.
+  var fdmInitListener = setlistener( "/sim/signals/fdm-initialized", init );
+
+  var loopid = 0;
+
+  var flameLoop = func(id) {
+    id == loopid or return;
+    var b = running.getValue();
+    running.setBoolValue( b == 0 );
+    if( b == 0 ) {
+      #if the flame is on, set target altitude
+      position.set_lat( self.getNode("position/latitude-deg",1).getValue() );
+      position.set_lon( self.getNode("position/longitude-deg",1).getValue() );
+      var elevation = geo.elevation( position.lat(), position.lon() ) * globals.M2FT;
+      position.set_alt( elevation != nil ? elevation : 0.0 );
+      self.getNode("controls/flight/target-alt", 1 ).setValue( position.alt() + 1500 + 1000*rand());
+    }
+    settimer( func { flameLoop(id) }, b ? flame_off_time : flame_on_time );
+  }
+
+  var loop = func(id) {
+    id == loopid or return;
+    speed.setValue(winds.getValue());
+    head.setValue(geo.normdeg(windh.getValue() + 180.0));
+    settimer(func { loop(id) }, 10.0 );
+  }
+
+  settimer( func {
+    flameLoop(loopid);
+    settimer(func { loop(loopid) }, 0.5);
+  }, 5.0 + 20.0*rand() );
+  ]]></load>
+  <unload><![CDATA[
+  printlog("info", "unloading balloon");
+  loopid += 1;
+  removelistener( initListener );
+  removelistener( fdmInitListener );
+  ]]></unload>
+</PropertyList>

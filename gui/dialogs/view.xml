@@ -1,0 +1,279 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+  <name>view</name>
+    
+  <nasal>
+    <open>
+    
+      var group = gui.findElementByName(cmdarg(), "active-views");    
+      var ac = getprop("/sim/aircraft");
+      group.removeChildren("checkbox");
+      group.removeChildren("hrule");
+      group.removeChildren("text");
+      
+      var t = group.getChild("text", 0, 1);
+      t.getNode("label", 1).setValue("Standard Views");
+      t.getNode("halign", 1).setValue("left");
+      
+      
+      var mode = 0;
+      foreach (var v; view.views) {
+        var index = v.getIndex();
+        var enabled = v.initNode("enabled", 1, "BOOL");
+        var name = v.getNode("name");
+        if (name != nil) {
+          if (index >= 200) {
+            if (mode != 2) {
+              mode = 2;
+              group.getChild("empty", 1, 1).getChild("stretch", 0, 1).setValue(1);
+              var t = group.getChild("text", 1, 1);
+              t.getNode("label", 1).setValue("Other Views");
+            }
+
+          } elsif (index >= 100) {
+            aircraft.data.add(enabled);
+            if (mode != 1) {
+              mode = 1;              
+              group.getChild("empty", 0, 1).getChild("stretch", 0, 1).setValue(1);
+              var t = group.getChild("text", 1, 1);
+              t.getNode("label", 1).setValue("\"" ~ ac ~ "\" Specific Views");
+              t.getNode("halign", 1).setValue("left");
+            }
+          }
+
+          var target = group.getChild("checkbox", index, 1);
+          props.copy(group.getNode("checkbox-template"), target);
+          target.getNode("label").setValue(name != nil ? name.getValue() : ("** unnamed view " ~ index ~ " **"));
+          target.getNode("property").setValue(enabled.getPath());
+        }
+      }
+    </open>
+  </nasal>
+    
+  <modal>false</modal>
+  <layout>vbox</layout>  
+
+  <group>
+    <layout>hbox</layout>
+    <empty><stretch>1</stretch></empty>
+
+    <text>
+      <label>View Options</label>
+    </text>
+
+    <empty><stretch>1</stretch></empty>
+
+    <button>
+      <pref-width>16</pref-width>
+      <pref-height>16</pref-height>
+      <legend></legend>
+      <keynum>27</keynum>
+      <border>2</border>
+      <binding>
+        <command>dialog-close</command>
+      </binding>
+    </button>
+  </group>
+
+  <hrule/>
+  
+  <group>
+    <layout>hbox</layout>
+    
+    <group>
+      <layout>vbox</layout>
+      
+      <text>
+        <label>Select Active Views</label>
+      </text>
+
+      <group>
+        <layout>vbox</layout>
+        <halign>center</halign>
+        <name>active-views</name>
+
+        <text>
+          <halign>left</halign>
+          <label>Standard Views</label>
+        </text>
+        
+        <checkbox-template>
+          <halign>left</halign>
+          <label><!----></label>
+          <property><!----></property>
+          <binding>
+            <command>dialog-apply</command>
+          </binding>
+        </checkbox-template>
+      </group>
+    </group>
+      
+    <vrule/>
+    
+    <group>
+      <layout>vbox</layout>      
+      <halign>center</halign>
+      <valign>top</valign>
+      
+      <text>
+        <label>Display Options</label>
+      </text>
+
+      <checkbox>
+        <halign>left</halign>
+        <label>Show frame rate</label>
+        <property>/sim/rendering/fps-display</property>
+        <binding>
+          <command>dialog-apply</command>
+        </binding>
+      </checkbox>
+
+      <checkbox>
+        <halign>left</halign>
+        <label>Show frame spacing</label>
+        <property>/sim/rendering/frame-latency-display</property>
+        <binding>
+          <command>dialog-apply</command>
+        </binding>
+      </checkbox>
+
+      <checkbox>
+        <halign>left</halign>
+        <label>Show chat messages</label>
+        <property>/sim/multiplay/chat-display</property>
+        <binding>
+          <command>dialog-apply</command>
+        </binding>
+      </checkbox>
+
+      <checkbox>
+        <halign>left</halign>
+        <label>Show popup messages</label>
+        <!-- generalising this property for all popups -->
+        <property>/sim/view-name-popup</property>
+        <binding>
+          <command>dialog-apply</command>
+        </binding>
+      </checkbox>
+
+      <checkbox>
+        <halign>left</halign>
+        <label>Show popup when cycling mouse behaviour</label>
+        <property>/sim/mouse/cycle-mode-popup</property>
+        <binding>
+          <command>dialog-apply</command>
+        </binding>
+        <enable>/sim/view-name-popup</enable>
+      </checkbox>
+      
+      <checkbox>
+        <halign>left</halign>
+        <label>Show tooltips</label>
+        <property>/sim/mouse/tooltips-enabled</property>
+        <binding>
+          <command>dialog-apply</command>
+        </binding>
+      </checkbox>
+      
+      <checkbox>
+          <halign>left</halign>
+          <label>Show tooltip on mouse press</label>
+        <property>/sim/mouse/click-shows-tooltip</property>
+        <binding>
+          <command>dialog-apply</command>
+        </binding>
+      </checkbox>
+      
+      <checkbox>
+        <halign>left</halign>
+        <label>Show 2D panel</label>
+        <property>/sim/panel/visibility</property>
+        <binding>
+          <command>dialog-apply</command>
+        </binding>
+      </checkbox>
+      
+      <checkbox>
+        <halign>left</halign>
+        <label>Hide 2D panel in non-centered view</label>
+        <property>/sim/panel/hide-nonzero-heading-offset</property>
+        <enable>
+          <property>/sim/panel/visibility</property>
+        </enable>
+        <binding>
+          <command>dialog-apply</command>
+        </binding>
+      </checkbox>
+      
+      <checkbox>
+        <halign>left</halign>
+        <label>Hide 2D panel in non-cockpit view</label>
+        <property>/sim/panel/hide-nonzero-view</property>
+        <enable>
+          <property>/sim/panel/visibility</property>
+        </enable>
+        <binding>
+          <command>dialog-apply</command>
+        </binding>
+      </checkbox>
+     
+      <checkbox>
+        <halign>left</halign>
+        <label>Autohide menubar</label>
+        <property>/sim/menubar/autovisibility/enabled</property>
+        <binding>
+          <command>dialog-apply</command>
+        </binding>
+      </checkbox>
+
+      <group>
+        <layout>hbox</layout>
+        <halign>left</halign>
+        <padding>0</padding>
+
+        <checkbox>
+          <label>Autohide cursor in</label>
+          <property>/sim/mouse/hide-cursor</property>
+          <binding>
+            <command>dialog-apply</command>
+          </binding>
+        </checkbox>
+
+        <input>
+          <live>true</live>
+          <pref-width>40</pref-width>
+          <pref-height>10</pref-height>
+          <enable>
+            <property>/sim/mouse/hide-cursor</property>
+          </enable>
+          <property>/sim/mouse/cursor-timeout-sec</property>
+          <binding>
+            <command>dialog-apply</command>
+          </binding>
+        </input>
+
+        <text>
+          <label>sec.</label>
+        </text>
+      </group>
+      
+    </group>
+
+  </group>
+
+  <hrule/>
+
+  <button>
+    <legend>Close</legend>
+    <default>true</default>
+    <key>Esc</key>
+    <binding>
+      <command>dialog-apply</command>
+    </binding>
+    <binding>
+      <command>dialog-close</command>
+    </binding>
+  </button>
+
+</PropertyList>

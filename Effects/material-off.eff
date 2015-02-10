@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PropertyList>
+  <name>Effects/material-off</name>
+  <parameters>
+    <material>
+      <color-mode-uniform>0</color-mode-uniform> <!-- OFF -->
+    </material>
+  </parameters>
+  <inherits-from>Effects/model-default</inherits-from>
+</PropertyList>

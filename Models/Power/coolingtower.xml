@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<PropertyList>
+       
+<path>coolingtower.ac</path>
+       
+<particlesystem>
+  <name>steam</name>
+  
+  <texture>smoke.rgb</texture>
+  <emissive>false</emissive>
+  <lighting>true</lighting>
+       
+  <offsets>
+    <x-m>0</x-m>
+    <y-m>0</y-m>
+    <z-m>120</z-m>
+  </offsets>
+           
+  <attach>local</attach>
+           
+  <placer>
+    <type>sector</type>
+    <radius-min-m>1</radius-min-m>
+    <radius-max-m>15</radius-max-m>
+  </placer>
+           
+  <shooter>
+    <speed-mps>
+    	<value>5</value>
+	<spread>5</spread>
+    </speed-mps>
+  </shooter>
+       
+  <counter>
+    <particles-per-sec>
+      <value>2</value>
+      <spread>2</spread>
+    </particles-per-sec>
+  </counter>
+           
+  <align>billboard</align>
+           
+  <particle>
+
+  <start>
+    <color>
+      <red><value>0.7</value></red>
+      <green><value>0.7</value></green>
+      <blue><value>0.7</value></blue>
+      <alpha><value>1</value></alpha>
+    </color>
+    <size>
+      <value>20</value>
+      <spread>10</spread>
+    </size>
+  </start>
+
+  <end>
+    <color>
+      <red><value>1</value></red>
+      <green><value>1</value></green>
+      <blue><value>1</value></blue>
+      <alpha><value>0.25</value></alpha>
+    </color>
+    <size>
+      <value>100</value>
+      <spread>100</spread>
+    </size>
+  </end>
+    
+  <life-sec>
+    <value>20</value>
+  </life-sec>
+             
+  <mass-kg>64000</mass-kg>
+  <radius-m>50</radius-m>
+  </particle>
+           
+  <program>
+    <fluid>air</fluid>
+    <gravity>true</gravity>
+    <wind>true</wind>
+  </program>
+           
+</particlesystem>
+       
+</PropertyList>

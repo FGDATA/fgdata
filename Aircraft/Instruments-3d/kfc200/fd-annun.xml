@@ -1,0 +1,175 @@
+<?xml version="1.0"?>
+<!--
+KA 285 Mode Annunciator Panel
+Syd Adams
+
+-->
+
+<PropertyList>
+
+    <path>fd-annun.ac</path>
+    
+    <animation>
+        <type>material</type>
+        <object-name>FD-annun</object-name>
+        <emission>
+            <red>0.7</red>
+            <green>0.5</green>
+            <blue>0.3</blue>
+            <factor-prop>/systems/electrical/outputs/instrument-lights</factor-prop>
+        </emission>
+    </animation>
+    
+    <animation>
+        <type>select</type>
+        <object-name>FD-ON</object-name>
+        <condition>
+            <property>/instrumentation/kfc200/fd-on</property>
+        </condition>
+    </animation>
+ 
+    <animation>
+        <type>select</type>
+        <object-name>NAV-ON</object-name>
+        <condition>
+            <or>
+                <equals>
+                    <property>/instrumentation/kfc200/lnav</property>
+                    <value>2</value>
+                </equals>
+                <equals>
+                    <property>/instrumentation/kfc200/lnav</property>
+                    <value>3</value>
+                </equals>
+            </or>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>ARM-ON</object-name>
+        <condition>
+                    <property>/instrumentation/kfc200/armed</property>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>CPLD-ON</object-name>
+        <condition>
+                <property>/instrumentation/kfc200/cpld</property>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>HDG-ON</object-name>
+        <condition>
+            <equals>
+                <property>autopilot/locks/heading</property>
+                <value>dg-heading-hold</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>APPR-ON</object-name>
+        <condition>
+            <or>
+                <equals>
+                    <property>/instrumentation/kfc200/lnav</property>
+                    <value>4</value>
+                </equals>
+                <equals>
+                    <property>/instrumentation/kfc200/lnav</property>
+                    <value>5</value>
+                </equals>
+            </or>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>GS-ON</object-name>
+        <condition>
+            <equals>
+                <property>autopilot/locks/altitude</property>
+                <value>gs1-hold</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>GA-ON</object-name>
+        <condition>
+            <equals>
+                <property>/instrumentation/kfc200/lnav</property>
+                <value>10</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>ALT-ON</object-name>
+        <condition>
+            <equals>
+                <property>autopilot/locks/altitude</property>
+                <value>altitude-hold</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>AP-ON</object-name>
+        <condition>
+            <not>
+                <property>/autopilot/locks/passive-mode</property>
+            </not>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>BC-ON</object-name>
+        <condition>
+                <property>/instrumentation/nav/back-course-btn</property>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>O-ON</object-name>
+        <condition>
+            <property>/instrumentation/marker-beacon/outer</property>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>M-ON</object-name>
+        <condition>
+            <property>/instrumentation/marker-beacon/middle</property>
+        </condition>
+    </animation>
+    
+    <animation>
+        <type>select</type>
+        <object-name>A-ON</object-name>
+        <condition>
+            <property>/instrumentation/kfc200/alert</property>
+        </condition>
+    </animation>
+    
+    <animation>
+        <type>select</type>
+        <object-name>TRIM-ON</object-name>
+        <condition>
+            <property>/instrumentation/kfc200/trim-fail</property>
+        </condition>
+    </animation>
+
+</PropertyList>

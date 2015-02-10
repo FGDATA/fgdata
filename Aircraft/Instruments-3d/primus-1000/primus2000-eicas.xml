@@ -1,0 +1,1047 @@
+<?xml version="1.0"?>
+<!--
+Author : Syd Adams
+Primus 2000 EICAS
+-->
+<PropertyList>
+
+<path>primus2000-eicas.ac</path>
+
+<animation>
+    <type>select</type>
+	<object-name>gear0.annun</object-name>
+  	<condition>
+    	<equals>
+    	<property>gear/gear[0]/position-norm</property>
+    	<value>1.0</value>
+    	</equals>
+  	</condition>
+</animation>
+
+<animation>
+  	<type>select</type>
+  	<object-name>gear1.annun</object-name>
+  	<condition>
+    	<equals>
+    	<property>gear/gear[1]/position-norm</property>
+    	<value>1.0</value>
+    	</equals>
+  	</condition>
+</animation>
+
+<animation>
+  	<type>select</type>
+  	<object-name>gear2.annun</object-name>
+  	<condition>
+    	<equals>
+    	<property>gear/gear[2]/position-norm</property>
+    	<value>1.0</value>
+    	</equals>
+  	</condition>
+</animation>
+
+<animation>
+	<type>rotate</type>
+   	<object-name>Flapneedle</object-name>
+   	<property>surface-positions/flap-pos-norm</property>
+   	<interpolation>
+        <entry>
+       		<ind>0.0</ind><dep>0.0</dep>
+     	</entry>
+     	<entry>
+       		<ind>1.0</ind><dep>70.0</dep>
+     	</entry>
+   	</interpolation>
+   	<center>
+    	<x-m>0.003</x-m>
+     	<y-m>-0.070</y-m>
+     	<z-m>-0.042</z-m>
+   	</center>
+   	<axis>
+     	<x>-1.0</x>
+     	<y>0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<animation>
+	<type>rotate</type>
+   	<object-name>STABneedle</object-name>
+   	<property>controls/flight/elevator-trim</property>
+   	<interpolation>
+        <entry>
+       		<ind>-1.0</ind><dep>0.0</dep>
+     	</entry>
+		<entry>
+       		<ind>-0.5</ind><dep>5.0</dep>
+     	</entry>
+		<entry>
+       		<ind>0.5</ind><dep>175.0</dep>
+     	</entry>
+     	<entry>
+       		<ind>1.0</ind><dep>180.0</dep>
+     	</entry>
+   	</interpolation>
+   	<center>
+    	<x-m>0.003</x-m>
+     	<y-m>-0.051</y-m>
+     	<z-m>-0.011</z-m>
+   	</center>
+   	<axis>
+     	<x>-1.0</x>
+     	<y>0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+ 
+<animation>
+   	<type>translate</type>
+   	<object-name>oiltemp.001</object-name>
+   	<property>engines/engine[0]/oilt-norm</property>
+   	<interpolation>
+        <entry>
+       		<ind>0.0</ind><dep>0.0</dep>
+     	</entry>
+     	<entry>
+       		<ind>1.0</ind><dep>0.020</dep>
+     	</entry>
+   	</interpolation>
+   	<axis>
+     	<x>0.0</x>
+     	<y>0.0</y>
+     	<z>1.0</z>
+   	</axis>
+</animation>
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>oiltemp.001</object-name>
+   	<property>engines/engine[0]/oilt-norm</property>
+   	<interpolation>
+     	<entry>
+       		<ind>0.0</ind><dep>0.0</dep>
+     	</entry>
+     	<entry>
+       		<ind>1.0</ind><dep>0.0812</dep>
+     	</entry>
+   	</interpolation>
+   	<axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<animation>
+   	<type>translate</type>
+   	<object-name>oiltemp.002</object-name>
+   	<property>engines/engine[1]/oilt-norm</property>
+   	<interpolation>
+     	<entry>
+       		<ind>0.0</ind><dep>0.0</dep>
+     	</entry>
+     	<entry>
+       		<ind>1.0</ind><dep>0.020</dep>
+     	</entry>
+   	</interpolation>
+   	<axis>
+     	<x>0.0</x>
+     	<y>0.0</y>
+     	<z>1.0</z>
+   	</axis>
+</animation>
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>oiltemp.002</object-name>
+   	<property>engines/engine[1]/oilt-norm</property>
+   	<interpolation>
+     	<entry>
+       		<ind>0.0</ind><dep>0.0</dep>
+     	</entry>
+     	<entry>
+       		<ind>1.0</ind><dep>0.0812</dep>
+     	</entry>
+   	</interpolation>
+   	<axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<animation>
+   	<type>translate</type>
+   	<object-name>oilpsi.001</object-name>
+   	<property>engines/engine[0]/oilp-norm</property>
+   	<interpolation>
+     	<entry>
+       		<ind>0.0</ind><dep>0.0</dep>
+     	</entry>
+     	<entry>
+       		<ind>1.0</ind><dep>0.0190</dep>
+     	</entry>
+   	</interpolation>
+   	<axis>
+     	<x>0.0</x>
+     	<y>0.0</y>
+     	<z>1.0</z>
+   	</axis>
+</animation>
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>oilpsi.001</object-name>
+   	<property>engines/engine[0]/oilt-norm</property>
+   	<interpolation>
+     	<entry>
+       		<ind>0.0</ind><dep>0.0</dep>
+     	</entry>
+     	<entry>
+       		<ind>1.0</ind><dep>0.0781</dep>
+     	</entry>
+   	</interpolation>
+   	<axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<animation>
+   	<type>translate</type>
+   	<object-name>oilpsi.002</object-name>
+   	<property>engines/engine[1]/oilp-norm</property>
+   	<interpolation>
+     	<entry>
+       		<ind>0.0</ind><dep>0.0</dep>
+     	</entry>
+     	<entry>
+       		<ind>1.0</ind><dep>0.0190</dep>
+     	</entry>
+   	</interpolation>
+   	<axis>
+     	<x>0.0</x>
+     	<y>0.0</y>
+     	<z>1.0</z>
+   	</axis>
+</animation>
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>oilpsi.002</object-name>
+   	<property>engines/engine[1]/oilt-norm</property>
+   	<interpolation>
+     	<entry>
+       		<ind>0.0</ind><dep>0.0</dep>
+     	</entry>
+     	<entry>
+       		<ind>1.0</ind><dep>0.0781</dep>
+     	</entry>
+   	</interpolation>
+   	<axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>LH-N1</object-name>
+   	<property>engines/engine[0]/n1</property>
+   	<interpolation>
+     	<entry>
+       		<ind>0.0</ind><dep>0.0</dep>
+     	</entry>
+     	<entry>
+       		<ind>30.0</ind><dep>-0.0119</dep>
+     	</entry>
+     	<entry>
+       		<ind>90.0</ind><dep>-0.1709</dep>
+     	</entry>
+     	<entry>
+       		<ind>105.0</ind><dep>-0.2480</dep>
+     	</entry>
+   	</interpolation>
+   	<axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>RH-N1</object-name>
+   	<property>engines/engine[1]/n1</property>
+   	<interpolation>
+     	<entry>
+       		<ind>0.0</ind><dep>0.0</dep>
+     	</entry>
+     	<entry>
+       		<ind>30.0</ind><dep>-0.0119</dep>
+     	</entry>
+     	<entry>
+       		<ind>90.0</ind><dep>-0.1709</dep>
+     	</entry>
+     	<entry>
+       		<ind>105.0</ind><dep>-0.2480</dep>
+     	</entry>
+   	</interpolation>
+   	<axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>RH-ITT</object-name>
+   	<property>engines/engine[1]/itt-norm</property>
+   	<interpolation>
+     	<entry>
+       		<ind>0.0</ind><dep>0.0</dep>
+     	</entry>
+     	<entry>
+       		<ind>1.2</ind><dep>-0.2027</dep>
+     	</entry>
+   	</interpolation>
+   	<axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>LH-ITT</object-name>
+   	<property>engines/engine[0]/itt-norm</property>
+   	<interpolation>
+     	<entry>
+       		<ind>0.0</ind><dep>0.0</dep>
+     	</entry>
+     	<entry>
+       		<ind>1.2</ind><dep>-0.2027</dep>
+     	</entry>
+   	</interpolation>
+   	<axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>LHn2.002</object-name>
+   	<property>engines/engine/n2</property>
+   	<factor>0.01</factor>
+	<step>10</step>
+     <axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>LHn2.001</object-name>
+   	<property>engines/engine/n2</property>
+   	<factor>0.1</factor>
+	<step>1</step>
+     <axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<!-- N2 digits-->
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>RHn2.002</object-name>
+   	<property>engines/engine[1]/n2</property>
+   	<factor>0.01</factor>
+	<step>10</step>
+     <axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>RHn2.001</object-name>
+   	<property>engines/engine[1]/n2</property>
+   	<factor>0.1</factor>
+	<step>1</step>
+     <axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<!-- N1 Digits -->
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>LHn1.004</object-name>
+   	<property>engines/engine/n1</property>
+   	<factor>0.001</factor>
+	<step>100</step>
+     <axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>LHn1.003</object-name>
+   	<property>engines/engine/n1</property>
+   	<factor>0.01</factor>
+	<step>10</step>
+     <axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>LHn1.002</object-name>
+   	<property>engines/engine/n1</property>
+   	<factor>0.1</factor>
+	<step>1</step>
+     <axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>LHn1.001</object-name>
+   	<property>engines/engine/n1</property>
+   	<factor>1.0</factor>
+	<step>0.1</step>
+     <axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>RHn1.004</object-name>
+   	<property>engines/engine[1]/n1</property>
+   	<factor>0.001</factor>
+	<step>100</step>
+     <axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>RHn1.003</object-name>
+   	<property>engines/engine[1]/n1</property>
+   	<factor>0.01</factor>
+	<step>10</step>
+     <axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>RHn1.002</object-name>
+   	<property>engines/engine[1]/n1</property>
+   	<factor>0.1</factor>
+	<step>1</step>
+     <axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>RHn1.001</object-name>
+   	<property>engines/engine[1]/n1</property>
+   	<factor>1.0</factor>
+	<step>0.1</step>
+     <axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<!-- HYDRAULICS-->
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>LHhyd.004</object-name>
+   	<property>systems/hydraulic/pump-psi</property>
+   	<factor>0.0001</factor>
+	<step>1000.0</step>
+     <axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>LHhyd.003</object-name>
+   	<property>systems/hydraulic/pump-psi</property>
+   	<factor>0.001</factor>
+	<step>100.0</step>
+     <axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>LHhyd.002</object-name>
+   	<property>systems/hydraulic/pump-psi</property>
+   	<factor>0.01</factor>
+	<step>10.0</step>
+     <axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>LHhyd.001</object-name>
+   	<property>systems/hydraulic/pump-psi</property>
+   	<factor>0.1</factor>
+	<step>1.0</step>
+     <axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>RHhyd.004</object-name>
+   	<property>systems/hydraulic/pump-psi[1]</property>
+   	<factor>0.0001</factor>
+	<step>1000.0</step>
+     <axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>RHhyd.003</object-name>
+   	<property>systems/hydraulic/pump-psi[1]</property>
+   	<factor>0.001</factor>
+	<step>100.0</step>
+     <axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>RHhyd.002</object-name>
+   	<property>systems/hydraulic/pump-psi[1]</property>
+   	<factor>0.01</factor>
+	<step>10.0</step>
+     <axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>RHhyd.001</object-name>
+   	<property>systems/hydraulic/pump-psi[1]</property>
+   	<factor>0.1</factor>
+	<step>1.0</step>
+     <axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<!-- FUEL INDICATORS-->
+<!-- total fuel lbs-->
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>Tfuel.001</object-name>
+   	<property>consumables/fuel/total-fuel-lbs</property>
+   	<factor>0.10</factor>
+	<step>1</step>
+     <axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>Tfuel.002</object-name>
+   	<property>consumables/fuel/total-fuel-lbs</property>
+   	<factor>0.010</factor>
+	<step>10</step>
+     <axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>Tfuel.003</object-name>
+   	<property>consumables/fuel/total-fuel-lbs</property>
+   	<factor>0.0010</factor>
+	<step>100</step>
+     <axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>Tfuel.004</object-name>
+   	<property>consumables/fuel/total-fuel-lbs</property>
+   	<factor>0.0001</factor>
+	<step>1000</step>
+     <axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>Tfuel.005</object-name>
+   	<property>consumables/fuel/total-fuel-lbs</property>
+   	<factor>0.00001</factor>
+	<step>10000</step>
+     <axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<!--LH tank lbs-->
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>Ltank.004</object-name>
+   	<property>consumables/fuel/tank/level-lbs</property>
+   	<factor>0.0001</factor>
+	<step>1000</step>
+     <axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>Ltank.003</object-name>
+   	<property>consumables/fuel/tank/level-lbs</property>
+   	<factor>0.001</factor>
+	<step>100</step>
+     <axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>Ltank.002</object-name>
+   	<property>consumables/fuel/tank/level-lbs</property>
+   	<factor>0.01</factor>
+	<step>10</step>
+     <axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>Ltank.001</object-name>
+   	<property>consumables/fuel/tank/level-lbs</property>
+   	<factor>0.1</factor>
+	<step>1</step>
+     <axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<!--RH tank lbs-->
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>Rtank.004</object-name>
+   	<property>consumables/fuel/tank[1]/level-lbs</property>
+   	<factor>0.0001</factor>
+	<step>1000</step>
+     <axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>Rtank.003</object-name>
+   	<property>consumables/fuel/tank[1]/level-lbs</property>
+   	<factor>0.001</factor>
+	<step>100</step>
+     <axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>Rtank.002</object-name>
+   	<property>consumables/fuel/tank[1]/level-lbs</property>
+   	<factor>0.01</factor>
+	<step>10</step>
+     <axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>Rtank.001</object-name>
+   	<property>consumables/fuel/tank[1]/level-lbs</property>
+   	<factor>0.1</factor>
+	<step>1</step>
+     <axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<!--Center tank lbs-->
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>Ctank.004</object-name>
+   	<property>consumables/fuel/tank[2]/level-lbs</property>
+   	<factor>0.0001</factor>
+	<step>1000</step>
+     <axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>Ctank.003</object-name>
+   	<property>consumables/fuel/tank[2]/level-lbs</property>
+   	<factor>0.001</factor>
+	<step>100</step>
+     <axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>Ctank.002</object-name>
+   	<property>consumables/fuel/tank[2]/level-lbs</property>
+   	<factor>0.01</factor>
+	<step>10</step>
+     <axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>Ctank.001</object-name>
+   	<property>consumables/fuel/tank[2]/level-lbs</property>
+   	<factor>0.1</factor>
+	<step>1</step>
+     <axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<!--LH fuel pph-->
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>Lpph.004</object-name>
+   	<property>engines/engine/fuel-flow_pph</property>
+   	<factor>0.0001</factor>
+	<step>1000</step>
+     <axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>Lpph.003</object-name>
+   	<property>engines/engine/fuel-flow_pph</property>
+   	<factor>0.001</factor>
+	<step>100</step>
+     <axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>Lpph.002</object-name>
+   	<property>engines/engine/fuel-flow_pph</property>
+   	<factor>0.01</factor>
+	<step>10</step>
+     <axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>Lpph.001</object-name>
+   	<property>engines/engine/fuel-flow_pph</property>
+   	<factor>0.1</factor>
+	<step>1</step>
+     <axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<!--RH fuel pph-->
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>Rpph.004</object-name>
+   	<property>engines/engine[1]/fuel-flow_pph</property>
+   	<factor>0.0001</factor>
+	<step>1000</step>
+     <axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>Rpph.003</object-name>
+   	<property>engines/engine[1]/fuel-flow_pph</property>
+   	<factor>0.001</factor>
+	<step>100</step>
+     <axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>Rpph.002</object-name>
+   	<property>engines/engine[1]/fuel-flow_pph</property>
+   	<factor>0.01</factor>
+	<step>10</step>
+     <axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>Rpph.001</object-name>
+   	<property>engines/engine[1]/fuel-flow_pph</property>
+   	<factor>0.1</factor>
+	<step>1</step>
+     <axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<!-- ELECTRICAL-->
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>LHvolts.002</object-name>
+   	<property>systems/electrical/volts</property>
+   	<factor>0.01</factor>
+	<step>10</step>
+     <axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>LHvolts.001</object-name>
+   	<property>systems/electrical/volts</property>
+   	<factor>0.1</factor>
+	<step>1</step>
+     <axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>RHvolts.002</object-name>
+   	<property>systems/electrical/volts</property>
+   	<factor>0.01</factor>
+	<step>10</step>
+     <axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>RHvolts.001</object-name>
+   	<property>systems/electrical/volts</property>
+   	<factor>0.1</factor>
+	<step>1</step>
+     <axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>LHamps.002</object-name>
+   	<property>systems/electrical/amps</property>
+   	<factor>0.01</factor>
+	<step>10</step>
+     <axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>LHamps.001</object-name>
+   	<property>systems/electrical/amps</property>
+   	<factor>0.1</factor>
+	<step>1</step>
+     <axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>RHamps.002</object-name>
+   	<property>systems/electrical/amps</property>
+   	<factor>0.01</factor>
+	<step>10</step>
+     <axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+<animation>
+   	<type>textranslate</type>
+   	<object-name>RHamps.001</object-name>
+   	<property>systems/electrical/amps</property>
+   	<factor>0.1</factor>
+	<step>1</step>
+     <axis>
+     	<x>0.0</x>
+     	<y>1.0</y>
+     	<z>0.0</z>
+   	</axis>
+</animation>
+
+</PropertyList>

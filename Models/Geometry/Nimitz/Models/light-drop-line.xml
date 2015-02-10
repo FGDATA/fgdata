@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!-- Drop Line red Lights -->
+<PropertyList>
+	<path>light-drop-line.ac</path>
+
+	<effect>
+		<inherits-from>Effects/model-transparent</inherits-from>
+		<object-name>RedLight</object-name>
+	</effect>
+
+	<animation>
+		<type>noshadow</type>
+		<object-name>RedLight</object-name>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>RedLight</object-name>
+		<condition>
+			<property>controls/lighting/deck-lights</property>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>scale</type>
+		<object-name>RedLight</object-name>
+		<property>/sim/time/sun-angle-rad</property>
+		<offset>0</offset>
+		<x-min>1</x-min>
+		<y-min>1</y-min>
+		<z-min>1</z-min>
+		<x-factor>1.25</x-factor>
+		<y-factor>1.25</y-factor>
+		<z-factor>1.25</z-factor>
+	</animation>
+
+	<animation>
+		<type>dist-scale</type>
+		<object-name>RedLight</object-name>
+		<interpolation>
+			<entry><ind>0.001</ind><dep>0.5</dep></entry>
+			<entry><ind>160000</ind><dep>200</dep></entry>
+		</interpolation>
+	</animation>
+
+	<!-- LoD -->
+	<!--<animation>
+		<type>range</type>
+		<max-m>5000</max-m>
+	</animation>-->
+
+</PropertyList>

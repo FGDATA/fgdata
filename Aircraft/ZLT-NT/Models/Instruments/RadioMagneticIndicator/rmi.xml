@@ -1,0 +1,260 @@
+<?xml version="1.0"?>
+<!--
+  Radio Magnetic Indicator based on an AC3D model from FlightGear.
+
+  Copyright (C) 2012  Anders Gidenstam  (anders(at)gidenstam.org)
+  This file is licensed under the GPL license v2 or later.
+-->
+<PropertyList>
+
+ <path>rmi.ac</path>
+ <!-- Overlay these to set the sources. -->
+ <params>
+  <card-heading-deg>instrumentation/heading-indicator/indicated-heading-deg</card-heading-deg>
+  <card-serviceable-norm>instrumentation/heading-indicator/spin</card-serviceable-norm>
+  <nav-deg n="0">instrumentation/nav[0]/heading-deg</nav-deg>
+  <nav-deg n="1">instrumentation/nav[1]/heading-deg</nav-deg>
+  <adf-deg n="0">instrumentation/adf[0]/indicated-bearing-deg</adf-deg>
+  <adf-deg n="1">instrumentation/adf[0]/indicated-bearing-deg</adf-deg>
+
+  <source-selection n="0">instrumentation/rmi/button[0]</source-selection>
+  <source-selection n="1">instrumentation/rmi/button[1]</source-selection>
+
+  <lighting-norm>controls/lighting/panel-norm</lighting-norm>
+ </params>
+
+
+ <animation>
+  <type>rotate</type>
+  <object-name>RMI.compass</object-name>
+  <property alias="../../params/card-heading-deg"/>
+  <axis>
+   <x>1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>translate</type>
+  <object-name>UnserviceableFlag</object-name>
+  <property alias="../../params/card-serviceable-norm"/>
+  <interpolation>
+   <entry>
+    <ind>0</ind>
+    <dep>0</dep>
+   </entry>
+   <entry>
+    <ind>0.55</ind>
+    <dep>0.00</dep>
+   </entry>
+   <entry>
+    <ind>0.60</ind>
+    <dep>0.012</dep>
+   </entry>
+  </interpolation>    
+  <axis>
+   <x>0.0</x>
+   <y>1.0</y>
+   <z>1.0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>select</type>
+  <object-name>SingleNeedle.NAV</object-name>
+  <condition>
+   <not>
+    <property alias="../../../../params/source-selection[0]"/>
+   </not>
+  </condition>
+ </animation>
+ <animation>
+  <type>rotate</type>
+  <object-name>SingleNeedle.NAV</object-name>
+  <property alias="../../params/card-heading-deg"/>
+  <axis>
+   <x>1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>rotate</type>
+  <object-name>SingleNeedle.NAV</object-name>
+  <property alias="../../params/nav-deg[0]"/>
+  <axis>
+   <x>-1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>select</type>
+  <object-name>SingleNeedle.ADF</object-name>
+  <condition>
+   <property alias="../../../params/source-selection[0]"/>
+  </condition>
+ </animation>
+ <animation>
+  <type>rotate</type>
+  <object-name>SingleNeedle.ADF</object-name>
+  <property alias="../../params/adf-deg[0]"/>
+  <axis>
+   <x>-1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>select</type>
+  <object-name>DoubleNeedle.NAV</object-name>
+  <condition>
+   <not>
+    <property alias="../../../../params/source-selection[1]"/>
+   </not>
+  </condition>
+ </animation>
+ <animation>
+  <type>rotate</type>
+  <object-name>DoubleNeedle.NAV</object-name>
+  <property alias="../../params/card-heading-deg"/>
+  <axis>
+   <x>1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>rotate</type>
+  <object-name>DoubleNeedle.NAV</object-name>
+  <property alias="../../params/nav-deg[1]"/>
+  <axis>
+   <x>-1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>select</type>
+  <object-name>DoubleNeedle.ADF</object-name>
+  <condition>
+   <property alias="../../../params/source-selection[1]"/>
+  </condition>
+ </animation>
+ <animation>
+  <type>rotate</type>
+  <object-name>DoubleNeedle.ADF</object-name>
+  <property alias="../../params/adf-deg[1]"/>
+  <axis>
+   <x>-1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>SingleNeedleIndicator</object-name>
+  <property alias="../../params/source-selection[0]"/>
+  <interpolation>
+   <entry>
+    <ind type="bool">0</ind>
+    <dep>0</dep>
+   </entry>
+   <entry>
+    <ind type="bool">1</ind>
+    <dep>180</dep>
+   </entry>
+  </interpolation>
+  <center>
+   <x-m> 0.000 </x-m>
+   <y-m>-0.024 </y-m>
+   <z-m>-0.025 </z-m>
+  </center>
+  <axis>
+   <x>1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>pick</type>
+  <object-name>RMI.btn.L</object-name>
+  <action>
+   <button>0</button>
+   <repeatable>false</repeatable>
+   <binding>
+    <command>property-toggle</command>
+    <property alias="../../../../params/source-selection[0]"/>
+    <value type="bool">0</value>
+    <value type="bool">1</value>
+   </binding>
+  </action>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>DoubleNeedleIndicator</object-name>
+  <property alias="../../params/source-selection[1]"/>
+  <interpolation>
+   <entry>
+    <ind type="bool">0</ind>
+    <dep>0</dep>
+   </entry>
+   <entry>
+    <ind type="bool">1</ind>
+    <dep>180</dep>
+   </entry>
+  </interpolation>
+  <center>
+   <x-m> 0.000 </x-m>
+   <y-m> 0.024 </y-m>
+   <z-m>-0.025 </z-m>
+  </center>
+  <axis>
+   <x>1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>pick</type>
+  <object-name>RMI.btn.R</object-name>
+  <action>
+   <button>0</button>
+   <repeatable>false</repeatable>
+   <binding>
+    <command>property-toggle</command>
+    <property alias="../../../../params/source-selection[1]"/>
+    <value type="bool">0</value>
+    <value type="bool">1</value>
+   </binding>
+  </action>
+ </animation>
+
+ <animation>
+  <type>material</type>
+  <object-name>RMI.compass</object-name>
+  <object-name>RMI.face</object-name>
+  <object-name>RMI.btn.L</object-name>
+  <object-name>RMI.btn.R</object-name>
+  <object-name>SingleNeedle.NAV</object-name>
+  <object-name>SingleNeedle.ADF</object-name>
+  <object-name>DoubleNeedle.NAV</object-name>
+  <object-name>DoubleNeedle.ADF</object-name>
+  <object-name>SingleNeedleIndicator</object-name>
+  <object-name>DoubleNeedleIndicator</object-name>
+  <object-name>UnserviceableFlag</object-name>
+  <emission>
+   <factor-prop alias="../../../params/lighting-norm"/>
+   <red>0.8</red>
+   <green>0.8</green>
+   <blue>0.8</blue>
+  </emission>
+ </animation>
+
+</PropertyList>

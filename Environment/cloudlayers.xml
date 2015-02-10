@@ -1,0 +1,383 @@
+<?xml version="1.0" ?>
+<!--
+ This file is part of FlightGear, the free flight simulator
+ http://www.flightgear.org/
+
+ Copyright (C) 2010  Curtis L. Olson  - http://www.flightgear.org/~curt
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation; either version 2 of the
+ License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+-->
+<!--
+  Cloud shapes and layers. See Docs/README.3DClouds for details.
+
+  short Explanation:
+  cb = Cumulonimbus (Thunderstorm cloud)
+      cb-cal = Cumulonimbus Calvus (without amboss)
+      cb-inc = Cumulonimbus Incus (with amboss)
+  cu = Cumulus
+      cu hum = Cumulus humilis (smallest one, only at fair, nice weather)
+      cu med = Cumulus mediocris (middle)
+      cu con = Cumulus congestus (the largest one, pre-stage of Cumulonimbus)
+ns = Nimbostratus (Rain cloud)
+  st = Stratus
+  sc = Stratocumulus
+  ac = Altocumulus
+-->
+<PropertyList>
+  <clouds>
+    <cb-large>
+      <min-cloud-width-m>2200</min-cloud-width-m>
+      <min-cloud-height-m>1200</min-cloud-height-m>
+      <num-sprites>3</num-sprites>
+      <texture>/Models/Weather/congestus_sheet1.rgb</texture>
+      <num-textures-x>1</num-textures-x>
+      <num-textures-y>3</num-textures-y>
+      <min-bottom-lighting-factor>0.2</min-bottom-lighting-factor>
+      <min-middle-lighting-factor>0.3</min-middle-lighting-factor>
+      <min-shade-lighting-factor>0.4</min-shade-lighting-factor>
+      <min-sprite-width-m>1300</min-sprite-width-m>
+      <min-sprite-height-m>600</min-sprite-height-m>
+      <height-map-texture>true</height-map-texture>
+    </cb-large>
+    <cb-small>
+      <min-cloud-width-m>2200</min-cloud-width-m>
+      <min-cloud-height-m>1200</min-cloud-height-m>
+      <num-sprites>3</num-sprites>
+      <texture>/Models/Weather/congestus_sheet1.rgb</texture>
+      <num-textures-x>1</num-textures-x>
+      <num-textures-y>3</num-textures-y>
+      <min-bottom-lighting-factor>0.3</min-bottom-lighting-factor>
+      <min-middle-lighting-factor>0.3</min-middle-lighting-factor>
+      <min-shade-lighting-factor>0.4</min-shade-lighting-factor>
+      <min-sprite-width-m>1300</min-sprite-width-m>
+      <min-sprite-height-m>600</min-sprite-height-m>
+      <height-map-texture>true</height-map-texture>
+    </cb-small>
+    <cu-con>
+      <min-cloud-width-m>900</min-cloud-width-m>
+      <min-cloud-height-m>500</min-cloud-height-m>
+      <num-sprites>10</num-sprites>
+      <texture>/Models/Weather/cumulus_sheet1.rgb</texture>
+      <num-textures-x>3</num-textures-x>
+      <num-textures-y>3</num-textures-y>
+      <min-bottom-lighting-factor>0.3</min-bottom-lighting-factor>
+      <min-shade-lighting-factor>0.4</min-shade-lighting-factor>
+      <min-sprite-width-m>600</min-sprite-width-m>
+      <max-sprite-width-m>900</max-sprite-width-m>
+      <min-sprite-height-m>600</min-sprite-height-m>
+      <max-sprite-height-m>900</max-sprite-height-m>
+      <height-map-texture>true</height-map-texture>
+    </cu-con>
+    <cu-large>
+      <min-cloud-width-m>1300</min-cloud-width-m>
+      <min-cloud-height-m>700</min-cloud-height-m>
+      <num-sprites>10</num-sprites>
+      <texture>/Textures/Sky/cl_cumulus2.png</texture>
+      <num-textures-x>4</num-textures-x>
+      <num-textures-y>4</num-textures-y>
+      <min-bottom-lighting-factor>0.3</min-bottom-lighting-factor>
+      <min-middle-lighting-factor>0.6</min-middle-lighting-factor>
+      <min-top-lighting-factor>1.0</min-top-lighting-factor>
+      <min-shade-lighting-factor>0.4</min-shade-lighting-factor>
+      <min-sprite-width-m>600</min-sprite-width-m>
+      <max-sprite-width-m>900</max-sprite-width-m>
+      <min-sprite-height-m>600</min-sprite-height-m>
+      <max-sprite-height-m>900</max-sprite-height-m>
+      <height-map-texture>true</height-map-texture>
+    </cu-large>
+    <cu-small>
+      <min-cloud-width-m>900</min-cloud-width-m>
+      <min-cloud-height-m>500</min-cloud-height-m>
+      <num-sprites>10</num-sprites>
+      <texture>/Textures/Sky/cl_cumulus2.png</texture>
+      <num-textures-x>4</num-textures-x>
+      <num-textures-y>4</num-textures-y>
+      <min-bottom-lighting-factor>0.5</min-bottom-lighting-factor>
+      <min-middle-lighting-factor>0.7</min-middle-lighting-factor>
+      <min-top-lighting-factor>1.0</min-top-lighting-factor>
+      <min-shade-lighting-factor>0.5</min-shade-lighting-factor>
+      <min-sprite-width-m>600</min-sprite-width-m>
+      <max-sprite-width-m>700</max-sprite-width-m>
+      <min-sprite-height-m>500</min-sprite-height-m>
+      <max-sprite-height-m>700</max-sprite-height-m>
+      <height-map-texture>true</height-map-texture>
+    </cu-small>
+    <ns-large>
+      <min-cloud-width-m>1200</min-cloud-width-m>
+      <max-cloud-width-m>3000</max-cloud-width-m>
+      <min-cloud-height-m>400</min-cloud-height-m>
+      <max-cloud-height-m>800</max-cloud-height-m>
+      <num-sprites>40</num-sprites>
+      <texture>cl_st.png</texture>
+      <num-textures-x>1</num-textures-x>
+      <num-textures-y>1</num-textures-y>
+      <min-shade-lighting-factor>0.2</min-shade-lighting-factor>
+      <min-middle-lighting-factor>0.2</min-middle-lighting-factor>
+      <min-bottom-lighting-factor>0.2</min-bottom-lighting-factor>
+      <min-sprite-width-m>300</min-sprite-width-m>
+      <max-sprite-width-m>600</max-sprite-width-m>
+      <min-sprite-height-m>300</min-sprite-height-m>
+      <max-sprite-height-m>600</max-sprite-height-m>
+      <height-map-texture>false</height-map-texture>
+      <z-scale>0.5</z-scale>
+    </ns-large>
+    <ns-white>
+      <min-cloud-width-m>600</min-cloud-width-m>
+      <max-cloud-width-m>2000</max-cloud-width-m>
+      <min-cloud-height-m>400</min-cloud-height-m>
+      <max-cloud-height-m>600</max-cloud-height-m>
+      <num-sprites>40</num-sprites>
+      <texture>cl_st.png</texture>
+      <num-textures-x>1</num-textures-x>
+      <num-textures-y>1</num-textures-y>
+      <min-bottom-lighting-factor>0.3</min-bottom-lighting-factor>
+      <min-sprite-width-m>300</min-sprite-width-m>
+      <max-sprite-width-m>600</max-sprite-width-m>
+      <min-sprite-height-m>100</min-sprite-height-m>
+      <max-sprite-height-m>200</max-sprite-height-m>
+      <height-map-texture>false</height-map-texture>
+      <z-scale>0.5</z-scale>
+    </ns-white>
+    <sc>
+      <min-cloud-width-m>3500</min-cloud-width-m>
+      <min-cloud-height-m>1600</min-cloud-height-m>
+      <num-sprites>4</num-sprites>
+      <texture>/Models/Weather/congestus_sheet1.rgb</texture>
+      <num-textures-x>1</num-textures-x>
+      <num-textures-y>3</num-textures-y>
+      <min-bottom-lighting-factor>0.5</min-bottom-lighting-factor>
+      <min-sprite-width-m>1900</min-sprite-width-m>
+      <max-sprite-width-m>2100</max-sprite-width-m>
+      <min-sprite-height-m>1000</min-sprite-height-m>
+      <max-sprite-height-m>1000</max-sprite-height-m>
+      <height-map-texture>false</height-map-texture>
+      <z-scale>0.3</z-scale>
+    </sc>
+    <st-small>
+      <min-cloud-width-m>4000</min-cloud-width-m>
+      <min-cloud-height-m>4000</min-cloud-height-m>
+      <num-sprites>20</num-sprites>
+      <texture>/Models/Weather/stratus_sheet1.rgb</texture>
+      <num-textures-x>3</num-textures-x>
+      <num-textures-y>2</num-textures-y>
+      <min-bottom-lighting-factor>0.4</min-bottom-lighting-factor>
+      <min-sprite-width-m>1500</min-sprite-width-m>
+      <min-sprite-height-m>1500</min-sprite-height-m>
+      <height-map-texture>false</height-map-texture>
+      <z-scale>0.4</z-scale>
+    </st-small>
+    <st-large>
+      <min-cloud-width-m>5000</min-cloud-width-m>
+      <min-cloud-height-m>5000</min-cloud-height-m>
+      <num-sprites>20</num-sprites>
+      <texture>/Models/Weather/stratus_sheet1.rgb</texture>
+      <num-textures-x>3</num-textures-x>
+      <num-textures-y>2</num-textures-y>
+      <min-bottom-lighting-factor>0.4</min-bottom-lighting-factor>
+      <min-sprite-width-m>1900</min-sprite-width-m>
+      <min-sprite-height-m>1900</min-sprite-height-m>
+      <height-map-texture>false</height-map-texture>
+      <z-scale>0.4</z-scale>
+    </st-large>
+  </clouds>
+  <boxes>
+    <ac-str>
+      <box>
+        <type>st-small</type>
+        <count>5</count>
+        <width>1000</width>
+        <height>0</height>
+        <hdist>1</hdist>
+        <vdist>1</vdist>
+      </box>
+    </ac-str>
+
+    <ac>
+      <box>
+        <type>cu-large</type>
+        <count>6</count>
+        <width>4000</width>
+        <height>0</height>
+        <hdist>1</hdist>
+        <vdist>1</vdist>
+      </box>
+    </ac>
+
+    <cu-hum>
+      <box>
+        <type>cu-small</type>
+        <count>4</count>
+        <width>800</width>
+        <height>0</height>
+        <hdist>2</hdist>
+        <vdist>2</vdist>
+      </box>
+    </cu-hum>
+
+    <cu-con>
+      <box>
+        <type>cu-con</type>
+        <count>2</count>
+        <width>1500</width>
+        <height>0</height>
+        <hdist>2</hdist>
+        <vdist>1</vdist>
+      </box>
+      <box>
+        <type>cu-small</type>
+        <count>1</count>
+        <width>1000</width>
+        <height>0</height>
+        <hdist>1</hdist>
+        <vdist>2</vdist>
+      </box>
+    </cu-con>
+
+    <cb-cal>
+      <box>
+        <type>cb-large</type>
+        <count>1</count>
+        <width>1500</width>
+        <height>1000</height>
+        <hdist>2</hdist>
+        <vdist>2</vdist>
+      </box>
+    </cb-cal>
+
+
+    <cb-inc>
+      <box>
+        <type>cb-large</type>
+        <count>1</count>
+        <width>2500</width>
+        <height>1000</height>
+      </box>
+    </cb-inc>
+
+    <st>
+      <box>
+        <type>st-large</type>
+        <count>5</count>
+        <width>2000</width>
+        <height>100</height>
+      </box>
+      <box>
+        <type>st-small</type>
+        <count>5</count>
+        <width>2000</width>
+        <height>100</height>
+      </box>
+    </st>
+
+    <st-small>
+      <box>
+        <type>st-small</type>
+        <count>10</count>
+        <width>5000</width>
+        <height>200</height>
+      </box>
+    </st-small>
+
+    <ns>
+      <box>
+        <type>ns-large</type>
+        <count>5</count>
+        <width>5000</width>
+        <height>300</height>
+      </box>
+    </ns>
+
+    <sc>
+      <box>
+        <type>sc</type>
+        <count>1</count>
+        <width>2500</width>
+        <height>300</height>
+      </box>
+    </sc>
+
+    <xx>
+      <box>
+        <type>cu-large</type>
+        <count>30</count>
+        <width>2500</width>
+        <height>300</height>
+        <dist>1</dist>
+      </box>
+    </xx>
+  </boxes>
+
+
+  <layers>
+    <cu>
+      <cloud>
+        <name>cu-hum</name>
+        <count>1</count>
+      </cloud>
+      <cloud>
+        <name>cu-con</name>
+        <count>1</count>
+      </cloud>
+    </cu>
+    <cb>
+      <cloud>
+        <name>cb-cal</name>
+        <count>3</count>
+      </cloud>
+      <cloud>
+        <name>cb-inc</name>
+        <count>3</count>
+      </cloud>
+      <cloud>
+        <name>cu-hum</name>
+        <count>1</count>
+      </cloud>
+      <cloud>
+        <name>cu-con</name>
+        <count>5</count>
+      </cloud>
+      <grid-z-rand type="double">200.0</grid-z-rand>
+    </cb>
+    <ac>
+      <cloud>
+        <name>ac</name>
+        <count>1</count>
+      </cloud>
+      <grid-z-rand type="double">100.0</grid-z-rand>
+    </ac>
+    <st>
+      <cloud>
+        <name>st</name>
+        <count>1</count>
+      </cloud>
+      <cloud>
+        <name>st-small</name>
+        <count>1</count>
+      </cloud>
+      <grid-z-rand type="double">100.0</grid-z-rand>
+    </st>
+    <sc>
+      <cloud>
+        <name>sc</name>
+        <count>1</count>
+      </cloud>
+      <grid-z-rand type="double">150.0</grid-z-rand>
+    </sc>
+    <ns>
+      <cloud>
+        <name>ns</name>
+        <count>1</count>
+      </cloud>
+      <grid-z-rand type="double">15.0</grid-z-rand>
+    </ns>
+  </layers>
+</PropertyList>
+<!-- end of cloudlayers.xml -->

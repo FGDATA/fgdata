@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+<!-- Maintainer: Andrea Vezzali -->
+<!--
+************************************************************************
+* Bindings for Mega World USB Game Controllers joystick
+*
+*
+* Axis 0: ailerons
+* Axis 1: elevator
+* Axis 2: throttle
+* Axis 3 (hat): view direction
+* Axis 4 (hat): view elevation
+*
+* Button 0: all brakes
+* Button 1: view cicle
+* Button 2: zoom-in
+* Button 3: zoom-out
+*
+************************************************************************-->
+<PropertyList>
+  <name>Mega World USB Game Controllers</name>
+  <axis n="0">
+    <desc>Aileron</desc>
+    <binding>
+      <command>property-scale</command>
+      <property>/controls/flight/aileron</property>
+      <squared type="bool">true</squared>
+    </binding>
+  </axis>
+  <axis n="1">
+    <desc>Elevator</desc>
+    <binding>
+      <command>property-scale</command>
+      <property>/controls/flight/elevator</property>
+      <factor type="double">-1.0</factor>
+      <squared type="bool">true</squared>
+    </binding>
+  </axis>
+  <axis n="2">
+    <desc>Throttle</desc>
+    <binding>
+      <command>nasal</command>
+      <script>controls.throttleAxis()</script>
+    </binding>
+  </axis>
+  <axis n="3">
+    <desc>View Direction</desc>
+    <low>
+      <repeatable type="bool">true</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>view.panViewDir(1)</script>
+      </binding>
+    </low>
+    <high>
+      <repeatable type="bool">true</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>view.panViewDir(-1)</script>
+      </binding>
+    </high>
+  </axis>
+  <axis n="4">
+    <desc>View Elevation</desc>
+    <low>
+      <repeatable type="bool">true</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>view.panViewPitch(1)</script>
+      </binding>
+    </low>
+    <high>
+      <repeatable type="bool">true</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>view.panViewPitch(-1)</script>
+      </binding>
+    </high>
+  </axis>
+  <button n="0">
+    <desc>Brakes</desc>
+    <binding>
+      <command>nasal</command>
+      <script>controls.applyBrakes(1)</script>
+    </binding>
+    <mod-up>
+      <binding>
+        <command>nasal</command>
+        <script>controls.applyBrakes(0)</script>
+      </binding>
+    </mod-up>
+  </button>
+  <button n="1">
+    <repeatable>false</repeatable>
+    <binding>
+      <command>nasal</command>
+      <script>view.stepView(1)</script>
+    </binding>
+  </button>
+  <button n="2">
+    <desc>Zoom in</desc>
+    <repeatable type="bool">true</repeatable>
+    <binding>
+      <command>nasal</command>
+      <script>view.decrease(1)</script>
+    </binding>
+  </button>
+  <button n="3">
+    <desc>Zoom out</desc>
+    <repeatable type="bool">true</repeatable>
+    <binding>
+      <command>nasal</command>
+      <script>view.increase(1)</script>
+    </binding>
+  </button>
+</PropertyList>

@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<PropertyList>
+
+ <path>asi.ac</path>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>Needle1</object-name>
+  <property>/instrumentation/airspeed-indicator/indicated-speed-kt</property>
+  <interpolation>
+   <entry>
+    <ind>0</ind>
+    <dep>0</dep>
+   </entry>
+   <entry>
+    <ind>34.76</ind>
+    <dep>30</dep>
+   </entry>
+   <entry>
+    <ind>43.45</ind>
+    <dep>57</dep>
+   </entry>
+   <entry>
+    <ind>52.14</ind>
+    <dep>85</dep>
+   </entry>
+   <entry>
+    <ind>60.83</ind>
+    <dep>113</dep>
+   </entry>
+   <entry>
+    <ind>69.52</ind>
+    <dep>142.5</dep>
+   </entry>
+   <entry>
+    <ind>78.21</ind>
+    <dep>172</dep>
+   </entry>
+   <entry>
+    <ind>86.9</ind>
+    <dep>202</dep>
+   </entry>
+   <entry>
+    <ind>95.59</ind>
+    <dep>233</dep>
+   </entry>
+   <entry>
+    <ind>104.28</ind>
+    <dep>264</dep>
+   </entry>
+   <entry>
+    <ind>112.97</ind>
+    <dep>296</dep>
+   </entry>
+   <entry>
+    <ind>121.66</ind>
+    <dep>327</dep>
+   </entry>
+  </interpolation>
+  <axis>
+   <x>-1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+</PropertyList>
+
+

@@ -1,0 +1,232 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+	<name>radios</name>
+	<width>550</width>
+	<modal>false</modal>
+	<layout>vbox</layout>
+
+	<group>
+		<layout>hbox</layout>
+		<empty>
+			<stretch>1</stretch>
+		</empty>
+
+		<text>
+			<label>Radio Frequencies</label>
+		</text>
+
+		<empty>
+			<stretch>1</stretch>
+		</empty>
+
+		<button>
+			<pref-width>16</pref-width>
+			<pref-height>16</pref-height>
+			<legend></legend>
+			<keynum>27</keynum>
+			<border>2</border>
+			<binding>
+				<command>dialog-close</command>
+			</binding>
+		</button>
+	</group>
+
+	<hrule/>
+
+	<group>
+		<layout>vbox</layout>
+		<text>
+			<label>Selected</label>
+		</text>
+		<group>
+			<layout>hbox</layout>
+			<text>
+				<label>Channel</label>
+			</text>
+			<text>
+				<label>Frequency</label>
+			</text>
+		</group>
+		<group>
+			<layout>hbox</layout>
+			<text>
+				<!--<label>xxxxxxx</label>-->
+				<label>Channel</label>
+				<live>true</live>
+				<!--<format>%.2f</format>-->
+				<property>systems/comm/SCR-522C/frequencies/channel</property>
+			</text>
+			<text>
+				<!--<label>xxxxxxx</label>-->
+				<label>MHz</label>
+				<live>true</live>
+				<format>%.2f</format>
+				<property>/instrumentation/comm[0]/frequencies/selected-mhz</property>
+			</text>
+		</group>
+	</group>
+
+	<hrule/>
+	<group>
+		<layout>hbox</layout>
+		<text>
+			<label>Channel Assignment</label>
+		</text>
+	</group>
+
+	<group>
+		<layout>table</layout>
+
+		<!-- headers -->
+
+		<!--<text>
+			<row>0</row>
+			<col>4</col>
+			<label>Standby</label>
+		</text>-->
+
+
+		<!-- Dummy label to stretch table, as layout manager doesn't handle labels well -->
+		<text>
+			<row>0</row>
+			<col>6</col>
+			<label></label>
+		</text>
+
+		<text>
+			<row>1</row>
+			<col>0</col>
+			<halign>right</halign>
+			<label>A</label>
+		</text>
+
+		<input>
+			<name>channel A</name>
+			<row>1</row>
+			<col>1</col>
+			<width>75</width>
+			<height>25</height>
+			<label>MHz</label>
+			<property>/instrumentation/comm/channels/A-mhz</property>
+		</input>
+
+		<text>
+			<row>1</row>
+			<col>3</col>
+			<halign>right</halign>
+			<label>B</label>
+		</text>
+
+		<input>
+			<name>channel B</name>
+			<row>1</row>
+			<col>4</col>
+			<width>75</width>
+			<height>25</height>
+			<label>MHz</label>
+			<property>/instrumentation/comm/channels/B-mhz</property>
+		</input>
+
+		<text>
+			<row>2</row>
+			<col>0</col>
+			<halign>right</halign>
+			<label>C</label>
+		</text>
+
+		<input>
+			<name>channel C</name>
+			<row>2</row>
+			<col>1</col>
+			<width>75</width>
+			<height>25</height>
+			<label>MHz</label>
+			<property>/instrumentation/comm/channels/C-mhz</property>
+		</input>
+
+		<text>
+			<row>2</row>
+			<col>3</col>
+			<halign>right</halign>
+			<label>D</label>
+		</text>
+
+		<input>
+			<name>channel D</name>
+			<row>2</row>
+			<col>4</col>
+			<width>75</width>
+			<height>25</height>
+			<label>MHz</label>
+			<property>/instrumentation/comm/channels/D-mhz</property>
+		</input>
+
+	</group>
+
+	<hrule/>
+
+	<group>
+		<layout>hbox</layout>
+		<button>
+			<legend>ATC Services in range</legend>
+			<binding>
+				<command>ATC-freq-search</command>
+			</binding>
+		</button>
+	</group>
+
+	<hrule/>
+
+	<group>
+		<layout>hbox</layout>
+		<default-padding>6</default-padding>
+		<empty>
+			<stretch>true</stretch>
+		</empty>
+
+		<button>
+			<legend>OK</legend>
+			<default>true</default>
+			<equal>true</equal>
+			<binding>
+				<command>dialog-apply</command>
+			</binding>
+			<binding>
+				<command>dialog-close</command>
+			</binding>
+		</button>
+
+		<button>
+			<legend>Apply</legend>
+			<equal>true</equal>
+			<binding>
+				<command>dialog-apply</command>
+			</binding>
+		</button>
+
+		<button>
+			<legend>Reset</legend>
+			<equal>true</equal>
+			<binding>
+				<command>dialog-update</command>
+			</binding>
+		</button>
+
+		<button>
+			<legend>Cancel</legend>
+			<equal>true</equal>
+			<key>Esc</key>
+			<binding>
+				<command>dialog-close</command>
+			</binding>
+		</button>
+
+		<empty>
+			<stretch>true</stretch>
+		</empty>
+	</group>
+
+
+</PropertyList>

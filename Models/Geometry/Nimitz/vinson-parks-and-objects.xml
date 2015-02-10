@@ -1,0 +1,124 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<description>USS Vinson - CVN-70</description>
+	<path>vinson-parks-and-objects.ac</path>
+
+
+	<effect>
+		<inherits-from>Effects/model-transparent</inherits-from>
+		<object-name>glass</object-name>
+	</effect>
+
+	<!--<animation>
+		<object-name>mules</object-name>
+		<type>material</type>
+		<condition><not><property>/sim/rendering/rembrandt/enabled</property></not></condition>
+		<emission>
+			<factor-prop>controls/lighting/flood-lights-red-norm</factor-prop>
+			<red>0.75</red><green>0.25</green><blue>0.25</blue>
+		</emission>
+	</animation>-->
+
+	<animation>
+		<type>select</type>
+		<object-name>Deck-Park</object-name>
+		<condition>
+			<property>sim/current-view/deck-park</property>
+		</condition>
+	</animation>
+
+
+	<animation>
+		<type>material</type>
+		<object-name>Deck-Park</object-name>
+		<condition>
+			<greater-than>
+				<property>/sim/time/sun-angle-rad</property>
+				<value>1.57</value>
+			</greater-than>
+			<not><property>/sim/rendering/rembrandt/enabled</property></not>
+		</condition>
+		<ambient>
+			<red>1.0</red><green>1.0</green><blue>1.0</blue>
+		</ambient>
+		<shininess>22</shininess>
+		<emission>
+			<factor-prop>controls/lighting/flood-lights-red-norm</factor-prop>
+			<factor>0.75</factor>
+			<red>0.75</red><green>0.25</green><blue>0.25</blue>
+		</emission>
+	</animation>
+	<animation>
+		<type>material</type>
+		<object-name>mules</object-name>
+		<condition>
+			<greater-than>
+				<property>/sim/time/sun-angle-rad</property>
+				<value>1.57</value>
+			</greater-than>
+			<not><property>/sim/rendering/rembrandt/enabled</property></not>
+		</condition>
+		<ambient>
+			<red>1.0</red><green>1.0</green><blue>1.0</blue>
+		</ambient>
+		<shininess>22</shininess>
+		<emission>
+			<factor-prop>controls/lighting/flood-lights-red-norm</factor-prop>
+			<factor>0.75</factor>
+			<red>0.75</red><green>0.25</green><blue>0.25</blue>
+		</emission>
+	</animation>
+
+	<animation>
+		<type>material</type>
+		<object-name>Hangar-Park</object-name>
+		<condition>
+			<less-than-equals>
+				<property>/sim/time/sun-angle-rad</property>
+				<value>1.57</value>
+			</less-than-equals>
+			<not><property>/sim/rendering/rembrandt/enabled</property></not>
+		</condition>
+		<emission>
+			<factor-prop>controls/lighting/flood-lights-red-norm</factor-prop>
+			<factor>0.45</factor>
+			<red>1.0</red><green>1.0</green><blue>1.0</blue>
+		</emission>
+	</animation>
+
+	<animation>
+		<type>material</type>
+		<object-name>Hangar-Park</object-name>
+		<condition>
+			<greater-than>
+				<property>/sim/time/sun-angle-rad</property>
+				<value>1.57</value>
+			</greater-than>
+			<not><property>/sim/rendering/rembrandt/enabled</property></not>
+		</condition>
+		<ambient>
+			<red>0.2</red><green>0.2</green><blue>0.2</blue>
+		</ambient>
+		<emission>
+			<factor-prop>controls/lighting/flood-lights-red-norm</factor-prop>
+			<factor>1.0</factor>
+			<red>0.75</red><green>0.25</green><blue>0.25</blue>
+		</emission>
+	</animation>
+
+
+	<animation>
+		<type>range</type>
+		<object-name>Deck-Park</object-name>
+		<max-m>8000</max-m>
+	</animation>
+	<animation>
+		<type>range</type>
+		<object-name>mules</object-name>
+		<max-m>1000</max-m>
+	</animation>
+
+
+</PropertyList>
+

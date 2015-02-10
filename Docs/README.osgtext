@@ -1,0 +1,119 @@
+This document describes the syntax for text objects in the scene graph.
+Text nodes are configured using XML and may appear within a model description
+file, like other models or the particlesystem.
+
+For the anxious reader, here is a complete example of a text node:
+
+<!-- Must be enclosed by a <text/> node
+<text>
+  <!-- It should have a name. Can be used for other animations -->
+  <name>My first Text</name>
+  <!-- Use offsets for the initial placement -->
+  <offsets>
+    <pitch-deg>0</pitch-deg>
+    <heading-deg>0</heading-deg>
+    <roll-deg>0</roll-deg>
+    <x-m>0</x-m>
+    <y-m>0</y-m>
+    <z-m>0</z-m>
+  </offsets>
+
+  <!-- instead of using pitch/heading/roll offset, one may use
+       axis-alignment -->
+  <!-- remember: x backwards, y right and z up -->
+  <axis-alignment>xy-plane</axis-alignment>
+  <!--
+  <axis-alignment>reversed-xy-plane</axis-alignment>
+  <axis-alignment>xz-plane</axis-alignment>
+  <axis-alignment>reversed-xz-plane</axis-alignment>
+  <axis-alignment>yz-plane</axis-alignment>
+  <axis-alignment>reversed-yz-plane</axis-alignment>
+  <axis-alignment>screen</axis-alignment>
+  -->
+
+  <!-- what type of text to draw, use on of literal, text-value or number-value -->
+  <!-- A simple constant, never changing string -->
+  <type type="string">literal</type>
+  <text type="string">Hello, world!</text>
+
+  <!-- The string value of a property -->
+  <type type="string">text-value</type>
+  <property type="string">some/property</property>
+  <format type="string">%s</format> <!-- the printf() format to display the value -->
+
+  <!-- A number from a property -->
+  <type type="string">number-value</type>
+  <property type="string">position/latitude-deg</property>
+  <factor type="double">1.0</factor> <!-- optional, scale the propertie's value -->
+  <offset type="double">0.0</offset> <!-- optional, shift the propertie's value -->
+  <format type="string">%5.2lf</format> <!-- printf() format to display -->
+  <truncate type="bool">false</truncate> <!-- truncate to an integer value -->
+
+  <layout>left-to-right</layout> <!-- default -->
+  <!--
+  <layout>right-to-left</layout>
+  <layout>vertical</layout>
+  -->
+
+  <draw-text type="bool">true</draw-text> <!-- draw the text itself -->
+  <draw-alignment type="bool">false</draw-alignment> <!-- draw crosshair at object center -->
+  <draw-boundingbox type="bool">false</draw-boundingbox> <!-- draw a bounding box -->
+
+  <font>led.txf</font> <!-- The font file name, relative to data/Fonts -->
+  <character-size type="double">0.01</character-size> <!-- size (height) im meters -->
+  <character-aspect-ratio type="double">1.0</character-aspect-ratio>
+  <max-height>0.012</max-height> <!-- the maximum height of the text -->
+  <max-width>0.040</max-width> <!-- the maximum width of the text -->
+  <font-resolution>
+    <width type="int">32</width>
+    <height type="int">32</height>
+  </font-resolution>
+
+  <!-- chose one of the kerning types or omit for default -->
+  <kerning>default</kerning>
+  <!--
+  <kerning>unfitted</kerning>
+  <kerning>none</kerning>
+  -->
+
+  <alignment>center-center</alignment> <!-- alignment of the text itself -->
+  <!-- possible values are
+  <alignment>left-top</alignment>
+  <alignment>left-center</alignment>
+  <alignment>left-bottom</alignment>
+  <alignment>center-top</alignment>
+  <alignment>center-center</alignment>
+  <alignment>center-bottom</alignment>
+  <alignment>right-top</alignment>
+  <alignment>right-center</alignment>
+  <alignment>right-bottom</alignment>
+  <alignment>left-baseline</alignment>
+  <alignment>center-baseline</alignment>
+  <alignment>right-baseline</alignment>
+  <alignment>baseline</alignment>
+  -->
+
+</text>
+
+The <text/> node may appear within <model/> or <PropertyList/> nodes. If you place
+your text directly within your model file, use <text></text> nodes. You can also put
+your <text> configuration into a separate file using the well known include directive:
+
+Your model.xml file:
+<model>
+  <path>may-fancy-model.ac</path>
+  <text include="HelloWorld.xml"/>
+</model>
+
+Your HelloWorld.xml:
+<PropertyList>
+  <name>Hello World</name>
+  <font>Helvetica.txf</font>
+  <type type="string">literal</type>
+  <text type="string">Hello, world!</text>
+  <!-- etc. - you get the idea -->
+</PropertyList>
+
+Animation can be applied to text nodes like any other object. To give your text some
+color, use the material animation, or translate, rotate, scale or spin your text as
+you like.

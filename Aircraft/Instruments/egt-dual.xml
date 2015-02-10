@@ -1,0 +1,198 @@
+<?xml version="1.0"?>
+
+<!--
+Dual EGT gauge.
+
+December 2001 by John Check, j4strngs@rockfish.net
+
+This is an instrument configuration file for the open-source flight
+simulator FlightGear (www.flightgear.org).  The file is an XML-encoded
+FlightGear property list defining the instrument's layers and actions.
+
+Each instrument is composed of layers stacked on top of each other.
+A layer may be a texture (with transparent parts to show the layers
+underneath), text, or a special layer that switches between two
+others (say, to turn an indicator light on or off).  Each layer can
+move independently in proportion to a property value, and text
+can be generated from property values as well: all of the layer's
+movements are defined as transformations.
+
+Actions are hotspots on the instrument that will respond to a mouse
+click.  Actions always modify the values of properties, either by
+adjusting them, toggling them, or swaping them with other
+properties' values.
+-->
+
+<PropertyList>
+ <name>Dual EGT</name>
+ <w-base>120</w-base>
+ <h-base>120</h-base>
+ 
+ <params>
+  <engine-egt0-select>/engines[0]/engine[0]/egt-degf</engine-egt0-select>
+  <engine-egt1-select>/engines[0]/engine[1]/egt-degf</engine-egt1-select>
+ </params>
+
+ <layers>
+
+  <layer>
+   <name>gauge face</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/faces-6.rgb</path>
+    <x1>0.5</x1>
+    <x2>1.0</x2>
+    <y1>0.0</y1>
+    <y2>0.5</y2>
+   </texture>
+   <w>100</w>
+   <h>100</h>
+  </layer>
+<!--
+  <layer>
+   <name>bezel</name>
+   <texture>
+   <path>Aircraft/Instruments/Textures/bezel.rgb</path>
+    <x1>0.0</x1>
+    <x2>1.0</x2>
+    <y1>0.0</y1>
+    <y2>1.0</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-0</offset>
+    </transformation>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-0</offset>
+    </transformation>
+  </transformations>
+  <w>120</w>
+  <h>120</h>
+ </layer>
+ -->
+ <layer>
+  <name>egt 0  needle</name>
+  <texture>
+   <path>Aircraft/Instruments/Textures/misc-1.rgb</path>
+    <x1>0.8</x1>
+    <x2>0.8375</x2>
+    <y1>0.78125</y1>
+    <y2>1.0</y2>
+   </texture>
+   <w>4</w>
+   <h>36</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-46</offset>
+    </transformation>
+    <transformation>
+     <type>rotation</type>
+     <property alias="../../../../../params/engine-egt0-select"/>
+     <min>50.0</min>
+     <max>1600.0</max>
+     <scale>-0.052</scale>
+     <offset>-230</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>19</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>egt 1 needle</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/misc-1.rgb</path>
+    <x1>0.8</x1>
+    <y1>0.78125</y1>
+    <x2>0.8375</x2>
+    <y2>1.0</y2>
+   </texture>
+   <w>4</w>
+   <h>36</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>46</offset>
+    </transformation>
+    <transformation>
+     <type>rotation</type>
+     <property alias="../../../../../params/engine-egt1-select"/>
+     <min>50.0</min>
+     <max>1600.0</max>
+     <scale>0.052</scale>
+     <offset>230</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>19</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>gauge top left</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/egt-fuel.rgb</path>
+    <x1>0.921875</x1>
+    <x2>1.0</x2>
+    <y1>0.0</y1>
+    <y2>0.29296875</y2>
+   </texture>
+   <transformations>
+    <transformation>
+    <type>x-shift</type>
+    <offset>-40</offset>
+    </transformation>
+   </transformations>
+   <w>20</w>
+   <h>78</h>
+   </layer>
+  <layer>
+   <name>gauge top right</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/egt-fuel.rgb</path>
+    <x1>0.8125</x1>
+    <x2>0.890625</x2>
+    <y1>0.0</y1>
+    <y2>0.29296875</y2>
+   </texture>
+   <transformations>
+    <transformation>
+    <type>x-shift</type>
+    <offset>40</offset>
+    </transformation>
+   </transformations>
+   <w>20</w>
+   <h>78</h>
+   </layer>
+   
+  <layer>
+   <name>glare shield</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/bezel1.rgb</path>
+    <x1>0.5</x1>
+    <y1>0.0</y1>
+    <x2>1.0</x2>
+    <y2>0.5</y2>
+   </texture>
+  <w>114</w>
+  <h>114</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>2</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-2</offset>
+    </transformation>
+    </transformations>
+  </layer>
+   
+ </layers>
+
+</PropertyList>

@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+ <path>KA6-D.ac</path>
+
+ <multiplay>
+  <refuel>
+   <type>probe</type>
+  </refuel>
+ </multiplay>
+
+ <animation>
+  <object-name>Hose</object-name>
+  <object-name>Drogue</object-name>
+  <enable-hot>false</enable-hot>
+ </animation>
+
+ <model>
+    <path>Models/Geometry/KA6-D/Models/beacon.xml</path>
+    <name>Beacon Top</name>
+    <offsets>
+      <x-m>3.49</x-m>
+      <y-m> 0</y-m>
+      <z-m>1.36</z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <path>Models/Geometry/KA6-D/Models/beacon.xml</path>
+    <name>Beacon Bottom</name>
+    <offsets>
+      <x-m>9.20</x-m>
+      <y-m> 0</y-m>
+      <z-m>0.52</z-m>
+      <roll-deg>180</roll-deg>
+    </offsets>
+  </model>
+
+  <model>
+    <path>Models/Geometry/KA6-D/droptank.xml</path>
+    <name>Droptank Left Outer</name>
+    <offsets>
+      <x-m>0.97555</x-m>
+      <y-m>-3.610650</y-m>
+      <z-m>-0.610712</z-m>
+      <pitch-deg>-5</pitch-deg>
+    </offsets>
+  </model>
+
+  <model>
+    <path>Models/Geometry/KA6-D/droptank.xml</path>
+    <name>Droptank Right Outer</name>
+    <offsets>
+      <x-m>0.97555</x-m>
+      <y-m> 3.610650</y-m>
+      <z-m>-0.610712</z-m>
+      <pitch-deg>-5</pitch-deg>
+    </offsets>
+  </model>
+
+  <model>
+    <path>Models/Geometry/KA6-D/droptank.xml</path>
+    <name>Droptank Left Inner</name>
+    <offsets>
+      <x-m>0.80343</x-m>
+      <y-m>-2.4503</y-m>
+      <z-m>-0.610712</z-m>
+      <pitch-deg>-5</pitch-deg>
+    </offsets>
+  </model>
+
+  <model>
+    <path>Models/Geometry/KA6-D/droptank.xml</path>
+    <name>Droptank Right Inner</name>
+    <offsets>
+      <x-m>0.80343</x-m>
+      <y-m>2.4503</y-m>
+      <z-m>-0.610712</z-m>
+      <pitch-deg>-5</pitch-deg>
+    </offsets>
+  </model>
+
+ </PropertyList>
+
+

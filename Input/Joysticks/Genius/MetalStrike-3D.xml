@@ -1,0 +1,284 @@
+<?xml version="1.0"?>
+
+<!-- 
+************************************************************************
+Support for Genius Metal strike 3D joystick
+
+Created 9. February 2013 by Tomas Komarek
+************************************************************************
+-->
+
+<PropertyList>
+
+<name>MetalStrik 3D</name> <!-- yes, it really shows up without the 'e' in "Strike" at my machine... -->
+
+<axis n="0">
+    <desc>Aileron</desc>
+    <binding>
+        <command>property-scale</command>
+        <property>/controls/flight/aileron</property>
+        <power type="double">2</power>
+    </binding>
+</axis>
+
+<axis n="1">
+    <desc>Elevator</desc>
+    <binding>
+        <command>property-scale</command>
+        <property>/controls/flight/elevator</property>
+        <factor type="double">-1.0</factor>
+        <power type="double">2</power>
+    </binding>
+</axis>
+
+<!-- n="2" and n="3" had to be swapped for proper rudder/throttle control -->
+<axis n="3">
+    <desc>Throttle</desc>
+    <binding>
+        <command>nasal</command>
+        <script>controls.throttleAxis()</script>
+    </binding>
+</axis>
+
+<axis n="2">
+    <desc>Rudder</desc>
+    <binding>
+        <command>property-scale</command>
+        <property>/controls/flight/rudder</property>
+        <power type="double">2</power>
+    </binding>
+</axis>
+
+<button n="0">
+    <desc>Brakes</desc>
+    <binding>
+        <command>nasal</command>
+        <script>controls.applyBrakes(1)</script>
+    </binding>
+    <mod-up>
+        <binding>
+            <command>nasal</command>
+            <script>controls.applyBrakes(0)</script>
+        </binding>
+    </mod-up>
+</button>
+
+<!-- I swapped elevator trim buttons for more intuitive contol -->
+<button n="1">
+    <desc>Elevator trim Down</desc>
+    <repeatable type="bool">true</repeatable>
+    <binding>
+        <command>nasal</command>
+        <script>controls.elevatorTrim(-1)</script>
+    </binding>
+</button>
+
+<button n="2">
+    <desc>Elevator trim Up</desc>
+    <repeatable type="bool">true</repeatable>
+    <binding>
+        <command>nasal</command>
+        <script>controls.elevatorTrim(1)</script>
+    </binding>
+</button>
+
+<!-- View direction/elevation added from Genius f31, but I had to add the n="4" which was missing for it to work -->
+<axis n="4"> 
+    <desc>View Direction</desc>
+    <number>
+        <unix>4</unix>
+        <windows>6</windows>
+    </number>
+    <low>
+        <desc>View left</desc>
+        <repeatable>true</repeatable>
+        <binding>
+            <!--
+            This also works, but LookAt views has inverted left/right.
+            <command>property-adjust</command>
+            <property>/sim/current-view/goal-heading-offset-deg</property>
+            <step type="double">3.0</step>
+            -->
+            <command>nasal</command>
+            <script>
+                var valueDelta = -3.0;
+                if (getprop("/sim/current-view/type") == "lookat")
+                {
+                    valueDelta = 3.0;
+                }
+                setprop("/sim/current-view/heading-offset-deg", getprop("/sim/current-view/heading-offset-deg") - valueDelta);
+            </script>
+        </binding>
+    </low>
+    <high>
+        <desc>View right</desc>
+        <repeatable>true</repeatable>
+        <binding>
+            <!--
+            This also works, but LookAt views has inverted left/right.
+            <command>property-adjust</command>
+            <property>/sim/current-view/goal-heading-offset-deg</property>
+            <step type="double">-3.0</step>
+            -->
+            <command>nasal</command>
+            <script>
+                var valueDelta = -3.0;
+                if (getprop("/sim/current-view/type") == "lookat")
+                {
+                    valueDelta = 3.0;
+                }
+                setprop("/sim/current-view/heading-offset-deg", getprop("/sim/current-view/heading-offset-deg") + valueDelta);
+            </script>
+        </binding>
+    </high>
+</axis>
+
+<axis n="5"> 
+    <desc>View Elevation</desc>
+    <number>
+        <unix>5</unix>
+        <windows>7</windows>
+    </number>
+    <low>
+        <desc>View down</desc>
+        <repeatable>true</repeatable>
+        <binding>
+            <command>property-adjust</command>
+            <property>/sim/current-view/goal-pitch-offset-deg</property>
+            <step type="double">3.0</step> <!-- Use -3.0 for Windows. -->
+        </binding>
+    </low>
+    <high>
+        <desc>View up</desc>
+        <repeatable>true</repeatable>
+        <binding>
+            <command>property-adjust</command>
+            <property>/sim/current-view/goal-pitch-offset-deg</property>
+            <step type="double">-3.0</step> <!-- Use 3.0 for Windows. -->
+        </binding>
+    </high>
+</axis>
+
+<button n="3">
+    <desc>Flaps down</desc>
+    <binding>
+        <command>nasal</command>
+        <script>controls.flapsDown(1)</script>
+    </binding>
+    <mod-up>
+        <binding>
+            <command>nasal</command>
+            <script>controls.flapsDown(0)</script>
+        </binding>
+    </mod-up>
+</button>
+
+<button n="4">
+    <desc>Flaps up</desc>
+    <repeatable>false</repeatable>
+    <binding>
+        <command>nasal</command>
+        <script>controls.flapsDown(-1)</script>
+    </binding>
+    <mod-up>
+        <binding>
+            <command>nasal</command>
+            <script>controls.flapsDown(0)</script>
+        </binding>
+    </mod-up>
+</button>
+
+<!-- View cycling added from Genius f31, but I added backwards cycling as well -->
+<button n="5">
+    <desc>Cycle View</desc>
+    <repeatable>false</repeatable>
+    <binding>
+        <command>nasal</command>
+        <script>
+            view.stepView(0);
+            #gui.popupTip(sprintf("View index: %d, view type: %s", getprop("sim/current-view/view-number"), getprop("/sim/current-view/type")));
+        </script>
+    </binding>
+</button>
+
+<button n="6">
+    <desc>Cycle View</desc>
+    <repeatable>false</repeatable>
+    <binding>
+        <command>nasal</command>
+        <script>
+            view.stepView(1);
+            #gui.popupTip(sprintf("View index: %d, view type: %s", getprop("sim/current-view/view-number"), getprop("/sim/current-view/type")));
+        </script>
+    </binding>
+</button>
+
+<button n="7">
+    <desc>Landing Gear Up</desc>
+    <repeatable>false</repeatable>
+    <binding>
+        <command>nasal</command>
+        <script>controls.gearDown(-1)</script>
+    </binding>
+</button>
+
+<button n="8">
+    <desc>Landing Gear Down</desc>
+    <repeatable>false</repeatable>
+    <binding>
+        <command>nasal</command>
+        <script>controls.gearDown(1)</script>
+    </binding>
+</button>
+
+<button n="9">
+    <desc>Aileron trim Left</desc>
+    <repeatable type="bool">true</repeatable>
+    <binding>
+        <command>nasal</command>
+        <script>controls.aileronTrim(-1)</script>
+    </binding>
+</button>
+
+<button n="10">
+    <desc>Aileron trim Right</desc>
+    <repeatable type="bool">true</repeatable>
+    <binding>
+        <command>nasal</command>
+        <script>controls.aileronTrim(1)</script>
+    </binding>
+</button>
+
+<!-- 
+Parking Brake On/Off - I prefer this way over the single button toggle, so I can be sure if it's on/off 
+I had to implement short nasal parts which change the parking brake property, as no function in controls.nas seems to provide this
+-->
+<button n="11">
+    <desc>Parking Brake Off</desc>
+    <repeatable>false</repeatable>
+    <binding>
+        <command>nasal</command>
+        <script> 
+            var p = "/controls/gear/brake-parking";
+            setprop(p, 0);
+            return 0;
+        </script>
+    </binding>
+</button>
+
+<button n="12">
+    <desc>Parking Brake On</desc>
+    <repeatable>false</repeatable>
+    <binding>
+        <command>nasal</command>
+        <script> 
+            var p = "/controls/gear/brake-parking";
+            setprop(p, 1);
+            return 1;
+        </script>
+    </binding>
+</button>
+
+</PropertyList>
+
+<!-- end of joystick.xml -->

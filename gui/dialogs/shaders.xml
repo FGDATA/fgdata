@@ -1,0 +1,435 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<name>shaders</name>
+	<modal>false</modal>
+	<layout>vbox</layout>
+	<padding>20</padding>
+
+	<group>
+		<layout>hbox</layout>
+		<empty>
+			<stretch>1</stretch>
+		</empty>
+
+		<text>
+			<label>Shader options</label>
+		</text>
+
+		<empty>
+			<stretch>1</stretch>
+		</empty>
+
+		<button>
+			<pref-width>16</pref-width>
+			<pref-height>16</pref-height>
+			<legend></legend>
+			<keynum>27</keynum>
+			<border>2</border>
+			<binding>
+				<command>dialog-close</command>
+			</binding>
+		</button>
+	</group>
+
+	<hrule/>
+
+	<group>
+		<layout>hbox</layout>
+		<text>
+			<label>General</label>
+			<halign>left</halign>
+		</text>
+		<hrule>
+			<stretch>true</stretch>
+		</hrule>
+	</group>
+
+	<group>
+		<layout>hbox</layout>
+
+		<group>
+			<layout>vbox</layout>
+			<halign>left</halign>
+
+			<text>
+				<halign>left</halign>
+				<label>Generic</label>
+			</text>
+
+			<text>
+				<halign>left</halign>
+				<label>Crop</label>
+				<enable>
+					<not>
+						<property>/sim/rendering/rembrandt/enabled</property>
+					</not>
+				</enable>
+			</text>
+
+			<text>
+				<halign>left</halign>
+				<label>Landmass</label>
+				<enable>
+					<not>
+						<property>/sim/rendering/rembrandt/enabled</property>
+					</not>
+				</enable>
+			</text>
+
+			<text>
+				<halign>left</halign>
+				<label>Persistent contrails</label>
+				<enable>
+					<not>
+						<property>/sim/rendering/rembrandt/enabled</property>
+					</not>
+				</enable>
+			</text>
+
+			<text>
+				<halign>left</halign>
+				<label>Transition</label>
+				<enable>
+					<or>
+						<not>
+							<property>/sim/rendering/rembrandt/enabled</property>
+						</not>
+						<equals>
+							<property>/sim/rendering/materials-file</property>
+							<value>Materials/dds/materials.xml</value>
+						</equals>
+					</or>
+				</enable>
+			</text>
+
+			<text>
+				<halign>left</halign>
+				<label>Model</label>
+			</text>
+
+			<text>
+				<halign>left</halign>
+				<label>Urban</label>
+			</text>
+
+			<text>
+				<halign>left</halign>
+				<label>Water</label>
+			</text>
+
+			<text>
+				<halign>left</halign>
+				<label>Lights</label>
+				<enable>
+					<property>/sim/rendering/rembrandt/enabled</property>
+				</enable>
+			</text>
+
+		</group>
+
+		<group>
+			<layout>vbox</layout>
+
+			<slider>
+				<name>generic</name>
+				<min>0.0</min>
+				<max>1.0</max>
+				<step>1.0</step>
+				<fraction>0.5</fraction>
+				<live>true</live>
+				<property>/sim/rendering/shaders/generic</property>
+				<binding>
+					<command>dialog-apply</command>
+					<object-name>generic</object-name>
+				</binding>
+			</slider>
+
+			<slider>
+				<name>crop</name>
+				<enable>
+					<not>
+						<property>/sim/rendering/rembrandt/enabled</property>
+					</not>
+				</enable>
+				<min>0.0</min>
+				<max>1.0</max>
+				<step>1.0</step>
+				<fraction>0.5</fraction>
+				<live>true</live>
+				<property>/sim/rendering/shaders/crop</property>
+				<binding>
+					<command>dialog-apply</command>
+					<object-name>crop</object-name>
+				</binding>
+			</slider>
+
+			<slider>
+				<name>landmass</name>
+				<enable>
+					<not>
+						<property>/sim/rendering/rembrandt/enabled</property>
+					</not>
+				</enable>
+				<min>0.0</min>
+				<max>5.0</max>
+				<step>1.0</step>
+				<fraction>0.17</fraction>
+				<live>true</live>
+				<property>/sim/rendering/shaders/landmass</property>
+				<binding>
+					<command>dialog-apply</command>
+					<object-name>landmass</object-name>
+				</binding>
+			</slider>
+
+			<slider>
+				<name>contrails</name>
+				<enable>
+					<not>
+						<property>/sim/rendering/rembrandt/enabled</property>
+					</not>
+				</enable>
+				<min>0.0</min>
+				<max>1.0</max>
+				<step>1.0</step>
+				<fraction>0.5</fraction>
+				<live>true</live>
+				<property>/sim/rendering/shaders/contrails</property>
+				<binding>
+					<command>dialog-apply</command>
+					<object-name>contrails</object-name>
+				</binding>
+			</slider>
+
+			<slider>
+				<name>transition</name>
+				<enable>
+					<or>
+						<not>
+							<property>/sim/rendering/rembrandt/enabled</property>
+						</not>
+						<equals>
+							<property>/sim/rendering/materials-file</property>
+							<value>Materials/dds/materials.xml</value>
+						</equals>
+					</or>
+				</enable>
+				<min>0.0</min>
+				<max>1.0</max>
+				<step>1.0</step>
+				<fraction>0.5</fraction>
+				<live>true</live>
+				<property>/sim/rendering/shaders/transition</property>
+				<binding>
+					<command>dialog-apply</command>
+					<object-name>transition</object-name>
+				</binding>
+			</slider>
+
+			<slider>
+				<name>model</name>
+				<min>0.0</min>
+				<max>1.0</max>
+				<step>1.0</step>
+				<fraction>0.5</fraction>
+				<live>true</live>
+				<property>/sim/rendering/shaders/model</property>
+				<binding>
+					<command>dialog-apply</command>
+					<object-name>model</object-name>
+				</binding>
+			</slider>
+
+			<slider>
+				<name>urban</name>
+				<min>0.0</min>
+				<max>5.0</max>
+				<step>1.0</step>
+				<fraction>0.17</fraction>
+				<live>true</live>
+				<property>/sim/rendering/shaders/urban</property>
+				<binding>
+					<command>dialog-apply</command>
+					<object-name>urban</object-name>
+				</binding>
+			</slider>
+
+			<slider>
+				<name>water</name>
+				<min>0.0</min>
+				<max>5.0</max>
+				<step>1.0</step>
+				<fraction>0.17</fraction>
+				<live>true</live>
+				<property>/sim/rendering/shaders/water</property>
+				<binding>
+					<command>dialog-apply</command>
+					<object-name>water</object-name>
+				</binding>
+			</slider>
+
+			<slider>
+				<name>lights</name>
+				<enable>
+					<property>/sim/rendering/rembrandt/enabled</property>
+				</enable>
+				<min>0.0</min>
+				<max>4.0</max>
+				<step>1.0</step>
+				<fraction>0.2</fraction>
+				<live>true</live>
+				<property>/sim/rendering/shaders/lights</property>
+				<binding>
+					<command>dialog-apply</command>
+					<object-name>lights</object-name>
+				</binding>
+			</slider>
+
+		</group>
+
+	</group>
+
+	<text>
+		<label>Some shaders are disabled because</label>
+		<color>
+			<red>1.0</red>
+			<green>0.6</green>
+			<blue>0.6</blue>
+		</color>
+		<visible>
+			<property>/sim/rendering/rembrandt/enabled</property>
+		</visible>
+	</text>
+	<text>
+		<halign>left</halign>
+		<label>you have Rembrandt enabled.</label>
+		<color>
+			<red>1.0</red>
+			<green>0.6</green>
+			<blue>0.6</blue>
+		</color>
+		<visible>
+			<property>/sim/rendering/rembrandt/enabled</property>
+		</visible>
+	</text>
+
+	<group>
+		<layout>hbox</layout>
+		<text>
+			<label>Aircraft</label>
+			<halign>left</halign>
+		</text>
+		<hrule>
+			<stretch>true</stretch>
+		</hrule>
+	</group>
+
+	<nasal>
+		<open>
+			if (props.globals.getNode("/sim/rendering/shaders/aircraft") != nil) {
+			var group = cmdarg().getChildren("group")[4];
+			group.removeChildren("slider");
+			group.removeChildren("hrule");
+			group.removeChildren("text");
+			var shaders = props.globals.getNode("/sim/rendering/shaders/aircraft").getChildren();
+			for(i=0; size(shaders) > i; i+=1) {
+
+			var fraction 	= 0.5;
+			var min 		= 0;
+			var max 		= 1;
+			var step 		= 1;
+
+			var name 	= shaders[i].getNode("name");
+
+			if (shaders[i].getNode("step") != nil){
+			step	= shaders[i].getNode("step");
+			}
+			if (shaders[i].getNode("min") != nil){
+			min 	= shaders[i].getNode("min");
+			}
+			if (shaders[i].getNode("max") != nil){
+			max 	= shaders[i].getNode("max");
+			}
+
+			if (min != nil and max != nil and step != nil){
+			fraction = step/(max+step);
+			}
+
+			var target = group.getChild("slider", i, 1);
+			props.copy(group.getNode("slider-template"), target);
+			target.getNode("label").setValue(name != nil ? name.getValue() : (shaders[i].getName()));
+			target.getNode("name").setValue("aircraftshader"~i);
+			target.getNode("binding").getNode("object-name").setValue("aircraftshader"~i);
+			target.getNode("min").setValue(min);
+			target.getNode("max").setValue(max);
+			target.getNode("step").setValue(step);
+			target.getNode("fraction").setValue(fraction);
+			target.getNode("property").setValue(shaders[i].getPath()~"/quality-level");
+			}
+			}
+
+		</open>
+	</nasal>
+
+	<group>
+		<layout>vbox</layout>
+		<halign>left</halign>
+
+		<slider-template>
+			<name>
+				<!---->
+			</name>
+			<label>
+				<!---->
+			</label>
+			<min>
+				<!---->
+			</min>
+			<max>
+				<!---->
+			</max>
+			<step>
+				<!---->
+			</step>
+			<fraction>
+				<!---->
+			</fraction>
+			<property>
+				<!---->
+			</property>
+			<binding>
+				<command>dialog-apply</command>
+				<object-name>
+					<!---->
+				</object-name>
+			</binding>
+		</slider-template>
+	</group>
+
+	<hrule/>
+
+	<group>
+		<layout>hbox</layout>
+
+		<button>
+			<legend>Back</legend>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>rendering</dialog-name>
+			</binding>
+			<binding>
+				<command>dialog-close</command>
+			</binding>
+		</button>
+		<button>
+			<legend>Close</legend>
+			<default>true</default>
+			<key>Esc</key>
+			<binding>
+				<command>dialog-close</command>
+			</binding>
+		</button>
+	</group>
+
+</PropertyList>

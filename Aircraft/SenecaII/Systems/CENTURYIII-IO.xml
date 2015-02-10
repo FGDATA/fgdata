@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+<PropertyList>
+<!--
+ This file is part of FlightGear, the free flight simulator
+ http://www.flightgear.org/
+
+ Copyright (C) 2009 Torsten Dreyer, Torsten (at) t3r _dot_ de
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation; either version 2 of the
+ License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+-->
+
+    <const>
+      <mode-nav>0</mode-nav>
+      <mode-omni>1</mode-omni>
+      <mode-hdg>2</mode-hdg>
+      <mode-loc-norm>3</mode-loc-norm>
+      <mode-loc-rev>4</mode-loc-rev>
+
+      <nav-1>0</nav-1>
+      <nav-2>1</nav-2>
+    </const>
+
+    <serviceable>autopilot/CENTURYIII/serviceable</serviceable>
+    <power>autopilot/CENTURYIII/power</power>
+
+    <controls>
+      <roll>
+        <lock>autopilot/CENTURYIII/controls/roll/button-lock</lock>
+        <unlock>autopilot/CENTURYIII/controls/roll/button-unlock</unlock>
+        <on>autopilot/CENTURYIII/controls/roll/button-on</on>
+        <off>autopilot/CENTURYIII/controls/roll/button-off</off>
+        <state>autopilot/CENTURYIII/controls/roll/button-state</state>
+      </roll>
+
+      <hdg>
+        <lock>autopilot/CENTURYIII/controls/hdg/button-lock</lock>
+        <unlock>autopilot/CENTURYIII/controls/hdg/button-unlock</unlock>
+        <on>autopilot/CENTURYIII/controls/hdg/button-on</on>
+        <off>autopilot/CENTURYIII/controls/hdg/button-off</off>
+        <state>autopilot/CENTURYIII/controls/hdg/button-state</state>
+      </hdg>
+
+      <alt>
+        <lock>autopilot/CENTURYIII/controls/alt/button-lock</lock>
+        <unlock>autopilot/CENTURYIII/controls/alt/button-unlock</unlock>
+        <on>autopilot/CENTURYIII/controls/alt/button-on</on>
+        <off>autopilot/CENTURYIII/controls/alt/button-off</off>
+        <state>autopilot/CENTURYIII/controls/alt/button-state</state>
+        <lock-timer>autopilot/CENTURYIII/controls/alt/button-lock-timer</lock-timer>
+      </alt>
+
+      <pitch>
+        <lock>autopilot/CENTURYIII/controls/pitch/button-lock</lock>
+        <unlock>autopilot/CENTURYIII/controls/pitch/button-unlock</unlock>
+        <on>autopilot/CENTURYIII/controls/pitch/button-on</on>
+        <off>autopilot/CENTURYIII/controls/pitch/button-off</off>
+        <state>autopilot/CENTURYIII/controls/pitch/button-state</state>
+      </pitch>
+
+      <manual-trim>autopilot/CENTURYIII/controls/manual-trim</manual-trim>
+      <disconnect>autopilot/CENTURYIII/controls/disconnect</disconnect>
+
+      <mode>autopilot/CENTURYIII/controls/mode</mode>
+      <mode-timer>autopilot/CENTURYIII/controls/mode-timer</mode-timer>
+      <nav-source>autopilot/CENTURYIII/controls/nav-source</nav-source>
+      <gs-armed>autopilot/CENTURYIII/gs-armed</gs-armed>
+      <gs-captured>autopilot/CENTURYIII/settings/gs-captured</gs-captured>
+    </controls>
+
+    <input>
+      <!-- should be based on our own gyro -->
+      <roll>instrumentation/attitude-indicator/indicated-roll-deg</roll>
+      <target-roll>autopilot/CENTURYIII/target-roll-deg</target-roll>
+
+      <!-- should be based on our own gyro -->
+      <pitch>instrumentation/attitude-indicator/indicated-pitch-deg</pitch>
+      <target-pitch>autopilot/CENTURYIII/target-pitch-deg</target-pitch>
+
+      <selected-course-1>instrumentation/nav[0]/radials/selected-deg</selected-course-1>
+      <selected-course-2>instrumentation/nav[1]/radials/selected-deg</selected-course-2>
+      <selected-course>autopilot/CENTURYIII/target-course-deg</selected-course>
+
+      <cdi-deflection-1>instrumentation/nav[0]/heading-needle-deflection-norm</cdi-deflection-1>
+      <cdi-deflection-2>instrumentation/nav[1]/heading-needle-deflection-norm</cdi-deflection-2>
+      <cdi-deflection>autopilot/CENTURYIII/cdi-deflection-norm</cdi-deflection>
+
+      <gs-deflection-1>instrumentation/nav[0]/gs-needle-deflection-norm</gs-deflection-1>
+      <gs-deflection-2>instrumentation/nav[1]/gs-needle-deflection-norm</gs-deflection-2>
+      <gs-deflection>autopilot/CENTURYIII/gs-deflection-norm</gs-deflection>
+      <gs-deflection-timer>autopilot/CENTURYIII/gs-deflection-timer</gs-deflection-timer>
+      <gs-valid-1>instrumentation/nav[0]/gs/in-range</gs-valid-1>
+      <gs-valid-2>instrumentation/nav[1]/gs/in-range</gs-valid-2>
+      <gs-valid>autopilot/CENTURYIII/gs-valid</gs-valid>
+
+      <course-error>autopilot/CENTURYIII/course-error-deg</course-error>
+      <selected-heading>instrumentation/kcs55/ki525/selected-heading-deg</selected-heading>
+      <indicated-heading>instrumentation/kcs55/kg102/indicated-heading-deg</indicated-heading>
+      <heading-offset>autopilot/CENTURYIII/heading-offset-deg</heading-offset>
+      <intercept-heading>autopilot/CENTURYIII/intercept-heading-deg</intercept-heading>
+
+      <!-- should be based on our own altimeter -->
+      <altitude>instrumentation/altimeter[0]/pressure-alt-ft</altitude>
+      <target-altitude>autopilot/CENTURYIII/target-alt-ft</target-altitude>
+      <roc>autopilot/CENTURYIII/rate-of-climb-fps</roc>
+      <target-roc>autopilot/CENTURYIII/target-roc-fps</target-roc>
+    </input>
+
+    <aileron-cmd>autopilot/CENTURYIII/aileron-cmd-norm</aileron-cmd>
+    <elevator-cmd>autopilot/CENTURYIII/elevator-cmd-norm</elevator-cmd>
+    <elevator-trim-cmd>autopilot/CENTURYIII/elevator-trim-cmd-norm</elevator-trim-cmd>
+
+</PropertyList>
+

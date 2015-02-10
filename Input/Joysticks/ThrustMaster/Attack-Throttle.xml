@@ -1,0 +1,196 @@
+<?xml version="1.0"?>
+
+<!--
+************************************************************************
+* Bindings for ThrustMaster Attack Throttle joystick
+*
+*
+* Axis 0: ailerons
+* Axis 1: elevator
+* Axis 3: rudder
+* Axis 2: throttle
+* Axes 4 and 5 (hat): view direction
+*
+* Button 0: all brakes
+* Button 2: elevator trim up
+* Button 3: elevator trim down
+* Button 4: right brake only
+* Button 5: left brake only
+* Button 6: flap down
+* Button 7: flap up
+************************************************************************
+-->
+
+<PropertyList>
+
+ <name>ThrustMaster Attack Throttle</name>
+
+ <axis n="0">
+  <desc>Aileron</desc>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/aileron</property>
+   <squared type="bool">true</squared>
+  </binding>
+ </axis>
+
+ <axis n="1">
+  <desc>Elevator</desc>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/elevator</property>
+   <factor type="double">-1.0</factor>
+   <squared type="bool">true</squared>
+  </binding>
+ </axis>
+
+ <axis n="2">
+  <desc>Throttle</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.throttleAxis()</script>
+  </binding>
+ </axis>
+
+ <axis n="3">
+  <desc>Rudder</desc>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/rudder</property>
+   <factor type="double">1.0</factor>
+  </binding>
+ </axis>
+
+  <axis n="4">
+   <desc>View Direction</desc>
+   <low>
+    <repeatable>true</repeatable>
+    <binding>
+     <command>property-adjust</command>
+     <property>/sim/current-view/goal-heading-offset-deg</property>
+     <step type="double">1.0</step>
+    </binding>
+   </low>
+   <high>
+    <repeatable>true</repeatable>
+    <binding>
+     <command>property-adjust</command>
+     <property>/sim/current-view/goal-heading-offset-deg</property>
+     <step type="double">-1.0</step>
+    </binding>
+   </high>
+  </axis>
+
+  <axis n="5">
+   <desc>View Elevation</desc>
+   <low>
+    <repeatable>true</repeatable>
+    <binding>
+     <command>property-adjust</command>
+     <property>/sim/current-view/goal-pitch-offset-deg</property>
+     <step type="double">1.0</step>
+    </binding>
+   </low>
+   <high>
+    <repeatable>true</repeatable>
+    <binding>
+     <command>property-adjust</command>
+     <property>/sim/current-view/goal-pitch-offset-deg</property>
+     <step type="double">-1.0</step>
+    </binding>
+   </high>
+  </axis>
+
+ <button n="0">
+  <desc>Brakes</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.applyBrakes(1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.applyBrakes(0)</script>
+   </binding>
+  </mod-up>
+ </button>
+
+ <button n="2">
+  <desc>Elevator trim up</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>property-adjust</command>
+   <property>/controls/flight/elevator-trim</property>
+   <step type="double">0.001</step>
+  </binding>
+ </button>
+
+ <button n="3">
+  <desc>Elevator trim down</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>property-adjust</command>
+   <property>/controls/flight/elevator-trim</property>
+   <step type="double">-0.001</step>
+  </binding>
+ </button>
+
+ <button n="6">
+  <desc>Flaps down</desc>
+  <repeatable>false</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.flapsDown(1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.flapsDown(0)</script>
+   </binding>
+  </mod-up>
+ </button>
+
+ <button n="7">
+  <desc>Flaps up</desc>
+  <repeatable>false</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.flapsDown(-1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.flapsDown(0)</script>
+   </binding>
+  </mod-up>
+ </button>
+
+ <button n="4">
+  <desc>Right brake</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.applyBrakes(1, 1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.applyBrakes(0, 1)</script>
+   </binding>
+  </mod-up>
+ </button>
+
+ <button n="5">
+  <desc>Left brake</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.applyBrakes(1, -1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.applyBrakes(0, -1)</script>
+   </binding>
+  </mod-up>
+ </button>
+
+</PropertyList>

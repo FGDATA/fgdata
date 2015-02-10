@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<!--
+KI-229 RMI
+-->
+<PropertyList>
+
+<path>rmi.ac</path>
+
+    <animation>
+        <type>material</type>
+        <object-name>RMI.face</object-name>
+        <object-name>RMI.ticks</object-name>
+        <object-name>RMI.adf</object-name>
+        <object-name>RMI.brg</object-name>
+        <emission>
+            <red>0.8</red>
+            <green>0.4</green>
+            <blue>0.2</blue>
+            <factor-prop>/systems/electrical/outputs/instrument-lights-norm</factor-prop>
+        </emission>
+    </animation>
+
+    <animation>
+        <type>texrotate</type>
+        <object-name>RMI.face</object-name>
+        <property>instrumentation/heading-indicator/indicated-heading-deg</property>
+        <axis>
+            <x>0.0</x>
+            <y>0.0</y>
+            <z>-1.0</z>
+        </axis>
+        <center>
+            <x>0.5</x>
+            <y>0.5</y>
+        </center>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>RMI.adf</object-name>
+        <property>instrumentation/kr-87/outputs/needle-deg</property>
+        <axis>
+            <x>-1.0</x>
+            <y>0.0</y>
+            <z>0.0</z>
+        </axis>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>RMI.brg</object-name>
+        <property>orientation/heading-deg</property>
+        <axis>
+            <x>1.0</x>
+            <y>0.0</y>
+            <z>0.0</z>
+        </axis>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>RMI.brg</object-name>
+        <property>instrumentation/nav/heading-deg</property>
+        <axis>
+            <x>-1.0</x>
+            <y>0.0</y>
+            <z>0.0</z>
+        </axis>
+    </animation>
+
+</PropertyList>

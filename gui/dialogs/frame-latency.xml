@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<name>frame-latency</name>
+	<x>2</x>
+	<y>2</y>
+	<layout>hbox</layout>
+	<default-padding>0</default-padding>
+	<font>
+		<name>HELVETICA_12</name>
+	</font>
+	<color>
+		<red>0</red>
+		<green>0</green>
+		<blue>0</blue>
+		<alpha>0</alpha>
+	</color>
+	<text>
+		<label>0000 ms</label>
+		<property>/sim/frame-latency-max-ms</property>
+                <format>%4.0f ms</format>
+		<live>true</live>
+		<color>
+			<red>0.9</red>
+			<green>0.4</green>
+			<blue>0.2</blue>
+			<alpha>1</alpha>
+		</color>
+	</text>
+</PropertyList>

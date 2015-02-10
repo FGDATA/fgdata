@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<PropertyList>
+	<name>ICE3 train demo (Frankfurt to Essen)</name>
+	<description>
+		This scenario runs an ICE3 train from Frankfurt Hbf to
+		Essen Hbf.
+
+		Notes:
+
+		1.	Units are ft, lbs, deg.
+		2.	Lead/Tow Angle Gain are dimensionless multiplication factors.
+		3.	Lead/TowAngle Limit Deg are the max excursion either side of
+		the target/hitch heading
+		4.	Rudder Constant is rudder increase/decrease in degrees/sec.
+		5.	Speed Constant is increase/decrease in kts/sec.
+		6.	contact_x(1/2)_offset define the points at which ground elevation
+		is measured for pitch and elevation calulations in ft from the origin.
+		Negative is forward. z and y components are not (yet) available.
+		When x = 0 no pitch calculations are performed
+		7.	Pitch Coefficient is a dimensionless damping factor for pitch (0.1)
+		8.	Elevation Coefficient is a dimensionless damping factor for
+		elevation (0.25)
+
+
+		Vivian Meazza
+	</description>
+	<scenario>
+
+		<parameters>
+			<flightplan>ice-out.xml</flightplan>
+			<tunnel>true</tunnel>
+			<restart>1</restart>
+			<turn-radius-ft>400</turn-radius-ft>
+			<fixed-turn-radius-ft>200</fixed-turn-radius-ft>
+			<lead-angle-gain>1</lead-angle-gain>
+			<lead-angle-limit-deg>5.0</lead-angle-limit-deg>
+			<lead-angle-proportion>0.5</lead-angle-proportion>
+			<rudder-constant>50</rudder-constant>
+			<speed-constant>3</speed-constant>
+			<pitch-coefficient>0.1</pitch-coefficient>
+			<elevation-coefficient>0.1</elevation-coefficient>
+			<tow-angle-gain>0.25</tow-angle-gain>
+			<tow-angle-limit-deg>1.0</tow-angle-limit-deg>
+		</parameters>
+		
+		<parameters>
+			<flightplan>ice-rtn.xml</flightplan>
+			<tunnel>false</tunnel>
+			<restart>1</restart>
+			<turn-radius-ft>400</turn-radius-ft>
+			<fixed-turn-radius-ft>200</fixed-turn-radius-ft>
+			<lead-angle-gain>1</lead-angle-gain>
+			<lead-angle-limit-deg>5.0</lead-angle-limit-deg>
+			<lead-angle-proportion>0.5</lead-angle-proportion>
+			<rudder-constant>50</rudder-constant>
+			<speed-constant>3</speed-constant>
+			<pitch-coefficient>0.1</pitch-coefficient>
+			<elevation-coefficient>0.1</elevation-coefficient>
+			<tow-angle-gain>0.25</tow-angle-gain>
+			<tow-angle-limit-deg>1.0</tow-angle-limit-deg>
+		</parameters>
+
+		<entry>
+			<type>groundvehicle</type>
+			<model>Models/Transport/ICE-firstcar.xml</model>
+			<name>Train-1</name>
+
+			<flightplan alias="../../parameters/flightplan"/>
+			<tunnel alias="../../parameters/tunnel"/>
+			<restart alias="../../parameters/restart"/>
+			<turn-radius-ft alias="../../parameters/turn-radius-ft"/>
+			<fixed-turn-radius-ft alias="../../parameters/fixed-turn-radius-ft"/>
+			<lead-angle-gain alias="../../parameters/lead-angle-gain"/>
+			<lead-angle-limit-deg alias="../../parameters/lead-angle-limit-deg"/>
+			<lead-angle-proportion alias="../../parameters/lead-angle-proportion"/>
+			<rudder-constant alias="../../parameters/rudder-constant"/>
+			<speed-constant alias="../../parameters/speed-constant"/>
+			<pitch-coefficient alias="../../parameters/pitch-coefficient"/>
+			<elevation-coefficient alias="../../parameters/elevation-coefficient"/>
+
+			<contact-x1-offset>-31.21</contact-x1-offset>
+			<contact-x2-offset>31.21</contact-x2-offset>
+			<hitch-x-offset>39.70964</hitch-x-offset>
+		</entry>
+
+		<entry>
+			<type>groundvehicle</type>
+			<model>Models/Transport/ICE-middlecar.xml</model>
+			<name>Train-11</name>
+
+			<flightplan alias="../../parameters/flightplan"/>
+			<tunnel alias="../../parameters/tunnel"/>
+			<restart alias="../../parameters/restart"/>
+			<turn-radius-ft alias="../../parameters/turn-radius-ft"/>
+			<fixed-turn-radius-ft alias="../../parameters/fixed-turn-radius-ft"/>
+			<lead-angle-gain alias="../../parameters/lead-angle-gain"/>
+			<lead-angle-limit-deg alias="../../parameters/lead-angle-limit-deg"/>
+			<lead-angle-proportion alias="../../parameters/lead-angle-proportion"/>
+			<rudder-constant alias="../../parameters/rudder-constant"/>
+			<speed-constant alias="../../parameters/speed-constant"/>
+			<pitch-coefficient alias="../../parameters/pitch-coefficient"/>
+			<elevation-coefficient alias="../../parameters/elevation-coefficient"/>
+
+			<tow-angle-gain alias="../../parameters/tow-angle-gain"/>
+			<tow-angle-limit-deg  alias="../../parameters/tow-angle-limit-deg"/>
+
+			<contact-x1-offset>-31.21</contact-x1-offset>
+			<contact-x2-offset>31.21</contact-x2-offset>
+			<hitch-x-offset>40.35104</hitch-x-offset>
+			<parent>Train-1</parent>
+		</entry>
+
+		<entry>
+			<type>groundvehicle</type>
+			<model>Models/Transport/ICE-middlecar2.xml</model>
+			<name>Train-12</name>
+
+			<flightplan alias="../../parameters/flightplan"/>
+			<tunnel alias="../../parameters/tunnel"/>
+			<restart alias="../../parameters/restart"/>
+			<turn-radius-ft alias="../../parameters/turn-radius-ft"/>
+			<fixed-turn-radius-ft alias="../../parameters/fixed-turn-radius-ft"/>
+			<lead-angle-gain alias="../../parameters/lead-angle-gain"/>
+			<lead-angle-limit-deg alias="../../parameters/lead-angle-limit-deg"/>
+			<lead-angle-proportion alias="../../parameters/lead-angle-proportion"/>
+			<rudder-constant alias="../../parameters/rudder-constant"/>
+			<speed-constant alias="../../parameters/speed-constant"/>
+			<pitch-coefficient alias="../../parameters/pitch-coefficient"/>
+			<elevation-coefficient alias="../../parameters/elevation-coefficient"/>
+
+			<tow-angle-gain alias="../../parameters/tow-angle-gain"/>
+			<tow-angle-limit-deg  alias="../../parameters/tow-angle-limit-deg"/>
+
+			<contact-x1-offset>-31.21</contact-x1-offset>
+			<contact-x2-offset>31.21</contact-x2-offset>
+			<hitch-x-offset>40.35104</hitch-x-offset>
+			<parent>Train-11</parent>
+		</entry>
+
+		<entry>
+			<type>groundvehicle</type>
+			<model>Models/Transport/ICE-firstcar2.xml</model>
+			<name>Train-13</name>
+
+			<flightplan alias="../../parameters/flightplan"/>
+			<tunnel alias="../../parameters/tunnel"/>
+			<restart alias="../../parameters/restart"/>
+			<turn-radius-ft alias="../../parameters/turn-radius-ft"/>
+			<fixed-turn-radius-ft alias="../../parameters/fixed-turn-radius-ft"/>
+			<lead-angle-gain alias="../../parameters/lead-angle-gain"/>
+			<lead-angle-limit-deg alias="../../parameters/lead-angle-limit-deg"/>
+			<lead-angle-proportion alias="../../parameters/lead-angle-proportion"/>
+			<rudder-constant alias="../../parameters/rudder-constant"/>
+			<speed-constant alias="../../parameters/speed-constant"/>
+			<pitch-coefficient alias="../../parameters/pitch-coefficient"/>
+			<elevation-coefficient alias="../../parameters/elevation-coefficient"/>
+
+			<tow-angle-gain alias="../../parameters/tow-angle-gain"/>
+			<tow-angle-limit-deg  alias="../../parameters/tow-angle-limit-deg"/>
+
+			<contact-x1-offset>-31.21</contact-x1-offset>
+			<contact-x2-offset>31.21</contact-x2-offset>
+			<hitch-x-offset>39.70964</hitch-x-offset>
+			<parent>Train-12</parent>
+		</entry>
+
+		<entry>
+			<type>groundvehicle</type>
+			<model>Models/Transport/ICE-firstcar.xml</model>
+			<name>Train-2</name>
+
+			<flightplan alias="../../parameters[1]/flightplan"/>
+			<tunnel alias="../../parameters[1]/tunnel"/>
+			<restart alias="../../parameters[1]/restart"/>
+			<turn-radius-ft alias="../../parameters[1]/turn-radius-ft"/>
+			<fixed-turn-radius-ft alias="../../parameters[1]/fixed-turn-radius-ft"/>
+			<lead-angle-gain alias="../../parameters[1]/lead-angle-gain"/>
+			<lead-angle-limit-deg alias="../../parameters[1]/lead-angle-limit-deg"/>
+			<lead-angle-proportion alias="../../parameters[1]/lead-angle-proportion"/>
+			<rudder-constant alias="../../parameters[1]/rudder-constant"/>
+			<speed-constant alias="../../parameters[1]/speed-constant"/>
+			<pitch-coefficient alias="../../parameters[1]/pitch-coefficient"/>
+			<elevation-coefficient alias="../../parameters[1]/elevation-coefficient"/>
+
+			<contact-x1-offset>-31.21</contact-x1-offset>
+			<contact-x2-offset>31.21</contact-x2-offset>
+			<hitch-x-offset>39.70964</hitch-x-offset>
+		</entry>
+
+		<entry>
+			<type>groundvehicle</type>
+			<model>Models/Transport/ICE-middlecar.xml</model>
+			<name>Train-21</name>
+
+			<flightplan alias="../../parameters[1]/flightplan"/>
+			<tunnel alias="../../parameters[1]/tunnel"/>
+			<restart alias="../../parameters[1]/restart"/>
+			<turn-radius-ft alias="../../parameters[1]/turn-radius-ft"/>
+			<fixed-turn-radius-ft alias="../../parameters[1]/fixed-turn-radius-ft"/>
+			<lead-angle-gain alias="../../parameters[1]/lead-angle-gain"/>
+			<lead-angle-limit-deg alias="../../parameters[1]/lead-angle-limit-deg"/>
+			<lead-angle-proportion alias="../../parameters[1]/lead-angle-proportion"/>
+			<rudder-constant alias="../../parameters[1]/rudder-constant"/>
+			<speed-constant alias="../../parameters[1]/speed-constant"/>
+			<pitch-coefficient alias="../../parameters[1]/pitch-coefficient"/>
+			<elevation-coefficient alias="../../parameters[1]/elevation-coefficient"/>
+
+			<tow-angle-gain alias="../../parameters[1]/tow-angle-gain"/>
+			<tow-angle-limit-deg  alias="../../parameters[1]/tow-angle-limit-deg"/>
+
+			<contact-x1-offset>-31.21</contact-x1-offset>
+			<contact-x2-offset>31.21</contact-x2-offset>
+			<hitch-x-offset>40.35104</hitch-x-offset>
+			<parent>Train-2</parent>
+		</entry>
+
+		<entry>
+			<type>groundvehicle</type>
+			<model>Models/Transport/ICE-middlecar2.xml</model>
+			<name>Train-22</name>
+
+			<flightplan alias="../../parameters[1]/flightplan"/>
+			<tunnel alias="../../parameters[1]/tunnel"/>
+			<restart alias="../../parameters[1]/restart"/>
+			<turn-radius-ft alias="../../parameters[1]/turn-radius-ft"/>
+			<fixed-turn-radius-ft alias="../../parameters[1]/fixed-turn-radius-ft"/>
+			<lead-angle-gain alias="../../parameters[1]/lead-angle-gain"/>
+			<lead-angle-limit-deg alias="../../parameters[1]/lead-angle-limit-deg"/>
+			<lead-angle-proportion alias="../../parameters[1]/lead-angle-proportion"/>
+			<rudder-constant alias="../../parameters[1]/rudder-constant"/>
+			<speed-constant alias="../../parameters[1]/speed-constant"/>
+			<pitch-coefficient alias="../../parameters[1]/pitch-coefficient"/>
+			<elevation-coefficient alias="../../parameters[1]/elevation-coefficient"/>
+
+			<tow-angle-gain alias="../../parameters[1]/tow-angle-gain"/>
+			<tow-angle-limit-deg  alias="../../parameters[1]/tow-angle-limit-deg"/>
+
+			<contact-x1-offset>-31.21</contact-x1-offset>
+			<contact-x2-offset>31.21</contact-x2-offset>
+			<hitch-x-offset>40.35104</hitch-x-offset>
+			<parent>Train-21</parent>
+		</entry>
+
+		<entry>
+			<type>groundvehicle</type>
+			<model>Models/Transport/ICE-firstcar2.xml</model>
+			<name>Train-23</name>
+
+			<flightplan alias="../../parameters[1]/flightplan"/>
+			<tunnel alias="../../parameters[1]/tunnel"/>
+			<restart alias="../../parameters[1]/restart"/>
+			<turn-radius-ft alias="../../parameters[1]/turn-radius-ft"/>
+			<fixed-turn-radius-ft alias="../../parameters[1]/fixed-turn-radius-ft"/>
+			<lead-angle-gain alias="../../parameters[1]/lead-angle-gain"/>
+			<lead-angle-limit-deg alias="../../parameters[1]/lead-angle-limit-deg"/>
+			<lead-angle-proportion alias="../../parameters[1]/lead-angle-proportion"/>
+			<rudder-constant alias="../../parameters[1]/rudder-constant"/>
+			<speed-constant alias="../../parameters[1]/speed-constant"/>
+			<pitch-coefficient alias="../../parameters[1]/pitch-coefficient"/>
+			<elevation-coefficient alias="../../parameters[1]/elevation-coefficient"/>
+
+			<tow-angle-gain alias="../../parameters[1]/tow-angle-gain"/>
+			<tow-angle-limit-deg  alias="../../parameters[1]/tow-angle-limit-deg"/>
+
+			<contact-x1-offset>-31.21</contact-x1-offset>
+			<contact-x2-offset>31.21</contact-x2-offset>
+			<hitch-x-offset>39.70964</hitch-x-offset>
+			<parent>Train-22</parent>
+		</entry>
+
+	</scenario>
+</PropertyList>

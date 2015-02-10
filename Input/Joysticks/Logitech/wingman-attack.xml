@@ -1,0 +1,113 @@
+<?xml version="1.0"?>
+
+<!--
+    ************************************************************************
+    Logitech Wingman Attack joystick bindings.
+
+    3 Axis joystick with 4 buttons.
+    Connects through a gameport.
+
+    Roberto Inzerillo 2011
+    roberto.inzerillo@gmx.net
+    
+    Bindings:
+
+    Axis 0: ailerons
+    Axis 1: elevator
+    Axis 2 (slider): throttle
+
+    Button 0 (01 trigger): all brakes
+    Button 1 (02): elevator trim up
+    Button 2 (03): elevator trim down
+    Button 3 (04): all brakes
+
+    ************************************************************************
+    -->
+
+<PropertyList>
+	
+	<name>Logitech Wingman Attack</name>
+	
+	<axis n="0">
+		<desc>Aileron</desc>
+		<binding>
+			<command>property-scale</command>
+			<property>/controls/flight/aileron</property>
+			<squared type="bool">true</squared>
+		</binding>
+	</axis>
+	
+	<axis n="1">
+		<desc>Elevator</desc>
+		<binding>
+			<command>property-scale</command>
+			<property>/controls/flight/elevator</property>
+			<factor type="double">-1.0</factor>
+			<squared type="bool">true</squared>
+		</binding>
+		<dead-band type="double">0.1</dead-band>
+	</axis>
+
+	<axis n="2">
+		<desc>Throttle</desc>
+		<direction>forward</direction>
+		<binding>
+			<command>nasal</command>
+			<script>controls.throttleAxis()</script>
+		</binding>
+	</axis>
+
+	
+	<button n="0">
+		<desc>Brakes</desc>
+		<binding>
+			<command>nasal</command>
+			<script>controls.applyBrakes(1)</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>controls.applyBrakes(0)</script>
+			</binding>
+		</mod-up>
+	</button>
+
+
+	<button n="1">
+		<desc>Elevator trim up</desc>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>controls.elevatorTrim(1)</script>
+		</binding>
+	</button>
+
+	<button n="2">
+		<desc>Elevator trim down</desc>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>controls.elevatorTrim(-1)</script>
+		</binding>
+	</button>
+
+	<button n="3">
+		<desc>Brakes</desc>
+		<binding>
+			<command>nasal</command>
+			<script>controls.applyBrakes(1)</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>controls.applyBrakes(0)</script>
+			</binding>
+		</mod-up>
+	</button>
+
+
+
+</PropertyList>
+
+<!-- end of wingman-attack.xml -->
+ 

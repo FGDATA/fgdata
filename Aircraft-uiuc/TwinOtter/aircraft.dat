@@ -1,0 +1,87 @@
+# Jeff Scott
+# DHC-6 Twin Otter
+# small twin turboprop engine commuter aircraft
+# This model was developed by Devesh Pokhariyal of the Smart Icing 
+# Systems Aerodynamics group (Prof. Michael Bragg, head) at the 
+# University of Illinois.  The aircraft data is from:
+#       Pokhariyal, Devesh and Merret, Jason.  FDC flight simulator
+#         Twin Otter input file (version5_bat), 5/23/00.
+# 05-23-2000    file creation
+
+geometry bw   65.0      # [ft]
+geometry cbar  6.5      # [ft]
+geometry Sw  420.0      # [ft^2]
+
+controlSurface de 20 20 # [deg]       guess for now
+controlSurface da 20 20 # [deg]       guess for now
+controlSurface dr 20 20 # [deg]       guess for now
+
+#controlSurface set_Long_trim_deg -3.0
+#controlSurface elevator_input Aircraft-uiuc/TwinOtter/deft.dat 1 0 700
+
+mass Weight  10141      # [lb]
+mass I_xx    16039.3    # [slug-ft^2]
+mass I_yy    22841.6    # [slug-ft^2]
+mass I_zz    35807.4    # [slug-ft^2]
+mass I_xz     1102.8    # [slug-ft^2]
+
+
+# aircraft specs: 2 engines of 462 kW each
+#                             ~2000 lb static thrust each
+engine simpleSingle 2000  # [lb]
+
+
+CL CZo      -0.360      # []
+CL CZ_a     -5.660      # [/rad]
+#CL CZ_a2     0.0        # [/rad]
+#CL CZ_a3     0.0        # [/rad]
+CL CZ_q    -19.97       # [/rad]
+CL CZ_de    -0.608      # [/rad]
+#CL CZ_deb2   0.0        # [/rad]
+#CL CZ_df     0.0        # [/rad]
+#CL CZ_adf    0.0        # [/rad]
+
+CD CXo      -0.0488     # []
+CD CX_a      0.223      # [/rad]
+CD CX_a2     1.659      # [/rad]
+#CD CX_a3     0.0        # [/rad]
+#CD CX_q      0.0        # [/rad]
+#CD CX_de     0.0        # [/rad]
+#CD CX_dr     0.0        # [/rad]
+#CD CX_df     0.0        # [/rad]
+#CD CX_adf    0.0        # [/rad]
+
+Cm Cmo       0.040      # []
+Cm Cm_a     -1.310      # [/rad]
+#Cm Cm_a2     0.0        # [/rad]
+Cm Cm_q    -34.2        # [/rad]
+Cm Cm_de    -1.740      # [/rad]
+#Cm Cm_b2     0.0        # [/rad]
+#Cm Cm_r      0.0        # [/rad]
+#Cm Cm_df     0.0        # [/rad]
+
+#CY CYo       0.0        # []
+CY CY_beta  -0.6        # [/rad]
+CY CY_p     -0.2        # [/rad]
+CY CY_r      0.4        # [/rad]
+#CY CY_da     0.0        # [/rad]
+CY CY_dr     0.15       # [/rad]
+#CY CY_dra    0.0        # [/rad]
+#CY CY_bdot   0.0       # [/rad]
+
+#Cl Clo       0.0       # []
+Cl Cl_beta  -0.08       # [/rad]
+Cl Cl_p     -0.5        # [/rad]
+Cl Cl_r      0.06       # [/rad]
+Cl Cl_da    -0.15       # [/rad]
+Cl Cl_dr     0.015      # [/rad]
+#Cl Cl_daa    0.0        # [/rad]
+
+#Cn Cno       0.0        # [/rad]
+Cn Cn_beta   0.1        # [/rad]
+Cn Cn_p     -0.06       # [/rad]
+Cn Cn_r     -0.18       # [/rad]
+Cn Cn_da    -0.001      # [/rad]
+Cn Cn_dr    -0.125      # [/rad]
+#Cn Cn_q      0.0        # [/rad]
+#Cn Cn_b3     0.0        # [/rad]

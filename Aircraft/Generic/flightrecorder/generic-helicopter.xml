@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Generic flight recorder configuration for helicopters: main + tail rotor, 2 tanks.
+     Tested with YASim helicopters.
+
+     Note: The generic configurations are provided as an example and for convenience only.
+     No need to use a generic configuration. You can copy the settings below to your aircraft's
+     flight recorder configuration and include a better combination of recorder components, if
+     none of the pre-defined configurations fits your aircraft.
+ -->
+
+<PropertyList>
+    <name type="string">Generic Flight Recorder for Helicopters</name>
+    <signals include="/Aircraft/Generic/flightrecorder/components/position.xml"/>
+    <signals include="/Aircraft/Generic/flightrecorder/components/controls.xml"/>
+    <signals include="/Aircraft/Generic/flightrecorder/components/environment.xml"/>
+    <signals include="/Aircraft/Generic/flightrecorder/components/tanks.xml">
+        <count type="int">2</count> 
+    </signals>
+
+    <!--  main rotor -->
+    <signals include="/Aircraft/Generic/flightrecorder/components/rotor.xml">
+        <prefix type="string">/rotors/main</prefix>
+    </signals>
+
+    <!--  tail rotor -->
+    <signals include="/Aircraft/Generic/flightrecorder/components/rotor.xml">
+        <prefix type="string">/rotors/tail</prefix>
+    </signals>
+
+    <!--  simple single engine properties -->
+    <signals>
+        <signal>
+            <type>float</type>
+            <property type="string">/controls/engines/engine/throttle</property>
+        </signal>
+    </signals>
+
+</PropertyList>

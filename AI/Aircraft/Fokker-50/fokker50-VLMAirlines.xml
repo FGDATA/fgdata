@@ -1,0 +1,696 @@
+<?xml version="1.0"?>
+<PropertyList>
+<description>Fokker-50</description>
+<author>Erik Hofman</author>
+<path>Models/fokker50.ac</path>
+<texture-path>Textures/VLMAirlines</texture-path>
+
+<offsets>
+  <z-m>1.25</z-m>
+  <pitch-deg>-1.0</pitch-deg>
+</offsets>
+
+<animation>
+ <type>alpha-test</type>
+ <alpha-factor>0.01</alpha-factor>
+</animation>
+
+<!-- no shadows -->
+ <animation>
+  <type>noshadow</type>
+  <object-name>markings</object-name>
+  <object-name>left_propdisk</object-name>
+  <object-name>right_propdisk</object-name>
+ </animation>
+
+<animation>
+ <type>rotate</type>
+ <object-name>right_aileron</object-name>
+ <property>orientation/roll-deg</property>
+ <interpolation>
+	   <entry><ind>-20.000></ind><dep>30.000</dep></entry>
+	   <entry><ind>-15.000></ind><dep>25.000</dep></entry>
+	   <entry><ind>-12.000></ind><dep>20.000</dep></entry>
+	   <entry><ind>-9.000></ind><dep>15.000</dep></entry>
+	   <entry><ind>-7.000></ind><dep>14.000</dep></entry>
+	   <entry><ind>-5.000></ind><dep>12.500</dep></entry>
+	   <entry><ind>-3.000></ind><dep>10.000</dep></entry>
+	   <entry><ind>-2.000></ind><dep>8.000</dep></entry>
+	   <entry><ind>-1.000></ind><dep>4.000</dep></entry>
+	   <entry><ind>0.000></ind><dep>0.000</dep></entry>
+	   <entry><ind>1.000></ind><dep>-4.000</dep></entry>
+	   <entry><ind>2.000></ind><dep>-8.000</dep></entry>
+	   <entry><ind>3.000></ind><dep>-10.000</dep></entry>
+	   <entry><ind>5.000></ind><dep>-12.500</dep></entry>
+	   <entry><ind>7.000></ind><dep>-14.000</dep></entry>
+	   <entry><ind>9.000></ind><dep>-15.000</dep></entry>
+	   <entry><ind>12.000></ind><dep>-20.000</dep></entry>
+	   <entry><ind>15.000></ind><dep>-25.000</dep></entry>
+	   <entry><ind>20.000></ind><dep>-30.000</dep></entry>
+ </interpolation>
+ <center>
+  <x-m>0.370000</x-m>
+  <y-m>12.305000</y-m>
+  <z-m>0.190000</z-m>
+ </center>
+ <axis>
+  <x>-0.066658</x>
+  <y>0.997492</y>
+  <z>0.023806</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>rotate</type>
+ <object-name>left_aileron</object-name>
+ <property>orientation/roll-deg</property>
+ <interpolation>
+	   <entry><ind>-20.000></ind><dep>30.000</dep></entry>
+	   <entry><ind>-15.000></ind><dep>25.000</dep></entry>
+	   <entry><ind>-12.000></ind><dep>20.000</dep></entry>
+	   <entry><ind>-9.000></ind><dep>15.000</dep></entry>
+	   <entry><ind>-7.000></ind><dep>14.000</dep></entry>
+	   <entry><ind>-5.000></ind><dep>12.500</dep></entry>
+	   <entry><ind>-3.000></ind><dep>10.000</dep></entry>
+	   <entry><ind>-2.000></ind><dep>8.000</dep></entry>
+	   <entry><ind>-1.000></ind><dep>4.000</dep></entry>
+	   <entry><ind>0.000></ind><dep>0.000</dep></entry>
+	   <entry><ind>1.000></ind><dep>-4.000</dep></entry>
+	   <entry><ind>2.000></ind><dep>-8.000</dep></entry>
+	   <entry><ind>3.000></ind><dep>-10.000</dep></entry>
+	   <entry><ind>5.000></ind><dep>-12.500</dep></entry>
+	   <entry><ind>7.000></ind><dep>-14.000</dep></entry>
+	   <entry><ind>9.000></ind><dep>-15.000</dep></entry>
+	   <entry><ind>12.000></ind><dep>-20.000</dep></entry>
+	   <entry><ind>15.000></ind><dep>-25.000</dep></entry>
+	   <entry><ind>20.000></ind><dep>-30.000</dep></entry>
+ </interpolation>
+ <center>
+  <x-m>0.370000</x-m>
+  <y-m>-12.305000</y-m>
+  <z-m>0.190000</z-m>
+ </center>
+ <axis>
+  <x>-0.066658</x>
+  <y>-0.997492</y>
+  <z>0.023806</z>
+ </axis>
+</animation>
+
+
+<animation>
+ <type>translate</type>
+ <object-name>right_inbound_flap</object-name>
+ <object-name>right_inbound_slot</object-name>
+ <object-name>left_inbound_flap</object-name>
+ <object-name>left_inbound_slot</object-name>
+  <property>velocities/true-airspeed-kt</property>
+  <interpolation>
+    <entry><ind>0</ind><dep>0.0</dep></entry>
+    <entry><ind>20</ind><dep>0.0</dep></entry>
+    <entry><ind>50</ind><dep>0.4</dep></entry>
+    <entry><ind>110</ind><dep>0.4</dep></entry>
+    <entry><ind>130</ind><dep>0.0</dep></entry>
+  </interpolation>
+ <axis>
+  <x>1.0</x>
+  <y>0.0</y>
+  <z>0.2</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>rotate</type>
+ <object-name>right_inbound_flap</object-name>
+ <object-name>right_inbound_slot</object-name>
+  <property>velocities/true-airspeed-kt</property>
+  <interpolation>
+    <entry><ind>0</ind><dep>0.0</dep></entry>
+    <entry><ind>20</ind><dep>0.0</dep></entry>
+    <entry><ind>50</ind><dep>10.0</dep></entry>
+    <entry><ind>70</ind><dep>20.0</dep></entry>
+    <entry><ind>90</ind><dep>30.0</dep></entry>    
+    <entry><ind>100</ind><dep>20.0</dep></entry>
+    <entry><ind>110</ind><dep>10.0</dep></entry>
+    <entry><ind>130</ind><dep>0.0</dep></entry>
+    <entry><ind>140</ind><dep>0.0</dep></entry>
+  </interpolation>
+ <center>
+  <x-m>1.275000</x-m>
+  <y-m>1.855000</y-m>
+  <z-m>-0.150000</z-m>
+ </center>
+ <axis>
+  <x>-0.058677</x>
+  <y>0.997510</y>
+  <z>0.039118</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>rotate</type>
+ <object-name>left_inbound_flap</object-name>
+ <object-name>left_inbound_slot</object-name>
+  <property>velocities/true-airspeed-kt</property>
+  <interpolation>
+    <entry><ind>0</ind><dep>0.0</dep></entry>
+    <entry><ind>20</ind><dep>0.0</dep></entry>
+    <entry><ind>50</ind><dep>-10.0</dep></entry>
+    <entry><ind>70</ind><dep>-20.0</dep></entry>
+    <entry><ind>90</ind><dep>-30.0</dep></entry>    
+    <entry><ind>100</ind><dep>-20.0</dep></entry>
+    <entry><ind>110</ind><dep>-10.0</dep></entry>
+    <entry><ind>130</ind><dep>0.0</dep></entry>
+    <entry><ind>140</ind><dep>0.0</dep></entry>
+  </interpolation>
+ <center>
+  <x-m>1.275000</x-m>
+  <y-m>-1.855000</y-m>
+  <z-m>-0.150000</z-m>
+ </center>
+ <axis>
+  <x>-0.058677</x>
+  <y>-0.997510</y>
+  <z>0.039118</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>rotate</type>
+ <object-name>rudder</object-name>
+ <property>orientation/roll-deg</property>
+ <interpolation>
+	   <entry><ind>1.000></ind><dep>4.000</dep></entry>
+	   <entry><ind>2.000></ind><dep>8.000</dep></entry>
+	   <entry><ind>3.000></ind><dep>10.000</dep></entry>
+	   <entry><ind>5.000></ind><dep>12.500</dep></entry>
+	   <entry><ind>7.000></ind><dep>14.000</dep></entry>
+	   <entry><ind>9.000></ind><dep>15.000</dep></entry>
+	   <entry><ind>12.000></ind><dep>20.000</dep></entry>
+	   <entry><ind>15.000></ind><dep>25.000</dep></entry>
+	   <entry><ind>20.000></ind><dep>30.000</dep></entry>
+	   <entry><ind>0.000></ind><dep>0.000</dep></entry>
+	   <entry><ind>-1.000></ind><dep>-4.000</dep></entry>
+	   <entry><ind>-2.000></ind><dep>-8.000</dep></entry>
+	   <entry><ind>-3.000></ind><dep>-10.000</dep></entry>
+	   <entry><ind>-5.000></ind><dep>-12.500</dep></entry>
+	   <entry><ind>-7.000></ind><dep>-14.000</dep></entry>
+	   <entry><ind>-9.000></ind><dep>-15.000</dep></entry>
+	   <entry><ind>-12.000></ind><dep>-20.000</dep></entry>
+	   <entry><ind>-15.000></ind><dep>-25.000</dep></entry>
+	   <entry><ind>-20.000></ind><dep>-30.000</dep></entry>
+ </interpolation>
+ <center>
+  <x-m>12.280001</x-m>
+  <y-m>0.000000</y-m>
+  <z-m>2.325000</z-m>
+ </center>
+ <axis>
+  <x>0.049813</x>
+  <y>0.000000</y>
+  <z>0.998759</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>rotate</type>
+ <object-name>right_elevator</object-name>
+ <property>velocities/vertical-speed-fps</property>
+ <interpolation>
+	   <entry><ind>-30.000></ind><dep>30.000</dep></entry>
+	   <entry><ind>-20.000></ind><dep>20.000</dep></entry>
+	   <entry><ind>-10.000></ind><dep>10.000</dep></entry>
+	   <entry><ind>0.000></ind><dep>0.000</dep></entry>
+	   <entry><ind>10.000></ind><dep>-10.000</dep></entry>
+	   <entry><ind>20.000></ind><dep>-20.000</dep></entry>
+	   <entry><ind>30.000></ind><dep>-30.000</dep></entry>
+	 </interpolation>
+ <center>
+  <x-m>11.665000</x-m>
+  <y-m>2.345000</y-m>
+  <z-m>0.165000</z-m>
+ </center>
+ <axis>
+  <x>-0.002162</x>
+  <y>0.996792</y>
+  <z>0.080003</z>
+ </axis>
+</animation>
+
+<animation>
+<type>rotate</type>
+ <object-name>left_elevator</object-name>
+ <property>velocities/vertical-speed-fps</property>
+ <interpolation>
+	   <entry><ind>-30.000></ind><dep>-30.000</dep></entry>
+	   <entry><ind>-20.000></ind><dep>-20.000</dep></entry>
+	   <entry><ind>-10.000></ind><dep>-10.000</dep></entry>
+	   <entry><ind>0.000></ind><dep>0.000</dep></entry>
+	   <entry><ind>10.000></ind><dep>10.000</dep></entry>
+	   <entry><ind>20.000></ind><dep>20.000</dep></entry>
+	   <entry><ind>30.000></ind><dep>30.000</dep></entry>
+	 </interpolation>
+ <center>
+  <x-m>11.665000</x-m>
+  <y-m>-2.345000</y-m>
+  <z-m>0.165000</z-m>
+ </center>
+ <axis>
+  <x>-0.002162</x>
+  <y>-0.996792</y>
+  <z>0.080003</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>rotate</type>
+ <object-name>nose_wheel</object-name>
+ <object-name>nose_strut</object-name>
+  <property>velocities/true-airspeed-kt</property>
+  <interpolation>
+    <entry><ind>0.0</ind><dep>0.0</dep></entry>
+    <entry><ind>150</ind><dep>0.0</dep></entry>
+    <entry><ind>155</ind><dep>150.0</dep></entry>
+    <entry><ind>160</ind><dep>150.0</dep></entry>    
+  </interpolation>
+ <center>
+  <x-m>-9.410000</x-m>
+  <y-m>0.000000</y-m>
+  <z-m>-2.330000</z-m>
+ </center>
+ <axis>
+  <x>0</x>
+  <y>1</y>
+  <z>0</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>rotate</type>
+ <object-name>left_lock_bar</object-name>
+  <property>velocities/true-airspeed-kt</property>
+  <interpolation>
+    <entry><ind>0.0</ind><dep>60.0</dep></entry>
+    <entry><ind>150</ind><dep>60.0</dep></entry>
+    <entry><ind>155</ind><dep>0.0</dep></entry>
+    <entry><ind>160</ind><dep>0.0</dep></entry>    
+  </interpolation>
+ <center>
+  <x-m>-0.690000</x-m>
+  <y-m>0.000000</y-m>
+  <z-m>-1.180000</z-m>
+ </center>
+ <axis>
+  <x>0</x>
+  <y>1</y>
+  <z>0</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>rotate</type>
+ <object-name>left_main_wheel</object-name>
+ <object-name>left_top_strut</object-name>
+ <object-name>left_upper_strut</object-name>
+ <object-name>left_lower_strut</object-name>
+ <object-name>left_fwd_strut</object-name>
+ <object-name>left_lock_bar</object-name>
+ <object-name>right_main_wheel</object-name>
+ <object-name>right_top_strut</object-name>
+ <object-name>right_upper_strut</object-name>
+ <object-name>right_lower_strut</object-name>
+ <object-name>right_fwd_strut</object-name>
+ <object-name>right_lock_bar</object-name>
+  <property>velocities/true-airspeed-kt</property>
+  <interpolation>
+    <entry><ind>0.0</ind><dep>0.0</dep></entry>
+    <entry><ind>150</ind><dep>0.0</dep></entry>
+    <entry><ind>155</ind><dep>150.0</dep></entry>
+    <entry><ind>160</ind><dep>150.0</dep></entry>    
+  </interpolation>
+ <center>
+  <x-m>0.520000</x-m>
+  <y-m>0.000000</y-m>
+  <z-m>-1.170000</z-m>
+ </center>
+ <axis>
+  <x>0</x>
+  <y>1</y>
+  <z>0</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>rotate</type>
+ <object-name>right_lock_bar</object-name>
+  <property>velocities/true-airspeed-kt</property>
+  <interpolation>
+    <entry><ind>0.0</ind><dep>60.0</dep></entry>
+    <entry><ind>150</ind><dep>60.0</dep></entry>
+    <entry><ind>155</ind><dep>0.0</dep></entry>
+    <entry><ind>160</ind><dep>0.0</dep></entry>    
+  </interpolation>
+ <center>
+  <x-m>-0.690000</x-m>
+  <y-m>0.000000</y-m>
+  <z-m>-1.180000</z-m>
+ </center>
+ <axis>
+  <x>0</x>
+  <y>1</y>
+  <z>0</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>rotate</type>
+ <object-name>left_aft_front_door</object-name>
+  <property>velocities/true-airspeed-kt</property>
+  <interpolation>
+    <entry><ind>0.0</ind><dep>100.0</dep></entry>
+    <entry><ind>150</ind><dep>100.0</dep></entry>
+    <entry><ind>155</ind><dep>0.0</dep></entry>
+    <entry><ind>160</ind><dep>0.0</dep></entry>    
+  </interpolation>
+ <center>
+  <x-m>-9.500000</x-m>
+  <y-m>-0.250000</y-m>
+  <z-m>-2.435000</z-m>
+ </center>
+ <axis>
+  <x>-0.977268</x>
+  <y>0.088843</y>
+  <z>0.192492</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>rotate</type>
+ <object-name>right_aft_front_door</object-name>
+  <property>velocities/true-airspeed-kt</property>
+  <interpolation>
+    <entry><ind>0.0</ind><dep>100.0</dep></entry>
+    <entry><ind>150</ind><dep>100.0</dep></entry>
+    <entry><ind>155</ind><dep>0.0</dep></entry>
+    <entry><ind>160</ind><dep>0.0</dep></entry>    
+  </interpolation>
+ <center>
+  <x-m>-9.500000</x-m>
+  <y-m>0.250000</y-m>
+  <z-m>-2.435000</z-m>
+ </center>
+ <axis>
+  <x>-0.977268</x>
+  <y>-0.088843</y>
+  <z>0.192492</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>rotate</type>
+ <object-name>left_fwd_front_door</object-name>
+  <property>velocities/true-airspeed-kt</property>
+  <interpolation>
+    <entry><ind>0.0</ind><dep>-100.0</dep></entry>
+    <entry><ind>150</ind><dep>-100.0</dep></entry>
+    <entry><ind>155</ind><dep>0.0</dep></entry>
+    <entry><ind>160</ind><dep>0.0</dep></entry>    
+  </interpolation>
+ <center>
+  <x-m>-10.330000</x-m>
+  <y-m>-0.245000</y-m>
+  <z-m>-2.215000</z-m>
+ </center>
+ <axis>
+  <x>-0.965024</x>
+  <y>0.028951</y>
+  <z>0.260557</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>rotate</type>
+ <object-name>right_fwd_front_door</object-name>
+  <property>velocities/true-airspeed-kt</property>
+  <interpolation>
+    <entry><ind>0.0</ind><dep>-100.0</dep></entry>
+    <entry><ind>150</ind><dep>-100.0</dep></entry>
+    <entry><ind>155</ind><dep>0.0</dep></entry>
+    <entry><ind>160</ind><dep>0.0</dep></entry>    
+  </interpolation>
+ <center>
+  <x-m>-10.330000</x-m>
+  <y-m>0.245000</y-m>
+  <z-m>-2.215000</z-m>
+ </center>
+ <axis>
+  <x>-0.965024</x>
+  <y>-0.028951</y>
+  <z>0.260557</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>rotate</type>
+ <object-name>left_fwd_door</object-name>
+  <property>velocities/true-airspeed-kt</property>
+  <interpolation>
+    <entry><ind>0.0</ind><dep>-60.0</dep></entry>
+    <entry><ind>150</ind><dep>-60.0</dep></entry>
+    <entry><ind>155</ind><dep>0.0</dep></entry>
+    <entry><ind>160</ind><dep>0.0</dep></entry>    
+  </interpolation>
+ <center>
+  <x-m>-0.860000</x-m>
+  <y-m>-3.610000</y-m>
+  <z-m>-1.030000</z-m>
+ </center>
+ <axis>
+  <x>0.000000</x>
+  <y>-1.000000</y>
+  <z>0.000000</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>rotate</type>
+ <object-name>left_outbound_door</object-name>
+  <property>velocities/true-airspeed-kt</property>
+  <interpolation>
+    <entry><ind>0.0</ind><dep>-60.0</dep></entry>
+    <entry><ind>150</ind><dep>-60.0</dep></entry>
+    <entry><ind>155</ind><dep>0.0</dep></entry>
+    <entry><ind>160</ind><dep>0.0</dep></entry>    
+  </interpolation>
+ <center>
+  <x-m>1.050000</x-m>
+  <y-m>-3.980000</y-m>
+  <z-m>-0.875000</z-m>
+ </center>
+ <axis>
+  <x>0.999487</x>
+  <y>0.000000</y>
+  <z>-0.032035</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>rotate</type>
+ <object-name>left_inbound_door</object-name>
+  <property>velocities/true-airspeed-kt</property>
+  <interpolation>
+    <entry><ind>0.0</ind><dep>60.0</dep></entry>
+    <entry><ind>150</ind><dep>60.0</dep></entry>
+    <entry><ind>155</ind><dep>0.0</dep></entry>
+    <entry><ind>160</ind><dep>0.0</dep></entry>    
+  </interpolation>
+ <center>
+  <x-m>1.050000</x-m>
+  <y-m>-3.210000</y-m>
+  <z-m>-0.875000</z-m>
+ </center>
+ <axis>
+  <x>0.999487</x>
+  <y>0.000000</y>
+  <z>-0.032035</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>rotate</type>
+ <object-name>right_fwd_door</object-name>
+  <property>velocities/true-airspeed-kt</property>
+  <interpolation>
+    <entry><ind>0.0</ind><dep>60.0</dep></entry>
+    <entry><ind>150</ind><dep>60.0</dep></entry>
+    <entry><ind>155</ind><dep>0.0</dep></entry>
+    <entry><ind>160</ind><dep>0.0</dep></entry>    
+  </interpolation>
+ <center>
+  <x-m>-0.860000</x-m>
+  <y-m>3.610000</y-m>
+  <z-m>-1.030000</z-m>
+ </center>
+ <axis>
+  <x>0.000000</x>
+  <y>1.000000</y>
+  <z>0.000000</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>rotate</type>
+ <object-name>right_outbound_door</object-name>
+  <property>velocities/true-airspeed-kt</property>
+  <interpolation>
+    <entry><ind>0.0</ind><dep>60.0</dep></entry>
+    <entry><ind>150</ind><dep>60.0</dep></entry>
+    <entry><ind>155</ind><dep>0.0</dep></entry>
+    <entry><ind>160</ind><dep>0.0</dep></entry>    
+  </interpolation>
+ <center>
+  <x-m>1.050000</x-m>
+  <y-m>3.980000</y-m>
+  <z-m>-0.875000</z-m>
+ </center>
+ <axis>
+  <x>0.999487</x>
+  <y>0.000000</y>
+  <z>-0.032035</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>rotate</type>
+ <object-name>right_inbound_door</object-name>
+  <property>velocities/true-airspeed-kt</property>
+  <interpolation>
+    <entry><ind>0</ind><dep>-60.0</dep></entry>
+    <entry><ind>150</ind><dep>-60.0</dep></entry>
+    <entry><ind>155</ind><dep>0.0</dep></entry>
+    <entry><ind>160</ind><dep>0.0</dep></entry>    
+  </interpolation>
+ <center>
+  <x-m>1.050000</x-m>
+  <y-m>3.210000</y-m>
+  <z-m>-0.875000</z-m>
+ </center>
+ <axis>
+  <x>0.999487</x>
+  <y>0.000000</y>
+  <z>-0.032035</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>blend</type>
+ <object-name>right_blade1</object-name>
+ <object-name>right_blade2</object-name>
+ <object-name>right_blade3</object-name>
+ <object-name>right_blade4</object-name>
+ <object-name>right_blade5</object-name>
+ <object-name>right_blade6</object-name>
+  <property>velocities/true-airspeed-kt</property>
+  <interpolation>
+    <entry><ind>0</ind><dep>0.01</dep></entry>
+    <entry><ind>5</ind><dep>0.1</dep></entry>
+    <entry><ind>10</ind><dep>0.5</dep></entry>
+    <entry><ind>15</ind><dep>0.8</dep></entry>
+    <entry><ind>30</ind><dep>0.9</dep></entry>    
+    <entry><ind>160</ind><dep>1.0</dep></entry>    
+  </interpolation>
+</animation>
+
+<animation>
+ <type>blend</type>
+ <object-name>right_propdisk</object-name>
+  <property>velocities/true-airspeed-kt</property>
+  <interpolation>
+    <entry><ind>0</ind><dep>1.0</dep></entry>
+    <entry><ind>5</ind><dep>1.0</dep></entry>
+    <entry><ind>16</ind><dep>0.5</dep></entry>
+    <entry><ind>20</ind><dep>0.3</dep></entry>
+  </interpolation>
+</animation>
+
+<animation>
+ <type>spin</type>
+ <object-name>right_propdisk</object-name>
+  <property>velocities/true-airspeed-kt</property>
+  <interpolation>
+    <entry><ind>0</ind><dep>0.0</dep></entry>
+    <entry><ind>1</ind><dep>50</dep></entry>
+    <entry><ind>5</ind><dep>100</dep></entry>
+    <entry><ind>10</ind><dep>200</dep></entry>
+    <entry><ind>15</ind><dep>300</dep></entry>    
+    <entry><ind>20</ind><dep>500</dep></entry>    
+    <entry><ind>160</ind><dep>500</dep></entry>    
+  </interpolation>
+ <center>
+  <x-m>-3.530000</x-m>
+  <y-m>3.610000</y-m>
+  <z-m>-0.280000</z-m>
+ </center>
+ <axis>
+  <x>1.000000</x>
+  <y>0.000000</y>
+  <z>0.000000</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>blend</type>
+ <object-name>left_blade1</object-name>
+ <object-name>left_blade2</object-name>
+ <object-name>left_blade3</object-name>
+ <object-name>left_blade4</object-name>
+ <object-name>left_blade5</object-name>
+ <object-name>left_blade6</object-name>
+  <property>velocities/true-airspeed-kt</property>
+  <interpolation>
+    <entry><ind>0</ind><dep>0.01</dep></entry>
+    <entry><ind>14</ind><dep>0.01</dep></entry>
+    <entry><ind>15</ind><dep>0.05</dep></entry>
+    <entry><ind>20</ind><dep>0.3</dep></entry>
+    <entry><ind>30</ind><dep>0.6</dep></entry>    
+    <entry><ind>160</ind><dep>1.0</dep></entry>    
+  </interpolation>
+</animation>
+
+<animation>
+ <type>blend</type>
+ <object-name>left_propdisk</object-name>
+  <property>velocities/true-airspeed-kt</property>
+  <interpolation>
+    <entry><ind>0</ind><dep>1.0</dep></entry>
+    <entry><ind>16</ind><dep>1.0</dep></entry>
+    <entry><ind>18</ind><dep>0.5</dep></entry>
+    <entry><ind>20</ind><dep>0.3</dep></entry>
+  </interpolation>
+</animation>
+
+<animation>
+ <type>spin</type>
+ <object-name>left_propdisk</object-name>
+  <property>velocities/true-airspeed-kt</property>
+  <interpolation>
+    <entry><ind>0</ind><dep>0.0</dep></entry>
+    <entry><ind>16</ind><dep>0.0</dep></entry>
+    <entry><ind>18</ind><dep>-50</dep></entry>
+    <entry><ind>20</ind><dep>-250</dep></entry>
+    <entry><ind>30</ind><dep>-500</dep></entry>    
+    <entry><ind>160</ind><dep>-500</dep></entry>    
+  </interpolation>
+ <center>
+  <x-m>-3.530000</x-m>
+  <y-m>-3.610000</y-m>
+  <z-m>-0.280000</z-m>
+ </center>
+ <axis>
+  <x>1.000000</x>
+  <y>0.000000</y>
+  <z>0.000000</z>
+ </axis>
+</animation>
+
+</PropertyList>

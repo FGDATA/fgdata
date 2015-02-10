@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+
+<!-- Based on the Porte departure at KSFO, left turnout to WAGES                  
+     The departure can be found at http://www.airnav.com/airport/KSFO 
+     Format:                                                         
+       <name>       Waypoint name.  When a waypoint named END is reached
+                    the AI airplane will delete itself.                                       
+       <lat>        latitude, degrees (-90 to 90)                                    
+       <lon>        Longitude, degrees (-180 to 180)                                   
+       <alt>        altitude above sea level, feet                                       
+       <crossat>    Crossing altitude, feet                              
+       <ktas>       Knots true airspeed
+       <on-ground>  set true if on the ground
+       <gear-down>  set true for gear down, false for gear up
+       <flaps-down> set true for flaps down, false for flaps up
+-->
+ 
+<PropertyList>
+
+ <flightplan>
+
+  <wpt>
+   <name>28L</name>
+   <lat>37.611716</lat>
+   <lon>-122.358434</lon>
+   <alt>13.0</alt>
+   <ktas>20</ktas>
+   <on-ground>true</on-ground>
+   <gear-down>true</gear-down>
+  </wpt>
+
+  <wpt>
+   <name>accel</name>
+   <lat>37.611772</lat>
+   <lon>-122.358569</lon>
+   <alt>13.0</alt>
+   <ktas>150</ktas>
+   <on-ground>true</on-ground>
+  </wpt>
+
+  <wpt>
+   <name>rotate</name>
+   <lat>37.617969</lat>
+   <lon>-122.37327</lon>
+   <alt>30000.0</alt>
+   <ktas>200</ktas>
+   <gear-down>false</gear-down>
+  </wpt>
+
+  <wpt>
+   <name>runway-end</name>
+   <lat>37.625241</lat>
+   <lon>-122.390523</lon>
+   <alt>30000.0</alt>
+   <ktas>240</ktas>
+  </wpt>
+
+  <wpt>
+   <name>first_fix</name> 
+   <lat>37.608134</lat>
+   <lon>-122.460712</lon>
+   <alt>30000.0</alt>
+   <ktas>270</ktas>
+  </wpt>
+
+  <wpt>
+   <name>second_fix</name>  
+   <lat>37.527346</lat>
+   <lon>-122.47883</lon>
+   <alt>30000.0</alt>
+   <ktas>320</ktas>
+  </wpt>
+
+  <wpt>
+   <name>PESCA</name>  
+   <lat>37.2681667</lat>
+   <lon>-122.3286667</lon>
+   <alt>30000.0</alt>
+   <ktas>370</ktas>
+  </wpt>
+
+  <wpt>
+   <name>END</name>   <!-- WAGES intersection, OSI 116/36, 113.9  -->  
+   <lat>36.991</lat>
+   <lon>-121.737</lon>
+  </wpt>
+
+  <wpt>
+   <name>EOF</name>
+  </wpt>
+
+ </flightplan>
+
+</PropertyList>

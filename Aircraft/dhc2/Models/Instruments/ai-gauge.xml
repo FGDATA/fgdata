@@ -1,0 +1,160 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+<path>ai-gauge.ac</path>
+
+	<animation>
+		<type>material</type>
+		<object-name>AIface</object-name>
+		<object-name>AIring</object-name>
+		<object-name>AIneedle</object-name>
+		<object-name>AIgauge.001</object-name>
+		<emission>
+			<red>0.5</red>
+			<green>0.2</green>
+			<blue>0.0</blue>
+			<factor-prop>/systems/electrical/outputs/instrument-lights-norm</factor-prop>
+		</emission>
+	</animation>
+
+	<animation>
+		<type>translate</type>
+		<object-name>AIneedle</object-name>
+		<property>/instrumentation/attitude-indicator/indicated-pitch-deg</property>
+		<interpolation>
+			<entry><ind>25.0</ind><dep>-0.015</dep></entry>
+			<entry><ind>-25.0</ind><dep>0.015</dep></entry>
+		</interpolation>
+		<axis>
+			<x>0</x>
+			<y>0</y>
+			<z>1</z>
+		</axis>
+		<center>
+			<x-m>0</x-m>
+			<y-m>0</y-m>
+			<z-m>0</z-m>
+		</center>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>AIneedle</object-name>
+		<property>/instrumentation/attitude-indicator/indicated-roll-deg</property>
+		<factor>-1</factor>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+		<center>
+			<x-m>0</x-m>
+			<y-m>0</y-m>
+			<z-m>0</z-m>
+		</center>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>AIring</object-name>
+		<property>/instrumentation/attitude-indicator/indicated-roll-deg</property>
+		<factor>-1</factor>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+		<center>
+			<x-m>0</x-m>
+			<y-m>0</y-m>
+			<z-m>0</z-m>
+		</center>
+	</animation>
+
+	<animation>
+		<type>translate</type>
+		<object-name>AIplane</object-name>
+		<property>instrumentation/attitude-indicator/horizon-offset-deg</property>
+		<interpolation>
+			<entry><ind>10.0</ind><dep>0.006</dep></entry>
+			<entry><ind>-10.0</ind><dep>-0.006</dep></entry>
+		</interpolation>
+		<axis>
+			<x>0</x>
+			<y>0</y>
+			<z>1</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>pick</type>
+		<object-name>AI.knob</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>true</repeatable>
+			<interval-sec>0.2</interval-sec>
+			<binding>
+				<command>property-adjust</command>
+				<property>instrumentation/attitude-indicator/horizon-offset-deg</property>
+				<step>0.5</step>
+				<min>-10</min>
+				<max>10</max>
+				<wrap>0</wrap>
+			</binding>
+		</action>
+	</animation>
+
+	<animation>
+		<type>pick</type>
+		<object-name>AI.knob</object-name>
+		<action>
+			<button>1</button>
+			<repeatable>true</repeatable>
+			<interval-sec>0.2</interval-sec>
+			<binding>
+				<command>property-adjust</command>
+				<property>instrumentation/attitude-indicator/horizon-offset-deg</property>
+				<step>-0.5</step>
+				<min>-10</min>
+				<max>10</max>
+				<wrap>0</wrap>
+			</binding>
+		</action>
+	</animation>
+
+	<animation>
+		<type>pick</type>
+		<object-name>AI.knob</object-name>
+		<action>
+			<button>3</button>
+			<binding>
+				<command>property-adjust</command>
+				<property>instrumentation/attitude-indicator/horizon-offset-deg</property>
+				<step>0.5</step>
+				<min>-10</min>
+				<max>10</max>
+				<wrap>0</wrap>
+			</binding>
+		</action>
+	</animation>
+
+	<animation>
+		<type>pick</type>
+		<object-name>AI.knob</object-name>
+		<action>
+			<button>4</button>
+			<binding>
+				<command>property-adjust</command>
+				<property>instrumentation/attitude-indicator/horizon-offset-deg</property>
+				<step>-0.5</step>
+				<min>-10</min>
+				<max>10</max>
+				<wrap>0</wrap>
+			</binding>
+		</action>
+	</animation>
+
+
+
+</PropertyList>

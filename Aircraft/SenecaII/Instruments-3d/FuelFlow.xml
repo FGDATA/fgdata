@@ -1,0 +1,73 @@
+<?xml version="1.0" ?>
+<!--
+ This file is part of FlightGear, the free flight simulator
+ http://www.flightgear.org/
+
+ Copyright (C) 2009 Torsten Dreyer, Torsten (at) t3r _dot_ de
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation; either version 2 of the
+ License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+-->
+<!-- dual manifold pressure -->
+<PropertyList>
+    <path>FuelFlow.ac</path>
+    
+    <animation>
+        <type>noshadow</type>
+        <object-name>FuelFlow</object-name>
+    </animation>
+    
+    <animation>
+        <type>material</type>
+        <object-name>FuelFlow</object-name>
+        <emission>
+            <red-prop>sim/model/instrument-lighting/emission/red</red-prop>
+            <green-prop>sim/model/instrument-lighting/emission/green</green-prop>
+            <blue-prop>sim/model/instrument-lighting/emission/blue</blue-prop>
+            <factor-prop>controls/lighting/instruments-norm</factor-prop>
+        </emission>
+    </animation>
+    
+    <animation>
+        <type>rotate</type>
+        <object-name>Left</object-name>
+        <property>engines/engine[0]/fuel-flow-gph</property>
+        <factor>-10.4</factor>
+        <center>
+            <x-m>0.0</x-m>
+            <y-m>0.0</y-m>
+            <z-m>0.0</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+    </animation>
+    <animation>
+        <type>rotate</type>
+        <object-name>Right</object-name>
+        <property>engines/engine[1]/fuel-flow-gph</property>
+        <factor>-10.4</factor>
+        <axis>
+            <x>1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+    </animation>
+    <animation>
+        <type>noshadow</type>
+    </animation>
+    <animation>
+        <type>range</type>
+        <min-m>0</min-m>
+        <max-m>10</max-m>
+    </animation>
+</PropertyList>

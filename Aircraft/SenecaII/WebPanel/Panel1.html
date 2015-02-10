@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8 />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<title>FlightGear - SenecaII Left Panel</title>
+<style type="text/css" media="screen">
+body,html {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	background-color: #203040;
+	border: 0;
+	margin: 0;
+	padding: 0;
+}
+
+.big {
+	width: 9cm;
+	height: 9cm;
+}
+
+.small {
+  width: 5cm;
+  height: 5cm;
+}
+
+.instrument {
+	border: 1px solid black;
+	background-color: #808080;
+}
+
+
+#Position1 {
+	position: absolute;
+	left: 0cm;
+	top: 0cm;
+}
+
+#Position2 {
+	position: absolute;
+	left: 9.1cm;
+	top:  0.0cm;
+}
+
+#Position3 {
+	position: absolute;
+	left: 18.2cm;
+	top:  0.0cm;
+}
+
+#Position4 {
+	position: absolute;
+	left: 0cm;
+	top: 9.1cm;
+}
+
+#Position5 {
+	position: absolute;
+	left: 9.1cm;
+	top: 9.1cm;
+}
+
+#Position6 {
+	position: absolute;
+	left: 18.2cm;
+	top: 9.1cm;
+}
+
+#Position7 {
+	position: absolute;
+	left: 27.3cm;
+	top:  0.0cm;
+}
+</style>
+
+<script type="text/javascript" charset="utf-8"
+	src="/gui/3rdparty/jquery/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="/gui/lib/jquery.fganimate.js"></script>
+<script type="text/javascript" charset="utf-8" src="/gui/lib/fgfs.js"></script>
+<script type="text/javascript" charset="utf-8">
+
+/* no, don't do this - at least not yet 
+  location.queryString = {};
+  location.search.substr(1).split("&").forEach(function (pair) {
+      if (pair === "") return;
+      var parts = pair.split("=");
+      location.queryString[parts[0]] = parts[1] &&
+          decodeURIComponent(parts[1].replace(/\+/g, " "));
+  });
+
+  // taken from http://www.html5rocks.com/en/tutorials/device/orientation/deviceorientationsample.html
+  var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+  if (window.DeviceOrientationEvent && userAgent.match( /iPad/i ) && location.queryString.control === "yes" ) {
+    // Listen for the deviceorientation event and handle the raw data
+    window.addEventListener('deviceorientation', function(eventData) {
+      if( window.fgPanel != null ) {
+        window.fgPanel.setProperty( "elevator", -(eventData.gamma/90 - 1) );
+        window.fgPanel.setProperty( "aileron", -eventData.beta/90 );
+      }
+    }, false);
+  }
+*/
+</script>
+</head>
+<body data-fgpanel="true" data-fgpanel-props="Panel1-properties.json">
+  <div id="Position1" class="big instrument" data-fgpanel-instrument="ASI.json"></div>
+  <div id="Position2" class="big instrument" data-fgpanel-instrument="AI.json"></div>
+  <div id="Position3" class="big instrument" data-fgpanel-instrument="ALT.json"></div>
+  <div id="Position4" class="big instrument" data-fgpanel-instrument="TC.json"></div>
+  <div id="Position5" class="big instrument" data-fgpanel-instrument="HSI.json"></div>
+  <div id="Position6" class="big instrument" data-fgpanel-instrument="VSI.json"></div>
+  <div id="Position7" class="small instrument" data-fgpanel-instrument="RPM.json"></div>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<name>seaport</name>
+	<layout>vbox</layout>
+
+	<nasal>
+		<!--
+			Our coastlines are too unrealiable to just teleport to the nearest seaport.
+			We may have to search around its reported location until we actually find water.
+		-->
+		<open>
+			var label = cmdarg().getNode("text/label");
+			var apt = airportinfo("seaport");
+			var rwys = apt.runways;
+			var lat = apt.lat;
+			var lon = apt.lon;
+
+			label.setValue("  The nearest seaport is \"" ~ apt.name ~ "\" (" ~ apt.id ~ ")  ");
+
+			var goto_seaport = func {
+				var rwyid = keys(rwys)[0];
+				var rwy = rwys[rwyid];
+				print("SP: going to seaport ", apt.id, "/", rwyid, "  (\"", apt.name, "\")");
+				setprop("/sim/presets/airport-id", apt.id);
+				teleport(rwy.lat, rwy.lon);
+				settimer(verify, 4);
+			}
+
+			var verify = func {
+				var p = geo.aircraft_position();
+				if (on_water(p.lat(), p.lon())) {
+					print("SP: seaport center is on water");
+					return;
+				}
+
+				foreach (var r; keys(rwys)) {
+					print("SP: trying runway ", r);
+					var lat = rwys[r].lat;
+					var lon = rwys[r].lon;
+					if (on_water(lat, lon)) {
+						setprop("/sim/presets/runway", r);
+						setprop("/sim/presets/heading-deg", rwys[r].heading);
+						print("SP: runway ", r, " is on water");
+						return teleport(lat, lon);
+					}
+				}
+
+				print("SP: trying circle");
+				for (var dist = 500; dist &lt;= 1500; dist += 500) {
+					print("SP:\tat distance ", dist, " m");
+
+					for (var course = 0; course &lt; 360; course += 60) {
+						print("SP:\t\tat course ", course, " degree");
+
+						p.set_latlon(apt.lat, apt.lon);
+						p.apply_course_distance(course, dist);
+						if (on_water(p.lat(), p.lon())) {
+							print("SP: found water");
+							setprop("/sim/presets/heading-deg", course);
+							return teleport(p.lat(), p.lon());
+						}
+					}
+				}
+
+				print("SP: no water found");
+			}
+
+			var teleport = func(lat, lon) {
+				setprop("/sim/presets/latitude-deg", lat);
+				setprop("/sim/presets/longitude-deg", lon);
+				fgcommand("reposition");
+			}
+
+			var on_water = func(lat, lon) {
+				var g = geodinfo(lat, lon);
+				return g != nil and g[1] != nil and !g[1].solid;
+			}
+		</open>
+	</nasal>
+
+	<group>
+		<layout>hbox</layout>
+		<empty><stretch>1</stretch></empty>
+
+		<text>
+			<label>Location inappropriate for a seaplane</label>
+		</text>
+
+		<empty><stretch>1</stretch></empty>
+	</group>
+
+	<hrule/>
+
+	<text>
+		<label></label>
+	</text>
+
+	<group>
+		<layout>hbox</layout>
+		<button>
+			<legend>Stay anyway</legend>
+			<equal>1</equal>
+			<key>Esc</key>
+			<binding>
+				<command>dialog-close</command>
+			</binding>
+		</button>
+
+		<button>
+			<legend>Go to seaport</legend>
+			<default>1</default>
+			<equal>1</equal>
+			<binding>
+				<command>nasal</command>
+				<script>goto_seaport()</script>
+			</binding>
+			<binding>
+				<command>dialog-close</command>
+			</binding>
+		</button>
+	</group>
+</PropertyList>

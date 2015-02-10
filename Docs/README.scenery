@@ -1,0 +1,580 @@
+This document describes how FlightGear searches and loads scenery, how to
+add static objects to the scenery as well as the syntax of *.stg files.
+
+
+
+
+Contents ----------------------------------------------------------------------
+
+1  scenery path
+2  terrasync
+
+3  stg files
+   3.1  OBJECT_BASE
+   3.2  OBJECT
+   3.4  OBJECT_SHARED
+   3.3  OBJECT_STATIC
+   3.5  OBJECT_SIGN
+
+4  model manager ("/models/model")
+   4.1  static objects
+   4.2  dynamic objects
+   4.3  loading/unloading at runtime
+
+5  tools for object placing
+   5.1  calc-tile.pl
+   5.2  ufo scenery object editor
+
+6  embedded Nasal
+   6.1  static models
+   6.2  AI models
+
+
+
+
+1 scenery path ----------------------------------------------------------------
+
+FlightGear loads scenery by default from the Scenery/ subdirectory of its
+data directory. The path to this data directory can be set via environment
+variable FG_ROOT or the --fg-root option. The scenery path can be set
+independently via environment variable FG_SCENERY or option --fg-scenery.
+The order of precedence is as follows:
+
+  --fg-scenery=/some/dir         ... highest priority
+  $FG_SCENERY
+  $FG_ROOT/Scenery/              ... lowest priority
+
+
+A scenery specification may be a list of paths, separated by the OS-specific
+path separator (colon on Unix/OSX, semicolon on MS Windows). The paths are
+searched in the order from left to right:
+
+  FG_SCENERY=/first/dir:/second/dir:/third/dir
+                                     (likewise with --fg-scenery option)
+
+
+Each of the scenery paths can follow one of two possible layouts: with or
+without Terrain/ and Objects/ subdirectories. As soon as either or both
+of these subdirectories are found, scenery is only searched *in* these two,
+but not in any other directory on the same hierarchy level!
+
+This example shows which directories are used to search for scenery:
+
+  $ ls /first/dir
+  w130n30/                   searched
+
+  $ ls /second/dir
+  Objects/                   searched
+  Terrain/                   searched
+  w130n30/                   *not* searched
+
+  $ ls /third/dir
+  Terrain/                   searched
+  w130n30/                   *not* searched
+
+
+If FlightGear searches for a particular "tile" file, let's say for
+"w130n30/w123n37/942050.stg", then (using the above examples) it looks
+into
+
+  /first/dir/w130n30/w123n37/942050.stg             (A)
+
+  /second/dir/Terrain/w130n30/w123n37/942050.stg    (B)\__ same path element
+  /second/dir/Objects/w130n30/w123n37/942050.stg    (C)/      /second/dir
+
+  /third/dir/Terrain/w130n30/w123n37/942050.stg     (D)
+
+but as soon as it finds an OBJECT_BASE entry it only finishes this
+path element and then stops scanning. So, if (B) contains an entry
+"OBJECT_BASE 942050.btg, then the twin Objects/ directory (C) will
+be read, too. But (D) will *not*! Objects/ and Terrain/ directories
+are laid out equally. Airport and elevation data, as well as airport
+inventory objects are usually put into Terrain/, while other objects
+are put into Objects/.
+
+This searching behavior is usually used to collect user-added
+custom objects first, then to read in standard scenery and objects
+that came with the distribution (San Francisco Bay area), and to
+use locally added scenery everywhere else. So a typical scenery
+path specification could look like this:
+
+  FG_SCENERY=$HOME/.fgfs/Scenery:$FG_ROOT/Scenery:$FG_ROOT/WorldScenery
+
+The third path would then be populated by the user with unpacked scenery
+archives downloaded from http://www.flightgear.org/Downloads/scenery.html,
+or by using terrasync (see next section).
+Additional objects can be downloaded from the FlightGear Objects
+Database (http://scenemodels.flightgear.org/download/). (Note that
+those objects are occasionally merged into the flightgear.org/terrasync
+packages, so you may end up with doubled entries!)
+
+Using a private directory for downloaded add-on scenery and adding
+that path to FG_SCENERY is the preferred way. This separates default
+data from locally added data, and makes administration and later updates
+easier.
+
+HINT: if you want to see where FlightGear is searching and finding
+terrain/objects, start it with the --log-level=info option.
+
+
+
+
+
+2 terrasync -------------------------------------------------------------------
+
+FlightGear comes with a utility "terrasync" that allows downloading
+scenery (literally) "on-the-fly. Given the scenery path setup from
+section 1 you could use terrasync with a script like this:
+
+  #!/bin/bash
+  PORT=5503
+  nice terrasync -p $PORT -d $FG_ROOT/WorldScenery&
+  fgfs --atlas=socket,out,1,localhost,$PORT,udp $*
+  killall terrasync
+
+If you name it "fgfsterra", then you can use it just like you would use
+"fgfs", but behind the scenes it would update your scenery everywhere in
+sight and save the files to $FG_ROOT/WorldScenery. Example:
+
+  $ ./fgfsterra --aircraft=ufo --airport=LOXZ
+
+Note, however, that if it downloads scenery for the area around your
+starting location, then you'll only see that after the next start, or
+after you flew or teleported to a distant location and then back.
+terrasync depends on the rsync application and an open port 873,
+so it may not be available/usable on MS Windows.
+
+
+
+
+
+3 stg files -------------------------------------------------------------------
+
+stg files ("static terragear") define the static elements of a scenery
+"tile", including the terrain elevation data, airport geometry, and all
+static objects placed on this tile. (See section 5 for how to find out which
+geo coordinates belong to which tile.) Four of the available key words
+are followed by a string and four numbers. The meaning of these numbers
+is always the same and described in section 3.3.
+
+
+
+
+3.1  OBJECT_BASE
+----------------
+
+specifies the terrain elevation data file. These files are generated with
+the TerraGear tools (http://www.terragear.org/) and have file extension
+".btg" ("binary terragear"; there used to be an "*.atg" file, too, where
+the 'a' stood for ASCII).
+
+Example:
+
+  OBJECT_BASE 942050.btg
+
+The entry may be anywhere in the 942050.stg file, on a separate line.
+
+
+
+
+3.2  OBJECT
+-----------
+
+specifies an airport geometry 'drop-in' file. The scenery elevation file
+has cut out holes for airports, that are filled with such objects. They
+are usually called after the airport ICAO id:
+
+Example:
+
+  OBJECT KSFO.btg
+
+These files are, again, created by TerraGear tools and are usually gzipped,
+so you'll find that file stored as KSFO.btg.gz.
+
+
+
+
+3.3  OBJECT_SHARED
+------------------
+
+add static object to the tile.
+
+Example:
+
+  OBJECT_SHARED Models/Airport/tower.xml -122.501090 37.514830 15.5 0.00 0.00 0.00
+
+Syntax:
+
+  OBJECT_SHARED <object-path> <lon> <lat> <elev-m> <hdg-deg> <pitch-deg> <roll-deg>
+
+The <object-path> is relative to the data directory (FG_ROOT).
+<elev-m> is in meter and relative to mean sea-level (in the fgfs world).
+<hdg-deg> is in degree, counter-clockwise with North being 0.0. Note
+that this differs from about every other place in FlightGear, most notably
+the /orientation/heading-deg entry in the property system, which is clockwise.
+<pitch-deg> and <roll-deg> are in degree and optional.
+OBJECT_SHARED models are cached and reused. They are only once in memory
+and never freed. (See also the next section.)
+
+
+
+
+3.4  OBJECT_STATIC
+------------------
+
+add static objects to the tile, just like OBJECT_SHARED. There are three
+differences to OBJECT_SHARED (apart from the name):
+
+(A) the path is relative to the tile directory where the *.stg file with
+    this entry is located. For example, relative to 130n30/w123n37/. This
+    usually means that all 3D object files, textures, and XML animation
+    files are in this tile directory, too.
+
+(B) these objects are *not* cached and kept loaded, but rather freed with
+    the tile (that is, when you leave that area).
+
+(C) the animation XML files may contain Nasal blocks <nasal><load> and
+    <nasal><unload> which are executed on loading/unloading.
+
+Example:
+
+  OBJECT_STATIC ggb-fb.xml -122.4760494 37.81876042 0 105 0.00 0.00
+
+
+
+
+3.5 OBJECT_SIGN
+---------------
+
+defines taxiway or runway sign. The syntax is much like that of OBJECT_SHARED
+entries, except that the path is replaced with a sign contents specification
+and that there is an additional size value at the end of the line.
+
+Example:
+
+  OBJECT_SIGN {@R}10L-28R{@L}C -122.35797457 37.61276290 -0.5398 74.0 2
+
+The sign specification defines the sign contents. We try to resemble the
+apt.dat 850 specifications in our implementation.
+In the simplest form it contains just 'normal' text, for example:
+
+  EXIT
+
+This will create a black panel of 1m height with "EXIT" written on it
+in white versal letters. Actually, each of those characters are
+single-letter glyph names that are looked up in the <glyph> map of a
+texture font <material> entry in $FG_ROOT/materials.xml. It just
+happens that the <glyph> entry for <name> 'E' maps to a drawn 'E' in
+the font texture. This isn't true for all ASCII characters. Many aren't
+mapped at all (and thus not available), others are mapped to non-standard
+drawings. The '_', for example, is mapped to an empty black area and can
+therefore be used as a space. (The sign specification must not contain
+real spaces.) The '*' is mapped to a raised period.
+
+Some glyph names consist of more than one character, and can't, thus, be
+used directly. They have to be put in a pair of curly braces:
+
+  {^rd}
+
+This creates an arrow that points to the right and down. Braces can really
+contain a list of glyph names, separated by commas (no space!).
+Single-letter glyph names can be used that way, too, or in any mixture
+of both methods:
+
+  EXIT
+  {E,X,I,T}
+  {E}{X}{I}{T}
+  EX{I,T}
+  E{X,I}T{^lu,^rd}
+  {^u}EXIT{^u}
+
+
+Multi-letter glyph names are usually used for symbols. Arrow symbol names
+always start with a caret ("arrow head") and the left or right direction
+always comes first (like the x in a Cartesian coordinate system). Here's
+a list of some of the available names (see $FG_ROOT/materials.xml for
+more):
+
+
+  ^l       left arrow
+  ^r       right arrow
+  ^u       up arrow
+  ^d       down arrow
+  ^lu      left-up arrow
+  ^ld      left-down arrow
+  ^ru      right-up arrow
+  ^rd      right-down arrow
+  no-entry "no entry" symbol
+  critical runway critical area
+  safety   ils safety area
+  hazard   end of taxiway
+
+
+
+There are commands for pre-defined sign types according to the FAA
+specification (5345-44; see http://www.google.com/search?q=5345-44g).
+
+  @Y   "Direction, Destination, Boundary" sign (black on yellow)
+  @R   "Mandatory Instruction" sign (white on red with black outline)
+  @L   "Location" sign  (yellow text and frame on black)
+  @B   "Runway Distance Remaining" sign  (white on black)
+
+
+Examples:
+
+  {@R}10L-28R{@L}C
+  {@Y,^l}P|{^lu}N{@L}F{@Y}F{^ru}
+  {@Y,^ld}C   ...  same as any of {@Y}{@ld}C  {@Y,@ld,C}
+  {@B}17
+
+
+Syntax errors are reported in --log-level=debug, in the SG_TERRAIN
+group. You can use this command line to filter out such messages:
+
+  $ fgfs --log-level=debug 2>&1|grep OBJECT_SIGN
+
+
+
+
+
+4 model manager ("/models/model") --------------------------------------------
+
+
+4.1  static objects
+-------------------
+
+Another way to add objects to the scenery is via the "model manager".
+It reads all /models/model entries at startup and places these objects
+in the scenery. Just load a definition like the following into the
+property tree, for example by putting it into $FG_ROOT/preferences.xml, or
+better: an XML file that you load with e.g. --config=$HOME/.fgfs/stuff.xml:
+
+  <models>
+      <model n="0">
+          <name>pony</name>
+          <path>Local/pony.ac</path>
+          <longitude-deg>-115.8352869</longitude-deg>
+          <latitude-deg>37.24302849</latitude-deg>
+          <elevation-ft>4534.691321</elevation-ft>
+          <heading-deg>0</heading-deg>
+          <pitch-deg>0</pitch-deg>
+          <roll-deg>0</roll-deg>
+      </model>
+  </models>
+
+The <path> is relative to $FG_ROOT, the <name> is optional. One can leave the
+heading/pitch/roll entries away, in which case they are set to zero. The values
+are fixed and unchangeable at runtime.
+
+
+
+
+4.2  dynamic objects
+--------------------
+
+Any of the model properties can be made changeable at runtime by appending
+"-prop" and using a property path name instead of the fixed value:
+
+  <local>
+      <pony>
+          <longitude-deg>-115.8352869/<longitude-deg>
+          <latitude-deg>37.24302849</latitude-deg>
+          <elevation-ft>4534.691321</elevation-ft>
+          <heading-deg>0</heading-deg>
+      </pony>
+  </local>
+
+  <models>
+      <model n="1">
+          <name>pony</name>
+          <path>Local/pony.ac</path>
+          <longitude-deg-prop>/local/pony/longitude-deg</longitude-deg-prop>
+          <latitude-deg-prop>/local/pony/latitude-deg</latitude-deg-prop>
+          <elevation-ft-prop>/local/pony/elevation-ft</elevation-ft-prop>
+          <heading-deg-prop>/local/pony/heading-deg</heading-deg-prop>
+          <pitch-deg>1.234</pitch-deg>  <!-- static, just for fun -->
+      </model>
+  </models>
+
+Then one can move the pony around by changing the values in /local/pony/ in
+the property system. One can, of course, use other animals, too.
+
+
+
+
+4.3 loading/unloading at runtime
+--------------------------------
+
+Both dynamic and static model-manager-models can be loaded and unloaded
+at runtime. For loading you first create a new <model> entry under <models>,
+initialize all properties there (<longitude-deg> or <longitude-deg-prop>,
+etc.), and finally you create a child <load> of any type in this group.
+This is the signal for the model manager to load the object. You can
+remove the <load> property after that. It has no further meaning.
+
+To remove a model-manager model at runtime, you simply delete the whole
+<model> group.
+
+
+
+
+
+5 tools for object placing ----------------------------------------------------
+
+
+5.1 calc-tile.pl
+----------------
+
+For finding out the tile number for a given geo coordinate pair there's
+a script "scripts/perl/scenery/calc-tile.pl" in the FlightGear sources.
+You feed longitude and latitude to it and it returns the path to the
+*.stg file where you have to add the object entry.
+
+  $ perl calc-tile.pl 16.1234 48.5678
+  Longitude: 16.1234
+  Latitude:  48.5678
+  Tile:      3220128
+  Path:      "e010n40/e016n48/3220128.stg"
+
+
+
+
+5.2 ufo scenery object editor
+-----------------------------
+
+The ufo has a scenery object editor built-in. It uses the model manager
+described in section 4. To place objects with it, start fgfs, optionally
+with specifying an initial model type ("cursor") and a list of subdirectories
+of $FG_ROOT where the ufo should search for available 3D models ("source"):
+
+  $ fgfs --aircraft=ufo --prop:cursor=Models/Airport/radar.xml  \
+                        --prop:source=Models,Scenery/Objects
+
+Then click anywhere on the terrain to add a model (left mouse button).
+You can open the adjustment dialog (Tab-key) to make adjustments to
+position and orientation. Click as often as you like, choose further
+models from the space-key dialog. You can select an already placed object
+by Ctrl-clicking at its base (not at the object itself, but the surface
+point where it's located!). By also holding the Shift key down, you
+can select several objects or add them to a selection. You can remove
+the selected object(s) with the Backspace-key. (See the ?-key dialog
+for futher available keys.) After clicking on the input field right
+over the status line (invisible if there's no text in it) you can enter
+a comment/legend for the selected object.
+
+And finally, you dump the object data to the terminal (d-key) or export
+them to a file $HOME/.fgfs/ufo-model-export.xml (Unix) or
+%APPDATA%\flightgear.org\ufo-model-export.xml (MS Windows).
+
+You can now put the generated object entries into the specified *.stg
+file to make them permanent. Or load the whole exported *.xml file
+via --config option:
+
+  $ fgfs --config=$HOME/.fgfs/ufo-model-export.xml
+
+If you choose the sign placeholder object from the m-key dialog (first
+entry; "Aircraft/ufo/Models/sign.ac"), then an OBJEC_SIGN *.stg line
+will be generated with the legend used as sign contents. If you didn't
+insert any legend, then the sign text will be: NO CONTENTS and a 4 digits
+random number for later identification in the *.stg file.
+
+Unfortunately, objects added with this method are kept in memory, no
+matter where you are actually flying, so the *.stg method is preferable.
+
+
+
+
+
+6 embedded Nasal in XML files (static objects and AI) -------------------------
+
+
+6.1 static models
+-----------------
+
+Objects loaded via OBJECT_STATIC in *.stg files as well as AI models loaded
+via scenarios may contain embedded Nasal code. This can be used to drive
+more advanced animations. An example is a lighthouse with specific light
+signals, or hangar doors that open when the "player"'s aircraft is nearby.
+The Nasal code is added to the object's XML wrapper/animation file, anywhere
+on the top level, for example:
+
+
+   <PropertyList>
+       <path>lighthouse.ac</path>
+
+       <nasal>
+           <load>
+               var loop_id = 0;
+               var light = aircraft.light.new("
+                       "/models/static/w120n30/w118n35/lighthouse/light",
+                       [2, 1, 2, 1, 2, 1, 2, 5]);
+
+               var loop = func(id) {
+                   id == loop_id or return;
+                   light.switch(getprop("/sim/time/sun-angle-rad") > 1.37);
+                   settimer(func { loop(id) }, 30);
+               }
+               loop(loop_id += 1);
+           </load>
+
+           <unload>loop_id += 1</unload>
+       </nasal>
+
+       <animation>
+           <type>select</type>
+           <object-name>light-halo</object-name>
+           <property>/models/static/w120n30/w118n35/lighthouse/light/state</property>
+       </animation>
+
+       ...
+   </PropertyList>
+
+
+The <load> part is executed when the scenery tile on which the model is placed
+is loaded into memory. It can start timers or listeners that modify properties,
+which are then queried by the <animation>. As a convention developers are requested
+to use "/models/static/" + <tile-path> + <file-basename>. So, in the above example
+file "$FG_ROOT/Scenery/Objects/w120n30/w118n35/lighthouse.xml" all properties
+are stored under "/models/static/w120n30/w118n35/lighthouse/". That way collisions
+with other models are quite unlikely.
+
+An optional <unload> part is executed when the tile and model is removed from
+memory. Note that this is only when the "player" is already far away! To
+cause minimal impact on the framerate it is recommended to do as few
+calculations as possible, to use as large timer intervals as possible, and to
+stop all timers and listeners in the <unload> part, as shown in the example.
+
+All Nasal variables/functions are in a separate namespace, which is named
+after the file name. It's recommended not to access this namespace from
+outside for other than development purposes.
+
+What the above code does: as soon as the model is loaded, an aircraft.light
+is created with a specific light sequence. Then, in half-minute intervals,
+the light is turned on or off depending on the sun angle. On <unload> the
+loop identifier is increased, which makes the loop terminate itself. For
+more info about this technique, see the Nasal wiki.
+
+
+
+
+6.2 AI models
+-------------
+
+Here the syntax is the same like for static models. The only two differences
+are:
+
+- these models are currently only removed at program end, so it's more
+  important to consider effects on performance.
+
+- AI models don't need to store their properties in /models/static/...,
+  but get a separate node under /ai/models/, for example /ai/models/carrier[1].
+  The embedded Nasal code can access this dynamically assigned property
+  via cmdarg() function, which returns a props.Node hash. Example:
+
+     <nasal>
+         <load>print("my data are under ", cmdarg().getPath())</load>
+         <unload>print("Currently I'm only called at fgfs exit!")</unload>
+     </nasal>
+
+
+

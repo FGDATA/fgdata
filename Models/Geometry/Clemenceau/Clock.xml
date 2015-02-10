@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+
+
+<!--
+    Copyright Gerard Robin License:  GPL v2
+    Usable with FlightGear
+-->
+
+
+<PropertyList>
+
+    <path>clock.ac</path>
+ <texture-path>Textures</texture-path>
+
+
+	<animation>
+		<type>range</type>
+		<object-name>Clock</object-name>
+		<max-m>500</max-m>
+	</animation>
+        
+        <animation>
+            <type>rotate</type>
+            <object-name>Horloge1GrAig</object-name>
+            <property>/instrumentation/clock/indicated-min</property>
+            <factor>6</factor>
+            <center>
+                <x-m>0.0204258</x-m>
+                <y-m>0</y-m>
+                <z-m>0</z-m>
+            </center>
+            <axis>
+                <x></x>
+                <y>1</y>
+                <z>0</z>
+            </axis>
+        </animation>
+        
+        <animation>
+            <type>rotate</type>
+            <object-name>Horloge1PtAig</object-name>
+            <property>/instrumentation/clock/indicated-sec</property>
+            <factor>0.008333333333333333333</factor>
+            <center>
+                <x-m>0.0204258</x-m>
+                <y-m>0</y-m>
+                <z-m>0</z-m>
+            </center>
+            <axis>
+                <x>0</x>
+                <y>1</y>
+                <z>0</z>
+            </axis>
+	</animation>
+        
+        <animation>
+            <type>rotate</type>
+            <object-name>Horloge2GrAig</object-name>
+            <property>/instrumentation/clock/indicated-min</property>
+            <factor>6</factor>
+            <center>
+                <x-m>0</x-m>
+                <y-m>0.0296808</y-m>
+                <z-m>0</z-m>
+            </center>
+            <axis>
+                <x>1</x>
+                <y>0</y>
+                <z>0</z>
+            </axis>
+        </animation>
+        
+        <animation>
+            <type>rotate</type>
+            <object-name>Horloge2PtAig</object-name>
+            <property>/instrumentation/clock/indicated-sec</property>
+            <factor>0.008333333333333333333</factor>
+            <center>
+                <x-m>0</x-m>
+                <y-m>0.0296808</y-m>
+                <z-m>0</z-m>
+            </center>
+            <axis>
+                <x>1</x>
+                <y>0</y>
+                <z>0</z>
+            </axis>
+	</animation>
+
+
+
+
+
+
+</PropertyList>

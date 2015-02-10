@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!-- FlightGear Materials File. See Docs/README.materials for details. -->
+
+<PropertyList>
+
+ <!-- Shared parameters for various materials. -->
+<params>
+  <forest>
+    <!-- Maximum distance from which all trees are visible. -->
+    <!-- Some trees will be visible to twice this range  -->
+    <tree-range-m>8000</tree-range-m>
+  </forest>
+  <building>
+    <!-- Maximum distance from which all buildings are visible -->
+    <!-- Some buildings will be visible to twice this range. -->
+    <building-range-m>10000</building-range-m>
+  </building>
+</params>
+
+<!-- Base materials -->
+<region include="Materials/dds/global.xml"/>
+<region include="Materials/dds/global-summer.xml"/>
+<region include="Materials/dds/global-winter.xml"/>
+
+<!-- Urban shader -->
+<region include="Materials/dds/urban.xml"/>
+
+</PropertyList>

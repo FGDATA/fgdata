@@ -1,0 +1,1463 @@
+<?xml version="1.0"?>
+<!--
+Key binding definitions.
+
+Regular keycodes go up to 255; special keys start at 256, and can be
+calculated by adding 256 to the GLUT key value in glut.h.
+
+All Nasal code in this file lives in a common Nasal namespace __kbd.
+All <nasal> blocks on the top level are executed in the order from
+top down before the key bindings are parsed.
+-->
+
+<PropertyList>
+ <nasal>
+  <script>
+      # /devices/status/keyboard/event/modifier/ and /devices/status/keyboard/
+      # don't only have one BOOL child per modifier, but also contain the
+      # modifier bitmap themselves, using these bit values:
+      var mod = { shift: 1, ctrl: 2, alt: 4, meta: 8, super: 16, hyper: 32 };
+
+      var modifiers = props.globals.getNode("/devices/status/keyboard");
+      var shift = props.globals.getNode("/devices/status/keyboard/shift");
+      var ctrl = props.globals.getNode("/devices/status/keyboard/ctrl");
+      var alt = props.globals.getNode("/devices/status/keyboard/alt");
+
+      var space_release = func nil;
+      var space = func(state, mod) {
+          if (!state) {
+              space_release();
+              return space_release = func nil;
+          }
+          if (mod == 0 or mod == 1) {
+              controls.ptt(mod + 1);
+              space_release = func controls.ptt(0);
+          }
+      }
+
+      ## uncomment this line to get keycode reports printed to the terminal window
+      #setlistener("devices/status/keyboard/event", func(n) debug.dump(n.getValues()));
+  </script>
+ </nasal>
+
+ <key n="1">
+  <name>Ctrl-A</name>
+  <desc>Toggle autopilot altitude lock</desc>
+  <binding>
+   <command>nasal</command>
+   <script>
+     var node = props.globals.getNode("/autopilot/locks/altitude", 1);
+     if ( node.getValue() == "altitude-hold" ) {
+       node.setValue( "" );
+     } else {
+       node.setValue( "altitude-hold" );
+     }
+   </script>
+  </binding>
+ </key>
+
+ <key n="2">
+  <name>Ctrl-B</name>
+  <desc>Toggle speedbrake</desc>
+  <binding>
+   <command>property-toggle</command>
+   <property>/controls/flight/speedbrake</property>
+  </binding>
+ </key>
+
+ <key n="3">
+  <name>Ctrl-C</name>
+  <desc>Toggle clickable panel hotspots</desc>
+  <binding>
+   <command>property-toggle</command>
+   <property>/sim/panel-hotspots</property>
+  </binding>
+ </key>
+
+ <key n="7">
+  <name>Ctrl-G</name>
+  <desc>Toggle autopilot glide slope lock</desc>
+  <binding>
+   <command>nasal</command>
+   <script>
+     var node = props.globals.getNode("/autopilot/locks/altitude", 1);
+     if ( node.getValue() == "gs1-hold" ) {
+       node.setValue( "" );
+     } else {
+       node.setValue( "gs1-hold" );
+     }
+   </script>
+  </binding>
+ </key>
+
+ <key n="8">
+  <name>Ctrl-H</name>
+  <desc>Toggle autopilot heading lock</desc>
+  <binding>
+   <command>nasal</command>
+   <script>
+     var node = props.globals.getNode("/autopilot/locks/heading", 1);
+     if ( node.getValue() == "dg-heading-hold" ) {
+       node.setValue( "" );
+     } else {
+       node.setValue( "dg-heading-hold" );
+     }
+   </script>
+  </binding>
+ </key>
+
+ <!-- Tab key, also Ctrl-I, bit odd -->
+ <key n="9">
+	<name>Tab</name>
+	<desc>Cycle mouse mode</desc>
+	<binding>
+    
+        <condition>
+            <not><property>/devices/status/keyboard/alt</property></not>
+            <not><property>/devices/status/keyboard/ctrl</property></not>
+        </condition>
+		<command>cycle-mouse-mode</command>
+		<reason>key-press</reason>
+	</binding>
+ </key>
+
+ <key n="10"> <!-- OSG -->
+  <name>Enter</name>
+  <desc>Move rudder right</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>property-adjust</command>
+   <property>/controls/flight/rudder</property>
+   <step type="double">0.05</step>
+  </binding>
+  
+  <!-- Ctrl-M generates Enter, but we want to show the map in that case -->
+  <mod-ctrl>
+      <binding>
+    	<command>dialog-show</command>
+    	<dialog-name>map</dialog-name>
+      </binding>
+  </mod-ctrl>
+ </key>
+
+ <key n="13"> <!-- PLIB -->
+  <name>Enter</name>
+  <desc>Move rudder right</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>property-adjust</command>
+   <property>/controls/flight/rudder</property>
+   <step type="double">0.05</step>
+  </binding>
+ </key>
+
+ <key n="14">
+  <name>Ctrl-N</name>
+  <desc>Toggle autopilot nav1 lock</desc>
+  <binding>
+   <command>nasal</command>
+   <script>
+     var node = props.globals.getNode("/autopilot/locks/heading", 1);
+     if ( node.getValue() == "nav1-hold" ) {
+       node.setValue( "" );
+     } else {
+       node.setValue( "nav1-hold" );
+     }
+   </script>
+  </binding>
+ </key>
+
+ <key n="16">
+  <name>Ctrl-P</name>
+  <desc>Toggle pitch hold</desc>
+  <binding>
+   <command>nasal</command>
+   <script>
+     var node = props.globals.getNode("/autopilot/locks/altitude", 1);
+     if ( node.getValue() == "pitch-hold" ) {
+       node.setValue( "" );
+     } else {
+       node.setValue( "pitch-hold" );
+       var pitch = props.globals.getNode("/autopilot/settings/target-pitch-deg", 1);
+       pitch.setValue( getprop("/orientation/pitch-deg") );
+     }
+   </script>
+  </binding>
+ </key>
+
+ <key n="18">
+  <name>Ctrl-R</name>
+  <desc>Activate the instant replay system</desc>
+  <binding>
+   <command>replay</command>
+  </binding>
+  <binding>
+	<command>dialog-show</command>
+	<dialog-name>replay</dialog-name>
+  </binding>
+ </key>
+
+ <key n="19">
+  <name>Ctrl-S</name>
+  <desc>Toggle auto-throttle lock</desc>
+  <binding>
+   <command>nasal</command>
+   <script>
+     var node = props.globals.getNode("/autopilot/locks/speed", 1);
+     if ( node.getValue() == "speed-with-throttle" ) {
+       node.setValue( "" );
+     } else {
+       node.setValue( "speed-with-throttle" );
+     }
+   </script>
+  </binding>
+ </key>
+
+ <key n="20">
+  <name>Ctrl-T</name>
+  <desc>Toggle autopilot terrain lock</desc>
+  <binding>
+   <command>nasal</command>
+   <script>
+     var node = props.globals.getNode("/autopilot/locks/altitude", 1);
+     if ( node.getValue() == "agl-hold" ) {
+       node.setValue( "" );
+     } else {
+       node.setValue( "agl-hold" );
+       var agl = props.globals.getNode("/autopilot/settings/target-agl-ft", 1);
+       agl.setValue( getprop("/position/altitude-agl-ft") );
+     }
+   </script>
+  </binding>
+ </key>
+
+ <key n="21">
+  <name>Ctrl-U</name>
+  <desc>[Cheat] Add 1000ft of emergency altitude</desc>
+  <binding>
+   <command>property-adjust</command>
+   <property>/position/altitude-ft</property>
+   <step type="double">1000.0</step>
+  </binding>
+  <binding>
+   <command>property-assign</command>
+   <property>/sim/startup/onground</property>
+   <value type="bool">false</value>
+  </binding>
+ </key>
+
+ <key n="22">
+  <name>Ctrl-V</name>
+  <desc>Select initial view (view 0)</desc>
+  <binding>
+   <command>property-assign</command>
+   <property>/sim/current-view/view-number</property>
+   <value>0</value>
+  </binding>
+ </key>
+
+ <key n="23">
+  <name>Ctrl-W</name>
+  <desc>Toggle autopilot wing leveler</desc>
+  <binding>
+   <command>nasal</command>
+   <script>
+     var node = props.globals.getNode("/autopilot/locks/heading", 1);
+     if ( node.getValue() == "wing-leveler" ) {
+       node.setValue( "" );
+     } else {
+       node.setValue( "wing-leveler" );
+     }
+   </script>
+  </binding>
+ </key>
+
+ <key n="24">
+  <name>Ctrl-X</name>
+  <desc>Reset zoom to default</desc>
+  <binding>
+   <command>property-assign</command>
+   <property>/sim/current-view/field-of-view</property>
+   <property>/sim/view/config/default-field-of-view-deg</property>
+  </binding>
+ </key>
+
+  <key n="26">
+    <name>Ctrl-Z</name>
+    <desc>Reset visibility to default</desc>
+    <binding>
+      <command>nasal</command>
+      <script>environment.resetVisibility()</script>
+    </binding>
+  </key>
+
+  <key n="27">
+  <name>ESC</name>
+  <desc>Prompt and quit FlightGear</desc>
+  <binding>
+    <condition>
+     <not>
+      <property>/sim/freeze/replay-state</property>
+     </not>
+    </condition>
+    <command>dialog-show</command>
+    <dialog-name>exit</dialog-name>
+  </binding>
+  <binding>
+    <condition>
+      <property>/sim/freeze/replay-state</property>
+    </condition>
+    <command>property-assign</command>
+    <property>/sim/replay/disable</property>
+    <value type="bool">true</value>
+  </binding>
+  <mod-shift>
+   <desc>Reset FlightGear</desc>
+   <binding>
+    <command>reset</command>
+   </binding>
+  </mod-shift>
+ </key>
+
+ <key n="32">
+  <name>SPACE</name>
+  <desc>PTT - Push To Talk (via FGCom)</desc>
+  <binding>
+   <command>nasal</command>
+   <script>space(1, modifiers.getValue())</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>space(0, modifiers.getValue())</script>
+   </binding>
+  </mod-up>
+  <mod-shift>
+   <binding>
+    <command>nasal</command>
+    <script>space(1, modifiers.getValue())</script>
+   </binding>
+   <mod-up>
+    <binding>
+     <command>nasal</command>
+     <script>space(0, modifiers.getValue())</script>
+    </binding>
+   </mod-up>
+  </mod-shift>
+ </key>
+
+ <key n="33">
+  <name>!</name>
+  <desc>Select first engine</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.selectEngine(0)</script>
+  </binding>
+ </key>
+
+ <key n="35">
+  <name>#</name>
+  <desc>Select third engine</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.selectEngine(2)</script>
+  </binding>
+ </key>
+
+ <key n="36">
+  <name>$</name>
+  <desc>Select fourth engine</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.selectEngine(3)</script>
+  </binding>
+ </key>
+
+ <key n="39">
+  <name>'</name>
+  <desc>Display a dialog relevant to the tuned in ATC service (if any)</desc>
+  <binding>
+    <!-- At the moment, we have no working interactive ATC, so this is
+         disabled for v2.2.0. -->
+    <command>ATC-dialog</command>
+  </binding>
+ </key>
+
+ <key n="43">
+  <name>+</name>
+  <desc>Let ATC/instructor repeat last message</desc>
+  <binding>
+    <command>nasal</command>
+    <script>screen.msg_repeat()</script>
+  </binding>
+ </key>
+
+ <key n="44">
+  <name>,</name>
+  <desc>Left brake</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.applyBrakes(1, -1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.applyBrakes(0, -1)</script>
+   </binding>
+  </mod-up>
+ </key>
+
+ <key n="45">
+  <name>-</name>
+  <repeatable type="bool">false</repeatable>
+  <desc>Chat Menu</desc>
+  <binding>
+     <command>dialog-show</command>
+     <dialog-name>chat-menu</dialog-name>
+  </binding>
+ </key>
+
+ <key n="46">
+  <name>.</name>
+  <desc>Right brake</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.applyBrakes(1, 1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.applyBrakes(0, 1)</script>
+   </binding>
+  </mod-up>
+ </key>
+
+ <key n="47">
+  <name>/</name>
+  <desc>Open property browser</desc>
+  <binding>
+   <condition>
+    <not>
+     <property>/sim/input/property-key-handler</property>
+    </not>
+   </condition>
+   <command>nasal</command>
+   <script>gui.property_browser()</script>
+  </binding>
+  <binding>
+   <condition>
+    <property>/sim/input/property-key-handler</property>
+   </condition>
+   <command>nasal</command>
+   <script>prop_key_handler.start()</script>
+  </binding>
+ </key>
+
+ <key n="48">
+  <name>0</name>
+  <desc>Move rudder left</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>property-adjust</command>
+   <property>/controls/flight/rudder</property>
+   <step type="double">-0.05</step>
+  </binding>
+ </key>
+
+ <key n="49">
+  <name>1</name>
+  <desc>Decrease elevator trim</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>property-adjust</command>
+   <property>/controls/flight/elevator-trim</property>
+   <step type="double">-0.001</step>
+  </binding>
+  <mod-shift>
+    <desc>Look back left</desc>
+    <binding>
+     <command>property-assign</command>
+     <property>/sim/current-view/goal-heading-offset-deg</property>
+     <property>/sim/view/config/back-left-direction-deg</property>
+    </binding>
+  </mod-shift>
+ </key>
+
+ <key n="50">
+  <name>2</name>
+  <desc>Elevator up or increase autopilot altitude</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>
+     controls.incElevator(-0.05, 100)
+   </script>
+  </binding>
+  <mod-shift>
+   <desc>Look back</desc>
+   <binding>
+    <command>property-assign</command>
+    <property>/sim/current-view/goal-heading-offset-deg</property>
+    <property>/sim/view/config/back-direction-deg</property>
+   </binding>
+  </mod-shift>
+ </key>
+
+ <key n="51">
+  <name>3</name>
+  <desc>Decrease throttle or autopilot autothrottle</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>
+     controls.incThrottle(-0.01, -1.0)
+   </script>
+  </binding>
+  <mod-shift>
+   <desc>Look back right</desc>
+   <binding>
+    <command>property-assign</command>
+    <property>/sim/current-view/goal-heading-offset-deg</property>
+    <property>/sim/view/config/back-right-direction-deg</property>
+   </binding>
+  </mod-shift>
+ </key>
+
+ <key n="52">
+  <name>4</name>
+  <desc>Move aileron left (or adjust AP heading.)</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>
+     controls.incAileron(-0.05, -1.0)
+   </script>
+  </binding>
+  <mod-shift>
+   <desc>Look left</desc>
+   <binding>
+    <command>property-assign</command>
+    <property>/sim/current-view/goal-heading-offset-deg</property>
+    <property>/sim/view/config/left-direction-deg</property>
+   </binding>
+  </mod-shift>
+ </key>
+
+ <key n="53">
+  <name>5</name>
+  <desc>Center aileron, elevator, and rudder</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.centerFlightControls()</script>
+  </binding>
+ </key>
+
+ <key n="54">
+  <name>6</name>
+  <desc>Move aileron right (or adjust AP heading.)</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>
+     controls.incAileron(0.05, 1.0)
+   </script>
+  </binding>
+  <mod-shift>
+   <desc>Look right</desc>
+   <binding>
+    <command>property-assign</command>
+    <property>/sim/current-view/goal-heading-offset-deg</property>
+    <property>/sim/view/config/right-direction-deg</property>
+   </binding>
+  </mod-shift>
+ </key>
+
+ <key n="55">
+  <name>7</name>
+  <desc>Increase elevator trim</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>property-adjust</command>
+   <property>/controls/flight/elevator-trim</property>
+   <step type="double">0.001</step>
+  </binding>
+  <mod-shift>
+   <desc>Look front left</desc>
+   <binding>
+    <command>property-assign</command>
+    <property>/sim/current-view/goal-heading-offset-deg</property>
+    <property>/sim/view/config/front-left-direction-deg</property>
+   </binding>
+  </mod-shift>
+ </key>
+
+ <key n="56">
+  <name>8</name>
+  <desc>Elevator down or decrease autopilot altitude</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>
+     controls.incElevator(0.05, -100)
+   </script>
+  </binding>
+  <mod-shift>
+   <desc>Look forward</desc>
+   <binding>
+    <command>property-assign</command>
+    <property>/sim/current-view/goal-heading-offset-deg</property>
+    <property>/sim/view/config/front-direction-deg</property>
+   </binding>
+  </mod-shift>
+ </key>
+
+ <key n="57">
+  <name>9</name>
+  <desc>Increase throttle or autopilot autothrottle</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+  <command>nasal</command>
+   <script>
+     controls.incThrottle(0.01, 1.0)
+   </script>
+  </binding>
+  <mod-shift>
+   <desc>Look front right</desc>
+   <binding>
+    <command>property-assign</command>
+    <property>/sim/current-view/goal-heading-offset-deg</property>
+    <property>/sim/view/config/front-right-direction-deg</property>
+   </binding>
+  </mod-shift>
+ </key>
+
+ <key n="58">
+  <name>:</name>
+  <desc>Start multikey command</desc>
+  <binding>
+   <command>nasal</command>
+   <script>multikey.start()</script>
+  </binding>
+ </key>
+
+ <key n="63">
+  <name>?</name>
+  <desc>Show help dialog</desc>
+  <binding>
+   <command>nasal</command>
+   <script>gui.showHelpDialog("/sim/help", 1)</script>
+  </binding>
+ </key>
+
+ <key n="64">
+  <name>@</name>
+  <desc>Select second engine</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.selectEngine(1)</script>
+  </binding>
+ </key>
+
+ <key n="65">
+  <name>A</name>
+  <desc>Decrease speed-up</desc>
+	<binding>
+		<command>nasal</command>
+		<script>controls.speedup(-1);</script>
+	</binding>
+ </key>
+
+ <key n="66">
+  <name>B</name>
+  <desc>Toggle parking brake on or off</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.applyParkingBrake(1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.applyParkingBrake(0)</script>
+   </binding>
+  </mod-up>
+ </key>
+
+ <key n="71">
+  <name>G</name>
+  <desc>Gear down</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.gearDown(1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.gearDown(0)</script>
+   </binding>
+  </mod-up>
+ </key>
+
+ <key n="72">
+  <name>H</name>
+  <desc>Cycle HUD Brightness</desc>
+  <binding>
+   <command>nasal</command>
+   <script>aircraft.HUD.cycle_brightness()</script>
+  </binding>
+ </key>
+
+ <key n="73">
+  <name>I</name>
+  <desc>Switch to and toggle alternative HUD types</desc>
+  <binding>
+   <command>nasal</command>
+   <script>aircraft.HUD.cycle_type()</script>
+  </binding>
+ </key> 
+
+ <key n="77">
+  <name>M</name>
+  <desc>Mixture leaner</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.adjMixture(-1)</script>
+  </binding>
+ </key>
+
+ <key n="78">
+  <name>N</name>
+  <desc>Propeller Coarser</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.adjPropeller(-1)</script>
+  </binding>
+ </key>
+
+ <key n="80">
+  <name>P</name>
+  <desc>Toggle panel</desc>
+  <binding>
+   <command>property-toggle</command>
+   <property>/sim/panel/visibility</property>
+  </binding>
+ </key>
+
+ <key n="83">
+  <name>S</name>
+  <desc>Swap panels</desc>
+  <binding>
+   <condition>
+     <not>
+     <property>/sim/allow-toggle-cockpit</property>
+     </not>
+   </condition>
+   <command>property-swap</command>
+   <property>/sim/panel/path</property>
+   <property>/sim/panel_2/path</property>
+  </binding>
+  <binding>
+   <condition>
+     <not>
+     <property>/sim/allow-toggle-cockpit</property>
+     </not>
+   </condition>
+   <command>panel-load</command>
+  </binding>
+ </key>
+
+ <key n="84">
+  <name>T</name>
+  <desc>Decrease warp delta</desc>
+  <binding>
+   <command>property-adjust</command>
+   <property>/sim/time/warp-delta</property>
+   <step type="int">-30</step>
+  </binding>
+ </key>
+
+ <key n="86">
+  <name>V</name>
+  <desc>Scroll in reverse through views</desc>
+  <binding>
+   <command>nasal</command>
+   <script>view.stepView(-1)</script>
+  </binding>
+ </key>
+
+ <key n="87">
+  <name>W</name>
+  <desc>Decrease warp</desc>
+  <binding>
+   <command>property-adjust</command>
+   <property>/sim/time/warp</property>
+   <step type="int">-60</step>
+  </binding>
+ </key>
+
+ <key n="88">
+  <name>X</name>
+  <desc>Increase field of view</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>view.increase()</script>
+  </binding>
+ </key>
+
+ <key n="90">
+  <name>Z</name>
+  <desc>Decrease Visibility</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>environment.decreaseVisibility()</script>
+  </binding>
+ </key>
+
+ <key n="91">
+  <name>[</name>
+  <desc>Decrease flaps</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.flapsDown(-1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.flapsDown(0)</script>
+   </binding>
+  </mod-up>
+ </key>
+
+ <key n="93">
+  <name>]</name>
+  <desc>Increase flaps</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.flapsDown(1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.flapsDown(0)</script>
+   </binding>
+  </mod-up>
+ </key>
+
+ <key n="95">
+  <name>_</name>
+  <repeatable type="bool">false</repeatable>
+  <desc>Compose Chat</desc>
+  <binding>
+    <command>nasal</command>
+    <script>multiplayer.compose_message()</script>
+  </binding>
+ </key>
+
+ <key n="97">
+  <name>a</name>
+  <desc>Increase speed-up</desc>
+	<binding>
+		<command>nasal</command>
+		<script>controls.speedup(1);</script>
+	</binding>
+ </key>
+
+ <key n="98">
+  <name>b</name>
+  <desc>Apply all brakes</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.applyBrakes(1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.applyBrakes(0)</script>
+   </binding>
+  </mod-up>
+ </key>
+
+ <key n="99">
+  <name>c</name>
+  <desc>Toggle 3D/2D cockpit</desc>
+  <binding>
+   <command>nasal</command>
+   <script>
+    if(getprop("/sim/allow-toggle-cockpit")) {
+        setprop("/sim/current-view/internal", !getprop("/sim/current-view/internal"));
+        setprop("/sim/view/internal", getprop("/sim/current-view/internal"));
+        setprop("/sim/virtual-cockpit", !getprop("/sim/virtual-cockpit"));
+        if(getprop("/sim/current-view/internal")) {
+          setprop("/sim/current-view/heading-offset-deg", getprop("/sim/current-view/config/heading-offset-deg"));
+          setprop("/sim/current-view/pitch-offset-deg", getprop("/sim/current-view/config/pitch-offset-deg"));
+        } else {
+          setprop("/sim/current-view/heading-offset-deg", 0);
+          setprop("/sim/current-view/pitch-offset-deg", 0);
+        }
+    }
+   </script>
+  </binding>
+ </key>
+
+ <key n="103">
+  <name>g</name>
+  <desc>Gear Up</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.gearDown(-1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.gearDown(0)</script>
+   </binding>
+  </mod-up>
+ </key>
+
+ <key n="104">
+  <name>h</name>
+  <desc>HUD Master Switch</desc>
+  <binding>
+   <command>nasal</command>
+   <script>aircraft.HUD.cycle_color()</script>
+  </binding>
+ </key>
+
+ <key n="105">
+  <name>i</name>
+  <desc>Normal HUD</desc>
+  <binding>
+   <command>nasal</command>
+   <script>aircraft.HUD.normal_type()</script>
+  </binding>
+ </key>
+
+ <key n="106">
+  <name>j</name>
+  <desc>Decrease spoilers</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.stepSpoilers(-1)</script>
+  </binding>
+ </key>
+
+ <key n="107">
+  <name>k</name>
+  <desc>Increase spoilers</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.stepSpoilers(1)</script>
+  </binding>
+ </key>
+
+ <key n="108">
+  <name>l</name>
+  <desc>Toggle tail-wheel lock</desc>
+  <binding>
+   <command>property-toggle</command>
+   <property>/controls/gear/tailwheel-lock</property>
+  </binding>
+ </key>
+
+ <key n="109">
+  <name>m</name>
+  <desc>Mixture richer</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.adjMixture(1)</script>
+  </binding>
+ </key>
+
+ <key n="110">
+  <name>n</name>
+  <desc>Propeller Finer</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.adjPropeller(1)</script>
+  </binding>
+ </key>
+
+ <key n="112">
+  <name>p</name>
+  <desc>Toggle the pause state of the sim</desc>
+  <binding>
+   <command>pause</command>
+  </binding>
+ </key>
+
+ <key n="115">
+  <name>s</name>
+  <desc>Fire Starter on Selected Engine(s)</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.startEngine(1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.startEngine(0)</script>
+   </binding>
+  </mod-up>
+ </key>
+
+ <nasal>
+  <script>
+    var t_id = 0;
+  </script>
+ </nasal>
+
+ <key n="116">
+  <name>t</name>
+  <desc>Increase warp delta</desc>
+  <binding>
+   <command>property-adjust</command>
+   <property>/sim/time/warp-delta</property>
+   <step type="int">30</step>
+  </binding>
+  <binding>
+   <command>nasal</command>
+   <script>
+    (func(x) {
+        settimer(func {
+            x == t_id or return;
+            gui.popupTip("resetting warp");
+            setprop("/sim/time/warp-delta", 0);
+        }, 1, 1)
+    })(t_id += 1)
+   </script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>t_id += 1</script>
+   </binding>
+  </mod-up>
+ </key>
+
+ <key n="118">
+  <name>v</name>
+  <desc>Scroll through views</desc>
+  <binding>
+   <command>nasal</command>
+   <script>view.stepView(1)</script>
+  </binding>
+ </key>
+
+ <key n="119">
+  <name>w</name>
+  <desc>Increase warp</desc>
+  <binding>
+   <command>property-adjust</command>
+   <property>/sim/time/warp</property>
+   <step type="int">60</step>
+  </binding>
+ </key>
+
+ <key n="120">
+  <name>x</name>
+  <desc>Decrease field of view</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>view.decrease()</script>
+  </binding>
+ </key>
+
+ <key n="122">
+  <name>z</name>
+  <desc>Increase Visibility</desc>
+  <repeatable type="bool">true</repeatable>
+   <binding>
+   <command>nasal</command>
+   <script>environment.increaseVisibility()</script>
+  </binding>
+ </key>
+
+ <key n="123">
+  <name>{</name>
+  <desc>Decrease Magneto on Selected Engine</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.stepMagnetos(-1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.stepMagnetos(0)</script>
+   </binding>
+  </mod-up>
+ </key>
+
+ <key n="125">
+  <name>}</name>
+  <desc>Increase Magneto on Selected Engine</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.stepMagnetos(1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.stepMagnetos(0)</script>
+   </binding>
+  </mod-up>
+ </key>
+
+ <key n="126">
+  <name>~</name>
+  <desc>Select all engines</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.selectAllEngines()</script>
+  </binding>
+ </key>
+
+ <key n="257">
+  <name>F1</name>
+  <mod-shift>
+   <desc>Load flight recorder tape</desc>
+   <binding>
+    <command>dialog-show</command>
+    <dialog-name>flight-recorder-load</dialog-name>
+   </binding>
+  </mod-shift>
+ </key>
+
+ <key n="258">
+  <name>F2</name>
+  <mod-shift>
+   <desc>Save flight recorder tape</desc>
+   <binding>
+    <command>dialog-show</command>
+    <dialog-name>flight-recorder-save</dialog-name>
+   </binding>
+  </mod-shift>
+ </key>
+
+ <key n="259">
+  <name>F3</name>
+  <desc>Capture screen</desc>
+  <binding>
+   <command>screen-capture</command>
+  </binding>
+  <mod-shift>
+   <desc>Load panel</desc>
+   <binding>
+    <command>panel-load</command>
+   </binding>
+  </mod-shift>
+ </key>
+
+ <key n="261">
+  <name>F5</name>
+  <repeatable type="bool">true</repeatable>
+  <mod-shift>
+   <desc>Scroll panel down</desc>
+   <binding>
+    <command>property-adjust</command>
+    <property>/sim/panel/y-offset</property>
+    <step type="int">-5</step>
+   </binding>
+  </mod-shift>
+ </key>
+
+ <key n="262">
+  <name>F6</name>
+  <desc>Toggle Autopilot Heading Mode</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>
+    var prop = "/autopilot/locks/heading";
+    var curr = getprop(prop);
+    if(curr == "true-heading-hold") { setprop(prop, ""); }
+    else { setprop(prop, "true-heading-hold"); }
+   </script>
+  </binding>
+  <mod-shift>
+   <desc>Scroll panel up</desc>
+   <binding>
+    <command>property-adjust</command>
+    <property>/sim/panel/y-offset</property>
+    <step type="int">5</step>
+   </binding>
+  </mod-shift>
+ </key>
+
+ <key n="263">
+  <name>F7</name>
+  <repeatable type="bool">true</repeatable>
+  <mod-shift>
+   <desc>Scroll panel left</desc>
+   <binding>
+    <command>property-adjust</command>
+    <property>/sim/panel/x-offset</property>
+    <step type="int">-5</step>
+   </binding>
+  </mod-shift>
+ </key>
+
+ <key n="264">
+  <name>F8</name>
+  <desc></desc>
+  <repeatable type="bool">true</repeatable>
+  <mod-shift>
+   <desc>Scroll panel right</desc>
+   <binding>
+    <command>property-adjust</command>
+    <property>/sim/panel/x-offset</property>
+    <step type="int">5</step>
+   </binding>
+  </mod-shift>
+ </key>
+
+ <key n="266">
+  <name>F10</name>
+  <desc>Toggle menubar</desc>
+  <binding>
+   <command>property-toggle</command>
+   <property>/sim/menubar/visibility</property>
+  </binding>
+  <mod-shift>
+    <desc>Toggle fullscreen</desc>
+    <binding>
+      <command>toggle-fullscreen</command>
+    </binding>
+<!--
+   <desc>Switch to next GUI style</desc>
+   <binding>
+    <command>nasal</command>
+    <script>gui.nextStyle()</script>
+   </binding>
+-->
+  </mod-shift>
+ </key>
+
+ <key n="267">
+  <name>F11</name>
+  <desc>Pop up autopilot dialog</desc>
+  <binding>
+   <command>dialog-show</command>
+   <dialog-name>autopilot</dialog-name>
+  </binding>
+ </key>
+
+ <key n="268">
+  <name>F12</name>
+  <desc>Pop up radio settings dialog</desc>
+  <binding>
+   <command>dialog-show</command>
+   <dialog-name>radios</dialog-name>
+  </binding>
+ </key>
+
+ <key n="269">
+  <name>Enter</name>
+  <desc>Move rudder right</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>property-adjust</command>
+   <property>/controls/flight/rudder</property>
+   <step type="double">0.05</step>
+  </binding>
+ </key>
+
+ <key n="309">
+  <name>Keypad 5</name>
+  <desc>Center aileron, elevator, and rudder</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.centerFlightControls()</script>
+  </binding>
+ </key>
+
+ <key n="356">
+  <name>Left</name>
+  <desc>Move aileron left (or adjust AP heading.)</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>
+     if (getprop("/sim/freeze/replay-state"))
+       controls.replaySkip(-5);
+     else
+       controls.incAileron(-0.05, -1.0)
+   </script>
+  </binding>
+  <mod-shift>
+   <desc>Look left</desc>
+   <binding>
+    <command>property-assign</command>
+    <property>/sim/current-view/goal-heading-offset-deg</property>
+    <property>/sim/view/config/left-direction-deg</property>
+   </binding>
+  </mod-shift>
+ </key>
+
+ <key n="357">
+  <name>Up</name>
+  <desc>Elevator down or decrease autopilot altitude</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>
+     if (getprop("/sim/freeze/replay-state"))
+       controls.speedup(1);
+     else
+       controls.incElevator(0.05, -100)
+   </script>
+  </binding>
+  <mod-shift>
+   <desc>Look forward</desc>
+   <binding>
+    <command>property-assign</command>
+    <property>/sim/current-view/goal-heading-offset-deg</property>
+    <property>/sim/view/config/front-direction-deg</property>
+   </binding>
+  </mod-shift>
+ </key>
+
+ <key n="358">
+  <name>Right</name>
+  <desc>Move aileron right (or adjust AP heading.)</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>
+     if (getprop("/sim/freeze/replay-state"))
+       controls.replaySkip(5);
+     else
+       controls.incAileron(0.05, 1.0)
+   </script>
+   <step type="double">0.05</step>
+  </binding>
+  <mod-shift>
+   <desc>Look right</desc>
+   <binding>
+    <command>property-assign</command>
+    <property>/sim/current-view/goal-heading-offset-deg</property>
+    <property>/sim/view/config/right-direction-deg</property>
+   </binding>
+  </mod-shift>
+ </key>
+
+ <key n="359">
+  <name>Down</name>
+  <desc>Elevator up or increase autopilot altitude</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>
+     if (getprop("/sim/freeze/replay-state"))
+       controls.speedup(-1);
+     else
+       controls.incElevator(-0.05, 100)
+   </script>
+  </binding>
+  <mod-shift>
+   <desc>Look backwards</desc>
+   <binding>
+    <command>property-assign</command>
+    <property>/sim/current-view/goal-heading-offset-deg</property>
+    <property>/sim/view/config/back-direction-deg</property>
+   </binding>
+  </mod-shift>
+ </key>
+
+ <key n="360">
+  <name>PageUp</name>
+  <desc>Increase throttle or autopilot autothrottle</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>
+     controls.incThrottle(0.01, 1.0)
+   </script>
+  </binding>
+  <mod-shift>
+   <desc>Look front right</desc>
+   <binding>
+    <command>property-assign</command>
+    <property>/sim/current-view/goal-heading-offset-deg</property>
+    <property>/sim/view/config/front-right-direction-deg</property>
+   </binding>
+  </mod-shift>
+ </key>
+
+ <key n="361">
+  <name>PageDown</name>
+  <desc>Decrease throttle or autopilot autothrottle</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>
+     controls.incThrottle(-0.01, -1.0)
+   </script>
+  </binding>
+  <mod-shift>
+   <desc>Look back right</desc>
+   <binding>
+    <command>property-assign</command>
+    <property>/sim/current-view/goal-heading-offset-deg</property>
+    <property>/sim/view/config/back-right-direction-deg</property>
+   </binding>
+  </mod-shift>
+ </key>
+
+ <key n="362">
+  <name>Home</name>
+  <desc>Increase elevator trim</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>property-adjust</command>
+   <property>/controls/flight/elevator-trim</property>
+   <step type="double">0.001</step>
+  </binding>
+  <mod-shift>
+   <desc>Look front left</desc>
+   <binding>
+    <command>property-assign</command>
+    <property>/sim/current-view/goal-heading-offset-deg</property>
+    <property>/sim/view/config/front-left-direction-deg</property>
+   </binding>
+  </mod-shift>
+ </key>
+
+ <key n="363">
+  <name>End</name>
+  <desc>Decrease elevator trim</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>property-adjust</command>
+   <property>/controls/flight/elevator-trim</property>
+   <step type="double">-0.001</step>
+  </binding>
+  <mod-shift>
+   <desc>Look back left</desc>
+   <binding>
+    <command>property-assign</command>
+    <property>/sim/current-view/goal-heading-offset-deg</property>
+    <property>/sim/view/config/back-left-direction-deg</property>
+   </binding>
+  </mod-shift>
+ </key>
+
+ <key n="364">
+  <name>Insert</name>
+  <desc>Move rudder left</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>property-adjust</command>
+   <property>/controls/flight/rudder</property>
+   <step type="double">-0.05</step>
+  </binding>
+ </key>
+
+</PropertyList>
+
+<!-- end of keyboard.xml -->

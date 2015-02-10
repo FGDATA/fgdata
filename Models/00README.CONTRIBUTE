@@ -1,0 +1,31 @@
+The following classes of static geometries and therefore the corresponding
+subdirectories are being maintained via the FlightGear Scenery Model
+Repository (http://scenemodels.flightgear.org/models.php):
+
+  Agriculture/
+  Aircraft/
+  Airport/
+  Boundaries/
+  Commercial/
+  Communications/
+  Industrial/
+  Maritime/Civilian/
+  Maritime/Military/
+  Maritime/Misc/
+  Military/
+  Misc/
+  Power/
+  Residential/
+  Sport/
+  Transport/
+  Trees/
+
+Please try to comply with this structure and submit your models according to
+the following recommendations:
+
+  http://scenemodels.flightgear.org/contribute.php
+
+.... instead of directly committing to CVS. This makes it a lot easier to
+keep CVS in sync with The Repository.
+
+Your friendly FlightGear Scenery Model maintainers.

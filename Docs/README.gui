@@ -1,0 +1,681 @@
+FlightGear GUI Mini-HOWTO
+
+David Megginson
+Started: 2003-01-20
+Last revised: 2003-01-20
+
+
+FlightGear creates its drop-down menubar and dialog boxes from XML
+configuration files under $FG_ROOT/gui.  This document gives a quick
+explanation of how to create or modify the menubar and dialogs.  The
+toolkit for the FlightGear GUI is PUI, which is part of plib.
+
+All of the XML files use the standard FlightGear PropertyList format.
+
+
+MENUBAR
+-------
+
+FlightGear reads the configuration for its menubar from
+$FG_ROOT/gui/menubar.xml.  The file consists of a series of top-level
+elements named "menu", each of which defines on of the drop-down
+menus, from left to right.  Each menu contains a series of items,
+representing the actual items a user can select from the menu, and
+each item has a series of bindings that FlightGear will activate when
+the user selects the item.
+
+Here's a simplified grammar:
+
+  [menubar] : menu*
+
+  menu : label, item*
+
+  item : label, enabled, binding*
+
+The bindings are standard FlightGear bindings, the same as the ones
+used for the keyboard, mouse, joysticks, and the instrument panel.
+Any commands allowed in those bindings are allowed here as well.
+
+Here's an example of a simple menubar with a "File" drop-down menu and
+a single "Quit" item:
+
+  <PropertyList>
+
+   <menu>
+    <label>File</label>
+ 
+    <item>
+     <label>Quit</label>
+     <binding>
+      <command>exit</command>
+     </binding>
+    </item>
+
+  </PropertyList>
+
+PUI menus do not allow advanced features like submenus or checkmarks.
+The most common command to include in a menu item binding is the
+'dialog-show' command, which will open a user-defined dialog box as
+described in the next section.
+
+
+DIALOGS
+-------
+
+The configuration files for XML dialogs use a nested structure to set
+up dialog boxes.  The top-level always describes a dialog box, and the
+lower levels describe the groups and widgets that make it up.  Here is
+a simple, "hello world" dialog:
+
+  <PropertyList>
+
+   <name>hello</name>
+
+   <width>150</width>
+   <height>100</height>
+   <modal>false</modal>
+   <draggable>true</draggable>
+   <resizable>true</resizable>
+
+   <text>
+    <x>10</x>
+    <y>50</y>
+    <label>Hello, world</label>
+    <color>
+     <red>1.0</red>
+     <green>0.0</green>
+     <blue>0.0</blue>
+    </color>
+   </text>
+
+   <button>
+    <x>40</x>
+    <y>10</y>
+    <legend>Close</legend>
+    <binding>
+     <command>dialog-close</command>
+    </binding>
+   </button>
+
+  </PropertyList>
+
+The dialog contains two sub-objects: a text field and a button.  The
+button contains one binding, which closes the active dialog when the
+user clicks on the button.
+
+Coordinates are pseudo-pixels.  The screen is always assumed to be
+1024x768, no matter what the actual resolution is.  The origin is the
+bottom left corner of the screen (or parent dialog or group); x goes
+from left to right, and y goes from bottom to top.
+
+All objects, including the top-level dialog, accept the following
+properties, though they will ignore any that are not relevant:
+
+ x - the X position of the bottom left corner of the object, in
+   pseudo-pixels.  The default is to center the dialog.
+
+ y - the Y position of the bottom left corner of the object, in
+   pseudo-pixels.  The default is to center the dialog.
+
+ width - the width of the object, in pseudo-pixels.  The default is
+   the width of the parent container.
+
+ height - the height of the object, in pseudo-pixels.  The default is
+   the width of the parent container.
+
+ border - the border thickness, in pseudo-pixels.  The default is 2.
+
+ color - a subgroup to specify the dialogs color:
+  red   - specify the red color component of the color scheme.
+  green - specify the green color component of the color scheme.
+  blue  - specify the blue color component of the color scheme.
+  alpha - specify the alpha color component of the color scheme.
+
+ font - a subgroup to specify a specific font type
+  name - the name of the font (excluding it's .txf extension)
+  size - size of the font
+  slant -  the slant of the font (in pseudo-pixels)
+
+ legend - the text legend to display in the object.
+
+ label - the text label to display near the object.
+
+ property - the name of the FlightGear property whose value will
+   be displayed in the object (and possibly modified through it).
+
+ binding - a FlightGear command binding that will be fired when the
+   user activates this object (more than one allowed).
+
+ keynum - the key code of a key that can be used to trigger the
+   widget bindings via keyboard (e.g. <keynum>97</keynum> for
+   the "a" key.
+
+ key - like "keynum", but takes a character ("a", "A", "Shift-a",
+   "Shift-A", "Ctrl-a", "%", etc.), or symbolic key name ("Tab",
+   "Return" = "Enter", "Esc" = "Escape", "Space", "&amp;" = "and",
+   "&lt;", "&gt;", "F1" -- "F12", "Left", "Up", "Right", "Down",
+   "PageUp", "PageDn", "Home", "End", "Insert"). Note that you
+   can't use "<", ">", and "&" directly.
+
+ default - true if this is the default object for when the user
+   presses the [RETURN] key.
+
+ visible - if set to false, hides the whole widget that it is used
+   in, along with its children. There's no empty space reserved
+   for such widgets. The "visible" property can also be used to hide
+   other XML groups from the layouter.
+
+Objects may appear nested within the top-level dialog or a "group"
+or a "frame" object.  Here are all the object types allowed, with their
+special properties:
+
+
+dialog
+------
+
+The top-level dialog box; the name does not actually appear in the
+file, since the root element is named PropertyList.
+
+  name - (REQUIRED) the unique name of the dialog for use with the
+    "dialog-show" command.
+
+  modal - true if the dialog is modal (it blocks the rest of the
+    program), false otherwise.  The default is false.
+
+  draggable - false if the dialog is not draggable. The default is true.
+
+  resizable - false if the dialog is not resizable. The default is false.
+
+  nasal - Nasal definition block
+    open - Nasal script to be executed on dialog open
+    close - Nasal script to be executed on dialog close
+
+All Nasal code runs in a dialog namespace. Nasal bindings can
+directly access variables and functions defined in an <open> block.
+settimer() and setlistener() functions have to be removed manually
+in the <close> block if they shouldn't remain active.
+
+
+Example:
+
+<PropertyList>
+
+ <name>sample</name>
+ <width>500</width>
+ <height>210</height>
+ <modal>false</modal>
+
+ <text>
+  ...
+ </text>
+
+ <button>
+  ...
+ </button>
+
+</PropertyList>
+
+
+group and frame
+---------------
+
+A group of subobjects.  This object does not draw anything on the
+screen, but all of its children specify their coordinates relative to
+the group; using groups makes it easy to move parts of a dialog
+around.
+
+A frame is a visual representation of a group and has  a border and an
+adjustable background color.
+
+Example:
+
+  <group>
+   <x>0</x>
+   <y>50</y>
+
+   <text>
+    ...
+   </text>
+
+   <input>
+    ...
+   </input>
+
+   <button>
+    ...
+   </button>
+
+  </group>
+
+
+input
+-----
+
+A simple editable text field.
+
+Example:
+
+  <input>
+   <x>10</x>
+   <y>60</y>
+   <width>200</width>
+   <height>25</height>
+   <label>sea-level temperature (degC)</label>
+   <property>/environment/temperature-sea-level-degc</property>
+  </input>
+
+
+text
+----
+
+A non-editable text label.
+
+Example:
+
+  <text>
+   <x>10</x>
+   <y>200</y>
+   <label>Heading</label>
+  </text>
+
+  <text>
+   <x>10</x>
+   <y>200</y>
+   <label>-9.9999</label> <!-- placeholder for width -->
+   <format>%-0.4f m</format>
+   <property>/foo/altitude</property>
+  </text>
+
+
+checkbox
+--------
+
+A checkbox, useful for linking to boolean properties.
+
+Example:
+
+  <checkbox>
+   <x>150</x>
+   <y>200</y>
+   <width>12</width>
+   <height>12</height>
+   <property>/autopilot/locks/heading</property>
+  </checkbox>
+
+
+
+button
+------
+
+A push button, useful for firing command bindings.
+
+  one-shot - true if the button should pop up again after it is
+    pushed, false otherwise.  The default is true.
+
+  <button>
+   <x>0</x>
+   <y>0</y>
+   <legend>OK</legend>
+   <binding>
+    <command>dialog-apply</command>
+   </binding>
+   <binding>
+    <command>dialog-close</command>
+   </binding>
+   <default>true</default>
+  </button>
+
+
+
+combo
+-----
+
+A pop-up list of selections.
+
+  value - one of the selections available for the combo.  There may be
+  any number of "value" fields.
+
+Example:
+
+  <combo>
+   <x>10</x>
+   <y>50</y>
+   <width>200</width>
+   <height>25</height>
+   <property>/environment/clouds/layer[0]/type</property>
+   <value>clear</value>
+   <value>mostly-sunny</value>
+   <value>mostly-cloudy</value>
+   <value>overcast</value>
+   <value>cirrus</value>
+  </combo>
+
+
+
+list
+----
+
+like "combo", but displays all values in a scrollable list box with
+slider on the right side. Updates the <property> to the selected
+entry. On <dialog-update> re-scans the <value> nodes and updates
+the list.
+
+
+
+airport-list
+------------
+
+like "list", but fills the list automatically with all airports known
+to FlightGear. Calls bindings on airport selection and returns the
+selected entry in <property> on dialog-apply. Interprets <property>
+as search term on dialog-update.
+
+
+
+property-list
+-------------
+
+like "list", but shows a list of properties from the global property
+tree. The widget handles navigation in the property tree. It calls its
+bindings on property selection and returns the path of the selected
+property in <property> on dialog-apply. It's up to the caller to check
+if the path belongs to a dir node or a value node. The widget shows
+the contents of the dir property given in <property> on dialog-apply.
+It does *not* handle setting of property values! Clicking on some
+entries with the "control" or "shift" key pressed has a special meaning:
+
+Ctrl +
+  "."     ->  toggle verbose mode (shows flags, listeners, dir-values)
+  ".."    ->  go to root node
+  (bool)  ->  toggle bool value
+
+Shift +
+  "."     ->  dump contents of that tree level to the terminal
+
+The flags printed after the node type have the following meaning:
+
+  r       ->  read protected
+  w       ->  write protected
+  R       ->  trace read operations    (in the terminal window)
+  W       ->  trace write operations
+  A       ->  archive bit set
+  U       ->  user archive bit set
+  P       ->  preserved bit set (value is preserved on sim-reset)
+  T       ->  property is "tied"
+
+  Ln      ->  number of listeners attached to this node
+
+
+
+select
+------
+
+A box with arrow buttons that cycle through a list of values.
+
+Example:
+
+  <select>
+   <x>10</x>
+   <y>50</y>
+   <width>200</width>
+   <height>25</height>
+   <property>/sim/aircraft</property>
+   <value>bo105</value>
+   <value>ufo</value>
+  </select>
+
+
+
+slider
+------
+
+A horizontal or vertical slider for setting a value.
+
+  vertical - true if the slider should be vertical, false if it should
+    be horizontal.  The default is false.
+
+  min - the minimum value for the slider.  The default is 0.0.
+
+  max - the maximum value for the slider.  The default is 1.0.
+
+  step - set to non-null if slider should move in steps.  The default is 0.0 (off).
+
+  pagestep - set to non-null to enable page-stepping.  The default is 0.0 (off).
+
+  fraction - size of the slider handle. Range: 0..1.  The default is 0.0 (minimum).
+
+Example:
+
+  <slider>
+   <x>10</x>
+   <y>50</y>
+   <width>200</width>
+   <property>/environment/visibility-m</property>
+   <min>5</min>
+   <max>50000</max>
+  </slider>
+
+
+dial
+----
+
+A circular dial for choosing a direction.
+
+  wrap - true if the dial should wrap around, false otherwise.  The
+    default is true.
+
+  min - the minimum value for the dial.  The default is 0.0.
+
+  max - the maximum value for the dial.  The default is 1.0.
+
+Example:
+
+  <dial>
+   <x>10</x>
+   <y>50</y>
+   <width>20</width>
+   <property>/environment/wind-from-direction-deg</property>
+   <min>0</min>
+   <max>360</max>
+  </dial>
+
+
+textbox
+-------
+
+The text will be retrieved/buffered from/within a specified
+property tree, like:
+
+<textbox>
+    <!-- position -->
+    <x>100</x>
+    <y>100</y>
+
+    <!-- dimensions -->
+    <width>200</width>
+    <height>400</height>
+
+    <property>/gui/path-to-text-node/contents</property>
+
+    <slider>15</slider> <!--width for slider -->
+    <wrap>false</wrap> <!-- don't wrap text; default: true -->
+    <top-line>0</top-line <!-- line to show at top, -ve numbers: show last line -->
+
+    <editable>true</editable> <!-- if the puLargeInput is supposed to be editable -->
+</textbox>
+
+
+hrule/vrule
+-----------
+
+Draws a horizontal/vertical line that, by default, expands to full width/height.
+Its thickness can be set with <pref-height>/<pref-width>.
+
+  <hrule>
+    <color>
+      <red>1.0</red>
+      <green>0.0</green>
+      <blue>0.0</blue>
+    </color>
+    <pref-height>2</pref-height>
+  </hrule>
+
+
+
+
+GLOBAL SETTINGS ("THEMES")
+--------------------------
+
+FlightGear reads GUI style information from /sim/gui/, which is by default
+loaded from file $FG_ROOT/gui/style.xml.  This file contains one <font> and
+one <colors> group:
+
+
+global font settings
+--------------------
+
+  <sim>
+    <gui>
+      <font>
+        <name type="string">Helvetica.txf</name>
+        <size type="float">15</size>
+        <slant type="float">0</slant>
+      </font>
+    </gui>
+  <sim>
+
+<name> can either be the name of a built-in bitmap font (one of:
+"FIXED_8x13", "FIXED_9x15", "TIMES_10", "TIMES_24", "HELVETICA_10",
+"HELVETICA_12", "HELVETICA_14", "HELVETICA_18", "SANS_12B"), or the
+name of a texture font in the $FG_FONT directory. $FG_FONT is by
+default set to $FG_ROOT/Fonts/. Properties <size> and <slant> are
+only applied to texture fonts, and otherwise ignored.
+
+
+global color settings
+---------------------
+
+These define the color of the splash screen font, and the color of the
+GUI elements. All colors are in /sim/gui/colors/ and follow the same
+pattern:
+
+  <sim>
+    <gui>
+      <colors>
+        <!-- splash screen font color; ignores <alpha> value -->
+        <splash>
+          <red type="float">1.0</red>
+          <green type="float">0.9</green>
+          <blue type="float">0.0</blue>
+        </splash>
+      </colors>
+    </gui>
+  </sim>
+
+
+
+As listed above, FlightGear implements several GUI elements:
+
+(1)    "dialog"      "group"         "frame"       "hrule"      "vrule"
+       "list"        "airport-list"  "input"       "text"       "checkbox"
+       "radio"       "button"        "combo"       "slider"     "dial"
+       "textbox"     "select"
+
+
+The underlying plib library uses six colors for each GUI element.
+These are:
+
+(2)    "background"  "foreground"    "highlight"
+       "label"       "legend"        "misc"
+
+
+"button", for example, uses the first four colors from (2), while it
+ignores "legend" and "misc" color. "text" only uses "label", and ignores
+the rest. In some cases the use of colors isn't obvious and you have to
+try or look up the plib sources to be sure. GUI colors can be defined
+for each of the categories from (1) and (2), and for combinations of
+them:
+
+(3)    "button-legend"   "input-misc"    etc.
+
+
+FlightGear has default colors for (2) built-in. Let's call them (0).
+And this is how colors for individual GUI elements are determined,
+if, for example, a button is to be drawn:
+
+  For the button's background:
+  a. read the hard-coded default "background" color from (0) as base
+  b. merge the global "background" color from (2) in (if defined)
+  c. merge a global color "button-background" from (3) in (if defined)
+  d. merge a specific <color> from the dialog's XML file in (if defined)
+
+  Repeat the four steps for the button's "foreground", "highlight",
+  etc. color.
+
+
+
+
+If you write a style file, you'll most likely start with the colors
+from (2):
+
+ <sim>
+   <gui>
+     <colors>
+       <background>
+         <red type="float">0.6</red>
+         <green type="float">0.0</green>
+         <blue type="float">0.0</blue>
+         <alpha type="float">1.0</alpha>
+       </background>
+
+       <foreground>
+       ...
+
+This makes all dialogs dark red. But you don't, for example, want buttons
+to be red, but yellow. So you define another color for buttons:
+
+       <button>
+         <red type="float">1.0</red>
+         <green type="float">0.9</green>
+         <blue type="float">0.0</blue>
+         <alpha type="float">1.0</alpha>
+       </button>
+       ...
+
+This sets all of a button's six colors (2) to some shades of red. plib
+does this automatically. The lower and right border ("foreground") will
+be darker, the upper and left border will be lighter ("highlight").
+If you aren't happy with plib's choice, you can set each of the colors
+explicitly. Let's say, we want the text on the button blue (3):
+
+       <button-legend>
+         <red type="float">0.3</red>
+         <green type="float">0.3</green>
+         <blue type="float">1.0</blue>
+         <alpha type="float">1.0</alpha>
+       </button-legend>
+       ...
+
+To set the cursor color from input fields, you'd define "input-misc",
+etc.
+
+
+You can change colors and font at runtime. Just open the property
+browser, go to /sim/gui/colors and change whatever you like. The
+new color will only take effect, though, if you re-init the GUI.
+There's a menu entry for that, and you can define a key binding
+for it:
+
+  <key n="99">
+    <name>c</name>
+    <desc>Re-init GUI</desc>
+    <binding>
+      <command>reinit</command>
+      <subsystem>gui</subsystem>
+    </binding>
+  </key>
+
+Note that this will currently close all open dialogs!
+
+
+__end__

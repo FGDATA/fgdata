@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<PropertyList>
+
+  <path>wheels.ac</path>
+
+  Rotation des roues lors du roulage -->
+  <animation>
+    <type>spin</type>
+    <object-name>roueA</object-name>
+    <property>velocities/true-airspeed-kt</property>
+	<condition>
+		<less-than>
+			<property>velocities/true-airspeed-kt</property>
+			<value>71</value>
+		</less-than>
+	</condition>
+    <factor> 30 </factor>
+    <center>
+      <x-m> -5.234 </x-m>
+      <y-m>  0.000 </y-m>
+      <z-m> -1.094 </z-m>
+    </center>
+    <axis>
+      <x>  0 </x>
+      <y> -1 </y>
+      <z>  0 </z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>spin</type>
+    <object-name>roueG</object-name>
+    <property>velocities/true-airspeed-kt</property>
+	<condition>
+		<less-than>
+			<property>velocities/true-airspeed-kt</property>
+			<value>71</value>
+		</less-than>
+	</condition>
+    <factor> 30 </factor>
+    <center>
+      <x-m> -1.248 </x-m>
+      <y-m> -1.784 </y-m>
+      <z-m> -1.068 </z-m>
+    </center>
+    <axis>
+      <x>  0 </x>
+      <y> -1 </y>
+      <z>  0 </z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>spin</type>
+    <object-name>roueD</object-name>
+    <property>velocities/true-airspeed-kt</property>
+    <condition>
+		<less-than>
+			<property>velocities/true-airspeed-kt</property>
+			<value>71</value>
+		</less-than>
+	</condition>
+	<factor> 30 </factor>
+    <center>
+      <x-m> -1.248 </x-m>
+      <y-m>  1.784 </y-m>
+      <z-m> -1.068 </z-m>
+    </center>
+    <axis>
+      <x>  0 </x>
+      <y> -1 </y>
+      <z>  0 </z>
+    </axis>
+  </animation>
+
+</PropertyList>
+

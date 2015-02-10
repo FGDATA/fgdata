@@ -1,0 +1,43 @@
+<?xml version = '1.0' encoding = 'UTF-8' ?>
+<PropertyList>
+  <params>
+    <airspeed>instrumentation/airspeed-indicator/indicated-speed-kt</airspeed>
+  </params>
+
+  <path>Gauge60mm.ac</path>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>Needle</object-name>
+    <property alias="../../params/airspeed"/>
+    <interpolation>
+      <entry>
+        <ind>0</ind>
+        <dep>-120</dep>
+      </entry>
+      <entry>
+        <ind>16.2</ind>
+        <dep>-135</dep>
+      </entry>
+      <entry>
+        <ind>21.6</ind>
+        <dep>-150</dep>
+      </entry>
+      <entry>
+        <ind>75.6</ind>
+        <dep>-420</dep>
+      </entry>
+    </interpolation>
+    <axis>
+      <x>1</x>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>material</type>
+    <object-name>Face</object-name>
+    <texture-prop>instrumentation/airspeed-indicator/texture</texture-prop>
+  </animation>
+
+</PropertyList>
+

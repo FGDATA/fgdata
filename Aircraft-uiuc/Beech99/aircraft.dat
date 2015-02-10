@@ -1,0 +1,65 @@
+# Jeff Scott
+# Beech 99, low cruise configuration
+# small twin turboprop commuter airplane, data from:
+#       Roskam, Jan. Airplane Flight Dynamics and Automatic Flight
+#         Controls, Part I. Lawrence KS: DARcorporation, 1995, 
+#         pg 508-510
+# 03-23-2000    file creation
+
+init Dz_cg       2.5    # [ft]
+
+geometry bw     46      # [ft]
+geometry cbar    6.5    # [ft]
+geometry Sw    280      # [ft^2]
+
+controlSurface de 20 20 # [deg]  guess for now
+controlSurface da 20 20 # [deg]  guess for now
+controlSurface dr 20 20 # [deg]  guess for now
+
+mass Weight    7000     # [lb]
+mass I_xx     10085     # [slug-ft^2]
+mass I_yy     15148     # [slug-ft^2]
+mass I_zz     23046     # [slug-ft^2]
+mass I_xz      1600     # [slug-ft^2]
+
+
+# Roskam: CTx=0.162 (SL conditions) --> 1550 lb
+# aircraft specs: two engines of 553 kW each
+#                               ~2300 lb static thrust each
+engine simpleSingle 2300 # [lb]
+
+
+CL CLo      0.201       # []
+CL CL_a     5.48        # [/rad]
+CL CL_adot  2.5         # [/rad]
+CL CL_q     8.1         # [/rad]
+CL CL_de    0.6         # [/rad]
+
+CD CDo      0.027       # []
+#CD CDK                  # []
+CD CD_a     0.131       # [/rad]
+CD CD_de    0.0         # [/rad]
+
+Cm Cmo      0.05        # []
+Cm Cm_a    -1.89        # [/rad]
+Cm Cm_adot -9.1         # [/rad]
+Cm Cm_q   -34.0         # [/rad]
+Cm Cm_de   -2.0         # [/rad]
+
+CY CY_beta -0.59        # [/rad]
+CY CY_p    -0.19        # [/rad]
+CY CY_r     0.39        # [/rad]
+CY CY_da    0.0         # [/rad]    sign reversed
+CY CY_dr    0.148       # [/rad]
+
+Cl Cl_beta -0.13        # [/rad]
+Cl Cl_p    -0.5         # [/rad]
+Cl Cl_r     0.14        # [/rad]
+Cl Cl_da   -0.156       # [/rad]    sign reversed
+Cl Cl_dr    0.0109      # [/rad]
+
+Cn Cn_beta  0.08        # [/rad]
+Cn Cn_p     0.0109      # [/rad]
+Cn Cn_r    -0.197       # [/rad]
+Cn Cn_da    0.0012      # [/rad]    sign reversed
+Cn Cn_dr   -0.0772      # [/rad]

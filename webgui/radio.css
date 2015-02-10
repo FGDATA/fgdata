@@ -1,0 +1,30 @@
+body {
+	background-color: #c0c0c0;	
+}
+
+#header {
+	background-color: #303030;
+	color: #e0e0e0;
+}
+
+#header h3 {
+	padding-left: 0.3em;
+	border-bottom: 1px solid #808080;
+}
+
+input.frq {
+	background-color: #202020;
+	color: red;
+	font-family: Monospace;
+	font-weight: bold;
+	padding: 0.2em;
+}
+
+table#frequencies {
+	border: 4px groove;
+	background-color: #404040;
+}
+
+table#frequencies tr td {
+	padding: 0.2em;
+}

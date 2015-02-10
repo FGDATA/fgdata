@@ -1,0 +1,179 @@
+# Unit tests helpers
+# TODO generalize (eg. move comparison operators somewhere global)
+
+var eq = func(lhs, rhs)
+{
+  if( typeof(lhs) != typeof(rhs) )
+    return 0;
+  
+  if( typeof(lhs) == "scalar" )
+    return lhs == rhs;
+  if( typeof(lhs) == "vector" )
+  {
+    if( size(lhs) != size(rhs) )
+      return 0;
+    
+    forindex(var i; lhs)
+    {
+      if( !eq(lhs[i], rhs[i]) )
+        return 0;
+    }
+    
+    return 1;
+  }
+  
+  return lhs == rhs;
+}
+
+var print_fail = func(msg)
+{
+  var c = caller(1); # [namespace, func, file, line]
+  die(c[2] ~ "(" ~ c[3] ~ "): error: " ~ msg);
+}
+
+var REQUIRE_EQUAL = func(lhs, rhs)
+{
+  if( !eq(lhs, rhs) )
+    print_fail( "check failed [" ~ debug.string(lhs, 0)
+                                 ~ " != "
+                                 ~ debug.string(rhs, 0)
+                           ~ "]" );
+}
+
+# @param fn Function for testing
+# @param ex (Part of) the expection thrown (with die())
+var REQUIRE_THROW = func(fn, ex)
+{
+  call(fn, nil, var err = []);
+  
+  var err_msg = "exception " ~ ex ~ " expected";
+
+  if( size(err) )
+  {
+    if( err[0].starts_with(ex ~ ": ") )
+      return;
+    
+    err_msg ~= " (got '" ~ err[0] ~ "')";
+  }
+
+  print_fail(err_msg);
+}
+
+var x = std.Vector.new();
+REQUIRE_EQUAL(x.size(), 0);
+
+x = std.Vector.new(["x", "y"]);
+REQUIRE_EQUAL(x.vector, ["x", "y"]);
+REQUIRE_EQUAL(x.size(), 2);
+x.clear();
+REQUIRE_EQUAL(x.vector, []);
+REQUIRE_EQUAL(x.size(), 0);
+
+# append():
+x.append("a");
+x.append("b");
+x.append("c");
+REQUIRE_EQUAL(x.vector, ["a", "b", "c"]);
+REQUIRE_EQUAL(x.size(), 3);
+
+# extend():
+x.extend(["d", "e"]);
+REQUIRE_EQUAL(x.vector, ["a", "b", "c", "d", "e"]);
+REQUIRE_EQUAL(x.size(), 5);
+
+# insert():
+x.insert(2, "cc");
+REQUIRE_EQUAL(x.vector, ["a", "b", "cc", "c", "d", "e"]);
+REQUIRE_EQUAL(x.size(), 6);
+
+# pop():
+REQUIRE_EQUAL(x.pop(3), "c");
+REQUIRE_EQUAL(x.vector, ["a", "b", "cc", "d", "e"]);
+REQUIRE_EQUAL(x.size(), 5);
+
+REQUIRE_EQUAL(x.pop(), "e");
+REQUIRE_EQUAL(x.vector, ["a", "b", "cc", "d"]);
+REQUIRE_EQUAL(x.size(), 4);
+
+# clear():
+x.clear();
+REQUIRE_EQUAL(x.vector, []);
+REQUIRE_EQUAL(x.size(), 0);
+
+# extend():
+x.extend(["a", "b", "c", "d"]);
+REQUIRE_EQUAL(x.vector, ["a", "b", "c", "d"]);
+REQUIRE_EQUAL(x.size(), 4);
+
+# index():
+REQUIRE_EQUAL(x.index("c"), 2);
+
+# contains():
+REQUIRE_EQUAL(x.contains("c"), 1);
+REQUIRE_EQUAL(x.contains("e"), 0);
+
+# remove():
+x.remove("c");
+REQUIRE_EQUAL(x.vector, ["a", "b", "d"]);
+REQUIRE_EQUAL(x.size(), 3);
+
+# insert():
+x.insert(0, "f");
+REQUIRE_EQUAL(x.vector, ["f", "a", "b", "d"]);
+REQUIRE_EQUAL(x.size(), 4);
+x.remove("f");
+REQUIRE_EQUAL(x.vector, ["a", "b", "d"]);
+
+x.insert(1, "f");
+REQUIRE_EQUAL(x.vector, ["a", "f", "b", "d"]);
+REQUIRE_EQUAL(x.size(), 4);
+x.remove("f");
+REQUIRE_EQUAL(x.vector, ["a", "b", "d"]);
+
+x.insert(2, "f");
+REQUIRE_EQUAL(x.vector, ["a", "b", "f", "d"]);
+x.remove("f");
+REQUIRE_EQUAL(x.vector, ["a", "b", "d"]);
+
+x.insert(3, "g");
+REQUIRE_EQUAL(x.vector, ["a", "b", "d", "g"]);
+x.remove("g");
+
+x.insert(4, "g");
+REQUIRE_EQUAL(x.vector, ["a", "b", "d", "g"]);
+x.remove("g");
+
+x.insert(-1, "h");
+REQUIRE_EQUAL(x.vector, ["a", "b", "h", "d"]);
+x.remove("h");
+
+x.insert(-2, "h");
+REQUIRE_EQUAL(x.vector, ["a", "h", "b", "d"]);
+x.remove("h");
+
+x.insert(-3, "h");
+REQUIRE_EQUAL(x.vector, ["h", "a", "b", "d"]);
+x.remove("h");
+
+x.insert(-4, "h");
+REQUIRE_EQUAL(x.vector, ["h", "a", "b", "d"]);
+x.remove("h");
+
+# pop():
+REQUIRE_EQUAL(x.pop(-1), "d");
+REQUIRE_EQUAL(x.vector, ["a", "b"]);
+x.append("d");
+
+REQUIRE_EQUAL(x.pop(-2), "b");
+REQUIRE_EQUAL(x.vector, ["a", "d"]);
+x.insert(1, "b");
+
+REQUIRE_EQUAL(x.pop(-3), "a");
+REQUIRE_EQUAL(x.vector, ["b", "d"]);
+x.insert(0, "a");
+REQUIRE_EQUAL(x.vector, ["a", "b", "d"]);
+
+# Exceptions (should fail)
+REQUIRE_THROW(func x.pop(-4), "IndexError");
+REQUIRE_THROW(func x.pop(3), "IndexError");
+REQUIRE_THROW(func x.remove("e"), "ValueError");

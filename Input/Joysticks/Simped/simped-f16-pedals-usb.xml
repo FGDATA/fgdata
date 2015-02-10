@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+
+<!--
+************************************************************************
+* Setup for DHS-Electronic SIMPED-F16/USB.
+*
+* These are USB rudder pedals with toe brakes.  Bindings are as
+* follow:
+*
+* Axis 0 (right pedal): right brake
+* Axis 1 (left pedal): left brake
+* Axis 2 (sliding both pedals): rudder (and nosewheel)
+************************************************************************
+$Id$
+-->
+
+<PropertyList>
+	<name>dhs-electronic Simped vario (USB) </name>
+	<name>Simp</name>
+
+	<axis>
+		<desc>right brake</desc>
+			<number>
+				<unix>0</unix>
+				<windows>0</windows>
+			</number>
+                        <binding>
+                                <command>property-scale</command>
+                                <property>/controls/gear/brake-right</property>
+                                <offset type="double">-1.0</offset>
+				<factor type="double">-0.5</factor>
+                        </binding>
+	</axis>
+
+        <axis>
+                <desc>left brake</desc>
+                        <number>
+                                <unix>1</unix>
+				<windows>1</windows>
+                        </number>
+                        <binding>
+                                <command>property-scale</command>
+                                <property>/controls/gear/brake-left</property>
+                                <offset type="double">-1.0</offset>
+                                <factor type="double">-0.5</factor>
+                        </binding>
+	</axis>
+
+	<axis>
+		<desc>rudder</desc>
+			<number>
+				<unix>2</unix>
+				<windows>3</windows>
+			</number>
+			<binding>
+				<command>property-scale</command>
+				<property>/controls/flight/rudder</property>
+				<offset type="double">0.0</offset>
+				<factor type="double">1.0</factor>
+			</binding>
+	</axis>
+
+</PropertyList>
+

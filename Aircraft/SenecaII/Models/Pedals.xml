@@ -1,0 +1,150 @@
+<?xml version="1.0" ?>
+<!--
+ This file is part of FlightGear, the free flight simulator
+ http://www.flightgear.org/
+
+ Copyright (C) 2009 Torsten Dreyer, Torsten (at) t3r _dot_ de
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation; either version 2 of the
+ License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+-->
+<PropertyList>
+    <path>Pedals.ac</path>
+    <animation>
+        <type>noshadow</type>
+    </animation>
+    <animation>
+        <type>range</type>
+        <min-m>0</min-m>
+        <max-m>10</max-m>
+    </animation>
+    
+    <animation>
+      <type>pick</type>
+      <object-name>Pedal.L</object-name>
+      <visible>true</visible>
+      <action>
+        <button>0</button>
+        <repeatable>true</repeatable>
+        <binding>
+          <command>property-adjust</command>
+          <property>/controls/flight/rudder</property>
+          <step>-0.05</step>
+        </binding>
+      </action>
+    </animation>
+
+    <animation>
+      <type>pick</type>
+      <object-name>Pedal.R</object-name>
+      <visible>true</visible>
+      <action>
+        <button>0</button>
+        <repeatable>true</repeatable>
+        <binding>
+          <command>property-adjust</command>
+          <property>/controls/flight/rudder</property>
+          <step>0.05</step>
+        </binding>
+      </action>
+    </animation>
+
+    <animation>
+        <type>translate</type>
+        <object-name>Pedal.L</object-name>
+        <property>controls/flight/rudder</property>
+        <factor>0.06</factor>
+        <axis>
+            <x>1.0</x>
+            <y>0.0</y>
+            <z>0.0</z>
+        </axis>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>Tubes.L</object-name>
+        <property>controls/flight/rudder</property>
+        <factor>-11</factor>
+        <axis>
+            <x>0</x>
+            <y>1.0</y>
+            <z>0</z>
+        </axis>
+        <center>
+            <x-m>-0.0595727</x-m>
+            <y-m>0.0</y-m>
+            <z-m>0.199098</z-m>
+        </center>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>Pedal.L</object-name>
+        <property>controls/gear/brake-left</property>
+        <factor>-10</factor>
+        <axis>
+            <x>0.0</x>
+            <y>1.0</y>
+            <z>0.0</z>
+        </axis>
+        <center>
+            <x-m>0.0170201</x-m>
+            <y-m>0</y-m>
+            <z-m>-0.0965262</z-m>
+        </center>
+    </animation>
+
+    <animation>
+        <type>translate</type>
+        <object-name>Pedal.R</object-name>
+        <property>controls/flight/rudder</property>
+        <factor>-0.06</factor>
+        <axis>
+            <x>1.0</x>
+            <y>0.0</y>
+            <z>0.0</z>
+        </axis>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>Tubes.R</object-name>
+        <property>controls/flight/rudder</property>
+        <factor>11</factor>
+        <axis>
+            <x>0</x>
+            <y>1.0</y>
+            <z>0</z>
+        </axis>
+        <center>
+            <x-m>-0.0595727</x-m>
+            <y-m>0.0</y-m>
+            <z-m>0.199098</z-m>
+        </center>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>Pedal.R</object-name>
+        <property>controls/gear/brake-right</property>
+        <factor>-10</factor>
+        <axis>
+            <x>0.0</x>
+            <y>1.0</y>
+            <z>0.0</z>
+        </axis>
+        <center>
+            <x-m>0.0170201</x-m>
+            <y-m>0</y-m>
+            <z-m>-0.0965262</z-m>
+        </center>
+    </animation>
+</PropertyList>

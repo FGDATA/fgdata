@@ -1,0 +1,7 @@
+<!--
+ Alias file to support legacy 777-200 MP aircraft.
+ This location is used for FG version <= 2.6.0.
+ Remove this file once the majority of MP users has switched
+ to FG >= 2.7.0.
+-->
+<PropertyList include="Aircraft/777/Models/777-200ER.xml"/>

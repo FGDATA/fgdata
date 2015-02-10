@@ -1,0 +1,55 @@
+To enable full functionality of the SCR-522C/TR1133 radio there are several things 
+that need to be done.  
+
+First change the <nasal> section of your *set.xml file so that it looks like the 
+following.  
+
+<nasal>
+   <!-- your other nasal files -->
+   <!-- the following three lines must be exactly like this -->
+   <SCR_522C>
+      <file>Aircraft/Instruments-3d/SCR-522C/Nasal/SCR-522C.nas</file>
+   </SCR_522C>
+</nasal>
+
+Menu:
+
+The above will enable the F12 key to bring up the SCR-522C specific frequencies dialog. It 
+will also over ride the Equipment --> radios menu item so that it brings up the correct 
+menu for the SCR-522C/TR1133 radios.  This also implements other radio features like support 
+for a remote TR switch,  the TR switch on the BC-602-A control box,  TR switch lock, channel 
+switching, power switch and so on.
+
+Animation:
+
+For dark conditions when cabin/cockpit illumination is used all of the radio models objects 
+are illuminated in response to 
+
+<property>/controls/lighting/cabin-norm</property>
+
+If you are using a different property for your cabin/cockpit lights you will need to map your 
+lighting property to /controls/lighting/cabin-norm.
+
+If your aircraft needs remote ptt button animation this should be linked to
+
+instrumentation/comm/SCR-522C/remote-pushed 
+
+Since the Nasal script reimplements controls.ptt() and instrumentation/comm/ptt only becomes true
+if the radio is turned on.  Using the property above to control the animation of the remote ptt 
+button will result in the botton moving when ever the user pushes what ever key/button they have
+setup to call controls.ptt().  An example of what this might look like is:
+    
+ <animation>
+  <type>translate</type>
+  <object-name>MicButton</object-name>
+  <property>instrumentation/comm/SCR-522C/remote-pushed</property>
+  <factor>-0.007</factor>
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+ 
+
+ 

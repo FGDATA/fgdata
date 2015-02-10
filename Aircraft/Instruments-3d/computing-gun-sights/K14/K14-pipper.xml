@@ -1,0 +1,266 @@
+<?xml version="1.0"?>
+<PropertyList>
+
+ <path>K-14A-pipper.ac</path>
+
+  <animation>
+    <type>range</type>
+    <min-m>0</min-m>
+    <max-m>15</max-m>
+  </animation>
+  	
+  <animation>
+    <type>translate</type>
+    <object-name>diamondTop</object-name>
+	<property>/controls/armament/gunsight/rangeRingSize</property>
+	<axis>
+      <x>0</x>
+      <y>0</y>
+      <z>1</z>
+    </axis>
+  </animation>
+  
+  <animation>
+    <type>translate</type>
+    <object-name>diamondBottom</object-name>
+	<property>/controls/armament/gunsight/rangeRingSize</property>
+	<axis>
+      <x>0</x>
+      <y>0</y>
+      <z>-1</z>
+    </axis>
+  </animation>
+  
+    <animation>
+    <type>translate</type>
+    <object-name>diamondUR</object-name>
+	<property>/controls/armament/gunsight/rangeRingSize</property>
+	<axis>
+      <x>0</x>
+      <y>0.866025</y>
+      <z>0.5</z>
+    </axis>
+  </animation>
+  
+  <animation>
+    <type>translate</type>
+    <object-name>diamondUL</object-name>
+	<property>/controls/armament/gunsight/rangeRingSize</property>
+	<axis>
+      <x>0</x>
+      <y>-0.866025</y>
+      <z>0.5</z>
+    </axis>
+  </animation> 
+
+  <animation>
+    <type>translate</type>
+    <object-name>diamondLL</object-name>
+	<property>/controls/armament/gunsight/rangeRingSize</property>
+	<axis>
+      <x>0</x>
+      <y>-0.866025</y>
+      <z>-0.5</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>translate</type>
+    <object-name>diamondLR</object-name>
+	<property>/controls/armament/gunsight/rangeRingSize</property>
+	<axis>
+      <x>0</x>
+      <y>0.866025</y>
+      <z>-0.5</z>
+    </axis>
+  </animation>  
+
+ <!-- sight on/off -->
+ <animation>
+  <type>select</type>
+  <object-name>gyro-pipper</object-name>
+  <condition>
+	  <property>/controls/armament/gunsight/pipperVisibility</property>
+  </condition>
+ </animation>
+ 
+ <animation>
+  <type>select</type>
+  <object-name>diamondTop</object-name>
+  <condition>
+	  <property>/controls/armament/gunsight/diamondTopVisibility</property>
+  </condition>
+ </animation>
+ 
+ <animation>
+  <type>select</type>
+  <object-name>diamondBottom</object-name>
+  <condition>
+	  <property>/controls/armament/gunsight/diamondBottomVisibility</property>
+  </condition>
+ </animation>
+ 
+ <animation>
+  <type>select</type>
+  <object-name>diamondUL</object-name>
+  <condition>
+	  <property>/controls/armament/gunsight/diamondULVisibility</property>
+  </condition>
+ </animation>
+ 
+ <animation>
+  <type>select</type>
+  <object-name>diamondUR</object-name>
+  <condition>
+	  <property>/controls/armament/gunsight/diamondURVisibility</property>
+  </condition>
+ </animation>
+ 
+ <animation>
+  <type>select</type>
+  <object-name>diamondLL</object-name>
+  <condition>
+	  <property>/controls/armament/gunsight/diamondLLVisibility</property>
+  </condition>
+ </animation>
+ 
+ <animation>
+  <type>select</type>
+  <object-name>diamondLR</object-name>
+  <condition>
+	<property>/controls/armament/gunsight/diamondLRVisibility</property>
+  </condition>
+ </animation>
+ 
+ <animation>
+  <type>select</type>
+  <object-name>cross</object-name>
+  <condition>
+	<property>/controls/armament/gunsight/fixedReticleOn</property>
+  </condition>
+ </animation>
+ 
+ <animation>
+  <type>select</type>
+  <object-name>fixedRing</object-name>
+  <condition>
+    <and>
+      <property>/controls/armament/gunsight/mask-off</property>
+	  <property>/controls/armament/gunsight/fixedReticleOn</property>      
+    </and>
+  </condition>
+ </animation>
+ 
+ <animation>
+  <type>select</type>
+  <object-name>rocketLadder</object-name>
+  <condition>
+    <and>
+      <property>/controls/armament/gunsight/mask-off</property>
+	  <property>/controls/armament/gunsight/rocketLadder</property>
+      <property>/controls/armament/gunsight/fixedReticleOn</property>
+    </and>
+  </condition>
+ </animation>
+
+ <!-- gyro sight brightness --> 
+  
+ <animation>
+  <name>everything</name>
+  <object-name>gyro-pipper</object-name>
+  <object-name>diamondBottom</object-name>
+  <object-name>diamondTop</object-name>
+  <object-name>diamondUL</object-name>
+  <object-name>diamondUR</object-name>
+  <object-name>diamondLR</object-name>
+  <object-name>diamondLL</object-name>
+  <object-name>fixedRing</object-name>
+  <object-name>rocketLadder</object-name>
+  <object-name>cross</object-name>
+ </animation>
+ 
+ <animation>
+  <type>material</type>
+  <object-name>everything</object-name>
+  <interpolation>
+      <entry>
+         <ind>1</ind>
+         <dep>1.0</dep>
+      </entry>
+	  <entry>
+         <ind>0</ind>
+         <dep>0.05</dep>
+      </entry>
+   </interpolation>
+  <emission>
+   <red>1.0</red>
+   <green>0.5</green>
+   <blue>0.9</blue>
+   <factor-prop>/controls/armament/gunsight/intensity</factor-prop>
+  </emission>
+ </animation>
+ 
+  <animation>
+  <type>transparency</type>
+  <object-name>everything</object-name>
+  <alpha-prop>/controls/armament/gunsight/intensity</alpha-prop>
+  <interpolation>
+      <entry>
+         <ind>1</ind>
+         <dep>0.8</dep>
+      </entry>
+	  <entry>
+         <ind>0</ind>
+         <dep>0.0</dep>
+      </entry>
+   </interpolation>
+ </animation>
+ 
+ <animation>
+  <type>blend</type>
+  <object-name>everything</object-name>
+  <alpha-prop>/controls/armament/gunsight/intensity</alpha-prop>
+  <factor>0.8</factor>
+  <min>0</min>
+  <max>1.0</max>
+ </animation>
+
+ <animation>
+    <name>gyro-group</name>	
+    <object-name>gyro-pipper</object-name>
+    <object-name>diamondBottom</object-name>
+    <object-name>diamondTop</object-name>
+    <object-name>diamondUL</object-name>
+    <object-name>diamondUR</object-name>
+    <object-name>diamondLR</object-name>
+    <object-name>diamondLL</object-name>
+ </animation> 
+ 
+  <!-- gyro sight elevation movement -->
+ 
+ <animation>
+    <type>translate</type>
+    <object-name>gyro-group</object-name>
+	<property>/controls/armament/gunsight/elevation</property>
+    <factor>0.185</factor>
+    <axis>
+      <x>0</x>
+	  <y>0</y>
+	  <z>1</z>
+    </axis>
+ </animation>
+ 
+ <!-- gyro sight azimuth movement -->
+  <animation>
+   <type>translate</type>
+    <object-name>gyro-group</object-name>
+    <property>/controls/armament/gunsight/azimuth</property>
+    <factor>0.185</factor>
+    <axis>
+      <x>0</x>
+	  <y>1</y>
+	  <z>0</z>
+    </axis>
+ </animation>
+
+</PropertyList>

@@ -1,0 +1,202 @@
+<?xml version="1.0"?>
+<!-- General settings for all North Atlantic (Faroe, Shetland, Greenland,...) materials -->
+<PropertyList>
+  <name>North Atlantic Islands</name>
+  <area>
+    <lon1>-60.0</lon1>
+    <lon2>0.0</lon2>
+    <lat1>55.0</lat1>
+    <lat2>85.0</lat2>
+  </area>
+
+  <condition>
+    <equals>
+      <property>sim/startup/season</property>
+      <value>summer</value>
+    </equals>
+  </condition>
+
+  <material>
+
+    <name>GrassCover</name>
+    <name>HerbTundraCover</name>
+    <name>HerbTundra</name>
+    <name>BareTundraCover</name>
+    <name>MixedTundraCover</name>
+    <name>Cemetery</name>
+    <effect>Effects/landmass-nowood</effect>
+    <texture-set>
+      <texture>Terrain/tundra2-autumn.png</texture>
+    <texture n="11">Terrain/grass_green_hires-autumn.png</texture>
+    <texture n="12">Terrain/rock_dark.png</texture>
+    </texture-set>
+    <parameters>
+     <grain_strength>0.8</grain_strength>
+     <transition_model>0.8</transition_model>
+     <hires_overlay_bias>-0.05</hires_overlay_bias>
+    </parameters>
+    <xsize>2000</xsize>
+    <ysize>2000</ysize>
+    <light-coverage>4000000.0</light-coverage>
+    <diffuse>
+     <r>0.93</r>
+     <g>0.95</g>
+     <b>0.93</b>
+     <a>1.0</a>
+    </diffuse>
+    <specular>
+     <r>0.1</r>
+     <g>0.12</g>
+     <b>0.1</b>
+     <a>1.0</a>
+    </specular>
+    <shininess>1.2</shininess>
+    <solid>1</solid>
+    <friction-factor>0.7</friction-factor>
+    <rolling-friction>0.1</rolling-friction>
+    <bumpiness>0.15</bumpiness>
+    <load-resistance>1e30</load-resistance>
+  </material>
+
+  <material>
+    <name>DeciduousBroadCover</name>
+    <name>DeciduousForest</name>
+    <name>Marsh</name>
+    <name>Littoral</name>
+    <name>FloodLand</name>
+    <name>SaltMarsh</name>
+    <name>HerbWetlandCover</name>
+    <name>WoodedWetlandCover</name>
+    <name>Bog</name>
+    <name>Heath</name>
+    <texture-set>
+     <texture>Terrain/marsh4a-autumn.png</texture>
+     <texture n="12">Terrain/rock_dark.png</texture>
+     <texture n="11">Terrain/grass_green_hires-autumn.png</texture>
+     <texture n="15">Terrain/grass_hires.png</texture>
+    </texture-set>
+    <parameters>
+     <intrinsic_wetness>0.1</intrinsic_wetness>
+     <hires_overlay_bias>-0.07</hires_overlay_bias>
+     <grain_strength>0.9</grain_strength>
+     <transition_model>1.0</transition_model>
+    </parameters>
+    <xsize>2000</xsize>
+    <ysize>2000</ysize>
+    <solid>1</solid>
+    <light-coverage>40000000.0</light-coverage>
+    <friction-factor>0.8</friction-factor>
+    <rolling-friction>0.3</rolling-friction>
+    <bumpiness>0.2</bumpiness>
+    <load-resistance>1e30</load-resistance>
+  </material>
+
+  <material>
+    <name>DryCropPastureCover</name>
+    <name>DryCrop</name>
+    <texture-set>
+     <texture>Terrain/iceland_grass-autumn.png</texture>
+     <texture n="11">Terrain/grass_green_hires-autumn.png</texture>
+     <texture n="12">Terrain/rock_dark.png</texture>
+    </texture-set>
+    <parameters>
+      <transition_model>0.8</transition_model>
+      <hires_overlay_bias>-0.1</hires_overlay_bias>
+    </parameters>
+    <xsize>2000</xsize>
+    <ysize>2000</ysize>
+    <solid>1</solid>
+    <friction-factor>0.9</friction-factor>
+    <rolling-friction>0.1</rolling-friction>
+    <bumpiness>0.6</bumpiness>
+    <load-resistance>1e30</load-resistance>
+    <light-coverage>2000000.0</light-coverage>
+  </material>
+
+  <material>
+    <name>MixedCropPastureCover</name>
+    <name>MixedCrop</name>
+    <name>IrrCropPastureCover</name>
+    <name>IrrCrop</name>
+    <name>Orchard</name>
+    <name>Olives</name>
+    <name>Vineyard</name>
+    <name>Rice</name>
+    <texture-set>
+     <texture>Terrain/cropgrass-hires-autumn.png</texture>
+     <texture n="11">Terrain/grass_green_hires-autumn.png</texture>
+    </texture-set>
+    <object-mask>Terrain/cropgrass-hires.mask.png</object-mask>
+    <parameters>
+      <hires_overlay_bias>-0.1</hires_overlay_bias>
+    </parameters>
+    <xsize>2000</xsize>
+    <ysize>2000</ysize>
+    <light-coverage>2000000.0</light-coverage>
+    <solid>1</solid>
+    <friction-factor>0.9</friction-factor>
+    <rolling-friction>0.3</rolling-friction>
+    <bumpiness>0.6</bumpiness>
+    <load-resistance>1e30</load-resistance>
+    <object-group include="Materials/base/farm-buildings.xml"/>
+    <wood-coverage>5000.0</wood-coverage>
+    <tree-texture>Trees/mixed-alt.png</tree-texture>
+    <tree-varieties>8</tree-varieties>
+    <tree-range-m alias="/params/forest/tree-range-m"/>
+    <tree-height-m>20.0</tree-height-m>
+    <tree-width-m>12.0</tree-width-m>
+  </material>
+
+  <material>
+    <name>Landmass</name>
+    <name>EvergreenBroadCover</name>
+    <name>EvergreenForest</name>
+    <name>MixedForestCover</name>
+    <name>MixedForest</name>
+    <name>SomeSort</name>
+    <name>Island</name>
+    <name>Default</name>
+    <name>ShrubCover</name>
+    <name>ShrubGrassCover</name>
+    <name>ScrubCover</name>
+    <name>Scrub</name>
+    <name>Sclerophyllous</name>
+    <texture-set>
+     <texture>Terrain/shrub1-autumn.png</texture>
+     <texture n="11">Terrain/grass_green_hires-autumn.png</texture>
+     <texture n="12">Terrain/rock_dark.png</texture>
+     <texture n="15">Terrain/rock_dark.png</texture>
+    </texture-set>
+    <parameters>
+     <dot_density>0.1</dot_density>
+     <transition_model>0.7</transition_model>
+     <hires_overlay_bias>-0.05</hires_overlay_bias>
+    </parameters>
+    <xsize>2000</xsize>
+    <ysize>2000</ysize>
+    <diffuse>
+     <r>0.86</r>
+     <g>0.86</g>
+     <b>0.86</b>
+     <a>1.0</a>
+    </diffuse>
+    <specular>
+     <r>0.1</r>
+     <g>0.1</g>
+     <b>0.1</b>
+     <a>1.0</a>
+    </specular>
+    <shininess>1.2</shininess>
+    <light-coverage>20000000.0</light-coverage>
+    <wood-coverage>12000.0</wood-coverage>
+    <tree-texture>Trees/mixed-shrub.png</tree-texture>
+    <tree-varieties>8</tree-varieties>
+    <tree-range-m alias="/params/forest/tree-range-m"/>
+    <tree-height-m>2.0</tree-height-m>
+    <tree-width-m>2.0</tree-width-m>
+    <rolling-friction>0.6</rolling-friction>
+    <bumpiness>0.4</bumpiness>
+  </material>
+
+
+</PropertyList>

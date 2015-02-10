@@ -1,0 +1,236 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+ <name>logging</name>
+ <layout>vbox</layout>
+
+ <group>
+   <layout>hbox</layout>
+
+   <text><label>Log File:</label></text>
+   <input>
+     <halign>fill</halign>
+     <stretch>true</stretch>
+     <property>/logging/log[0]/filename</property>
+   </input>
+   
+   <text><label>Interval (ms):</label></text>
+   <input>
+     <halign>fill</halign>
+     <property>/logging/log[0]/interval-ms</property>
+   </input>
+ </group>
+
+ <group>
+   <layout>table</layout>
+
+   <text>
+     <row>0</row><col>2</col>
+     <label>Title</label>
+   </text>
+   <text>
+     <row>0</row><col>3</col>
+     <label>Property</label>
+   </text>
+
+   <text>
+     <row>1</row><col>0</col>
+     <label>1</label>
+   </text>
+   <checkbox>
+     <row>1</row><col>1</col>
+     <property>/logging/log[0]/entry[0]/enabled</property>
+   </checkbox>
+   <input>
+     <row>1</row><col>2</col>
+     <halign>fill</halign>
+     <pref-width>120</pref-width>
+     <property>/logging/log[0]/entry[0]/title</property>
+   </input>
+   <input>
+     <row>1</row><col>3</col>
+     <halign>fill</halign>
+     <pref-width>240</pref-width>
+     <property>/logging/log[0]/entry[0]/property</property>
+   </input>
+
+   <text>
+     <row>2</row><col>0</col>
+     <label>2</label>
+   </text>
+   <checkbox>
+     <row>2</row><col>1</col>
+     <property>/logging/log[0]/entry[1]/enabled</property>
+   </checkbox>
+   <input>
+     <row>2</row><col>2</col>
+     <halign>fill</halign>
+     <property>/logging/log[0]/entry[1]/title</property>
+   </input>
+   <input>
+     <row>2</row><col>3</col>
+     <halign>fill</halign>
+     <property>/logging/log[0]/entry[1]/property</property>
+   </input>
+
+   <text>
+     <row>3</row><col>0</col>
+     <label>3</label>
+   </text>
+   <checkbox>
+     <row>3</row><col>1</col>
+     <property>/logging/log[0]/entry[2]/enabled</property>
+   </checkbox>
+   <input>
+     <row>3</row><col>2</col>
+     <halign>fill</halign>
+     <property>/logging/log[0]/entry[2]/title</property>
+   </input>
+   <input>
+     <row>3</row><col>3</col>
+     <halign>fill</halign>
+     <property>/logging/log[0]/entry[2]/property</property>
+   </input>
+
+   <text>
+     <row>4</row><col>0</col>
+     <label>4</label>
+   </text>
+   <checkbox>
+     <row>4</row><col>1</col>
+     <property>/logging/log[0]/entry[3]/enabled</property>
+   </checkbox>
+   <input>
+     <row>4</row><col>2</col>
+     <halign>fill</halign>
+     <property>/logging/log[0]/entry[3]/title</property>
+   </input>
+   <input>
+     <row>4</row><col>3</col>
+     <halign>fill</halign>
+     <property>/logging/log[0]/entry[3]/property</property>
+   </input>
+
+   <text>
+     <row>5</row><col>0</col>
+     <label>5</label>
+   </text>
+   <checkbox>
+     <row>5</row><col>1</col>
+     <property>/logging/log[0]/entry[4]/enabled</property>
+   </checkbox>
+   <input>
+     <row>5</row><col>2</col>
+     <halign>fill</halign>
+     <property>/logging/log[0]/entry[4]/title</property>
+   </input>
+   <input>
+     <row>5</row><col>3</col>
+     <halign>fill</halign>
+     <property>/logging/log[0]/entry[4]/property</property>
+   </input>
+
+   <text>
+     <row>6</row><col>0</col>
+     <label>6</label>
+   </text>
+   <checkbox>
+     <row>6</row><col>1</col>
+     <property>/logging/log[0]/entry[5]/enabled</property>
+   </checkbox>
+   <input>
+     <row>6</row><col>2</col>
+     <halign>fill</halign>
+     <property>/logging/log[0]/entry[5]/title</property>
+   </input>
+   <input>
+     <row>6</row><col>3</col>
+     <halign>fill</halign>
+     <property>/logging/log[0]/entry[5]/property</property>
+   </input>
+
+   <text>
+     <row>7</row><col>0</col>
+     <label>7</label>
+   </text>
+   <checkbox>
+     <row>7</row><col>1</col>
+     <property>/logging/log[0]/entry[6]/enabled</property>
+   </checkbox>
+   <input>
+     <row>7</row><col>2</col>
+     <halign>fill</halign>
+     <property>/logging/log[0]/entry[6]/title</property>
+   </input>
+   <input>
+     <row>7</row><col>3</col>
+     <halign>fill</halign>
+     <property>/logging/log[0]/entry[6]/property</property>
+   </input>
+
+   <text>
+     <row>8</row><col>0</col>
+     <label>8</label>
+   </text>
+   <checkbox>
+     <row>8</row><col>1</col>
+     <property>/logging/log[0]/entry[7]/enabled</property>
+   </checkbox>
+   <input>
+     <row>8</row><col>2</col>
+     <halign>fill</halign>
+     <property>/logging/log[0]/entry[7]/title</property>
+   </input>
+   <input>
+     <row>8</row><col>3</col>
+     <halign>fill</halign>
+     <property>/logging/log[0]/entry[7]/property</property>
+   </input>
+
+   <text>
+     <row>9</row><col>0</col>
+     <label>9</label>
+   </text>
+   <checkbox>
+     <row>9</row><col>1</col>
+     <property>/logging/log[0]/entry[8]/enabled</property>
+   </checkbox>
+   <input>
+     <row>9</row><col>2</col>
+     <halign>fill</halign>
+     <property>/logging/log[0]/entry[8]/title</property>
+   </input>
+   <input>
+     <row>9</row><col>3</col>
+     <halign>fill</halign>
+     <property>/logging/log[0]/entry[8]/property</property>
+   </input>
+
+ </group>
+
+ <checkbox>
+   <property>/logging/log[0]/enabled</property>
+   <label>Logging Enabled</label>
+ </checkbox>
+   
+ <group>
+   <layout>hbox</layout>
+   <empty><stretch>true</stretch></empty>
+   <button>
+     <legend>OK</legend>
+     <default>true</default>
+     <equal>true</equal>
+     <binding><command>dialog-apply</command></binding>
+     <binding><command>reinit</command><subsystem>logger</subsystem></binding>
+     <binding><command>dialog-close</command></binding>
+   </button>
+   <empty><stretch>true</stretch></empty>
+   <button>
+     <legend>Cancel</legend>
+     <equal>true</equal>
+     <key>Esc</key>
+     <binding><command>dialog-close</command></binding>
+   </button>
+   <empty><stretch>true</stretch></empty>
+ </group>
+</PropertyList>

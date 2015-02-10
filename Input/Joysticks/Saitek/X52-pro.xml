@@ -1,0 +1,809 @@
+<?xml version="1.0"?>
+<!--
+  Based on X52.xml and Aviator.xml
+  Modified by Arvid Norlander; 2007-12-03
+  Modified by Keiran Smith <affix@affix.me>; 2012-10-10
+  
+  This file is released under the GPL license version 2 or later.
+-->
+
+<!--
+Common Axis/Buttons
+ + Roll/Pitch/Throttle/Rudder:  As There are
+ + Top stick hat:               Airelon / Elevator trim
+ + Bottom stick hat:            View directions (Increase/Decrease visibility & Zoom In/Out when shifted)
+ + Throttle foreside hat:       Up/down: View cycles (Shift: flaps up/down). Left/right: Rudder trim
+ + Throttle slider:             Boost Control (if available)
+ + Trigger:                     Apply all brakes
+ + Trigger (fully pressed):     Fire weapons
+ + Fire button:                 Toggle parking brake
+ + Stick button "A":            Gear up (Shift: gear down)
+ + Stick button "B":            HUD master switch
+ + Stick button "C":            Reset view (hackish) (shift: Toggle speedbrake)
+ + Pinkie button:               Shift switch
+ + Throttle button "D":         Right brake
+ + Throttle button "E":         Left brake
+ + Throttle button "i":         PTT (Push to talk, for fgcom)
+ + T1/T2:                       Hook up/down (Increase/Decrease spoilers when shifted)
+ + T3/T4:                       Increase/Decrease slats
+ + T5/T6:                       Increase/Decrease Speedbrake (Increase/Decrease magneto when shifted)
+
+The modes below has been selected to provide generic functions even if there is
+no specific support for the current aircraft. Mode 3 is likely best if there is
+support for the aircraft in question.
+
+Mode 1: Propeller Aircraft
+ + Top rotary dial:             Mixture
+ + Bottom rotary dial:          Prop Advance
+
+Mode 2: Jet Aircraft
+ + Top rotary dial:             Carb Heat
+
+Mode 3: Aircraft specific.
+ Harrier:
+ + Throttle:
+   * Bottom "rotary dial"       Thrust vector
+ Lightning:
+ + Throttle:
+   * Shifted "D"                Braking chute
+
+Linux Axis Numbers (no idea about window/mac ones, and they are not same as plain X52 axis numbers on linux at least):
+  0     Roll ........................................... (positive == right)
+  1     Pitch .......................................... (positive == down/back/nose-up)
+  2     Throttle ....................................... (positive == back/down/idle)
+  3     Bottom "rotary dial" on the throttle ........... (positive == CW)
+  4     Top "rotary dial" on the throttle .............. (positive == CCW)
+  5     Rocker switch ("rudder" control) on the throttle (positive == right)
+  6     Slider on the throttle ......................... (positive == forward)
+  7     Lower right hat horizontal axis ................ (positive == right)
+  8     Lower right hat vertical axis .................. (positive == down)
+  9     Mouse Y (positive = up)     (Please don't use this, some of us want to map this to mouse in X)
+  10    Mouse X (positive = right)  (Please don't use this, some of us want to map this to mouse in X)
+
+Mac Axis Numbers Added by Keiran "Affix" Smith <affix@affix.me> October 2012
+
+ 0  Aileron(Roll)
+ 1  Elevator(Pitch)
+ 2  Rudder
+ 3  Throttle
+ 4  Throttle Top Rotary Dial
+ 5  Throttle Bottom Rotary Dial
+ 6  Throttle Slider
+ 7  Stick Hat Switch (Bottom)
+ 8  Stick Hat Switch (Top)
+ 9  Mouse Y
+10  Mouse X
+
+Button Numbers (Probably identical b/w Linux/Windows/Mac):
+ 0  Trigger (half pressed)
+ 1  Stick top "Fire" switch
+ 2  Stick top "A" switch
+ 3  Stick top "B" switch
+ 4  Stick top "C" switch
+ 5  Stick pinkie switch
+ 6  Throttle "D" switch
+ 7  Throttle "E" switch
+ 8  T1
+ 9  T2
+10  T3
+11  T4
+12  T5
+13  T6
+14  Trigger (fully pressed)
+15  Throttle mouse switch (Please don't use this, some of us want to map this to mouse in X)
+16  Throttle forefinger wheel scroll down
+17  Throttle forefinger wheel scroll up
+18  Throttle forefinger wheel click
+19  Upper left hat in "up" position
+20  Upper left hat in "right" position
+21  Upper left hat in "down" position
+22  Upper left hat in "left" position
+23  Throttle forefinger hat in "up/back" position
+24  Throttle forefinger hat in "right" position
+25  Throttle forefinger hat in "down/forward" position
+26  Throttle forefinger hat in "left" position
+27  Mode 1
+28  Mode 2
+29  Mode 3
+30  Throttle "i" switch
+31  Function wheel (below MFD) click (don't use, it is for timer)
+32  START/STOP (don't use, for features in joystick itself)
+33  RESET (don't use, for features in joystick itself)
+34  Function wheel (below MFD) up
+35  Function wheel (below MFD) down
+36  MFD-select wheel below MFD up
+37  MFD-select wheel below MFD down
+38  MFD-select wheel below MFD click
+
+$Id$
+-->
+<PropertyList>
+
+	<name>Saitek X52 Pro Flight Control System</name>
+	<name>Saitek X52 Pro Flight Controller</name>
+	<name>Saitek Saitek X52 Pro Flight Control System</name>
+
+	<!-- Custom section for storing some properties, based on Aviator.xml -->
+	<data>
+		<modifier type="bool">false</modifier>
+		<mode type="int">0</mode>
+	</data>
+
+	<nasal>
+		<script>
+			<![CDATA[
+				var self = cmdarg().getParent();
+				var data = self.getNode("data");
+				var modifier  = data.getNode("modifier");
+				var mode      = data.getNode("mode");
+				# This does not change during a session.
+				#   Not called plain "aircraft" to prevent
+				#   overwriting the Nasal/aircraft.nas scope
+				#   as we need to access that too from here.
+				var aircraftModel  = getprop("/sim/aircraft");
+			]]>
+		</script>
+	</nasal>
+
+	<axis>
+		<number>
+			<mac>0</mac>
+			<unix>0</unix>
+			<windows>0</windows>
+		</number>
+		<desc>Aileron</desc>
+		<binding>
+			<command>property-scale</command>
+			<property>/controls/flight/aileron</property>
+			<squared type="bool">true</squared>
+		</binding>
+	</axis>
+
+	<axis>
+		<number>
+			<mac>1</mac>
+			<unix>1</unix>
+			<windows>1</windows>
+		</number>
+		<desc>Elevator</desc>
+		<binding>
+			<command>property-scale</command>
+			<property>/controls/flight/elevator</property>
+			<factor type="double">-1.0</factor>
+			<squared type="bool">true</squared>
+		</binding>
+	</axis>
+
+	<axis>
+		<number>
+			<mac>2</mac>
+			<unix>5</unix>
+			<windows>5</windows>
+		</number>
+		<desc>Rudder</desc>
+		<binding>
+			<command>property-scale</command>
+			<property>/controls/flight/rudder</property>
+		</binding>
+	</axis>
+
+	<!-- Bottom stick hat -->
+	<axis>
+		<number>
+			<mac>7</mac>
+			<unix>7</unix>
+			<windows>7</windows>
+		</number>
+		<desc>View Direction; Shift: Increase/Decrease visibility</desc>
+		<low>
+			<repeatable>true</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>
+					<![CDATA[
+						if (modifier.getValue()) {
+							fgcommand("increase-visibility");
+						} else {
+							view.panViewDir(1);
+						}
+					]]>
+				</script>
+			</binding>
+		</low>
+		<high>
+			<repeatable>true</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>
+					<![CDATA[
+						if (modifier.getValue()) {
+							fgcommand("decrease-visibility");
+						} else {
+							view.panViewDir(-1);
+						}
+					]]>
+				</script>
+			</binding>
+		</high>
+	</axis>
+
+	<axis>
+		<number>
+			<mac>8</mac>
+			<unix>8</unix>
+			<windows>8</windows>
+		</number>
+		<desc>View Elevation; Shift: Increase/Decrease field of view</desc>
+		<low>
+			<repeatable>true</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>
+					<![CDATA[
+						if (modifier.getValue()) {
+							view.increase();
+						} else {
+							view.panViewPitch(1);
+						}
+					]]>
+				</script>
+			</binding>
+		</low>
+		<high>
+			<repeatable>true</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>
+					<![CDATA[
+						if (modifier.getValue()) {
+							view.decrease();
+						} else {
+							view.panViewPitch(-1);
+						}
+					]]>
+				</script>
+			</binding>
+		</high>
+	</axis>
+
+	<axis>
+		<number>
+			<mac>3</mac>
+			<unix>2</unix>
+			<windows>2</windows>
+		</number>
+		<desc>Throttle</desc>
+		<binding>
+			<command>nasal</command>
+			<script>controls.throttleAxis()</script>
+		</binding>
+	</axis>
+
+	<!-- Top Rotary dial on the throttle
+	<axis>
+		<number>
+			<mac>5</mac>
+			<unix>4</unix>
+			<windows>5</windows>
+		</number>
+		<desc>Mode1: Mixture; Mode2: Carb Heat</desc>
+		<binding>
+			<command>nasal</command>
+			<script>
+				<![CDATA[
+					var val = mode.getValue();
+					if (val == 1) {
+						controls.mixtureAxis();
+					} elsif (val == 2) {
+						controls.carbHeatAxis();
+					}
+				]]>
+			</script>
+		</binding>
+	</axis> -->
+
+	<!-- Bottom Rotary dial on the throttle -->
+	<axis>
+		<number>
+			<mac>4</mac>
+			<unix>3</unix>
+			<windows>4</windows>
+		</number>
+		<desc>Mode1: Propeller Advance</desc>
+		<binding>
+			<command>nasal</command>
+			<script>
+				<![CDATA[
+					var val = mode.getValue();
+					if (val == 1) {
+						controls.propellerAxis(-1);
+					} elsif (val == 3) {
+						if (aircraftModel == "harrier") {
+							controls.mixtureAxis();
+						}
+					}
+				]]>
+			</script>
+		</binding>
+	</axis>
+
+	<!-- Throttle slider; Please add Unix/Windows axis number -->
+	<axis>
+		<number>
+			<mac>6</mac>
+			<unix>5</unix>
+			<windows>6</windows>
+		</number>
+		<desc>Boost Control</desc>
+		<binding>
+			<command>nasal</command>
+			<script>
+				<![CDATA[
+					var val = cmdarg().getNode("setting").getValue();
+					if (getprop("/controls/engines/engine/raw-boost") != nil) {
+						# for j7w
+						props.setAll("/controls/engines/engine", "raw-boost", (val+1)/2);
+					} else {
+						# for other prop airplanes
+						props.setAll("/controls/engines/engine", "boost", (val+1)/2);
+					}
+				]]>
+			</script>
+		</binding>
+	</axis>
+
+	<!-- Buttons -->
+
+	<!-- Trigger -->
+	<button n="0">
+		<desc>Brakes</desc>
+		<binding>
+			<command>nasal</command>
+			<script>controls.applyBrakes(1)</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>controls.applyBrakes(0)</script>
+			</binding>
+		</mod-up>
+	</button>
+
+	<!-- Fire button -->
+	<button n="1">
+			<desc>Toggle parking brake on or off</desc>
+			<binding>
+				<command>nasal</command>
+				<script>
+					<![CDATA[
+						if (modifier.getValue()) {
+							var i = !getprop("/controls/engines/engine[0]/reverser");
+							props.setAll("/controls/engines/engine", "reverser", i);
+							gui.popupTip("ReverseThrust" ~ ["OFF", "ON"][i]);
+						} else {
+							controls.applyParkingBrake(1);
+						}
+					]]>
+				</script>
+			</binding>
+	</button>
+
+	<!-- Button "A" -->
+	<button n="2">
+		<desc>Gear up; Shift: Gear down</desc>
+		<binding>
+			<command>nasal</command>
+			<script>
+				<![CDATA[
+					if (modifier.getValue()) {
+						controls.gearDown(1);
+					} else {
+						controls.gearDown(-1);
+					}
+				]]>
+			</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>controls.gearDown(0)</script>
+			</binding>
+		</mod-up>
+	</button>
+
+	<!-- Button "B" -->
+	<button n="3">
+		<desc>Cycle HUD colour</desc>
+		<binding>
+			<command>nasal</command>
+			<script>aircraft.HUD.cycle_color()</script>
+		</binding>
+	</button>
+
+	<!-- button "C" -->
+	<button n="4">
+		<desc>Reset View (Shift: toggle speedbrake)</desc>
+		<binding>
+			<command>nasal</command>
+			<script>
+				<![CDATA[
+					if (modifier.getValue()) {
+						var c = getprop("/controls/flight/speedbrake");
+						if (c < 0.1)
+							setprop("/controls/flight/speedbrake", 1.0);
+						else
+							setprop("/controls/flight/speedbrake", 0.0);
+					} else {
+						view.resetView();
+					}
+				]]>
+			</script>
+		</binding>
+	</button>
+
+	<!-- pinkie button -->
+	<button n="5">
+		<desc>Shift switch for X52</desc>
+		<binding>
+			<command>nasal</command>
+			<script>modifier.setBoolValue(1)</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>modifier.setBoolValue(0)</script>
+			</binding>
+		</mod-up>
+	</button>
+
+	<!-- Button "D" -->
+	<button n="6">
+		<desc>Right Brake</desc>
+		<binding>
+			<command>nasal</command>
+			<script>controls.applyBrakes(1, 1)</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>
+					<![CDATA[
+						if (modifier.getValue()) {
+							if (mode.getValue() == 3) {
+								if (aircraftModel == "lightning") {
+									setprop("/sim/model/lightning/controls/flight/chute_deployed", 1);
+									setprop("/sim/model/lightning/controls/flight/chute_open", 1);
+								}
+							}
+						} else {
+							controls.applyBrakes(0, 1);
+						}
+					]]>
+				</script>
+			</binding>
+		</mod-up>
+	</button>
+
+	<!-- Button "E" -->
+	<button n="7">
+		<desc>Left Brake</desc>
+		<binding>
+			<command>nasal</command>
+			<script>controls.applyBrakes(1, -1)</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>controls.applyBrakes(0, -1)</script>
+			</binding>
+		</mod-up>
+	</button>
+
+	<!-- Tail hook up on button T1;  -->
+	<button n="8">
+		<desc>Tail hook up; Shift: Increase spoilers</desc>
+		<binding>
+			<command>nasal</command>
+			<script>
+				<![CDATA[
+					if (modifier.getValue()) {
+						controls.stepSpoilers(1);
+					} else {
+						setprop("/controls/gear/tailhook", 0);
+					}
+				]]>
+			</script>
+		</binding>
+	</button>
+
+	<!-- Tail hook down on button T2 -->
+	<button n="9">
+		<desc>Tail hook down; Shift: Decrease spoilers</desc>
+		<binding>
+			<command>nasal</command>
+			<script>
+				<![CDATA[
+					if (modifier.getValue()) {
+						controls.stepSpoilers(-1);
+					} else {
+						setprop("/controls/gear/tailhook", 1);
+					}
+				]]>
+			</script>
+		</binding>
+	</button>
+
+	<!-- Slats control on the T3/T4 -->
+	<button n="10">
+		<desc>Flaps Up</desc>
+		<binding>
+			<command>nasal</command>
+			<script>
+				<![CDATA[
+					if(modifier.getValue()){
+						controls.flapsDown(0);
+					} else {
+						controls.flapsDown(-1);
+					}
+				]]>
+			</script>
+		</binding>
+	</button>
+
+	<button n="11">
+		<desc>Flaps Down</desc>
+		<binding>
+			<command>nasal</command>
+			<script>controls.flapsDown(1)</script>
+		</binding>
+	</button>
+
+	<!-- Per mode functions on the T6/T5 -->
+	<button n="12">
+		<desc>Increase speedbrake; Shift: Increase Magneto</desc>
+		<binding>
+			<command>nasal</command>
+			<script>
+				<![CDATA[
+					if (modifier.getValue()) {
+						controls.stepMagnetos(1);
+					} else {
+						setprop("/controls/flight/speedbrake", 1);
+					}
+				]]>
+			</script>
+		</binding>
+	</button>
+
+	<button n="13">
+		<desc>Decrease speedbrake; Shift: Decrease Magneto</desc>
+		<binding>
+			<command>nasal</command>
+			<script>
+				<![CDATA[
+					if (modifier.getValue()) {
+						controls.stepMagnetos(-1);
+					} else {
+						setprop("/controls/flight/speedbrake", 0);
+					}
+				]]>
+			</script>
+		</binding>
+	</button>
+
+	<!-- Button "Trigger Maximum pressed" -->
+	<button n="14">
+		<desc>Fire weapons</desc>
+		<binding>
+			<command>nasal</command>
+			<script>controls.trigger(1)</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>controls.trigger(0)</script>
+			</binding>
+		</mod-up>
+	</button>
+
+	<!-- Trim (upper) hat on the stick -->
+	<button n="19">
+		<desc>Elevator trim down</desc>
+		<repeatable type="bool">true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>
+				<![CDATA[
+					if (modifier.getValue()) {
+						setprop("/controls/flight/elevator-trim", 0);
+					} else {
+						controls.elevatorTrim(1);
+					}
+				]]>
+			</script>
+		</binding>
+	</button>
+
+	<button n="20">
+		<desc>Aileron trim right</desc>
+		<repeatable type="bool">true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>
+				<![CDATA[
+					if (modifier.getValue()) {
+						setprop("/controls/flight/aileron-trim", 0);
+					} else {
+						controls.aileronTrim(1);
+					}
+				]]>
+			</script>
+		</binding>
+	</button>
+
+	<button n="21">
+		<desc>Elevator trim up</desc>
+		<repeatable type="bool">true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>
+				<![CDATA[
+					if (modifier.getValue()) {
+						setprop("/controls/flight/elevator-trim", 0);
+					} else {
+						controls.elevatorTrim(-1);
+					}
+				]]>
+			</script>
+		</binding>
+	</button>
+
+	<button n="22">
+		<desc>Aileron trim left</desc>
+		<repeatable type="bool">true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>
+				<![CDATA[
+					if (modifier.getValue()) {
+						setprop("/controls/flight/aileron-trim", 0);
+					} else {
+						controls.aileronTrim(-1);
+					}
+				]]>
+			</script>
+		</binding>
+	</button>
+
+	<!-- Throttle foreside hat -->
+	<button n="23">
+		<desc>Scroll in reverse through views (shift: flaps up).</desc>
+		<binding>
+			<command>nasal</command>
+			<script>
+				<![CDATA[
+					if (modifier.getValue()) {
+						controls.flapsDown(-1);
+					} else {
+						view.stepView(-1);
+					}
+				]]>
+			</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>
+					<![CDATA[
+						if (modifier.getValue()) {
+							controls.flapsDown(0);
+						}
+					]]>
+				</script>
+			</binding>
+		</mod-up>
+	</button>
+
+	<button n="24">
+		<desc>Rudder trim right</desc>
+		<repeatable type="bool">true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>
+				<![CDATA[
+					if (modifier.getValue()) {
+						setprop("/controls/flight/rudder-trim", 0);
+					} else {
+						controls.rudderTrim(1);
+					}
+				]]>
+			</script>
+		</binding>
+	</button>
+
+	<button n="25">
+		<desc>Scroll views (shift: flaps down).</desc>
+		<binding>
+			<command>nasal</command>
+			<script>
+				<![CDATA[
+					if (modifier.getValue()) {
+						controls.flapsDown(1);
+					} else {
+						view.stepView(1);
+					}
+				]]>
+			</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>
+					<![CDATA[
+						if (modifier.getValue()) {
+							controls.flapsDown(0);
+						}
+					]]>
+				</script>
+			</binding>
+		</mod-up>
+	</button>
+
+	<button n="26">
+		<desc>Rudder trim left</desc>
+		<repeatable type="bool">true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>
+				<![CDATA[
+					if (modifier.getValue()) {
+						setprop("/controls/flight/rudder-trim", 0);
+					} else {
+						controls.rudderTrim(-1);
+					}
+				]]>
+			</script>
+		</binding>
+	</button>
+
+	<!-- mode switch (buttons 27-29) -->
+	<button n="27">
+		<desc>Mode 1</desc>
+		<binding>
+			<command>nasal</command>
+			<script>mode.setIntValue(1)</script>
+		</binding>
+	</button>
+
+	<button n="28">
+		<desc>Mode 2</desc>
+		<binding>
+			<command>nasal</command>
+			<script>mode.setIntValue(2)</script>
+		</binding>
+	</button>
+
+	<button n="29">
+		<desc>Mode 3</desc>
+		<binding>
+			<command>nasal</command>
+			<script>mode.setIntValue(3)</script>
+		</binding>
+	</button>
+
+	<!-- "i" button -->
+	<button n="30">
+		<desc>PTT (for fgcom)</desc>
+		<binding>
+			<command>nasal</command>
+			<script>controls.ptt(1)</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>controls.ptt(0)</script>
+			</binding>
+		</mod-up>
+	</button>
+
+</PropertyList>

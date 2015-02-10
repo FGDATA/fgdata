@@ -1,0 +1,223 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<name>property-browser</name>
+	<layout>vbox</layout>
+	<resizable>true</resizable>
+	<default-padding>3</default-padding>
+
+	<group>
+		<layout>hbox</layout>
+		<default-padding>1</default-padding>
+
+		<button>
+			<legend></legend>
+			<pref-width>16</pref-width>
+			<pref-height>16</pref-height>
+			<border>2</border>
+		<!-- looks better in anthrax style -->
+			<color>
+				<red>0.34</red>
+				<green>0.33</green>
+				<blue>0.35</blue>
+			</color>
+		<!-- -->
+			<binding>
+				<command>nasal</command>
+				<script>clone(dir)</script>
+			</binding>
+		</button>
+
+		<empty><whatever/></empty>
+
+		<text>
+			<label>/</label>
+			<property>/sim/gui/dialogs/property-browser/title</property>
+			<live>true</live>
+		</text>
+
+		<empty><stretch>true</stretch></empty>
+
+		<button>
+			<legend></legend>
+			<key>Esc</key>
+			<pref-width>16</pref-width>
+			<pref-height>16</pref-height>
+			<border>2</border>
+			<binding>
+				<command>dialog-close</command>
+			</binding>
+		</button>
+	</group>
+
+	<hrule/>
+
+	<property-list>
+		<name>property-list</name>
+		<pref-height>250</pref-height>
+		<halign>fill</halign>
+		<valign>fill</valign>
+		<stretch>true</stretch>
+		<property>/sim/gui/dialogs/property-browser/list</property>
+		<binding>
+			<command>dialog-apply</command>
+			<object-name>property-list</object-name>
+		</binding>
+		<binding>
+			<command>nasal</command>
+			<script>select()</script>
+		</binding>
+	</property-list>
+
+	<group>
+		<layout>hbox</layout>
+		<default-padding>2</default-padding>
+
+		<empty><whatever/></empty>
+
+		<text>
+			<label>--</label>
+			<live>true</live>
+			<halign>fill</halign>
+			<stretch>true</stretch>
+			<property>/sim/gui/dialogs/property-browser/label</property>
+			<pref-width>170</pref-width>
+		</text>
+
+		<input>
+			<name>input</name>
+			<halign>fill</halign>
+			<stretch>true</stretch>
+			<pref-width>170</pref-width>
+			<property>/sim/gui/dialogs/property-browser/input</property>
+		</input>
+
+		<button>
+			<legend>Set</legend>
+			<pref-width>50</pref-width>
+			<default>true</default>
+			<binding>
+				<command>dialog-apply</command>
+				<object-name>input</object-name>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>set()</script>
+			</binding>
+		</button>
+	</group>
+
+	<nasal>
+		<open>
+			var self = cmdarg();
+			var dlgname = self.getNode("name").getValue();
+			var dlg = props.globals.getNode("/sim/gui/dialogs/" ~ dlgname, 1);
+			var title = dlg.getNode("title", 1);
+			var label = dlg.getNode("label", 1);
+			var input = dlg.getNode("input", 1);
+			var list = dlg.getNode("list", 1);
+			var node = nil;         # selected node entry (props.Node)
+			var dir = nil;          # current directory (string)
+			var update_interval = 2;
+			var root_title = "Internal Properties";
+			var no_selection = "[none]";
+
+			var update = func(w) {
+				self.setValues({ "dialog-name": dlgname, "object-name": w });
+				fgcommand("dialog-update", self);
+			}
+
+			var squeeze = func(s, n) {
+				if (n >= size(s) or 7 > n )
+					return s;
+
+				var l = substr(s, 0, (n - 3) / 2);
+				var r = substr(s, size(s) + size(l) + 3 - n);
+				return l ~ "..." ~ r;
+			}
+
+			var select = func {
+				var lst = list.getValue();
+				node = props.globals.getNode(lst);
+				if (node == nil)
+					node = props.globals;
+
+				setprop("/sim/gui/dialogs/property-browser/selected", node.getPath());
+				if (node.getAttribute("children")) {
+					dir = node.getPath();
+					title.setValue(node.getPath() == "" ? root_title : lst);
+					node = nil;
+					label.setValue(no_selection);
+					input.setValue("");
+				} else {
+					var name = node.getName();
+					var index = node.getIndex();
+					var type = node.getType();
+					if (index)
+						name ~= "[" ~ index ~ "]";
+
+					var value = nil;
+					if (type == "BOOL") {
+						value = node.getBoolValue() ? "true" : "false";
+						title.setValue("Hint: Ctrl-click toggles bool values");
+						settimer(func title.setValue(dir), 5, 1);
+					} elsif (type == "STRING") {
+						value = node.getValue();
+					} elsif (type == "NONE") {
+						value = "";
+					} elsif (type != "ALIAS") {
+						value = node.getValue() ~ "";
+					}
+					label.setValue(squeeze(name, 30));
+					input.setValue(value);
+				}
+				update("input");
+			}
+
+			var set = func {
+				if (node != nil)
+					node.setValue(input.getValue());
+			}
+
+			var clone = func(startdir) {
+				var base = props.globals.getNode("/sim/gui/dialogs", 1);
+				var name = "property-browser-";
+				for (var i = 1; 1; i += 1)
+					if (base.getNode(name ~ i, 0) == nil)
+						break;
+				base = base.getNode(name ~ i, 1).getPath();
+				setprop(base ~ "/last", startdir);
+				self.setValues({
+					"name": name ~ i,
+					"dialog-name": name ~ i,
+					"group[0]/text/property": base ~ "/title",
+					"property-list/property": base ~ "/list",
+					"group[1]/text/property": base ~ "/label",
+					"group[1]/input/property": base ~ "/input",
+				});
+				fgcommand("dialog-new", self);
+				fgcommand("dialog-show", self);
+			}
+
+			var auto_update = func {
+				list.setValue(dir);
+				update("property-list");
+				if (update_interval)
+					settimer(auto_update, update_interval, 1);
+			}
+
+			dir = dlg.getNode("last") != nil ? dlg.getNode("last").getValue() : "/";
+			list.setValue(dir);
+			select();
+			auto_update();
+		</open>
+
+		<close>
+			update_interval = 0;
+			if (find("property-browser-", dlgname) >= 0)
+				dlg.getParent().removeChildren(dlgname);
+			else
+				dlg.getNode("last", 1).setValue(dir);
+		</close>
+	</nasal>
+</PropertyList>

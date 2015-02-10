@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+ 
+<PropertyList>
+
+ <fx>
+   <engine>
+        <name>left engine</name>
+        <path>Sounds/exhaust_loop.wav</path>
+        <mode>looped</mode>
+        <condition>
+            <not>
+                <property>velocities/true-airspeed-kt</property>
+            </not>
+        </condition>
+        <volume>
+            <property>velocities/true-airspeed-kt</property>
+            <factor>0.00167</factor>
+            <min>0.05</min>
+        </volume>
+        <position>
+            <x>0</x>
+            <y>9.8</y>
+            <z>-3</z>
+        </position>
+        <reference-dist>100.0</reference-dist>
+        <max-dist>3000.0</max-dist>
+    </engine>
+
+    <engine>
+        <name>right engine</name>
+        <path>Sounds/exhaust_loop.wav</path>
+        <mode>looped</mode>
+        <condition>
+            <not>
+                <property>velocities/true-airspeed-kt</property>
+            </not>
+        </condition>
+        <volume>
+            <property>velocities/true-airspeed-kt</property>
+            <factor>0.0016</factor>
+            <min>0.05</min>
+        </volume>
+        <position>
+            <x>0</x>
+            <y>-9.8</y>
+            <z>-3</z>
+        </position>
+        <reference-dist>100.0</reference-dist>
+        <max-dist>3000.0</max-dist>
+    </engine>
+  </fx>
+</PropertyList>

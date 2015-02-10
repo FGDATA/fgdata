@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<PropertyList>
+
+    <name>MFD 2d Panel</name>
+    <background>Aircraft/Instruments-3d/primus-1000/MFD/transparent.png</background>
+    <w>418</w>
+    <h>512</h>
+
+    <instruments>
+
+        <instrument include="mfd-hsi.xml">
+            <name>HSI</name>
+            <condition>
+                <greater-than>
+                    <property>systems/electrical/outputs/efis</property>
+                    <value>15</value>
+                </greater-than>
+            </condition>
+            <x>209</x>
+            <y>287.5</y>
+            <w>400</w>
+            <h>400</h>
+        </instrument>
+
+        <instrument include="mask.xml">
+            <name>Mask</name>
+            <condition>
+                <greater-than>
+                    <property>systems/electrical/outputs/efis</property>
+                    <value>15</value>
+                </greater-than>
+            </condition>
+            <x>209</x>
+            <y>256</y>
+            <w>418</w>
+            <h>512</h>
+        </instrument>
+
+        <instrument include="radar.xml">
+            <name>radar</name>
+            <condition>
+                <greater-than>
+                        <property>systems/electrical/outputs/efis</property>
+                        <value>15</value>
+                </greater-than>
+            </condition>
+                <x>209</x>
+                <y>287.5</y>
+                <w>400</w>
+                <h>400</h>
+        </instrument>
+
+    </instruments>
+</PropertyList>

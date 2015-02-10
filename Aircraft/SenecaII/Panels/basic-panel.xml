@@ -1,0 +1,201 @@
+<?xml version="1.0"?>
+<!--
+    Piper Seneca II panel
+-->
+
+<PropertyList>
+    <params>
+      <row-1>135</row-1>
+      <row-2>50</row-2>
+      <col-1>40</col-1>
+      <col-2>140</col-2>
+      <col-3>230</col-3>
+      <col-4>320</col-4>
+      <eng-col-1>392</eng-col-1>
+      <eng-col-2>432</eng-col-2>
+      <eng-row-1>155</eng-row-1>
+      <eng-row-2>115</eng-row-2>
+      <eng-row-3>75</eng-row-3>
+      <eng-row-4>35</eng-row-4>
+    </params>
+
+    <name>Basic Instrument Panel</name>
+    <w>462</w>
+    <h>185</h>
+<!--
+    <h>305</h>
+-->
+    <instruments>
+
+        <instrument include="/Aircraft/Instruments/fps.xml">
+            <name>frames per second</name>
+            <x>20</x>
+            <y>0</y>
+            <w>20</w>
+            <h>20</h>
+        </instrument>
+
+        <instrument include="Airspeed.xml">
+            <name>Airspeed Indicator</name>
+            <x alias="../../../params/col-1"/>
+            <y alias="../../../params/row-1"/>
+            <w>80</w>
+            <h>80</h>
+        </instrument>
+
+        <instrument include="../../Instruments/ati-c172s.xml">
+            <name>Attitude Gyro</name>
+            <x alias="../../../params/col-2"/>
+            <y alias="../../../params/row-1"/>
+            <w>80</w>
+            <h>80</h>
+        </instrument>
+
+        <instrument include="../../Instruments/alt-c172s.xml">
+            <name>Altimeter</name>
+            <x alias="../../../params/col-3"/>
+            <y alias="../../../params/row-1"/>
+            <w>80</w>
+            <h>80</h>
+        </instrument>
+
+        <instrument include="hsi-bk-hi.xml">
+            <name>Bendix King HSI</name>
+            <x alias="../../../params/col-2"/>
+            <y>43</y>
+            <w>97</w>
+            <h>95</h>
+        </instrument>
+
+        <instrument include="../../Instruments/trn-c172s.xml">
+            <name>Turn Coordinator</name>
+            <x alias="../../../params/col-1"/>
+            <y alias="../../../params/row-2"/>
+            <w>80</w>
+            <h>80</h>
+        </instrument>
+
+        <instrument include="../../Instruments/vsi-c172s.xml">
+            <name>Vertical Velocity Indicator</name>
+            <x alias="../../../params/col-3"/>
+            <y alias="../../../params/row-2"/>
+            <w>80</w>
+            <h>80</h>
+        </instrument>
+
+        <instrument include="../../Instruments/vor2-c172s.xml">
+            <name>VOR 2 Gauge</name>
+            <params>
+                <nav-to-flag>/instrumentation/nav[1]/to-flag</nav-to-flag>
+                <nav-from-flag>/instrumentation/nav[1]/from-flag</nav-from-flag>
+                <nav-radial-selected>/instrumentation/nav[1]/radials/selected-deg</nav-radial-selected>
+                <nav-gs-needle-deflection>/instrumentation/nav[1]/gs-needle-deflection</nav-gs-needle-deflection>
+                <nav-heading-needle-deflection>/instrumentation/nav[1]/heading-needle-deflection</nav-heading-needle-deflection>
+                <nav-has-gs-needle>/sim/instrument-options/nav[1]/has-gs-needle</nav-has-gs-needle>
+                <nav-needles-pivot>/sim/instrument-options/nav[1]/needles-pivot</nav-needles-pivot>
+            </params>
+            <x alias="../../../params/col-4"/>
+            <y alias="../../../params/row-1"/>
+            <w>80</w>
+            <h>80</h>
+        </instrument>
+
+        <instrument include="adf.xml">
+            <name>ADF Indicator</name>
+            <x alias="../../../params/col-4"/>
+            <y alias="../../../params/row-2"/>
+            <w>80</w>
+            <h>80</h>
+        </instrument>
+
+        <instrument include="RPM.xml">
+            <name>RPM Left Gauge</name>
+            <params>
+                <source>/engines/engine[0]/rpm-filtered</source>
+            </params>
+            <x alias="../../../params/eng-col-1"/>
+            <y alias="../../../params/eng-row-1"/>
+            <w>40</w>
+            <h>40</h>
+        </instrument>
+
+        <instrument include="RPM.xml">
+            <name>RPM Right Gauge</name>
+            <params>
+                <source>/engines/engine[1]/rpm-filtered</source>
+            </params>
+            <x alias="../../../params/eng-col-2"/>
+            <y alias="../../../params/eng-row-1"/>
+            <w>40</w>
+            <h>40</h>
+        </instrument>
+
+        <instrument include="MP.xml">
+            <name>MP Gauge</name>
+            <params>
+                <left>/engines/engine[0]/mp-osi-filtered</left>
+                <right>/engines/engine[1]/mp-osi-filtered</right>
+            </params>
+            <x alias="../../../params/eng-col-1"/>
+            <y alias="../../../params/eng-row-2"/>
+            <w>40</w>
+            <h>40</h>
+        </instrument>
+
+        <instrument include="FF.xml">
+            <name>Fuel Flow Gauge</name>
+            <params>
+                <left>/engines/engine[0]/fuel-flow-gph</left>
+                <right>/engines/engine[1]/fuel-flow-gph</right>
+            </params>
+            <x alias="../../../params/eng-col-2"/>
+            <y alias="../../../params/eng-row-2"/>
+            <w>40</w>
+            <h>40</h>
+        </instrument>
+
+        <instrument include="EGT.xml">
+            <name>EGT-L Gauge</name>
+            <params>
+                <value>engines/engine[0]/egt-degf-filtered</value>
+                <bug>engines/engine[0]/egt-bug</bug>
+            </params>
+            <x alias="../../../params/eng-col-1"/>
+            <y alias="../../../params/eng-row-3"/>
+            <w>40</w>
+            <h>40</h>
+        </instrument>
+
+        <instrument include="EGT.xml">
+            <name>EGT-R Gauge</name>
+            <params>
+                <value>engines/engine[1]/egt-degf-filtered</value>
+                <bug>engines/engine[1]/egt-bug</bug>
+            </params>
+            <x alias="../../../params/eng-col-2"/>
+            <y alias="../../../params/eng-row-3"/>
+            <w>40</w>
+            <h>40</h>
+        </instrument>
+
+        <instrument include="Vacuum.xml">
+            <name>Gyro PressureGauge</name>
+            <x alias="../../../params/eng-col-1"/>
+            <y alias="../../../params/eng-row-4"/>
+            <w>40</w>
+            <h>40</h>
+        </instrument>
+
+        <instrument include="FlapTrimIndicator.xml">
+            <name>FlapTrim</name>
+            <x alias="../../../params/eng-col-2"/>
+            <y alias="../../../params/eng-row-4"/>
+            <w>40</w>
+            <h>40</h>
+        </instrument>
+
+
+
+    </instruments>
+
+</PropertyList>

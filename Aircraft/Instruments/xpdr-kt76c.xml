@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+
+<!--
+Bendix/King KT 76C Class 1A Transponder.
+
+This is a typical transponder for a Cessna 172R: it has basic support
+for reporting position, including altitude.  The normal operational
+setting is "ALT" rather than "ON".
+
+Started December 2001 by David Megginson, david@megginson.com.
+-->
+
+<PropertyList>
+
+ <name>ADF Gauge</name>
+
+ <w-base>256</w-base>
+ <h-base>64</h-base>
+
+ <layers>
+
+  <layer>
+   <name>Transponder Background</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/xpdr-kt76c-bg.rgb</path>
+    <x1>0.0</x1>
+    <y1>0.0</y1>
+    <x2>1.0</x2>
+    <y2>1.0</y2>
+   </texture>
+  </layer>
+
+ </layers>
+
+</PropertyList>

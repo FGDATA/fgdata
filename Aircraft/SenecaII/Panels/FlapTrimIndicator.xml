@@ -1,0 +1,129 @@
+<?xml version="1.0"?>
+
+<!--
+FlapTrimIndicator.xml
+
+Non-real flap and trim indicator
+
+Torsten Dreyer torsten@t3r.de
+
+-->
+
+<PropertyList>
+
+    <name>FlapTrimIndicator</name>
+    <w-base>512</w-base>
+    <h-base>512</h-base>
+
+    <params>
+        <elevator>/controls/flight/elevator-trim</elevator>
+        <rudder>/controls/flight/rudder-trim</rudder>
+        <flaps>/surface-positions/flap-pos-norm</flaps>
+    </params>
+
+    <layers>
+        <layer>
+            <name>Face</name>
+            <w>440</w>
+            <h>440</h>
+            <texture>
+                <path>Aircraft/SenecaII/Panels/Textures/FlapTrimIndicator.png</path>
+                <x1>0.0</x1>
+                <x2>1.0</x2>
+                <y1>0.0</y1>
+                <y2>1.0</y2>
+            </texture>
+        </layer>
+
+        <layer>
+            <name>Ring</name>
+            <w>512</w>
+            <h>512</h>
+            <texture>
+                <path>Aircraft/SenecaII/Panels/Textures/Ring.rgb</path>
+                <x1>0.0</x1>
+                <x2>1.0</x2>
+                <y1>0.0</y1>
+                <y2>1.0</y2>
+            </texture>
+        </layer>
+
+        <layer>
+            <name>ElevatorTrimIndicator</name>
+            <w>50</w>
+            <h>30</h>
+            <texture>
+                <path>Aircraft/SenecaII/Panels/Textures/FlapTrimIndicator.png</path>
+                <x1>0.87890625</x1>
+                <x2>0.947265625</x2>
+                <y1>0.0390625</y1>
+                <y2>0.078125</y2>
+            </texture>
+            <transformations>
+              <transformation>
+                <type>x-shift</type>
+                <offset>-130</offset>
+              </transformation>
+              <transformation>
+                <type>y-shift</type>
+                <scale>90</scale>
+                <property alias="../../../../../params/elevator"/>
+              </transformation>
+            </transformations>
+        </layer>
+
+        <layer>
+            <name>RudderTrimIndicator</name>
+            <w>50</w>
+            <h>30</h>
+            <texture>
+                <path>Aircraft/SenecaII/Panels/Textures/FlapTrimIndicator.png</path>
+                <x1>0.87890625</x1>
+                <x2>0.947265625</x2>
+                <y1>0.0390625</y1>
+                <y2>0.078125</y2>
+            </texture>
+            <transformations>
+              <transformation>
+                <type>y-shift</type>
+                <offset>135</offset>
+              </transformation>
+              <transformation>
+                <type>x-shift</type>
+                <scale>90</scale>
+                <property alias="../../../../../params/rudder"/>
+              </transformation>
+              <transformation>
+                <type>rotation</type>
+                <offset>90</offset>
+              </transformation>
+            </transformations>
+        </layer>
+
+        <layer>
+            <name>FlapIndicator</name>
+            <w>50</w>
+            <h>30</h>
+            <texture>
+                <path>Aircraft/SenecaII/Panels/Textures/FlapTrimIndicator.png</path>
+                <x1>0.87890625</x1>
+                <x2>0.947265625</x2>
+                <y1>0.0390625</y1>
+                <y2>0.078125</y2>
+            </texture>
+            <transformations>
+              <transformation>
+                <type>rotation</type>
+                <scale>40</scale>
+                <property alias="../../../../../params/flaps"/>
+              </transformation>
+              <transformation>
+                <type>x-shift</type>
+                <offset>135</offset>
+              </transformation>
+            </transformations>
+        </layer>
+-->
+    </layers>
+
+</PropertyList>

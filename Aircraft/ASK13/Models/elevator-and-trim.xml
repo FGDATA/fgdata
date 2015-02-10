@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+ <path>elevator-and-trim.ac</path>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>trim</object-name>
+   <property>controls/flight/spoilers</property>
+		<min-deg>-50</min-deg>
+		<max-deg>50</max-deg>
+		<factor>-100</factor>
+		<center>
+			<x-m>0.319155</x-m>
+			<y-m>0.574183</y-m>
+			<z-m>2.7e-05</z-m>
+		</center>
+		<axis>
+			<x>-0.164375</x>
+			<y>0.855093</y>
+			<z>-4.9e-05</z>
+		</axis>
+ </animation>
+ 
+ <effect>
+  <inherits-from>Aircraft/ASK13/Models/Effects/ask13_bumpspec-2</inherits-from>
+  <object-name>elevator</object-name>
+ </effect>
+
+</PropertyList>
+
+

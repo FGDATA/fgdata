@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<sim>
+		<model>
+			<formation>
+				<variant type="string">Echelon Port</variant>
+				<index type="int">3</index>
+				<position>
+					<x-offset>-75</x-offset>
+					<y-offset>-75</y-offset>
+					<z-offset>0</z-offset>
+				</position>
+				<position>
+					<x-offset>-150</x-offset>
+					<y-offset>-150</y-offset>
+					<z-offset>0</z-offset>
+				</position>
+				<position>
+					<x-offset>-75</x-offset>
+					<y-offset>-75</y-offset>
+					<z-offset>0</z-offset>
+				</position>
+			</formation>
+		</model>
+	</sim>
+</PropertyList>

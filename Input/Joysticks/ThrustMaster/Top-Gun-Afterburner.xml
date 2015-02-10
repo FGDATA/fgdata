@@ -1,0 +1,630 @@
+<?xml version="1.0"?>
+<!--
+$Id$
+
+Bindings for THRUSTMASTER Top Gun Afterburner stick/throttle combination.
+
+This file is based on the Cyborg-Gold-3d-USB configuration file. So it provides
+maximum compatibility.
+
+_______________________________________ Layout _______________________________________
+
+
+axis 0:                      aileron
+axis 1:                      elevator
+axis 2:                      rudder
+axis 3:                      throttle
+
+
+                             no modifier     F3              F4              F3+F4
+                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+button 0 (trigger):          brakes          parking brake   speed brake     thrust revers.
+button 1 (top middle):       flaps up        gear up         previous view   *
+button 2 (front right):      reset view dir  tail wheel lock cockpit view    reset all trim
+button 3 (top right):        flaps down      gear down       next view       *
+button 4 (thr. down/back):   brakes left     *               zoom out        *
+button 5 (thr. middle/back): brakes right    *               zoom in         *
+button 6 (thr. upper/back):  //////////////////////// modifier 0 /////////////////////////
+button 7 (thr. front):       //////////////////////// modifier 1 /////////////////////////
+hat left (axis5):            look left       leaner mixture  aileron trim    rudder trim
+hat right (axis5):           look right      richer mixture  aileron trim    rudder trim
+hat back (axis6):            look down       dec prop pitch  elevator trim   *
+hat forward (axis6):         look up         inc prop pitch  elevator trim   *
+
+
+F3 and F4 are used like "Shift", "Control", or "Alternate" on computer keyboards.
+For example: press F3 and keep holding it down while pressing the fire
+button/trigger -> toggle parking brake
+
+When flying the Harrier, "F3/hat left" and "right" control the thrust vector.
+
+Also this configurations will make use of the raster positions on the throttle.
+The idle position and below is really zero thrust command.
+Positions bewteen idle and afterburner will scale the thrust value between 0 and 0.98
+and thus provides military power for jet engines. The afterburner raster will
+really turn on afterburning.
+
+Also to avoid additional deadband values in the linux kernel
+to the deadband values configured here in flightgear.
+You may need to issue the following command before starting flightgear:
+
+jscal -s 7,1,0,-5,5,4194304,4194304,1,0,-5,5,4194304,4194304,1,0,-5,5,4194304,4194304,1,0,128,128,4194304,4194304,1,0,112,142,5534751,5534751,1,0,0,0,536870912,536870912,1,0,0,0,536870912,536870912 /dev/input/js0
+
+This will also avoid the useless deadband area in the middle of the throttle position.
+Also this will make the raster positions of the throttle match the programmed values here.
+
+___________________________________ Customization ____________________________________
+
+
+
+If you want to change some (or all) of the bindings, the recommended way is
+to copy this file to your home directory, make your changes there, and include
+it from your personal preferences.xml file. Use the tags <js-named n="100">
+and </js-named> around the definitions, but within the <PropertyList> scope.
+(You can use any number lower than 999.)
+
+<PropertyList>
+	<input>
+		<joysticks include="your-modified-copy.xml"/>
+	</input>
+</PropertyList>
+
+
+The property "/input/joysticks/js[0]/saitek-cyborg-3D-modifier" indicates
+the "shift" level. F3 sets bit 0, F4 sets bit 1. The property is 'nil' or
+zero if none of the shift buttons is pressed, 1 if F3 is pressed, 2 if F4
+is pressed, and 3 if both F3 and F4 are pressed.
+
+Note that you have to enclose nasal scripts in <script><![CDATA[...]]></script>
+if they contain characters that interfere with the xml markup. This is the case
+if you are, for exmaple, using < (lower than). Alternatively, you can 'escape'
+the character with "&lt;".
+
+
+
+
+____________________________________ References ______________________________________
+
+
+
+Joysticks:      $FG_ROOT/Docs/README.Joystick.html
+Properties:     see property browser (fgfs menu: "File"->"Browse internal properties")
+
+Nasal:          http://www.plausible.org/nasal/
+Nasal examples: $FG_ROOT/Nasal/
+
+
+______________________________________________________________________________________
+
+                                                     ~~ Melchior FRANZ <mfranz@aon.at>
+        slightly modified for the thrustmaster joystick Mathias Froehlich <Mathias.Froehlich@web.de>
+-->
+
+<PropertyList>
+	<name>THRUSTMASTER Top Gun Afterburner</name>
+	<name>ThrustMaster Top Gun AfterBurner</name>
+	<name>Thrustmaster Afterburner Force Feedback (USB)</name>
+
+	<axis>
+		<desc>Aileron</desc>
+		<number>
+			<unix>0</unix>
+			<mac>0</mac>
+			<windows>0</windows>
+		</number>
+		<binding>
+			<command>property-scale</command>
+			<property>/controls/flight/aileron</property>
+			<power type="double">2.0</power>
+		</binding>
+	</axis>
+
+	<axis>
+		<desc>Elevator</desc>
+		<number>
+			<unix>1</unix>
+			<mac>1</mac>
+			<windows>1</windows>
+		</number>
+		<binding>
+			<command>property-scale</command>
+			<property>/controls/flight/elevator</property>
+			<factor type="double">-1.0</factor>
+			<power type="double">2.0</power>
+		</binding>
+	</axis>
+
+	<axis>
+		<desc>Rudder</desc>
+		<number>
+			<unix>2</unix>
+			<mac>2</mac>
+			<windows>3</windows>
+		</number>
+		<binding>
+			<command>property-scale</command>
+			<property>/controls/flight/rudder</property>
+			<offset type="double">0.0</offset>
+			<factor type="double">1.0</factor>
+			<power type="double">2.0</power>
+		</binding>
+	</axis>
+
+	<axis>
+		<!--
+		We have a throttle with two raster positions.
+
+		The areas are:
+		1 - 0.99: idle
+		0.99 - 0.9: idle deadband
+		0.9 - -0.55: normal thrust
+		-0.55 - -0.9:  afterburner deadband
+		-0.9 - -1: afterburner
+		-->
+		<desc>Throttle</desc>
+		<number>
+			<unix>3</unix>
+			<mac>3</mac>
+			<windows>2</windows>
+		</number>
+		<dead-band type="double">0.0</dead-band>
+		<binding>
+			<command>nasal</command>
+			<script>
+				<![CDATA[
+				if (1==1) {
+					val = cmdarg().getNode("setting").getValue();
+					abend = -1;
+					abstart = -0.9;
+					milend = -0.55;
+					milstart = 0.9;
+					if (val < abstart) {
+						# afterburner
+						a = 0.03/(abend-abstart);
+						b = 1-a*abend;
+						props.setAll("/controls/engines/engine", "augmentation", "true");
+						props.setAll("/controls/engines/engine", "throttle", a*val+b);
+					} else {
+						# no afterburner
+						props.setAll("/controls/engines/engine", "augmentation", "false");
+						if (val < milend) {
+							# afterburner deadband
+							props.setAll("/controls/engines/engine", "throttle", 0.9699999999);
+						} else {
+							if (val < milstart) {
+								a = 0.96999999999/(milend-milstart);
+								b = -a*milstart;
+								props.setAll("/controls/engines/engine", "throttle", a*val+b);
+								#props.setAll("/controls/engines/engine", "cutoff", 0);
+								#props.setAll("/controls/engines/engine", "starter", 0);
+							} else {
+								if (val < 0.99) {
+									props.setAll("/controls/engines/engine", "throttle", 0.4);
+									#props.setAll("/controls/engines/engine", "cutoff", 0);
+									#props.setAll("/controls/engines/engine", "starter", 1);
+								} else {
+									props.setAll("/controls/engines/engine", "throttle", 0);
+									#props.setAll("/controls/engines/engine", "cutoff", 1);
+									#props.setAll("/controls/engines/engine", "starter", 0);
+								}
+							}
+						}
+					}
+				}
+				]]>
+			</script>
+		</binding>
+	</axis>
+
+	<button n="0"><!-- trigger -->
+		<desc>Brakes</desc>
+		<repeatable type="bool">true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>
+				mod = getprop("/input/joysticks/js[0]/thrustmaster-top-gun-afterburner-modifier");
+				if (mod == nil or mod == 0) {
+					interpolate("/controls/gear/brake-left", 1, 0.075);
+					interpolate("/controls/gear/brake-right", 1, 0.075);
+				} elsif (mod == 1) {
+					setprop("/controls/gear/brake-left", 1);
+					setprop("/controls/gear/brake-right", 1);
+				} elsif (mod == 2) {
+					#
+				} elsif (mod == 3) {
+					#
+				}
+			</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>
+					mod = getprop("/input/joysticks/js[0]/thrustmaster-top-gun-afterburner-modifier");
+					if (mod == nil or mod == 0) {
+						interpolate("/controls/gear/brake-left", 0, 0.075);
+						interpolate("/controls/gear/brake-right", 0, 0.075);
+					} elsif (mod == 1) {
+						brake = !getprop("/controls/gear/brake-parking");
+						setprop("/controls/gear/brake-parking", brake);
+						if (brake) {
+							gui.popupTip("Parking Brake ON");
+						} else {
+							gui.popupTip("Parking Brake OFF");
+						}
+						setprop("/controls/gear/brake-left", 0);
+						setprop("/controls/gear/brake-right", 0);
+					} elsif (mod == 2) {
+						speedbrake = !getprop("/controls/flight/speedbrake");
+						setprop("/controls/flight/speedbrake", speedbrake);
+					} elsif (mod == 3) {
+						reverser = !getprop("/controls/engines/engine[0]/reverser");
+						props.setAll("/controls/engines/engine", "reverser", reverser);
+						if (reverser) {
+							gui.popupTip("Thrust Reverser ON");
+						} else {
+							gui.popupTip("Thrust Reverser OFF");
+						}
+					}
+				</script>
+			</binding>
+		</mod-up>
+	</button>
+
+	<button n="1"><!-- top middle -->
+		<desc>Flaps/gear up; previous view</desc>
+		<repeatable type="bool">false</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>
+				mod = getprop("/input/joysticks/js[0]/thrustmaster-top-gun-afterburner-modifier");
+				if (mod == nil or mod == 0) {
+					controls.flapsDown(-1);
+				} elsif (mod == 1) {
+					controls.gearDown(-1);
+				} elsif (mod == 2) {
+					view.stepView(-1);
+				} elsif (mod == 3) {
+					#
+				}
+			</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>
+					mod = getprop("/input/joysticks/js[0]/thrustmaster-top-gun-afterburner-modifier");
+					if (mod == nil or mod == 0) {
+						controls.flapsDown(0);
+					} elsif (mod == 1) {
+						controls.gearDown(0);
+					} elsif (mod == 2) {
+						#
+					} elsif (mod == 3) {
+						#
+					}
+				</script>
+			</binding>
+		</mod-up>
+	</button>
+
+	<button n="2"><!-- front right -->
+		<desc>Reset view; toggle tail-wheel lock; reset trim</desc>
+		<repeatable type="bool">false</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>
+				mod = getprop("/input/joysticks/js[0]/thrustmaster-top-gun-afterburner-modifier");
+				if (mod == nil or mod == 0) {
+					view.resetView();
+				} elsif (mod == 1) {
+					twlock = !getprop("/controls/gear/tailwheel-lock");
+					setprop("/controls/gear/tailwheel-lock", twlock);
+					if (twlock) {
+						gui.popupTip("Tail Wheel LOCKED");
+					} else {
+						gui.popupTip("Tail Wheel UNLOCKED");
+					}
+				} elsif (mod == 2) {
+					setprop("/sim/current-view/view-number", 0);
+					view.resetView();
+				} elsif (mod == 3) {
+					setprop("/controls/flight/elevator-trim", 0);
+					setprop("/controls/flight/aileron-trim", 0);
+					setprop("/controls/flight/rudder-trim", 0);
+				}
+			</script>
+		</binding>
+	</button>
+
+	<button n="3"><!-- top right -->
+		<desc>Flaps/gear down; next view</desc>
+		<repeatable type="bool">false</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>
+				mod = getprop("/input/joysticks/js[0]/thrustmaster-top-gun-afterburner-modifier");
+				if (mod == nil or mod == 0) {
+					controls.flapsDown(1);
+				} elsif (mod == 1) {
+					controls.gearDown(1);
+				} elsif (mod == 2) {
+					view.stepView(1);
+				} elsif (mod == 3) {
+					#
+				}
+			</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>
+					mod = getprop("/input/joysticks/js[0]/thrustmaster-top-gun-afterburner-modifier");
+					if (mod == nil or mod == 0) {
+						controls.flapsDown(0);
+					} elsif (mod == 1) {
+						controls.gearDown(0);
+					} elsif (mod == 2) {
+						#
+					} elsif (mod == 3) {
+						#
+					}
+				</script>
+			</binding>
+		</mod-up>
+	</button>
+
+	<button n="4"><!-- throttle down/back -->
+		<desc>Brakes left</desc>
+		<repeatable type="bool">true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>
+				mod = getprop("/input/joysticks/js[0]/thrustmaster-top-gun-afterburner-modifier");
+				if (mod == nil or mod == 0) {
+					interpolate("/controls/gear/brake-left", 1, 0.075);
+				} elsif (mod == 1) {
+					#
+				} elsif (mod == 2) {
+					view.increase();
+				} elsif (mod == 3) {
+					#
+				}
+			</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>
+					mod = getprop("/input/joysticks/js[0]/thrustmaster-top-gun-afterburner-modifier");
+					if (mod == nil or mod == 0) {
+						interpolate("/controls/gear/brake-left", 0, 0.075);
+					} elsif (mod == 1) {
+						#
+					} elsif (mod == 2) {
+						#
+					} elsif (mod == 3) {
+						#
+					}
+				</script>
+			</binding>
+		</mod-up>
+	</button>
+
+	<button n="5"><!-- throttle middle/back -->
+		<desc>Brakes right</desc>
+		<repeatable type="bool">true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>
+				mod = getprop("/input/joysticks/js[0]/thrustmaster-top-gun-afterburner-modifier");
+				if (mod == nil or mod == 0) {
+					interpolate("/controls/gear/brake-right", 1, 0.075);
+				} elsif (mod == 1) {
+					#
+				} elsif (mod == 2) {
+					view.decrease();
+				} elsif (mod == 3) {
+					#
+				}
+			</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>
+					mod = getprop("/input/joysticks/js[0]/thrustmaster-top-gun-afterburner-modifier");
+					if (mod == nil or mod == 0) {
+						interpolate("/controls/gear/brake-right", 0, 0.075);
+					} elsif (mod == 1) {
+						#
+					} elsif (mod == 2) {
+						#
+					} elsif (mod == 3) {
+						#
+					}
+				</script>
+			</binding>
+		</mod-up>
+	</button>
+
+	<button n="6"><!-- throttle upper/back -->
+		<desc>Modifier Bit 0</desc>
+		<repeatable type="bool">false</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>
+				name = "/input/joysticks/js[0]/thrustmaster-top-gun-afterburner-modifier";
+				mod = getprop(name);
+				if (mod == nil) {
+					setprop(name, 1);
+				} elsif (mod == 0 or mod == 2) {
+					setprop(name, mod + 1);
+				}
+			</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>
+					name = "/input/joysticks/js[0]/thrustmaster-top-gun-afterburner-modifier";
+					mod = getprop(name);
+					if (mod == nil) {
+						setprop(name, 0);
+					} elsif (mod == 1 or mod == 3) {
+						setprop(name, mod - 1);
+					}
+				</script>
+			</binding>
+		</mod-up>
+	</button>
+
+	<button n="7"><!-- throttle front -->
+		<desc>Modifier Bit 1</desc>
+		<repeatable type="bool">false</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>
+				name = "/input/joysticks/js[0]/thrustmaster-top-gun-afterburner-modifier";
+				mod = getprop(name);
+				if (mod == nil) {
+					setprop(name, 2);
+				} elsif (mod == 0 or mod == 1) {
+					setprop(name, mod + 2);
+				}
+			</script>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>nasal</command>
+				<script>
+					name = "/input/joysticks/js[0]/thrustmaster-top-gun-afterburner-modifier";
+					mod = getprop(name);
+					if (mod == nil) {
+						setprop(name, 0);
+					} elsif (mod == 2 or mod == 3) {
+						setprop(name, mod - 2);
+					}
+				</script>
+			</binding>
+		</mod-up>
+	</button>
+
+	<axis n="5"><!-- View Direction Hat -->
+		<desc>View direction; mixture; aileron trim; rudder trim</desc>
+		<number>
+			<unix>4</unix>
+			<mac>5</mac>
+			<windows>6</windows>
+		</number>
+		<low>
+			<repeatable>true</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>
+					<![CDATA[
+					mod = getprop("/input/joysticks/js[0]/thrustmaster-top-gun-afterburner-modifier");
+					if (mod == nil or mod == 0) {
+						v = getprop("/sim/current-view/view-number");
+						if (v == 0 or v == 4) {
+							view.panViewDir(1);
+						} else {
+							view.panViewDir(-1);
+						}
+					} elsif (mod == 1) {
+						controls.adjMixture(-1);
+						if (getprop("/sim/aero") == "harrier") {
+							thv = getprop("/controls/engines/engine[0]/mixture");
+							thv = int(thv * 120 - 20);
+							gui.popupTip("Thrust vector " ~ thv);
+						}
+					} elsif (mod == 2) {
+						controls.aileronTrim(-0.75);
+					} elsif (mod == 3) {
+						controls.rudderTrim(0.75);
+					}
+					]]>
+				</script>
+			</binding>
+		</low>
+		<high>
+			<repeatable>true</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>
+					<![CDATA[
+					mod = getprop("/input/joysticks/js[0]/thrustmaster-top-gun-afterburner-modifier");
+					if (mod == nil or mod == 0) {
+						v = getprop("/sim/current-view/view-number");
+						if (v == 0 or v == 4) {
+							view.panViewDir(-1);
+						} else {
+							view.panViewDir(1);
+						}
+					} elsif (mod == 1) {
+						controls.adjMixture(1);
+						if (getprop("/sim/aero") == "harrier") {
+							thv = getprop("/controls/engines/engine[0]/mixture");
+							thv = int(thv * 120 - 20);
+							gui.popupTip("Thrust vector " ~ thv);
+						}
+					} elsif (mod == 2) {
+						controls.aileronTrim(0.75);
+					} elsif (mod == 3) {
+						controls.rudderTrim(-0.75);
+					}
+					]]></script>
+			</binding>
+		</high>
+	</axis>
+
+	<axis>
+		<desc>View direction; prop pitch; elevator trim</desc>
+		<number>
+			<unix>5</unix>
+			<mac>6</mac>
+			<windows>7</windows>
+		</number>
+		<low>
+			<repeatable>true</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>
+					<![CDATA[
+					mod = getprop("/input/joysticks/js[0]/thrustmaster-top-gun-afterburner-modifier");
+					if (mod == nil or mod == 0) {
+						view.panViewPitch(1);
+					} elsif (mod == 1) {
+						controls.adjPropeller(1);
+					} elsif (mod == 2) {
+						controls.elevatorTrim(0.75);
+					} elsif (mod == 3) {
+						#
+					}
+					]]>
+				</script>
+			</binding>
+		</low>
+		<high>
+			<repeatable>true</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>
+					<![CDATA[
+					mod = getprop("/input/joysticks/js[0]/thrustmaster-top-gun-afterburner-modifier");
+					if (mod == nil or mod == 0) {
+						view.panViewPitch(-1);
+					} elsif (mod == 1) {
+						controls.adjPropeller(-1);
+					} elsif (mod == 2) {
+						controls.elevatorTrim(-0.75);
+					} elsif (mod == 3) {
+						#
+					}
+					]]>
+				</script>
+			</binding>
+		</high>
+	</axis>
+
+</PropertyList>

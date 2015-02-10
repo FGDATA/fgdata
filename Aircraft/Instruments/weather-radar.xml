@@ -1,0 +1,64 @@
+<!--
+
+sample
+
+<instrumentation>
+ <radar>
+  <range type="int" archive="y">32</range>
+  <minimized type="bool" archive="y">false</minimized>
+  <switch archive="y">ON</switch>
+  <mode archive="y">WX</mode>
+  <lightning type="bool" archive="y">false</lightning>
+  <display-mode archive="y">arc</display-mode>
+ </radar>
+</instrumentation>
+
+-->
+<PropertyList>
+
+ <name>wxRadar</name>
+ <w-base>256</w-base>
+ <h-base>256</h-base>
+ <layers>
+
+  <layer>
+   <name>background</name>
+   <w>256</w>
+   <h>256</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/radar_background.rgb</path>
+    <x1>0</x1>
+    <y1>0</y1>
+    <x2>1</x2>
+    <y2>1</y2>
+   </texture>
+  </layer>
+
+  <layer>
+   <name>data</name>
+   <w>256</w>
+   <h>256</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/od_wxradar.rgb</path>
+    <x1>0</x1>
+    <y1>0</y1>
+    <x2>1</x2>
+    <y2>1</y2>
+   </texture>
+  </layer>
+
+  <layer>
+   <name>frame</name>
+   <w>256</w>
+   <h>256</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/radar_frame.rgb</path>
+    <x1>0</x1>
+    <y1>0</y1>
+    <x2>1</x2>
+    <y2>1</y2>
+   </texture>
+  </layer>
+
+ </layers>
+</PropertyList>

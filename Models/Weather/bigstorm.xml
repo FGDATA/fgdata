@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+ <path>bigstorm.ac</path>
+ <offsets>
+   <x-m>-4500.0</x-m>
+ </offsets> 
+
+
+ <animation>
+  <type>select</type>
+  <object-name>lightning</object-name>
+  <condition>
+      <property>/environment/lightning/flash</property>
+  </condition>
+ </animation>
+
+ <!--
+      turning rain off during a lightning flash helps make
+      the flash more visible, but it's kind of cheezy :) 
+ -->
+
+ <animation>
+  <type>select</type>
+  <object-name>rain</object-name>
+  <condition>
+    <not>
+      <property>/environment/lightning/flash</property>
+    </not>
+  </condition>
+ </animation>
+
+</PropertyList>

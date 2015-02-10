@@ -1,0 +1,205 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<name>bo105-config</name>
+	<layout>vbox</layout>
+	<x>-40</x>
+	<y>-40</y>
+
+	<group>
+		<layout>hbox</layout>
+		<empty><stretch>1</stretch></empty>
+
+		<text>
+			<label>Bo105 configuration</label>
+		</text>
+
+		<empty><stretch>1</stretch></empty>
+
+		<button>
+			<pref-width>16</pref-width>
+			<pref-height>16</pref-height>
+			<legend></legend>
+			<default>1</default>
+			<keynum>27</keynum>
+			<border>2</border>
+
+			<binding>
+				<command>nasal</command>
+				<script>bo105.config_dialog.close()</script>
+			</binding>
+		</button>
+	</group>
+
+	<hrule/>
+
+	<nasal>
+		<open>
+			var ammoN = props.globals.getNode("sim/model/bo105/weapons/ammunition", 1);
+			loop = func {
+				ammoN.setValue(bo105.get_ammunition());
+				if (open) {
+					settimer(loop, 0.2);
+				}
+			}
+			open = 1;
+			loop();
+		</open>
+
+		<close>
+			open = 0;
+		</close>
+	</nasal>
+
+	<group>
+		<layout>hbox</layout>
+		<empty><pref-width>4</pref-width></empty>
+		<checkbox>
+			<halign>left</halign>
+			<label>pilot's door</label>
+			<property>/sim/model/bo105/doors/door[0]/enabled</property>
+			<live>1</live>
+			<binding>
+				<command>dialog-apply</command>
+			</binding>
+		</checkbox>
+		<empty><stretch>1</stretch></empty>
+	</group>
+
+	<group>
+		<layout>hbox</layout>
+		<empty><pref-width>4</pref-width></empty>
+		<checkbox>
+			<halign>left</halign>
+			<label>copilot's door</label>
+			<property>/sim/model/bo105/doors/door[1]/enabled</property>
+			<live>1</live>
+			<binding>
+				<command>dialog-apply</command>
+			</binding>
+		</checkbox>
+		<empty><stretch>1</stretch></empty>
+	</group>
+
+	<group>
+		<layout>hbox</layout>
+		<empty><pref-width>4</pref-width></empty>
+		<checkbox>
+			<halign>left</halign>
+			<label>right backdoor</label>
+			<property>/sim/model/bo105/doors/door[2]/enabled</property>
+			<live>1</live>
+			<binding>
+				<command>dialog-apply</command>
+			</binding>
+		</checkbox>
+		<empty><stretch>1</stretch></empty>
+	</group>
+
+	<group>
+		<layout>hbox</layout>
+		<empty><pref-width>4</pref-width></empty>
+		<checkbox>
+			<halign>left</halign>
+			<label>left backdoor</label>
+			<property>/sim/model/bo105/doors/door[3]/enabled</property>
+			<live>1</live>
+			<binding>
+				<command>dialog-apply</command>
+			</binding>
+		</checkbox>
+		<empty><stretch>1</stretch></empty>
+	</group>
+
+	<group>
+		<layout>hbox</layout>
+		<empty><pref-width>4</pref-width></empty>
+		<checkbox>
+			<halign>left</halign>
+			<label>right reardoor</label>
+			<property>/sim/model/bo105/doors/door[4]/enabled</property>
+			<live>1</live>
+			<binding>
+				<command>dialog-apply</command>
+			</binding>
+		</checkbox>
+		<empty><stretch>1</stretch></empty>
+	</group>
+
+	<group>
+		<layout>hbox</layout>
+		<empty><pref-width>4</pref-width></empty>
+		<checkbox>
+			<halign>left</halign>
+			<label>left reardoor</label>
+			<property>/sim/model/bo105/doors/door[5]/enabled</property>
+			<live>1</live>
+			<binding>
+				<command>dialog-apply</command>
+			</binding>
+		</checkbox>
+		<empty><stretch>1</stretch></empty>
+	</group>
+
+	<group>
+		<layout>hbox</layout>
+		<empty><pref-width>4</pref-width></empty>
+		<checkbox>
+			<name>beacon-checkbox</name>
+			<halign>left</halign>
+			<label>beacons</label>
+			<property>/controls/lighting/beacon</property>
+			<live>1</live>
+			<binding>
+				<object-name>beacon-checkbox</object-name>
+				<command>dialog-apply</command>
+			</binding>
+		</checkbox>
+		<empty><stretch>1</stretch></empty>
+	</group>
+
+	<group>
+		<layout>hbox</layout>
+		<empty><pref-width>4</pref-width></empty>
+		<checkbox>
+			<name>strobe-checkbox</name>
+			<halign>left</halign>
+			<label>strobes</label>
+			<property>/controls/lighting/strobe</property>
+			<live>1</live>
+			<binding>
+				<object-name>strobe-checkbox</object-name>
+				<command>dialog-apply</command>
+			</binding>
+		</checkbox>
+		<empty><stretch>1</stretch></empty>
+	</group>
+
+	<group>
+		<layout>hbox</layout>
+		<empty><pref-width>4</pref-width></empty>
+
+		<button>
+			<halign>left</halign>
+			<legend>Reload</legend>
+			<pref-width>64</pref-width>
+			<pref-height>24</pref-height>
+			<binding>
+				<command>nasal</command>
+				<script>bo105.reload()</script>
+			</binding>
+		</button>
+
+		<text>
+			<halign>left</halign>
+			<label>X</label>
+			<pref-width>200</pref-width>
+			<property>/sim/model/bo105/weapons/ammunition</property>
+			<live>1</live>
+		</text>
+
+		<empty><stretch>1</stretch></empty>
+	</group>
+
+	<empty><pref-height>3</pref-height></empty>
+</PropertyList>

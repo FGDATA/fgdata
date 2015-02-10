@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+ <path>earth_unitscale_hires.ac</path>
+
+
+ <animation>
+  <type>scale</type>
+  <x-offset>58030</x-offset>
+  <y-offset>58030</y-offset>
+  <z-offset>58030</z-offset>
+ </animation>
+
+
+ <animation>
+  <!--<object-name>earth_N1</object-name>
+  <object-name>earth_N2</object-name>
+  <object-name>earth_N3</object-name>
+  <object-name>earth_N4</object-name>
+  <object-name>earth_S1</object-name>
+  <object-name>earth_S2</object-name>
+  <object-name>earth_S3</object-name>
+  <object-name>earth_S4</object-name>-->
+  <type>rotate</type>
+  <property>/earthview/yaw-deg</property>
+  <factor>1</factor>
+  <offset-deg>0</offset-deg>
+  <center>
+   <x-m>0</x-m>
+   <y-m>0</y-m>
+   <z-m>0</z-m>
+  </center>
+  <axis>
+   <x>0</x>
+   <y>0</y>
+   <z>1</z>
+  </axis>
+ </animation>
+
+ <effect>
+   <inherits-from>Models/Astro/Effects/planet_N1</inherits-from>
+   <object-name>earth_N1</object-name>
+</effect>
+
+<effect>
+   <inherits-from>Models/Astro/Effects/planet_N2</inherits-from>
+   <object-name>earth_N2</object-name>
+</effect>
+
+<effect>
+   <inherits-from>Models/Astro/Effects/planet_N3</inherits-from>
+   <object-name>earth_N3</object-name>
+</effect>
+
+<effect>
+   <inherits-from>Models/Astro/Effects/planet_N4</inherits-from>
+   <object-name>earth_N4</object-name>
+</effect>
+
+<effect>
+   <inherits-from>Models/Astro/Effects/planet_S1</inherits-from>
+   <object-name>earth_S1</object-name>
+</effect>
+
+<effect>
+   <inherits-from>Models/Astro/Effects/planet_S2</inherits-from>
+   <object-name>earth_S2</object-name>
+</effect>
+
+<effect>
+   <inherits-from>Models/Astro/Effects/planet_S3</inherits-from>
+   <object-name>earth_S3</object-name>
+</effect>
+
+<effect>
+   <inherits-from>Models/Astro/Effects/planet_S4</inherits-from>
+   <object-name>earth_S4</object-name>
+</effect>
+
+
+
+</PropertyList>

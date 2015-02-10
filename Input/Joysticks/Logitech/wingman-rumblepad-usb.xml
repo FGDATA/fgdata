@@ -1,0 +1,218 @@
+<?xml version="1.0"?>
+
+<!--
+************************************************************************
+* Setup for Logitech WingMan Rumblepad gamepad.
+*
+* This is a USB gamepad with some feedback capability (not supported
+* by plib or by most OS's).  Bindings are as follow:
+*
+* Axis 0 (left joystick): ailerons
+* Axis 1 (left joystick): elevator
+* Axis 2 (slider): throttle
+* Axis 3 (right joystick): rudder
+* Axis 4 (right joystick): (not used)
+* Axes 5 and 6 (hat): set view direction
+*
+* Button 0 (A): elevator trim up
+* Button 1 (B): decrease propeller pitch
+* Button 2 (C): mixture leaner
+* Button 3 (X): elevator trim down
+* Button 4 (Y): increase propeller pitch
+* Button 5 (Z): mixture richer
+* Button 6 (left trigger): left wheel brake
+* Button 7 (right trigger): right wheel brake
+* Button 8 (S): cycle view
+*
+* Note that the "mode" button swaps the hat/pad and the left stick.
+* When it is engaged, axis 0<->5 and 1<->6 are swapped.
+*
+************************************************************************
+$Id$
+-->
+
+<PropertyList>
+
+ <name>Logitech Inc. WingMan RumblePad</name>
+ <name>Logitech WingMan RumblePad USB</name>
+ <name>WingMan RumblePad</name>
+
+ <axis n="0">
+  <desc>Aileron</desc>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/aileron</property>
+   <power type="double">3</power>
+  </binding>
+ </axis>
+
+ <axis n="1">
+  <desc>Elevator</desc>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/elevator</property>
+   <factor type="double">-1.0</factor>
+   <power type="double">3</power>
+  </binding>
+ </axis>
+
+ <axis n="2">
+  <desc>Throttle</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.throttleAxis()</script>
+  </binding>
+ </axis>
+
+ <axis n="3">
+  <desc>Rudder</desc>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/rudder</property>
+   <power type="double">3</power>
+  </binding>
+ </axis>
+
+ <axis n="4">
+  <desc>unused</desc>
+  <binding>
+   <command>null</command>
+  </binding>
+ </axis>
+
+ <axis n="5">
+  <desc>View left/right</desc>
+  <binding>
+   <command>property-scale</command>
+   <property>/sim/current-view/axes/lat</property>
+  </binding>
+ </axis>
+
+ <axis n="6">
+  <desc>View up/down</desc>
+  <binding>
+   <command>property-scale</command>
+   <property>/sim/current-view/axes/long</property>
+  </binding>
+ </axis>
+
+ <button n="0">
+  <desc>Elevator trim up</desc>
+  <repeatable>true</repeatable>
+  <binding>
+   <command>property-adjust</command>
+   <property>/controls/flight/elevator-trim</property>
+   <step type="double">-0.001</step>
+  </binding>
+ </button>
+
+ <button n="1">
+  <desc>Decrease propeller pitch</desc>
+  <repeatable>true</repeatable>
+  <binding>
+   <command>property-adjust</command>
+   <property>/controls/engines/engine[0]/propeller-pitch</property>
+   <step>-0.01</step>
+  </binding>
+  <binding>
+   <command>property-adjust</command>
+   <property>/controls/engines/engine[1]/propeller-pitch</property>
+   <step>-0.01</step>
+  </binding>
+ </button>
+
+ <button n="2">
+  <desc>Mixture leaner</desc>
+  <repeatable>true</repeatable>
+  <binding>
+   <command>property-adjust</command>
+   <property>/controls/engines/engine[0]/mixture</property>
+   <step>-0.01</step>
+  </binding>
+  <binding>
+   <command>property-adjust</command>
+   <property>/controls/engines/engine[1]/mixture</property>
+   <step>-0.01</step>
+  </binding>
+ </button>
+
+ <button n="3">
+  <desc>Elevator trim down</desc>
+  <repeatable>true</repeatable>
+  <binding>
+   <command>property-adjust</command>
+   <property>/controls/flight/elevator-trim</property>
+   <step>0.001</step>
+  </binding>
+ </button>
+
+ <button n="4">
+  <desc>Increase propeller pitch</desc>
+  <repeatable>true</repeatable>
+  <binding>
+   <command>property-adjust</command>
+   <property>/controls/engines/engine[0]/propeller-pitch</property>
+   <step>0.01</step>
+  </binding>
+  <binding>
+   <command>property-adjust</command>
+   <property>/controls/engines/engine[1]/propeller-pitch</property>
+   <step>0.01</step>
+  </binding>
+ </button>
+
+ <button n="5">
+  <desc>Mixture richer</desc>
+  <repeatable>true</repeatable>
+  <binding>
+   <command>property-adjust</command>
+   <property>/controls/engines/engine[0]/mixture</property>
+   <step>0.01</step>
+  </binding>
+  <binding>
+   <command>property-adjust</command>
+   <property>/controls/engines/engine[1]/mixture</property>
+   <step>0.01</step>
+  </binding>
+ </button>
+
+ <button n="6">
+  <desc>Left brakes</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.applyBrakes(1, -1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.applyBrakes(0, -1)</script>
+   </binding>
+  </mod-up>
+ </button>
+
+ <button n="7">
+  <desc>Right brakes</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.applyBrakes(1, 1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.applyBrakes(0, 1)</script>
+   </binding>
+  </mod-up>
+ </button>
+
+ <button n="8">
+  <desc>Cycle View</desc>
+  <repeatable>false</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>view.stepView(1)</script>
+  </binding>
+ </button>
+
+</PropertyList>
+
+<!-- end of "rumblepad.fgd" -->

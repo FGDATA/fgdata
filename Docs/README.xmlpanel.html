@@ -1,0 +1,1098 @@
+<HTML><HEAD><TITLE>Users Guide to FlightGear panel configuration</TITLE></HEAD>
+<BODY>
+<H1>Users Guide to FlightGear panel configuration</H1>
+
+<CITE>
+Version 0.7.7.2, July 24 2001
+Author: John Check
+</CITE>
+
+<ol>
+ <li><A HREF="#history">Some History</A></li>
+ <li><A HREF="#property_manager">About The Property Manager</A></li>
+ <li><A HREF="#xml">XML and The Property Manager</A></li>
+ <li><A HREF="#load_panel">Loading Panels</A></li>
+ <li><A HREF="#window_geometry">Regarding Window Geometry</A></li>
+ <li><A HREF="#panel_architecture">Panel Architecture</A></li>
+ <li><A HREF="#example_panel">Example Top Level Panel Config</A></li>
+ <li><A HREF="#indexed_properties">Indexed Properties</A></li>
+ <li><A HREF="#inclusion">Inclusion</A></li>
+ <li><A HREF="#instrument_architecture">Instrument Architecture</A></li>
+ <li><A HREF="#textures">Textures</A></li>
+ <li><A HREF="#instrument_layers">Instrument Layers</A></li>
+ <li><A HREF="#transformations">Transformations</a></li>
+ <li><A HREF="#conditions">Conditions</A></li>
+ <li><A HREF="#needle_placement">About Transformations and Needle Placement</A></li>
+ <li><A HREF="#interpolation">Interpolation Tables</A></li>
+ <li><A HREF="#actions">Actions</A></li>
+ <li><A HREF="#more_texture">More About Textures</A></li>
+ <li><A HREF="#generating_textures">Generating Textures</A></li>
+ <li><A HREF="#contribute">Contributing Panels</A></li>
+ <li><A HREF="#units">Units</A></li>
+</ol> 
+
+<P>
+This document describes the configuration of
+FlightGear flight simulator's aircraft panel display via XML.
+The information was culled from the fgfs-devel@flightgear.org
+mailing list and my experiences making alternate panels.
+Corrections and additions are encouraged.
+</P>
+
+
+
+<HR WIDTH="20%">
+<H2><A NAME="history">Some History:</A></H2>
+<HR WIDTH="20%">
+<p>
+Older versions of FGFS had a hard coded display of instruments.
+This was a less than ideal state of affairs due to FGFS ability
+to use different aircraft models. Being primarily developed on
+UNIX type systems, a modular approach is taken towards the
+simulation. To date, most alternatives to the default
+Cessna 172 aircraft are the product of research institutions
+interested in the flight characteristics and not cosmetics.
+The result of this was that one could fly the X-15 or a Boeing 747
+but be limited to C172 instrumentation.
+</P>
+<P>
+A rewrite of the panel display code was done around v0.7.5 by
+developer David Megginson allowing for configuration of the panel
+via XML to address this limitation. Some major changes and additions
+were made during the course of version 0.7.7 necessitating a rewrite
+and expansion of this document.
+</P>
+
+
+<HR WIDTH="20%">
+<H2><A NAME="property_manager">About The Property Manager:</A></H2>
+<HR WIDTH="20%">
+<p>
+While intimate knowledge of the property manager is unnecessary to create 
+aircraft panels, some familiarity with the concept is required.
+FlightGear provides a hierarchical representation of all aspects of
+the state of the running simulation that is known as the property tree.
+Some properties, such as velocities, are read only. Others such as the frequencies to which the navcom radios are tuned or the position of control surfaces
+can be set by various means.
+</P>
+<P>
+FlightGear can optionally provide an interface to these properties for external
+applications such as Atlas, the moving map program, or even lowly telnet via
+a network socket. Data can even be routed to a serial port and connected to
+say, a GPS receiver.
+Aside from its usefulness in a flight training context, being able to manipulate
+the property tree on a running copy of FG allows for switching components on the fly,
+a positive boon for panel authors.
+To see the property tree start FG with the following command line:
+</P>
+
+<PRE>
+fgfs --props=socket,bi,5,localhost,5500,tcp
+</PRE>
+<br>
+
+<P>
+Then use telnet to connect to localhost on port 5500. You can browse the
+tree as you would a filesystem.
+</P>
+
+<HR WIDTH="20%">
+<H2><A NAME="xml">XML And The Property Manager:</A></H2>
+<HR WIDTH="20%">
+<p>
+Panel instruments interface with the property tree to get/set values as
+appropriate. Properties for which FG doesn't yet provide a value can be
+created by simply making them up. Values can be adjusted using the telnet
+interface allowing for creation and testing of instruments while code to
+drive them is being developed.
+</P>
+<P>
+If fact, the XML configuration system allows a user to combine
+components such as flight data model, aircraft exterior model,
+heads up display, and of course control panel. Furthermore,
+such a preconfigured aircraft.xml can be included into a scenario
+with specific flight conditions. These can be manually specified or
+a FG session can be saved and/or edited and reloaded later. Options specified
+in these files can be overridden on the command line. For example:
+</P>
+
+<PRE>
+--prop:/sim/panel/path=Aircraft/c172/Panels/c172-panel.xml
+</PRE>
+<br>
+
+<P>
+passed as an option, would override a panel specified elsewhere.
+Property tree options all have the same format, specify the node
+and supply it a value.
+</P>
+<p>
+The order of precedence for options is thus:
+</p>
+
+<pre>
+Source           Location      Format
+------           --------      ------
+command line
+.fgfsrc          ~/           command line options
+system.fgfsrc    $FG_ROOT     ""      ""
+preferences.xml  $FG_ROOT     XML property list
+</pre>
+<br>
+
+
+
+<HR WIDTH="20%">
+<H2><A NAME="load_panel">Loading Panels on the fly:</A></H2>
+<HR WIDTH="20%">
+<p>
+When editing a panel configuration, pressing Shift +F3 will reload the
+panel. If your changes don't seem to be taking effect, check the console output.
+It will report the success or failure of the panel reload*. Editing textures requires
+restarting FGFS so the new textures can be loaded. Panels can be switched on the fly
+by setting the /sim/panel/path property value and reloading.
+</P>
+
+
+
+<HR WIDTH="20%">
+<H2><A NAME="window_geometry">Regarding Window Geometry:</A></H2>
+<HR WIDTH="20%">
+<p>
+For the sake of simplicity the FGFS window is always considered to be 1024x768
+so all x/y values for instrument placement should relative to these dimensions.
+Since FG uses OpenGL 0,0 represents the lower left hand corner of the
+screen. Panels may have a virtual size larger than 1024x768. Vertical scrolling is accomplished
+with Shift+F5/F6. Horizontal scrolling is via Shift+F7/F8. An offset should be supplied
+to set the default visible area. It is possible to place items to overlap the 3D viewport.
+</p>
+
+<HR WIDTH="20%">
+<H2><A NAME="panel_architecture">Panel Architecture:</A></H2>
+<HR WIDTH="20%">
+<p>
+All of the panel configuration files are XML-encoded* property lists.
+The root element of each file is always named &lt;PropertyList&gt;. Tags are
+almost always found in pairs, with the closing tag having a slash prefixing
+the tag name, i.e &lt;/PropertyList&gt;. The exception is the tag representing an aliased
+property. In this case a slash is prepended to the closing angle bracket.
+(see section Aliasing)
+Properties must have units specified where appropriate. See section "Units"
+at the end of this doc.
+</P>
+<P>
+The top level panel configuration file is composed of a &lt;name&gt;, a &lt;background&gt;
+texture and zero or more &lt;instruments&gt;.
+</P>
+<p>
+[ Paths are relative to $FG_ROOT ( the installed location of FGFS data files ). ]<br>
+[ Absolute paths may be used. Comments are bracketed with &lt;!-- --&gt;.       ]
+</p>
+<HR WIDTH="20%">
+<H2><A NAME="example_panel">Example Top Level Panel Config:</A></H2>
+<HR WIDTH="20%">
+<p>
+<PRE>
+&lt;PropertyList&gt;
+ &lt;name&gt;Example Panel&lt;/name&gt;
+ &lt;background&gt;Aircraft/c172/Panels/Textures/panel-bg.rgb&lt;/background&gt;
+ &lt;w&gt;1024&lt;/w&gt;                      &lt;!-- virtual width --&gt;
+ &lt;h&gt;768&lt;/h&gt;                       &lt;!-- virtual height --&gt;
+ &lt;y-offset&gt;-305&lt;/y-offset&gt;        &lt;!-- hides the bottom part --&gt;
+ &lt;view-height&gt;172&lt;/view-height&gt;   &lt;!-- amount of overlap between 2D panel and 3D viewport --&gt;
+
+ &lt;instruments&gt; 
+
+  &lt;instrument include="../Instruments/clock.xml"&gt;
+   &lt;name&gt;Chronometer&lt;/name&gt;   &lt;!-- currently optional but strongly recommended --&gt;
+   &lt;x&gt;150&lt;/x&gt;                 &lt;!-- required horizontal placement --&gt;
+   &lt;y&gt;645&lt;/y&gt;                 &lt;!-- required vertical placement --&gt;
+   &lt;w&gt;72&lt;/w&gt;                  &lt;!-- optional width specification --&gt;
+   &lt;h&gt;72&lt;/h&gt;                  &lt;!-- optional height specification --&gt;
+  &lt;/instrument&gt;
+
+ &lt;/instruments&gt;
+
+&lt;/PropertyList&gt;
+</PRE>
+<BR>
+
+
+<HR WIDTH="20%">
+<H2><A NAME="indexed_properties">Indexed Properties:</A></H2>
+<HR WIDTH="20%">
+<p>
+The property manager  assigns incremental indices to repeated
+properties with the same parent node, so that
+</P>
+<PRE>
+ &lt;PropertyList&gt;
+ &lt;x&gt;1&lt;/x&gt;
+ &lt;x&gt;2&lt;/x&gt;
+ &lt;x&gt;3&lt;/x&gt;
+ &lt;/PropertyList&gt;
+</PRE><BR>
+<p>
+shows up as
+</P>
+<PRE>
+ /x[0] = 1
+ /x[1] = 2
+ /x[2] = 3
+</PRE><BR>
+<p>
+In fact, the panel I/O code insists that every instrument have the XML element 
+name "instrument", every layer have the name "layer", every text chunk have the
+name 
+
+"chunk", every action have the name "action", and every transformation
+have the name "transformation" -- this makes the XML more regular (so
+that it can be created in a DTD-driven tool) and also allows us to
+include other kinds of information (such as doc strings) in the lists
+without causing confusion.
+</P>
+
+<HR WIDTH="20%">
+<H2><A NAME="inclusion">Inclusion:</A></H2>
+<HR WIDTH="20%">
+<p>
+Inclusion means that a node can include another property list as if it
+were a part of the current file.
+To clarify how inclusion works, consider the following examples:
+</P>
+<p>
+If bar.xml contains
+</P>
+<PRE>
+ &lt;PropertyList&gt;
+ &lt;a&gt;1&lt;/a&gt;
+ &lt;b&gt;
+ &lt;c&gt;2&lt;/c&gt;
+ &lt;/b&gt;
+ &lt;/PropertyList&gt;
+</PRE><BR>
+<p>
+then the declaration
+</P>
+<PRE>
+ &lt;foo include="../bar.xml"&gt;
+ &lt;/foo&gt;
+</PRE><br>
+<p>
+is exactly equivalent to
+</P>
+<PRE>
+ &lt;foo&gt;
+ &lt;a&gt;1&lt;/a&gt;
+ &lt;b&gt;
+ &lt;c&gt;2&lt;/c&gt;
+ &lt;/b&gt;
+ &lt;/foo&gt;
+</PRE>
+<br>
+<p>
+However, it is also possible to selectively override properties in the
+included file. For example, if the declaration were
+</p>
+
+<PRE>
+ &lt;foo include="../bar.xml"&gt;
+ &lt;a&gt;3&lt;/a&gt;
+ &lt;/foo&gt;
+</PRE>
+<BR>
+<p>
+then the property manager would see
+</P>
+<PRE>
+ &lt;foo&gt;
+ &lt;a&gt;3&lt;/a&gt;
+ &lt;b&gt;
+ &lt;c&gt;2&lt;/c&gt;
+ &lt;/b&gt;
+ &lt;/foo&gt;
+</PRE>
+<br>
+<p>
+with the original 'a' property's value replaced with 3.
+</P>
+<p>
+Inclusion  allows property files to be broken up and reused
+arbitrarily -- for example, there might be separate texture cropping
+property lists for commonly-used textures or layers, to avoid
+repeating the information in each instrument file.
+</P>
+
+
+<HR WIDTH="20%">
+<H2><A NAME="aliasing">Aliasing:</A></H2>
+<HR WIDTH="20%">
+<p>
+Properties can alias other properties, similar to a symbolic link
+in Unix. When the target property changes value, the new value will
+show up in the aliased property as well. For example,
+</p>
+<PRE>
+ &lt;PropertyList&gt;
+ &lt;foo&gt;3&lt;/foo&gt;
+ &lt;bar alias="/foo"/&gt;
+ &lt;/PropertyList&gt;
+</PRE>
+<br>
+<p>
+will look the same to the application as
+</p>
+<PRE>
+ &lt;PropertyList&gt;
+ &lt;foo&gt;3&lt;/foo&gt;
+ &lt;bar&gt;3&lt;/bar&gt;
+ &lt;/PropertyList&gt;
+</PRE>
+<br>
+<p>
+except that when foo changes value, bar will change too.
+</p>
+<p>
+*IMPORTANT*
+-----------
+The combination of inclusions and aliases is very powerful, because it
+allows for parameterized property files. However, you must keep in
+mind that when an instrument is included by reference, its root is 
+*not* the root of the property tree, therefore aliases must be relative.
+The relative location of the alias' root in the property hierarchy depends  
+on whether the alias is used in a layer, a switch or an action.
+In lieu of snappy mnemonic, please use the following table.
+</p>
+<pre>
+when alias
+is used in     go up
+---------      -----
+layer          5 ( ../../../../../params/foo )
+switch         3 ( ../../../params/foo )
+action         3 ( ../../../params/foo )
+</pre>
+<br>
+
+<p>
+As an example of inclusion and aliasing, consider the XML file
+for the NAVCOM radio, which includes a parameter subtree at the start,
+like this:
+</p>
+
+<PRE>
+ &lt;PropertyList&gt;
+ &lt;params&gt;
+ &lt;comm-freq-prop&gt;/radios/comm1/frequencies/selected-mhz&lt;/comm-freq-prop&gt;
+ &lt;nav-freq-prop&gt;/radios/nav1/frequencies/selected-mhz&lt;/nav-freq-prop&gt;
+ &lt;/params&gt;
+
+ ...
+
+ &lt;chunk&gt;
+ &lt;type&gt;number-value&lt;/type&gt;
+ &lt;property alias="../../../../../params/nav-freq-prop"/&gt;
+ &lt;/chunk&gt;
+
+ ...
+ &lt;/PropertyList&gt;
+</PRE>
+<br>
+<P>
+The same instrument file is used for navcomm1 and navcomm2 simply by
+overriding the parameters at inclusion in the top level panel property list.
+</P>
+
+<pre>
+ &lt;instrument include="../Instruments/navcomm.xml"&gt;
+ &lt;name&gt;NAVCOM 1 radio&lt;/name&gt;
+ &lt;params&gt;
+ &lt;comm-freq-prop&gt;/radios/comm1/frequencies/selected-mhz&lt;/comm-freq-prop&gt;
+ &lt;nav-freq-prop&gt;/radios/nav1/frequencies/selected-mhz&lt;/nav-freq-prop&gt;
+ &lt;/params&gt;
+ .....
+ &lt;/instrument&gt;
+
+ &lt;instrument include="../Instruments/navcomm.xml"&gt;
+ &lt;name&gt;NAVCOM 2 radio&lt;/name&gt;
+ &lt;params&gt;
+ &lt;comm-freq-prop&gt;/radios/comm2/frequencies/selected-mhz&lt;/comm-freq-prop&gt;
+ &lt;nav-freq-prop&gt;/radios/nav2/frequencies/selected-mhz&lt;/nav-freq-prop&gt;
+ &lt;/params&gt;
+ .....
+ &lt;/instrument&gt;
+</PRE>
+<br>
+
+<HR WIDTH="20%">
+<H2><A NAME="instrument_architecture">Instrument Architecture:</A></H2>
+<HR WIDTH="20%">
+
+<p>
+Instruments are defined in separate configuration files. An instrument
+consists of a base width and height, one or more stacked layers,
+and zero or more actions. Base dimensions are specified as follows:
+</p>
+<pre>
+&lt;PropertyList&gt;                   &lt;!-- remember, all xml files start like this --&gt;
+ &lt;name&gt;Airspeed Indicator&lt;/name&gt; &lt;!-- names are good --&gt;
+ &lt;w-base&gt;128&lt;/w-base&gt;            &lt;!-- required width spec--&gt;
+ &lt;h-base&gt;128&lt;/h-base&gt;            &lt;!-- required height spec--&gt;
+  &lt;layers&gt;                       &lt;!-- begins layers section --&gt;
+</pre>
+<br>
+
+<p>
+Height and width can be overriden in the top level panel.xml by
+specifying &lt;w&gt; and &lt;h&gt;. Transformations are caculated against the base size
+regardless of the display size. This ensures that instruments remain calibrated.
+</p>
+
+<HR WIDTH="20%">
+<H2><A NAME="textures">Textures:</A></H2>
+<HR WIDTH="20%">
+<p>
+FG uses red/green/blue/alpha .rgba files for textures. Dimensions for
+texture files should be power of 2 with a maximum 8:1 aspect ratio.
+The lowest common denominator for maximum texture size is 256 pixels.
+This is due to the limitations of certain video accelerators, most notably
+those with 3Dfx chipset such as the Voodoo2.
+
+</p>
+
+<HR WIDTH="20%">
+<H2><A NAME="instrument_layers">Instrument Layers**:</A></H2>
+<HR WIDTH="20%">
+<p>
+The simplest layer is a &lt;texture&gt;. These can be combined in &lt;switch&gt; layers
+</p>
+<p>
+&lt;texture&gt;
+A texture layer looks like this:
+</p>
+<pre>
+  &lt;layer&gt;                      &lt;!-- creates a layer --&gt;
+   &lt;name&gt;face&lt;/name&gt;
+   &lt;texture&gt;                   &lt;!-- defines it as a texture layer --&gt;
+    &lt;path&gt;Aircraft/c172/Instruments/Textures/faces-2.rgb&lt;/path&gt;
+    &lt;x1&gt;0&lt;/x1&gt;                 &lt;!-- lower boundary for texture cropping--&gt;
+    &lt;y1&gt;0.51&lt;/y1&gt;              &lt;!-- left boundary  for texture cropping--&gt;
+    &lt;x2&gt;0.49&lt;/x2&gt;              &lt;!-- upper boundary  for texture cropping--&gt;
+    &lt;y2&gt;1.0&lt;/y2&gt;               &lt;!-- right boundary  for texture cropping--&gt;
+   &lt;/texture&gt;                  &lt;!-- closing texure tag --&gt;
+  &lt;/layer&gt;                     &lt;!-- closing layer tag --&gt;
+</pre>
+<br>
+<p>
+The texture cropping specification is represented as a decimal. There is a table
+at the end of this document for converting from pixel coordinates to percentages.
+</p>
+<p>
+This particular layer, being a gauge face has no transformations applied to it.
+Layers with that aren't static *must* include &lt;w&gt; and &lt;h&gt; parameters to be visible.
+</p>
+<p>
+&lt;type&gt; May be either text or switch..
+</p>
+<p>
+&lt;type&gt;switch&lt;/type&gt;
+A switch layer is composed of two or more nested layers and will display
+one of the nested layers based on a boolean property. For a simple example
+of a switch see $FG_ROOT/Aircraft/c172/Instruments/brake.xml.
+</p>
+<pre>
+  &lt;layer&gt;
+   &lt;name&gt;Brake light&lt;/name&gt;
+   &lt;type&gt;switch&lt;/type&gt;                      &lt;!-- define layer as a switch --&gt;
+   &lt;property&gt;/controls/gear/brake-left&lt;/property&gt;    &lt;!-- tie it to a property --&gt;
+    &lt;layer1&gt;                                &lt;!-- layer for true state --&gt;
+     &lt;name&gt;on&lt;/name&gt;                        &lt;!-- label to make life easy --&gt;
+     &lt;texture&gt;                              &lt;!-- layer1 of switch is a texture layer --&gt;
+     &lt;path&gt;Aircraft/c172/Instruments/Textures/brake.rgb&lt;/path&gt;
+     &lt;x1&gt;0.25&lt;/x1&gt;
+     &lt;y1&gt;0.0&lt;/y1&gt;
+     &lt;x2&gt;0.5&lt;/x2&gt;
+     &lt;y2&gt;0.095&lt;/y2&gt;
+     &lt;/texture&gt;
+     &lt;w&gt;64&lt;/w&gt;                              &lt;!-- required width - layer isn't static --&gt;
+     &lt;h&gt;24&lt;/h&gt;                              &lt;!-- required height - layer isn't static --&gt;
+    &lt;/layer1&gt;                               &lt;!-- close layer1 of switch --&gt;
+    &lt;layer2&gt;                                &lt;!-- layer for false state --&gt;
+     &lt;name&gt;off&lt;/name&gt;
+     &lt;texture&gt;
+     &lt;path&gt;Aircraft/c172/Instruments/Textures/brake.rgb&lt;/path&gt;
+     &lt;x1&gt;0.0&lt;/x1&gt;
+     &lt;y1&gt;0.0&lt;/y1&gt;
+     &lt;x2&gt;0.25&lt;/x2&gt;
+     &lt;y2&gt;0.095&lt;/y2&gt;
+     &lt;/texture&gt;
+     &lt;w&gt;64&lt;/w&gt;
+     &lt;h&gt;24&lt;/h&gt;
+   &lt;/layer2&gt;
+  &lt;/layer&gt;
+</pre>
+<br>
+<p>
+Switches can have more than 2 states. This requires nesting one switch inside another.
+One could make, for example, a 3 color LED by nesting switch layers.
+</p>
+
+<p>
+&lt;type&gt;text&lt;/type&gt;
+A text layer may be static, as in a label, generated from a property or a combination of both.
+This example is a switch that contains both static and dynamic text:
+</p>
+
+<pre>
+   &lt;layer1&gt;                               &lt;!-- switch layer --&gt;
+    &lt;name&gt;display&lt;/name&gt;
+    &lt;type&gt;text&lt;/type&gt;                     &lt;!-- type == text --&gt;
+    &lt;point-size&gt;12&lt;/point-size&gt;           &lt;!-- font size --&gt;
+    &lt;color&gt;                               &lt;!-- specify rgb values to color text --&gt;
+     &lt;red&gt;1.0&lt;/red&gt;
+     &lt;green&gt;0.5&lt;/green&gt;
+     &lt;blue&gt;0.0&lt;/blue&gt;
+    &lt;/color&gt;                              &lt;!-- close color section --&gt;
+    &lt;chunks&gt;                              &lt;!-- sections of text are referred to as chunks --&gt;
+     &lt;chunk&gt;                              &lt;!-- first chunk of text --&gt;
+      &lt;type&gt;number-value&lt;/type&gt;           &lt;!-- value defines it as dynamic --&gt;
+      &lt;property&gt;/radios/nav1/dme/distance-nm&lt;/property&gt;      &lt;!-- ties it to a property --&gt;
+      &lt;scale&gt;0.00053995680&lt;/scale&gt;        &lt;!-- convert between  statute and nautical miles? --&gt;
+      &lt;format&gt;%5.1f&lt;/format&gt;              &lt;!-- define format --&gt;
+     &lt;/chunk&gt;
+    &lt;/chunks&gt;
+   &lt;/layer1&gt;
+   &lt;layer2&gt;                                &lt;!-- switch layer --&gt;
+    &lt;name&gt;display&lt;/name&gt;
+    &lt;type&gt;text&lt;/type&gt;                      &lt;!-- type == text --&gt;
+    &lt;point-size&gt;10&lt;/point-size&gt;            &lt;!-- font size --&gt;
+    &lt;color&gt;                                &lt;!-- specify rgb values to color text --&gt;
+     &lt;red&gt;1.0&lt;/red&gt;
+     &lt;green&gt;0.5&lt;/green&gt;
+     &lt;blue&gt;0.0&lt;/blue&gt;
+    &lt;/color&gt;                               &lt;!-- close color section --&gt;
+    &lt;chunks&gt;                               &lt;!-- sections of text are referred to as chunks --&gt;
+     &lt;chunk&gt;                               &lt;!-- first chunk of text --&gt;
+      &lt;type&gt;literal&lt;/type&gt;                 &lt;!-- static text --&gt;
+      &lt;text&gt;---.--&lt;/text&gt;                  &lt;!-- fixed value --&gt;
+     &lt;/chunk&gt;
+    &lt;/chunks&gt;
+   &lt;/layer2&gt;
+</pre>
+<br>
+Note that the value to be displayed can be modified using &lt;scale&gt; for multiplication, 
+&lt;offset&gt; for addition, and &lt;truncate&gt;true&lt;/truncate&gt; for truncation.  The order of
+operation is always scale-offset-truncation, which may require you to adapt your formula.  For instance, the
+normal conversion from Fahrenheit to Celsius would be C = (F-32)*0.555555556.  Because of the order
+of operation above you must use the formula C = (F*0.55555556)-17.77777777.
+<br>
+
+<HR WIDTH="20%">
+<H2><A NAME="conditions">Conditions:</A></H2>
+<HR WIDTH="20%">
+
+<p>
+A condition may appear in a binding (for keyboard, joystick, or panel
+action) or in most parts of a panel configuration file (specifically,
+for an instrument, layer, transformation, text chunk, or action).  If
+a condition is present, it must succeed for the component to be used
+(i.e. if the condition fails, the binding will not be fired, the layer
+will not be drawn, etc.).  Conditions are compiled to an efficient
+internal form and load time.
+</p>
+<p>
+For example, to ensure that a layer is drawn only if the /foo/bar
+property has the value "active", you would do the following:
+</p>
+<pre>
+  &lt;layer&gt;
+   &lt;name&gt;FooBar Layer&lt;/name&gt;
+   &lt;condition&gt;
+    &lt;equals&gt;
+     &lt;property&gt;/foo/bar&lt;/property&gt;
+     &lt;value&gt;active&lt;/value&gt;
+    &lt;/equals&gt;
+   &lt;/condition&gt;
+   ...
+  &lt;/layer&gt;
+</pre>
+<p>
+To draw a different layer when the /foo/bar property does not have the
+value "active", you could follow with this:
+</p>
+<pre>
+  &lt;layer&gt;
+   &lt;name&gt;FooBar Layer&lt;/name&gt;
+   &lt;condition&gt;
+    &lt;not-equals&gt;
+     &lt;property&gt;/foo/bar&lt;/property&gt;
+     &lt;value&gt;active&lt;/value&gt;
+    &lt;/not-equals&gt;
+   &lt;/condition&gt;
+   ...
+  &lt;/layer&gt;
+</pre>
+<p>
+While conditions were originally created for panel designers, they
+have proven to  be very useful for binding input devices (such
+as the keyboard or joystick), since they effectively allow any key,
+axis, button, or panel action to act as a modifier for any other key,
+axis, button, or panel action, and in fact, allow mind-numbingly
+complicated combinations for people who like them (i.e. Emacs users).
+</p>
+<pre>
+  &lt;!-- make 'u' a modifier key --&gt;
+  &lt;!-- could also use property-toggle to make it a toggle modifier --&gt;
+  &lt;key n="117"&gt;
+   &lt;name&gt;u&lt;/name&gt;
+   &lt;desc&gt;Special 'u' modifier&lt;/desc&gt;
+
+   &lt;binding&gt;
+    &lt;command&gt;property-assign&lt;/command&gt;
+    &lt;property&gt;/modifiers/u&lt;/property&gt;
+    &lt;value&gt;1&lt;/value&gt;
+   &lt;/binding&gt;
+
+   &lt;mod-up&gt;
+    &lt;binding&gt;
+     &lt;command&gt;property-assign&lt;/command&gt;
+     &lt;property&gt;/modifiers/u&lt;/property&gt;
+     &lt;value&gt;0&lt;/value&gt;
+    &lt;/binding&gt;
+   &lt;/mod-up&gt;
+
+  &lt;/key&gt;
+
+  &lt;!-- take different actions based on the u modifier --&gt;
+  &lt;key n="118"&gt;
+   &lt;name&gt;v&lt;/name&gt;
+
+   &lt;binding&gt;
+    &lt;condition&gt;
+     &lt;property&gt;/modifiers/u&lt;/property&gt;
+    &lt;/condition&gt;
+    &lt;command&gt;property-toggle&lt;/command&gt;
+    &lt;property&gt;/foo/bar&lt;/property&gt;
+   &lt;/binding&gt;
+
+   &lt;binding&gt;
+    &lt;condition&gt;
+     &lt;not&gt;
+      &lt;property&gt;/modifiers/u&lt;/property&gt;
+     &lt;/not&gt;
+    &lt;/condition&gt;
+    &lt;command&gt;property-toggle&lt;/command&gt;
+    &lt;property&gt;/bar/foo&lt;/property&gt;
+   &lt;/binding&gt;
+
+  &lt;/key&gt;
+</pre>
+<p>
+The &lt;condition&gt; element acts as an implicit 'and' group for everything
+contained in it.  Here are the elements that can appear inside:
+</p>
+<pre>
+  &lt;property&gt;[name]&lt;/property&gt;
+
+  - true if the named property returns a true boolean value (i.e. a
+    non-0 numeric value)
+
+  &lt;and&gt;[condition...]&lt;/and&gt;
+
+  - true if all of the conditions contained in it are true
+
+  &lt;or&gt;[condition...]&lt;/or&gt;
+
+  - true if any of the conditions contained in it is true
+
+  &lt;not&gt;[condition]&lt;/not&gt;
+
+  - true if the condition contained in it is false
+
+  &lt;less-than&gt;...&lt;/less-than&gt;
+  &lt;less-than-equals&gt;...&lt;/less-than-equals&gt;
+  &lt;equals&gt;...&lt;/equals&gt;
+  &lt;not-equals&gt;...&lt;/not-equals&gt;
+  &lt;greater-than&gt;...&lt;/greater-than&gt;
+  &lt;greater-than-equals&gt;...&lt;/greater-than-equals&gt;
+</pre>
+<p>
+  - all of these take two child elements; the first, "property", is
+    the property to test; the second argument may be "property" or
+    "value".  If it is also "property" (i.e. property[1]), the named
+    property's value will be used; otherwise, the literal value
+    provided will be used
+  - be warned that any string comparison other than equals/not-equals
+    is guaranteed to be flaky
+</p>
+
+<HR WIDTH="20%">
+<H2><A NAME="transformations">Transformations:</A></H2>
+<HR WIDTH="20%">
+<p>
+A transformation is a rotation, an x-shift, or a y-shift. Transformations
+can be static  or they can be based on properties. Static rotations are
+useful for flipping textures horizontally or vertically. Transformations
+based on properties are useful for driving instrument needles. I.E. rotate the
+number of degrees equal to the airspeed. X and y shifts are relative to the
+center of the instrument. Each specified transformation type takes an &lt;offset&gt;.</p><p>
+Offsets are relative to the center of the instrument. A shift without an offset
+has no effect. For example, let's say we have a texture that is a circle. If we
+use this texture in two layers, one defined as having a size of 128x128 and
+the second layer is defined as 64x64 and neither is supplied  a shift and offset
+the net result appears as 2 concentric circles.
+</p>
+
+<HR WIDTH="20%">
+<H2><A NAME="needle_placement">About Transformations and Needle Placement:</A></H2>
+<HR WIDTH="20%">
+
+<p>
+When describing placement of instrument needles, a transformation offset must
+be applied to shift the needles fulcrum or else the needle will rotate around it's
+middle. The offset will be of &lt;type&gt; x-shift or y-shift depending on the orientation of
+the needle section in the cropped texture.
+</p>
+
+<p>
+This example comes from the altimeter.xml
+</p>
+
+<pre>
+  &lt;layer&gt;
+   &lt;name&gt;long needle (hundreds)&lt;/name&gt;        &lt;!-- the altimeter has more than one needle --&gt;
+   &lt;texture&gt;
+    &lt;path&gt;Aircraft/c172/Instruments/Textures/misc-1.rgb&lt;/path&gt;
+    &lt;x1&gt;0.8&lt;/x1&gt;
+    &lt;y1&gt;0.78125&lt;/y1&gt;
+    &lt;x2&gt;0.8375&lt;/x2&gt;
+    &lt;y2&gt;1.0&lt;/y2&gt;
+   &lt;/texture&gt;
+   &lt;w&gt;8&lt;/w&gt;
+   &lt;h&gt;56&lt;/h&gt;
+   &lt;transformations&gt;                          &lt;!-- begin defining transformations --&gt;
+    &lt;transformation&gt;                          &lt;!-- start definition of transformation that drives the needle --&gt;
+     &lt;type&gt;rotation&lt;/type&gt;
+     &lt;property&gt;/steam/altitude-ft&lt;/property&gt;     &lt;!-- bind it to a property --&gt;
+     &lt;max&gt;100000.0&lt;/max&gt;                      &lt;!-- upper limit of instrument --&gt;
+     &lt;scale&gt;0.36&lt;/scale&gt;                      &lt;!-- once around == 1000 ft --&gt;
+    &lt;/transformation&gt;                         &lt;!-- close this transformation --&gt;
+    &lt;transformation&gt;                          &lt;!-- this one shifts the fulcrum of the needle --&gt;
+     &lt;type&gt;y-shift&lt;/type&gt;                     &lt;!-- y-shift relative to needle --&gt;
+     &lt;offset&gt;24.0&lt;/offset&gt;                    &lt;!-- amount of shift --&gt;
+    &lt;/transformation&gt;
+   &lt;/transformations&gt;
+  &lt;/layer&gt;
+</pre>
+<br>
+
+<p>
+This needles has its origin in the center of the instrument. If the needles fulcrum was
+towards the edge of the instrument, the transformations to place the pivot point must
+precede those which drive the needle,
+</p>
+
+<HR WIDTH="20%">
+<H2><A NAME="interpolation">Interpolation Tables:</A></H2>
+<HR WIDTH="20%">
+
+<p>
+Non linear transformations are now possible via the use of interpolation tables.
+</p>
+
+<pre>
+ &lt;transformation&gt;
+ ...
+ &lt;interpolation&gt;
+ &lt;entry&gt;
+ &lt;ind&gt;0.0&lt;/ind&gt;            &lt;!-- raw value --&gt;
+ &lt;dep&gt;0.0&lt;/dep&gt;            &lt;!-- displayed value --&gt;
+ &lt;/entry&gt;
+ &lt;entry&gt;
+ &lt;ind&gt;10.0&lt;/ind&gt;
+ &lt;dep&gt;100.0&lt;/dep&gt;
+ &lt;/entry&gt;
+ &lt;entry&gt;
+ &lt;ind&gt;20.0&lt;/ind&gt;
+ &lt;dep&gt;-5.0&lt;/dep&gt;
+ &lt;/entry&gt;
+ &lt;entry&gt;
+ &lt;ind&gt;30.0&lt;/ind&gt;
+ &lt;dep&gt;1000.0&lt;/dep&gt;
+ &lt;/entry&gt;
+ &lt;/interpolation&gt;
+ &lt;/transformation&gt;
+</pre>
+<br>
+
+<p>
+Of course, interpolation tables are useful for non-linear stuff, as in
+the above example, but I kind-of like the idea of using them for
+pretty much everything, including non-trivial linear movement -- many
+instrument markings aren't evenly spaced, and the interpolation tables
+are much nicer than the older min/max/scale/offset stuff and should
+allow for a more realistic panel without adding a full equation parser
+to the property manager.
+</p>
+<p>
+If you want to try this out, look at the airspeed.xml file in the base
+package, and uncomment the interpolation table in it for a
+very funky, non-linear and totally unreliable airspeed indicator.
+</p>
+
+<HR WIDTH="20%">
+<H2><A NAME="actions">Actions:</A></H2>
+<HR WIDTH="20%">
+
+<p>
+An action is a hotspot on an instrument where something will happen
+when the user clicks the left or center mouse button.  Actions are
+always tied to properties: they can toggle a boolean property, adjust
+the value of a numeric property, or swap the values of two properties.
+The x/y placement for actions specifies the origin of the lower left corner.
+In the following example the first action sets up a hotspot 32 pixels wide
+and 16 pixels high. It lower left corner is placed 96 pixels (relative to the
+defined base size of the instrument) to the right of the center of the
+instrument. It is also 32 pixels below the centerline of the instrument.
+The actual knob texture over which the action is superimposed is 32x32.
+Omitted here is a second action, bound to the same property, with a positive
+increment value. This second action is placed to cover the other half of the
+knob. The result is that clicking on the left half of the knob texture decreases
+the value and clicking the right half increases the value. Also omitted here
+is a second pair of actions with the same coordinates but a larger increment
+value. This second pair is bound to a different mouse button. The net result
+is that we have both fine and coarse adjustments in the same hotspot, each
+bound to a different mouse button.
+</p>
+
+<p>
+These examples come from the radio stack:
+</p>
+
+<pre>
+&lt;actions&gt;                              &lt;!-- open the actions section --&gt;
+  &lt;action&gt;                             &lt;!- first action --&gt;
+   &lt;name&gt;small nav frequency decrease&lt;/name&gt;
+   &lt;type&gt;adjust&lt;/type&gt;
+   &lt;button&gt;0&lt;/button&gt;                  &lt;!-- bind it to a mouse button --&gt;
+   &lt;x&gt;96&lt;/x&gt;                           &lt;!-- placement relative to instrument center --&gt;
+   &lt;y&gt;-32&lt;/y&gt;
+   &lt;w&gt;16&lt;/w&gt;                           &lt;!-- size of hotspot --&gt;
+   &lt;h&gt;32&lt;/h&gt;
+   &lt;property&gt;/radios/nav1/frequencies/standby-mhz&lt;/property&gt;    &lt;!-- bind to a property --&gt;
+   &lt;increment&gt;-0.05&lt;/increment&gt;        &lt;!-- amount of adjustment per mouse click --&gt;
+   &lt;min&gt;108.0&lt;/min&gt;                    &lt;!-- lower range --&gt;
+   &lt;max&gt;117.95&lt;/max&gt;                   &lt;!-- upper range --&gt;
+   &lt;wrap&gt;1&lt;/wrap&gt;                      &lt;!-- boolean value -- value wraps around when it hits bounds --&gt;
+  &lt;/action&gt;
+  &lt;action&gt;
+   &lt;name&gt;swap nav frequencies&lt;/name&gt;
+   &lt;type&gt;swap&lt;/type&gt;                   &lt;!-- define type of action --&gt;
+   &lt;button&gt;0&lt;/button&gt;
+   &lt;x&gt;48&lt;/x&gt;
+   &lt;y&gt;-32&lt;/y&gt;
+   &lt;w&gt;32&lt;/w&gt;
+   &lt;h&gt;32&lt;/h&gt;
+   &lt;property1&gt;/radios/nav1/frequencies/selected-mhz&lt;/property1&gt;   &lt;!-- properties to toggle between --&gt;
+   &lt;property2&gt;/radios/nav1/frequencies/standby-mhz&lt;/property2&gt;
+  &lt;/action&gt;
+  &lt;action&gt;
+   &lt;name&gt;ident volume on/off&lt;/name&gt;
+   &lt;type&gt;adjust&lt;/type&gt;
+   &lt;button&gt;1&lt;/button&gt;
+   &lt;x&gt;40&lt;/x&gt;
+   &lt;y&gt;-24&lt;/y&gt;
+   &lt;w&gt;16&lt;/w&gt;
+   &lt;h&gt;16&lt;/h&gt;
+   &lt;property&gt;/radios/nav1/ident&lt;/property&gt;  &lt;!-- this property is for Morse code identification of nav beacons --&gt;
+   &lt;increment&gt;1.0&lt;/increment&gt;          &lt;!-- the increment equals the max value so this toggles on/off --&gt;
+   &lt;min&gt;0&lt;/min&gt;
+   &lt;max&gt;1&lt;/max&gt;
+   &lt;wrap&gt;1&lt;/wrap&gt;                      &lt;!-- a shortcut to avoid having separate actions for on/off --&gt;
+  &lt;/action&gt;
+&lt;/actions&gt;
+</pre>
+<br>
+
+<HR WIDTH="20%">
+<H2><A NAME="more_texture">More About Textures:</A></H2>
+<HR WIDTH="20%">
+
+<p>
+As previously stated, the usual size instrument texture files in FGFS are  256x256
+pixels, red/green/blue/alpha format. However the mechanism for specifying
+texture cropping coordinates is decimal in nature. When calling a section
+of a texture file the 0,0 lower left convention is used.
+There is a pair of x/y coordinates defining which section of the texture
+to use.
+</p>
+<p>
+The following table can be used to calculate texture cropping specifications.
+</p>
+<pre>
+# of divisions | width in pixels | decimal specification
+per axis
+        1   =   256 pixels              1
+        2   =   128 pixels,             0.5
+        4   =   64 pixels,              0.25
+        8   =   32 pixels,              0.125
+        16  =   16 pixels,              0.0625
+        32  =   8 pixels,               0.03125
+        64  =   4 pixels,               0.015625
+        128 =   2 pixels,               0.0078125
+        256 =   1 pixel,                0.00390625
+</pre>
+<br>
+
+<p>
+The displayed size of a texture in pixels is set in the instrument
+configuration file. The size of the cropped area in pixels is not
+directly related to the final display size.
+</p>
+<p>
+What that table represents is:
+</p>
+<p>
+1 / (256 / # of pixels)
+</p>
+<p>
+Take as an example, a section 64 pixels wide on the texture file.
+256/64 = 4
+1/4 = 0.25
+</p>
+<p>
+Or lets consider 1 pixel wide
+256/1 = 256
+1/256 = 0.00390625
+</p>
+<p>
+If the section starts at the extreme left of the texture, the
+starting number is 0.0 and the end is 0.25
+If the section *doesn't* start at the edge you need to take the starting
+pixel and calculate an offset. Lets say you start 2 pixels from the
+edge and you are cropping a section 64 pixels wide...
+</p>
+
+<pre>
+256/2 = 128
+1/128 = 0.0078125 &lt;- this is the value for a 2 pixel wide offset
+
+
+0.0078125 &lt;- start at
+0.25      &lt;- add value for 64 px wide
+0.2571825 &lt;- end at
+</pre>
+<br>
+
+<HR WIDTH="20%">
+<H2><A NAME="generating_textures">Generating Textures:</A></H2>
+<HR WIDTH="20%">
+
+<p>
+A common procedure for generating gauge faces is to use a
+vector graphics package such as xfig, exporting the result as a
+postscript file. 3D modeling tools may also be used and I prefer them
+for pretty items such as levers, switches, bezels and so forth.
+Ideally, the size of the item in the final render
+should be of proportions that fit into the recommended pixel widths.
+The resulting files can  be imported into a graphics manipulation
+package such as GIMP, et al for final processing.
+</P>
+
+<HR WIDTH="20%">
+<H2><A NAME="contribute">Contributing Panels And Instruments</A></H2>
+<HR WIDTH="20%">
+
+<p>
+There are two main considerations when contributing panels and instruments.
+Firstly, original artwork is a major plus since you as the creator can dictate the terms
+of distribution. All Artwork must have a license compatible with the GPL.
+Artwork of unverifiable origin is not acceptable.
+Secondly, texture sizes must meet the lowest common denominator of 256e2 pixels.
+Artwork from third parties may be acceptable if it meets these criteria.
+</p>
+
+<HR WIDTH="20%">
+<H2><A NAME="units">UNITS:</A></H2>
+<HR WIDTH="20%">
+<p>
+Here is a list of property names including appropriate units:
+</p>
+
+<PRE>
+/autopilot/locks/nav1 =&gt; /autopilot/locks/nav[0]
+/autopilot/settings/altitude += "-ft"
+/autopilot/settings/climb-rate += "-fpm"
+/autopilot/settings/heading-bug += "-deg"
+/consumables/fuel/tank1/level =&gt; /consumables/fuel/tank[0]/level-gal_us
+/consumables/fuel/tank2/level =&gt; /consumables/fuel/tank[1]/level-gal_us
+/engines/engine0/cht =&gt; /engines/engine[0]/cht-degf
+/engines/engine0/egt =&gt; /engines/engine[0]/egt-degf
+/engines/engine0/fuel-flow =&gt; /engines/engine[0]/fuel-flow-gph
+/engines/engine0/mp =&gt; /engines/engine[0]/mp-osi
+/engines/engine0/rpm =&gt; /engines/engine[0]/rpm
+/environment/clouds/altitude += "-ft"
+/environment/magnetic-dip += "-deg"
+/environment/magnetic-variation += "-deg"
+/environment/visibility += "-m"
+/environment/wind-down += "-fps"
+/environment/wind-east += "-fps"
+/environment/wind-north += "-fps"
+/orientation/heading += "-deg"
+/orientation/heading-magnetic += "-deg"
+/orientation/pitch += "-deg"
+/orientation/roll += "-deg"
+/position/altitude += "-ft"
+/position/altitude-agl += "-ft"
+/position/latitude += "-deg"
+/position/longitude += "-deg"
+/radios/adf/frequencies/selected += "-khz"
+/radios/adf/frequencies/standby += "-khz"
+/radios/adf/rotation += "-deg"
+/radios/nav1/* =&gt; /radios/nav[0]/*
+/radios/nav2/* =&gt; /radios/nav[1]/*
+/radios/nav[*]/dme/distance += "-nm"
+/radios/nav[*]/frequencies/selected += "-mhz"
+/radios/nav[*]/frequencies/standby += "-mhz"
+/radios/nav[*]/radials/actual += "-deg"
+/radios/nav[*]/radials/selected += "-deg"
+/sim/model/h-rotation =&gt; /sim/model/heading-offset-deg
+/sim/model/p-rotation =&gt; /sim/model/roll-offset-deg
+/sim/model/r-rotation =&gt; /sim/model/pitch-offset-deg
+/sim/model/x-offset += "-m"
+/sim/model/y-offset += "-m"
+/sim/model/z-offset += "-m"
+/sim/view/goal-offset += "-deg"
+/sim/view/offset += "-deg"
+/steam/adf += "-deg"
+/steam/airspeed += "-kt"
+/steam/altitude += "-ft"
+/steam/gyro-compass += "-deg"
+/steam/gyro-compass-error += "-deg"
+/steam/mag-compass += "-deg"
+/steam/vertical-speed += "-fpm"
+/velocities/airspeed += "-kt"
+/velocities/side-slip += "-rad"
+/velocities/speed-down += "-fps"
+/velocities/speed-east += "-fps"
+/velocities/speed-north += "-fps"
+/velocities/uBody += "-fps"
+/velocities/vBody += "-fps"
+/velocities/wBody += "-fps"
+/velocities/vertical-speed += "-fps"
+</pre>
+<br>
+<p>
+*  If there are *any* XML parsing errors, the panel will fail to load,
+   so it's worth downloading a parser like Expat (http://www.jclark.com/xml/)
+   for checking your XML. FlightGear will print the location of errors, but
+   the messages are a little cryptic right now.
+</P>
+<p>
+** NOTE: There is one built-in layer -- for the mag compass ribbon --
+   and all other layers are defined in the XML files.  In the future,
+   there may also be built-in layers for special things like a
+   weather-radar display or a GPS (though the GPS could be handled with
+   text properties).
+</p>
+</BODY>
+</HTML>

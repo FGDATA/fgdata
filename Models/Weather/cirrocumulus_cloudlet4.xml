@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+ <path>cirrocumulus_dl4.ac</path>
+
+<effect>
+  <object-name>rect</object-name>
+  <inherits-from>Effects/clouds-thinlayer</inherits-from>
+</effect>
+
+<animation>
+  <enable-hot type="bool">false</enable-hot>
+</animation>
+
+</PropertyList>

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+        <animation>
+                <type>select</type>                
+                <object-name>gear</object-name>                
+                <condition>
+                        <less-than>
+                                <property>velocities/true-airspeed-kt</property>
+                                <value>165</value>
+                        </less-than>
+                </condition>
+        </animation>       
+</PropertyList>

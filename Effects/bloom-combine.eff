@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PropertyList>
+	<name>Effects/bloom-combine</name>
+	<parameters>
+	</parameters>
+	<technique n="11">
+		<pass>
+			<texture-unit>
+				<unit>0</unit>
+				<type>buffer</type>
+				<name>spec-emis</name>
+			</texture-unit>
+			<texture-unit>
+				<unit>1</unit>
+				<type>buffer</type>
+				<name>diffuse</name>
+			</texture-unit>
+			<program>
+				<vertex-shader>Shaders/fullscreen.vert</vertex-shader>
+				<fragment-shader>Shaders/bloom-combine.frag</fragment-shader>
+			</program>
+			<uniform>
+				<name>spec_emis_tex</name>
+				<type>sampler-2d</type>
+				<value type="int">0</value>
+			</uniform>
+			<uniform>
+				<name>color_tex</name>
+				<type>sampler-2d</type>
+				<value type="int">1</value>
+			</uniform>
+		</pass>
+	</technique>
+</PropertyList>

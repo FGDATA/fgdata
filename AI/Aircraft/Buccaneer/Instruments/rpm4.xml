@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<!-- engine rpm clock instrument -->
+<PropertyList>
+	<path>../../../../Aircraft/Buccaneer/Instruments/rpm.ac</path>
+	<animation>
+		<type>rotate</type>
+		<object-name>rpm-Needle1</object-name>
+		<property>/engines/engine[0]/n2</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>0</dep>
+			</entry>
+			<entry>
+				<ind>100</ind>
+				<dep>270</dep>
+			</entry>
+		</interpolation>
+		<center>
+			<x-m>0</x-m>
+			<y-m>0</y-m>
+			<z-m>0</z-m>
+		</center>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+	<animation>
+	<type>rotate</type>
+		<object-name>rpm-Needle2</object-name>
+		<property>/engines/engine[1]/n2</property>
+		<factor>36</factor>
+		<center>
+			<x-m>0</x-m>
+			<y-m>-0.011146</y-m>
+			<z-m>0.0142212</z-m>
+		</center>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+	<!-- Panel Lighting -->
+	<animation>
+		<type>material</type>
+		<emission>
+			<factor-prop>/systems/electrical/outputs/instrument-lighting</factor-prop>
+			<red>0.03125</red>
+			<green>0.0089</green>
+			<blue>0.0089</blue>
+		</emission>
+	</animation>
+
+	<!-- Noshadow -->
+	<animation>
+		<type>noshadow</type>
+	</animation>
+
+	<!-- *** LoD *** -->
+	<animation>
+		<type>range</type>
+		<min-m>0</min-m>
+		<max-m>5</max-m>
+	</animation>
+
+</PropertyList>

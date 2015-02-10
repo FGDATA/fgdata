@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+	<scenario>
+
+		<name>Hunter Droptanks</name>
+
+		<description>
+			This scenario slaves droptanks to the parent ac at the
+			position designated by the x,y,z ofsets
+
+			Note:
+
+			1.	Units are ft, lbs, deg.
+			2.	Setting life = -1 indicates that this ballistic object will
+			not die
+			3.	The default value for aero-stabilized is false, so this must
+			be explictly set.
+			4.	Yaw offset should not be used for now
+
+			Vivian Meazza
+		</description>
+
+		<entry>
+			<name>droptank-s</name>
+			<type>ballistic</type>
+			<model>Aircraft/Hunter/Models/droptank.xml</model>
+			<trigger>controls/armament/station[0]/jettison-all</trigger>
+			<repeat>false</repeat>
+			<count>1</count>
+			<life>-1</life>
+			<x-offset>-22.14566</x-offset>
+			<y-offset>9.61286</y-offset>
+			<z-offset>-2.39501</z-offset>
+			<yaw-offset>0</yaw-offset>
+			<pitch-offset>0</pitch-offset>
+			<roll-offset>0</roll-offset>
+			<wind>false</wind>
+			<eda>2.11348887</eda>
+			<!--<mass>5.2837</mass>-->
+			<weight>170</weight>
+			<cd>0.02</cd>
+			<contents>consumables/fuel/tank[3]</contents>
+			<impact>true</impact>
+			<impact-reports>sim/ai/aircraft/impact/droptank</impact-reports>
+			<external-force>true</external-force>
+			<force-path>sim/ai/ballistic/force[0]</force-path>
+			<slaved>true</slaved>
+			<aero-stabilised>true</aero-stabilised>
+		</entry>
+
+		<entry>
+			<name>droptank-p</name>
+			<type>ballistic</type>
+			<model>Aircraft/Hunter/Models/droptank.xml</model>
+			<trigger>controls/armament/station[1]/jettison-all</trigger>
+			<speed>0</speed>
+			<life>-1</life>
+			<repeat>false</repeat>
+			<count>1</count>
+			<life>-1</life>
+			<x-offset>-22.14566</x-offset>
+			<y-offset>-9.61286</y-offset>
+			<z-offset>-2.39501</z-offset>
+			<yaw-offset>0</yaw-offset>
+			<pitch-offset>-2</pitch-offset>
+			<roll-offset>0</roll-offset>
+			<wind>false</wind>
+			<eda>2.11348887</eda>
+			<!--<mass>5.2837</mass>-->
+			<weight>170</weight>
+			<cd>0.02</cd>
+			<contents>consumables/fuel/tank[4]</contents>
+			<impact>true</impact>
+			<impact-reports>sim/ai/aircraft/impact/droptank</impact-reports>
+			<external-force>true</external-force>
+			<force-path>sim/ai/ballistic/force[1]</force-path>
+			<slaved>true</slaved>
+			<aero-stabilised>true</aero-stabilised>
+		</entry>
+
+	</scenario>
+
+</PropertyList>

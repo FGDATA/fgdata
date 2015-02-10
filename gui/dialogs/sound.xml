@@ -1,0 +1,342 @@
+<?xml version="1.0"?>
+
+<!-- Sound control dialog -->
+
+<PropertyList>
+  <name>sound-dialog</name>
+  <modal>false</modal>
+  <width>400</width>
+  <layout>vbox</layout>
+
+  <group>
+    <layout>hbox</layout>
+	  <empty><stretch>1</stretch></empty>
+
+    <text>
+      <label>Sound Configuration</label>
+    </text>
+
+	  <empty><stretch>1</stretch></empty>
+
+    <button>
+      <pref-width>16</pref-width>
+      <pref-height>16</pref-height>
+      <legend></legend>
+      <keynum>27</keynum>
+      <border>2</border>
+      <binding>
+        <command>dialog-close</command>
+      </binding>
+    </button>
+  </group>
+
+  <hrule/>
+
+  <group>
+    <layout>hbox</layout>
+    <text>
+    <halign>right</halign>
+    <label>Sound Device:</label>
+    </text>
+
+    <combo>
+      <name>source-selection</name>
+      <halign>fill</halign>
+      <stretch>true</stretch>
+      <property>sim/gui/dialogs/sound-dialog/source-selection</property>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>source-selection</object-name>
+      </binding>
+      <binding>
+        <command>dialog-update</command>
+        <object-name>sound-dialog</object-name>
+      </binding>
+    </combo>
+  </group>
+
+  <hrule/>
+
+  <group>
+    <layout>table</layout>
+    <halign>center</halign>
+
+    <text>
+      <row>0</row>
+      <col>0</col>
+      <label>Channel</label>
+      <padding>10</padding>
+    </text>
+
+    <text>
+      <row>0</row>
+      <col>1</col>
+      <label>Enabled</label>
+      <padding>10</padding>
+    </text>
+
+    <text>
+      <row>0</row>
+      <col>2</col>
+      <label>Volume</label>
+      <padding>10</padding>
+    </text>
+
+    <text>
+      <row>0</row>
+      <col>3</col>
+      <label>External</label>
+      <padding>10</padding>
+    </text>
+
+    <text>
+      <row>1</row>
+      <col>0</col>
+      <label>Master</label>
+      <halign>left</halign>
+    </text>
+
+    <checkbox>
+      <row>1</row>
+      <col>1</col>
+      <property>/sim/sound/enabled</property>
+      <binding>
+        <command>dialog-apply</command>
+      </binding>
+    </checkbox>
+
+    <slider>
+      <row>1</row>
+      <col>2</col>
+      <property>/sim/sound/volume</property>
+      <binding>
+        <command>dialog-apply</command>
+      </binding>
+    </slider>
+
+    <text>
+      <row>2</row>
+      <col>0</col>
+      <label>Effects</label>
+      <halign>left</halign>
+	  <enable>
+        <property>/sim/sound/enabled</property>
+      </enable>
+    </text>
+
+    <checkbox>
+      <row>2</row>
+      <col>1</col>
+      <property>/sim/sound/effects/enabled</property>
+      <binding>
+        <command>dialog-apply</command>
+      </binding>
+	  <enable>
+        <property>/sim/sound/enabled</property>
+      </enable>
+    </checkbox>
+
+    <slider>
+      <row>2</row>
+      <col>2</col>
+      <property>/sim/sound/effects/volume</property>
+      <binding>
+        <command>dialog-apply</command>
+      </binding>
+	  <enable>
+        <property>/sim/sound/enabled</property>
+      </enable>
+    </slider>
+
+    <text>
+      <row>3</row>
+      <col>0</col>
+      <label>Avionics</label>
+      <halign>left</halign>
+	  <enable>
+        <property>/sim/sound/enabled</property>
+      </enable>
+    </text>
+
+    <checkbox>
+      <row>3</row>
+      <col>1</col>
+      <property>/sim/sound/avionics/enabled</property>
+      <binding>
+        <command>dialog-apply</command>
+      </binding>
+	  <enable>
+        <property>/sim/sound/enabled</property>
+      </enable>
+    </checkbox>
+
+    <slider>
+      <row>3</row>
+      <col>2</col>
+      <property>/sim/sound/avionics/volume</property>
+      <binding>
+        <command>dialog-apply</command>
+      </binding>
+	  <enable>
+        <property>/sim/sound/enabled</property>
+      </enable>
+    </slider>
+
+    <checkbox>
+      <row>3</row>
+      <col>3</col>
+      <property>/sim/sound/avionics/external-view</property>
+      <binding>
+        <command>dialog-apply</command>
+      </binding>
+	  <enable>
+        <property>/sim/sound/enabled</property>
+      </enable>
+    </checkbox>
+
+    <text>
+      <row>4</row>
+      <col>0</col>
+      <label>ATC</label>
+      <halign>left</halign>
+	  <enable>
+        <property>/sim/sound/enabled</property>
+      </enable>
+    </text>
+
+    <checkbox>
+      <row>4</row>
+      <col>1</col>
+      <property>/sim/sound/atc/enabled</property>
+      <binding>
+        <command>dialog-apply</command>
+      </binding>
+	  <enable>
+        <property>/sim/sound/enabled</property>
+      </enable>
+    </checkbox>
+
+    <slider>
+      <row>4</row>
+      <col>2</col>
+      <property>/sim/sound/atc/volume</property>
+      <binding>
+        <command>dialog-apply</command>
+      </binding>
+	  <enable>
+        <property>/sim/sound/enabled</property>
+      </enable>
+    </slider>
+
+    <checkbox>
+      <row>4</row>
+      <col>3</col>
+      <property>/sim/sound/atc/external-view</property>
+      <binding>
+        <command>dialog-apply</command>
+      </binding>
+	  <enable>
+        <property>/sim/sound/enabled</property>
+      </enable>
+    </checkbox>
+
+    <text>
+      <row>5</row>
+      <col>0</col>
+      <label>AI/MP</label>
+      <halign>left</halign>
+	  <enable>
+        <property>/sim/sound/enabled</property>
+      </enable>
+    </text>
+
+    <checkbox>
+      <row>5</row>
+      <col>1</col>
+      <property>/sim/sound/aimodels/enabled</property>
+      <binding>
+        <command>dialog-apply</command>
+      </binding>
+	  <enable>
+        <property>/sim/sound/enabled</property>
+      </enable>
+    </checkbox>
+
+    <slider>
+      <row>5</row>
+      <col>2</col>
+      <property>/sim/sound/aimodels/volume</property>
+      <binding>
+        <command>dialog-apply</command>
+      </binding>
+	  <enable>
+        <property>/sim/sound/enabled</property>
+      </enable>
+    </slider>
+  </group>
+
+  <hrule/>
+
+  <group>
+    <layout>hbox</layout>
+    <default-padding>10</default-padding>
+
+    <button>
+      <legend>Apply</legend>
+      <key>Enter</key>
+      <binding>
+        <command>nasal</command>
+        <script>apply()</script>
+      </binding>
+      <binding>
+        <command>dialog-apply</command>
+      </binding>
+    </button>
+
+    <button>
+      <legend>Close</legend>
+      <default>true</default>
+      <key>Esc</key>
+      <binding>
+        <command>dialog-close</command>
+      </binding>
+    </button>
+  </group>
+
+  <nasal>
+    <open><![CDATA[
+      var dlg_root = cmdarg();
+
+      # Fill the sound device combo box
+      var combo = gui.findElementByName( dlg_root, "source-selection" );
+      var wsn = props.globals.getNode( "sim/sound/devices" );
+      if( wsn != nil ) {
+        var devices = wsn.getChildren("device");
+        forindex (var i; devices )
+          combo.getChild("value", i, 1).setValue(devices[i].getValue());
+      }
+
+      var apply = func {
+        var new = getprop("sim/gui/dialogs/sound-dialog/source-selection");
+        var current = getprop("sim/sound/device-name");
+        if (cmp(current, new) != 0) {
+          setprop("sim/sound/devices/name", new);
+          setprop("sim/sound/device-name", new);
+          if(getprop("/sim/fgcom/enabled")) {
+            setprop("/sim/fgcom/enabled", 0);
+            settimer( func { fgcommand("reinit", props.Node.new({ "subsystem" : "sound" })); }, 0.5 );
+            settimer( func { setprop("/sim/fgcom/enabled", 1); }, 1 );
+          } else {
+            fgcommand("reinit", props.Node.new({ "subsystem" : "sound" }));
+          }
+        }
+      }
+
+      # initialization
+      var default_device = getprop("sim/sound/device-name");
+      setprop( "sim/gui/dialogs/sound-dialog/source-selection", default_device);
+
+    ]]></open>
+  </nasal>
+
+</PropertyList>

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+
+
+<PropertyList>
+    <name>RADAR</name>
+    <w-base>512</w-base>
+    <h-base>512</h-base>
+
+    <layers>
+
+        <layer>
+            <condition>
+                <property>instrumentation/primus1000/control/tcas</property>
+            </condition>
+            <name>radar data</name>
+            <emissive>true</emissive>
+            <w>512</w>
+            <h>512</h>
+            <texture>
+                <path>Aircraft/Instruments-3d/primus-1000/MFD/od_wxradar.png</path>
+                <x1>0.0</x1>
+                <y1>0.0</y1>
+                <x2>1.0</x2>
+                <y2>1.0</y2>
+            </texture>
+        </layer>
+
+    </layers>
+
+</PropertyList>

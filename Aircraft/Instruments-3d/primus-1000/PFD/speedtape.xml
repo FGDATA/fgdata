@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+
+
+<PropertyList>
+    <name>Spd</name>
+    <w-base>52</w-base>
+    <h-base>228</h-base>
+
+    <layers>
+
+    <layer>
+        <name>speed</name>
+        <w>74</w>
+        <h>2220</h>
+        <texture>
+            <path>Aircraft/Instruments-3d/primus-1000/PFD/speedtape.png</path>
+            <x1>0.00</x1>
+            <y1>0.00</y1>
+            <x2>1.00</x2>
+            <y2>1.00</y2>
+        </texture>
+        <transformations>
+            <transformation>
+               <type>y-shift</type>
+                <offset>907</offset>
+            </transformation>
+            <transformation>
+                <type>y-shift</type>
+                <property>velocities/airspeed-kt</property>
+                <scale>-2.47</scale>
+            </transformation>
+        </transformations>
+        <emissive>true</emissive>
+    </layer>
+
+    </layers>
+
+</PropertyList>

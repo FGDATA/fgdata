@@ -1,0 +1,216 @@
+<?xml version="1.0" ?>
+<!--
+ This file is part of FlightGear, the free flight simulator
+ http://www.flightgear.org/
+
+ Copyright (C) 2009 Torsten Dreyer, Torsten (at) t3r _dot_ de
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation; either version 2 of the
+ License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+-->
+<PropertyList>
+    <path>Annunciator.ac</path>
+    
+    <animation>
+        <type>noshadow</type>
+    </animation>
+    <animation>
+        <type>range</type>
+        <min-m>0</min-m>
+        <max-m>10</max-m>
+    </animation>
+    
+    <animation>
+        <type>pick</type>
+        <object-name>Test</object-name>
+        <visible>true</visible>
+        <action>
+          <button>0</button>
+          <repeatable>false</repeatable>
+          <binding>
+            <command>property-assign</command>
+            <property>/instrumentation/annunciator/test</property>
+            <value>1</value>
+          </binding>
+          <mod-up>
+            <binding>
+              <command>property-assign</command>
+              <property>/instrumentation/annunciator/test</property>
+              <value>0</value>
+            </binding>
+          </mod-up>
+        </action>
+    </animation>
+    <animation>
+        <type>translate</type>
+        <object-name>Test</object-name>
+        <property>/instrumentation/annunciator/test</property>
+        <factor>-0.0025</factor>
+        <axis>
+            <x>1.0</x>
+            <y>0.0</y>
+            <z>0.0</z>
+        </axis>
+    </animation>
+    
+    <animation>
+        <type>material</type>
+        <object-name>Fuelpump.L</object-name>
+        <condition>
+          <or>
+            <property>/instrumentation/annunciator/test</property>
+            <property>/instrumentation/annunciator/fuelpump[0]</property>
+            <property>/controls/engines/engine[0]/fuel-pump</property>
+            <property>/controls/engines/engine[0]/primer</property>
+          </or>
+          <greater-than>
+            <property>/systems/electrical/battery-bus/u-volts</property>
+            <value type="double">8.0</value>
+          </greater-than>
+        </condition>
+        <emission>
+            <red>1.0</red>
+            <green>1.0</green>
+            <blue>1.0</blue>
+        </emission>
+    </animation>
+    
+    <animation>
+        <type>material</type>
+        <object-name>Fuelpump.R</object-name>
+        <condition>
+          <or>
+            <property>/instrumentation/annunciator/test</property>
+            <property>/instrumentation/annunciator/fuelpump[1]</property>
+            <property>/controls/engines/engine[1]/fuel-pump</property>
+            <property>/controls/engines/engine[1]/primer</property>
+          </or>
+          <greater-than>
+            <property>/systems/electrical/battery-bus/u-volts</property>
+            <value type="double">8.0</value>
+          </greater-than>
+        </condition>
+        <emission>
+            <red>1.0</red>
+            <green>1.0</green>
+            <blue>1.0</blue>
+        </emission>
+    </animation>
+    
+    <animation>
+        <type>material</type>
+        <object-name>OverboostFace.L</object-name>
+        <condition>
+          <or>
+            <property>/instrumentation/annunciator/test</property>
+            <property>/instrumentation/annunciator/overboost[0]</property>
+          </or>
+          <greater-than>
+            <property>/systems/electrical/battery-bus/u-volts</property>
+            <value type="double">8.0</value>
+          </greater-than>
+        </condition>
+        <emission>
+            <red>1.0</red>
+            <green>1.0</green>
+            <blue>1.0</blue>
+        </emission>
+    </animation>
+    
+    <animation>
+        <type>material</type>
+        <object-name>OverboostFace.R</object-name>
+        <condition>
+          <or>
+            <property>/instrumentation/annunciator/test</property>
+            <property>/instrumentation/annunciator/overboost[1]</property>
+          </or>
+          <greater-than>
+            <property>/systems/electrical/battery-bus/u-volts</property>
+            <value type="double">8.0</value>
+          </greater-than>
+        </condition>
+        <emission>
+            <red>1.0</red>
+            <green>1.0</green>
+            <blue>1.0</blue>
+        </emission>
+    </animation>
+    
+    <animation>
+        <type>material</type>
+        <object-name>OilFace</object-name>
+        <condition>
+          <or>
+            <property>/instrumentation/annunciator/test</property>
+            <property>/instrumentation/annunciator/oil</property>
+          </or>
+          <greater-than>
+            <property>/systems/electrical/battery-bus/u-volts</property>
+            <value type="double">8.0</value>
+          </greater-than>
+        </condition>
+        <emission>
+            <red>1.0</red>
+            <green>1.0</green>
+            <blue>1.0</blue>
+        </emission>
+    </animation>
+    
+    <animation>
+        <type>material</type>
+        <object-name>GyroAirFace</object-name>
+        <condition>
+          <or>
+            <property>/instrumentation/annunciator/test</property>
+            <property>/instrumentation/vacuum/inoperative[0]</property>
+            <property>/instrumentation/vacuum/inoperative[1]</property>
+            <property>/instrumentation/annunciator/vacuum</property>
+          </or>
+          <greater-than>
+            <property>/systems/electrical/battery-bus/u-volts</property>
+            <value type="double">8.0</value>
+          </greater-than>
+        </condition>
+        <emission>
+            <red>1.0</red>
+            <green>1.0</green>
+            <blue>1.0</blue>
+        </emission>
+    </animation>
+    
+    <animation>
+        <type>material</type>
+        <object-name>AltnFace</object-name>
+        <condition>
+          <or>
+            <property>/instrumentation/annunciator/test</property>
+            <less-than>
+              <property>/systems/electrical/bus[0]/element[1]/u0</property>
+              <property>/systems/electrical/battery-bus/u-volts</property>
+            </less-than>
+            <less-than>
+              <property>/systems/electrical/bus[0]/element[2]/u0</property>
+              <property>/systems/electrical/battery-bus/u-volts</property>
+            </less-than>
+          </or>
+          <greater-than>
+            <property>/systems/electrical/battery-bus/u-volts</property>
+            <value type="double">8.0</value>
+          </greater-than>
+        </condition>
+        <emission>
+            <red>1.0</red>
+            <green>1.0</green>
+            <blue>1.0</blue>
+        </emission>
+    </animation>
+    
+</PropertyList>

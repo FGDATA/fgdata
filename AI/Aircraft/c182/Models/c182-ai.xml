@@ -1,0 +1,282 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+ <path>c182.ac</path>
+
+ <offsets>
+   <pitch-deg>-3</pitch-deg>
+    <z-m>1.4</z-m>
+ </offsets>
+ 
+  <!-- Object movements -->
+  <animation>
+  <type>select</type>
+  <object-name>Propeller</object-name>
+  <condition>
+   <less-than>
+        <property>velocities/true-airspeed-kt</property>
+        <value>50</value>
+      </less-than>
+    </condition>
+ </animation>
+
+ <animation>
+  <type>select</type>
+  <object-name>Propeller.2</object-name>
+  <condition>
+   <greater-than>
+    <property>velocities/true-airspeed-kt</property>
+        <value>40</value>
+   </greater-than>
+  </condition>
+ </animation>
+
+ <animation>
+   <type>blend</type>
+   <object-name>Propeller.2</object-name>
+   <property>velocities/true-airspeed-kt</property>
+   <factor>0.0004</factor>
+   <max>1.0</max>
+   <min>0.0</min>
+ </animation>
+
+ <animation>
+  <type>spin</type>
+  <object-name>Propeller</object-name>
+ <property>velocities/true-airspeed-kt</property>
+    <factor> 90 </factor>
+  <factor>-1</factor>
+  <center>
+   <x-m>0</x-m>
+   <y-m>0</y-m>
+   <z-m>-0.214544</z-m>
+  </center>
+  <axis>
+   <x>1.0</x>
+   <y>0.0</y>
+   <z>0.0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>spin</type>
+  <object-name>Propeller.2</object-name>
+  <property>velocities/true-airspeed-kt</property>
+    <factor> 90 </factor>
+  <factor>-1</factor>
+  <center>
+   <x-m>0</x-m>
+   <y-m>0</y-m>
+   <z-m>-0.214544</z-m>
+  </center>
+  <axis>
+   <x>1.0</x>
+   <y>0.0</y>
+   <z>0.0</z>
+  </axis>
+ </animation>
+ 
+<!-- Chrome animation for spinner -->
+  <animation>
+    <type>shader</type>
+    <shader>chrome</shader>
+    <texture>chrome2.rgb</texture>
+    <object-name>spinner</object-name>
+  </animation>
+  
+  <model>
+    <name>LeftNavLight</name>
+    <path>BeaconLight.xml</path>
+    <offsets>
+      <x-m>0.18</x-m>
+      <y-m>-5.27</y-m>
+      <z-m>0.49</z-m>
+    </offsets>
+  </model>
+
+  <animation>
+    <type>material</type>
+    <object-name>LeftNavLight</object-name>
+    <emission>
+      <red>1.0</red>
+      <green>0.0</green>
+      <blue>0.0</blue>
+      <!--factor-prop>/controls/switches/nav-lights</factor-prop-->
+    </emission>
+  </animation>
+
+  <model>
+    <name>RightNavLight</name>
+    <path>BeaconLight.xml</path>
+    <offsets>
+      <x-m>0.18</x-m>
+      <y-m>5.27</y-m>
+      <z-m>0.49</z-m>
+    </offsets>
+  </model>
+
+  <animation>
+    <type>material</type>
+    <object-name>RightNavLight</object-name>
+    <emission>
+      <red>0.0</red>
+      <green>1.0</green>
+      <blue>0.0</blue>
+      <!--factor-prop>/controls/switches/nav-lights</factor-prop-->
+    </emission>
+  </animation>
+
+  <model>
+    <name>RearNavLight</name>
+    <path>BeaconLight.xml</path>
+    <offsets>
+      <x-m>5.97</x-m>
+      <y-m>0</y-m>
+      <z-m>1.19</z-m>
+    </offsets>
+  </model>
+
+  <animation>
+    <type>material</type>
+    <object-name>RearNavLight</object-name>
+    <emission>
+      <red>1.0</red>
+      <green>1.0</green>
+      <blue>1.0</blue>
+      <!--factor-prop>/controls/switches/nav-lights</factor-prop-->
+    </emission>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>LeftNavLight</object-name>
+    <object-name>RightNavLight</object-name>
+    <object-name>RearNavLight</object-name>
+    <condition>
+      <and>
+		<greater-than>
+			<property>/sim/time/sun-angle-rad</property>
+			<value>1.57</value>
+		</greater-than>
+		<greater-than>
+			<property>velocities/true-airspeed-kt</property>
+			<value>0</value>
+		</greater-than>
+	  </and>
+    </condition>
+  </animation>
+
+  <model>
+    <name>BeaconOn</name>
+    <path>BeaconLight.xml</path>
+    <offsets>
+      <x-m>0.3</x-m>
+      <y-m>0.0</y-m>
+      <z-m>0.5</z-m>
+    </offsets>
+  </model>
+  
+  <model>
+    <name>BeaconOff</name>
+    <path>ToggleLight.xml</path>
+    <offsets>
+      <x-m>0.3</x-m>
+      <y-m>0.0</y-m>
+      <z-m>0.5</z-m>
+    </offsets>
+  </model>
+
+ <animation>
+	  <name>timed_beacon</name>
+	  <type>timed</type>
+	  <object-name>BeaconOn</object-name>
+	  <object-name>BeaconOff</object-name>
+	  <use-personality type="bool">true</use-personality>
+	  <branch-duration-sec>0.1</branch-duration-sec>
+	  <branch-duration-sec>1.0</branch-duration-sec>
+ </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>timed_beacon</object-name>
+    <condition>
+      <and>
+		<greater-than>
+			<property>/sim/time/sun-angle-rad</property>
+			<value>1.57</value>
+		</greater-than>
+		<greater-than>
+			<property>velocities/true-airspeed-kt</property>
+			<value>0</value>
+		</greater-than>
+	  </and>
+    </condition>
+  </animation>
+
+  <model>
+    <name>StrobeOn</name>
+    <path>StrobeLight.xml</path>
+    <offsets>
+      <x-m>0.5</x-m>
+      <y-m>0.0</y-m>
+      <z-m>-1.05</z-m>
+    </offsets>
+  </model>
+  
+  <model>
+    <name>StrobeOff</name>
+    <path>ToggleLight.xml</path>
+    <offsets>
+      <x-m>0.5</x-m>
+      <y-m>0.0</y-m>
+      <z-m>-1.05</z-m>
+    </offsets>
+  </model>
+  
+  <animation>
+  <name>timed_strobe</name>
+  <type>timed</type>
+  <object-name>StrobeOn</object-name>
+  <object-name>StrobeOff</object-name>
+  <use-personality type="bool">true</use-personality>
+	  <branch-duration-sec>0.1</branch-duration-sec>
+	  <branch-duration-sec>1.0</branch-duration-sec>
+ </animation>
+ 
+  <animation>
+    <type>select</type>
+    <object-name>timed_strobe</object-name>
+    <condition>
+      <and>
+		<greater-than>
+			<property>/sim/time/sun-angle-rad</property>
+			<value>1.57</value>
+		</greater-than>
+		<greater-than>
+			<property>velocities/true-airspeed-kt</property>
+			<value>0</value>
+		</greater-than>
+	  </and>
+    </condition>
+  </animation>
+<!--
+  <animation>
+  <type>rotate</type>
+  <object-name>LeftFlap</object-name>
+  <object-name>RightFlap</object-name>
+  <property>surface-positions/flap-pos-norm</property>
+  <factor>30</factor>
+  <center>
+   <x-m>1.1</x-m>
+   <y-m>0.0</y-m>
+   <z-m>0.28</z-m>
+  </center>
+  <axis>
+   <x>0.0</x>
+   <y>1.0</y>
+   <z>0.0</z>
+  </axis>
+ </animation>
+ -->
+</PropertyList>

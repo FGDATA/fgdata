@@ -1,0 +1,1617 @@
+<?xml version="1.0"?>
+<!-- Hurricane IIb by Vivian Meazza C 2010 
+$Id$
+-->
+<PropertyList>
+
+	<path>../../../../Aircraft/Hurricane/Models/hurricane-ver-25.ac</path>
+	<texture-path>../../../../Aircraft/Hurricane/Models</texture-path>
+
+	<nasal>
+		<load>
+			print("LOAD Hurricane ", cmdarg().getPath());
+			var self = cmdarg();
+			var aliases = [];
+			var generic_int = 0;
+			var generic_float = 0;
+			var generic_string = "";
+
+			for (i = 0; i &lt; 3; i += 1) {
+			j = i + 1;
+			var tyre_smoke = self.getNode("gear/gear[" ~ i ~ "]/tyre-smoke", 1);
+			generic_int = self.getNode("sim/multiplay/generic/int[" ~ j ~ "]", 1);
+			tyre_smoke.alias(generic_int);
+			append(aliases, tyre_smoke);
+			}
+
+			for (i = 0; i &lt; 3; i += 1) {
+			j = i ;
+			var spray_speed = self.getNode("gear/gear[" ~ i ~ "]/sprayspeed-ms", 1);
+			generic_float = self.getNode("sim/multiplay/generic/float[" ~ j ~ "]", 1);
+			spray_speed.alias(generic_float);
+			append(aliases, spray_speed);
+			}
+
+			for (i = 0; i &lt; 3; i += 1) {
+			j = i + 3;
+			var spray_density = self.getNode("gear/gear[" ~ i ~ "]/spray-density", 1);
+			generic_float = self.getNode("sim/multiplay/generic/float[" ~ j ~ "]", 1);
+			spray_density.alias(generic_float);
+			append(aliases, spray_density);
+			}
+
+			var engine_running = self.getNode("engines/engine[0]/running", 1);
+			generic_int = self.getNode("sim/multiplay/generic/int[0]", 1);
+			engine_running.alias(generic_int);
+			append(aliases, engine_running);
+
+			var height_agl = self.getNode("position/altitude-agl-ft", 1);
+			generic_float = self.getNode("sim/multiplay/generic/float[6]", 1);
+			height_agl.alias(generic_float);
+			append(aliases, height_agl);
+
+			var caster_angle = self.getNode("gear/gear[0]/caster-angle-deg", 1);
+			generic_float = self.getNode("sim/multiplay/generic/float[7]", 1);
+			caster_angle.alias(generic_float);
+			append(aliases, caster_angle);
+
+			var throttle = self.getNode("controls/engines/engine[0]/throttle", 1);
+			generic_float = self.getNode("sim/multiplay/generic/float[8]", 1);
+			throttle.alias(generic_float);
+			append(aliases, throttle);
+
+			var canopy = self.getNode("gear/canopy/position-norm", 1);
+			generic_float = self.getNode("sim/multiplay/generic/float[9]", 1);
+			canopy.alias(generic_float);
+			append(aliases, canopy);
+
+			var door = self.getNode("controls/flight/door-position-norm", 1);
+			generic_float = self.getNode("sim/multiplay/generic/float[10]", 1);
+			door.alias(generic_float);
+			append(aliases, door);
+
+			var dirt = self.getNode("sim/time/hobbs/engine[0]", 1);
+			generic_float = self.getNode("sim/multiplay/generic/float[11]", 1);
+			dirt.alias(generic_float);
+			append(aliases, dirt);
+
+			var rad_flap = self.getNode("engines/engine/rad-flap-norm", 1);
+			generic_float = self.getNode("sim/multiplay/generic/float[12]", 1);
+			rad_flap.alias(generic_float);
+			append(aliases, rad_flap);
+
+			var landing_light = self.getNode("controls/lighting/landing-light[0]", 1);
+			generic_int = self.getNode("sim/multiplay/generic/int[6]", 1);
+			landing_light.alias(generic_int);
+			append(aliases, landing_light);
+
+			var i = 0;
+			var j = 0;
+		</load>
+		<unload>
+			print("UNLOAD Hurricane ", cmdarg().getPath());
+			foreach (var a; aliases)
+			a.unalias();
+		</unload>
+	</nasal>
+			
+	<!-- Front hotspots -->
+	<!--<panel>
+		<path>Aircraft/Hurricane/Models/panel-hotspots.xml</path>
+		<bottom-left>
+			<x-m>3.20</x-m>
+			<y-m>-0.40</y-m>
+			<z-m>-0.10</z-m>
+		</bottom-left>
+		<bottom-right>
+			<x-m>3.20</x-m>
+			<y-m> 0.40</y-m>
+			<z-m>-0.10</z-m>
+		</bottom-right>
+		<top-left>
+			<x-m>3.20</x-m>
+			<y-m>-0.40</y-m>
+			<z-m> 0.70</z-m>
+		</top-left>
+	</panel>
+	<panel>
+		<path>Aircraft/Hurricane/Models/panel2-hotspots.xml</path>
+		<bottom-left>
+			<x-m>3.75</x-m>
+			<y-m>-0.40</y-m>
+			<z-m>-0.10</z-m>
+		</bottom-left>
+		<bottom-right>
+			<x-m>3.75</x-m>
+			<y-m> 0.40</y-m>
+			<z-m>-0.10</z-m>
+		</bottom-right>
+		<top-left>
+			<x-m>2.75</x-m>
+			<y-m>-0.40</y-m>
+			<z-m> 0.70</z-m>
+		</top-left>
+	</panel>
+	<panel>
+		<path>Aircraft/Hurricane/Models/panel3-hotspots.xml</path>
+		<bottom-left>
+			<x-m>4</x-m>
+			<y-m>-1</y-m>
+			<z-m>-0.35</z-m>
+		</bottom-left>
+		<bottom-right>
+			<x-m>4</x-m>
+			<y-m> 1</y-m>
+			<z-m>-0.35</z-m>
+		</bottom-right>
+		<top-left>
+			<x-m>3.0</x-m>
+			<y-m>-1</y-m>
+			<z-m>-0.35</z-m>
+		</top-left>
+	</panel>
+	<panel>
+		<path>Aircraft/Hurricane/Models/panel4-hotspots.xml</path>
+		<bottom-left>
+			<x-m>3.80</x-m>
+			<y-m>-0.5</y-m>
+			<z-m>-0.60</z-m>
+		</bottom-left>
+		<bottom-right>
+			<x-m>3.00</x-m>
+			<y-m>-0.5</y-m>
+			<z-m>-0.60</z-m>
+		</bottom-right>
+		<top-left>
+			<x-m>3.80</x-m>
+			<y-m>-0.5</y-m>
+			<z-m> 0.20</z-m>
+		</top-left>
+	</panel>-->
+	<!-- ************* panel models ************* -->
+	<!-- blind flying instruments 
+	<model> 
+      <path>Aircraft/Hurricane/Models/panel.ac</path>
+    </model>-->
+	<!--<model>
+		<path>Aircraft/Hurricane/Models/asi.xml</path>
+		<offsets>
+			<x-m>3.104</x-m>
+			<y-m>-0.11</y-m>
+			<z-m>0.312</z-m>
+		</offsets>
+	</model>
+	<model>
+		<path>Aircraft/Hurricane/Models/attitude.xml</path>
+		<name>Attitude</name>
+		<offsets>
+			<x-m>3.105</x-m>
+			<y-m>0.0</y-m>
+			<z-m>0.312</z-m>
+		</offsets>
+	</model>
+	<model>
+		<path>Aircraft/Hurricane/Models/vsi.xml</path>
+		<offsets>
+			<x-m>3.105</x-m>
+			<y-m>0.11</y-m>
+			<z-m>0.312</z-m>
+		</offsets>
+	</model>
+	<model>
+		<path>Aircraft/Hurricane/Models/altimeter.xml</path>
+		<name>Altimeter</name>
+		<offsets>
+			<x-m>3.104</x-m>
+			<y-m>-0.11</y-m>
+			<z-m>0.205</z-m>
+		</offsets>
+	</model>
+	<model>
+		<path>Aircraft/Hurricane/Models/compass.xml</path>
+		<offsets>
+			<x-m>3.104</x-m>
+			<y-m>0</y-m>
+			<z-m>0.21</z-m>
+		</offsets>
+	</model>
+	<model>
+		<path>Aircraft/Hurricane/Models/turn.xml</path>
+		<name>Turn</name>
+		<offsets>
+			<x-m>3.105</x-m>
+			<y-m>0.11</y-m>
+			<z-m>0.205</z-m>
+		</offsets>
+	</model>-->
+	<!-- end blind flying instruments -->
+	<!-- main panel -->
+	<!--<model>
+		<path>Aircraft/Hurricane/Models/rgs-main-switch.xml</path>
+		<offsets>
+			<x-m>3.104</x-m>
+			<y-m>0.229</y-m>
+			<z-m>0.439</z-m>
+		</offsets>
+	</model>-->
+	<!--    <model> 
+      <path>Aircraft/Spitfire/Models/rgs-dimmer-switch.xml</path>
+      <offsets> 
+        <x-m>3.104</x-m>
+        <y-m>-0.055</y-m>
+        <z-m>0.229</z-m>
+      </offsets>
+    </model> -->
+	<!-- engine instruments -->
+	<!--<model>
+		<path>Aircraft/Hurricane/Models/rpm.xml</path>
+		<offsets>
+			<x-m>3.104</x-m>
+			<y-m>0.16</y-m>
+			<z-m>0.458</z-m>
+		</offsets>
+	</model>
+	<model>
+		<path>Aircraft/Hurricane/Models/boost.xml</path>
+		<offsets>
+			<x-m>3.104</x-m>
+			<y-m>0.23</y-m>
+			<z-m>0.3415</z-m>
+		</offsets>
+	</model>
+	<model>
+		<path>Aircraft/Hurricane/Models/oil-pressure.xml</path>
+		<offsets>
+			<x-m>3.104</x-m>
+			<y-m>0.2184</y-m>
+			<z-m>0.24</z-m>
+		</offsets>
+	</model>
+	<model>
+		<path>Aircraft/Hurricane/Models/fuel.xml</path>
+		<offsets>
+			<x-m>3.104</x-m>
+			<y-m>0.3425</y-m>
+			<z-m>0.24</z-m>
+		</offsets>
+	</model>
+	<model>
+		<path>Aircraft/Hurricane/Models/fuel-pressure.xml</path>
+		<offsets>
+			<x-m>3.104</x-m>
+			<y-m>0.2769</y-m>
+			<z-m>0.24</z-m>
+		</offsets>
+	</model>
+	<model>
+		<path>Aircraft/Hurricane/Models/oil-temp.xml</path>
+		<offsets>
+			<x-m>3.104</x-m>
+			<y-m>0.221</y-m>
+			<z-m>0.162</z-m>
+		</offsets>
+	</model>
+	<model>
+		<path>Aircraft/Hurricane/Models/rad-temp.xml</path>
+		<offsets>
+			<x-m>3.104</x-m>
+			<y-m>0.297</y-m>
+			<z-m>0.162</z-m>
+		</offsets>
+	</model>-->
+	<!--    end engine instruments -->
+	<!-- miscellaneous (left panel) instruments -->
+	<!--<model>
+		<path>Aircraft/Hurricane/Models/supercharger-control.xml</path>
+		<offsets>
+			<x-m>3.111</x-m>
+			<y-m>-0.284</y-m>
+			<z-m>0.0501</z-m>
+		</offsets>
+	</model>
+	<model>
+		<path>Aircraft/Hurricane/Models/cutout.xml</path>
+		<offsets>
+			<x-m>3.104</x-m>
+			<y-m>-0.328</y-m>
+			<z-m>0.238</z-m>
+		</offsets>
+	</model>-->
+	<!--<model>
+		<path>Aircraft/Hurricane/Models/clock.xml</path>
+		<offsets>
+			<x-m>3.104</x-m>
+			<y-m>-0.237</y-m>
+			<z-m>0.238</z-m>
+		</offsets>
+	</model>-->
+	<!--<model>
+		<path>Aircraft/Hurricane/Models/starter.xml</path>
+		<offsets>
+			<x-m>3.104</x-m>
+			<y-m>-0.3575</y-m>
+			<z-m>0.154</z-m>
+		</offsets>
+	</model>
+	<model>
+		<path>Aircraft/Hurricane/Models/nav-light-switch.xml</path>
+		<offsets>
+			<x-m>3.104</x-m>
+			<y-m>-0.225</y-m>
+			<z-m>0.154</z-m>
+		</offsets>
+	</model>
+	<model>
+		<path>Aircraft/Hurricane/Models/gear-switch.xml</path>
+		<offsets>
+			<x-m>3.104</x-m>
+			<y-m>-0.238</y-m>
+			<z-m>0.439</z-m>
+		</offsets>
+	</model>
+	<model>
+		<path>Aircraft/Hurricane/Models/gear-main-switch.xml</path>
+		<offsets>
+			<x-m>3.104</x-m>
+			<y-m>-0.215</y-m>
+			<z-m>0.439</z-m>
+		</offsets>
+	</model>
+	<model>
+		<path>Aircraft/Hurricane/Models/magneto.xml</path>
+		<offsets>
+			<x-m>3.104</x-m>
+			<y-m>-0.291</y-m>
+			<z-m>0.160</z-m>
+		</offsets>
+	</model>
+	<model>
+		<path>Aircraft/Hurricane/Models/gear.xml</path>
+		<name>Gear-Indicator</name>
+		<offsets>
+			<x-m>3.104</x-m>
+			<y-m>-0.1525</y-m>
+			<z-m>0.465</z-m>
+		</offsets>
+	</model>-->
+	<model>
+		<path>Aircraft/Hurricane/Models/warning-plate.xml</path>
+		<offsets>
+			<x-m>3.104</x-m>
+			<y-m>-0.198</y-m>
+			<z-m>0.401</z-m>
+		</offsets>
+	</model>
+	<!-- non-panel models -->
+	<!--<model>
+		<path>Aircraft/Hurricane/Models/dimmer.xml</path>
+		<offsets>
+			<x-m>3.7</x-m>
+			<y-m>-0.44</y-m>
+			<z-m>0.2</z-m>
+			<roll-deg>-9</roll-deg>
+		</offsets>
+	</model>
+	<model>
+		<path>Aircraft/Hurricane/Models/cut-off.xml</path>
+		<offsets>
+			<x-m>3.314</x-m>
+			<y-m>0.4128</y-m>
+			<z-m>-0.0181</z-m>
+			<pitch-deg> -54</pitch-deg>
+			<roll-deg> 32</roll-deg>
+			<heading-deg>-22</heading-deg>
+		</offsets>
+	</model>
+	<model>
+		<path>Aircraft/Hurricane/Models/primer.xml</path>
+		<offsets>
+			<x-m>3.121</x-m>
+			<y-m>0.332</y-m>
+			<z-m>0.050</z-m>
+			<heading-deg>-45</heading-deg>
+		</offsets>
+	</model>
+	<model>
+		<path>Aircraft/Hurricane/Models/triple.xml</path>
+		<name>Triple</name>
+		<offsets>
+			<x-m>3.0</x-m>
+			<y-m>-0.0</y-m>
+			<z-m>-0.25</z-m>
+			<pitch-deg>-45</pitch-deg>
+		</offsets>
+	</model>-->
+	<model>
+		<path>Aircraft/Hurricane/Models/trim-knob-rudder.xml</path>
+		<name>Trim-Knob-Rudder</name>
+		<offsets>
+			<x-m>3.43</x-m>
+			<y-m>-0.29</y-m>
+			<z-m>-0.16</z-m>
+			<roll-deg> 90</roll-deg>
+		</offsets>
+	</model>
+	<model>
+		<path>Aircraft/Hurricane/Models/trim-elev.xml</path>
+		<name>Trim-Elev</name>
+		<offsets>
+			<x-m>3.505</x-m>
+			<y-m>-0.387</y-m>
+			<z-m>-0.120</z-m>
+			<pitch-deg> -54</pitch-deg>
+		</offsets>
+	</model>
+	<model>
+		<path>Aircraft/Hurricane/Models/trim-wheel-elev.xml</path>
+		<offsets>
+			<x-m>3.505</x-m>
+			<y-m>-0.345</y-m>
+			<z-m>-0.120</z-m>
+		</offsets>
+	</model>
+	<model>
+		<path>Aircraft/Hurricane/Models/pitch.xml</path>
+		<offsets>
+			<x-m>3.453</x-m>
+			<y-m>-0.44</y-m>
+			<z-m>0.194</z-m>
+			<roll-deg>-9</roll-deg>
+		</offsets>
+	</model>
+	<model>
+		<path>Aircraft/Hurricane/Models/throttle.xml</path>
+		<offsets>
+			<x-m>3.538</x-m>
+			<y-m>-0.425</y-m>
+			<z-m>0.030</z-m>
+		</offsets>
+	</model>
+	<!--<model>
+		<path>Aircraft/Hurricane/Models/landing-light-switch.xml</path>
+		<offsets>
+			<x-m>3.12972</x-m>
+			<y-m>-0.424871</y-m>
+			<z-m>0.108272</z-m>
+			<heading-deg>-90</heading-deg>
+		</offsets>
+	</model>-->
+	<model>
+		<path>Aircraft/Hurricane/Models/flaps.xml</path>
+		<name>Flaps</name>
+		<offsets>
+			<x-m>3.372</x-m>
+			<y-m>0.379</y-m>
+			<z-m>-0.075</z-m>
+			<pitch-deg> -54</pitch-deg>
+			<roll-deg> 32</roll-deg>
+			<heading-deg>-22</heading-deg>
+		</offsets>
+	</model>
+	<model>
+		<path>Aircraft/Hurricane/Models/hydraulic.xml</path>
+		<name>Hydraulic</name>
+		<offsets>
+			<x-m>3.276</x-m>
+			<y-m>0.37</y-m>
+			<z-m>-0.030</z-m>
+			<pitch-deg> -54</pitch-deg>
+			<roll-deg> 32</roll-deg>
+			<heading-deg>-22</heading-deg>
+		</offsets>
+	</model>
+	<model>
+		<path>Aircraft/Hurricane/Models/fuel-cock.xml</path>
+		<offsets>
+			<x-m>3.22</x-m>
+			<y-m>-0.37</y-m>
+			<z-m>0.02</z-m>
+			<pitch-deg>-52</pitch-deg>
+		</offsets>
+	</model>
+	<model>
+		<path>Aircraft/Hurricane/Models/control-stick.xml</path>
+		<offsets>
+			<x-m>3.39</x-m>
+			<y-m>-0.0</y-m>
+			<z-m>-0.34</z-m>
+		</offsets>
+	</model>
+	<model>
+		<path>Aircraft/Hurricane/Models/rgs.xml</path>
+		<name>Gunsight</name>
+		<offsets>
+			<x-m>3.30</x-m>
+			<y-m>-0.0</y-m>
+			<z-m>0.69</z-m>
+		</offsets>
+	</model>
+
+	<!--<model>
+		<path>Aircraft/Hurricane/Models/blackout.xml</path>
+		<name>Blackout</name>
+		<offsets>
+			<x-m>3.88</x-m>
+			<y-m>0</y-m>
+			<z-m>0.72</z-m>
+		</offsets>
+	</model>-->
+
+	<!-- ***** Navigation Lights ****** -->
+	<model>
+		<path>Aircraft/Hurricane/Models/light-green.xml</path>
+		<name>Stbd-Light</name>
+		<offsets>
+			<x-m>2.675</x-m>
+			<y-m>5.7</y-m>
+			<z-m>-0.321788</z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<path>Aircraft/Hurricane/Models/light-red.xml</path>
+		<name>Port-Light</name>
+		<offsets>
+			<x-m>2.675</x-m>
+			<y-m>-5.7</y-m>
+			<z-m>-0.321788</z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<path>Aircraft/Hurricane/Models/light-white.xml</path>
+		<name>Tail-Light</name>
+		<offsets>
+			<x-m>9.85</x-m>
+			<y-m>0.0</y-m>
+			<z-m>0.632783</z-m>
+		</offsets>
+	</model>
+
+	<!-- Tutorial Marker -->
+	<model>
+		<path>Models/Aircraft/marker.xml</path>
+	</model>
+
+	<!-- hide all of the model not visible from the cockpit -->
+	<animation>
+		<!--<type>select</type>-->
+		<object-name>Covers</object-name>
+		<object-name>Pitot</object-name>
+		<object-name>Flap-Inner-R</object-name>
+		<object-name>Flap-Inner-L</object-name>
+		<object-name>Flap-Outer-R</object-name>
+		<object-name>Flap-Outer-L</object-name>
+		<object-name>UC-Tail</object-name>
+		<object-name>UC-Doors</object-name>
+		<object-name>Stub-Wing-B</object-name>
+		<object-name>Fuselage</object-name>
+		<object-name>Empennage</object-name>
+		<!--<condition> 
+        <not> 
+          <equals> 
+            <property>/sim/current-view/view-number</property>
+            <value>0</value>
+          </equals>
+        </not>
+      </condition>-->
+	</animation>
+	<animation>
+		<!--<type>select</type>-->
+		<object-name>Spinner</object-name>
+		<object-name>Exhausts</object-name>
+		<object-name>Wing-B-L</object-name>
+		<object-name>Wing-B-R</object-name>
+		<object-name>Wing-C-L</object-name>
+		<object-name>Wing-C-R</object-name>
+		<object-name>Wing-Tip-B-L</object-name>
+		<object-name>Wing-Tip-B-R</object-name>
+		<object-name>Radiator</object-name>
+		<object-name>Carb-Air-Intake</object-name>
+		<object-name>Tail-Light</object-name>
+		<object-name>Port-Light</object-name>
+		<object-name>Stbd-Light</object-name>
+		<object-name>Stbd-Nav-Lt-Cover</object-name>
+		<object-name>Port-Nav-Lt-Cover</object-name>
+		<!--  <condition> 
+        <not> 
+          <equals> 
+            <property>/sim/current-view/view-number</property>
+            <value>0</value>
+          </equals>
+        </not>
+      </condition>-->
+	</animation>
+
+	<!-- make sure that all the rest of the aircraft is visible-->
+
+	<animation>
+		<type>select</type>
+		<object-name>Cover-Engine-T</object-name>
+		<object-name>Cover-Tank-T</object-name>
+		<object-name>Escape-Hatch</object-name>
+		<object-name>Gunsight</object-name>
+		<object-name>Altimeter</object-name>
+		<object-name>Attitude</object-name>
+		<object-name>Gear-Indicator</object-name>
+		<object-name>Turn</object-name>
+		<object-name>Triple</object-name>
+		<object-name>Trim-Knob-Rudder</object-name>
+		<object-name>Flaps</object-name>
+		<object-name>Hydraulic</object-name>
+		<condition>
+			<greater-than-equals>
+				<property>/sim/current-view/view-number</property>
+				<value>0</value>
+			</greater-than-equals>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>Pilot</object-name>
+		<object-name>Propeller</object-name>
+		<object-name>PropellerDisk</object-name>
+		<object-name>Front-Panel-O</object-name>
+		<object-name>Front-Panel-I</object-name>
+		<object-name>Canopy-Front</object-name>
+		<object-name>Canopy-Main</object-name>
+		<!--<object-name>Blackout</object-name>-->
+		<condition>
+			<greater-than-equals>
+				<property>/sim/current-view/view-number</property>
+				<value>0</value>
+			</greater-than-equals>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<nopreview/>
+		<object-name>Front-Panel-O-Rain</object-name>
+		<condition>
+			<greater-than>
+				<property>sim/model/rain/raining-norm</property>
+				<value>0.01</value>
+			</greater-than>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>Front-Panel-O</object-name>
+		<condition>
+			<less-than-equals>
+				<property>sim/model/rain/raining-norm</property>
+				<value>0.01</value>
+			</less-than-equals>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<nopreview/>
+		<object-name>Canopy-Front-Rain-S</object-name>
+		<condition>
+			<greater-than>
+				<property>sim/model/rain/raining-norm</property>
+				<value>0.01</value>
+			</greater-than>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<nopreview/>
+		<object-name>Canopy-Front-Rain-P</object-name>
+		<condition>
+			<greater-than>
+				<property>sim/model/rain/raining-norm</property>
+				<value>0.01</value>
+			</greater-than>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<nopreview/>
+		<object-name>Canopy-Main-Rain</object-name>
+		<condition>
+			<greater-than>
+				<property>sim/model/rain/raining-norm</property>
+				<value>0.01</value>
+			</greater-than>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>Canopy-Main</object-name>
+		<condition>
+			<less-than-equals>
+				<property>sim/model/rain/raining-norm</property>
+				<value>0.01</value>
+			</less-than-equals>
+		</condition>
+	</animation>
+
+	<!-- **************************** Pilot ******************************* -->
+	<!--  conceal Pilot Head etc in Cockpit View -->
+	<animation>
+		<type>select</type>
+		<object-name>Head</object-name>
+		<condition>
+			<not>
+				<equals>
+					<property>sim/current-view/view-number</property>
+					<value>0</value>
+				</equals>
+			</not>
+		</condition>
+	</animation>
+	<!-- seat height -->
+	<animation>
+		<type>translate</type>
+		<object-name>Pilot</object-name>
+		<object-name>Seat</object-name>
+		<property>controls/seat/vertical-adjust</property>
+		<axis>
+			<x>0</x>
+			<y>0</y>
+			<z>1</z>
+		</axis>
+	</animation>
+	<!-- ***************** Flight Surfaces ************** -->
+	<!-- ailerons -->
+	<animation>
+		<type>rotate</type>
+		<object-name>Aileron-L</object-name>
+		<property>surface-positions/left-aileron-pos-norm</property>
+		<factor>30</factor>
+		<axis>
+			<x1-m>3.72</x1-m>
+			<y1-m>-5.35</y1-m>
+			<z1-m>-0.36</z1-m>
+			<x2-m>3.99</x2-m>
+			<y2-m>-3.46</y2-m>
+			<z2-m>-0.50</z2-m>
+		</axis>
+	</animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>Aileron-R</object-name>
+		<property>surface-positions/right-aileron-pos-norm</property>
+		<factor>-30</factor>
+		<axis>
+			<x1-m>3.72</x1-m>
+			<y1-m>5.35</y1-m>
+			<z1-m>-0.36</z1-m>
+			<x2-m>3.99</x2-m>
+			<y2-m>3.46</y2-m>
+			<z2-m>-0.50</z2-m>
+		</axis>
+	</animation>
+	<!-- flaps -->
+	<animation>
+		<type>rotate</type>
+		<object-name>Flap-Inner-L</object-name>
+		<property>surface-positions/flap-pos-norm</property>
+		<factor>-80</factor>
+		<axis>
+			<x1-m>4.30</x1-m>
+			<y1-m>-0.44</y1-m>
+			<z1-m>-0.75</z1-m>
+			<x2-m>4.30</x2-m>
+			<y2-m>-1.34</y2-m>
+			<z2-m>-0.74</z2-m>
+		</axis>
+	</animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>Flap-Inner-R</object-name>
+		<property>surface-positions/flap-pos-norm</property>
+		<factor>80</factor>
+		<axis>
+			<x1-m>4.30</x1-m>
+			<y1-m>0.44</y1-m>
+			<z1-m>-0.75</z1-m>
+			<x2-m>4.30</x2-m>
+			<y2-m>1.34</y2-m>
+			<z2-m>-0.74</z2-m>
+		</axis>
+	</animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>Flap-Outer-L</object-name>
+		<property>surface-positions/flap-pos-norm</property>
+		<factor>-80</factor>
+		<axis>
+			<x1-m>4.30</x1-m>
+			<y1-m>-1.34</y1-m>
+			<z1-m>-0.74</z1-m>
+			<x2-m>4.02</x2-m>
+			<y2-m>-3.30</y2-m>
+			<z2-m>-0.55</z2-m>
+		</axis>
+	</animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>Flap-Outer-R</object-name>
+		<property>surface-positions/flap-pos-norm</property>
+		<factor>80</factor>
+		<axis>
+			<x1-m>4.30</x1-m>
+			<y1-m>1.34</y1-m>
+			<z1-m>-0.74</z1-m>
+			<x2-m>4.02</x2-m>
+			<y2-m>3.30</y2-m>
+			<z2-m>-0.55</z2-m>
+		</axis>
+	</animation>
+	<!-- elevators -->
+	<animation>
+		<type>rotate</type>
+		<object-name>Elevator-L</object-name>
+		<property>surface-positions/elevator-pos-norm</property>
+		<factor>-22</factor>
+		<axis>
+			<x1-m>9.06</x1-m>
+			<y1-m>-0.08</y1-m>
+			<z1-m>0.22</z1-m>
+			<x2-m>9.06</x2-m>
+			<y2-m>-1.34</y2-m>
+			<z2-m>0.22</z2-m>
+		</axis>
+	</animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>Elevator-R</object-name>
+		<property>surface-positions/elevator-pos-norm</property>
+		<factor>22</factor>
+		<axis>
+			<x1-m>9.06</x1-m>
+			<y1-m>0.08</y1-m>
+			<z1-m>0.22</z1-m>
+			<x2-m>9.06</x2-m>
+			<y2-m>1.34</y2-m>
+			<z2-m>0.22</z2-m>
+		</axis>
+	</animation>
+	<!-- rudder -->
+	<animation>
+		<type>rotate</type>
+		<object-name>Rudder</object-name>
+		<object-name>Tail-Lt-Fairing</object-name>
+		<object-name>Tail-Lt-Cover</object-name>
+		<object-name>Tail-Light</object-name>
+		<property>surface-positions/rudder-pos-norm</property>
+		<factor>30</factor>
+		<axis>
+			<x1-m>9.12</x1-m>
+			<y1-m>0.00</y1-m>
+			<z1-m>1.35</z1-m>
+			<x2-m>9.12</x2-m>
+			<y2-m>0.00</y2-m>
+			<z2-m>-0.46</z2-m>
+		</axis>
+	</animation>
+	<!-- ***** Propeller ***** -->
+	<animation>
+		<type>select</type>
+		<object-name>Propeller</object-name>
+		<condition>
+			<less-than>
+				<property>engines/engine[0]/rpm</property>
+				<value>1000</value>
+			</less-than>
+		</condition>
+	</animation>
+	<animation>
+		<type>spin</type>
+		<object-name>Propeller</object-name>
+		<property>engines/engine[0]/rpm</property>
+		<factor>0.477</factor>
+		<center>
+			<x-m>-0.40</x-m>
+			<y-m>0.0</y-m>
+			<z-m>0.0</z-m>
+		</center>
+		<axis>
+			<x>-1.0</x>
+			<y>0.0</y>
+			<z>0.0</z>
+		</axis>
+	</animation>
+	<animation>
+		<type>spin</type>
+		<object-name>Spinner</object-name>
+		<property>engines/engine[0]/rpm</property>
+		<factor>0.477</factor>
+		<center>
+			<x-m>-0.40</x-m>
+			<y-m>0.0</y-m>
+			<z-m>0.0</z-m>
+		</center>
+		<axis>
+			<x>-1.0</x>
+			<y>0.0</y>
+			<z>0.0</z>
+		</axis>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>PropellerDisk</object-name>
+		<condition>
+			<greater-than>
+				<property>engines/engine[0]/rpm</property>
+				<value>900</value>
+			</greater-than>
+		</condition>
+	</animation>
+	<animation>
+		<type>blend</type>
+		<object-name>PropellerDisk</object-name>
+		<property>engines/engine[0]/rpm</property>
+		<factor>0.0005</factor>
+		<offset>-0.5</offset>
+		<min>0.5</min>
+		<max>1.0</max>
+	</animation>
+	<!-- ********* Undercarriage ********* -->
+	<!-- Main Doors -->
+	<animation>
+		<type>rotate</type>
+		<object-name>Door-L</object-name>
+		<property>gear/gear[1]/position-norm</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>0</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>-90</dep>
+			</entry>
+		</interpolation>
+		<axis>
+			<x1-m>2.60</x1-m>
+			<y1-m>-1.28</y1-m>
+			<z1-m>-0.71</z1-m>
+			<x2-m>3.41</x2-m>
+			<y2-m>-1.28</y2-m>
+			<z2-m>-0.71</z2-m>
+			<!-- <x1-m>2.61</x1-m>
+        <y1-m>-1.24</y1-m>
+        <z1-m>-0.65</z1-m>
+        <x2-m>3.41</x2-m>
+        <y2-m>-1.34</y2-m>
+        <z2-m>-0.78</z2-m>-->
+		</axis>
+	</animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>Door-R</object-name>
+		<property>gear/gear[2]/position-norm</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>0</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>90</dep>
+			</entry>
+		</interpolation>
+		<axis>
+			<x1-m>2.60</x1-m>
+			<y1-m>1.28</y1-m>
+			<z1-m>-0.71</z1-m>
+			<x2-m>3.41</x2-m>
+			<y2-m>1.28</y2-m>
+			<z2-m>-0.71</z2-m>
+			<!-- <x1-m>2.61</x1-m>
+        <y1-m>-1.24</y1-m>
+        <z1-m>-0.65</z1-m>
+        <x2-m>3.41</x2-m>
+        <y2-m>-1.34</y2-m>
+        <z2-m>-0.78</z2-m>-->
+		</axis>
+	</animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>Door-L</object-name>
+		<property>gear/gear[1]/position-norm</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>0</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>20</dep>
+			</entry>
+		</interpolation>
+		<center>
+			<x-m>2.67</x-m>
+			<y-m>-1.28</y-m>
+			<z-m>-0.64</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>0</y>
+			<z>1</z>
+		</axis>
+	</animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>Door-R</object-name>
+		<property>gear/gear[2]/position-norm</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>0</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>-20</dep>
+			</entry>
+		</interpolation>
+		<center>
+			<x-m>2.67</x-m>
+			<y-m>1.28</y-m>
+			<z-m>-0.64</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>0</y>
+			<z>1</z>
+		</axis>
+	</animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>Door-L-Aux</object-name>
+		<property>gear/gear[1]/position-norm</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>0</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>-90</dep>
+			</entry>
+		</interpolation>
+		<axis>
+			<x1-m>3.11</x1-m>
+			<y1-m>-1.34</y1-m>
+			<z1-m>-0.78</z1-m>
+			<x2-m>3.41</x2-m>
+			<y2-m>-1.34</y2-m>
+			<z2-m>-0.78</z2-m>
+			<!-- <x1-m>2.61</x1-m>
+        <y1-m>-1.24</y1-m>
+        <z1-m>-0.65</z1-m>
+        <x2-m>3.41</x2-m>
+        <y2-m>-1.34</y2-m>
+        <z2-m>-0.78</z2-m>-->
+		</axis>
+	</animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>Door-R-Aux</object-name>
+		<property>gear/gear[2]/position-norm</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>0</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>90</dep>
+			</entry>
+		</interpolation>
+		<axis>
+			<x1-m>3.11</x1-m>
+			<y1-m>1.34</y1-m>
+			<z1-m>-0.78</z1-m>
+			<x2-m>3.41</x2-m>
+			<y2-m>1.34</y2-m>
+			<z2-m>-0.78</z2-m>
+			<!-- <x1-m>2.61</x1-m>
+        <y1-m>-1.24</y1-m>
+        <z1-m>-0.65</z1-m>
+        <x2-m>3.41</x2-m>
+        <y2-m>-1.34</y2-m>
+        <z2-m>-0.78</z2-m>-->
+		</axis>
+	</animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>Leg-Assembly-L</object-name>
+		<property>gear/gear[1]/position-norm</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>89</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>0</dep>
+			</entry>
+		</interpolation>
+		<axis>
+			<x1-m>2.60</x1-m>
+			<y1-m>-1.28</y1-m>
+			<z1-m>-0.71</z1-m>
+			<x2-m>3.41</x2-m>
+			<y2-m>-1.28</y2-m>
+			<z2-m>-0.71</z2-m>
+		</axis>
+	</animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>Leg-Assembly-R</object-name>
+		<property>gear/gear[2]/position-norm</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>-89</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>0</dep>
+			</entry>
+		</interpolation>
+		<axis>
+			<x1-m>2.60</x1-m>
+			<y1-m>1.28</y1-m>
+			<z1-m>-0.71</z1-m>
+			<x2-m>3.41</x2-m>
+			<y2-m>1.28</y2-m>
+			<z2-m>-0.71</z2-m>
+		</axis>
+	</animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>Leg-Assembly-L</object-name>
+		<property>gear/gear[1]/position-norm</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>-20</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>0</dep>
+			</entry>
+		</interpolation>
+		<center>
+			<x-m>2.67</x-m>
+			<y-m>-1.28</y-m>
+			<z-m>-0.64</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>Leg-Assembly-R</object-name>
+		<property>gear/gear[2]/position-norm</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>-20</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>0</dep>
+			</entry>
+		</interpolation>
+		<center>
+			<x-m>2.67</x-m>
+			<y-m>1.28</y-m>
+			<z-m>-0.64</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+	<!-- compression -->
+	<animation>
+		<type>translate</type>
+		<object-name>Leg-Lower-Assembly-L</object-name>
+		<property>gear/gear[1]/compression-norm</property>
+		<factor>0.2</factor>
+		<axis>
+			<x>0</x>
+			<y>0</y>
+			<z>1</z>
+		</axis>
+	</animation>
+	<animation>
+		<type>translate</type>
+		<object-name>Leg-Lower-Assembly-R</object-name>
+		<property>gear/gear[2]/compression-norm</property>
+		<factor>0.2</factor>
+		<axis>
+			<x>0</x>
+			<y>0</y>
+			<z>1</z>
+		</axis>
+	</animation>
+	<animation>
+		<type>translate</type>
+		<object-name>UC-Tail</object-name>
+		<property>gear/gear[2]/compression-norm</property>
+		<factor>0.1</factor>
+		<axis>
+			<x>0</x>
+			<y>0</y>
+			<z>1</z>
+		</axis>
+	</animation>
+	<!-- tail wheel castering -->
+	<animation>
+		<type>rotate</type>
+		<object-name>UC-Tail</object-name>
+		<property>gear/gear[0]/caster-angle-deg</property>
+		<factor>1</factor>
+		<axis>
+			<x1-m>8.41</x1-m>
+			<y1-m>0</y1-m>
+			<z1-m>-0.69</z1-m>
+			<x2-m>8.37</x2-m>
+			<y2-m>0</y2-m>
+			<z2-m>-0.44</z2-m>
+		</axis>
+	</animation>
+	<!-- ***************** Canopy *********************** -->
+	<animation>
+		<type>translate</type>
+		<object-name>Canopy-Main-Frame</object-name>
+		<object-name>Canopy-Main</object-name>
+		<property>gear/canopy/position-norm</property>
+		<factor>0.575</factor>
+		<axis>
+			<x>1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+	<!-- ***************** Step *********************** -->
+	<animation>
+		<type>translate</type>
+		<object-name>Step</object-name>
+		<property>controls/flight/door-position-norm</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>0.25</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>0</dep>
+			</entry>
+		</interpolation>
+		<axis>
+			<x>0.25</x>
+			<y>0.25</y>
+			<z>1</z>
+		</axis>
+	</animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>Handhold</object-name>
+		<property>controls/flight/door-position-norm</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>0</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>-120</dep>
+			</entry>
+		</interpolation>
+		<axis>
+			<x1-m>4.7299</x1-m>
+			<y1-m>-0.3929</y1-m>
+			<z1-m>0.3055</z1-m>
+			<x2-m>4.8808</x2-m>
+			<y2-m>-0.3745</y2-m>
+			<z2-m>0.3303</z2-m>
+		</axis>
+	</animation>
+	<!-- ***************** Radiator *********************** -->
+	<!-- Radiator Flap -->
+	<animation>
+		<type>rotate</type>
+		<object-name>Flap</object-name>
+		<property>engines/engine/rad-flap-norm</property>
+		<factor>90</factor>
+		<axis>
+			<x1-m>4.19</x1-m>
+			<y1-m>-0.34</y1-m>
+			<z1-m>-1.11</z1-m>
+			<x2-m>4.19</x2-m>
+			<y2-m>0.34</y2-m>
+			<z2-m>-1.11</z2-m>
+		</axis>
+	</animation>
+
+	<!--<animation>
+		<type>rotate</type>
+		<object-name>Lever-Rad-Flap</object-name>
+		<property>controls/engines/engine/cowl-flaps-norm</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>0</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>-90</dep>
+			</entry>
+		</interpolation>
+		<axis>
+			<x1-m>3.74</x1-m>
+			<y1-m>0.19</y1-m>
+			<z1-m>-0.80</z1-m>
+			<x2-m>3.74</x2-m>
+			<y2-m>-0.19</y2-m>
+			<z2-m>-0.80</z2-m>
+		</axis>
+	</animation>-->
+
+	<animation>
+		<type>material</type>
+		<object-name>Panels</object-name>
+		<emission>
+			<factor-prop>controls/lighting/panel-norm</factor-prop>
+			<red>0.6</red>
+			<green>0.20</green>
+			<blue>0.20</blue>
+		</emission>
+	</animation>
+	<animation>
+		<type>material</type>
+		<object-name>Member-F-C-U</object-name>
+		<emission>
+			<factor-prop>controls/lighting/panel-norm</factor-prop>
+			<red>0.3</red>
+			<green>0.025</green>
+			<blue>0.025</blue>
+		</emission>
+	</animation>
+
+	<!-- ========== Dirt textures ========= -->
+
+	<animation>
+		<type>material</type>
+		<object-name>Exhaust-Dirt</object-name>
+		<nopreview/>
+		<transparency>
+			<alpha-prop>sim/time/hobbs/engine[0]</alpha-prop>
+			<factor>0.00027</factor>
+			<offset>0</offset>
+			<max>0.7</max>
+			<min>0.0075</min>
+		</transparency>
+		<!--<threshold>0.001</threshold>-->
+	</animation>
+
+	<animation>
+		<type>material</type>
+		<object-name>Bottom-Oil-Streak</object-name>
+		<nopreview/>
+		<transparency>
+			<alpha-prop>sim/time/hobbs/engine[0]</alpha-prop>
+			<factor>0.00027</factor>
+			<offset>0</offset>
+			<max>0.9</max>
+			<min>0.0075</min>
+		</transparency>
+		<!--<threshold>0.001</threshold>-->
+	</animation>
+
+	<!-- ============= Rain Animations ============= -->
+
+	<model>
+		<path>Aircraft/Generic/Effects/tyre-smoke-port.xml</path>
+		<name>tyre-smoke-p</name>
+		<offsets>
+			<x-m>2.63754</x-m>
+			<y-m>-1.17333</y-m>
+			<z-m>-2.03148</z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<path>Aircraft/Generic/Effects/tyre-smoke-stbd.xml</path>
+		<name>tyre-smoke-s</name>
+		<offsets>
+			<x-m>2.63754</x-m>
+			<y-m>1.17333</y-m>
+			<z-m>-2.03148</z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<path>Aircraft/Generic/Effects/rain-port.xml</path>
+		<name>rain-p</name>
+		<offsets>
+			<x-m>2.63754</x-m>
+			<y-m>-1.17333</y-m>
+			<z-m>-2.03148</z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<path>Aircraft/Generic/Effects/rain-stbd.xml</path>
+		<name>rain-s</name>
+		<offsets>
+			<x-m>2.63754</x-m>
+			<y-m>1.17333</y-m>
+			<z-m>-2.03148</z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<path>Aircraft/Generic/Effects/rain-tail.xml</path>
+		<name>rain-t</name>
+		<offsets>
+			<x-m>8.56606</x-m>
+			<y-m>0</y-m>
+			<z-m>-0.94651</z-m>
+		</offsets>
+	</model>
+
+	<animation>
+		<type>textranslate</type>
+		<object-name>Front-Panel-O-Rain</object-name>
+		<property>sim/model/rain/flow-mps</property>
+		<factor>1</factor>
+		<axis>
+			<x>1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+	<animation>
+		<type>textranslate</type>
+		<object-name>Canopy-Front-Rain-S</object-name>
+		<property>sim/model/rain/flow-mps</property>
+		<factor>1</factor>
+		<offset>0.33</offset>
+		<axis>
+			<x>1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>textranslate</type>
+		<object-name>Canopy-Front-Rain-P</object-name>
+		<property>sim/model/rain/flow-mps</property>
+		<factor>1</factor>
+		<offset>0.66</offset>
+		<axis>
+			<x>1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>textranslate</type>
+		<object-name>Canopy-Main-Rain</object-name>
+		<property>sim/model/rain/flow-mps</property>
+		<factor>1</factor>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>material</type>
+		<object-name>Front-Panel-O-Rain</object-name>
+		<object-name>Canopy-Front-Rain-P</object-name>
+		<object-name>Canopy-Front-Rain-S</object-name>
+		<object-name>Canopy-Main-Rain</object-name>
+		<transparency>
+			<alpha-prop>velocities/airspeed-kt</alpha-prop>
+			<factor>-0.00333</factor>
+			<offset>1</offset>
+			<max>0.3</max>
+			<min>0.0075</min>
+		</transparency>
+		<!--<threshold>0.001</threshold>-->
+	</animation>
+
+	<animation>
+		<type>material</type>
+		<object-name>Front-Panel-O-Rain</object-name>
+		<object-name>Canopy-Front-Rain-P</object-name>
+		<object-name>Canopy-Front-Rain-S</object-name>
+		<object-name>Canopy-Main-Rain</object-name>
+		<transparency>
+			<alpha-prop>sim/model/rain/raining-norm</alpha-prop>
+			<factor>0.7</factor>
+			<offset>0</offset>
+			<max>0.3</max>
+			<min>0.0075</min>
+		</transparency>
+		<!--<threshold>0.001</threshold>-->
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>markers</object-name>
+	</animation>
+
+
+	<model>
+		<path>Aircraft/Hurricane/Models/Effects/light-cone.xml</path>
+		<offsets>
+			<x-m>  2.46 </x-m>
+			<y-m>  3.18673 </y-m>
+			<z-m> -0.444083</z-m>
+			<pitch-deg>-15</pitch-deg>
+			<heading-deg>2.5</heading-deg>
+		</offsets>
+		<name>Landing-Light-Stbd</name>
+	</model>
+
+	<model>
+		<path>Aircraft/Hurricane/Models/Effects/light-cone.xml</path>
+		<offsets>
+			<x-m>  2.46 </x-m>
+			<y-m> -3.18673 </y-m>
+			<z-m> -0.444083</z-m>
+			<pitch-deg>-15</pitch-deg>
+			<heading-deg>-2.5</heading-deg>
+		</offsets>
+		<name>Landing-Light-Port</name>
+	</model>
+
+	<animation>
+		<nopreview/>
+		<type>select</type>
+		<condition>
+			<equals>
+				<property>controls/lighting/landing-light</property>
+				<value>1</value>
+			</equals>
+			<!--<greater-than-equals>
+				<property>systems/electrical/outputs/landing-light</property>
+				<value>10</value>
+			</greater-than-equals>-->
+		</condition>
+		<object-name>Landing-Light-Port</object-name>
+	</animation>
+
+	<animation>
+		<nopreview/>
+		<type>select</type>
+		<condition>
+			<equals>
+				<property>controls/lighting/landing-light</property>
+				<value>2</value>
+			</equals>
+			<!--<greater-than-equals>
+				<property>systems/electrical/outputs/landing-light</property>
+				<value>10</value>
+			</greater-than-equals>-->
+		</condition>
+		<object-name>Landing-Light-Stbd</object-name>
+	</animation>
+
+
+</PropertyList>

@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+ <path>flash2a.ac</path>
+
+ <offsets>
+    <z-m>.39</z-m>   
+  </offsets>
+  
+<!-- Transparent Surfaces for Rembrandt rendering -->
+ <effect>
+    <inherits-from>Effects/model-transparent</inherits-from>
+    <object-name>Visor</object-name>
+ </effect>
+
+ <animation>
+  <type>select</type>
+  <object-name>Prop</object-name>
+  <condition>
+   <less-than>
+    <property>velocities/true-airspeed-kt</property>
+    <value>1000</value>
+   </less-than>
+  </condition>
+ </animation>
+
+ <animation>
+  <type>spin</type>
+  <object-name>Prop</object-name>
+  <property>velocities/true-airspeed-kt</property>
+  <factor>-10</factor>
+  <center>
+   <x-m>2.4</x-m>
+   <y-m>0</y-m>
+   <z-m>0.55</z-m>
+  </center>
+  <axis>
+   <x>1.0</x>
+   <y>0.0</y>
+   <z>0.0</z>
+  </axis>
+ </animation>
+
+</PropertyList>

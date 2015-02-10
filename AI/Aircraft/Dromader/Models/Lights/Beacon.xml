@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+
+
+<PropertyList>
+	
+	<path>Beacon.ac</path>
+
+	<animation>
+		<type>alpha-test</type>
+		<object-name>Beacon</object-name>
+		<alpha-factor>0.001</alpha-factor>
+	</animation>
+	
+	<animation>
+		<type>billboard</type>
+		<object-name>Beacon</object-name>
+		<spherical type="bool">true</spherical>
+	</animation>
+	
+	<animation>
+		<type>range</type>
+		<min-m>0</min-m>
+		<max-m>25000</max-m>
+	</animation>
+
+	<Beaconparams>
+		<light-near>0.4</light-near>
+		<light-med>0.8</light-med>
+		<light-far>10</light-far>
+	</Beaconparams>
+
+	<animation>
+		<type>dist-scale</type>
+		<object-name>Beacon</object-name>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep alias="../../../../Beaconparams/light-near"/>
+			</entry>
+			<entry>
+				<ind>500</ind>
+				<dep alias="../../../../Beaconparams/light-med"/>
+			</entry>
+			<entry>
+				<ind>16000</ind>
+				<dep alias="../../../../Beaconparams/light-far"/>
+			</entry>
+		</interpolation>
+	</animation>
+	
+</PropertyList>

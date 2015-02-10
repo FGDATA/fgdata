@@ -1,0 +1,206 @@
+<?xml version="1.0"?>
+
+<!--
+************************************************************************
+Setup for a MacALLY USB iStick joystick with
+one stick, one wheel, one digital hat, and four buttons.
+
+Layout:
+  Axis 0: ailerons
+  Axis 1: elevator
+  Axis 2: throttle
+
+  Hat:
+  	Axes 3 and 4
+ 
+  Button 0: brakes (front button)
+  Button 1: center rudder (side button)
+  Button 2: trim up
+  Button 3: trim down 
+************************************************************************
+-->
+
+<PropertyList>
+
+ <name>MacALLY USB Joystick </name>
+
+ <axis>
+  <number>
+   <unix>0</unix>
+   <windows>0</windows>
+   <mac>0</mac>
+  </number>
+  <desc>Aileron</desc>
+  <dead-band type="double">0.02</dead-band>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/aileron</property>
+   <offset type="double">+0.0</offset>	
+   <factor type="double">+2.0</factor>
+  </binding>
+ </axis>
+
+ <axis>
+  <number>
+   <unix>1</unix>
+   <windows>1</windows>
+   <mac>1</mac>
+  </number>
+  <desc>Elevator</desc>
+  <dead-band type="double">0.02</dead-band>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/elevator</property>
+   <offset type="double">+0.0</offset>
+   <factor type="double">-2.0</factor>
+  </binding>
+ </axis>
+
+  <axis>
+  <number>
+   <unix>2</unix>
+   <windows>2</windows>
+   <mac>2</mac>
+  </number>
+  <desc>Throttle</desc>
+<!--
+  <binding>
+   <command>nasal</command>
+   <script>controls.throttleAxis()</script>
+   <offset type="double">+0.5</offset>
+   <factor type="double">-2.0</factor>
+  </binding>
+-->
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/engines/engine[0]/throttle</property>
+   <offset type="double">+0.5</offset>
+   <factor type="double">-2.0</factor>
+  </binding>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/engines/engine[1]/throttle</property>
+   <offset type="double">+0.5</offset>
+   <factor type="double">-2.0</factor>
+  </binding>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/engines/engine[2]/throttle</property>
+   <offset type="double">+0.5</offset>
+   <factor type="double">-2.0</factor>
+  </binding>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/engines/engine[3]/throttle</property>
+   <offset type="double">+0.5</offset>
+   <factor type="double">-2.0</factor>
+  </binding>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/engines/engine[4]/throttle</property>
+   <offset type="double">+0.5</offset>
+   <factor type="double">-2.0</factor>
+  </binding>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/engines/engine[5]/throttle</property>
+   <offset type="double">+0.5</offset>
+   <factor type="double">-2.0</factor>
+  </binding>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/engines/engine[6]/throttle</property>
+   <offset type="double">+0.5</offset>
+   <factor type="double">-2.0</factor>
+  </binding>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/engines/engine[7]/throttle</property>
+   <offset type="double">+0.5</offset>
+   <factor type="double">-2.0</factor>
+  </binding>
+ </axis>
+
+  <axis>
+  <number>
+   <unix>3</unix>
+   <windows>3</windows>
+   <mac>3</mac>
+  </number>
+  <desc>Rudder</desc>
+  <dead-band type="double">0.02</dead-band>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/rudder</property>
+   <offset type="double">0.0</offset>
+   <factor type="double">1.0</factor>
+  </binding>
+
+ </axis>
+
+<!-- 
+  <axis>
+  <number>
+   <unix>4</unix>
+   <windows>4</windows>
+   <mac>4</mac>
+  </number>
+  <desc>Rudder</desc>
+  <dead-band type="double">0.02</dead-band>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/rudder</property>
+   <offset type="double">0.0</offset>
+   <factor type="double">1.0</factor>
+  </binding>
+ </axis>
+
+-->
+
+ <button n="0">
+  <desc>Brakes</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.applyBrakes(1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.applyBrakes(0)</script>
+   </binding>
+  </mod-up>
+ </button>
+
+ <button n="1">
+  <desc>Elevator trim up</desc>
+  <repeatable>true</repeatable>
+   <binding>
+   <command>property-adjust</command>
+   <property>/controls/flight/elevator-trim</property>
+   <step type="double">0.001</step>
+  </binding>
+ </button>
+
+ <button n="2">
+  <desc>Center rudder</desc>
+  <binding>
+   <command>property-assign</command>
+   <property>/controls/flight/rudder</property>
+   <value type="double">0.0</value>
+  </binding>
+ </button>
+
+ <button n="3">
+  <desc>Elevator trim down</desc>
+  <repeatable>true</repeatable>
+   <binding>
+   <command>property-adjust</command>
+   <property>/controls/flight/elevator-trim</property>
+   <step type="double">0.001</step>
+  </binding>
+ </button>
+
+
+</PropertyList>
+
+<!-- end of MAUSBJS.xml -->

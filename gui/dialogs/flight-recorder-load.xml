@@ -1,0 +1,412 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+    <name>flight-recorder-load</name>
+    <layout>vbox</layout>
+    <resizable>true</resizable>
+	<default-padding>3</default-padding>
+
+	<nasal>
+		<open><![CDATA[
+			var DialogController = {
+				new : func( dlgRoot ) {
+					var obj = { parents: [DialogController] };
+					obj.dlgRoot = dlgRoot;
+					obj.updateCombo();
+					return obj;
+				},
+				updateCombo : func {
+					fgcommand("load-tape", props.Node.new({"tape": "",
+							  "same-aircraft": getprop("/sim/gui/dialogs/flightrecorder/show-matching-aircraft-only")}));
+
+					var combo = gui.findElementByName( me.dlgRoot, "selected-tape" );
+					combo.removeChildren("value");
+
+					var i = 0;
+					var name = 1;
+					while (name != nil)
+					{
+						var name = getprop("/sim/replay/tape-list/tape[" ~ i ~ "]");
+						if (name != nil)
+						{
+							combo.getNode("value[" ~ i ~ "]", 1).setValue(name);
+							if (i==0)
+							{
+								setprop("/sim/gui/dialogs/flightrecorder/selected-tape", name);
+							}
+						}
+						i += 1;
+					}
+					if (i == 1)
+					{
+						setprop("/sim/gui/dialogs/flightrecorder/selected-tape", "No tapes in selected directory!");
+						me.haveData = 0;
+					}
+					else
+					{
+						me.haveData = 1;
+					}
+					me.preview();
+				},
+				preview: func {
+					var tape = getprop("/sim/gui/dialogs/flightrecorder/selected-tape");
+					setprop("/sim/gui/dialogs/flightrecorder/preview/aircraft-description", "");
+					setprop("/sim/gui/dialogs/flightrecorder/preview/version/flightgear", "");
+					setprop("/sim/gui/dialogs/flightrecorder/preview/user-data/description", "");
+					setprop("/sim/gui/dialogs/flightrecorder/preview/tape-duration-str", "");
+					setprop("/sim/gui/dialogs/flightrecorder/preview/aircraft-version", "");
+					setprop("/sim/gui/dialogs/flightrecorder/preview/aircraft-type", "");
+					setprop("/sim/gui/dialogs/flightrecorder/preview/closest-airport-id", "");
+					setprop("/sim/gui/dialogs/flightrecorder/preview/author-name", "");
+					setprop("/sim/gui/dialogs/flightrecorder/warning", "");
+					if (!me.haveData)
+						tape = "";
+					fgcommand("load-tape", props.Node.new({"tape": tape, "preview": 1} ) );
+					var actype = getprop("/sim/gui/dialogs/flightrecorder/preview/aircraft-type");
+					if ((actype != "")and(actype != getprop("/sim/aircraft")))
+					{
+						setprop("/sim/gui/dialogs/flightrecorder/warning",
+								"Tape was recorded for another aircraft (" ~ actype ~ "). It may not work (properly). Good luck! :)");
+					}
+				},
+				close: func {},
+				redraw: func{gui.dialog_update("flight-recorder-load", "selected-tape");},
+			};
+			var setdefault = func (prop, value) { if (getprop(prop) == nil) setprop(prop, value);}
+			setdefault("/sim/gui/dialogs/flightrecorder/show-matching-aircraft-only", 1);
+			var controller = DialogController.new( cmdarg() );
+		]]></open>
+	</nasal>
+<!--
+
+-->
+
+    <!-- titlebar -->
+    <group>
+        <layout>hbox</layout>
+        <empty><stretch>1</stretch></empty>
+
+        <text>
+            <label>Load Flight Recorder Tape</label>
+        </text>
+
+        <empty><stretch>1</stretch></empty>
+
+        <button>
+            <pref-width>16</pref-width>
+            <pref-height>16</pref-height>
+            <legend></legend>
+            <keynum>27</keynum>
+            <border>2</border>
+            <binding>
+                <command>dialog-close</command>
+            </binding>
+        </button>
+    </group>
+    <hrule/>
+
+    <!-- main dialog area -->
+
+    <group>
+        <layout>table</layout>
+
+        <text>
+            <row>0</row><col>0</col>
+            <label>Tape Directory:</label>
+            <halign>left</halign>
+			<valign>top</valign>
+        </text>
+		<text>
+			<row>0</row><col>1</col>
+			<halign>left</halign>
+			<valign>top</valign>
+			<label>MMMMMMMMMMMMMMMMM</label>
+			<stretch>1</stretch>
+			<format>%s</format>
+			<property>/sim/replay/tape-directory</property>
+			<live>true</live>
+			<color>
+				<red>0.7</red>
+				<green>0.7</green>
+				<blue>0.7</blue>
+				<alpha>1</alpha>
+			</color>
+        </text>
+        <button>
+			<equal>false</equal>
+            <row>0</row><col>2</col>
+            <legend>Change</legend>
+			<halign>left</halign>
+			<valign>top</valign>
+            <binding>
+                <command>nasal</command>
+				<script><![CDATA[
+					var set_tapedir_sel = gui.DirSelector.new(
+								func(result) { setprop("/sim/replay/tape-directory", result.getValue());
+									controller.updateCombo();controller.redraw();
+								},
+								"Select Tape Directory", "Ok", getprop("/sim/replay/tape-directory"));
+					set_tapedir_sel.open();
+				]]></script>
+            </binding>
+        </button>
+
+		<text>
+			<row>1</row><col>0</col>
+			<label>Hide Mismatching Tapes:</label>
+			<halign>left</halign>
+		</text>
+		<checkbox>
+			<row>1</row><col>1</col>
+			<name>matching-aircraft</name>
+			<halign>left</halign>
+			<property>/sim/gui/dialogs/flightrecorder/show-matching-aircraft-only</property>
+			<live>true</live>
+			<binding>
+				<command>dialog-apply</command>
+				<object-name>matching-aircraft</object-name>
+			</binding>
+            <binding>
+                <command>nasal</command>
+				<script>controller.updateCombo();controller.redraw();</script>
+            </binding>
+			<label>(Don't show tapes from other aircraft)</label>
+		</checkbox>
+
+		<text>
+			<row>2</row><col>0</col>
+			<label>Selected Tape:</label>
+			<halign>left</halign>
+		</text>
+        <combo>
+            <name>selected-tape</name>
+            <halign>left</halign>
+            <row>2</row><col>1</col>
+            <pref-width>300</pref-width>
+            <property>/sim/gui/dialogs/flightrecorder/selected-tape</property>
+            <editable>false</editable>
+			<live>true</live>
+			<binding>
+				<command>dialog-apply</command>
+				<object-name>selected-tape</object-name>
+			</binding>
+            <binding>
+                <command>nasal</command>
+				<script>controller.preview();controller.redraw();</script>
+            </binding>
+        </combo>
+
+	    <hrule><row>3</row><col>0</col><colspan>3</colspan></hrule>
+
+		<text>
+			<row>5</row><col>0</col><colspan>3</colspan>
+			<label>Tape Recording Details</label>
+			<halign>center</halign>
+		</text>
+
+		<text>
+			<row>6</row><col>0</col>
+			<label>Author/Pilot:</label>
+			<halign>left</halign>
+		</text>
+		<text>
+			<row>6</row><col>1</col>
+			<format>%s</format>
+			<property>/sim/gui/dialogs/flightrecorder/preview/user-data/author-name</property>
+			<live>true</live>
+			<halign>left</halign>
+			<color>
+				<red>0.8</red>
+				<green>0.8</green>
+				<blue>0.0</blue>
+				<alpha>1</alpha>
+			</color>
+		</text>
+
+		<text>
+			<row>8</row><col>0</col>
+			<label>Aircraft:</label>
+			<halign>left</halign>
+		</text>
+		<text>
+			<row>8</row><col>1</col>
+			<format>%s</format>
+			<property>/sim/gui/dialogs/flightrecorder/preview/aircraft-description</property>
+			<live>true</live>
+			<halign>left</halign>
+			<color>
+				<red>0.8</red>
+				<green>0.8</green>
+				<blue>0.0</blue>
+				<alpha>1</alpha>
+			</color>
+		</text>
+
+		<text>
+			<row>10</row><col>0</col>
+			<label>Aircraft Version:</label>
+			<halign>left</halign>
+		</text>
+		<text>
+			<row>10</row><col>1</col>
+			<format>%s</format>
+			<property>/sim/gui/dialogs/flightrecorder/preview/aircraft-version</property>
+			<live>true</live>
+			<halign>left</halign>
+			<color>
+				<red>0.8</red>
+				<green>0.8</green>
+				<blue>0.0</blue>
+				<alpha>1</alpha>
+			</color>
+		</text>
+
+		<text>
+			<row>14</row><col>0</col>
+			<label>Airport (nearby):</label>
+			<halign>left</halign>
+		</text>
+		<text>
+			<row>14</row><col>1</col>
+			<format>%s</format>
+			<property>/sim/gui/dialogs/flightrecorder/preview/closest-airport-id</property>
+			<live>true</live>
+			<halign>left</halign>
+			<color>
+				<red>0.8</red>
+				<green>0.8</green>
+				<blue>0.0</blue>
+				<alpha>1</alpha>
+			</color>
+		</text>
+
+		<text>
+			<row>18</row><col>0</col>
+			<label>Tape Duration:</label>
+			<halign>left</halign>
+		</text>
+		<text>
+			<row>18</row><col>1</col>
+			<property>/sim/gui/dialogs/flightrecorder/preview/tape-duration-str</property>
+			<halign>left</halign>
+			<live>true</live>
+			<color>
+				<red>0.8</red>
+				<green>0.8</green>
+				<blue>0.0</blue>
+				<alpha>1</alpha>
+			</color>
+		</text>
+
+		<text>
+			<row>22</row><col>0</col>
+			<label>FG Version (recorder):</label>
+			<halign>left</halign>
+		</text>
+		<text>
+			<row>22</row><col>1</col>
+			<property>/sim/gui/dialogs/flightrecorder/preview/version/flightgear</property>
+			<halign>left</halign>
+			<live>true</live>
+			<color>
+				<red>0.8</red>
+				<green>0.8</green>
+				<blue>0.0</blue>
+				<alpha>1</alpha>
+			</color>
+		</text>
+
+        <text>
+            <row>25</row>
+            <col>0</col>
+			<colspan>3</colspan>
+            <label>Description:</label>
+            <halign>left</halign>
+            <valign>top</valign>
+        </text>
+	</group>
+
+	<group>
+		<layout>vbox</layout>
+		<stretch>10</stretch>
+		<halign>fill</halign>
+		<valign>fill</valign>
+		<textbox>
+			<wrap>false</wrap>
+			<live>true</live>
+			<name>description-string</name>
+			<halign>fill</halign>
+			<valign>fill</valign>
+			<stretch>1</stretch>
+			<pref-width>550</pref-width>
+			<pref-height>150</pref-height>
+			<editable>false</editable>
+			<top-line>1</top-line>
+			<property>/sim/gui/dialogs/flightrecorder/preview/user-data/description</property>
+			<binding>
+				<command>dialog-apply</command>
+				<object-name>description-string</object-name>
+			</binding>
+		</textbox>
+		<text>
+			<valign>top</valign>
+			<stretch>true</stretch>
+			<property>/sim/gui/dialogs/flightrecorder/warning</property>
+			<halign>left</halign>
+			<live>true</live>
+			<color>
+				<red>1.0</red>
+				<green>0.4</green>
+				<blue>0.4</blue>
+				<alpha>1</alpha>
+			</color>
+		</text>
+    </group>
+
+	<!-- button area -->
+	<hrule/>
+	<group>
+		<layout>hbox</layout>
+		<default-padding>10</default-padding>
+		<empty><stretch>true</stretch></empty>
+
+		<button>
+			<legend>Load</legend>
+			<equal>true</equal>
+			<binding>
+				<command>dialog-apply</command>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>
+				# close old replay dialog and delay loading - until current replay was properly stopped
+				fgcommand("dialog-close", props.Node.new({ "dialog-name": "replay" }));
+				setprop("/sim/replay/disable", 0);
+				settimer(func {
+					var Config = props.Node.new({
+						"tape": getprop("/sim/gui/dialogs/flightrecorder/selected-tape", ""),
+						"same-aircraft": 0
+						});
+					if (fgcommand("load-tape", Config))
+						gui.showDialog("replay");
+				}, 0.2);
+				</script>
+			</binding>
+			<binding>
+				<command>dialog-close</command>
+			</binding>
+        </button>
+
+        <button>
+          <legend>Cancel</legend>
+          <default>true</default>
+          <equal>true</equal>
+          <binding>
+            <command>dialog-close</command>
+          </binding>
+        </button>
+
+        <empty><stretch>true</stretch></empty>
+    </group>
+
+</PropertyList>

@@ -1,0 +1,901 @@
+AC3Db
+MATERIAL "DefaultWhite" rgb 1 1 1  amb 1 1 1  emis 0 0 0  spec 0.5 0.5 0.5  shi 64  trans 0
+MATERIAL "LCD_Green" rgb 0 1 0 amb 1 1 1 emis 0 1 0 spec 1 1 1 shi 32 trans 0
+MATERIAL "LCD_White" rgb 1 1 1 amb 1 1 1 emis 1 1 1 spec 1 1 1 shi 32 trans 0
+MATERIAL "LCD_Cyan" rgb 0 1 1 amb 1 1 1 emis 0 1 1 spec 1 1 1 shi 32 trans 0
+OBJECT world
+kids 49
+OBJECT poly
+name "CHT_arrow.1"
+data 9
+Plane.028
+crease 30.000000
+numvert 3
+0.01055 0.633536 0.023696
+0.01055 0.630464 0.023696
+0.01055 0.632 0.026
+numsurf 1
+SURF 0x00
+mat 1
+refs 3
+1 0 0
+0 0 0
+2 0 0
+kids 0
+OBJECT poly
+name "CHT_arrow.2"
+data 9
+Plane.031
+crease 30.000000
+numvert 3
+0.01055 0.633536 0.003146
+0.01055 0.630464 0.003146
+0.01055 0.632 0.00545
+numsurf 1
+SURF 0x00
+mat 1
+refs 3
+1 0 0
+0 0 0
+2 0 0
+kids 0
+OBJECT poly
+name "CHT_arrow.3"
+data 9
+Plane.032
+crease 30.000000
+numvert 3
+0.01055 0.633536 -0.017854
+0.01055 0.630464 -0.017854
+0.01055 0.632 -0.01555
+numsurf 1
+SURF 0x00
+mat 1
+refs 3
+1 0 0
+0 0 0
+2 0 0
+kids 0
+OBJECT poly
+name "CHT_bar.1"
+data 9
+Plane.029
+crease 30.000000
+numvert 4
+0.01055 0.662 0.0256
+0.01055 0.632 0.0256
+0.01055 0.632 0.0264
+0.01055 0.662 0.0264
+numsurf 1
+SURF 0x00
+mat 1
+refs 4
+0 0 0
+3 0 0
+2 0 0
+1 0 0
+kids 0
+OBJECT poly
+name "CHT_bar.2"
+data 9
+Plane.030
+crease 30.000000
+numvert 4
+0.01055 0.662 0.00505
+0.01055 0.632 0.00505
+0.01055 0.632 0.00585
+0.01055 0.662 0.00585
+numsurf 1
+SURF 0x00
+mat 1
+refs 4
+0 0 0
+3 0 0
+2 0 0
+1 0 0
+kids 0
+OBJECT poly
+name "CHT_bar.3"
+data 9
+Plane.033
+crease 30.000000
+numvert 4
+0.01055 0.662 -0.01595
+0.01055 0.632 -0.01595
+0.01055 0.632 -0.01515
+0.01055 0.662 -0.01515
+numsurf 1
+SURF 0x00
+mat 1
+refs 4
+0 0 0
+3 0 0
+2 0 0
+1 0 0
+kids 0
+OBJECT poly
+name "EGT_arrow.1"
+data 9
+Plane.003
+crease 30.000000
+numvert 3
+0.01055 0.541536 0.083696
+0.01055 0.538464 0.083696
+0.01055 0.54 0.086
+numsurf 1
+SURF 0x00
+mat 2
+refs 3
+1 0 0
+0 0 0
+2 0 0
+kids 0
+OBJECT poly
+name "EGT_arrow.2"
+data 9
+Plane.006
+crease 30.000000
+numvert 3
+0.01055 0.541536 0.063146
+0.01055 0.538464 0.063146
+0.01055 0.54 0.06545
+numsurf 1
+SURF 0x00
+mat 2
+refs 3
+1 0 0
+0 0 0
+2 0 0
+kids 0
+OBJECT poly
+name "EGT_arrow.3"
+data 9
+Plane.007
+crease 30.000000
+numvert 3
+0.01055 0.541536 0.042146
+0.01055 0.538464 0.042146
+0.01055 0.54 0.04445
+numsurf 1
+SURF 0x00
+mat 2
+refs 3
+1 0 0
+0 0 0
+2 0 0
+kids 0
+OBJECT poly
+name "EGT_bar.1"
+data 9
+Plane.004
+crease 30.000000
+numvert 4
+0.01055 0.57 0.0856
+0.01055 0.54 0.0856
+0.01055 0.54 0.0864
+0.01055 0.57 0.0864
+numsurf 1
+SURF 0x00
+mat 2
+refs 4
+0 0 0
+3 0 0
+2 0 0
+1 0 0
+kids 0
+OBJECT poly
+name "EGT_bar.2"
+data 9
+Plane.005
+crease 30.000000
+numvert 4
+0.01055 0.57 0.06505
+0.01055 0.54 0.06505
+0.01055 0.54 0.06585
+0.01055 0.57 0.06585
+numsurf 1
+SURF 0x00
+mat 2
+refs 4
+0 0 0
+3 0 0
+2 0 0
+1 0 0
+kids 0
+OBJECT poly
+name "EGT_bar.3"
+data 9
+Plane.008
+crease 30.000000
+numvert 4
+0.01055 0.57 0.04405
+0.01055 0.54 0.04405
+0.01055 0.54 0.04485
+0.01055 0.57 0.04485
+numsurf 1
+SURF 0x00
+mat 2
+refs 4
+0 0 0
+3 0 0
+2 0 0
+1 0 0
+kids 0
+OBJECT poly
+name "FF_arrow.1"
+data 9
+Plane.046
+crease 30.000000
+numvert 3
+0.01055 0.564536 -0.035324
+0.01055 0.561464 -0.035324
+0.01055 0.563 -0.03302
+numsurf 1
+SURF 0x00
+mat 3
+refs 3
+1 0 0
+0 0 0
+2 0 0
+kids 0
+OBJECT poly
+name "FF_arrow.2"
+data 9
+Plane.049
+crease 30.000000
+numvert 3
+0.01055 0.564536 -0.055874
+0.01055 0.561464 -0.055874
+0.01055 0.563 -0.05357
+numsurf 1
+SURF 0x00
+mat 3
+refs 3
+1 0 0
+0 0 0
+2 0 0
+kids 0
+OBJECT poly
+name "FF_arrow.3"
+data 9
+Plane.050
+crease 30.000000
+numvert 3
+0.01055 0.564536 -0.076874
+0.01055 0.561464 -0.076874
+0.01055 0.563 -0.07457
+numsurf 1
+SURF 0x00
+mat 3
+refs 3
+1 0 0
+0 0 0
+2 0 0
+kids 0
+OBJECT poly
+name "FF_bar.1"
+data 9
+Plane.047
+crease 30.000000
+numvert 4
+0.01055 0.593 -0.03342
+0.01055 0.563 -0.03342
+0.01055 0.563 -0.03262
+0.01055 0.593 -0.03262
+numsurf 1
+SURF 0x00
+mat 3
+refs 4
+0 0 0
+3 0 0
+2 0 0
+1 0 0
+kids 0
+OBJECT poly
+name "FF_bar.2"
+data 9
+Plane.048
+crease 30.000000
+numvert 4
+0.01055 0.593 -0.05397
+0.01055 0.563 -0.05397
+0.01055 0.563 -0.05317
+0.01055 0.593 -0.05317
+numsurf 1
+SURF 0x00
+mat 3
+refs 4
+0 0 0
+3 0 0
+2 0 0
+1 0 0
+kids 0
+OBJECT poly
+name "FF_bar.3"
+data 9
+Plane.051
+crease 30.000000
+numvert 4
+0.01055 0.593 -0.07497
+0.01055 0.563 -0.07497
+0.01055 0.563 -0.07417
+0.01055 0.593 -0.07417
+numsurf 1
+SURF 0x00
+mat 3
+refs 4
+0 0 0
+3 0 0
+2 0 0
+1 0 0
+kids 0
+OBJECT poly
+name "FL_arrow.1"
+data 9
+Plane.045
+crease 30.000000
+numvert 3
+0.01055 0.610536 -0.035324
+0.01055 0.607464 -0.035324
+0.01055 0.609 -0.03302
+numsurf 1
+SURF 0x00
+mat 3
+refs 3
+1 0 0
+0 0 0
+2 0 0
+kids 0
+OBJECT poly
+name "FL_arrow.2"
+data 9
+Plane.042
+crease 30.000000
+numvert 3
+0.01055 0.610536 -0.055874
+0.01055 0.607464 -0.055874
+0.01055 0.609 -0.05357
+numsurf 1
+SURF 0x00
+mat 3
+refs 3
+1 0 0
+0 0 0
+2 0 0
+kids 0
+OBJECT poly
+name "FL_arrow.3"
+data 9
+Plane.041
+crease 30.000000
+numvert 3
+0.01055 0.610536 -0.076874
+0.01055 0.607464 -0.076874
+0.01055 0.609 -0.07457
+numsurf 1
+SURF 0x00
+mat 3
+refs 3
+1 0 0
+0 0 0
+2 0 0
+kids 0
+OBJECT poly
+name "FL_bar.1"
+data 9
+Plane.044
+crease 30.000000
+numvert 4
+0.01055 0.639 -0.03342
+0.01055 0.609 -0.03342
+0.01055 0.609 -0.03262
+0.01055 0.639 -0.03262
+numsurf 1
+SURF 0x00
+mat 3
+refs 4
+0 0 0
+3 0 0
+2 0 0
+1 0 0
+kids 0
+OBJECT poly
+name "FL_bar.2"
+data 9
+Plane.043
+crease 30.000000
+numvert 4
+0.01055 0.639 -0.05397
+0.01055 0.609 -0.05397
+0.01055 0.609 -0.05317
+0.01055 0.639 -0.05317
+numsurf 1
+SURF 0x00
+mat 3
+refs 4
+0 0 0
+3 0 0
+2 0 0
+1 0 0
+kids 0
+OBJECT poly
+name "FL_bar.3"
+data 9
+Plane.040
+crease 30.000000
+numvert 4
+0.01055 0.639 -0.07497
+0.01055 0.609 -0.07497
+0.01055 0.609 -0.07417
+0.01055 0.639 -0.07417
+numsurf 1
+SURF 0x00
+mat 3
+refs 4
+0 0 0
+3 0 0
+2 0 0
+1 0 0
+kids 0
+OBJECT poly
+name "MP_arrow.1"
+data 9
+Plane.015
+crease 30.000000
+numvert 3
+0.01055 0.633536 0.083696
+0.01055 0.630464 0.083696
+0.01055 0.632 0.086
+numsurf 1
+SURF 0x00
+mat 2
+refs 3
+1 0 0
+0 0 0
+2 0 0
+kids 0
+OBJECT poly
+name "MP_arrow.2"
+data 9
+Plane.011
+crease 30.000000
+numvert 3
+0.01055 0.633536 0.063146
+0.01055 0.630464 0.063146
+0.01055 0.632 0.06545
+numsurf 1
+SURF 0x00
+mat 2
+refs 3
+1 0 0
+0 0 0
+2 0 0
+kids 0
+OBJECT poly
+name "MP_arrow.3"
+data 9
+Plane.010
+crease 30.000000
+numvert 3
+0.01055 0.633536 0.042146
+0.01055 0.630464 0.042146
+0.01055 0.632 0.04445
+numsurf 1
+SURF 0x00
+mat 2
+refs 3
+1 0 0
+0 0 0
+2 0 0
+kids 0
+OBJECT poly
+name "MP_bar.1"
+data 9
+Plane.014
+crease 30.000000
+numvert 4
+0.01055 0.662 0.0856
+0.01055 0.632 0.0856
+0.01055 0.632 0.0864
+0.01055 0.662 0.0864
+numsurf 1
+SURF 0x00
+mat 2
+refs 4
+0 0 0
+3 0 0
+2 0 0
+1 0 0
+kids 0
+OBJECT poly
+name "MP_bar.2"
+data 9
+Plane.013
+crease 30.000000
+numvert 4
+0.01055 0.662 0.06505
+0.01055 0.632 0.06505
+0.01055 0.632 0.06585
+0.01055 0.662 0.06585
+numsurf 1
+SURF 0x00
+mat 2
+refs 4
+0 0 0
+3 0 0
+2 0 0
+1 0 0
+kids 0
+OBJECT poly
+name "MP_bar.3"
+data 9
+Plane.009
+crease 30.000000
+numvert 4
+0.01055 0.662 0.04405
+0.01055 0.632 0.04405
+0.01055 0.632 0.04485
+0.01055 0.662 0.04485
+numsurf 1
+SURF 0x00
+mat 2
+refs 4
+0 0 0
+3 0 0
+2 0 0
+1 0 0
+kids 0
+OBJECT poly
+name "OilP_arrow.1"
+data 9
+Plane.034
+crease 30.000000
+numvert 3
+0.01055 0.541536 0.023696
+0.01055 0.538464 0.023696
+0.01055 0.54 0.026
+numsurf 1
+SURF 0x00
+mat 1
+refs 3
+1 0 0
+0 0 0
+2 0 0
+kids 0
+OBJECT poly
+name "OilP_arrow.2"
+data 9
+Plane.037
+crease 30.000000
+numvert 3
+0.01055 0.541536 0.003146
+0.01055 0.538464 0.003146
+0.01055 0.54 0.00545
+numsurf 1
+SURF 0x00
+mat 1
+refs 3
+1 0 0
+0 0 0
+2 0 0
+kids 0
+OBJECT poly
+name "OilP_arrow.3"
+data 9
+Plane.038
+crease 30.000000
+numvert 3
+0.01055 0.541536 -0.017854
+0.01055 0.538464 -0.017854
+0.01055 0.54 -0.01555
+numsurf 1
+SURF 0x00
+mat 1
+refs 3
+1 0 0
+0 0 0
+2 0 0
+kids 0
+OBJECT poly
+name "OilP_bar.1"
+data 9
+Plane.035
+crease 30.000000
+numvert 4
+0.01055 0.57 0.0256
+0.01055 0.54 0.0256
+0.01055 0.54 0.0264
+0.01055 0.57 0.0264
+numsurf 1
+SURF 0x00
+mat 1
+refs 4
+0 0 0
+3 0 0
+2 0 0
+1 0 0
+kids 0
+OBJECT poly
+name "OilP_bar.2"
+data 9
+Plane.036
+crease 30.000000
+numvert 4
+0.01055 0.57 0.00505
+0.01055 0.54 0.00505
+0.01055 0.54 0.00585
+0.01055 0.57 0.00585
+numsurf 1
+SURF 0x00
+mat 1
+refs 4
+0 0 0
+3 0 0
+2 0 0
+1 0 0
+kids 0
+OBJECT poly
+name "OilP_bar.3"
+data 9
+Plane.039
+crease 30.000000
+numvert 4
+0.01055 0.57 -0.01595
+0.01055 0.54 -0.01595
+0.01055 0.54 -0.01515
+0.01055 0.57 -0.01515
+numsurf 1
+SURF 0x00
+mat 1
+refs 4
+0 0 0
+3 0 0
+2 0 0
+1 0 0
+kids 0
+OBJECT poly
+name "OilT_arrow.1"
+data 9
+Plane.027
+crease 30.000000
+numvert 3
+0.01055 0.587536 0.023696
+0.01055 0.584464 0.023696
+0.01055 0.586 0.026
+numsurf 1
+SURF 0x00
+mat 1
+refs 3
+1 0 0
+0 0 0
+2 0 0
+kids 0
+OBJECT poly
+name "OilT_arrow.2"
+data 9
+Plane.024
+crease 30.000000
+numvert 3
+0.01055 0.587536 0.003146
+0.01055 0.584464 0.003146
+0.01055 0.586 0.00545
+numsurf 1
+SURF 0x00
+mat 1
+refs 3
+1 0 0
+0 0 0
+2 0 0
+kids 0
+OBJECT poly
+name "OilT_arrow.3"
+data 9
+Plane.023
+crease 30.000000
+numvert 3
+0.01055 0.587536 -0.017854
+0.01055 0.584464 -0.017854
+0.01055 0.586 -0.01555
+numsurf 1
+SURF 0x00
+mat 1
+refs 3
+1 0 0
+0 0 0
+2 0 0
+kids 0
+OBJECT poly
+name "OilT_bar.1"
+data 9
+Plane.026
+crease 30.000000
+numvert 4
+0.01055 0.616 0.0256
+0.01055 0.586 0.0256
+0.01055 0.586 0.0264
+0.01055 0.616 0.0264
+numsurf 1
+SURF 0x00
+mat 1
+refs 4
+0 0 0
+3 0 0
+2 0 0
+1 0 0
+kids 0
+OBJECT poly
+name "OilT_bar.2"
+data 9
+Plane.025
+crease 30.000000
+numvert 4
+0.01055 0.616 0.00505
+0.01055 0.586 0.00505
+0.01055 0.586 0.00585
+0.01055 0.616 0.00585
+numsurf 1
+SURF 0x00
+mat 1
+refs 4
+0 0 0
+3 0 0
+2 0 0
+1 0 0
+kids 0
+OBJECT poly
+name "OilT_bar.3"
+data 9
+Plane.022
+crease 30.000000
+numvert 4
+0.01055 0.616 -0.01595
+0.01055 0.586 -0.01595
+0.01055 0.586 -0.01515
+0.01055 0.616 -0.01515
+numsurf 1
+SURF 0x00
+mat 1
+refs 4
+0 0 0
+3 0 0
+2 0 0
+1 0 0
+kids 0
+OBJECT poly
+name "RPM_arrow.1"
+data 9
+Plane.016
+crease 30.000000
+numvert 3
+0.01055 0.587536 0.083696
+0.01055 0.584464 0.083696
+0.01055 0.586 0.086
+numsurf 1
+SURF 0x00
+mat 1
+refs 3
+1 0 0
+0 0 0
+2 0 0
+kids 0
+OBJECT poly
+name "RPM_arrow.2"
+data 9
+Plane.019
+crease 30.000000
+numvert 3
+0.01055 0.587536 0.063146
+0.01055 0.584464 0.063146
+0.01055 0.586 0.06545
+numsurf 1
+SURF 0x00
+mat 1
+refs 3
+1 0 0
+0 0 0
+2 0 0
+kids 0
+OBJECT poly
+name "RPM_arrow.3"
+data 9
+Plane.020
+crease 30.000000
+numvert 3
+0.01055 0.587536 0.042146
+0.01055 0.584464 0.042146
+0.01055 0.586 0.04445
+numsurf 1
+SURF 0x00
+mat 1
+refs 3
+1 0 0
+0 0 0
+2 0 0
+kids 0
+OBJECT poly
+name "RPM_bar.1"
+data 9
+Plane.017
+crease 30.000000
+numvert 4
+0.01055 0.616 0.0856
+0.01055 0.586 0.0856
+0.01055 0.586 0.0864
+0.01055 0.616 0.0864
+numsurf 1
+SURF 0x00
+mat 1
+refs 4
+0 0 0
+3 0 0
+2 0 0
+1 0 0
+kids 0
+OBJECT poly
+name "RPM_bar.2"
+data 9
+Plane.018
+crease 30.000000
+numvert 4
+0.01055 0.616 0.06505
+0.01055 0.586 0.06505
+0.01055 0.586 0.06585
+0.01055 0.616 0.06585
+numsurf 1
+SURF 0x00
+mat 1
+refs 4
+0 0 0
+3 0 0
+2 0 0
+1 0 0
+kids 0
+OBJECT poly
+name "RPM_bar.3"
+data 9
+Plane.021
+crease 30.000000
+numvert 4
+0.01055 0.616 0.04405
+0.01055 0.586 0.04405
+0.01055 0.586 0.04485
+0.01055 0.616 0.04485
+numsurf 1
+SURF 0x00
+mat 1
+refs 4
+0 0 0
+3 0 0
+2 0 0
+1 0 0
+kids 0
+OBJECT poly
+name "center_CDU_screen"
+data 9
+Plane.002
+texture "engine_CDU.png"
+texrep 1 1
+crease 30.000000
+numvert 6
+0.0104 0.669133 0
+0.0104 0.669133 0.09928
+0.0104 0.531533 0.09928
+0.0104 0.531533 0
+0.0104 0.531533 -0.07928
+0.0104 0.669133 -0.07928
+numsurf 2
+SURF 0x00
+mat 2
+refs 4
+0 0.556003212929 0.999999701977
+1 8.3451780597e-08 1.0
+2 0.0 1.08293306766e-07
+3 0.556003153324 4.06099900374e-08
+SURF 0x00
+mat 2
+refs 4
+0 0.556003212929 0.999999701977
+3 0.556003153324 4.06099900374e-08
+4 0.999999940395 0.0
+5 1.0 0.999999940395
+kids 0

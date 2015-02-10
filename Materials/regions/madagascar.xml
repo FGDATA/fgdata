@@ -1,0 +1,194 @@
+<?xml version="1.0"?>
+<!-- Regional definitions for Magagascar -->
+<PropertyList>
+  <name>Madagascar</name>
+  <area>
+    <lon1>40.0</lon1>
+    <lat1>-35.0</lat1>
+    <lon2>50.0</lon2>
+    <lat2>-10.0</lat2>
+  </area>
+
+  <condition>
+   <equals>
+    <property>sim/startup/season</property>
+    <value>summer</value>
+   </equals>
+  </condition>
+
+  <material>
+    <name>EvergreenBroadCover</name>
+    <name>EvergreenForest</name>
+    <effect>Effects/forest</effect>
+    <texture-set>
+     <texture>Terrain/rainforest-hawaii.png</texture>
+     <texture n="11">Terrain/rainforest-hawaii.png</texture>
+     <texture n="12">Terrain/shrub-hawaii.png</texture>
+    </texture-set>
+    <xsize>2000</xsize>
+    <ysize>2000</ysize>
+    <light-coverage>10000000.0</light-coverage>
+    <wood-coverage>4000.0</wood-coverage>
+    <tree-texture>Trees/tropical.png</tree-texture>
+    <tree-varieties>8</tree-varieties>
+    <tree-range-m alias="/params/forest/tree-range-m"/>
+    <tree-height-m>35.0</tree-height-m>
+    <tree-width-m>30.0</tree-width-m>
+    <rolling-friction>1</rolling-friction>
+    <bumpiness>1</bumpiness>
+  </material>
+
+  <material>
+    <name>GrassCover</name>
+    <name>BareTundraCover</name>
+    <name>MixedTundraCover</name>
+    <name>Cemetery</name>
+    <effect>Effects/landmass-nowood</effect>
+    <texture-set>
+     <texture>Terrain/tundra-hawaii.png</texture>
+     <texture n="11">Terrain/rainforest-hawaii.png</texture>
+     <texture n="12">Terrain/shrub-hawaii.png</texture>
+     <texture n="15">Terrain/airport_grass2.png</texture>
+    </texture-set>
+    <parameters>
+      <hires_overlay_bias>0.0</hires_overlay_bias>
+    </parameters>
+    <xsize>2000</xsize>
+    <ysize>2000</ysize>
+    <light-coverage>4000000.0</light-coverage>
+    <diffuse>
+     <r>0.93</r>
+     <g>0.95</g>
+     <b>0.93</b>
+     <a>1.0</a>
+    </diffuse>
+    <specular>
+     <r>0.1</r>
+     <g>0.12</g>
+     <b>0.1</b>
+     <a>1.0</a>
+    </specular>
+    <shininess>1.2</shininess>
+    <solid>1</solid>
+    <friction-factor>0.7</friction-factor>
+    <rolling-friction>0.1</rolling-friction>
+    <bumpiness>0.15</bumpiness>
+    <load-resistance>1e30</load-resistance>
+  </material>
+
+  <material>
+    <name>MixedCropPastureCover</name>
+    <name>MixedCrop</name>
+    <name>ComplexCrop</name>
+   <texture-set>
+      <texture>Terrain/cropgrass-madagascar.png</texture>
+      <texture n="12">Terrain/shrub-hawaii.png</texture>
+    </texture-set>
+    <parameters>
+     <transition_model>0.5</transition_model>
+    </parameters>
+    <xsize>2000</xsize>
+    <ysize>2000</ysize>
+    <light-coverage>2000000.0</light-coverage>
+    <solid>1</solid>
+    <friction-factor>0.9</friction-factor>
+    <rolling-friction>0.1</rolling-friction>
+    <bumpiness>0.7</bumpiness>
+    <load-resistance>1e30</load-resistance>
+  </material>
+
+  <material>
+    <effect>Effects/crop</effect>
+    <name>DryCropPastureCover</name>
+    <name>DryCrop</name>
+    <texture-set>
+     <texture>Terrain/tundra-hawaii.png</texture>
+     <texture n="11">Terrain/rainforest-hawaii.png</texture>
+     <texture n="12">Terrain/shrub-hawaii.png</texture>
+    </texture-set>
+    <xsize>2000</xsize>
+    <ysize>2000</ysize>
+    <solid>1</solid>
+    <friction-factor>0.9</friction-factor>
+    <rolling-friction>0.1</rolling-friction>
+    <bumpiness>0.6</bumpiness>
+    <load-resistance>1e30</load-resistance>
+    <light-coverage>2000000.0</light-coverage>
+    <wood-coverage>50000.0</wood-coverage>
+    <tree-texture>Trees/tropical.png</tree-texture>
+    <tree-varieties>8</tree-varieties>
+    <tree-range-m alias="/params/forest/tree-range-m"/>
+    <tree-height-m>20.0</tree-height-m>
+    <tree-width-m>12.0</tree-width-m>
+  </material>
+
+
+  <material>
+    <name>BuiltUpCover</name>
+    <name>Urban</name>
+    <texture>Terrain/town-madagascar.png</texture>
+    <object-mask>Terrain/town-europe.mask.png</object-mask>
+    <xsize>1024</xsize>
+    <ysize>1024</ysize>
+    <light-coverage>100000.0</light-coverage>
+    <emissive>
+     <r>0.05</r>
+     <g>0.05</g>
+     <b>0.02</b>
+     <a>1.0</a>
+    </emissive>
+    <object-group include="Materials/base/town-buildings.xml"/>
+    <building-coverage>500.0</building-coverage>
+    <building-small-ratio>0.9</building-small-ratio>
+    <building-medium-ratio>0.1</building-medium-ratio>
+    <building-large-ratio>0.0</building-large-ratio>
+    <building-medium-max-floors>4</building-medium-max-floors>
+    <wood-coverage>1000.0</wood-coverage>
+    <tree-texture>Trees/tropical-alt.png</tree-texture>
+    <tree-varieties>8</tree-varieties>
+    <tree-range-m alias="/params/forest/tree-range-m"/>
+    <tree-height-m>15.0</tree-height-m>
+    <tree-width-m>10.0</tree-width-m>
+  </material>
+
+  <material>
+    <name>DeciduousBroadCover</name>
+    <name>DeciduousForest</name>
+    <name>Bog</name>
+    <name>Heath</name>
+    <texture-set>
+     <texture>Terrain/rainforest-hawaii.png</texture>
+     <texture n="12">Terrain/marsh2a.png</texture>
+    </texture-set>
+    <parameters>
+     <intrinsic_wetness>0.4</intrinsic_wetness>
+    </parameters>
+    <xsize>2000</xsize>
+    <ysize>2000</ysize>
+    <light-coverage>10000000.0</light-coverage>
+    <wood-coverage>4000.0</wood-coverage>
+    <tree-texture>Trees/tropical.png</tree-texture>
+    <tree-varieties>8</tree-varieties>
+    <tree-range-m alias="/params/forest/tree-range-m"/>
+    <tree-height-m>25.0</tree-height-m>
+    <tree-width-m>15.0</tree-width-m>
+    <rolling-friction>1</rolling-friction>
+    <bumpiness>0.85</bumpiness>
+  </material>
+
+  <material>
+    <name>Sand</name>
+    <texture-set>
+     <texture>Terrain/sand-hawaii4.png</texture>
+     <texture n="11">Terrain/sand-hawaii4.png</texture>
+    </texture-set>
+    <xsize>2000</xsize>
+    <ysize>2000</ysize>
+    <light-coverage>10000000.0</light-coverage>
+    <shininess>2.5</shininess>
+    <rolling-friction>0.1</rolling-friction>
+    <friction-factor>0.7</friction-factor>
+    <bumpiness>0.1</bumpiness>
+</material>
+
+</PropertyList>

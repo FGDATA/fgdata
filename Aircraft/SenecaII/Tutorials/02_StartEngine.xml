@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ This file is part of FlightGear, the free flight simulator
+ http://www.flightgear.org/
+
+ Copyright (C) 2009 Torsten Dreyer, Torsten (at) t3r _dot_ de
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation; either version 2 of the
+ License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+-->
+<PropertyList>
+  <name>Start Engine</name>
+  <description>This is the start engine procedure. Use this list to start an engine. First start the left, thereafter the right engine.</description>
+  <interval>0</interval>
+
+  <init>
+    <set>
+      <property>/sim/current-view/view-number</property>
+      <value>0</value>
+    </set>
+  </init>
+
+  <step>
+    <message>
+      COWL FLAPS: open
+    </message>
+    <view>
+      <heading-offset-deg>-22</heading-offset-deg>
+      <pitch-offset-deg>-43</pitch-offset-deg>
+      <field-of-view>31</field-of-view>
+    </view>
+
+    <exit>
+      <condition>
+        <and>
+          <greater-than>
+            <property>controls/engines/engine[0]/cowl-flaps-norm</property>
+            <value>0.9</value>
+          </greater-than>
+          <greater-than>
+            <property>controls/engines/engine[1]/cowl-flaps-norm</property>
+            <value>0.9</value>
+          </greater-than>
+        </and>
+      </condition>
+    </exit>
+  </step>
+
+  <step>
+    <message>
+      FUEL SELECTORS: on
+    </message>
+    <view>
+      <heading-offset-deg>-51</heading-offset-deg>
+      <pitch-offset-deg>-64</pitch-offset-deg>
+      <field-of-view>31</field-of-view>
+    </view>
+
+    <exit>
+      <condition>
+        <equals>
+          <property>controls/fuel/tank[0]/fuel_selector-position</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>controls/fuel/tank[1]/fuel_selector-position</property>
+          <value>1</value>
+        </equals>
+      </condition>
+    </exit>
+  </step>
+
+  <step>
+    <message>
+      MIXTURE: full rich
+    </message>
+    <view>
+      <heading-offset-deg>-22</heading-offset-deg>
+      <pitch-offset-deg>-28</pitch-offset-deg>
+      <field-of-view>31</field-of-view>
+    </view>
+
+    <exit>
+      <condition>
+        <greater-than>
+          <property>controls/engines/engine[0]/mixture</property>
+          <value>0.95</value>
+        </greater-than>
+        <greater-than>
+          <property>controls/engines/engine[1]/mixture</property>
+          <value>0.95</value>
+        </greater-than>
+      </condition>
+    </exit>
+  </step>
+
+  <step>
+    <message>
+      PROPELLER: high rpm
+    </message>
+    <view>
+      <heading-offset-deg>-22</heading-offset-deg>
+      <pitch-offset-deg>-28</pitch-offset-deg>
+      <field-of-view>31</field-of-view>
+    </view>
+
+    <exit>
+      <condition>
+        <greater-than>
+          <property>controls/engines/engine[0]/propeller-pitch</property>
+          <value>0.95</value>
+        </greater-than>
+        <greater-than>
+          <property>controls/engines/engine[1]/propeller-pitch</property>
+          <value>0.95</value>
+        </greater-than>
+      </condition>
+    </exit>
+  </step>
+
+  <step>
+    <message>
+      THROTTLE: full
+    </message>
+    <view>
+      <heading-offset-deg>-22</heading-offset-deg>
+      <pitch-offset-deg>-28</pitch-offset-deg>
+      <field-of-view>31</field-of-view>
+    </view>
+
+    <exit>
+      <condition>
+        <greater-than>
+          <property>controls/engines/engine[0]/throttle</property>
+          <value>0.95</value>
+        </greater-than>
+        <greater-than>
+          <property>controls/engines/engine[1]/throttle</property>
+          <value>0.95</value>
+        </greater-than>
+      </condition>
+    </exit>
+  </step>
+
+  <step>
+    <message>
+      BEACON: on
+    </message>
+    <view>
+      <heading-offset-deg>23</heading-offset-deg>
+      <pitch-offset-deg>-39</pitch-offset-deg>
+      <field-of-view>31</field-of-view>
+    </view>
+
+    <exit>
+    </exit>
+  </step>
+
+  <step>
+    <message>
+      MAGNETOS: on
+    </message>
+    <view>
+      <heading-offset-deg>23</heading-offset-deg>
+      <pitch-offset-deg>-39</pitch-offset-deg>
+      <field-of-view>31</field-of-view>
+    </view>
+
+    <exit>
+      <condition>
+        <equals>
+          <property>controls/engines/engine[0]/magnetos</property>
+          <value>3</value>
+        </equals>
+        <equals>
+          <property>controls/engines/engine[1]/magnetos</property>
+          <value>3</value>
+        </equals>
+      </condition>
+    </exit>
+  </step>
+
+  <step>
+    <message>
+      PRIMER: 5-10 secs
+    </message>
+    <view>
+      <heading-offset-deg>23</heading-offset-deg>
+      <pitch-offset-deg>-39</pitch-offset-deg>
+      <field-of-view>31</field-of-view>
+    </view>
+
+    <exit>
+    </exit>
+  </step>
+
+  <step>
+    <message>
+      THROTTLE: 1" open
+    </message>
+    <view>
+      <heading-offset-deg>-15</heading-offset-deg>
+      <pitch-offset-deg>-25</pitch-offset-deg>
+      <field-of-view>31</field-of-view>
+    </view>
+
+    <exit>
+      <condition>
+        <less-than>
+          <property>controls/engines/engine[0]/throttle</property>
+          <value>0.20</value>
+        </less-than>
+        <greater-than>
+          <property>controls/engines/engine[0]/throttle</property>
+          <value>0.05</value>
+        </greater-than>
+        <less-than>
+          <property>controls/engines/engine[1]/throttle</property>
+          <value>0.20</value>
+        </less-than>
+        <greater-than>
+          <property>controls/engines/engine[1]/throttle</property>
+          <value>0.05</value>
+        </greater-than>
+      </condition>
+    </exit>
+  </step>
+
+  <step>
+    <message>
+      ENGINE START: until 500 RPM
+    </message>
+    <view>
+      <heading-offset-deg>4</heading-offset-deg>
+      <pitch-offset-deg>-29</pitch-offset-deg>
+      <field-of-view>38</field-of-view>
+    </view>
+
+    <exit>
+      <condition>
+        <greater-than>
+          <property>engines/engine[0]/rpm</property>
+          <value>700</value>
+        </greater-than>
+        <greater-than>
+          <property>engines/engine[1]/rpm</property>
+          <value>700</value>
+        </greater-than>
+      </condition>
+    </exit>
+  </step>
+
+  <step>
+    <message>
+      THROTTLE: 1000RPM
+    </message>
+    <view>
+      <heading-offset-deg>-15</heading-offset-deg>
+      <pitch-offset-deg>-25</pitch-offset-deg>
+      <field-of-view>38</field-of-view>
+    </view>
+
+    <exit>
+      <condition>
+        <greater-than>
+          <property>engines/engine[0]/rpm</property>
+          <value>900</value>
+        </greater-than>
+        <less-than>
+          <property>engines/engine[0]/rpm</property>
+          <value>1100</value>
+        </less-than>
+        <greater-than>
+          <property>engines/engine[1]/rpm</property>
+          <value>900</value>
+        </greater-than>
+        <less-than>
+          <property>engines/engine[1]/rpm</property>
+          <value>1100</value>
+        </less-than>
+      </condition>
+    </exit>
+  </step>
+</PropertyList>

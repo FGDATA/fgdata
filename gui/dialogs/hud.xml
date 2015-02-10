@@ -1,0 +1,257 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<name>hud</name>
+	<layout>vbox</layout>
+	<padding>20</padding>
+
+	<group>
+		<layout>hbox</layout>
+		<empty><stretch>1</stretch></empty>
+
+		<text>
+			<label>HUD Configuration</label>
+		</text>
+
+		<empty><stretch>1</stretch></empty>
+
+		<button>
+			<pref-width>16</pref-width>
+			<pref-height>16</pref-height>
+			<legend></legend>
+			<keynum>27</keynum>
+			<border>2</border>
+			<binding>
+				<command>dialog-close</command>
+			</binding>
+		</button>
+	</group>
+
+	<hrule/>
+
+	<checkbox>
+		<label>Enable 3D</label>
+		<halign>left</halign>
+		<property>/sim/hud/enable3d[1]</property>
+		<binding>
+			<command>dialog-apply</command>
+		</binding>
+	</checkbox>
+
+	<checkbox>
+		<label>Transparent</label>
+		<halign>left</halign>
+		<property>/sim/hud/color/transparent</property>
+		<binding>
+			<command>dialog-apply</command>
+		</binding>
+	</checkbox>
+
+	<checkbox>
+		<label>Antialiased</label>
+		<halign>left</halign>
+		<property>/sim/hud/color/antialiased</property>
+		<binding>
+			<command>dialog-apply</command>
+		</binding>
+	</checkbox>
+
+	<hrule/>
+
+	<text>
+		<label>Lat/Lon Format</label>
+		<halign>center</halign>
+	</text>
+
+	<group>
+		<layout>vbox</layout>
+		<radio>
+			<halign>left</halign>
+			<property>/sim/gui/dialogs/hud/lon-lat-format-0</property>
+			<value>0</value>
+			<live>true</live>
+			<label>Decimal degrees</label>
+			<binding>
+				<command>nasal</command>
+				<script>set_radio(0);</script>
+			</binding>
+		</radio>
+		<radio>
+			<halign>left</halign>
+			<property>/sim/gui/dialogs/hud/lon-lat-format-1</property>
+			<value>1</value>
+			<label>Degrees, minutes</label>
+			<live>true</live>
+			<binding>
+				<command>nasal</command>
+				<script>set_radio(1);</script>
+			</binding>
+		</radio>
+		<radio>
+			<halign>left</halign>
+			<property>/sim/gui/dialogs/hud/lon-lat-format-2</property>
+			<value>2</value>
+			<live>true</live>
+			<label>Degrees, minutes, seconds</label>
+			<binding>
+				<command>nasal</command>
+				<script>set_radio(2);</script>
+			</binding>
+		</radio>
+	</group>
+
+	<hrule/>
+
+	<group>
+		<layout>hbox</layout>
+		<text>
+			<label>Alpha:</label>
+		</text>
+
+		<empty><stretch>true</stretch></empty>
+
+		<slider>
+			<property>/sim/hud/color/alpha</property>
+			<live>true</live>
+			<binding>
+				<command>dialog-apply</command>
+			</binding>
+		</slider>
+	</group>
+
+	<group>
+		<name>devel-stuff</name>
+		<layout>hbox</layout>
+		<text>
+			<label>Clamp:</label>
+		</text>
+
+		<empty><stretch>true</stretch></empty>
+
+		<slider>
+			<property>/sim/hud/color/alpha-clamp</property>
+			<live>true</live>
+			<binding>
+				<command>dialog-apply</command>
+			</binding>
+		</slider>
+	</group>
+
+	<hrule><name>devel-stuff</name></hrule>
+
+	<group>
+		<layout>hbox</layout>
+		<text>
+			<label>Brightness:</label>
+		</text>
+
+		<empty><stretch>true</stretch></empty>
+
+		<slider>
+			<property>/sim/hud/color/brightness</property>
+			<live>true</live>
+			<max>1.5</max>
+			<binding>
+				<command>dialog-apply</command>
+			</binding>
+		</slider>
+	</group>
+
+	<group>
+		<name>devel-stuff</name>
+		<layout>hbox</layout>
+		<text>
+			<label>Red:</label>
+		</text>
+
+		<empty><stretch>true</stretch></empty>
+
+		<slider>
+			<property>/sim/hud/color/red</property>
+			<live>true</live>
+			<binding>
+				<command>dialog-apply</command>
+			</binding>
+			<color>
+				<red>1.0</red>
+				<green>0.5</green>
+				<blue>0.5</blue>
+			</color>
+		</slider>
+	</group>
+
+	<group>
+		<name>devel-stuff</name>
+		<layout>hbox</layout>
+		<text>
+			<label>Green:</label>
+		</text>
+
+		<empty><stretch>true</stretch></empty>
+
+		<slider>
+			<property>/sim/hud/color/green</property>
+			<live>true</live>
+			<binding>
+				<command>dialog-apply</command>
+			</binding>
+			<color>
+				<red>0.5</red>
+				<green>1.0</green>
+				<blue>0.5</blue>
+			</color>
+		</slider>
+	</group>
+
+	<group>
+		<name>devel-stuff</name>
+		<layout>hbox</layout>
+		<text>
+			<label>Blue:</label>
+		</text>
+
+		<empty><stretch>true</stretch></empty>
+
+		<slider>
+			<property>/sim/hud/color/blue</property>
+			<live>true</live>
+			<binding>
+				<command>dialog-apply</command>
+			</binding>
+			<color>
+				<red>0.5</red>
+				<green>0.5</green>
+				<blue>1.0</blue>
+			</color>
+		</slider>
+	</group>
+
+  <hrule/>
+
+  <button>
+    <legend>Close</legend>
+    <default>true</default>
+    <key>Esc</key>
+    <binding>
+      <command>dialog-close</command>
+    </binding>
+  </button>
+
+	<nasal>
+		<open><![CDATA[
+			gui.enable_widgets(cmdarg(), "devel-stuff", getprop("/sim/gui/devel-widgets"));
+			var radios = cmdarg().getChildren("group")[1].getChildren("radio");
+			var set_radio = func(n) {
+				for (var i = 0; i < size(radios); i +=1) {
+					var prop = radios[i].getChild("property").getValue();
+					setprop(prop, (n == radios[i].getChild("value").getValue()));
+				}
+
+				setprop("/sim/lon-lat-format", n);
+			}
+
+			set_radio(getprop("/sim/lon-lat-format"));
+			]]>
+		</open>
+	</nasal>
+</PropertyList>

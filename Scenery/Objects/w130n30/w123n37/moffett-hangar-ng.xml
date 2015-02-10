@@ -1,0 +1,145 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+	<path>moffett-hangar-ng.ac</path>
+
+	<animation>
+		<type>select</type>
+		<object-name>lights-2</object-name>
+		<condition>
+			<greater-than>
+				<property>/sim/time/sun-angle-rad</property>
+				<value>1.57</value>
+			</greater-than>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>red-lights</object-name>
+		<condition>
+			<greater-than>
+				<property>/sim/time/sun-angle-rad</property>
+				<value>1.56</value>
+			</greater-than>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>translate</type>
+		<object-name>red-light-1</object-name>
+		<offset-m>59.85</offset-m>
+		<axis>
+			<x>-33.27</x>
+			<y>43.46</y>
+			<z>24.23</z>
+		</axis>
+	</animation>
+	<animation>
+		<type>billboard</type>
+		<object-name>red-light-1</object-name>
+		<spherical type="bool">true</spherical>
+	</animation>
+	<animation>
+		<type>dist-scale</type>
+		<object-name>red-light-1</object-name>
+		<interpolation>
+			<entry><ind>0</ind><dep>0.1</dep></entry>
+			<entry><ind>500</ind><dep>0.2</dep></entry>
+			<entry><ind>16000</ind><dep>3</dep></entry>
+		</interpolation>
+	</animation>
+
+
+	<animation>
+		<type>translate</type>
+		<object-name>red-light-2</object-name>
+		<offset-m>50.29</offset-m>
+		<axis>
+			<x>-33.27</x>
+			<y>-0.12</y>
+			<z>37.72</z>
+		</axis>
+	</animation>
+	<animation>
+		<type>billboard</type>
+		<object-name>red-light-2</object-name>
+		<spherical type="bool">true</spherical>
+	</animation>
+	<animation>
+		<type>dist-scale</type>
+		<object-name>red-light-2</object-name>
+		<interpolation>
+			<entry><ind>0</ind><dep>0.1</dep></entry>
+			<entry><ind>500</ind><dep>0.2</dep></entry>
+			<entry><ind>16000</ind><dep>3</dep></entry>
+		</interpolation>
+	</animation>
+
+
+	<animation>
+		<type>translate</type>
+		<object-name>red-light-3</object-name>
+		<offset-m>60.14</offset-m>
+		<axis>
+			<x>-33.27</x>
+			<y>-43.85</y>
+			<z>24.23</z>
+		</axis>
+	</animation>
+	<animation>
+		<type>billboard</type>
+		<object-name>red-light-3</object-name>
+		<spherical type="bool">true</spherical>
+	</animation>
+	<animation>
+		<type>dist-scale</type>
+		<object-name>red-light-3</object-name>
+		<interpolation>
+			<entry><ind>0</ind><dep>0.1</dep></entry>
+			<entry><ind>500</ind><dep>0.2</dep></entry>
+			<entry><ind>16000</ind><dep>3</dep></entry>
+		</interpolation>
+	</animation>
+
+
+	<animation>
+		<type>translate</type>
+		<object-name>red-light-4</object-name>
+		<offset-m>26.79</offset-m>
+		<axis>
+			<x>11.92</x>
+			<y>-0.12</y>
+			<z>24.00</z>
+		</axis>
+	</animation>
+	<animation>
+		<type>billboard</type>
+		<object-name>red-light-4</object-name>
+		<spherical type="bool">true</spherical>
+	</animation>
+	<animation>
+		<type>dist-scale</type>
+		<object-name>red-light-4</object-name>
+		<interpolation>
+			<entry><ind>0</ind><dep>0.1</dep></entry>
+			<entry><ind>500</ind><dep>0.2</dep></entry>
+			<entry><ind>16000</ind><dep>3</dep></entry>
+		</interpolation>
+	</animation>
+
+	<animation>
+		<type>range</type>
+		<object-name>details</object-name>
+		<min-m>0</min-m>
+		<max-m>2500</max-m>
+	</animation>
+	<animation>
+		<type>range</type>
+		<object-name>structures</object-name>
+		<min-m>0</min-m>
+		<max-m>15000</max-m>
+	</animation>
+
+</PropertyList>

@@ -1,0 +1,59 @@
+# Michael Selig
+# Convair 880, cruise configuration (M .8 @ 35kft)
+# medium commercial jetliner, data from:
+#       Robert Nelson, "Flight Stability and Automatic Control", 2nd ed.
+#       p 414-415
+# 02-10-2000    file creation
+
+init Dz_cg      0.0     # [ft]
+
+geometry bw   120.      # [ft]
+geometry cbar  18.94    # [ft]
+geometry Sw  2000.0     # [ft^2]
+
+controlSurface de 20 20 # [deg]  guess for now
+controlSurface da 20 20 # [deg]  guess for now
+controlSurface dr 20 20 # [deg]  guess for now
+
+mass Weight  126000     # [lb]
+mass I_xx    115000     # [slug-ft^2]
+mass I_yy   2450000     # [slug-ft^2]
+mass I_zz   4070000     # [slug-ft^2]
+mass I_xz         0     # [slug-ft^2]
+
+
+# aircraft specs: 4 engines of 15000 lb static thrust each
+engine simpleSingle 30000 # [lb] guess
+
+
+CL CLo       0.347      # []
+CL CL_a      4.8        # [/rad]
+CL CL_adot   2.7        # [/rad]
+CL CL_q      7.5        # [/rad]
+CL CL_de     0.19       # [/rad]
+
+CD CDo       0.024      # []
+CD CD_a      0.150      # [/rad]
+
+Cm Cmo       0.0	# []
+Cm Cm_a     -0.650      # [/rad]
+Cm Cm_adot  -4.5        # [/rad]
+Cm Cm_q     -4.5        # [/rad]
+Cm Cm_de    -0.570      # [/rad]
+
+CY CY_beta -0.812       # [/rad]
+CY CY_p     0.0         # [/rad]
+CY CY_r     0.184       # [/rad]
+CY CY_dr    0.019       # [/rad]
+
+Cl Cl_beta -0.117       # [/rad]
+Cl Cl_p    -0.312       # [/rad]
+Cl Cl_r     0.153       # [/rad]
+Cl Cl_da   -0.050       # [/rad]
+Cl Cl_dr    0.019       # [/rad]
+
+Cn Cn_beta  0.129       # [/rad]
+Cn Cn_p    -0.011       # [/rad]
+Cn Cn_r    -0.165       # [/rad]
+Cn Cn_da    0.008       # [/rad]
+Cn Cn_dr   -0.076       # [/rad]

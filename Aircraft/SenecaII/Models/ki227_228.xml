@@ -1,0 +1,280 @@
+<?xml version="1.0"?>
+<!--
+ This file is part of FlightGear, the free flight simulator
+ http://www.flightgear.org/
+
+ Copyright (C) 2009 Torsten Dreyer, Torsten (at) t3r _dot_ de
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation; either version 2 of the
+ License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+-->
+<!--
+  Animations for the ki227 adf and ki228 rmi indicator
+  Maintainer: Torsten Dreyer
+
+  The VOR needle is currently hardwired to NAV1
+  The ADF needle is currently hardwired to ADF1
+  To show the KI228 RMI instrument, set the property
+  instrumentation/adf/model=ki228
+
+  To show the KI227 ADF instrument, set the property
+  instrumentation/adf/mode=ki227
+  or any other value (or leave empty)
+-->
+
+<PropertyList>
+
+  <path>ki227_228.ac</path>
+
+  <params>
+    <model>instrumentation/adf[0]/model</model>
+    <rotation-deg>instrumentation/adf[0]/rotation-deg</rotation-deg>
+    <adf-bearing-deg>instrumentation/adf[0]/indicated-bearing-deg</adf-bearing-deg>
+    <vor-bearing-deg>instrumentation/nav[0]/radials/reciprocal-radial-deg</vor-bearing-deg>
+    <indicated-heading>instrumentation/heading-indicator/indicated-heading-deg</indicated-heading>
+  </params>
+
+  <animation>
+    <type>noshadow</type>
+  </animation>
+
+  <animation>
+    <type>range</type>
+    <min-m>0</min-m>
+    <max-m>10</max-m>
+  </animation>
+
+  <animation>
+    <type>material</type>
+    <object-name>CompassRose</object-name>
+    <object-name>KI227.ADFNeedle</object-name>
+    <object-name>KI228.ADFNeedle</object-name>
+    <object-name>KI228.VORNeedle</object-name>
+    <object-name>Marker</object-name>
+    <object-name>HDGSelector</object-name>
+    <emission>
+      <red>1.0</red>
+      <green>0.2</green>
+      <blue>0.0</blue>
+      <factor-prop>sim/model/material/instruments/factor</factor-prop>
+    </emission>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>KI228.ADFNeedle</object-name>
+    <object-name>KI228.VORNeedle</object-name>
+    <condition>
+      <equals>
+        <property alias="../../../../params/model"/>
+        <value>ki228</value>
+      </equals>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>KI227.ADFNeedle</object-name>
+    <object-name>HDGSelector</object-name>
+    <object-name>HDGSelectorPick.L</object-name>
+    <object-name>HDGSelectorPick.R</object-name>
+    <condition>
+      <not>
+        <equals>
+          <property alias="../../../../../params/model"/>
+          <value>ki228</value>
+        </equals>
+      </not>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>CompassRose</object-name>
+    <property alias="../../params/rotation-deg"/>
+    <factor>-1</factor>
+    <axis>
+      <x>-1</x>
+      <y>0</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>CompassRose</object-name>
+    <property alias="../../params/indicated-heading"/>
+    <condition>
+      <equals>
+        <property alias="../../../../params/model"/>
+        <value>ki228</value>
+      </equals>
+    </condition>
+    <factor>-1</factor>
+    <axis>
+      <x>-1</x>
+      <y>0</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>KI228.VORNeedle</object-name>
+    <property alias="../../params/vor-bearing-deg"/>
+    <axis>
+      <x>-1</x>
+      <y>0</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>KI228.VORNeedle</object-name>
+    <property alias="../../params/indicated-heading"/>
+    <factor>-1</factor>
+    <axis>
+      <x>-1</x>
+      <y>0</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>KI228.ADFNeedle</object-name>
+    <property alias="../../params/adf-bearing-deg"/>
+    <axis>
+      <x>-1</x>
+      <y>0</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>KI227.ADFNeedle</object-name>
+    <property alias="../../params/adf-bearing-deg"/>
+    <axis>
+      <x>-1</x>
+      <y>0</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>HDGSelector</object-name>
+    <property alias="../../params/rotation-deg"/>
+    <factor>8.0</factor>
+    <axis>
+      <x>1.0</x>
+      <y>0.0</y>
+      <z>0.0</z>
+    </axis>
+    <center>
+      <x-m>0</x-m>
+      <y-m>-0.0318072</y-m>
+      <z-m>-0.0327009</z-m>
+    </center>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>HDGSelectorPick.L</object-name>
+    <visible>false</visible>
+    <action>
+      <button>0</button>
+      <repeatable>true</repeatable>
+      <binding>
+        <command>property-adjust</command>
+        <property alias="../../../../params/rotation-deg"/>
+        <step>-1</step>
+        <min>0</min>
+        <max>360</max>
+        <wrap>1</wrap>
+      </binding>
+    </action>
+    <action>
+      <button>1</button>
+      <repeatable>true</repeatable>
+      <binding>
+        <command>property-adjust</command>
+        <property alias="../../../../params/rotation-deg"/>
+        <step>-10</step>
+        <min>0</min>
+        <max>360</max>
+        <wrap>1</wrap>
+      </binding>
+    </action>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>HDGSelectorPick.R</object-name>
+    <visible>false</visible>
+    <action>
+      <button>0</button>
+      <repeatable>true</repeatable>
+      <binding>
+        <command>property-adjust</command>
+        <property alias="../../../../params/rotation-deg"/>
+        <step>1</step>
+        <min>0</min>
+        <max>360</max>
+        <wrap>1</wrap>
+      </binding>
+    </action>
+    <action>
+      <button>1</button>
+      <repeatable>true</repeatable>
+      <binding>
+        <command>property-adjust</command>
+        <property alias="../../../../params/rotation-deg"/>
+        <step>10</step>
+        <min>0</min>
+        <max>360</max>
+        <wrap>1</wrap>
+      </binding>
+    </action>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>HDGSelector</object-name>
+    <visible>true</visible>
+    <action>
+      <button>3</button>
+      <repeatable>true</repeatable>
+      <binding>
+        <command>property-adjust</command>
+        <property alias="../../../../params/rotation-deg"/>
+        <step>-1</step>
+        <min>0</min>
+        <max>360</max>
+        <wrap>1</wrap>
+      </binding>
+    </action>
+    <action>
+      <button>4</button>
+      <repeatable>true</repeatable>
+      <binding>
+        <command>property-adjust</command>
+        <property alias="../../../../params/rotation-deg"/>
+        <step>1</step>
+        <min>0</min>
+        <max>360</max>
+        <wrap>1</wrap>
+      </binding>
+    </action>
+  </animation>
+
+</PropertyList>

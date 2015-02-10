@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<sim>
+		<model>
+			<formation>
+				<variant type="string">Finger</variant>
+				<index type="int">5</index>
+				<position>
+					<x-offset>-100</x-offset>
+					<y-offset>-100</y-offset>
+					<z-offset>0</z-offset>
+				</position>
+				<position>
+					<x-offset>-100</x-offset>
+					<y-offset>100</y-offset>
+					<z-offset>0</z-offset>
+				</position>
+				<position>
+					<x-offset>-100</x-offset>
+					<y-offset>100</y-offset>
+					<z-offset>0</z-offset>
+				</position>
+			</formation>
+		</model>
+	</sim>
+</PropertyList>

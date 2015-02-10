@@ -1,0 +1,61 @@
+AC3Db
+MATERIAL "DefaultWhite" rgb 1 1 1  amb 0.2 0.2 0.2  emis 0 0 0  spec 0.05 0.05 0.05  shi 50  trans 0
+OBJECT world
+kids 1
+OBJECT poly
+name "Cone"
+loc -2 0 0
+crease 45.000000
+numvert 8
+0 -3 4.32
+0 -3 -4.32
+2 -0.125 -0.125
+2 -0.125 0.125
+0 3 4.32
+0 3 -4.32
+2 0.125 -0.125
+2 0.125 0.125
+numsurf 6
+SURF 0x20
+mat 0
+refs 4
+1 0 0
+0 0 0
+4 0 0
+5 0 0
+SURF 0x20
+mat 0
+refs 4
+5 0 0
+6 0 0
+2 0 0
+1 0 0
+SURF 0x20
+mat 0
+refs 4
+6 0 0
+7 0 0
+3 0 0
+2 0 0
+SURF 0x20
+mat 0
+refs 4
+0 0 0
+3 0 0
+7 0 0
+4 0 0
+SURF 0x20
+mat 0
+refs 4
+0 0 0
+1 0 0
+2 0 0
+3 0 0
+SURF 0x20
+mat 0
+refs 4
+7 0 0
+6 0 0
+5 0 0
+4 0 0
+kids 0

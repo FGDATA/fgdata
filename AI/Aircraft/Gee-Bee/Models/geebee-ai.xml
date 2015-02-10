@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<PropertyList>
+
+  <path>geebee.ac</path>
+
+  <offsets>
+	<pitch-deg>13</pitch-deg>
+    <z-m>.9</z-m>   
+  </offsets>
+ 
+ <animation>
+  <type>rotate</type>
+  <property>velocities/true-airspeed-kt</property>
+  <interpolation>
+	<entry><ind>0</ind><dep>0.0</dep></entry>
+	<entry><ind>20</ind><dep>0.0</dep></entry>
+	<entry><ind>30</ind><dep>13</dep></entry>
+	<entry><ind>80</ind><dep>13</dep></entry>
+  </interpolation>
+  <center>
+   <x-m>0.0</x-m>
+   <y-m>0.0</y-m>
+   <z-m>-25</z-m>
+  </center>
+  <axis>
+   <x>0.0</x>
+   <y>-.5</y>
+   <z>0.0</z>
+  </axis>
+ </animation>	
+ 
+  <animation>
+    <type>shader</type>
+    <shader>chrome</shader>
+    <texture>Aircraft/Generic/Effects/glass_shader.png</texture>
+    <object-name>vitres</object-name>
+    <object-name>verriere</object-name>
+  </animation>
+
+  <animation>
+    <name>BeaconStrobe</name>
+    <type>timed</type>
+    <object-name>beacon</object-name>
+    <object-name>flash</object-name>
+    <use-personality type="bool">true</use-personality>
+	    <branch-duration-sec>0.1</branch-duration-sec>
+	    <branch-duration-sec>1.0</branch-duration-sec>
+   </animation>
+   
+  <!-- Moteur -->
+  <model>
+    <path>r1340/r1340.xml</path>
+    <offsets>
+      <x-m> -2.018 </x-m>
+      <y-m>  0.000 </y-m>
+      <z-m>  0.112 </z-m>
+    </offsets>
+  </model>
+
+  <!-- Lumière verte -->
+  <model>
+	<name>beacon</name>
+    <path>lights/beacon.xml</path>
+    <offsets>
+      <x-m> 1.772 </x-m>
+      <y-m> 0.119 </y-m>
+      <z-m> 0.899 </z-m>
+    </offsets>
+  </model>
+  
+   <!-- Lumière rouge -->
+  <model>
+	<name>flash</name>
+    <path>lights/flash.xml</path>
+    <offsets>
+      <x-m>  1.772 </x-m>
+      <y-m> -0.119 </y-m>
+      <z-m>  0.899 </z-m>
+    </offsets>
+  </model>
+
+  <!-- Lumière verte -->
+  <model>
+	<name>GreenLight</name>
+    <path>lights/GreenLight.xml</path>
+    <offsets>
+      <x-m> 1.772 </x-m>
+      <y-m> 0.119 </y-m>
+      <z-m> 0.899 </z-m>
+    </offsets>
+  </model>
+  
+   <!-- Lumière rouge -->
+  <model>
+	<name>RedLight</name>
+    <path>lights/RedLight.xml</path>
+    <offsets>
+      <x-m>  1.772 </x-m>
+      <y-m> -0.119 </y-m>
+      <z-m>  0.899 </z-m>
+    </offsets>
+  </model>
+  
+  <animation>
+	  <name>NavLights</name>
+	  <object-name>GreenLight</object-name>
+	  <object-name>RedLight</object-name>
+  </animation>
+  
+   <animation>
+        <type>select</type>
+        <object-name>NavLights</object-name>
+        <condition>
+	      <and>
+			<greater-than>
+				<property>/sim/time/sun-angle-rad</property>
+				<value>1.57</value>
+			</greater-than>
+			<greater-than>
+				<property>velocities/true-airspeed-kt</property>
+				<value>0</value>
+			</greater-than>
+		  </and>
+	    </condition>
+    </animation>
+   
+   <animation>
+        <type>select</type>
+        <object-name>BeaconStrobe</object-name>
+        <condition>
+	      <and>
+			<greater-than>
+				<property>/sim/time/sun-angle-rad</property>
+				<value>1.57</value>
+			</greater-than>
+			<greater-than>
+				<property>velocities/true-airspeed-kt</property>
+				<value>0</value>
+			</greater-than>
+		  </and>
+	    </condition>
+    </animation>
+	
+    <!-- L'hélice --> 
+  <animation>
+    <name>HeliceComplete</name>
+    <object-name>propdisc</object-name>
+    <object-name>propblur</object-name>
+    <object-name>helice</object-name>
+    <object-name>bol</object-name>
+  </animation>
+
+  <!-- Séléction de l'objet visible en fonction des rpm -->
+  <animation>
+    <type>select</type>
+    <object-name>propdisc</object-name>
+    <condition>
+      <greater-than>
+        <property>velocities/true-airspeed-kt</property>
+        <value>60</value>
+      </greater-than>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>propblur</object-name>
+    <condition>
+    <and>
+      <greater-than>
+        <property>velocities/true-airspeed-kt</property>
+        <value>10</value>
+      </greater-than>
+      <less-than>
+        <property>velocities/true-airspeed-kt</property>
+        <value>60</value>
+      </less-than>
+    </and>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>helice</object-name>
+    <condition>
+      <less-than>
+        <property>velocities/true-airspeed-kt</property>
+	<value>60</value>
+      </less-than>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>spin</type>
+    <object-name>HeliceComplete</object-name>
+    <property>velocities/true-airspeed-kt</property>
+    <factor> 1 </factor>
+    <center>
+      <x-m> -2.505 </x-m>
+      <y-m>  0.000 </y-m>
+      <z-m>  0.112 </z-m>
+    </center>
+    <axis>
+      <x> -1 </x>
+      <y>  0 </y>
+      <z>  0 </z>
+    </axis>
+  </animation>
+ <!-- 
+     <model>
+    <name>Nav1-Light</name>
+    <path>lights/RedLight.xml</path>
+    <offsets>
+      <x-m> -2.132 </x-m>
+      <y-m> -6.217 </y-m>
+      <z-m> -0.365 </z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <name>Nav2-Light</name>
+    <path>lights/GreenLight.xml</path>
+    <offsets>
+      <x-m> -2.132 </x-m>
+      <y-m>  6.217 </y-m>
+      <z-m> -0.365 </z-m>
+    </offsets>
+  </model>
+
+  <animation>
+    <name>AllNavLight</name>
+    <object-name>Nav1-Light</object-name>
+    <object-name>Nav1-Light</object-name>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>AllNavLight</object-name>
+    <condition>
+      <and>
+		<greater-than>
+			<property>/sim/time/sun-angle-rad</property>
+			<value>1.57</value>
+		</greater-than>
+		<greater-than>
+			<property>velocities/true-airspeed-kt</property>
+			<value>0</value>
+		</greater-than>
+	  </and>
+    </condition>
+  </animation>
+-->
+  <!-- Volets 
+  <animation>
+    <type>rotate</type>
+    <object-name>voletG</object-name>
+    <property>surface-positions/flap-pos-norm</property>
+    <factor>20.0</factor>
+    <center>
+      <x-m> -0.314 </x-m>
+      <y-m> -1.332 </y-m>
+      <z-m> -0.112 </z-m>
+    </center>    <axis>
+      <x> 0 </x>
+      <y> 1 </y>
+      <z> 0 </z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>voletD</object-name>
+    <property>surface-positions/flap-pos-norm</property>
+    <factor>20.0</factor>
+    <center>
+      <x-m> -0.314 </x-m>
+      <y-m>  1.332 </y-m>
+      <z-m> -0.112 </z-m>
+    </center>    <axis>
+      <x> 0 </x>
+      <y> 1 </y>
+      <z> 0 </z>
+    </axis>
+  </animation>-->
+  
+</PropertyList>
+

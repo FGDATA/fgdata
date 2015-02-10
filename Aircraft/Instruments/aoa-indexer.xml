@@ -1,0 +1,140 @@
+<?xml version="1.0"?>
+<!-- Angle of Attack indexer, as used on US Navy carrier aircraft.  The
+     operation of these things is simple.  When the AoA is too low, the
+     bottom arrow glows red.  This indicates to the pilot that they
+     should pull back on the stick to raise the nose and slow down.
+     When the AoA is too high, the pilot gets a green, downward
+     pointing top arrow telling him to push the stick forward, lower
+     the nose, and speed up.
+
+     This instrument needs its angle thresholds supplied externally
+     (probably from the aircraft -set file), in these four properties:
+       /sim/aoa-indexer/too-slow-deg  (usually target +1.5 deg)
+       /sim/aoa-indexer/slow-deg      (target +0.5 deg)
+       /sim/aoa-indexer/fast-deg      (target -0.5 deg)
+       /sim/aoa-indexer/too-fast-deg  (target -1.5 deg)
+
+     Note that there is no instrument background texture.  This just
+     applies alpha-blended "lights" to something else in the 3D
+     cockpit.
+-->
+
+<PropertyList>
+
+ <name>Angle of Attack Indexer</name>
+ <w-base>2.0</w-base>
+ <h-base>5.0</h-base>
+
+ <layers>
+
+  <layer>
+   <name>too slow</name>
+   <w>2</w>
+   <h>5</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/aoa-indexer.rgb</path>
+    <x1>0.0</x1>
+    <y1>0.0</y1>
+    <x2>0.2</x2>
+    <y2>1.0</y2>
+   </texture>
+   <condition>
+    <greater-than>
+     <property>/orientation/alpha-deg</property>
+     <property>/sim/aoa-indexer/too-slow-deg</property>
+    </greater-than>
+   </condition>
+  </layer>
+
+  <layer>
+   <name>slow</name>
+   <w>2</w>
+   <h>5</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/aoa-indexer.rgb</path>
+    <x1>0.2</x1>
+    <y1>0.0</y1>
+    <x2>0.4</x2>
+    <y2>1.0</y2>
+   </texture>
+   <condition>
+    <less-than>
+     <property>/orientation/alpha-deg</property>
+     <property>/sim/aoa-indexer/too-slow-deg</property>
+    </less-than>
+    <greater-than>
+     <property>/orientation/alpha-deg</property>
+     <property>/sim/aoa-indexer/slow-deg</property>
+    </greater-than>
+   </condition>
+  </layer>
+
+  <layer>
+   <name>on-speed</name>
+   <w>2</w>
+   <h>5</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/aoa-indexer.rgb</path>
+    <x1>0.4</x1>
+    <y1>0.0</y1>
+    <x2>0.6</x2>
+    <y2>1.0</y2>
+   </texture>
+   <condition>
+    <less-than>
+     <property>/orientation/alpha-deg</property>
+     <property>/sim/aoa-indexer/slow-deg</property>
+    </less-than>
+    <greater-than>
+     <property>/orientation/alpha-deg</property>
+     <property>/sim/aoa-indexer/fast-deg</property>
+    </greater-than>
+   </condition>
+  </layer>
+
+  <layer>
+   <name>fast</name>
+   <w>2</w>
+   <h>5</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/aoa-indexer.rgb</path>
+    <x1>0.6</x1>
+    <y1>0.0</y1>
+    <x2>0.8</x2>
+    <y2>1.0</y2>
+   </texture>
+   <condition>
+    <less-than>
+     <property>/orientation/alpha-deg</property>
+     <property>/sim/aoa-indexer/fast-deg</property>
+    </less-than>
+    <greater-than>
+     <property>/orientation/alpha-deg</property>
+     <property>/sim/aoa-indexer/too-fast-deg</property>
+    </greater-than>
+   </condition>
+  </layer>
+
+  <layer>
+   <name>too fast</name>
+   <w>2</w>
+   <h>5</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/aoa-indexer.rgb</path>
+    <x1>0.8</x1>
+    <y1>0.0</y1>
+    <x2>1.0</x2>
+    <y2>1.0</y2>
+   </texture>
+   <condition>
+    <less-than>
+     <property>/orientation/alpha-deg</property>
+     <property>/sim/aoa-indexer/too-fast-deg</property>
+    </less-than>
+   </condition>
+  </layer>
+
+ </layers>
+</PropertyList>
+
+

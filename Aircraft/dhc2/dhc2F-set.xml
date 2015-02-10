@@ -1,0 +1,189 @@
+<?xml version="1.0"?>
+<!--
+************************************************************************
+de Havilland Beaver - Floats
+July 2004 Syd Adams
+************************************************************************
+-->
+<PropertyList include="dhc2-base.xml">
+<sim>
+
+    <description>de Havilland Beaver - Floats</description>
+    <author>Syd Adams,Tom Haigh (bumpmap)</author>
+    <flight-model>yasim</flight-model>
+    <aero>dhc2F</aero>
+    <fuel-fraction>0.75</fuel-fraction>
+    <startup>
+        <splash-texture>Aircraft/dhc2/dhc-2splash.png</splash-texture>
+    </startup>
+
+
+    <hitches>
+    <!-- make sure some properties do exist, when the list for multiplayer transfere is defined-->
+    <!-- they need to be in the same value, as they are initilized in the FDM, to get the same values after reset
+    should fix this somehow-->
+        <aerotow>
+            <tow>
+                <length type="float">60</length>
+                <elastic-constant type="float">10000</elastic-constant>
+                <weight-per-m-kg-m type="float">1</weight-per-m-kg-m>
+                <dist type="float">1</dist>
+                <connected-to-property-node type="bool"></connected-to-property-node>
+                <brake-force type="float">100000</brake-force>
+                <connected-to-ai-or-mp-callsign type ="string">*</connected-to-ai-or-mp-callsign>
+                <end-force-x type ="float">0</end-force-x>
+                <end-force-y type ="float">0</end-force-y>
+                <end-force-z type ="float">0</end-force-z>
+            </tow>
+            <speed-in-tow-direction type="float">0</speed-in-tow-direction>
+            <open type="bool">true</open>
+            <local-pos-x type="float">0</local-pos-x>
+            <local-pos-y type="float">0</local-pos-y>
+            <local-pos-z type="float">0</local-pos-z>
+            <is-slave type="bool">false</is-slave>
+        </aerotow>
+    </hitches>
+
+    <help>
+        <title>De Havilland "Beaver"</title>
+        <line></line> 
+        <key>
+            <name>l</name>
+            <desc>toggle water rudders</desc>
+        </key>
+        <key>
+            <name>f</name>
+            <desc>fuel tank select</desc>
+        </key>
+        <key>
+            <name>!</name>
+            <desc>toggle battery switch</desc>
+        </key>
+        <key>
+            <name>@</name>
+            <desc>toggle alternator switch</desc>
+        </key>
+        <key>
+            <name>#</name>
+            <desc>toggle fuel pump</desc>
+        </key>
+        <key>
+            <name>$</name>
+            <desc>toggle pitot heat</desc>
+        </key>
+        <key>
+            <name>%</name>
+            <desc>toggle landing light</desc>
+        </key>
+        <key>
+            <name>^</name>
+            <desc>toggle nav lights</desc>
+        </key>
+        <key>
+            <name>Ctrl-w</name>
+            <desc>tie up</desc>
+        </key>
+        <key>
+            <name>W</name>
+            <desc>untie</desc>
+        </key>
+        <line>   Startup Procedure</line>
+        <line>1:Set magneto switch to ' both '</line>
+        <line>2:Set fuel tank switch to ' Rear Tank '</line>
+        <line>3:Engage battery switch</line>
+        <line>4:Engage fuel pump switch</line>
+        <line>5:Engage starter switch</line>
+        <line>6:Once engine is running,</line>
+        <line>  engage alternator switch</line>
+    </help>
+
+    <menubar>
+        <default>
+            <menu n="10">
+                <label>Beaver</label>
+                <enabled type="bool">true</enabled>
+                <item>
+                    <label>Tie Up</label>
+                    <binding>
+                        <command>nasal</command>
+                        <script>dhc2.secure()</script>
+                        <value type="bool">true</value>
+                    </binding>
+                </item>
+                <item>
+                    <label>Untie</label>
+                    <binding>
+                <command>property-assign</command>
+                <property>/sim/hitches/anchor/open</property>
+                <value type="bool">true</value>
+            </binding>
+                </item>
+                <item>
+                    <label>Show/Hide Yokes</label>
+                    <binding>
+                        <command>property-toggle</command>
+                        <property>sim/yokes-visible</property>
+                    </binding>
+                </item>
+                    <item>
+                        <label>Select Livery</label>
+                        <binding>
+                            <command>nasal</command>
+                            <script>aircraft.livery.dialog.toggle()</script>
+                        </binding>
+                    </item>
+            </menu>
+        </default>
+    </menubar>
+
+</sim>
+
+<controls>
+    <gear>
+        <water-rudder type="bool">0</water-rudder>
+        <water-rudder-down type="double">0</water-rudder-down>
+    </gear>
+    <winch>
+        <place type="bool">false</place>
+    </winch>
+</controls>
+
+<input>
+    <keyboard>
+        <key n="108">
+            <name>l</name>
+            <desc>Toggle water rudders</desc>
+            <binding>
+                <command>property-toggle</command>
+                <property>controls/gear/water-rudder</property>
+            </binding>
+        </key>
+        <key n="23">
+            <name>Ctrl-w</name>
+            <desc>Throw anchor</desc>
+            <binding>
+                <command>property-assign</command>
+                <property>/controls/winch/place</property>
+                <value type="bool">true</value>
+            </binding>
+            <mod-up>
+                <binding>
+                    <command>property-assign</command>
+                    <property>/controls/winch/place</property>
+                    <value type="bool">false</value>
+                </binding>
+            </mod-up>
+        </key>
+        <key n="87">
+            <name>W</name>
+            <desc>release anchor</desc>
+            <binding>
+                <command>property-assign</command>
+                <property>/sim/hitches/anchor/open</property>
+                <value type="bool">true</value>
+            </binding>
+        </key>
+    </keyboard>
+</input>
+
+</PropertyList>

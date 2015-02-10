@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+
+<!-- left throttle: control thrust vector -->
+
+<PropertyList>
+	<nasal>
+		<script>
+			var thrust_display = func {
+				var thv = getprop("/controls/engines/engine/mixture");
+				popup("Thrust vector %d", thv * 120 - 20 + 0.5);
+			}
+		</script>
+	</nasal>
+
+	<axis n="2">
+		<name>Right Throttle</name>
+		<desc>throttle</desc>
+		<binding>
+			<command>nasal</command>
+			<script>controls.throttleAxis()</script>
+		</binding>
+	</axis>
+
+	<axis n="3">
+		<name>Left Throttle</name>
+		<desc>thrust vector</desc>
+		<binding>
+			<command>nasal</command>
+			<script>
+				controls.mixtureAxis();
+				thrust_display();
+			</script>
+		</binding>
+	</axis>
+</PropertyList>

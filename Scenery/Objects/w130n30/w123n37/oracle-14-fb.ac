@@ -1,0 +1,76 @@
+AC3Db
+MATERIAL "DefaultWhite" rgb 1 1 1  amb 1 1 1  emis 0 0 0  spec 0.5 0.5 0.5 shi 64  trans 0
+MATERIAL "Material" rgb 0.756191 0.756191 0.756191 amb 0.756191 0.756191 0.756191 emis 0 0 0 spec 1 1 1 shi 72 trans 0
+OBJECT world
+kids 1
+OBJECT group
+name "Detailed"
+kids 1
+OBJECT poly
+name "Plane"
+numvert 10
+49 0 -57.5
+95 0 4e-006
+-1.1e-005 0 -4e-006
+1.1e-005 0 -57.500015
+95 0 -19
+95 10 -19
+1.1e-005 10 -57.500015
+-1.1e-005 10 -4e-006
+95 10 4e-006
+49 10 -57.5
+numsurf 8
+SURF 0x00
+mat 1
+refs 4
+0 0 0
+9 0 0
+5 0 0
+4 0 0
+SURF 0x00
+mat 1
+refs 4
+4 0 0
+5 0 0
+8 0 0
+1 0 0
+SURF 0x00
+mat 1
+refs 4
+2 0 0
+7 0 0
+6 0 0
+3 0 0
+SURF 0x00
+mat 1
+refs 4
+9 0 0
+0 0 0
+3 0 0
+6 0 0
+SURF 0x00
+mat 1
+refs 4
+1 0 0
+8 0 0
+7 0 0
+2 0 0
+SURF 0x00
+mat 1
+refs 3
+7 0 0
+8 0 0
+5 0 0
+SURF 0x00
+mat 1
+refs 3
+5 0 0
+9 0 0
+6 0 0
+SURF 0x00
+mat 1
+refs 3
+5 0 0
+6 0 0
+7 0 0
+kids 0

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PropertyList>
+	<name>Effects/ssao</name>
+	<parameters>
+        <g_scale type="float">1.0</g_scale>
+        <g_bias type="float">0.0</g_bias>
+        <g_intensity type="float">7.0</g_intensity>
+        <g_sample_rad type="float">0.03</g_sample_rad>
+        <random_size type="float">800.0</random_size>
+	</parameters>
+	<technique n="11">
+		<pass>
+			<texture-unit>
+				<unit>0</unit>
+				<type>buffer</type>
+				<name>depth</name>
+			</texture-unit>
+			<texture-unit>
+				<unit>1</unit>
+				<type>buffer</type>
+				<name>normal</name>
+			</texture-unit>
+			<texture-unit>
+				<unit>2</unit>
+				<type>buffer</type>
+				<name>spec-emis</name>
+			</texture-unit>
+			<texture-unit>
+				<unit>3</unit>
+				<type>noise</type>
+			</texture-unit>
+			<program>
+				<vertex-shader>Shaders/ssao.vert</vertex-shader>
+				<fragment-shader>Shaders/ssao.frag</fragment-shader>
+				<fragment-shader>Shaders/gbuffer-functions.frag</fragment-shader>
+			</program>
+			<uniform>
+				<name>depth_tex</name>
+				<type>sampler-2d</type>
+				<value type="int">0</value>
+			</uniform>
+			<uniform>
+				<name>normal_tex</name>
+				<type>sampler-2d</type>
+				<value type="int">1</value>
+			</uniform>
+			<uniform>
+				<name>spec_emis_tex</name>
+				<type>sampler-2d</type>
+				<value type="int">2</value>
+			</uniform>
+			<uniform>
+				<name>noise_tex</name>
+				<type>sampler-2d</type>
+				<value type="int">3</value>
+			</uniform>
+			<uniform>
+				<name>g_scale</name>
+				<type>float</type>
+				<value><use>g_scale</use></value>
+			</uniform>
+			<uniform>
+				<name>g_bias</name>
+				<type>float</type>
+				<value><use>g_bias</use></value>
+			</uniform>
+			<uniform>
+				<name>g_intensity</name>
+				<type>float</type>
+				<value><use>g_intensity</use></value>
+			</uniform>
+			<uniform>
+				<name>g_sample_rad</name>
+				<type>float</type>
+				<value><use>g_sample_rad</use></value>
+			</uniform>
+			<uniform>
+				<name>random_size</name>
+				<type>float</type>
+				<value><use>random_size</use></value>
+			</uniform>
+		</pass>
+	</technique>
+</PropertyList>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Generic flight recorder configuration: 4 propellers/engines, 4 tanks, 3 retractable gear.
+     Records same properties as hard-coded recorder for <=FG2.4.0
+
+     Note: The generic configurations are provided as an example and for convenience only.
+     No need to use a generic configuration. You can copy the settings below to your aircraft's
+     flight recorder configuration and include a better combination of recorder components, if
+     none of the pre-defined configurations fits your aircraft.
+ -->
+
+<PropertyList>
+    <name type="string">Generic Flight Recorder (4 piston engines/4 propellers/4 tanks/3 retractable gear)</name>
+    <signals include="/Aircraft/Generic/flightrecorder/components/environment.xml"/>
+    <signals include="/Aircraft/Generic/flightrecorder/components/position.xml"/>
+    <signals include="/Aircraft/Generic/flightrecorder/components/controls.xml"/>
+    <signals include="/Aircraft/Generic/flightrecorder/components/surfaces.xml"/>
+    <signals include="/Aircraft/Generic/flightrecorder/components/engine-piston-prop.xml">
+        <count type="int">4</count>
+    </signals>
+    <signals include="/Aircraft/Generic/flightrecorder/components/faults-engines.xml">
+        <count type="int">4</count>
+    </signals>
+    <signals include="/Aircraft/Generic/flightrecorder/components/tanks.xml">
+        <count type="int">4</count>
+    </signals>
+    <signals include="/Aircraft/Generic/flightrecorder/components/gear-retractable.xml">
+        <count type="int">3</count>
+    </signals>
+</PropertyList>

@@ -1,0 +1,120 @@
+
+.leddisplay {
+	color: red;
+	border: 0;
+	font-size: 32pt;
+	background-color: Black;
+	text-align: center;
+	font-family: Monospace;
+}
+
+.swapbutton {
+	font-size: 120%;
+	font-weight: bold;
+	color: black;
+	background-color: white;
+	display: inline-block;
+	transform: scale(1.5, 1); /* W3C */
+	-webkit-transform: scale(1.5, 1); /* Safari and Chrome */
+	-moz-transform: scale(1.5, 1); /* Firefox */
+	-ms-transform: scale(1.5, 1); /* IE 9 */
+	-o-transform: scale(1.5, 1);
+	display: inline-block; /* Opera */
+}
+
+.comfrequencies {
+	margin-right: 1em;
+}
+
+.navfrequencies {
+	margin-left: 1em;
+}
+
+.comswapbuttonrow {
+  padding: 1ex 1em 1ex 0;
+}
+
+.navswapbuttonrow {
+	/* top right bottom left */
+  padding: 1ex 0 1ex 1em;
+}
+
+.label {
+  color: silver;
+  font-family: sans-serif;
+  font-size: 10pt;
+  text-align: center;
+	
+}
+.navswapbuttonrow,.comswapbuttonrow {
+	color: silver;
+	font-family: sans-serif;
+	font-size: 10pt;
+	font-weight: bold;
+	clear: left;
+	text-align: center;
+}
+
+.navfrequencies,.navswapbuttonrow {
+	margin-left: 1em;
+}
+
+.com,.nav {
+	border-bottom: 1ex ridge silver;
+	background-color: Black;
+	border-bottom: 0.8ex groove black;
+}
+
+.comuse, .navuse {
+  padding-right: 0.5em;
+}
+.comstby, .navstby {
+  padding-left: 0.5em;
+}
+
+.com,.nav,.comuse,.navuse {
+	float: left;
+}
+
+.comstby,.navstby {
+	float: right;
+}
+
+.comfrequencies,.navfrequencies {
+	border: 1ex ridge silver;
+}
+
+.com,.nav,.comuse,.comstby {
+	text-align: center;
+}
+
+.comswapbuttonrow,.navswapbuttonrow {
+	clear: left;
+}
+
+.comswapbuttonrow {
+	border-left: 1ex ridge silver;
+}
+
+.navswapbuttonrow {
+	border-right: 1ex ridge silver;
+}
+
+.leftcol {
+	float: left;
+	width: 30%;
+	text-align: left;
+	padding-left: 0.5em;
+}
+
+.centercol {
+	float: left;
+	width: 30%;
+}
+
+.rightcol {
+	float: right;
+	width: 30%;
+	text-align: right;
+	padding-right: 0.5em;
+}

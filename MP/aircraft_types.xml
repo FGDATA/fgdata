@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!--
+  aircraft_types.xml - List of aircraft type identifiers
+  http://virtualair.sourceforge.net/
+
+  This library is free software; you can redistribute it and/or
+  modify it under the terms of the GNU Lesser General Public
+  License version 2.1, as published by the Free Software Foundation.
+
+  This library is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  Lesser General Public License for more details.
+
+  Copyright (C) 2008  Petr Gotthard <petr.gotthard@centrum.cz>
+
+  $Id$
+-->
+<AircraftTypes>
+  <!--
+  <Type ICAO="xx" SISO="xx" FlightGear="xx"/>
+    @ICAO = ICAO-4444/ICAO-8643 identifier of the aircraft equipment type
+    @SISO = SISO-REF-010 entity-type identifier of the aircraft
+    @FSX = container title for the Microsoft Flight Simulator X (aircraft.cfg)
+    @FlightGear = the FlightGear aircraft model configuration file (.xml)
+  -->
+  <Type ICAO="A320" SISO="1.2.71.57.1.1.0" FlightGear="Aircraft/A320/Models/a320-fb.xml"/>
+  <Type ICAO="A321" SISO="1.2.71.57.1.6.0" FSX="Airbus A321"/>
+  <Type ICAO="B733" SISO="1.2.225.57.1.7.0" FSX="Boeing 737-800 Paint1" FlightGear="Aircraft/737-300/Models/737-300.xml"/>
+  <Type ICAO="B742" SISO="1.2.225.57.1.1.0" FSX="Boeing 747-400 Paint1" FlightGear="Aircraft/747-200/Models/boeing747-200.xml"/>
+  <Type ICAO="C172" SISO="1.2.225.40.1.1.0" FSX="Cessna Skyhawk 172SP" FlightGear="Aircraft/c172p/Models/c172p.xml"/>
+  <Type ICAO="C310" SISO="1.2.225.40.1.2.0" FlightGear="Aircraft/c310/Models/c310-dpm.xml"/>
+  <!-- Note: Acceleration Pack is required for F18 in FSX -->
+  <Type ICAO="F18" SISO="1.2.225.1.9.3.0" FSX="FA-18 Hornet" FlightGear="Aircraft/f18/Models/f18.xml"/>
+  <Type ICAO="PC7" SISO="1.2.206.40.1.1.0" FlightGear="Aircraft/pc7/Models/pc7.xml"/>
+  <Type ICAO="DH8C" SISO="1.2.39.57.1.1.0" FlightGear="Aircraft/dhc8/Models/dhc8-300Q.xml"/>
+  <Type ICAO="UFO" SISO="1.2.0.0.0.0.0" FlightGear="Aircraft/ufo/Models/ufo.xml"/>
+</AircraftTypes>

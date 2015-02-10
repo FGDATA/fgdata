@@ -1,0 +1,23 @@
+AC3Db
+MATERIAL "ac3dmat1" rgb 1 1 1  amb 1 1 1  emis 0 0 0  spec 1 1 1  shi 0  trans 0
+OBJECT world
+kids 1
+OBJECT poly
+name "rect"
+loc 0 142.335 63.228
+texture "cirrocumulus_hires_textures1.png"
+crease 45.000000
+numvert 4
+0 -2199.46 2683.58
+0 2138.78 2683.58
+0 2138.78 -2760.45
+0 -2199.46 -2760.45
+numsurf 1
+SURF 0x30
+mat 0
+refs 4
+3 0.627921 0.494414
+2 0.990772 0.494414
+1 0.990772 0.0495312
+0 0.627921 0.0495312
+kids 0

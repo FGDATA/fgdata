@@ -1,0 +1,150 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+ <path>Cub.ac</path>
+
+  <offsets>
+    <pitch-deg>11.8</pitch-deg>  
+	<z-m>1.83</z-m>
+  </offsets>
+  
+ <animation>
+  <type>rotate</type>
+  <property>velocities/true-airspeed-kt</property>
+  <interpolation>
+	<entry><ind>0</ind><dep>0.0</dep></entry>
+	<entry><ind>20</ind><dep>0.0</dep></entry>
+	<entry><ind>30</ind><dep>11.8</dep></entry>
+	<entry><ind>60</ind><dep>11.8</dep></entry>
+  </interpolation>
+  <center>
+   <x-m>0.0</x-m>
+   <y-m>0.0</y-m>
+   <z-m>-15</z-m>
+  </center>
+  <axis>
+   <x>0.0</x>
+   <y>-.5</y>
+   <z>0.0</z>
+  </axis>
+ </animation>
+
+<!-- propeller -->
+  <animation>
+    <type>select</type>
+    <object-name>propeller</object-name>
+    <condition>
+      <less-than>
+        <property>velocities/true-airspeed-kt</property>
+        <value>40</value>
+      </less-than>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>propeller_slow</object-name>
+    <condition>
+      <less-than>
+        <property>velocities/true-airspeed-kt</property>
+        <value>41</value>
+      </less-than>
+      <greater-than>
+        <property>velocities/true-airspeed-kt</property>
+        <value>0</value>
+      </greater-than>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>propeller_fast</object-name>
+    <condition>
+      <greater-than>
+        <property>velocities/true-airspeed-kt</property>
+        <value>40</value>
+      </greater-than>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>spin</type>
+    <object-name>propeller</object-name>
+    <object-name>propeller_slow</object-name>
+    <object-name>propeller_fast</object-name>
+    <property>velocities/true-airspeed-kt</property>
+    <factor> 90 </factor>
+    <center>
+   <x-m>-1.39</x-m>
+   <y-m>0</y-m>
+   <z-m>-0.508</z-m>
+  </center>
+   <axis>
+    <x>1.0</x>
+    <y>0.0</y>
+    <z>0.0</z>
+   </axis>
+  </animation>
+
+<!-- gear  -->
+
+    <animation>
+        <name>LWheel</name>
+        <object-name>wheel_hub_l</object-name>
+        <object-name>tyre_l</object-name>
+    </animation>
+
+    <animation>
+        <name>RWheel</name>
+        <object-name>wheel_hub_r</object-name>
+        <object-name>tyre_r</object-name>
+    </animation>
+
+    <animation>
+        <type>spin</type>
+        <object-name>LWheel</object-name>
+        <property>velocities/true-airspeed-kt</property>
+	    <condition>
+	      <less-than>
+	        <property>velocities/true-airspeed-kt</property>
+	        <value>71</value>
+	      </less-than>
+	    </condition>
+        <factor>15</factor>
+        <axis>
+            <x>0</x>
+            <y>-1</y>
+            <z>0</z>
+        </axis>
+        <center>
+            <x-m>0.030</x-m>
+            <y-m>-0.906</y-m>
+            <z-m>-1.599</z-m>
+        </center>
+    </animation>
+
+    <animation>
+        <type>spin</type>
+        <object-name>RWheel</object-name>
+        <property>velocities/true-airspeed-kt</property>
+	    <condition>
+	      <less-than>
+	        <property>velocities/true-airspeed-kt</property>
+	        <value>71</value>
+	      </less-than>
+	    </condition>
+        <factor>15</factor>
+        <axis>
+            <x>0</x>
+            <y>-1</y>
+            <z>0</z>
+        </axis>
+         <center>
+            <x-m>0.030</x-m>
+            <y-m>0.906</y-m>
+            <z-m>-1.599</z-m>
+        </center>
+    </animation>
+
+</PropertyList>

@@ -1,0 +1,204 @@
+<html>
+<head>
+<title>UIUC Aircraft Models</title>
+</head>
+<body>
+
+<pre>
+************************************************
+*                                              * 
+*  FGFS Reconfigurable Aircraft Flight Model   *
+*  Sample Input Files                          * 
+*  Version 0.73, June 27, 2000                 *
+*                                              *
+*  Authors:                                    *
+*  Jeff Scott (jscott@mail.com)                *
+*  Bipin Sehgal (bsehgal@uiuc.edu)             *
+*  Michael Selig (m-selig@uiuc.edu)            *
+*  Dept of Aero and Astro Engineering          *
+*  University of Illinois at Urbana-Champaign  *
+*  Urbana, IL                                  *
+*  http://amber.aae.uiuc.edu/~m-selig          *
+*                                              *
+************************************************ 
+
+The simulator executable, fgfs.exe, uses the aircraft.dat files
+located in Aircraft-uiuc to fly the desired aircraft.  This file
+should either be in the same directory as fgfs.exe or should be called
+from the command line.  To do the latter, open a DOS or Cygwin shell
+and go to the directory containing fgfs.exe.  Type the following:
+
+> fgfs.exe --aircraft-dir=Aircraft-uiuc/Cessna172
+
+The same procedure can be accomplished using a batch file.  A sample
+batch file (runfgfs.bat) is provided in the top level directory.  To
+run the desired aircraft, simply delete the "rem" command from the
+beginning of the line.  Make sure that all the other model lines still
+begin with "rem" or you may not actually be flying the plane you
+want.  Double click the file runfgfs.bat to begin the simulation.
+
+There is also a record feature that generates a file called
+uiuc_record.dat.  The desired variables can be recorded in this file
+using the proper record lines.  The syntax of these lines and the
+aircraft.dat files in general is provided in the documentation file 
+<a href="README-uiucDoc.txt">README-uiucDoc.txt</a>.
+
+The runfgfs.bat file also provides samples of other command line
+options, including time of day, cloud and fog options, and the airport
+from which the flight begins.  The airport commands are provided in 
+<a href="README-airports.html">README-airports.html</a>.  An overview
+of all the options available for the command line is provided in 
+<a href="README-options.html">README-options.html</a>.
+
+Note that the proper scenery for that segment of the world must be
+provided for the scenery at that airport to be rendered.  If the
+desired airport is not available (i.e. you see a bluish terrain when
+the program begins), you will need to download the additional terrain
+at <a href="http://www.flightgear.org/Downloads/world-scenery.html">
+http://www.flightgear.org/Downloads/world-scenery.html</a>.
+Simply click on the grid containing the desired airport, save to your
+computer and unzip the file to the Scenery directory.  Note that the
+scenery files are very large and occupy a large amount of disk space!
+
+
+Notes:
+------
+
+- All aircraft use the C172 gear model, and this gets overloaded for
+  some of the heavier aircraft.  Adding throttle will eventually lead
+  to enough airspeed to fly.  Once airborne, some corrective control
+  inputs may be necessary.
+
+- For each aircraft, the thrust was set to give more or less
+  "reasonable" performance characteristics.  Users are encouraged to
+  vary the thrust (see line
+     > engine simpleSingle [simpleSingleMaxThrust]
+  and change the value) to improve performance.
+
+- Most aircraft are modeled using cruise condition data only.  Takeoff
+  and landing configurations and associated changes in aerodynamic
+  characteristics are not currently modeled.
+
+- Some files use "record" lines to produce flight-data recorder
+  output.  These data are written to the file uiuc_record.dat.  Be
+  aware that when flying for an extended period of time this file (if
+  written by using record lines) can become very large.
+
+To fly, use one of the aircraft.dat files.
+The aircraft data used in each of these models is provided in the 
+<a href="Aircraft-uiuc/models/index.html">Simulation Specifications</a>.
+Note that these models may be updated, revised, or extended.  For the
+most recent versions, be sure to visit the on-line
+<a href="http://amber.aae.uiuc.edu/~jscott/sis/models/">version</a>.
+
+Beech99:
+  Beech 99, small commercial commuter aircraft
+  very smooth characteristics
+
+Boeing747:
+  Boeing 747, large commercial jetliner
+  too heavy for gear so noses down into ground at 70 degree angle, but
+  this can be fixed by going to max throttle till plane rotates and
+  becomes airborne; sluggish, but flies well
+
+Cessna172:
+  Cessna 172, small general aviation aircraft
+  based on Tony Peden's model, but uses stability derivatives only
+  flies very well
+
+Cessna172-TD:
+  Cessna 172, small general aviation aircraft
+  uses lift curve data from Peden model to model stall
+  also flies well
+
+Cessna310:
+  Cessna 310, twin engine general aviation aircraft
+  elevator seems too effective and slight instability in roll
+
+Cessna620:
+  Cessna 620, four engine business aircraft
+  very sluggish
+
+Convair880:
+  Convair 880, medium commercial jetliner
+  too heavy for gear so noses down into ground, but this can be fixed
+  by going to max throttle till plane rotates and becomes airborne;
+  play with the controls to obtain the proper orientation; sluggish,
+  but flies pretty well
+  *This model works best already in flight.  The example in
+  runfgfs.bat begins at 35,000 ft.  To fly, increase the throttle and
+  use small elevator and aileron deflections to level the aircraft.
+
+F104:
+  Lockheed F-104, small supersonic fighter
+  flies pretty smoothly but it's called "the Widow maker" for a reason
+
+F4:
+  McDonnell F-4 Phantom, fighter/attack plane
+  very difficult to fly and sometimes will have problems taking off 
+  from the ground
+  *This model is somewhat buggy and behaves differently on different
+  computers.  If it becomes uncontrollable during takeoff, try using
+  the --altitude command (also with --uBody set to a high number) to
+  start already in flight.  Increase the throttle and use small
+  elevator and aileron deflections to level the aircraft.
+
+Learjet24:
+  Learjet 24, business jet
+  flies very well
+
+Marchetti:
+  SIAI-Marchetti S-211 military jet trainer
+  flies very smoothly, probably the easiest aircraft to fly
+
+Pioneer:
+  IAI Pioneer UAV, small reconnaissance unmanned aerial vehicle
+  version uses stability derivatives only
+  slight roll instability, but very responsive
+
+Pioneer-TD:
+  IAI Pioneer UAV, small reconnaissance unmanned aerial vehicle
+  version uses lookup tables for lift and drag and most control
+  surface deflections
+  slight roll instability, but very responsive
+
+T37:
+  Cessna T-37 twin jet engine military trainer
+  flies very well
+
+TwinOtter:
+  DeHavilland Canada DHC-6 Twin otter, small commuter aircraft
+  NASA Glenn Twin Otter for icing research
+  clean version (no ice), flies well
+
+TwinOtterAllIce:
+  DeHavilland Canada DHC-6 Twin otter, small commuter aircraft
+  NASA Glenn Twin Otter for icing research
+  note the degradation in performance after ice accretion begins 
+  (icing begins 2 minutes into flight; transition from clean to iced
+  aerodynamics lasts 5 seconds--this is not very realistic, but you
+  can vary these times and the icing severity factor, eta [0=no ice,
+  1=max ice], to see the impact on performance)
+
+TwinOtterTailIce:
+  DeHavilland Canada DHC-6 Twin otter, small commuter aircraft
+  NASA Glenn Twin Otter for icing research, tail icing only
+
+TwinOtterWingIce:
+  DeHavilland Canada DHC-6 Twin otter, small commuter aircraft
+  NASA Glenn Twin Otter for icing research, wing icing only
+
+X15:
+  North American X-15, rocket-powered high-speed research aircraft
+  go easy on the throttle since this is a very over-powered aircraft,
+  very slow elevator but extremely responsive ailerons
+  *This model is somewhat buggy and behaves differently on different
+  computers.  If it becomes uncontrollable during takeoff, try using
+  the --altitude command (also with --uBody set to a high number) to
+  start already in flight.  Increase the throttle and use small
+  elevator and aileron deflections to level the aircraft.
+
+</pre>
+
+</body>
+</html>

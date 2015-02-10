@@ -1,0 +1,298 @@
+<PropertyList>
+	<name>radar display</name>
+	<w-base>270</w-base>
+	<h-base>270</h-base>
+
+	<layers>
+
+		<layer>
+			<name>background</name>
+			<w>256</w>
+			<h>256</h>
+			<texture>
+				<path>../../../../Aircraft/Instruments/Textures/sector.rgb</path>
+				<x1>0</x1>
+				<y1>0</y1>
+				<x2>1</x2>
+				<y2>1</y2>
+			</texture>
+			<emissive>true</emissive>
+		</layer>
+
+		<layer>
+			<name>radar data</name>
+			<emissive>true</emissive>
+			<w>256</w>
+			<h>256</h>
+			<texture>
+				<path>../../../../Aircraft/Instruments/Textures/od_wxradar.rgb</path>
+				<x1>0</x1>
+				<y1>0</y1>
+				<x2>1</x2>
+				<y2>1</y2>
+			</texture>
+		</layer>
+
+		<!--<layer>
+			<name>TACAN ID</name>
+			<type>text</type>
+			<font>helvetica_bold</font>
+			<point-size>10</point-size>
+			<color>
+				<red>0.5</red>
+				<green>1.0</green>
+				<blue>0.5</blue>
+			</color>
+			<emissive>true</emissive>
+			<condition>
+				<and>
+					<equals>
+						<property>/instrumentation/tacan/in-range</property>
+						<value>true</value>
+					</equals>
+					<equals>
+						<property>/instrumentation/radar/mode-control</property>
+						<value>1</value>
+					</equals>
+					<less-than-equals>
+						<property>/instrumentation/tacan/indicated-distance-nm</property>
+						<property>/instrumentation/radar/range</property>
+					</less-than-equals>
+					<equals>
+						<property>/instrumentation/radar/display-controls/data</property>
+						<value>true</value>
+					</equals>
+				</and>
+			</condition>
+			<chunks>
+				<chunk>
+					<type>text-value</type>
+					<property>/instrumentation/tacan/ident</property>
+				</chunk>
+			</chunks>
+			<transformations>
+				<transformation>
+					<type>x-shift</type>
+					<property>/instrumentation/tacan/display/x-shift-scaled</property>
+				</transformation>
+				<transformation>
+					<type>y-shift</type>
+					<property>/instrumentation/tacan/display/y-shift-scaled</property>
+					<offset>-15</offset>
+				</transformation>
+				<transformation>
+					<type>rotation</type>
+					<property>/instrumentation/tacan/display/rotation</property>
+				</transformation>
+			</transformations>
+		</layer>-->
+
+		<layer>
+			<name>outer range ring</name>
+			<type>text</type>
+			<font>helvetica_bold</font>
+			<point-size>10</point-size>
+			<color>
+				<red>0.75</red>
+				<green>0.5</green>
+				<blue>0.25</blue>
+			</color>
+			<emissive>true</emissive>
+			<chunks>
+				<chunk>
+					<type>number-value</type>
+					<property>/instrumentation/air-ground-radar/range</property>
+					<scale>1</scale>
+					<format>%2.1f</format>
+				</chunk>
+			</chunks>
+			<transformations>
+				<transformation>
+					<type>x-shift</type>
+					<offset>-10</offset>
+				</transformation>
+				<transformation>
+					<type>y-shift</type>
+					<offset>110</offset>
+				</transformation>
+			</transformations>
+		</layer>
+
+		<layer>
+			<name>inner range ring</name>
+			<type>text</type>
+			<font>helvetica_bold</font>
+			<point-size>10</point-size>
+			<color>
+				<red>0.75</red>
+				<green>0.5</green>
+				<blue>0.25</blue>
+			</color>
+			<emissive>true</emissive>
+			<chunks>
+				<chunk>
+					<type>number-value</type>
+					<property>/instrumentation/air-ground-radar/range</property>
+					<scale>0.5</scale>
+					<format>%2.1f</format>
+				</chunk>
+			</chunks>
+			<transformations>
+				<transformation>
+					<type>x-shift</type>
+					<offset>-10</offset>
+				</transformation>
+				<transformation>
+					<type>y-shift</type>
+					<offset>-5</offset>
+				</transformation>
+			</transformations>
+		</layer>
+
+		<layer>
+			<name>frame</name>
+			<w>256</w>
+			<h>256</h>
+			<texture>
+				<path>../../../../Aircraft/Instruments/Textures/mask.rgb</path>
+				<x1>0</x1>
+				<y1>0</y1>
+				<x2>1</x2>
+				<y2>1</y2>
+			</texture>
+		</layer>
+
+		<!--<layer>
+			<name>range knob</name>
+			<condition>
+				<equals>
+					<property>/instrumentation/radar/controls/range-knob</property>
+					<value>1</value>
+				</equals>
+			</condition>
+			<w>22</w>
+			<h>22</h>
+			<texture>
+				<path>../../../../Aircraft/Instruments/Textures/radar_misc.rgb</path>
+				<x1>0.0273437</x1>
+				<y1>0.9101562</y1>
+				<x2>0.0898437</x2>
+				<y2>0.9765662</y2>
+			</texture>
+			<transformations>
+				<transformation>
+					<type>x-shift</type>
+					<offset>-108</offset>
+				</transformation>
+				<transformation>
+					<type>y-shift</type>
+					<offset>-112</offset>
+				</transformation>
+				<transformation>
+					<type>rotation</type>
+					<offset>-45</offset>
+				</transformation>
+			</transformations>
+		</layer>-->
+
+		<!--<layer>
+			<name>range knob</name>
+			<condition>
+				<equals>
+					<property>/instrumentation/radar/controls/range-knob</property>
+					<value>0</value>
+				</equals>
+			</condition>
+			<w>22</w>
+			<h>22</h>
+			<texture>
+				<path>../../../../Aircraft/Instruments/Textures/radar_misc.rgb</path>
+				<x1>0.0273437</x1>
+				<y1>0.9101562</y1>
+				<x2>0.0898437</x2>
+				<y2>0.9765662</y2>
+			</texture>
+			<transformations>
+				<transformation>
+					<type>x-shift</type>
+					<offset>-108</offset>
+				</transformation>
+				<transformation>
+					<type>y-shift</type>
+					<offset>-112</offset>
+				</transformation>
+				<transformation>
+					<type>rotation</type>
+					<offset>40</offset>
+				</transformation>
+			</transformations>
+		</layer>-->
+
+		<!--<layer>
+			<name>channel</name>
+			<type>text</type>
+			<font>courier-bold</font>
+			<point-size>15</point-size>
+			<color>
+				<red>0.96</red>
+				<green>1.0</green>
+				<blue>0.96</blue>
+			</color>
+			<chunks>
+				<chunk>
+					<type>text-value</type>
+					<property>/instrumentation/tacan/display/channel</property>
+				</chunk>
+			</chunks>
+			<transformations>
+				<transformation>
+					<type>x-shift</type>
+					<offset>78</offset>
+				</transformation>
+				<transformation>
+					<type>y-shift</type>
+					<offset>-119</offset>
+				</transformation>
+			</transformations>
+		</layer>-->
+
+	</layers>
+
+	<actions>
+
+		<!--<action>
+			<name>increase range </name>
+			<button>0</button>
+			<x>-110</x>
+			<y>-115</y>
+			<w>30</w>
+			<h>30</h>
+			<binding>
+				<command>property-adjust</command>
+				<property>/instrumentation/radar/range-control</property>
+				<step type="int">1</step>
+				<min type="double">0</min>
+				<max type="double">7</max>
+			</binding>
+		</action>-->
+
+		<!--<action>
+			<name>decrease range </name>
+			<button>0</button>
+			<x>-110</x>
+			<y>-145</y>
+			<w>30</w>
+			<h>30</h>
+			<binding>
+				<command>property-adjust</command>
+				<property>/instrumentation/radar/range-control</property>
+				<step type="int">-1</step>
+				<min type="double">0</min>
+				<max type="double">7</max>
+			</binding>
+		</action>-->
+
+	</actions>
+
+
+</PropertyList>

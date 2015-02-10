@@ -1,0 +1,198 @@
+<?xml version="1.0" ?>
+<!--
+ This file is part of FlightGear, the free flight simulator
+ http://www.flightgear.org/
+
+ Copyright (C) 2009 Torsten Dreyer, Torsten (at) t3r _dot_ de
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation; either version 2 of the
+ License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+-->
+<PropertyList>
+    <path>DeiceControl.ac</path>
+    <animation>
+        <type>material</type>
+        <object-name>DeiceControl.TailLight.Glas</object-name>
+        <emission>
+            <red>0.0</red>
+            <green>1.0</green>
+            <blue>0.0</blue>
+            <factor-prop>/controls/deice/surface-deice-wingtail-light</factor-prop>
+        </emission>
+    </animation>
+    
+    <animation>
+        <type>material</type>
+        <object-name>DeiceControl.SurfaceSwitch</object-name>
+        <object-name>DeiceControl.PropSwitch</object-name>
+        <object-name>DeiceControl.WindshieldSwitch</object-name>
+        <object-name>DeiceControl.Ampmeter.Scale</object-name>
+        
+        <emission>
+            <red-prop>/sim/model/instrument-lighting/emission/red</red-prop>
+            <green-prop>/sim/model/instrument-lighting/emission/green</green-prop>
+            <blue-prop>/sim/model/instrument-lighting/emission/blue</blue-prop>
+            <factor-prop>/controls/lighting/instruments-norm</factor-prop>
+        </emission>
+    </animation>
+    
+    <animation>
+        <type>pick</type>
+        <object-name>DeiceControl.SurfaceSwitch</object-name>
+        <visible>true</visible>
+        <action>
+          <button>0</button>
+          <repeatable>false</repeatable>
+          <binding>
+            <command>property-assign</command>
+            <property>/controls/deice/surface-deice</property>
+            <value>1</value>
+          </binding>
+          <mod-up>
+            <binding>
+              <command>property-assign</command>
+              <property>/controls/deice/surface-deice</property>
+              <value>0</value>
+            </binding>
+          </mod-up>
+        </action>
+    </animation>
+    <animation>
+        <type>rotate</type>
+        <object-name>DeiceControl.SurfaceSwitch</object-name>
+        <property>/controls/deice/surface-deice</property>
+        <factor>-40</factor>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <center>
+            <x-m>0</x-m>
+            <y-m>0</y-m>
+            <z-m>-0.00498202</z-m>
+        </center>
+    </animation>
+
+    <animation>
+        <type>pick</type>
+        <object-name>DeiceControl.PropSwitch</object-name>
+        <visible>true</visible>
+        <action>
+          <button>0</button>
+          <repeatable>false</repeatable>
+          <binding>
+            <command>property-toggle</command>
+            <property>/controls/deice/prop-deice</property>
+          </binding>
+        </action>
+    </animation>
+    <animation>
+        <type>rotate</type>
+        <object-name>DeiceControl.PropSwitch</object-name>
+        <property>/controls/deice/prop-deice</property>
+        <factor>-40</factor>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <center>
+            <x-m>0</x-m>
+            <y-m>0</y-m>
+            <z-m>-0.00498202</z-m>
+        </center>
+    </animation>
+
+    <animation>
+        <type>pick</type>
+        <object-name>DeiceControl.WindshieldSwitch</object-name>
+        <visible>true</visible>
+        <action>
+          <button>0</button>
+          <repeatable>false</repeatable>
+          <binding>
+            <command>property-toggle</command>
+            <property>/controls/deice/windshield-deice</property>
+          </binding>
+        </action>
+    </animation>
+    <animation>
+        <type>rotate</type>
+        <object-name>DeiceControl.WindshieldSwitch</object-name>
+        <property>/controls/deice/windshield-deice</property>
+        <factor>-40</factor>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <center>
+            <x-m>0</x-m>
+            <y-m>0</y-m>
+            <z-m>-0.00498202</z-m>
+        </center>
+    </animation>
+
+    <animation>
+        <type>pick</type>
+        <object-name>DeiceControl.WingLightSwitch</object-name>
+        <visible>true</visible>
+        <action>
+          <button>0</button>
+          <repeatable>false</repeatable>
+          <binding>
+            <command>property-toggle</command>
+            <property>/controls/deice/wingice-light</property>
+          </binding>
+        </action>
+    </animation>
+    <animation>
+        <type>rotate</type>
+        <object-name>DeiceControl.WingLightSwitch.Lever</object-name>
+        <property>/controls/deice/wingice-light</property>
+        <factor>-60</factor>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <center>
+            <x-m>0</x-m>
+            <y-m>-0.0400982</y-m>
+            <z-m>0.0119393</z-m>
+        </center>
+    </animation>
+    <animation>
+        <type>rotate</type>
+        <object-name>DeiceControl.Ampmeter.Needle</object-name>
+        <property>/systems/electrical/deice/prop-deice-amps</property>
+        <factor>-2</factor>
+        <offset-deg>30</offset-deg>
+        <axis>
+            <x>1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+        <center>
+            <x-m>0.00091</x-m>
+            <y-m>0.0238379</y-m>
+            <z-m>-0.029</z-m>
+        </center>
+    </animation>
+    <animation>
+        <type>noshadow</type>
+    </animation>
+    <animation>
+        <type>range</type>
+        <min-m>0</min-m>
+        <max-m>10</max-m>
+    </animation>
+</PropertyList>

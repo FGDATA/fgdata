@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<path>cumulus5.ac</path>
+
+	<animation>
+		<type>range</type>
+		<min-m>0</min-m>
+		<max-m>31000</max-m>
+	</animation>
+
+	<animation>
+		<enable-hot type="bool">false</enable-hot>
+	</animation>
+
+	<effect>
+		<inherits-from>Effects/clouds-thick</inherits-from>
+		<object-name>rect1</object-name>
+		<object-name>rect2</object-name>
+		<object-name>rect3</object-name>
+		<object-name>rect4</object-name>
+	</effect>
+
+
+
+</PropertyList>

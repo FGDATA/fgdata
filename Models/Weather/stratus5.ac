@@ -1,0 +1,42 @@
+AC3Db
+MATERIAL "ac3dmat1" rgb 1 1 1  amb 1 1 1  emis 0 0 0  spec 1 1 1  shi 0  trans 0
+OBJECT world
+kids 2
+OBJECT poly
+name "rect"
+loc 164.139 -4.62034 -15.8995
+texture "stratus_textures.rgb"
+crease 45.000000
+numvert 4
+-6.10352e-05 -1350.19 -1495.49
+0.000106812 -1350.19 1495.49
+0.000106812 1350.19 1495.49
+-6.10352e-05 1350.19 -1495.49
+numsurf 1
+SURF 0x30
+mat 0
+refs 4
+3 0.734375 0.615235
+2 0.38086 0.615235
+1 0.38086 1
+0 0.734375 1
+kids 0
+OBJECT poly
+name "rect"
+loc -165.829 98.5388 -112.358
+texture "stratus_textures.rgb"
+crease 45.000000
+numvert 4
+-7.62939e-05 -1055.27 -1101.94
+6.10352e-05 -1055.27 1101.94
+6.10352e-05 1055.27 1101.94
+-7.62939e-05 1055.27 -1101.94
+numsurf 1
+SURF 0x30
+mat 0
+refs 4
+3 0.720703 0.673829
+2 0.720703 0.998047
+1 0.998047 0.998047
+0 0.998047 0.673829
+kids 0

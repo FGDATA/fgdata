@@ -1,0 +1,142 @@
+<?xml version="1.0"?>
+<!--
+  Zeppelin NT-07 airship for FlightGear.
+
+  Copyright (C) 2008 - 2015  Anders Gidenstam  (anders(at)gidenstam.org)
+  This file is licensed under the GPL license version 2 or later.
+-->
+<PropertyList>
+
+ <!-- PFD airspeed indicator. -->
+ <airspeed-indicator>
+  <number>0</number>
+  <total-pressure>/systems/pitot/total-pressure-inhg</total-pressure>
+  <static-pressure>/systems/static/pressure-inhg</static-pressure>
+  <has-overspeed-indicator>1</has-overspeed-indicator>
+  <ias-limit type="double">70.0</ias-limit>
+  <alt-threshold>100000.0</alt-threshold>
+ </airspeed-indicator>
+
+ <!-- PFD altimeter. -->
+ <altimeter>
+  <number>0</number>
+  <static-pressure>/systems/static/pressure-inhg</static-pressure>
+  <quantum>0</quantum>
+  <tau>0</tau>
+  <encode-mode-c>false</encode-mode-c>
+  <encode-mode-s>false</encode-mode-s>
+ </altimeter>
+
+ <!-- PFD slip-skid-ball. -->
+ <slip-skid-ball>
+  <number>0</number>
+ </slip-skid-ball>
+
+ <clock>
+  <number>0</number>
+ </clock>
+
+ <!-- heading-indicator>
+  <name>heading-indicator</name>
+  <number>0</number>
+  <suction>/systems/vacuum[0]/suction-inhg</suction>
+  <suction>/systems/vacuum[1]/suction-inhg</suction>
+ </heading-indicator -->
+
+ <!-- Backup airspeed indicator. -->
+ <airspeed-indicator>
+  <number>1</number>
+  <total-pressure>/systems/pitot/total-pressure-inhg</total-pressure>
+  <static-pressure>/systems/static/pressure-inhg</static-pressure>
+  <has-overspeed-indicator>0</has-overspeed-indicator>
+ </airspeed-indicator>
+
+ <!-- Backup altimeter. -->
+ <altimeter>
+  <number>1</number>
+  <static-pressure>/systems/static/pressure-inhg</static-pressure>
+  <quantum>0</quantum>
+  <tau>0</tau>
+  <encode-mode-c>false</encode-mode-c>
+  <encode-mode-s>false</encode-mode-s>
+ </altimeter>
+
+ <!-- Backup AI. -->
+ <attitude-indicator>
+  <number>0</number>
+  <suction>/systems/vacuum[0]/suction-inhg</suction>
+  <suction>/systems/vacuum[1]/suction-inhg</suction>
+ </attitude-indicator>
+
+ <!-- Backup VSI. -->
+ <vertical-speed-indicator>
+  <number>0</number>
+  <static-pressure>/systems/static/pressure-inhg</static-pressure>
+ </vertical-speed-indicator>
+
+ <!-- Backup RMI. -->
+ <heading-indicator>
+  <name>rmi</name>
+  <number>0</number>
+  <suction>/systems/vacuum[0]/suction-inhg</suction>
+  <suction>/systems/vacuum[1]/suction-inhg</suction>
+ </heading-indicator>
+
+ <magnetic-compass>
+  <number>0</number>
+ </magnetic-compass>
+
+ <!-- Radio set. -->
+ <comm-radio>
+  <name>comm</name>
+  <number>0</number>
+ </comm-radio>
+
+ <comm-radio>
+  <name>comm</name>
+  <number>1</number>
+ </comm-radio>
+
+ <nav-radio>
+  <number>0</number>
+ </nav-radio>
+
+ <nav-radio>
+  <number>1</number>
+ </nav-radio>
+
+ <dme>
+  <number>0</number>
+ </dme>
+
+ <marker-beacon>
+  <number>0</number>
+ </marker-beacon>
+
+ <adf>
+  <number>0</number>
+ </adf>
+
+ <gps>
+  <number>0</number>
+ </gps>
+
+ <encoder>
+  <name>encoder</name>
+  <number>0</number>
+  <encode-mode-c>true</encode-mode-c>
+  <encode-mode-s>true</encode-mode-s>
+  <static-pressure>/systems/static/pressure-inhg</static-pressure>
+  <quantum>0.0</quantum>
+  <tau>0.0</tau>
+ </encoder>
+
+ <transponder>
+  <name>kt-70</name>
+  <number>0</number>
+  <encoder-path>/instrumentation/encoder</encoder-path>
+  <mode>1</mode> <!-- Mode-C. -->
+  <kt70-compatibility>true</kt70-compatibility> <!-- For the 3d model. -->
+ </transponder>
+
+</PropertyList>

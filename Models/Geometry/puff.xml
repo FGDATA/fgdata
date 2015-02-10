@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+ <path>puff.ac</path>
+
+	<effect>
+		<inherits-from>Effects/model-transparent</inherits-from>
+		<object-name>puff</object-name>
+	</effect>
+
+ <animation>
+  <type>billboard</type>
+  <spherical>true</spherical>
+ </animation>
+
+ <animation>
+  <type>scale</type>
+  <object-name>puff</object-name>
+  <property>sim/time/elapsed-sec</property>
+  <offset>0</offset>
+  <x-min>0.1</x-min>
+  <y-min>0.1</y-min>
+  <z-min>0</z-min>
+  <x-factor>1.0</x-factor>
+  <y-factor>1.0</y-factor>
+  <z-factor>1.0</z-factor>
+ </animation>
+
+ <animation>
+  <type>blend</type>
+  <object-name>puff</object-name>
+  <property>sim/time/elapsed-sec</property>
+  <factor>0.25</factor>
+ </animation>
+</PropertyList>

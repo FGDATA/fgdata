@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+
+<!--
+-->
+
+<PropertyList>
+
+  <name>ILS Capture Light</name>
+  <w-base>250</w-base>
+  <h-base>250</h-base>
+  
+  <params>
+  </params>
+  
+  <layers>
+    <layer>
+      <name>Base</name>
+      <w>250</w>
+      <h>250</h>
+      <texture>
+        <path>Aircraft/SenecaII/Panels/Textures/ControlLight.png</path>
+        <x1>0.0</x1>
+        <x2>1.0</x2>
+        <y1>0.0</y1>
+        <y2>1.0</y2>
+      </texture>
+    </layer>
+
+    <layer>
+      <name>LightOn</name>
+      <w>160</w>
+      <h>160</h>
+      <texture>
+        <path>Aircraft/SenecaII/Panels/Textures/LightsGreen.png</path>
+        <x1>0.00</x1>
+        <x2>0.50</x2>
+        <y1>0.0</y1>
+        <y2>1.0</y2>
+      </texture>
+      <condition>
+        <or>
+          <property>autopilot/CENTURYIII/settings/gs-captured</property>
+          <property>controls/lighting/gs-captured-light-test</property>
+        </or>
+      </condition>
+    </layer>
+
+    <layer>
+      <name>LightOff</name>
+      <w>160</w>
+      <h>160</h>
+      <texture>
+        <path>Aircraft/SenecaII/Panels/Textures/LightsGreen.png</path>
+        <x1>0.50</x1>
+        <x2>1.00</x2>
+        <y1>0.0</y1>
+        <y2>1.0</y2>
+      </texture>
+      <condition>
+        <not>
+          <or>
+            <property>autopilot/CENTURYIII/settings/gs-captured</property>
+            <property>controls/lighting/gs-captured-light-test</property>
+          </or>
+        </not>
+      </condition>
+    </layer>
+
+  </layers>
+
+</PropertyList>

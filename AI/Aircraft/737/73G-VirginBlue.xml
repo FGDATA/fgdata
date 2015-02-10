@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<PropertyList include="737-main.xml">
+  <description>Boeing-737</description>
+  <author>David Culp (FDM), Innis Cunningham (3D and Panel)</author>
+  <status>early-production</status>
+  <path>Models/B737-800.ac</path>
+  <texture-path>Textures/VirginBlue</texture-path>
+
+      	<animation>
+		<type>select</type>		       
+ 		 <object-name>lhnosedoor</object-name>
+		<object-name>rhnosedoor</object-name>                 
+                <object-name>lhgear</object-name>
+                <object-name>nosegear</object-name>                
+                <object-name>rhgear</object-name>
+                <object-name>lhsidestrut.</object-name>
+                <object-name>rhsidestrut</object-name>     
+		<condition>
+			<less-than>
+				<property>velocities/true-airspeed-kt</property>
+				<value>155</value>
+			</less-than>
+		</condition>
+	</animation>
+  
+</PropertyList>
+
+
+

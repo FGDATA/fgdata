@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<PropertyList>
+ 
+  <path>A330-MRTT.ac</path>
+
+  <animation>
+    <object-name>fuselage</object-name>
+    <object-name>ailes</object-name>
+    <object-name>ailes2</object-name>
+    <object-name>derive</object-name>
+    <object-name>moteurs</object-name>
+    <object-name>repports</object-name>
+    <object-name>supports</object-name>
+    <object-name>echappes</object-name>
+
+    <object-name>trous</object-name>
+    <object-name>perche1</object-name>
+    <object-name>perche2</object-name>
+    
+    <object-name>vitres</object-name>
+  </animation>
+  
+  <animation>
+    <type>material</type>
+    <object-name>fuselage</object-name>
+    <object-name>ailes</object-name>
+    <object-name>ailes2</object-name>
+    <object-name>derive</object-name>
+    <object-name>moteurs</object-name>
+    <object-name>repports</object-name>
+    <object-name>supports</object-name>
+    <object-name>echappes</object-name>
+    
+    <object-name>trous</object-name>
+    <object-name>perche1</object-name>
+    <object-name>perche2</object-name>
+
+    <property-base>sim/model/livery</property-base>
+    <texture-prop>texture</texture-prop>
+    <texture>texture.png</texture>
+  </animation>
+  
+  <effect>
+    <inherits-from>Aircraft/Generic/Effects/Fuselagereflect</inherits-from>
+    <object-name>fuselage</object-name>
+    <object-name>ailes</object-name>
+    <object-name>ailes2</object-name>
+    <object-name>derive</object-name>
+    <object-name>moteurs</object-name>
+    <object-name>repports</object-name>
+    <object-name>supports</object-name>
+    <object-name>echappes</object-name>
+  </effect>
+
+  <!-- Glass -->
+  <animation>
+    <type>shader</type>
+    <shader>chrome</shader>
+    <texture>Aircraft/Generic/Effects/glass_shader.png</texture>
+    <object-name>vitres</object-name>
+  </animation>
+
+  <animation>
+    <type>noshadow</type>
+    <object-name>vitres</object-name>
+  </animation>
+ 
+  <!--  REMBRANDT support for transparent objects -->
+  <effect>
+    <inherits-from>Effects/model-transparent</inherits-from>
+    <condition>
+      <property>sim/rendering/rembrandt/enabled</property>
+    </condition>
+    <object-name>vitres</object-name>
+  </effect>
+ 
+  <!-- Particules OSG -->
+  <model>
+    <path>AI/Aircraft/A330-MRTT/Models/effects/contrail.xml</path>
+    <offsets>
+      <x-m> 19.290 </x-m>
+      <y-m> -8.000 </y-m>
+      <z-m> -2.928 </z-m> 
+    </offsets>
+  </model>
+
+  <model>
+    <path>AI/Aircraft/A330-MRTT/Models/effects/contrail.xml</path>
+    <offsets>
+      <x-m> 19.290 </x-m>
+      <y-m>  8.000 </y-m>
+      <z-m> -2.928 </z-m> 
+    </offsets>
+  </model>
+
+  <!-- LIGHTS -->
+  <model>
+    <path>AI/Aircraft/A330-MRTT/Models/lights/GreenLight.xml</path>
+    <name>Greenlight</name>     
+    <offsets>
+      <x-m>  8.290 </x-m>
+      <y-m> 26.750 </y-m>
+      <z-m>  2.528 </z-m>       
+    </offsets>
+  </model>
+
+  <model>
+    <path>AI/Aircraft/A330-MRTT/Models/lights/RedLight.xml</path>
+    <name>Redlight</name>     
+    <offsets>
+      <x-m>   8.290 </x-m>
+      <y-m> -26.750 </y-m>
+      <z-m>   2.528 </z-m>       
+    </offsets>
+  </model>
+
+  <model>
+    <path>AI/Aircraft/A330-MRTT/Models/lights/flash.xml</path>
+    <name>flashright</name>     
+    <offsets>
+      <x-m>  8.290 </x-m>
+      <y-m> 26.750 </y-m>
+      <z-m>  2.528 </z-m>       
+    </offsets>
+  </model>
+
+  <model>
+    <path>AI/Aircraft/A330-MRTT/Models/lights/flash.xml</path>
+    <name>flashleft</name>     
+    <offsets>
+      <x-m> 8.290</x-m>
+      <y-m>-26.750</y-m>
+      <z-m>  2.528</z-m>      
+    </offsets>
+  </model>
+
+  <model>
+    <path>AI/Aircraft/A330-MRTT/Models/lights/flash.xml</path>
+    <name>flashtop</name>     
+    <offsets>
+      <x-m> -18.400 </x-m>
+      <y-m>   0.000 </y-m>
+      <z-m>   3.250 </z-m>   
+    </offsets>
+  </model>
+
+  <model>
+    <path>AI/Aircraft/A330-MRTT/Models/lights/beacon.xml</path>
+    <name>Beaconlight.top</name>     
+    <offsets>
+      <x-m> 2.3 </x-m>
+      <y-m> 0.0 </y-m>
+      <z-m> 3.0 </z-m>      
+    </offsets>
+  </model>
+
+  <model>
+    <path>AI/Aircraft/A330-MRTT/Models/lights/beacon.xml</path>
+    <name>Beaconlight.bottom</name>     
+    <offsets>
+      <x-m> 12.213 </x-m>
+      <y-m>  0.000 </y-m>
+      <z-m> -2.500 </z-m>      
+    </offsets>
+  </model>
+
+  <!-- Takeoff Engine Moisture -->
+  <model>
+    <name>Left</name>
+    <path>AI/Aircraft/A330-MRTT/Models/effects/exhaust.xml</path>
+      <condition>
+        <and>
+          <greater-than>
+            <property>position/altitude-agl-ft</property>
+            <value>1</value>
+          </greater-than>
+          <and>
+            <greater-than>
+              <property>environment/relative-humidity</property>
+              <value>45</value>
+            </greater-than>
+            <and>
+              <less-than-equals>
+                <property>position/altitude-agl-ft</property>
+                <value>75</value>
+              </less-than-equals>
+              <and>
+                <less-than-equals>
+                  <property>/sim/time/sun-angle-rad</property>
+                  <value>1.63</value>
+                </less-than-equals>
+                <and>
+                  <greater-than>
+                    <property>engines/engine[0]/rpm</property>
+                    <value>90</value>
+                  </greater-than>
+                  <not>
+                    <property>sim/crashed</property>
+                  </not>
+                </and>
+              </and>
+            </and>
+          </and>
+        </and>
+      </condition>
+    <offsets>
+      <x-m> -10.00 </x-m>
+      <y-m>  -8.27 </y-m>
+      <z-m>  -2.40 </z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <name>Right</name>
+    <path>AI/Aircraft/A330-MRTT/Models/effects/exhaust.xml</path>
+    <condition>
+      <and>
+        <greater-than>
+          <property>position/altitude-agl-ft</property>
+          <value>1</value>
+        </greater-than>
+        <and>
+          <greater-than>
+            <property>environment/relative-humidity</property>
+            <value>45</value>
+          </greater-than>
+          <and>
+            <less-than-equals>
+              <property>position/altitude-agl-ft</property>
+              <value>75</value>
+            </less-than-equals>
+            <and>
+              <less-than-equals>
+                <property>/sim/time/sun-angle-rad</property>
+                <value>1.63</value>
+              </less-than-equals>
+              <and>
+                <greater-than>
+                  <property>engines/engine[1]/rpm</property>
+                  <value>90</value>
+                </greater-than>
+                <not>
+                  <property>sim/crashed</property>
+                </not>
+              </and>
+            </and>
+          </and>
+        </and>
+      </and>
+    </condition>
+    <offsets>
+      <x-m> -10.00 </x-m>
+      <y-m>   8.27 </y-m>
+      <z-m>  -2.40 </z-m>
+    </offsets>
+  </model>
+
+  <!-- Particules OSG -->
+  <model>
+    <path>AI/Aircraft/A330-MRTT/Models/effects/fueldump.xml</path>
+    <offsets>
+      <x-m>  10.290 </x-m>
+      <y-m> -14.550 </y-m>
+      <z-m>  -2.928 </z-m> 
+      <pitch-deg> -160 </pitch-deg>
+    </offsets>
+    <condition>
+      <property>controls/switches/reserve1</property>
+    </condition>
+  </model>
+
+  <model>
+    <path>AI/Aircraft/A330-MRTT/Models/effects/fueldump.xml</path>
+    <offsets>
+      <x-m> 10.290 </x-m>
+      <y-m> 14.550 </y-m>
+      <z-m> -1.928 </z-m> 
+      <pitch-deg> -160 </pitch-deg>
+    </offsets>
+    <condition>
+      <property>controls/switches/reserve2</property>
+    </condition>
+  </model>
+
+  <!-- Refueling pods -->
+  <model>
+    <path>AI/Aircraft/A330-MRTT/Models/refueling/probe.xml</path>
+  </model>
+   
+  <multiplay>
+    <refuel>
+      <type>probe</type>
+    </refuel>
+    <tanker>true</tanker>
+  </multiplay>
+   
+</PropertyList>

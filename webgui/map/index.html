@@ -1,0 +1,801 @@
+<!doctype html>
+<html>
+<head>
+<script src="../3rdparty/jquery/jquery-1.11.1.min.js"
+	type="text/javascript"></script>
+<link rel="stylesheet"
+	href="../3rdparty/leaflet-0.7.3/leaflet.css" />
+<script src="../3rdparty/leaflet-0.7.3/leaflet.js"></script>
+<script src="../3rdparty/flot/jquery.flot.js"></script>
+<script src="../lib/props.js" type="text/javascript"></script>
+<script src="../lib/jquery.flot.prop.js"></script>
+<meta charset="UTF-8" />
+<meta name="description" content="FlightGear - Map" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="apple-touch-icon" href="/img/FlightGear_logo.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<link rel="shortcut icon" sizes="200x200" href="/img/FlightGear_logo.png">
+<link rel="icon" sizes="200x200" href="/img/FlightGear_logo.png">
+
+<title>FlightGear - Map</title>
+</head>
+<body>
+	<style>
+html,body,#map {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+#map {
+	height: 100%;
+}
+
+.infobox {
+	padding: 6px 8px;
+	font: 14px/16px Arial, Helvetica, sans-serif;
+	background: white;
+	background: rgba(255, 255, 255, 0.8);
+	box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+	border-radius: 5px;
+}
+
+.infobox h4 {
+	margin: 0 0 5px;
+	color: #777;
+}
+
+.followAircraft {
+	background: white;
+	background: rgba(255, 255, 255, 0.8);
+	box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+	border-radius: 5px;
+	width: 40px;
+	height: 40px;
+}
+
+.altitudePlotter {
+	background: white;
+	background: rgba(255, 255, 255, 0.8);
+	box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+	border-radius: 5px;
+	width: 1200px;
+	height: 200px;
+}
+
+.axisLabel {
+	position: absolute;
+	text-align: center;
+	font-size: 12px;
+}
+
+.yaxisLabel {
+	top: 50%;
+	left: 2px;
+	transform: rotate(-90deg);
+	-o-transform: rotate(-90deg);
+	-ms-transform: rotate(-90deg);
+	-moz-transform: rotate(-90deg);
+	-webkit-transform: rotate(-90deg);
+	transform-origin: 0 0;
+	-o-transform-origin: 0 0;
+	-ms-transform-origin: 0 0;
+	-moz-transform-origin: 0 0;
+	-webkit-transform-origin: 0 0;
+}
+
+.xaxisLabel {
+	top: 90%;
+	left: 45%;
+}
+
+.ie7 .yaxisLabel,.ie8 .yaxisLabel {
+	top: 40%;
+	font-size: 36px;
+	filter: progid:DXImageTransform.Microsoft.Matrix(M11=0.0, M12=0.33, M21=-0.33,
+		M22=0.0, sizingMethod='auto expand');
+}
+</style>
+	<div id='map'></div>
+	<script type="text/javascript">
+    /* <![CDATA[ */
+    var map = new L.Map('map', {
+      center : [ 53.7, 10.0 ],
+      zoom : 10
+    });
+
+    var osm = new L.TileLayer(
+      'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    {
+      maxZoom : 18,
+      attribution : 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+    });
+    map.addLayer(osm);
+
+    var MAP_ICON = {};
+    MAP_ICON["VOR"] = L.icon({
+      iconSize : [ 30, 30 ],
+      iconAnchor : [ 15, 15 ],
+      popupAncor : [ 0, -17 ],
+      iconUrl : "images/vor.svg",
+    });
+    MAP_ICON["NDB"] = L.icon({
+      iconSize : [ 30, 30 ],
+      iconAnchor : [ 15, 15 ],
+      popupAncor : [ 0, -17 ],
+      iconUrl : "images/ndb.svg",
+    });
+    MAP_ICON["dme"] = L.icon({
+      iconSize : [ 30, 30 ],
+      iconAnchor : [ 15, 15 ],
+      popupAncor : [ 0, -17 ],
+      iconUrl : "images/dme.svg",
+    });
+    MAP_ICON["airport-paved"] = L.icon({
+      iconSize : [ 30, 30 ],
+      iconAnchor : [ 15, 15 ],
+      popupAncor : [ 0, -17 ],
+      iconUrl : "images/airport-paved.svg",
+    });
+    MAP_ICON["airport-unpaved"] = L.icon({
+      iconSize : [ 30, 30 ],
+      iconAnchor : [ 15, 15 ],
+      popupAncor : [ 0, -17 ],
+      iconUrl : "images/airport-unpaved.svg",
+    });
+    MAP_ICON["airport-unknown"] = L.icon({
+      iconSize : [ 30, 30 ],
+      iconAnchor : [ 15, 15 ],
+      popupAncor : [ 0, -17 ],
+      iconUrl : "images/airport-unknown.svg",
+    });
+    MAP_ICON["arp"] = L.icon({
+      iconSize : [ 30, 30 ],
+      iconAnchor : [ 15, 15 ],
+      popupAncor : [ 0, -17 ],
+      iconUrl : "images/arp.svg",
+    });
+    MAP_ICON["aircraft"] = L.icon({
+      iconSize : [ 20, 20 ],
+      iconAnchor : [ 10, 10 ],
+      popupAncor : [ 0, -12 ],
+      iconUrl : "images/aircraft.svg",
+    });
+
+    L.RotatedMarker = L.Marker.extend({
+      options : {
+        angle : 0
+      },
+
+      _setPos : function(pos) {
+        L.Marker.prototype._setPos.call(this, pos);
+
+        if (L.DomUtil.TRANSFORM) {
+          // use the CSS transform rule if available
+          this._icon.style[L.DomUtil.TRANSFORM] += ' rotate(' + this.options.angle + 'deg)';
+        } else if (L.Browser.ie) {
+          // fallback for IE6, IE7, IE8
+          var rad = this.options.angle * (Math.PI / 180), costheta = Math.cos(rad), sintheta = Math.sin(rad);
+          this._icon.style.filter += ' progid:DXImageTransform.Microsoft.Matrix(sizingMethod=\'auto expand\', M11=' + costheta
+              + ', M12=' + (-sintheta) + ', M21=' + sintheta + ', M22=' + costheta + ')';
+        }
+      }
+    });
+
+    var navdbLayer = new L.geoJson(null, {
+      pointToLayer : function(feature, latlng) {
+        var options = {
+          title : feature.id + ' (' + feature.properties.name + ')',
+          alt : feature.id,
+          riseOnHover : true,
+        };
+
+        if (feature.properties.type == "airport") {
+          options.angle = feature.properties.longestRwyHeading_deg;
+          switch (feature.properties.longestRwySurface) {
+            case 'asphalt':
+            case 'concrete':
+              options.icon = MAP_ICON['airport-paved'];
+              break;
+            case 'unknown':
+              options.icon = MAP_ICON['airport-unknown'];
+              break;
+            default:
+              options.icon = MAP_ICON['airport-unpaved'];
+              break;
+          }
+        } else {
+          if (feature.properties.type in MAP_ICON) {
+            options.icon = MAP_ICON[feature.properties.type];
+          }
+        }
+
+        return new L.RotatedMarker(latlng, options);
+      },
+
+      onEachFeature : function(feature, layer) {
+        if (feature.properties) {
+          var popupString = '<div class="popup">';
+          for ( var k in feature.properties) {
+            var v = feature.properties[k];
+            popupString += k + ': ' + v + '<br />';
+          }
+          popupString += '</div>';
+          layer.bindPopup(popupString, {
+            maxHeight : 200
+          });
+        }
+      },
+
+      filter : function(feature, layer) {
+        var zoom = map.getZoom();
+        switch (feature.properties.type) {
+          case 'airport':
+            if (zoom >= 10)
+              return true;
+            return feature.properties.longestRwyLength_m >= 2000;
+            break;
+
+          case 'NDB':
+            if (zoom >= 10)
+              return true;
+            if (zoom >= 8)
+              return feature.properties.range_nm >= 30;
+            return feature.properties.range_nm > 50;
+        }
+        return true;
+      },
+
+      style : function(feature) {
+        if (feature.properties.type == "ILS" || feature.properties.type == "localizer") {
+          return {
+            color : 'black',
+            weight : 1,
+          };
+        }
+        if (feature.properties.type == "airport") {
+          return {
+            color : 'black',
+            weight : 3,
+            fill : 'true',
+            fillColor : '#606060',
+            fillOpacity : 1.0,
+            lineJoin : 'bevel',
+          };
+        }
+      },
+
+    });
+    navdbLayer.dirty = true;
+
+    navdbLayer.update = function() {
+      if (navdbLayer.dirty) {
+        navdbLayer.dirty = false;
+        var bounds = map.getBounds();
+        var radius = bounds.getSouthWest().distanceTo(bounds.getNorthEast()) / 3704; // radius in NM
+
+        if (radius > 250)
+          radius = 250;
+        if (radius < 10)
+          radius = 10;
+
+        var filter = "vor,ndb,airport";
+        if (radius < 60)
+          filter += ",ils,dme,loc,om";
+        if (radius < 20)
+          filter += ",mm";
+
+        var center = map.getCenter();
+        var lat = center.lat;
+        var lon = center.lng;
+
+        var url = "/navdb?q=findWithinRange&type=" + filter + "&range=" + radius + "&lat=" + lat + "&lon=" + lon;
+
+        var jqxhr = $.get(url).done(function(data) {
+          navdbLayer.clearLayers();
+          navdbLayer.addData(data);
+        }).fail(function() {
+          alert('failed to load navdb data');
+        }).always(function() {
+        });
+      }
+      setTimeout(function() {
+        navdbLayer.update()
+      }, 5000);
+    };
+
+    map.addLayer(navdbLayer);
+
+    var aiLayer = new L.geoJson(null, {
+      pointToLayer : function(feature, latlng) {
+        var options = {
+          title : feature.id + ' (' + feature.properties.name + ')',
+          alt : feature.id,
+          riseOnHover : true,
+        };
+
+        if (feature.properties.type == "aircraft" || feature.properties.type == "multiplayer") {
+          options.angle = feature.properties.heading;
+          options.icon = MAP_ICON["aircraft"];
+        }
+
+        return new L.RotatedMarker(latlng, options);
+      },
+      onEachFeature : function(feature, layer) {
+        if (feature.properties) {
+          var popupString = '<div class="popup">';
+          for ( var k in feature.properties) {
+            var v = feature.properties[k];
+            popupString += k + ': ' + v + '<br />';
+          }
+          popupString += '</div>';
+          layer.bindPopup(popupString, {
+            maxHeight : 200
+          });
+        }
+      },
+
+      filter : function(feature, layer) {
+        return true;
+      },
+
+      style : function(feature) {
+        if (feature.properties.type == "airport") {
+          return {
+            color : 'black',
+            weight : 3,
+            fill : 'true',
+            fillColor : '#606060',
+            fillOpacity : 1.0,
+            lineJoin : 'bevel',
+          };
+        }
+      },
+
+    });
+
+    aiLayer.aiPropsToGeoJson = function(props, types) {
+      var geoJSON = {
+        type : "FeatureCollection",
+        features : [],
+      };
+
+      var getChild = function(p, n, idx) {
+        if (p && p.children) {
+          if (idx == null)
+            idx = 0;
+          for (var i = 0; i < p.children.length; i++) {
+            var child = p.children[i];
+            if (child.name == n && child.index == idx) {
+              return child;
+            }
+          }
+        }
+        return null;
+      };
+
+      var getChildren = function(p, n) {
+        var reply = [];
+        if (p && p.children) {
+          p.children.forEach(function(child) {
+            if (child.name == n)
+              reply.push(child);
+          });
+        }
+        return reply;
+      };
+
+      if (props) {
+        types.forEach(function(type) {
+          var aiModels = getChildren(props, type);
+          aiModels.forEach(function(aiModel) {
+            var lat = -999;
+            var lon = -999;
+            var heading = 0;
+            var tas = 0;
+            var vspeed = 0;
+            var callsign = "";
+
+            var n = getChild(aiModel, "callsign");
+            if (n)
+              callsign = n.value;
+
+            var positionNode = getChild(aiModel, "position");
+            if (positionNode) {
+              var n = getChild(positionNode, "latitude-deg");
+              if (n)
+                lat = n.value;
+              var n = getChild(positionNode, "longitude-deg");
+              if (n)
+                lon = n.value;
+            }
+
+            var orientationNode = getChild(aiModel, "orientation");
+            if (orientationNode) {
+              var n = getChild(orientationNode, "true-heading-deg");
+              heading = n.value;
+            }
+
+            var velocitiesNode = getChild(aiModel, "velocities");
+            if (velocitiesNode) {
+              var n = getChild(orientationNode, "true-airspeed-kt");
+              if (n)
+                tas = n.value;
+              var n = getChild(orientationNode, "vertical-speed-fps");
+              if (n)
+                vspeed = n.value;
+            }
+
+            geoJSON.features.push({
+              "type" : "Feature",
+              "geometry" : {
+                "type" : "Point",
+                "coordinates" : [ lon, lat ],
+              },
+              "properties" : {
+                "type" : aiModel.name,
+                "heading" : heading,
+                "tas" : tas,
+                "vspeed" : vspeed,
+                "id" : callsign,
+              },
+            });
+          });
+        });
+      }
+
+      return geoJSON;
+    };
+
+    aiLayer.update = function() {
+      // fetch the entire property subtree under /ai/models
+      var url = "/json/ai/models?d=99";
+
+      var jqxhr = $.get(url).done(function(data) {
+        var types = [ "aircraft", "multiplayer", "carrier" ];
+        aiLayer.clearLayers();
+        aiLayer.addData(aiLayer.aiPropsToGeoJson(data, types));
+      }).fail(function() {
+        alert('failed to load multiplayer data');
+      }).always(function() {
+      });
+
+      setTimeout(function() {
+        aiLayer.update()
+      }, 5000);
+    };
+
+    map.addLayer(aiLayer);
+
+
+    var baseLayers = {
+      "OpenStreetMaps" : osm,
+      "MapQuest Satelite" : new L.TileLayer(
+        'http://otile{s}.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.png', 
+        {
+          maxZoom : 18,
+          subdomains : [ '1', '2', '3', '4' ],
+          attribution : 'Tiles Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a>.'
+        }),
+
+      "MapQuest Roads" : new L.TileLayer(
+        'http://otile{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png',
+        {
+          maxZoom : 18,
+          subdomains : [ '1', '2', '3', '4' ],
+          attribution : 
+            'Tiles Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a>. Map data (c) <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a> contributors, CC-BY-SA.'
+        }),
+    };
+
+    var overlays = {
+      "NAVDB" : navdbLayer,
+      "AI" : aiLayer,
+      "VFRMap.com Sectionals (US)" : new L.TileLayer(
+        'http://vfrmap.com/20140918/tiles/vfrc/{z}/{y}/{x}.jpg',
+        {
+          maxZoom : 12,
+          minZoom : 3,
+          attribution : '(c) <a href="VFRMap.com">VFRMap.com</a>',
+          tms: true,
+          opacity: 0.5,
+          bounds: L.latLngBounds(L.latLng(16.0,-179.0), L.latLng(72.0,-60.0) ),
+        }),
+
+      "VFRMap.com - Low IFR (US)" :  new L.TileLayer(
+          'http://vfrmap.com/20140918/tiles/ifrlc/{z}/{y}/{x}.jpg',
+          {
+            maxZoom : 12,
+            minZoom : 5,
+            attribution : '© <a href="VFRMap.com">VFRMap.com</a>',
+            tms: true,
+            opacity: 0.5,
+            bounds: L.latLngBounds(L.latLng(16.0,-179.0), L.latLng(72.0,-60.0) ),
+          }),    
+
+
+      "dfs.de VFR" : new L.TileLayer(
+        'https://secais.dfs.de/static-maps/ICAO500-2014-DACH-Reprojected_01/tiles/{z}/{x}/{y}.png', 
+        {
+          minZoom : 5,
+          maxZoom : 15,
+          attribution : 'Map data © <a href="http://www.dfs.de">DFS</a>',
+          bounds: L.latLngBounds(L.latLng(46.0,5.0), L.latLng(55.1,16.5) ),
+        }),
+
+      "Lower Airspace (Germany)" :  new L.TileLayer(
+        'https://secais.dfs.de/static-maps/lower_20131114/tiles/{z}/{x}/{y}.png', 
+        {
+          minZoom : 5,
+          maxZoom : 15,
+          attribution : 'Map data © <a href="http://www.dfs.de">DFS</a>',
+          bounds: L.latLngBounds(L.latLng(46.0,5.0), L.latLng(55.1,16.5) ),
+        }),
+
+      "France VFR" :  new L.TileLayer(
+        'http://carte.f-aero.fr/oaci/{z}/{x}/{y}.png', 
+        {
+          minZoom : 5,
+          maxZoom : 15,
+          attribution : 'Map data © <a href="http://carte.f-aero.fr/">F-AERO</a>',
+          bounds: L.latLngBounds(L.latLng(41.0,-5.3), L.latLng(51.2,10.1) ),
+        }),
+
+      "France VAC Landing" :  new L.TileLayer(
+        'http://carte.f-aero.fr/vac-atterrissage/{z}/{x}/{y}.png', 
+        {
+          minZoom : 5,
+          maxZoom : 15,
+          attribution : 'Map data © <a href="http://carte.f-aero.fr/">F-AERO</a>',
+          bounds: L.latLngBounds(L.latLng(41.0,-5.3), L.latLng(51.2,10.1) ),
+        }),
+
+      "France VAC Approach" :  new L.TileLayer(
+        'http://carte.f-aero.fr/vac-approche/{z}/{x}/{y}.png', 
+        {
+          minZoom : 5,
+          maxZoom : 15,
+          attribution : 'Map data © <a href="http://carte.f-aero.fr/">F-AERO</a>',
+          bounds: L.latLngBounds(L.latLng(41.0,-5.3), L.latLng(51.2,10.1) ),
+        }),
+
+      "Precipitation" : new L.TileLayer(
+        'http://{s}.tile.openweathermap.org/map/precipitation/{z}/{x}/{y}.png', 
+        {
+          maxZoom : 14,
+          minZoom : 0,
+          subdomains : '12',
+          format : 'image/png',
+          transparent : true,
+          opacity : 0.5
+        }),
+
+      "Isobares" : new L.TileLayer(
+        'http://{s}.tile.openweathermap.org/map/pressure_cntr/{z}/{x}/{y}.png', 
+        {
+          maxZoom : 7,
+          minZoom : 0,
+          subdomains : '12',
+          format : 'image/png',
+          transparent : true,
+          opacity : 0.5
+        }),
+    };
+
+    var aircraftMarker = new L.RotatedMarker(map.getCenter(), {
+      angle : 45,
+      draggable: true,
+      icon : L.icon({
+        iconSize : [ 60, 60 ],
+        iconAnchor : [ 30, 30 ],
+        popupAncor : [ 0, -32 ],
+        iconUrl : "images/aircraft.svg",
+      }),
+      zIndexOffset : 10000,
+    });
+    aircraftMarker.addTo(map);
+    aircraftMarker.isDragging = false;
+    aircraftMarker.setState = function(s) {
+      if( this.isDragging ) return;
+      var latlng = new L.LatLng(s.lat, s.lon);
+      aircraftMarker.options.angle = s.heading;
+      aircraftMarker.setLatLng(latlng);
+      var label = "<p id='aircraft-label'> heading:" + s.heading + "&deg; GS: " + s.speed + "kt</p>";
+      aircraftMarker.bindPopup(label);
+      info.update(s);
+    };
+    aircraftMarker.on('dragstart',function(evt){
+      evt.target.isDragging = true;
+    });
+    aircraftMarker.on('dragend',function(evt){
+      var pos = evt.target.getLatLng();
+      var props = {
+        name: "position",
+        children: [
+          {
+            name: "latitude-deg",
+            value: pos.lat,
+          },
+          {
+            name: "longitude-deg",
+            value: pos.lng,
+          },
+        ],
+      };
+      $.post( "/json/", JSON.stringify(props));
+      evt.target.isDragging = false;
+    });
+
+    var info = L.control();
+    info.onAdd = function(map) {
+      this._div = L.DomUtil.create('div', 'infobox');
+      this.update();
+      return this._div;
+    };
+
+    info.update = function(props) {
+      var s = '<h4>Flight Path</h4>';
+      if (props) {
+        s += '<p>';
+        s += 'MH:' + props.heading + '&deg;<br />';
+        s += 'GS: ' + props.speed + 'kt<br />';
+        s += 'ALT: ' + props.alt + 'ft';
+        s += '</p>';
+      }
+
+      this._div.innerHTML = s;
+    };
+
+/*
+    var altitudePlotter = L.control({
+      position : 'bottomright'
+    });
+
+    altitudePlotter.onAdd = function(map) {
+      this._div = L.DomUtil.create('div', 'altitudePlotter');
+      this._div.innerHTML = '<h4>Altitude</h4>';
+      return this._div;
+    };
+
+    altitudePlotter.initPlotter = function(map) {
+      var container = $(".altitudePlotter");
+      var w = $("#map").innerWidth() * .9;
+      container.css('width', w);
+      this.maxData = container.outerWidth() / 2 || 300;
+
+      var series = [ {
+        propertyPath : "/position/altitude-ft",
+        data : [],
+        color : 'blue',
+        lines : {
+          fill : true
+        }
+      } ];
+
+      this.plot = $.plot(container, series, {
+        historyLength : 600,
+        grid : {
+          borderWidth : 1,
+          minBorderMargin : 20,
+          labelMargin : 10,
+          backgroundColor : {
+            colors : [ "#fff", "#e4f4f4" ]
+          },
+          margin : {
+            top : 8,
+            bottom : 20,
+            left : 20
+          },
+        },
+        xaxis : {
+          min : 0,
+          max : 60,
+        },
+        yaxis : {
+          min : 0,
+          max : 1000
+        },
+        legend : {
+          show : true
+        }
+      });
+
+      this.yaxisLabel = $("<div class='axisLabel yaxisLabel'></div>").text("Altitude (ft)").appendTo(container);
+
+      this.xaxisLabel = $("<div class='axisLabel xaxisLabel'></div>").text("Simulation time (s)").appendTo(container);
+    };
+
+    altitudePlotter.addTo(map);
+    altitudePlotter.initPlotter(map);
+*/
+    var FollowAircraftControl = L.control();
+    FollowAircraftControl.onAdd = function(map) {
+      this._div = L.DomUtil.create('div', 'followAircraft');
+      this._div.innerHTML = '<img src="images/followAircraft.svg" title="Center Map on Aircraft Position" />';
+      this._div.onclick = function() {
+        toggleFollowAircraft();
+        return true;
+      };
+      return this._div;
+    }
+
+    L.control.scale().addTo(map);
+    info.addTo(map);
+    FollowAircraftControl.addTo(map);
+
+    L.control.layers(baseLayers, overlays).addTo(map);
+
+    map.on('resize', function(e) {
+      navdbLayer.dirty = true;
+    });
+
+    map.on('zoomend', function(e) {
+      navdbLayer.dirty = true;
+    });
+
+    map.on('moveend', function(e) {
+      navdbLayer.dirty = true;
+    });
+
+    map.on('dragstart', function(e) {
+      followAircraft = false;
+    });
+
+    var followAircraft = true;
+    function toggleFollowAircraft() {
+      followAircraft = !followAircraft;
+    }
+
+    $(document).ready(function() {
+
+      var aircraftState = {
+        lat : 53.5,
+        lon : 10.0,
+        heading : 0,
+        speed : 0,
+        alt : 0,
+      };
+
+      navdbLayer.update();
+      aiLayer.update();
+
+      var latlng;
+      var i = 0;
+      setInterval(function() {
+        latlng = new L.LatLng(aircraftState.lat, aircraftState.lon);
+        if (followAircraft) {
+          if (++i % 10 == 0)
+            map.setView(latlng);
+        }
+        aircraftMarker.setState(aircraftState);
+      }, 100);
+
+      PropertyChangeListener(function() {
+/*
+        SetListener("/position/altitude-ft", function(n) {
+          aircraftState.alt = Math.round(n.value);
+          altitudePlotter.plot.plotPropertyNode(n);
+        });
+*/
+        SetListener("/position/latitude-deg", function(n) {
+          aircraftState.lat = n.value;
+        });
+        SetListener("/position/longitude-deg", function(n) {
+          aircraftState.lon = n.value;
+        });
+        SetListener("/orientation/heading-deg", function(n) {
+          aircraftState.heading = Math.round(n.value);
+        });
+        SetListener("/velocities/groundspeed-kt", function(n) {
+          aircraftState.speed = Math.round(n.value);
+        });
+      });
+    });
+    /* ]]> */
+  </script>
+</body>
+</html>

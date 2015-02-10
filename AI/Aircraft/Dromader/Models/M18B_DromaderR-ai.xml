@@ -1,0 +1,461 @@
+<?xml version="1.0"?>
+
+
+<PropertyList>
+
+	<path>M18B_DromaderR.ac</path>
+	
+	<offsets>
+      <pitch-deg>11.9</pitch-deg>  
+	  <z-m>1.88</z-m>
+    </offsets>
+	
+	<animation>
+	  <type>rotate</type>
+	  <property>velocities/true-airspeed-kt</property>
+	  <interpolation>
+		<entry><ind>0</ind><dep>0.0</dep></entry>
+		<entry><ind>20</ind><dep>0.0</dep></entry>
+		<entry><ind>30</ind><dep>11.9</dep></entry>
+		<entry><ind>60</ind><dep>11.9</dep></entry>
+	  </interpolation>
+	  <center>
+	   <x-m>0.0</x-m>
+	   <y-m>0.0</y-m>
+	   <z-m>-15</z-m>
+	  </center>
+	  <axis>
+	   <x>0.0</x>
+	   <y>-.5</y>
+	   <z>0.0</z>
+	  </axis>
+	</animation>
+ 
+<!--
+<animation>
+	<type>material</type>
+		<texture-prop>texture</texture-prop>
+		<texture>Textures/LiveryDefault.png</texture>
+</animation>
+-->
+
+<animation>
+	<type>select</type>
+		<object-name>Aspa1a</object-name>
+		<object-name>Aspa1b</object-name>
+		<object-name>Aspa1c</object-name>
+		<object-name>Aspa2a</object-name>
+		<object-name>Aspa2b</object-name>
+		<object-name>Aspa2c</object-name>
+		<object-name>Aspa3a</object-name>
+		<object-name>Aspa3b</object-name>
+		<object-name>Aspa3c</object-name>
+		<object-name>Aspa4a</object-name>
+		<object-name>Aspa4b</object-name>
+		<object-name>Aspa4c</object-name>
+	<condition>
+		<less-than>
+			<property>velocities/true-airspeed-kt</property>
+			<value>101</value>
+		</less-than>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>GiroHelice</object-name>
+	<condition>
+		<greater-than>
+			<property>velocities/true-airspeed-kt</property>
+			<value>14</value>
+		</greater-than>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>spin</type>
+		<object-name>Aspa1a</object-name>
+		<object-name>Aspa1b</object-name>
+		<object-name>Aspa1c</object-name>
+		<object-name>Aspa2a</object-name>
+		<object-name>Aspa2b</object-name>
+		<object-name>Aspa2c</object-name>
+		<object-name>Aspa3a</object-name>
+		<object-name>Aspa3b</object-name>
+		<object-name>Aspa3c</object-name>
+		<object-name>Aspa4a</object-name>
+		<object-name>Aspa4b</object-name>
+		<object-name>Aspa4c</object-name>
+		<object-name>Eje02</object-name>
+			<property>velocities/true-airspeed-kt</property>
+		<factor>-1</factor>
+		<center>
+			<x-m>-2.40</x-m>
+			<y-m>-0.0</y-m>
+			<z-m>-0.0</z-m>
+		</center>
+		<axis>
+			<x>1.0</x>
+			<y>0.0</y>
+			<z>0.0</z>
+		</axis>
+ </animation>
+
+ <animation>
+	<type>spin</type>
+		<object-name>GiroHelice</object-name>
+	<property>velocities/true-airspeed-kt</property>
+		<factor>-.01</factor>
+		<center>
+			<x-m>1.15114</x-m>
+			<y-m>0</y-m>
+			<z-m>-0.0125287</z-m>
+		</center>
+		<axis>
+			<x>1.0</x>
+			<y>0.0</y>
+			<z>0.0</z>
+		</axis>
+ </animation>
+ 
+<!-- Rotacion de las ruedas -->
+   <animation>
+        <type>spin</type>
+        <object-name>RuedaTrasera</object-name>
+        <property>velocities/true-airspeed-kt</property>
+        <factor>12</factor>
+        <center>
+            <x-m>5.38462</x-m>
+            <y-m>0.00</y-m>
+            <z-m>-0.55425</z-m>
+        </center>
+        <axis>
+            <x>0.0</x>
+            <y>-1</y>
+            <z>0</z>
+        </axis>
+    </animation>
+
+    <animation>
+        <type>spin</type>
+        <object-name>RuedaIZQ</object-name>
+        <property>velocities/true-airspeed-kt</property>
+        <factor>12</factor>
+        <center>
+            <x-m>-0.5133</x-m>
+            <y-m>-1.88265</y-m>
+            <z-m>-1.63371</z-m>
+        </center>
+        <axis>
+            <x>0.0</x>
+            <y>-1</y>
+            <z>0</z>
+        </axis>
+    </animation>
+
+    <animation>
+        <type>spin</type>
+        <object-name>RuedaDER</object-name>
+        <property>velocities/true-airspeed-kt</property>
+        <factor>12</factor>
+        <center>
+            <x-m>-0.513301</x-m>
+            <y-m> 1.71131</y-m>
+            <z-m>-1.63371</z-m>
+        </center>
+        <axis>
+            <x>0.0</x>
+            <y>-1</y>
+            <z>0</z>
+        </axis>
+    </animation>
+
+
+<!-- *****************************
+	  Luces (lights)
+****************************** -->
+
+<!-- Baliza  *Beacon* -->
+	
+  <model>  <!-- Beacon inferior -->
+	<name>Beacon1</name>
+    <path>Lights/Beacon.xml</path>
+    <offsets>
+      <x-m>-1.08188</x-m>
+      <y-m>  0.000 </y-m>
+      <z-m>-1.06281</z-m>
+    </offsets>
+  </model>
+
+  <model>   <!-- Beacon superior -->
+	<name>Beacon2</name>
+    <path>Lights/Beacon.xml</path>
+    <offsets>
+      <x-m> 2.68472</x-m>
+      <y-m>  0.000 </y-m>
+      <z-m> 1.90015</z-m>
+    </offsets>
+  </model>
+ 
+   <model>
+	<name>leftbeaconflash</name>
+    <path>Lights/flash.xml</path>
+    <offsets>
+      <x-m>-1.08188</x-m>
+      <y-m>  0.000 </y-m>
+      <z-m>-1.06281</z-m>
+    </offsets>
+  </model>
+  
+  <model>
+	<name>rightbeaconflash</name>
+    <path>Lights/flash.xml</path>
+    <offsets>
+      <x-m> 2.68472</x-m>
+      <y-m>  0.000 </y-m>
+      <z-m> 1.90015</z-m>
+    </offsets>
+  </model>
+ 
+  <animation>
+    <name>Beacons</name>
+    <object-name>Beacon1</object-name>
+    <object-name>Beacon2</object-name>
+  </animation>
+
+  <animation>
+    <name>BeaconsFlash</name>
+    <object-name>leftbeaconflash</object-name>
+    <object-name>rightbeaconflash</object-name>
+  </animation>
+  
+   <animation>
+	  <name>beacon_strobes</name>
+	  <type>timed</type>
+	  <object-name>Beacons</object-name>
+	  <object-name>BeaconsFlash</object-name>
+	  <use-personality type="bool">true</use-personality>
+		  <branch-duration-sec>0.1</branch-duration-sec>
+		  <branch-duration-sec>1.0</branch-duration-sec>
+  </animation>
+ 
+  <animation>
+    <type>select</type>
+    <object-name>beacon_strobes</object-name>
+    <condition>
+      <and>
+		<greater-than>
+			<property>/sim/time/sun-angle-rad</property>
+			<value>1.57</value>
+		</greater-than>
+		<greater-than>
+			<property>velocities/true-airspeed-kt</property>
+			<value>0</value>
+		</greater-than>
+	  </and>
+    </condition>
+  </animation>
+
+ <!-- Luces de navegacion *Lights of navigation* -->
+
+  <model>   <!-- Navegacion Izquierda -->
+    <path>Lights/NavL.xml</path>
+    <offsets>
+      <x-m>-0.049822</x-m>
+      <y-m>-8.87531 </y-m>
+      <z-m> 0.241996</z-m>
+    </offsets>
+  </model>
+  
+  <model>   <!-- Navegacion Derecha -->
+    <path>Lights/NavR.xml</path>
+    <offsets>
+      <x-m>-0.049822</x-m>
+      <y-m> 8.87531 </y-m>
+      <z-m> 0.241996</z-m>
+    </offsets>
+  </model>  
+  
+<!-- luz de aterrizaje *landing light* -->
+
+  <model>   <!-- Izquierda exterior -->
+    <path>Lights/LandingLights.xml</path>
+    <offsets>
+      <x-m>-0.493676</x-m>
+      <y-m>-6.36942</y-m>
+      <z-m>-0.043842</z-m>
+    </offsets>
+  </model>    
+  
+   <model>   <!-- Izquierda interior -->
+    <path>Lights/LandingLights.xml</path>
+    <offsets>
+      <x-m>-0.493676</x-m>
+      <y-m>-5.67058</y-m>
+      <z-m>-0.121329</z-m>
+    </offsets>
+  </model>    
+
+  <model>   <!-- Derecha exterior -->
+    <path>Lights/LandingLights.xml</path>
+    <offsets>
+      <x-m>-0.493677</x-m>
+      <y-m> 6.36942</y-m>
+      <z-m>-0.043842</z-m>
+    </offsets>
+  </model>    
+  
+  <model>   <!-- Derecha interior -->
+    <path>Lights/LandingLights.xml</path>
+    <offsets>
+      <x-m>-0.493677</x-m>
+      <y-m> 5.67058</y-m>
+      <z-m>-0.121329</z-m>
+    </offsets>
+  </model>  
+  
+  <!-- estroboscopico  *strobe* -->
+ 
+  <model>  <!-- Strobe Izquierdo -->
+	<name>RightStrobeLight</name>
+    <path>Lights/Strobe.xml</path>
+    <offsets>
+      <x-m> 0.062285</x-m>
+      <y-m>-8.88433</y-m>
+      <z-m> 0.245132</z-m>
+    </offsets>
+  </model>
+
+  <model> <!-- Strobe derecho -->
+	<name>LeftStrobeLight</name>
+    <path>Lights/Strobe.xml</path>
+    <offsets>
+      <x-m> 0.062284</x-m>
+      <y-m> 8.88433</y-m>
+      <z-m> 0.245132</z-m>
+    </offsets>
+  </model>  
+ 
+    <model>
+	<name>leftflash</name>
+    <path>Lights/flash.xml</path>
+    <offsets>
+      <x-m> 0.062285</x-m>
+      <y-m>-8.88433</y-m>
+      <z-m> 0.245132</z-m>
+    </offsets>
+  </model>
+  
+  <model>
+	<name>rightflash</name>
+    <path>Lights/flash.xml</path>
+    <offsets>
+      <x-m> 0.062284</x-m>
+      <y-m> 8.88433</y-m>
+      <z-m> 0.245132</z-m>
+    </offsets>
+  </model>
+ 
+  <animation>
+    <name>StrobeLights</name>
+    <object-name>LeftStrobeLight</object-name>
+    <object-name>RightStrobeLight</object-name>
+  </animation>
+ 
+  <animation>
+    <name>StrobeFlash</name>
+    <object-name>leftflash</object-name>
+    <object-name>rightflash</object-name>
+  </animation>
+  
+  <animation>
+	  <name>timed_strobes</name>
+	  <type>timed</type>
+	  <object-name>StrobeLights</object-name>
+	  <object-name>StrobeFlash</object-name>
+	  <use-personality type="bool">true</use-personality>
+		  <branch-duration-sec>0.1</branch-duration-sec>
+		  <branch-duration-sec>1.0</branch-duration-sec>
+  </animation>
+ 
+  <animation>
+    <type>select</type>
+    <object-name>timed_strobes</object-name>
+    <condition>
+      <and>
+		<greater-than>
+			<property>/sim/time/sun-angle-rad</property>
+			<value>1.57</value>
+		</greater-than>
+		<greater-than>
+			<property>velocities/true-airspeed-kt</property>
+			<value>0</value>
+		</greater-than>
+	  </and>
+    </condition>
+  </animation>
+  
+
+<!--
+ <animation>
+    <type>rotate</type>
+    <object-name>Flap01</object-name>
+    <property>surface-positions/flap-pos-norm</property>
+    <factor>30</factor>
+    <axis>
+        <x1-m> 1.26479 </x1-m>
+        <y1-m>-5.15402 </y1-m>
+        <z1-m>-0.272892</z1-m>
+        <x2-m> 1.25552 </x2-m>
+        <y2-m>-2.72595 </y2-m>
+        <z2-m>-0.515661</z2-m>
+    </axis>
+  </animation>
+  
+ <animation>
+    <type>rotate</type>
+    <object-name>Flap02</object-name>
+    <property>surface-positions/flap-pos-norm</property>
+    <factor>30</factor>
+    <axis>
+        <x1-m> 1.25548 </x1-m>
+        <y1-m>-2.71375 </y1-m>
+        <z1-m>-0.51688 </z1-m>
+        <x2-m> 1.2532  </x2-m>
+        <y2-m>-0.65084 </y2-m>
+        <z2-m>-0.586374</z2-m>
+    </axis>
+  </animation>
+
+ <animation>
+    <type>rotate</type>
+    <object-name>Flap03</object-name>
+    <property>surface-positions/flap-pos-norm</property>
+    <factor>-30</factor>
+    <axis>
+        <x1-m> 1.25548 </x1-m>
+        <y1-m> 2.71387 </y1-m>
+        <z1-m>-0.51688 </z1-m>
+        <x2-m> 1.2532  </x2-m>
+        <y2-m> 0.650957</y2-m>
+        <z2-m>-0.586374</z2-m>
+    </axis>
+ </animation>
+ 
+ <animation>
+    <type>rotate</type>
+    <object-name>Flap04</object-name>
+    <property>surface-positions/flap-pos-norm</property>
+    <factor>-30</factor>
+    <axis>
+        <x1-m> 1.26479 </x1-m>
+        <y1-m> 5.15467 </y1-m>
+        <z1-m>-0.272892</z1-m>
+        <x2-m> 1.25552 </x2-m>
+        <y2-m> 2.72659 </y2-m>
+        <z2-m>-0.515661</z2-m>
+    </axis>
+ </animation>
+ -->
+
+</PropertyList>

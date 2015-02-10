@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<PropertyList>
+  <description>Bombardier-Challenger</description>
+  <author>Chuck Dome, Innis Cunningham</author>
+  <path>Models/chal604.ac</path>
+  
+  <offsets>
+    <x-m>0.0</x-m>
+    <z-m>1.0</z-m>
+  </offsets>
+
+  <animation>
+    <type>select</type>
+    <object-name>tyres</object-name>
+    <object-name>gear</object-name>            
+    <condition>
+      <less-than>
+        <property>velocities/true-airspeed-kt</property>
+        <value>150</value>
+      </less-than>
+    </condition>
+  </animation>
+  
+</PropertyList>

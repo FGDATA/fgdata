@@ -1,0 +1,111 @@
+<?xml version="1.0"?>
+
+<!--
+EGT.xml
+
+EGT indicator for a SenecaII
+
+Torsten Dreyer (torsten _at_ t3r /dot/ de)
+
+-->
+
+<PropertyList>
+
+    <name>EGT Indicator</name>
+    <w-base>100</w-base>
+    <h-base>100</h-base>
+
+    <params>
+        <value>engines/engine[0]/egt-degf</value>
+        <bug>engines/engine[0]/egt-bug</bug>
+    </params>
+
+
+    <layers>
+        <layer>
+            <name>Face</name>
+            <w>98</w>
+            <h>98</h>
+            <texture>
+                <path>Aircraft/SenecaII/Panels/Textures/EGT.png</path>
+                <x1>0.0</x1>
+                <x2>0.5</x2>
+                <y1>0.0</y1>
+                <y2>1.0</y2>
+            </texture>
+            <transformations>
+            </transformations>
+        </layer>
+
+        <layer>
+            <name>Needle</name>
+            <w>10</w>
+            <h>50</h>
+
+            <texture>
+                <path>Aircraft/Instruments/Textures/misc1.rgb</path>
+                <x1>0.71875</x1>
+                <x2>0.828125</x2>
+                <y1>0.46875</y1>
+                <y2>1.0</y2>
+            </texture>
+
+            <transformations>
+                <transformation>
+                    <type>y-shift</type>
+                    <offset>-15</offset>
+                </transformation>
+                <transformation>
+                    <type>rotation</type>
+                    <property alias="../../../../../params/value"/>
+                    <scale>1.0</scale>
+                    <interpolation>
+                        <entry>
+                            <ind>1200</ind>
+                            <dep>-45</dep>
+                        </entry>
+                        <entry>
+                            <ind>1700</ind>
+                            <dep>45</dep>
+                        </entry>
+                    </interpolation>
+                    <offset>0</offset>
+                </transformation>
+                <transformation>
+                    <type>y-shift</type>
+                    <offset>20</offset>
+                </transformation>
+            </transformations>
+        </layer>
+
+        <layer>
+            <name>cover</name>
+            <w>98</w>
+            <h>98</h>
+            <texture>
+                <path>Aircraft/SenecaII/Panels/Textures/EGT.png</path>
+                <x1>0.5</x1>
+                <x2>1.0</x2>
+                <y1>0.0</y1>
+                <y2>1.0</y2>
+            </texture>
+            <transformations>
+            </transformations>
+        </layer>
+
+        <layer>
+            <name>Ring</name>
+            <w>100</w>
+            <h>100</h>
+            <texture>
+                <path>Aircraft/SenecaII/Panels/Textures/Ring.rgb</path>
+                <x1>0.0</x1>
+                <x2>1.0</x2>
+                <y1>0.0</y1>
+                <y2>1.0</y2>
+            </texture>
+        </layer>
+
+    </layers>
+
+</PropertyList>

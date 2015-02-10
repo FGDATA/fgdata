@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<!--
+  OAT and superheat indicator for Zeppelin NT07 airship.
+
+  Copyright (C) 2010 - 2012  Anders Gidenstam  (anders(at)gidenstam.org)
+  This file is licensed under the GPL license v2 or later.
+-->
+<PropertyList>
+
+ <!-- Overlay this to set the source properties. -->
+ <params>
+  <indicated-oat-degf>instrumentation/oat-indicator/indicated-oat-degf</indicated-oat-degf>
+  <indicated-superheat-degf>instrumentation/superheat-indicator/indicated-superheat-degf</indicated-superheat-degf>
+  <oat-serviceable>instrumentation/oat-indicator/serviceable</oat-serviceable>
+  <superheat-serviceable>instrumentation/superheat-indicator/serviceable</superheat-serviceable>
+
+  <lighting-norm>controls/lighting/panel-norm</lighting-norm>
+ </params>
+
+ <path>thermometer.ac</path>
+
+ <!-- Rembrandt transparency markup. -->
+ <effect>
+  <inherits-from>Effects/model-transparent</inherits-from>
+  <object-name>glass</object-name>
+ </effect>
+
+ <!-- Superheat indicator -->
+ <animation>
+  <type>rotate</type>
+  <object-name>DT_pointer</object-name>
+  <property alias="../../params/indicated-superheat-degf"/>
+  <interpolation>
+   <entry><ind>36.0</ind><dep>70.0</dep></entry>    <!-- +20.0 degC delta -->
+   <entry><ind>-14.4</ind><dep>-70.0</dep></entry>  <!--  -8.0 degC delta -->
+  </interpolation>
+  <condition>
+   <property alias="../../../params/superheat-serviceable"/>
+  </condition>
+  <center>
+   <x-m> 0.000 </x-m>
+   <y-m>-0.018 </y-m>
+   <z-m> 0.000 </z-m>
+  </center>
+  <axis> 
+   <x>1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+ <!-- OAT indicator -->
+ <animation>
+  <type>rotate</type>
+  <object-name>OAT_pointer</object-name>
+  <property alias="../../params/indicated-oat-degf"/>
+  <interpolation>
+   <entry><ind>122.0</ind><dep>-70.0</dep></entry>  <!-- +50.0 degC -->
+   <entry><ind>-4.0</ind><dep>70.0</dep></entry>    <!-- -20.0 degC -->
+  </interpolation>
+  <condition>
+   <property alias="../../../params/oat-serviceable"/>
+  </condition>
+  <center>
+   <x-m> 0.000 </x-m>
+   <y-m> 0.018 </y-m>
+   <z-m> 0.000 </z-m>
+  </center>
+  <axis> 
+   <x>1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>material</type>
+  <object-name>DT_pointer</object-name>
+  <object-name>OAT_pointer</object-name>
+  <object-name>face</object-name>
+  <emission>
+   <red>0.8</red>
+   <green>0.8</green>
+   <blue>0.8</blue>
+   <factor-prop alias="../../../params/lighting-norm"/>
+  </emission>
+ </animation>
+
+ <animation>
+  <type>noshadow</type>
+ </animation>
+ 
+</PropertyList>

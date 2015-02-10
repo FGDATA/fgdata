@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<PropertyList include="MD80-main.xml">
+  <description>McDonnel-Douglas-MD80</description>
+  <author>Innis Cunningham</author>
+  <path>Models/md-80.ac</path>
+  <texture-path>Textures/Qantas</texture-path>
+  
+     <animation>
+		<type>select</type>
+		<object-name>gear</object-name>
+		<condition>
+			<less-than>
+				<property>velocities/true-airspeed-kt</property>
+				<value>150</value>
+			</less-than>
+		</condition>
+	</animation>
+  
+</PropertyList>
+
+

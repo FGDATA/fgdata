@@ -1,0 +1,206 @@
+<?xml version="1.0"?>
+
+<!--
+alt.xml
+
+Altimeter from C172-S
+
+Martin Dressler dr@musicabona.cz
+Feb 1 2003
+
+
+-->
+
+<PropertyList>
+
+ <name>C172-S Altimeter</name>
+ <w-base>512</w-base>
+ <h-base>512</h-base>
+ 
+ <layers>
+ 
+  <layer>
+   <name>Presure</name>
+   <w>384</w>
+   <h>384</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/misc3.rgb</path>
+    <x1>0.0</x1>
+    <x2>0.75</x2>
+    <y1>0.0</y1>
+    <y2>0.75</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>rotation</type>
+     <property>/instrumentation/altimeter/setting-inhg</property>
+     <min>27.9</min>
+     <max>31.4</max>
+     <scale>-100</scale>  <!-- degrees rotation per inHG -->
+     <offset>112</offset>
+    </transformation>
+   </transformations>
+  </layer>
+				  
+  <layer>
+   <name>Backplate</name>
+   <w>512</w>
+   <h>512</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/alt1.rgb</path>
+    <x1>0.0</x1>
+    <x2>1.0</x2>
+    <y1>0.0</y1>
+    <y2>1.0</y2>
+   </texture>
+  </layer>
+
+  <layer>
+   <name>10k Needle</name>
+   <w>224</w>
+   <h>256</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/misc2.rgb</path>
+    <x1>0.5625</x1>
+    <x2>1.0</x2>
+    <y1>0.0</y1>
+    <y2>0.5</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>rotation</type>
+     <property>/instrumentation/altimeter/indicated-altitude-ft</property>
+     <max>100000.0</max>
+     <scale>0.0036</scale>
+     <offset>0</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>1k Needle</name>
+   <w>60</w>
+   <h>220</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/misc3.rgb</path>
+    <x1>0.75</x1>
+    <x2>0.8671875</x2>
+    <y1>0.0</y1>
+    <y2>0.4296875</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>rotation</type>
+     <property>/instrumentation/altimeter/indicated-altitude-ft</property>
+     <max>100000.0</max>
+     <scale>0.036</scale>
+     <offset>0</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>32</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>Needle</name>
+   <w>56</w>
+   <h>234</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/misc3.rgb</path>
+    <x1>0.8671875</x1>
+    <x2>0.9765625</x2>
+    <y1>0.0</y1>
+    <y2>0.45703125</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>rotation</type>
+     <property>/instrumentation/altimeter/indicated-altitude-ft</property>
+     <max>100000.0</max>
+     <scale>0.36</scale>
+     <offset>0</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>53</offset>
+    </transformation>
+   </transformations>
+  </layer>
+ 
+ </layers>
+
+ <actions>
+
+  <action>
+   <name>calibrate fine</name>
+   <button>0</button>
+   <x>-236</x>
+   <y>-236</y>
+   <w>43</w>
+   <h>86</h>
+   <binding>
+    <command>property-adjust</command>
+    <property>/instrumentation/altimeter/setting-inhg</property>
+    <step>-0.01</step>
+    <min>27.9</min>
+    <max>31.4</max>
+    <wrap>false</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>calibrate coarse</name>
+   <button>1</button>
+   <x>-236</x>
+   <y>-236</y>
+   <w>43</w>
+   <h>86</h>
+   <binding>
+    <command>property-adjust</command>
+    <property>/instrumentation/altimeter/setting-inhg</property>
+    <step>-0.1</step>
+    <min>27.9</min>
+    <max>31.4</max>
+    <wrap>false</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>calibrate fine</name>
+   <button>0</button>
+   <x>-194</x>
+   <y>-236</y>
+   <w>43</w>
+   <h>86</h>
+   <binding>
+    <command>property-adjust</command>
+    <property>/instrumentation/altimeter/setting-inhg</property>
+    <step>0.01</step>
+    <min>27.9</min>
+    <max>31.4</max>
+    <wrap>false</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>calibrate coarse</name>
+   <button>1</button>
+   <x>-194</x>
+   <y>-236</y>
+   <w>43</w>
+   <h>86</h>
+   <binding>
+    <command>property-adjust</command>
+    <property>/instrumentation/altimeter/setting-inhg</property>
+    <step>0.1</step>
+    <min>27.9</min>
+    <max>31.4</max>
+    <wrap>false</wrap>
+   </binding>
+  </action>
+
+ </actions>
+
+</PropertyList>

@@ -1,0 +1,186 @@
+<?xml version="1.0"?>
+<!--
+  Zeppelin NT-07 airship for FlightGear.
+
+  Copyright (C) 2012 - 2013  Anders Gidenstam  (anders(at)gidenstam.org)
+  This file is licensed under the GPL license version 2 or later.
+-->
+<PropertyList>
+ <!-- Disclaimer: These instructions are derived only from common
+      sense together with certain data from the certificate of
+      airworthiness and have no connection whatsoever to any
+      instructions for the real Zeppelin NT.
+ -->
+ <title>Before Take Off Check</title>
+
+ <item>
+  <name>Envelope Pressure</name>
+  <value>Check (between 300 Pa and 600 Pa)</value>
+  <condition>
+   <and>
+    <greater-than>
+     <property>instrumentation/envelope-pressure-indicator/indicated-gas-pressure-psf</property>
+     <value>6.265</value>
+    </greater-than>
+    <less-than>
+     <property>instrumentation/envelope-pressure-indicator/indicated-gas-pressure-psf</property>
+     <value>12.532</value>
+    </less-than>
+   </and>
+  </condition>
+ </item>
+
+ <item>
+  <name>Static heaviness</name>
+  <value>Check (between 882 lbs and -441 lbs)</value>
+  <condition>
+   <and>
+    <greater-than>
+     <property>fdm/jsbsim/static-condition/net-lift-lbs</property>
+     <value>-882.0</value>
+    </greater-than>
+    <less-than>
+     <property>fdm/jsbsim/static-condition/net-lift-lbs</property>
+     <value>441.0</value>
+    </less-than>
+   </and>
+  </condition>
+ </item>
+
+ <item>
+  <name>Center of Gravity</name>
+  <value>Check (between 1344.5 in and 1374.0 in)</value>
+  <condition>
+   <and>
+    <greater-than>
+     <property>fdm/jsbsim/inertia/cg-x-in</property>
+     <value>1344.5</value>
+    </greater-than>
+    <less-than>
+     <property>fdm/jsbsim/inertia/cg-x-in</property>
+     <value>1374.0</value>
+    </less-than>
+   </and>
+  </condition>
+ </item>
+
+ <item>
+  <name>Transponder</name>
+  <value><![CDATA[On / Alt]]></value>
+ </item>
+
+ <item>
+  <name>Engine Swivel</name>
+  <value>As needed</value>
+  <binding>
+   <command>nasal</command>
+   <script>
+     setprop("fdm/jsbsim/fcs/side-engine-swivel-cmd-norm[0]", 1.0);
+     setprop("fdm/jsbsim/fcs/side-engine-swivel-cmd-norm[1]", 1.0);
+     controls.flapsDown(-1.0);
+     controls.flapsDown(-1.0);
+     controls.gearDown(1.0);
+   </script>
+  </binding>
+ </item>
+
+ <item>
+  <name>Thrust</name>
+  <value>No thrust (propeller blade angle close to 0)</value>
+  <condition>
+   <and>
+    <greater-than>
+     <property>controls/engines/engine[0]/propeller-pitch</property>
+     <value>0.40</value>
+    </greater-than>
+    <less-than>
+     <property>controls/engines/engine[0]/propeller-pitch</property>
+     <value>0.48</value>
+    </less-than>
+    <greater-than>
+     <property>controls/engines/engine[1]/propeller-pitch</property>
+     <value>0.40</value>
+    </greater-than>
+    <less-than>
+     <property>controls/engines/engine[1]/propeller-pitch</property>
+     <value>0.48</value>
+    </less-than>
+    <greater-than>
+     <property>controls/engines/engine[2]/propeller-pitch</property>
+     <value>0.40</value>
+    </greater-than>
+    <less-than>
+     <property>controls/engines/engine[2]/propeller-pitch</property>
+     <value>0.48</value>
+    </less-than>
+   </and>
+  </condition>
+  <binding>
+   <command>nasal</command>
+   <script>
+     interpolate("controls/engines/engine[0]/propeller-pitch", 0.45, 5.0);
+     interpolate("controls/engines/engine[1]/propeller-pitch", 0.45, 5.0);
+     interpolate("controls/engines/engine[2]/propeller-pitch", 0.45, 5.0);
+   </script>
+  </binding>
+ </item>
+
+ <item>
+  <name>Engine Speed</name>
+  <value>2600 - 2700 RPM</value>
+  <condition>
+   <and>
+    <greater-than>
+     <property>engines/engine[0]/rpm</property>
+     <value>2600.0</value>
+    </greater-than>
+    <less-than>
+     <property>engines/engine[0]/rpm</property>
+     <value>2700.0</value>
+    </less-than>
+    <greater-than>
+     <property>engines/engine[1]/rpm</property>
+     <value>2600.0</value>
+    </greater-than>
+    <less-than>
+     <property>engines/engine[1]/rpm</property>
+     <value>2700.0</value>
+    </less-than>
+    <greater-than>
+     <property>engines/engine[2]/rpm</property>
+     <value>2600.0</value>
+    </greater-than>
+    <less-than>
+     <property>engines/engine[2]/rpm</property>
+     <value>2700.0</value>
+    </less-than>
+   </and>
+  </condition>
+  <binding>
+   <command>nasal</command>
+   <script>
+     interpolate("controls/engines/engine[0]/throttle", 1.0, 10.0);
+     interpolate("controls/engines/engine[1]/throttle", 1.0, 10.0);
+     interpolate("controls/engines/engine[2]/throttle", 1.0, 10.0);
+   </script>
+  </binding>
+ </item>
+
+ <item>
+  <name>Mast truck</name>
+  <value>Unmasted</value>
+  <condition>
+   <and>
+    <not><property>fdm/jsbsim/mooring/moored</property></not>
+    <not><property>fdm/jsbsim/mooring/wire-connected</property></not>
+   </and>
+  </condition>
+  <binding>
+   <command>nasal</command>
+   <script>
+     ZLTNT.mooring.release_mooring();
+   </script>
+  </binding>
+ </item>
+
+</PropertyList>

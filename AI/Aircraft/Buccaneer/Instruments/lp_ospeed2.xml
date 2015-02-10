@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+	<path>../../../../Aircraft/Buccaneer/Instruments/indicator_orange.ac</path>
+
+	<animation>
+		<type>select</type>
+		<object-name>light</object-name>
+		<condition>
+			<greater-than>
+				<property>/engines/engine[1]/n2</property>
+				<value>98</value>
+			</greater-than>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>material</type>
+		<object-name>body</object-name>
+		<emission>
+			<factor-prop>/controls/lighting/panel-norm</factor-prop>
+			<red>0.75</red>
+			<green>0.25</green>
+			<blue>0.25</blue>
+		</emission>
+	</animation>
+
+	<animation>
+		<type>noshadow</type>
+	</animation>
+
+</PropertyList>

@@ -1,0 +1,28 @@
+<PropertyList>
+
+  <game-mode type="bool">false</game-mode>
+
+  <panel include="ifr-panel.xml"/>
+
+  <sim>
+    <panel>
+      <flip-x type="bool">false</flip-x>
+    </panel>
+    <frame-rate-throttle-hz>30</frame-rate-throttle-hz>
+    <instrument-options>
+      <omit-knobs type="bool">true</omit-knobs>
+    </instrument-options>
+  </sim>
+
+  <communication>
+    <listen>
+      <host>239.24.10.64</host>
+      <port>34200</port>
+      <style>udp</style>
+    </listen>
+
+    <protocol include="Panel1Protocol.xml"/>
+
+  </communication>
+
+</PropertyList>

@@ -1,0 +1,231 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+    <model>
+        <name>Airspeed MPH</name>
+        <path>Aircraft/dhc2/Models/Instruments/asi.xml</path>
+        <offsets>
+            <x-m>-1.278</x-m>
+            <y-m>-0.406</y-m>
+            <z-m>0.379</z-m>
+            <pitch-deg>-2</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <name>Vacuum Gauge</name>
+        <path>Aircraft/dhc2/Models/Instruments/vacuum.xml</path>
+        <offsets>
+            <x-m>-1.277</x-m>
+            <y-m>-0.517</y-m>
+            <z-m>0.340</z-m>
+            <pitch-deg>-2</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <name>Atitude Indicator</name>
+        <path>Aircraft/dhc2/Models/Instruments/ai-gauge.xml</path>
+        <offsets>
+            <x-m>-1.279</x-m>
+            <y-m>-0.295</y-m>
+            <z-m>0.378</z-m>
+            <pitch-deg>-2</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <name>Vertical Speed</name>
+        <path>Aircraft/dhc2/Models/Instruments/vsi-gauge.xml</path>
+        <offsets>
+            <x-m>-1.274</x-m>
+            <y-m>-0.184</y-m>
+            <z-m>0.266</z-m>
+            <pitch-deg>-2</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <name>Fuel Gauge</name>
+        <path>Aircraft/dhc2/Models/Instruments/fuel-gauge.xml</path>
+        <offsets>
+            <x-m>-1.274</x-m>
+            <y-m>-0.517</y-m>
+            <z-m>0.237</z-m>
+            <pitch-deg>-2</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <name>Heading Gauge</name>
+        <path>Aircraft/dhc2/Models/Instruments/rmi.xml</path>
+        <offsets>
+            <x-m>-1.274</x-m>
+            <y-m>-0.406</y-m>
+            <z-m>0.266</z-m>
+            <pitch-deg>-2</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <name>Turn Gauge</name>
+        <path>Aircraft/dhc2/Models/Instruments/turn-gauge.xml</path>
+        <offsets>
+            <x-m>-1.274</x-m>
+            <y-m>-0.294</y-m>
+            <z-m>0.266</z-m>
+            <pitch-deg>-2</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <name>Fuel Select</name>
+        <path>Aircraft/dhc2/Models/Instruments/fuel-select.xml</path>
+        <offsets>
+            <x-m>-1.270</x-m>
+            <y-m>-0.521</y-m>
+            <z-m>0.095</z-m>
+            <pitch-deg>-2</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <name>Magneto switch</name>
+        <path>Aircraft/dhc2/Models/Instruments/magnetos.xml</path>
+        <offsets>
+            <x-m>-1.270</x-m>
+            <y-m>-0.421</y-m>
+            <z-m>0.111</z-m>
+            <pitch-deg>-2</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <name>Altimeter</name>
+        <path>Aircraft/dhc2/Models/Instruments/altimeter.xml</path>
+        <offsets>
+            <x-m>-1.278</x-m>
+            <y-m>-0.184</y-m>
+            <z-m>0.379</z-m>
+            <pitch-deg>-2</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <name>Manifold Pressure</name>
+        <path>Aircraft/dhc2/Models/Instruments/man-gauge.xml</path>
+        <offsets>
+            <x-m>-1.352</x-m>
+            <y-m>-0.05</y-m>
+            <z-m>0.538</z-m>
+            <pitch-deg>-14</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <name>RPM</name>
+        <path>Aircraft/dhc2/Models/Instruments/rpm-gauge.xml</path>
+        <offsets>
+            <x-m>-1.352</x-m>
+            <y-m>0.05</y-m>
+            <z-m>0.538</z-m>
+            <pitch-deg>-14</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <name>OILTEMP</name>
+        <path>Aircraft/dhc2/Models/Instruments/oiltemp-gauge.xml</path>
+        <offsets>
+            <x-m>-1.264</x-m>
+            <y-m>-0.048</y-m>
+            <z-m>0.266</z-m>
+            <pitch-deg>0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <name>CLOCK</name>
+        <path>Aircraft/dhc2/Models/Instruments/clock.xml</path>
+        <offsets>
+            <x-m>-1.264</x-m>
+            <y-m>0.052</y-m>
+            <z-m>0.266</z-m>
+            <pitch-deg>0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <name>CARBTEMP</name>
+        <path>Aircraft/dhc2/Models/Instruments/carbtemp.xml</path>
+        <offsets>
+            <x-m>-1.264</x-m>
+            <y-m>0.052</y-m>
+            <z-m>0.156</z-m>
+            <pitch-deg>0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <name>AMMETER</name>
+        <path>Aircraft/dhc2/Models/Instruments/ammeter.xml</path>
+        <offsets>
+            <x-m>-1.264</x-m>
+            <y-m>-0.048</y-m>
+            <z-m>0.156</z-m>
+            <pitch-deg>0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <condition>
+            <equals>
+                <property>sim/aero</property>
+                <value>dhc2F</value>
+            </equals>
+        </condition>
+        <name>WTR gear</name>
+        <path>Aircraft/dhc2/Models/Instruments/gear-ctl.xml</path>
+        <offsets>
+            <x-m>-1.273</x-m>
+            <y-m>-0.177</y-m>
+            <z-m>0.124</z-m>
+            <pitch-deg>-3</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <name>Comm</name>
+        <path>Aircraft/dhc2/Models/Instruments/ky196-comm1.xml</path>
+        <offsets>
+            <x-m>-1.244</x-m>
+            <y-m>0.319</y-m>
+            <z-m>0.350</z-m>
+            <pitch-deg>0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <name>Nav</name>
+        <path>Aircraft/dhc2/Models/Instruments/kn53-nav1.xml</path>
+        <offsets>
+            <x-m>-1.244</x-m>
+            <y-m>0.319</y-m>
+            <z-m>0.315</z-m>
+            <pitch-deg>0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <name>ADF</name>
+        <path>Aircraft/dhc2/Models/Instruments/kr87.xml</path>
+        <offsets>
+            <x-m>-1.244</x-m>
+            <y-m>0.319</y-m>
+            <z-m>0.280</z-m>
+            <pitch-deg>0</pitch-deg>
+        </offsets>
+    </model>
+
+</PropertyList>

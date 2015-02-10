@@ -1,0 +1,232 @@
+<?xml version="1.0"?>
+<!--
+ This file is part of FlightGear, the free flight simulator
+ http://www.flightgear.org/
+
+ Copyright (C) 2009 Torsten Dreyer, Torsten (at) t3r _dot_ de
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation; either version 2 of the
+ License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+-->
+<PropertyList>
+  <name>SenecaII malfunctions</name>
+  <layout>vbox</layout>
+
+  <text>
+    <label>Malfunctions</label>
+  </text>
+  <hrule/>
+
+  <group>
+    <layout>hbox</layout>
+    <halign>center</halign>
+
+    <group>
+      <layout>vbox</layout>
+      <halign>center</halign>
+      <text>
+        <label>Actuator Failure</label>
+      </text>
+      <group>
+        <layout>hbox</layout>
+        <group>
+          <layout>vbox</layout>
+          <text>
+            <label/>
+          </text>
+          <text>
+            <halign>center</halign>
+            <label>Nose</label>
+          </text>
+          <text>
+            <halign>center</halign>
+            <label>Left</label>
+          </text>
+          <text>
+            <halign>center</halign>
+            <label>Right</label>
+          </text>
+          <text>
+            <halign>center</halign>
+            <label>Transit</label>
+          </text>
+        </group>
+        <group>
+          <layout>vbox</layout>
+          <text>
+            <label>Stuck</label>
+          </text>
+          <checkbox>
+            <halign>center</halign>
+            <property>fdm/jsbsim/gear/unit[0]/actuator/malfunction/fail_stuck</property>
+            <live>true</live>
+            <binding>
+              <command>dialog-apply</command>
+            </binding>
+          </checkbox>
+          <checkbox>
+            <halign>center</halign>
+            <property>fdm/jsbsim/gear/unit[1]/actuator/malfunction/fail_stuck</property>
+            <live>true</live>
+            <binding>
+              <command>dialog-apply</command>
+            </binding>
+          </checkbox>
+          <checkbox>
+            <halign>center</halign>
+            <property>fdm/jsbsim/gear/unit[2]/actuator/malfunction/fail_stuck</property>
+            <live>true</live>
+            <binding>
+              <command>dialog-apply</command>
+            </binding>
+          </checkbox>
+          <text>
+            <label> </label>
+          </text>
+        </group>
+        <group>
+          <layout>vbox</layout>
+          <text>
+            <label>Zero</label>
+          </text>
+          <checkbox>
+            <halign>center</halign>
+            <property>fdm/jsbsim/gear/unit[0]/actuator/malfunction/fail_zero</property>
+            <live>true</live>
+            <binding>
+              <command>dialog-apply</command>
+            </binding>
+          </checkbox>
+          <checkbox>
+            <halign>center</halign>
+            <property>fdm/jsbsim/gear/unit[1]/actuator/malfunction/fail_zero</property>
+            <live>true</live>
+            <binding>
+              <command>dialog-apply</command>
+            </binding>
+          </checkbox>
+          <checkbox>
+            <halign>center</halign>
+            <property>fdm/jsbsim/gear/unit[2]/actuator/malfunction/fail_zero</property>
+            <live>true</live>
+            <binding>
+              <command>dialog-apply</command>
+            </binding>
+          </checkbox>
+          <text>
+            <label> </label>
+          </text>
+        </group>
+        <group>
+          <layout>vbox</layout>
+          <text>
+            <label>Hardover</label>
+          </text>
+          <checkbox>
+            <halign>center</halign>
+            <property>fdm/jsbsim/gear/unit[0]/actuator/malfunction/fail_hardover</property>
+            <live>true</live>
+            <binding>
+              <command>dialog-apply</command>
+            </binding>
+          </checkbox>
+          <checkbox>
+            <halign>center</halign>
+            <property>fdm/jsbsim/gear/unit[1]/actuator/malfunction/fail_hardover</property>
+            <live>true</live>
+            <binding>
+              <command>dialog-apply</command>
+            </binding>
+          </checkbox>
+          <checkbox>
+            <halign>center</halign>
+            <property>fdm/jsbsim/gear/unit[2]/actuator/malfunction/fail_hardover</property>
+            <live>true</live>
+            <binding>
+              <command>dialog-apply</command>
+            </binding>
+          </checkbox>
+          <text>
+            <label> </label>
+          </text>
+        </group>
+      </group>
+    </group>
+
+    <group>
+      <layout>vbox</layout>
+      <halign>center</halign>
+      <text>
+        <label>Indicator</label>
+      </text>
+      <group>
+        <layout>vbox</layout>
+        <text>
+          <label>Serviceable</label>
+        </text>
+        <checkbox>
+          <halign>center</halign>
+          <property>gear/gear[0]/indicator-serviceable</property>
+          <live>true</live>
+          <binding>
+            <command>dialog-apply</command>
+          </binding>
+        </checkbox>
+        <checkbox>
+          <halign>center</halign>
+          <property>gear/gear[1]/indicator-serviceable</property>
+          <live>true</live>
+          <binding>
+            <command>dialog-apply</command>
+          </binding>
+        </checkbox>
+        <checkbox>
+          <halign>center</halign>
+          <property>gear/gear[2]/indicator-serviceable</property>
+          <live>true</live>
+          <binding>
+            <command>dialog-apply</command>
+          </binding>
+        </checkbox>
+        <checkbox>
+          <halign>center</halign>
+          <property>gear/transit-light/serviceable</property>
+          <live>true</live>
+          <binding>
+            <command>dialog-apply</command>
+          </binding>
+        </checkbox>
+      </group>
+    </group>
+  </group>
+
+  <hrule/>
+
+  <group>
+    <layout>hbox</layout>
+    <empty>
+      <stretch>true</stretch>
+    </empty>
+
+    <button>
+      <legend>Close</legend>
+      <default>true</default>
+      <key>Esc</key>
+      <binding>
+        <command>dialog-close</command>
+      </binding>
+    </button>
+
+    <empty>
+      <stretch>true</stretch>
+    </empty>
+  </group>
+
+</PropertyList>

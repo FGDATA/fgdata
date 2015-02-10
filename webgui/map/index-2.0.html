@@ -1,0 +1,260 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<meta name="description" content="FlightGear - Map" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="apple-touch-icon" href="/img/FlightGear_logo.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<link rel="shortcut icon" sizes="200x200" href="/img/FlightGear_logo.png">
+<link rel="icon" sizes="200x200" href="/img/FlightGear_logo.png">
+
+<script src="../3rdparty/jquery/jquery-1.11.1.min.js" type="text/javascript"></script>
+<link rel="stylesheet" href="../3rdparty/leaflet-0.7.3/leaflet.css" />
+<script src="../3rdparty/leaflet-0.7.3/leaflet.js" type="text/javascript"></script>
+<script src="../lib/fgfs.js" type="text/javascript"></script>
+<script src="FollowControl.js" type="text/javascript"></script>
+<script src="Marker.js" type="text/javascript"></script>
+<script src="NavdbLayer.js" type="text/javascript"></script>
+
+<title>FlightGear - Map</title>
+</head>
+<body>
+	<style>
+html,body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+#map {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+}
+
+.aircraft-marker-icon {
+	background-color: rgba(255,255,255,0);
+}
+
+.aircraft-marker-icon path {
+	fill: #00ff00;
+}
+
+.aircraft-marker-popup .leaflet-popup-tip {
+	display: none;
+}
+
+.aircraft-marker-popup .leaflet-popup-content-wrapper {
+	background-color: rgba(255,255,255,0.50);
+}
+
+.aircraft-marker-popup .leaflet-popup-content {
+	margin: 5px 5px;
+}
+.aircraft-marker-callsign,.aircraft-marker-altitude,.aircraft-marker-model,.aircraft-marker-gs {
+        float: left;
+	color: #00ff00;
+        text-shadow: 1px 1px #404040;
+
+}
+
+.aircraft-marker-model,.aircraft-marker-gs {
+        padding-left: 5px;
+}
+
+.aircraft-marker-altitude,.aircraft-marker-callsign {
+        clear: both;
+}
+
+.followAircraft {
+        background: white;
+        background: rgba(255, 255, 255, 0.8);
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        border-radius: 5px;
+        width: 36px;
+        height: 36px;
+}
+
+
+	</style>
+
+	<div id='map'></div>
+	<script type="text/javascript">
+    /* <![CDATA[ */
+
+    var propertyMirror = new FGFS.PropertyMirror([
+      [ "latitude",    "/position/latitude-deg" ],
+      [ "longitude",   "/position/longitude-deg" ],
+      [ "altitude",    "/position/altitude-ft" ],
+      [ "heading",     "/orientation/heading-deg" ],
+      [ "groundspeed", "/velocities/groundspeed-kt" ],
+      [ "model",       "/sim/model/path" ],
+      [ "callsign",    "/sim/multiplay/callsign" ],
+    ]);
+
+
+    var osmLayer =  new L.TileLayer(
+        'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+        {
+          maxZoom : 18,
+          attribution : 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+    });
+
+    var map = new L.Map('map', {
+      center : [ 53.7, 10.0 ],
+      zoom : 10,
+      layers: [ osmLayer ],
+      zoomControl: true,
+      attributionControl: true,
+    });
+
+    var navdbLayer = L.navdbLayer();
+    map.on('resize', function(e) {
+      navdbLayer.invalidate();
+    });
+
+    map.on('zoomend', function(e) {
+      navdbLayer.invalidate();
+    });
+
+    map.on('moveend', function(e) {
+      navdbLayer.invalidate();
+    });
+
+
+    L.control.layers({
+      "OpenStreetMaps" : osmLayer,
+      "MapQuest Satelite" : new L.TileLayer(
+        'http://otile{s}.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.png', 
+        {
+          maxZoom : 18,
+          subdomains : [ '1', '2', '3', '4' ],
+          attribution : 'Tiles Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a>.'
+        }),
+
+      "MapQuest Roads" : new L.TileLayer(
+        'http://otile{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png',
+        {
+          maxZoom : 18,
+          subdomains : [ '1', '2', '3', '4' ],
+          attribution : 
+            'Tiles Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a>. Map data (c) <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a> contributors, CC-BY-SA.'
+        }),
+    },{
+//      "NAVDB" : navdbLayer,
+//      "AI" : aiLayer,
+      "VFRMap.com Sectionals (US)" : new L.TileLayer(
+        'http://vfrmap.com/20140918/tiles/vfrc/{z}/{y}/{x}.jpg',
+        {
+          maxZoom : 12,
+          minZoom : 3,
+          attribution : '(c) <a href="VFRMap.com">VFRMap.com</a>',
+          tms: true,
+          opacity: 0.5,
+          bounds: L.latLngBounds(L.latLng(16.0,-179.0), L.latLng(72.0,-60.0) ),
+        }),
+
+      "VFRMap.com - Low IFR (US)" :  new L.TileLayer(
+          'http://vfrmap.com/20140918/tiles/ifrlc/{z}/{y}/{x}.jpg',
+          {
+            maxZoom : 12,
+            minZoom : 5,
+            attribution : '© <a href="VFRMap.com">VFRMap.com</a>',
+            tms: true,
+            opacity: 0.5,
+            bounds: L.latLngBounds(L.latLng(16.0,-179.0), L.latLng(72.0,-60.0) ),
+          }),    
+
+
+      "dfs.de VFR" : new L.TileLayer(
+        'https://secais.dfs.de/static-maps/ICAO500-2014-DACH-Reprojected_01/tiles/{z}/{x}/{y}.png', 
+        {
+          minZoom : 5,
+          maxZoom : 15,
+          attribution : 'Map data © <a href="http://www.dfs.de">DFS</a>',
+          bounds: L.latLngBounds(L.latLng(46.0,5.0), L.latLng(55.1,16.5) ),
+        }),
+
+      "Lower Airspace (Germany)" :  new L.TileLayer(
+        'https://secais.dfs.de/static-maps/lower_20131114/tiles/{z}/{x}/{y}.png', 
+        {
+          minZoom : 5,
+          maxZoom : 15,
+          attribution : 'Map data © <a href="http://www.dfs.de">DFS</a>',
+          bounds: L.latLngBounds(L.latLng(46.0,5.0), L.latLng(55.1,16.5) ),
+        }),
+
+      "NavDB" : navdbLayer,
+
+      "Precipitation" : new L.TileLayer(
+        'http://{s}.tile.openweathermap.org/map/precipitation/{z}/{x}/{y}.png', 
+        {
+          maxZoom : 14,
+          minZoom : 0,
+          subdomains : '12',
+          format : 'image/png',
+          transparent : true,
+          opacity : 0.5
+        }),
+
+      "Isobares" : new L.TileLayer(
+        'http://{s}.tile.openweathermap.org/map/pressure_cntr/{z}/{x}/{y}.png', 
+        {
+          maxZoom : 7,
+          minZoom : 0,
+          subdomains : '12',
+          format : 'image/png',
+          transparent : true,
+          opacity : 0.5
+        }),
+    }).addTo(map);
+
+    var followAircraft = L.followControl({
+      cssClass: 'followAircraft',
+      innerHTML: '<img src="images/followAircraft.svg" title="Center Map on Aircraft Position" />',
+      getPosition: function() {
+          return L.latLng(propertyMirror.getNode("latitude").getNumValue(), propertyMirror.getNode("longitude").getNumValue() );
+      },
+    });
+    followAircraft.addTo(map);
+    map.on('dragstart', function(e) {
+      followAircraft.setFollow(false);
+    });
+
+    var aircraftMarker = L.aircraftMarker( L.latLng(53.6,10.1), {
+      getProperties:function() {
+        var model = propertyMirror.getNode("model").getStringValue("");
+        model = model.slice( model.lastIndexOf('/')+1 );
+        model = model.slice( 0, model.lastIndexOf('.') );
+
+        var callsign = propertyMirror.getNode("callsign").getStringValue("You!");
+        if( callsign == 'callsign' ) callsign = "You!";
+
+        return {
+          "model":    model,
+          "callsign": callsign,
+          "altitude": Math.round(propertyMirror.getNode("altitude").getNumValue()/100),
+          "speed":    Math.round(propertyMirror.getNode("groundspeed").getNumValue()),
+          "heading":  Math.round(propertyMirror.getNode("heading").getNumValue()),
+          "position": L.latLng(
+                        propertyMirror.getNode("latitude").getNumValue(),
+                        propertyMirror.getNode("longitude").getNumValue() ),
+        };
+      },
+
+      updateInterval: 100,
+    });
+    aircraftMarker.addTo(map);
+
+
+    /* ]]> */
+  </script>
+</body>
+</html>

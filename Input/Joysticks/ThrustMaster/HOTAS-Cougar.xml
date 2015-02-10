@@ -1,0 +1,476 @@
+<?xml version="1.0"?>
+
+<!--
+Bindings for THRUSTMASTER HOTAS Cougar stick/throttle combination.
+
+	Matthias Boerner <matthias-boerner@t-online.de>
+-->
+
+<PropertyList>
+        <name type="string">Thrustmaster Thrustmaster HOTAS Cougar</name>
+        <name type="string">Thrustmaster HOTAS Cougar</name>
+
+<!-- begin definition of modifier button, on HOTAS: Pinky Switch -->
+        <button n="2">
+                <desc>modifier button 0</desc>
+                <repeatable type="bool">false</repeatable>
+                <binding>
+                        <command>nasal</command>
+                        <script>
+                                name = "/input/joysticks/js/button[2]";
+                                mod = getprop(name);
+                                if (mod == nil) {
+                                        setprop(name, 1);
+                                } elsif (mod == 0) {
+                                        setprop(name, mod + 1);
+                                }
+                        </script>
+                </binding>
+                <mod-up>
+                        <binding>
+                                <command>nasal</command>
+                                <script>
+                                        name = "/input/joysticks/js[0]/button[2]";
+                                        mod = getprop(name);
+                                        if (mod == nil) {
+                                                setprop(name, 0);
+                                        } elsif (mod == 1) {
+                                                setprop(name, mod - 1);
+                                        }
+                                </script>
+                        </binding>
+                </mod-up>
+        </button>
+<!-- end definition of modifier button -->
+
+<!-- begin main axis configuration -->
+        <axis>
+                <desc>Aileron</desc>
+                <number>
+                        <unix>0</unix>
+                        <windows>0</windows>
+                </number>
+                <binding>
+                        <command>property-scale</command>
+                        <property>/controls/flight/aileron</property>
+                </binding>
+        </axis>
+
+        <axis>
+                <desc>Elevator</desc>
+                <number>
+                        <unix>1</unix>
+                        <windows>1</windows>
+                </number>
+                <binding>
+                        <command>property-scale</command>
+                        <property>/controls/flight/elevator</property>
+                        <factor type="double">-1.0</factor>
+                </binding>
+        </axis>
+
+        <axis>
+                <desc>Throttle</desc>
+                <number>
+                        <unix>2</unix>
+                        <windows>2</windows>
+                </number>
+                <binding>
+                        <command>nasal</command>
+                        <script>controls.throttleAxis()</script>
+                </binding>
+        </axis>
+<!-- end main axis configuration -->
+
+<!-- begin trim configuration -->
+        <!-- button on HOTAS: Trim and Pinky Switch -->             
+        <axis n="6">
+                <desc>elevation trim/reset elevation trim</desc>
+                <low>
+                        <repeatable>true</repeatable>
+                        <binding>
+                                <command>nasal</command>
+                                <script>
+                                        mod = getprop("/input/joysticks/js[0]/button[2]");
+                                        if (mod == nil or mod == 0) {
+                                                controls.elevatorTrim(1)
+                                        } elsif (mod == 1) {
+                                                setprop("/controls/flight/elevator-trim", 0);
+                                        }
+                                </script>
+                        </binding>
+                </low>
+                <high>
+                        <repeatable>true</repeatable>
+                        <binding>
+                                <command>nasal</command>
+                                <script>
+                                        mod = getprop("/input/joysticks/js[0]/button[2]");
+                                        if (mod == nil or mod == 0) {
+                                                controls.elevatorTrim(-1)
+                                        } elsif (mod == 1) {
+                                                setprop("/controls/flight/elevator-trim", 0);
+                                        }
+                                </script>
+                        </binding>
+                </high>
+        </axis>
+
+        <axis n="5">
+                <desc>aileron trim/reset aileron trim</desc>
+                <low>
+                        <repeatable>true</repeatable>
+                        <binding>
+                                <command>nasal</command>
+                                <script>
+                                        mod = getprop("/input/joysticks/js[0]/button[2]");
+                                        if (mod == nil or mod == 0) {
+                                                controls.aileronTrim(-1)
+                                        } elsif (mod == 1) {
+                                                setprop("/controls/flight/aileron-trim", 0);
+                                        }
+                                </script>
+                        </binding>
+                </low>
+                <high>
+                        <repeatable>true</repeatable>
+                        <binding>
+                                <command>nasal</command>
+                                <script>
+                                        mod = getprop("/input/joysticks/js[0]/button[2]");
+                                        if (mod == nil or mod == 0) {
+                                                controls.aileronTrim(1)
+                                        } elsif (mod == 1) {
+                                                setprop("/controls/flight/aileron-trim", 0);
+                                        }
+                                </script>
+                        </binding>
+                </high>
+        </axis>
+
+        <!-- button on HOTAS: Countermeasures Management and Pinky Switch -->
+        <button n="17">
+                <desc>rudder trim left/reset rudder trim</desc>
+                <repeatable>true</repeatable>
+                <binding>
+                        <command>nasal</command>
+                        <script>
+                                mod = getprop("/input/joysticks/js[0]/button[2]");
+                                if (mod == nil or mod == 0) {
+                                        controls.rudderTrim(-1)
+                                } elsif (mod == 1) {
+                                        setprop("/controls/flight/rudder-trim", 0);
+                                }
+                        </script>
+                </binding>
+        </button>
+
+        <button n="15">
+                <desc>rudder trim right/reset rudder trim</desc>
+                <repeatable>true</repeatable>
+                <binding>
+                        <command>nasal</command>
+                        <script>
+                                mod = getprop("/input/joysticks/js[0]/button[2]");
+                                if (mod == nil or mod == 0) {
+                                        controls.rudderTrim(1)
+                                } elsif (mod == 1) {
+                                        setprop("/controls/flight/rudder-trim", 0);
+                                }
+                        </script>
+                </binding>
+        </button>
+
+<!-- end trim configuration -->
+
+<!-- begin view configuration -->
+        <!-- button on HOTAS: Display Management and Pinky Switch -->
+        <button n="10">
+                <desc>view up/view reset</desc>
+                <repeatable>true</repeatable>
+                <binding>
+                        <command>nasal</command>
+                        <script>
+                                mod = getprop("/input/joysticks/js[0]/button[2]");
+                                if (mod == nil or mod == 0) {
+                                        view.panViewPitch(1)
+                                } elsif (mod == 1) {
+                                        view.resetView()
+                                }
+                        </script>
+                </binding>
+        </button>
+
+        <button n="12">
+                <desc>view down/view reset</desc>
+                <repeatable>true</repeatable>
+                <binding>
+                        <command>nasal</command>
+                        <script>
+                                mod = getprop("/input/joysticks/js[0]/button[2]");
+                                if (mod == nil or mod == 0) {
+                                        view.panViewPitch(-1)
+                                } elsif (mod == 1) {
+                                        view.resetView()
+                                }
+                        </script>
+                </binding>
+        </button>
+
+        <button n="11">
+                <desc>view right/view reset</desc>
+                <repeatable>true</repeatable>
+                <binding>
+                        <command>nasal</command>
+                        <script>
+                                mod = getprop("/input/joysticks/js[0]/button[2]");
+                                if (mod == nil or mod == 0) {
+                                        view.panViewDir(-1)
+                                } elsif (mod == 1) {
+                                        view.resetView()
+                                }
+                        </script>
+                </binding>
+        </button>
+
+        <button n="13">
+                <desc>view left/view reset</desc>
+                <repeatable>true</repeatable>
+                <binding>
+                        <command>nasal</command>
+                        <script>
+                                mod = getprop("/input/joysticks/js[0]/button[2]");
+                                if (mod == nil or mod == 0) {
+                                        view.panViewDir(1)
+                                } elsif (mod == 1) {
+                                        view.resetView()
+                                }
+                        </script>
+                </binding>
+        </button>
+<!-- end view configuration -->
+
+<!-- begin switch view configuration -->
+        <!-- button on HOTAS: Target Management right and Pinky Switch -->
+        <button n="7">
+                <desc>switch view - forward/reset view to cockpit view</desc>
+                <binding>
+                        <command>nasal</command>
+                        <script>
+                                mod = getprop("/input/joysticks/js[0]/button[2]");
+                                if (mod == nil or mod == 0) {
+                                        view.stepView(1)
+                                } elsif (mod == 1) {
+                                        setprop("/sim/current-view/view-number", 0);
+                                }
+                        </script>
+                </binding>
+        </button>
+
+        <!-- button on HOTAS: Target Management left and Pinky Switch -->
+        <button n="9">
+                <desc>switch view - backward/reset view to cockpit view</desc>
+                <binding>
+                        <command>nasal</command>
+                        <script>
+                                mod = getprop("/input/joysticks/js[0]/button[2]");
+                                if (mod == nil or mod == 0) {
+                                        view.stepView(-1)
+                                } elsif (mod == 1) {
+                                        setprop("/sim/current-view/view-number", 0);
+                                }
+                        </script>
+                </binding>
+        </button>
+
+<!-- end switch view configuration -->
+
+<!-- begin zoom configuration (FOV)-->
+        <!-- button on HOTAS: Communications Switch and Pinky Switch -->
+        <button n="6">
+                <desc>zoom in/reset zoom</desc>
+                <repeatable>true</repeatable>
+                <binding>
+                        <command>nasal</command>
+                        <script>
+                                mod = getprop("/input/joysticks/js[0]/button[2]");
+                                if (mod == nil or mod == 0) {
+                                        view.decrease(1);
+                                } elsif (mod == 1) {
+                                        setprop("/sim/current-view/field-of-view", 55);
+                                }
+                        </script>
+                </binding>
+        </button>
+
+        <button n="8">
+                <desc>zoom out/reset zoom</desc>
+                <repeatable>true</repeatable>
+                <binding>
+                        <command>nasal</command>
+                        <script>
+                                mod = getprop("/input/joysticks/js[0]/button[2]");
+                                if (mod == nil or mod == 0) {
+                                        view.increase(1);
+                                } elsif (mod == 1) {
+                                        setprop("/sim/current-view/field-of-view", 55);
+                                }
+                        </script>
+                </binding>
+        </button>
+<!-- end zoom configuration (FOV)-->
+
+<!-- begin speedbrake configuration -->
+        <!-- button on HOTAS: SpeedBrake -->
+        <button n="27">
+                <desc>speedbrake</desc>
+                <binding>
+                        <command>nasal</command>
+                        <script>setprop("/controls/flight/speedbrake", 1)</script>
+                </binding>
+                <mod-up>
+                <binding>
+                        <command>nasal</command>
+                        <script>setprop("/controls/flight/speedbrake", 0)</script>
+                </binding>
+                </mod-up>
+        </button>
+<!-- end speedbrake configuration -->
+
+<!-- begin gear configuration -->
+        <!-- button on HOTAS: Manual Range/Uncage Switch and Pinky Switch -->
+        <button n="23">
+                <desc>gear up or down/tail wheel lock</desc>
+                <repeatable type="bool">false</repeatable>
+                <binding>
+                        <command>nasal</command>
+                        <script>
+                                mod = getprop("/input/joysticks/js[0]/button[2]");
+                                if (mod == nil or mod == 0) {
+                                        gearToggle = getprop("/controls/gear/gear-down");
+                                        if (gearToggle == 1) {
+                                                controls.gearDown(-1);
+                                                gui.popupTip("Gear up!");
+                                        } else {
+                                                controls.gearDown(1);
+                                                gui.popupTip("Gear down!");
+                                        }
+                                } elsif (mod == 1) {
+                                        tailwheelLock = getprop("/controls/gear/tailwheel-lock");
+                                        if (tailwheelLock == 1) {
+                                                setprop("/controls/gear/tailwheel-lock", 0);
+                                                gui.popupTip("Tailwheel unlocked!");
+                                        } else {
+                                                setprop("/controls/gear/tailwheel-lock", 1);
+                                                gui.popupTip("Tailwheel locked!");
+                                        }
+                                }
+                        </script>
+                </binding>
+        </button> 
+
+        <!-- begin nose wheel configuration -->
+        <button n="4">
+                <desc>nose wheel on/off</desc>
+                <repeatable type="bool">false</repeatable>
+                <binding>
+                        <command>nasal></command>
+                        <script>
+                                nosewheel = getprop("/controls/gear/nose-wheel-steering");
+                                if (nosewheel == 1) {
+                                        setprop("/controls/gear/nose-wheel-steering", 0);
+                                        gui.popupTip("Nose wheel steering on!");
+                                } else {
+                                        setprop("/controls/gear/nose-wheel-steering", 1);
+                                        gui.popupTip("Nose wheel steering off!");
+                                }
+                        </script>
+                </binding>
+        </button>
+        <!-- end nose wheel steering configuration -->
+<!-- end gear configuration -->
+
+<!-- begin flaps configuration -->
+        <!-- botton on HOTAS: Countermeasures Management up/down and Pinky Switch -->
+        <button n="14">
+                <desc>flaps up</desc>
+                <repeatable type="bool">false</repeatable>
+                <binding>
+                        <command>nasal</command>
+                        <script>
+                                mod = getprop("/input/joysticks/js[0]/button[2]");
+                                if (mod == nil or mod == 0) {
+                                        controls.flapsDown(-1)
+                                } elsif (mod == 1) {
+                                        setprop("/controls/flight/flaps", 0);
+                                }                       
+                        </script>
+                </binding>
+        </button>
+
+        <button n="16">
+                <desc>flaps down</desc>
+                <repeatable type="bool">false</repeatable>
+                <binding>
+                        <command>nasal</command>
+                        <script>
+                                mod = getprop("/input/joysticks/js[0]/button[2]");
+                                if (mod == nil or mod == 0) {
+                                        controls.flapsDown(1)
+                                } elsif (mod == 1) {
+                                        setprop("/controls/flight/flaps", 0);
+                                }
+                        </script>
+                </binding>
+        </button>
+<!-- end flaps configuration -->
+
+<!-- begin thrust reverse configuration -->
+        <!-- button on HOTAS: Dogfight left-->
+        <button n="24">
+                <desc>thrust reverse</desc>
+                <repeatable type="bool">false</repeatable>
+                <binding>
+                        <command>nasal</command>
+                        <script>
+                                props.setAll("/controls/engines/engine", "reverser", 1);
+                                gui.popupTip("Thrust reverse on!");
+                        </script>
+                </binding>
+                <mod-up>
+                <binding>
+                        <command>nasal</command>
+                        <script>
+                                props.setAll("/controls/engines/engine", "reverser", 0);
+                                gui.popupTip("Thrust reverse off!");
+                        </script>
+                </binding>
+                </mod-up>
+        </button>
+<!-- end thrust reverse configuration -->
+
+<!-- begin tailhook configuration -->
+        <!-- button on HOTAS: Dogfight right-->
+        <button n="25">
+                <desc>thrust reverse</desc>
+                <repeatable type="bool">false</repeatable>
+                <binding>
+                        <command>nasal</command>
+                        <script>
+                                setprop("/controls/gear/tailhook", 1);
+                                gui.popupTip("Tailhook down!");
+                        </script>
+                </binding>
+                <mod-up>
+                <binding>
+                        <command>nasal</command>
+                        <script>
+                                setprop("/controls/gear/tailhook", 0);
+                                gui.popupTip("Tailhook up!");
+                        </script>
+                </binding>
+                </mod-up>
+        </button>
+<!-- end tailhook configuration -->
+
+</PropertyList>

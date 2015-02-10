@@ -1,0 +1,73 @@
+<!--
+    ************************************************************************
+    A6M2 'Zero'
+    Dec 2006 Syd Adams and Tat Nishioka
+    ************************************************************************
+  -->
+
+<PropertyList include="A6M2-base.xml">
+  <sim>
+    <description>A6M2 Zero (JSBSim)</description>
+    <author>Syd Adams - Tatsuhiro Nishioka - Ron Jensen</author>
+    <flight-model>jsb</flight-model>
+    <aero>A6M2-jsbsim</aero>
+
+    <panel>
+      <path>Aircraft/A6M2/Panels/Test-panel.xml</path>
+      <visibility archive="y">false</visibility>
+    </panel> 
+  </sim>
+
+  <consumables>
+    <fuel>
+      <tank n="0">
+	<level-gal_us>20</level-gal_us>
+      </tank>
+      <tank n="1">
+	<level-gal_us>20</level-gal_us>
+      </tank>
+      <tank n="2">
+	<level-gal_us>20</level-gal_us>
+      </tank>
+    </fuel>
+  </consumables>
+  <controls>
+   <engines>
+    <engine>
+     <manual-mixture-control type="double">1.0</manual-mixture-control>
+    </engine>
+   </engines>
+  </controls>
+  <nasal>
+    <A6M2>
+      <file>Aircraft/A6M2/Nasal/electrical.nas</file>
+      <file>Aircraft/A6M2/Nasal/jwarbirds.nas</file>
+      <file>Aircraft/A6M2/Nasal/a6m2-jsbsim.nas</file>
+      <!-- for performance monitor -->
+      <file>Aircraft/A6M2/Nasal/performance.nas</file>
+      <file>Aircraft/A6M2/Nasal/keyhandler.nas</file>
+      <file>Aircraft/A6M2/Nasal/dialog.nas</file>
+    </A6M2>
+  </nasal>
+  <fdm>
+   <jsbsim>
+
+    <propulsion>
+      <engine>
+        <!--  
+          The following line allows us to fly zero in v2.0.0 
+          (by avoiding no-such-node error) 
+        -->
+        <prop-induced-velocity_fps> 0</prop-induced-velocity_fps>
+      </engine>
+    </propulsion>
+
+    <fcs>
+     <automixture-enable alias="/controls/engines/engine/manual-mixture-control"/>
+    </fcs>
+   </jsbsim>
+  </fdm>
+     
+</PropertyList>
+
+

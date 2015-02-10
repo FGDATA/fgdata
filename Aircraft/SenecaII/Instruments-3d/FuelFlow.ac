@@ -1,0 +1,65 @@
+AC3Db
+MATERIAL "ac3dmat1" rgb 1 1 1  amb 1 1 1  emis 0 0 0  spec 0 0 0  shi 10  trans 0
+OBJECT world
+kids 1
+OBJECT group
+name "FuelFlow"
+loc 0.001 0.00512875 -2.24787e-10
+kids 3
+OBJECT poly
+name "Face"
+loc -0.001 -0.00512875 -2.40874e-10
+texture "Faces3.rgb"
+crease 45.000000
+numvert 4
+0 -0.0375 -0.0375
+0 -0.0375 0.0375
+0 0.0375 0.0375
+0 0.0375 -0.0375
+numsurf 1
+SURF 0x0
+mat 0
+refs 4
+3 0.5 0.5
+2 0 0.5
+1 0 0
+0 0.5 0
+kids 0
+OBJECT poly
+name "Left"
+loc 0 -0.015002 -0.00404202
+texture "Faces3.rgb"
+crease 45.000000
+numvert 4
+0 0.0211549 0.0118224
+0 0.0231997 0.00700499
+0 -0.0202697 -0.0114467
+0 -0.0223145 -0.00662926
+numsurf 1
+SURF 0x0
+mat 0
+refs 4
+3 0.647138 0.447432
+2 0.593443 0.447432
+1 0.593443 0.0336425
+0 0.647138 0.0336425
+kids 0
+OBJECT poly
+name "Right"
+loc 0.001 -0.015002 -0.00404202
+texture "Faces3.rgb"
+crease 45.000000
+numvert 4
+0 -0.0223145 -0.00662926
+0 -0.0202697 -0.0114467
+0 0.0231997 0.00700499
+0 0.0211549 0.0118224
+numsurf 1
+SURF 0x0
+mat 0
+refs 4
+0 0.718542 0.445986
+1 0.664847 0.445986
+2 0.664847 0.0321971
+3 0.718542 0.0321971
+kids 0

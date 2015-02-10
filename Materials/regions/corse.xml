@@ -1,0 +1,216 @@
+<?xml version="1.0"?>
+<PropertyList>
+  <name>Corse</name>
+  <area>
+    <lon1>8.0</lon1>
+    <lon2>10.5</lon2>
+    <lat1>41.0</lat1>
+    <lat2>43.5</lat2>
+  </area>
+
+  <condition>
+    <equals>
+      <property>sim/startup/season</property>
+      <value>summer</value>
+    </equals>
+  </condition>
+
+  <!-- REGIONAL DEFINITIONS - CORSE							-->
+
+  <material>
+    <name>BarrenCover</name>
+    <name>Dirt</name>
+    <name>OpenMining</name>
+    <name>Rock</name>
+    <name>Dump</name>
+    <texture-set>
+      <texture>Terrain/shrub-hawaii.png</texture>
+      <texture n="11">Terrain/rainforest-hawaii.png</texture>
+      <texture n="12">Terrain/rock_red.png</texture>
+      <texture n="13">Terrain/rock_red.png</texture>
+      <texture n="14">Terrain/grain_texture.png</texture>
+      <texture n="15">Terrain/airport_grass2.png</texture>
+    </texture-set>
+    <parameters>
+      <grain_strength>0.7</grain_strength>
+      <transition_model>0.3</transition_model>
+      <hires_overlay_bias>-0.1</hires_overlay_bias>
+    </parameters>
+    <xsize>1000</xsize>
+    <ysize>1000</ysize>
+    <solid>1</solid>
+    <friction-factor>0.9</friction-factor>
+    <rolling-friction>0.1</rolling-friction>
+    <bumpiness>0.3</bumpiness>
+  </material>
+
+
+  <material>
+    <effect>Effects/forest</effect>
+    <name>DeciduousBroadCover</name>
+    <name>DeciduousForest</name>
+    <name>Bog</name>
+    <name>Heath</name>
+    <texture-set>
+      <texture>Terrain/rainforest-hawaii.png</texture>
+      <texture n="11">Terrain/rainforest-hawaii.png</texture>
+      <texture n="12">Terrain/tundra-hawaii.png</texture>
+      <texture n="13">Terrain/rock_red.png</texture>
+    </texture-set>
+    <parameters>
+      <transition_model>1.0</transition_model>
+      <hires_overlay_bias>-0.1</hires_overlay_bias>
+    </parameters>
+    <xsize>2000</xsize>
+    <ysize>2000</ysize>
+    <light-coverage>10000000.0</light-coverage>
+    <wood-coverage>4000.0</wood-coverage>
+    <tree-texture>Trees/deciduous-alt.png</tree-texture>
+    <tree-varieties>8</tree-varieties>
+    <tree-range-m alias="/params/forest/tree-range-m"/>
+    <tree-height-m>25.0</tree-height-m>
+    <tree-width-m>15.0</tree-width-m>
+    <rolling-friction>1</rolling-friction>
+    <bumpiness>0.85</bumpiness>
+  </material>
+
+  <material>
+    <name>ShrubCover</name>
+    <name>ShrubGrassCover</name>
+    <name>ScrubCover</name>
+    <name>Scrub</name>
+    <name>Sclerophyllous</name>
+    <texture-set>
+      <texture>Terrain/tundra-hawaii.png</texture>
+      <texture n="12">Terrain/shrub-hawaii.png</texture>
+      <texture n="13">Terrain/rock_red.png</texture>
+      <texture n="15">Terrain/rainforest-hawaii.png</texture>
+    </texture-set>
+    <parameters>
+      <dot_size>10.0</dot_size>
+    </parameters>
+    <xsize>2000</xsize>
+    <ysize>2000</ysize>
+    <diffuse>
+      <r>0.86</r>
+      <g>0.86</g>
+      <b>0.86</b>
+      <a>1.0</a>
+    </diffuse>
+    <specular>
+      <r>0.1</r>
+      <g>0.1</g>
+      <b>0.1</b>
+      <a>1.0</a>
+    </specular>
+    <shininess>1.2</shininess>
+    <light-coverage>20000000.0</light-coverage>
+    <wood-coverage>16000.0</wood-coverage>
+    <tree-texture>Trees/deciduous-alt.png</tree-texture>
+    <tree-varieties>8</tree-varieties>
+    <tree-range-m alias="/params/forest/tree-range-m"/>
+    <tree-height-m>20.0</tree-height-m>
+    <tree-width-m>12.0</tree-width-m>
+    <rolling-friction>0.6</rolling-friction>
+    <bumpiness>0.4</bumpiness>
+  </material>
+
+  <material>
+    <name>MixedCropPastureCover</name>
+    <name>MixedCrop</name>
+    <name>ComplexCrop</name>
+    <name>CropGrassCover</name>
+    <name>CropGrass</name>
+    <name>Grassland</name>
+    <name>NaturalCrop</name>
+    <texture-set>
+      <texture>Terrain/cropgrass-madagascar.png</texture>
+      <texture n="12">Terrain/shrub-hawaii.png</texture>
+      <texture n="13">Terrain/rock_red.png</texture>
+    </texture-set>
+    <parameters>
+     <transition_model>0.5</transition_model>
+    </parameters>
+    <xsize>2000</xsize>
+    <ysize>2000</ysize>
+    <light-coverage>2000000.0</light-coverage>
+    <solid>1</solid>
+    <friction-factor>0.9</friction-factor>
+    <rolling-friction>0.1</rolling-friction>
+    <bumpiness>0.7</bumpiness>
+    <load-resistance>1e30</load-resistance>
+  </material>
+
+  <material>
+    <name>GrassCover</name>
+    <name>BareTundraCover</name>
+    <name>MixedTundraCover</name>
+    <name>Cemetery</name>
+    <effect>Effects/landmass-nowood</effect>
+    <texture-set>
+      <texture>Terrain/tundra-hawaii.png</texture>
+      <texture n="11">Terrain/rainforest-hawaii.png</texture>
+      <texture n="12">Terrain/shrub-hawaii.png</texture>
+      <texture n="13">Terrain/rock_red.png</texture>
+      <texture n="15">Terrain/airport_grass2.png</texture>
+    </texture-set>
+    <parameters>
+      <hires_overlay_bias>0.0</hires_overlay_bias>
+    </parameters>
+    <xsize>2000</xsize>
+    <ysize>2000</ysize>
+    <light-coverage>4000000.0</light-coverage>
+    <diffuse>
+     <r>0.93</r>
+     <g>0.95</g>
+     <b>0.93</b>
+     <a>1.0</a>
+    </diffuse>
+    <specular>
+     <r>0.1</r>
+     <g>0.12</g>
+     <b>0.1</b>
+     <a>1.0</a>
+    </specular>
+    <shininess>1.2</shininess>
+    <solid>1</solid>
+    <friction-factor>0.7</friction-factor>
+    <rolling-friction>0.1</rolling-friction>
+    <bumpiness>0.15</bumpiness>
+    <load-resistance>1e30</load-resistance>
+  </material>
+
+  <material>
+    <name>DryCropPastureCover</name>
+    <name>DryCrop</name>
+    <texture-set>
+      <texture>Terrain/dry_pasture4.png</texture>
+      <texture n="11">Terrain/rainforest-hawaii.png</texture>
+      <texture n="13">Terrain/rock_red.png</texture>
+    </texture-set>
+    <parameters>
+      <hires_overlay_bias>-0.2</hires_overlay_bias>
+    </parameters>
+    <xsize>2000</xsize>
+    <ysize>2000</ysize>
+    <solid>1</solid>
+    <friction-factor>0.9</friction-factor>
+    <rolling-friction>0.1</rolling-friction>
+    <bumpiness>0.6</bumpiness>
+    <load-resistance>1e30</load-resistance>
+    <light-coverage>2000000.0</light-coverage>
+  </material>
+
+  <material>
+    <name>Sand</name>
+    <texture>Terrain/sand-hawaii4.png</texture>
+    <xsize>2000</xsize>
+    <ysize>2000</ysize>
+    <light-coverage>10000000.0</light-coverage>
+    <shininess>2.5</shininess>
+    <rolling-friction>0.1</rolling-friction>
+    <friction-factor>0.7</friction-factor>
+    <bumpiness>0.1</bumpiness>
+  </material>
+
+</PropertyList>

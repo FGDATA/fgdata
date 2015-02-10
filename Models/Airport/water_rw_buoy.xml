@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+ <path>water_rw_buoy.ac</path>
+
+ <animation>
+  <type>range</type>
+  <min-m>0</min-m>
+  <max-m>10000</max-m>
+ </animation>
+
+   <model>
+       <path>Models/Effects/RedLight10000.xml</path>
+       <offsets>
+           <x-m>0</x-m>
+           <y-m>0</y-m>
+           <z-m>3</z-m>
+           <heading-deg>0</heading-deg>
+       </offsets>
+   </model>
+
+</PropertyList>

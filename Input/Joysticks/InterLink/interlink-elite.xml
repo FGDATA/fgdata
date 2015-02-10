@@ -1,0 +1,229 @@
+<?xml version="1.0"?>
+<!--
+************************************************************************
+InterLink Elite Controller Bindings
+
+5 axis (2 joy, 1 rotary)
+4 button (1 three-position, 2 two-position, 1 momentary)
+
+Author: e-pilot - License - none - freely distributable and modifiable
+Version 0.25 - tested under WindowsXP / Debian Lenny.  Not tested on Mac.
+
+The Interlink Elite controller (by Futaba) is a component of
+RealFlight R/C Flight Simulator and connects through a USB port.
+
+Controls:
+
+
+Left Joystick up-down:        Throttle
+Left Joystick left-right:     Rudder
+Right Joystick up-down:       Elevator
+Right Joystick left-right:    Aileron
+
+Three Position switch at upper left of controller:
+                         up:  Elev trim up
+                       down:  Elev trim down
+           return to center:  Stop trim adjustment
+
+Two position switch above left joystick:
+             forward (push):  Gear Down
+                back (pull):  Gear Up
+
+
+Two position switch above right joystick:
+             forward (push):  Apply All Brakes
+                back (pull):  Release All Brakes
+
+Rotary knob above right joystick:
+           Rotate clockwise:  Lower Flaps
+    Rotate counterclockwise:  Raise Flaps
+           Return to center:  Stop flap adjustment
+
+(Note: if flaps are adjustable in 3 increments, to obtain full
+flaps, rotate knob clockwise and return to center three times)
+
+Red Reset Button:             Reset View
+
+************************************************************************
+$Id$
+-->
+<PropertyList>
+
+<name>GREAT PLANES InterLink Elite</name>
+<name>InterLink Elite</name>
+
+<axis n="0">
+  <desc>Aileron</desc>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/aileron</property>
+   <factor type="double">3.0</factor>
+   <squared type="bool">true</squared>
+  </binding>
+</axis>
+
+<axis n="1">
+  <desc>Elevator</desc>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/elevator</property>
+   <factor type="double">-3.5</factor>
+   <squared type="bool">true</squared>
+  </binding>
+</axis>
+
+<axis n="2">
+  <desc>Throttle</desc>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/engines/engine[0]/throttle</property>
+   <offset type="double">-0.55</offset>
+   <factor type="double">-1.0</factor>
+  </binding>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/engines/engine[1]/throttle</property>
+   <offset type="double">-0.55</offset>
+   <factor type="double">-1.0</factor>
+  </binding>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/engines/engine[2]/throttle</property>
+   <offset type="double">-0.55</offset>
+   <factor type="double">-1.0</factor>
+  </binding>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/engines/engine[3]/throttle</property>
+   <offset type="double">-0.55</offset>
+   <factor type="double">-1.0</factor>
+  </binding>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/engines/engine[4]/throttle</property>
+   <offset type="double">-0.55</offset>
+   <factor type="double">-1.0</factor>
+  </binding>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/engines/engine[5]/throttle</property>
+   <offset type="double">-0.55</offset>
+   <factor type="double">-1.0</factor>
+  </binding>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/engines/engine[6]/throttle</property>
+   <offset type="double">-0.55</offset>
+   <factor type="double">-1.0</factor>
+  </binding>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/engines/engine[7]/throttle</property>
+   <offset type="double">-0.55</offset>
+   <factor type="double">-1.0</factor>
+  </binding>
+   <binding>
+   <command>property-scale</command>
+   <property>/controls/engines/engine[8]/throttle</property>
+   <offset type="double">-0.55</offset>
+   <factor type="double">-1.0</factor>
+  </binding>
+</axis>
+
+<axis>
+  <desc>Rudder</desc>
+  <number>
+   <unix>4</unix>
+   <windows>3</windows>
+   <mac>4</mac>
+  </number>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/rudder</property>
+   <factor type="double">3.0</factor>
+   <squared type="bool">true</squared>
+  </binding>
+</axis>
+
+<axis>
+  <desc>Rotary knob - Flap Control</desc>
+  <number>
+   <unix>3</unix>
+   <windows>4</windows>
+   <mac>3</mac>
+  </number>
+  <low>
+   <repeatable>false</repeatable>
+   <binding>
+    <command>nasal</command>
+    <script>controls.flapsDown(-1)</script>
+   </binding>
+  </low>
+  <high>
+   <repeatable>false</repeatable>
+   <binding>
+    <command>nasal</command>
+    <script>controls.flapsDown(1)</script>
+   </binding>
+  </high>
+</axis>
+
+<button n="0">
+  <desc>Above left joy - Gear Control</desc>
+  <binding>
+   <repeatable>false</repeatable>
+   <command>nasal</command>
+   <script>controls.gearDown(-1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <repeatable>false</repeatable>
+    <command>nasal</command>
+    <script>controls.gearDown(1)</script>
+   </binding>
+  </mod-up>
+</button>
+
+<button n="1">
+  <desc>Above right joy - Brakes</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.applyBrakes(1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.applyBrakes(0)</script>
+   </binding>
+  </mod-up>
+</button>
+
+<button n="2">
+  <desc>Red Reset - Reset View</desc>
+  <binding>
+   <command>nasal</command>
+   <script>view.resetView()</script>
+  </binding>
+</button>
+
+<button n="3">
+  <desc>3 Pos up - Elevator trim up</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.elevatorTrim(1)</script>
+  </binding>
+</button>
+
+<button n="4">
+  <desc>3 Pos down - Elevator trim down</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.elevatorTrim(-1)</script>
+  </binding>
+</button>
+
+</PropertyList>
+
+<!-- end of InterLinkElite.xml -->

@@ -1,0 +1,991 @@
+<?xml version="1.0" ?>
+
+<PropertyList>
+
+	<name>jetways-adjust</name>
+	<modal>false</modal>
+	<layout>vbox</layout>
+
+	<nasal>
+		<open><![CDATA[
+		 var self = cmdarg();
+		 var dlgname = self.getNode("name").getValue();
+		 var root = getprop("/sim/fg-root");
+		 var modelfiles = directory(root ~ "/Models/Airport/Jetway");
+		 var modelcombo = self.getNode("group[9]/combo[0]");
+		 var models = [];
+		 foreach (var file; modelfiles)
+		  {
+		  if (substr(file, -3) == "xml")
+		   {
+		   var tree = io.read_properties("Models/Airport/Jetway/" ~ file);
+		   if (tree.getNode("is-animated-jetway", 1).getBoolValue()) append(models, substr(file, 0, size(file) - 4));
+		   }
+		  }
+		 for (var i = 0; i < size(models); i += 1)
+		  {
+		  modelcombo.getNode("value[" ~ i ~ "]", 1).setValue(models[i]);
+		  }
+
+		 var airlinefiles = directory(root ~ "/Models/Airport/Jetway/Airlines");
+		 var airlinecombo = self.getNode("group[9]/combo[2]");
+		 var airlines = [];
+		 foreach (var file; airlinefiles)
+		  {
+		  append(airlines, substr(file, 0, size(file) - 4));
+		  }
+		 for (var i = 0; i < size(airlines); i += 1)
+		  {
+		  airlinecombo.getNode("value[" ~ i ~ "]", 1).setValue(airlines[i]);
+		  }
+
+		 var Value =
+		  {
+		  new: func(name)
+		   {
+		   var m = { parents: [Value] };
+		   m.name = name;
+		   var n = props.globals.getNode("/sim/jetways/adjust/" ~ m.name, 1);
+		   m.sliderN = n.getNode("slider", 1);
+		   m.offsetN = n.getNode("offset", 1);
+		   m.offsetN.setDoubleValue(0);
+		   m.sliderN.setDoubleValue(0);
+		   m.last_slider = 0;
+		   m.center();
+		   m.sliderL = setlistener(m.sliderN, func m.update());
+		   return m;
+		   },
+		  update: func
+		   {
+		   var offset = me.sliderN.getValue();
+		   var value = me.offsetN.getValue() + me.sliderN.getValue() - me.last_slider;
+		   jetways_edit.adjust(me.name, value);
+		   me.offsetN.setDoubleValue(0);
+		   me.last_slider = offset;
+		   },
+		  center : func
+		   {
+		   me.offsetN.setValue(me.offsetN.getValue() + me.sliderN.getValue());
+		   me.sliderN.setDoubleValue(0);
+		   },
+		  remove: func
+		   {
+		   removelistener(me.sliderL);
+		   }
+		  };
+		 var values =
+		  [
+		  Value.new("longitudinal"),
+		  Value.new("transversal"),
+		  Value.new("altitude"),
+		  Value.new("heading"),
+		  Value.new("initial-extension"),
+		  Value.new("initial-heading"),
+		  Value.new("initial-pitch"),
+		  Value.new("initial-entrance-heading")
+		  ];
+		 var center_sliders = func
+		  {
+		  foreach (var v; values)
+		   {
+		   v.center();
+		   }
+		  };
+		 var update = func(w)
+		  {
+		  self.setValues({"dialog-name": dlgname, "object-name": w});
+		  fgcommand("dialog-update", self);
+		  center_sliders();
+		  };
+		]]></open>
+		<close>
+		 foreach (var v; values)
+		  {
+		  v.remove();
+		  }
+		</close>
+	</nasal>
+
+	<group>
+		<layout>hbox</layout>
+		<empty><stretch>1</stretch></empty>
+
+		<text>
+			<label>Jetway Editor</label>
+		</text>
+
+		<empty><stretch>1</stretch></empty>
+
+		<button>
+			<pref-width>16</pref-width>
+			<pref-height>16</pref-height>
+			<legend></legend>
+			<default>1</default>
+			<keynum>27</keynum>
+			<border>2</border>
+			<binding>
+				<command>dialog-close</command>
+			</binding>
+			<binding>
+				<command>dialog-apply</command>
+			</binding>
+		</button>
+	</group>
+
+	<hrule />
+
+	<group>
+		<layout>hbox</layout>
+		<default-padding>0</default-padding>
+
+		<button>
+			<legend>&lt;&lt;</legend>
+			<pref-width>22</pref-width>
+			<pref-height>22</pref-height>
+
+			<binding>
+				<command>property-adjust</command>
+				<property>/sim/jetways/adjust/longitudinal/offset</property>
+				<step>-10</step>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>update("longitudinal")</script>
+			</binding>
+		</button>
+
+		<button>
+			<legend>&lt;</legend>
+			<pref-width>22</pref-width>
+			<pref-height>22</pref-height>
+
+			<binding>
+				<command>property-adjust</command>
+				<property>/sim/jetways/adjust/longitudinal/offset</property>
+				<step>-1</step>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>update("longitudinal")</script>
+			</binding>
+		</button>
+
+		<slider>
+			<name>longitudinal</name>
+			<property>/sim/jetways/adjust/longitudinal/slider</property>
+			<legend>near/far</legend>
+			<pref-width>250</pref-width>
+			<live>1</live>
+			<min>-1</min>
+			<max>1</max>
+
+			<color>
+				<red>1.0</red>
+				<green>0.6</green>
+				<blue>0.6</blue>
+				<alpha>1</alpha>
+			</color>
+
+			<binding>
+				<command>dialog-apply</command>
+				<object-name>longitudinal</object-name>
+			</binding>
+		</slider>
+
+		<button>
+			<legend>&gt;</legend>
+			<pref-width>22</pref-width>
+			<pref-height>22</pref-height>
+
+			<binding>
+				<command>property-adjust</command>
+				<property>/sim/jetways/adjust/longitudinal/offset</property>
+				<step>1</step>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>update("longitudinal")</script>
+			</binding>
+		</button>
+
+		<button>
+			<legend>&gt;&gt;</legend>
+			<pref-width>22</pref-width>
+			<pref-height>22</pref-height>
+
+			<binding>
+				<command>property-adjust</command>
+				<property>/sim/jetways/adjust/longitudinal/offset</property>
+				<step>10</step>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>update("longitudinal")</script>
+			</binding>
+		</button>
+	</group>
+
+	<group>
+		<layout>hbox</layout>
+		<default-padding>0</default-padding>
+
+		<button>
+			<legend>&lt;&lt;</legend>
+			<pref-width>22</pref-width>
+			<pref-height>22</pref-height>
+
+			<binding>
+				<command>property-adjust</command>
+				<property>/sim/jetways/adjust/transversal/offset</property>
+				<step>-10</step>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>update("transversal")</script>
+			</binding>
+		</button>
+
+		<button>
+			<legend>&lt;</legend>
+			<pref-width>22</pref-width>
+			<pref-height>22</pref-height>
+
+			<binding>
+				<command>property-adjust</command>
+				<property>/sim/jetways/adjust/transversal/offset</property>
+				<step>-1</step>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>update("transversal")</script>
+			</binding>
+		</button>
+
+		<slider>
+			<name>transversal</name>
+			<property>/sim/jetways/adjust/transversal/slider</property>
+			<legend>left/right</legend>
+			<pref-width>250</pref-width>
+			<live>1</live>
+			<min>-1</min>
+			<max>1</max>
+
+			<color>
+				<red>0.6</red>
+				<green>1.0</green>
+				<blue>0.6</blue>
+				<alpha>1.0</alpha>
+			</color>
+
+			<binding>
+				<command>dialog-apply</command>
+				<object-name>transversal</object-name>
+			</binding>
+		</slider>
+
+		<button>
+			<legend>&gt;</legend>
+			<pref-width>22</pref-width>
+			<pref-height>22</pref-height>
+
+			<binding>
+				<command>property-adjust</command>
+				<property>/sim/jetways/adjust/transversal/offset</property>
+				<step>1</step>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>update("transversal")</script>
+			</binding>
+		</button>
+
+		<button>
+			<legend>&gt;&gt;</legend>
+			<pref-width>22</pref-width>
+			<pref-height>22</pref-height>
+
+			<binding>
+				<command>property-adjust</command>
+				<property>/sim/jetways/adjust/transversal/offset</property>
+				<step>10</step>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>update("transversal")</script>
+			</binding>
+		</button>
+	</group>
+
+	<group>
+		<layout>hbox</layout>
+		<default-padding>0</default-padding>
+
+		<button>
+			<legend>&lt;&lt;</legend>
+			<pref-width>22</pref-width>
+			<pref-height>22</pref-height>
+
+			<binding>
+				<command>property-adjust</command>
+				<property>/sim/jetways/adjust/altitude/offset</property>
+				<step>-10</step>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>update("altitude")</script>
+			</binding>
+		</button>
+
+		<button>
+			<legend>&lt;</legend>
+			<pref-width>22</pref-width>
+			<pref-height>22</pref-height>
+
+			<binding>
+				<command>property-adjust</command>
+				<property>/sim/jetways/adjust/altitude/offset</property>
+				<step>-1</step>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>update("altitude")</script>
+			</binding>
+		</button>
+
+		<slider>
+			<name>altitude</name>
+			<property>/sim/jetways/adjust/altitude/slider</property>
+			<legend>altitude</legend>
+			<pref-width>250</pref-width>
+			<live>1</live>
+			<min>-1</min>
+			<max>1</max>
+
+			<color>
+				<red>0.6</red>
+				<green>0.6</green>
+				<blue>1.0</blue>
+				<alpha>1.0</alpha>
+			</color>
+
+			<binding>
+				<command>dialog-apply</command>
+				<object-name>altitude</object-name>
+			</binding>
+		</slider>
+
+		<button>
+			<legend>&gt;</legend>
+			<pref-width>22</pref-width>
+			<pref-height>22</pref-height>
+
+			<binding>
+				<command>property-adjust</command>
+				<property>/sim/jetways/adjust/altitude/offset</property>
+				<step>1</step>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>update("altitude")</script>
+			</binding>
+		</button>
+
+		<button>
+			<legend>&gt;&gt;</legend>
+			<pref-width>22</pref-width>
+			<pref-height>22</pref-height>
+
+			<binding>
+				<command>property-adjust</command>
+				<property>/sim/jetways/adjust/altitude/offset</property>
+				<step>10</step>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>update("altitude")</script>
+			</binding>
+		</button>
+	</group>
+
+	<group>
+		<layout>hbox</layout>
+		<default-padding>0</default-padding>
+
+		<button>
+			<legend>&lt;&lt;</legend>
+			<pref-width>22</pref-width>
+			<pref-height>22</pref-height>
+
+			<binding>
+				<command>property-adjust</command>
+				<property>/sim/jetways/adjust/heading/offset</property>
+				<step>-6</step>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>update("heading")</script>
+			</binding>
+		</button>
+
+		<button>
+			<legend>&lt;</legend>
+			<pref-width>22</pref-width>
+			<pref-height>22</pref-height>
+
+			<binding>
+				<command>property-adjust</command>
+				<property>/sim/jetways/adjust/heading/offset</property>
+				<step>-1</step>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>update("heading")</script>
+			</binding>
+		</button>
+
+		<slider>
+			<name>heading</name>
+			<property>/sim/jetways/adjust/heading/slider</property>
+			<legend>heading</legend>
+			<pref-width>250</pref-width>
+			<live>1</live>
+			<min>-1</min>
+			<max>1</max>
+
+			<color>
+				<red>1.0</red>
+				<green>1.0</green>
+				<blue>0.6</blue>
+				<alpha>1.0</alpha>
+			</color>
+
+			<binding>
+				<command>dialog-apply</command>
+				<object-name>heading</object-name>
+			</binding>
+		</slider>
+
+		<button>
+			<legend>&gt;</legend>
+			<pref-width>22</pref-width>
+			<pref-height>22</pref-height>
+
+			<binding>
+				<command>property-adjust</command>
+				<property>/sim/jetways/adjust/heading/offset</property>
+				<step>1</step>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>update("heading")</script>
+			</binding>
+		</button>
+
+		<button>
+			<legend>&gt;&gt;</legend>
+			<pref-width>22</pref-width>
+			<pref-height>22</pref-height>
+
+			<binding>
+				<command>property-adjust</command>
+				<property>/sim/jetways/adjust/heading/offset</property>
+				<step>6</step>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>update("heading")</script>
+			</binding>
+		</button>
+	</group>
+
+	<hrule />
+
+	<group>
+		<layout>hbox</layout>
+		<default-padding>0</default-padding>
+
+		<button>
+			<legend>&lt;&lt;</legend>
+			<pref-width>22</pref-width>
+			<pref-height>22</pref-height>
+
+			<binding>
+				<command>property-adjust</command>
+				<property>/sim/jetways/adjust/initial-extension/offset</property>
+				<step>-3</step>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>update("initial-extension")</script>
+			</binding>
+		</button>
+
+		<button>
+			<legend>&lt;</legend>
+			<pref-width>22</pref-width>
+			<pref-height>22</pref-height>
+
+			<binding>
+				<command>property-adjust</command>
+				<property>/sim/jetways/adjust/initial-extension/offset</property>
+				<step>-1</step>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>update("initial-extension")</script>
+			</binding>
+		</button>
+
+		<slider>
+			<name>initial-extension</name>
+			<property>/sim/jetways/adjust/initial-extension/slider</property>
+			<legend>extension offset</legend>
+			<pref-width>250</pref-width>
+			<live>1</live>
+			<min>-1</min>
+			<max>1</max>
+
+			<color>
+				<red>1.0</red>
+				<green>1.0</green>
+				<blue>1.0</blue>
+				<alpha>1.0</alpha>
+			</color>
+
+			<binding>
+				<command>dialog-apply</command>
+				<object-name>initial-extension</object-name>
+			</binding>
+		</slider>
+
+		<button>
+			<legend>&gt;</legend>
+			<pref-width>22</pref-width>
+			<pref-height>22</pref-height>
+
+			<binding>
+				<command>property-adjust</command>
+				<property>/sim/jetways/adjust/initial-extension/offset</property>
+				<step>1</step>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>update("initial-extension")</script>
+			</binding>
+		</button>
+
+		<button>
+			<legend>&gt;&gt;</legend>
+			<pref-width>22</pref-width>
+			<pref-height>22</pref-height>
+
+			<binding>
+				<command>property-adjust</command>
+				<property>/sim/jetways/adjust/initial-extension/offset</property>
+				<step>3</step>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>update("initial-extension")</script>
+			</binding>
+		</button>
+	</group>
+
+	<group>
+		<layout>hbox</layout>
+		<default-padding>0</default-padding>
+
+		<button>
+			<legend>&lt;&lt;</legend>
+			<pref-width>22</pref-width>
+			<pref-height>22</pref-height>
+
+			<binding>
+				<command>property-adjust</command>
+				<property>/sim/jetways/adjust/initial-pitch/offset</property>
+				<step>-2</step>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>update("initial-pitch")</script>
+			</binding>
+		</button>
+
+		<button>
+			<legend>&lt;</legend>
+			<pref-width>22</pref-width>
+			<pref-height>22</pref-height>
+
+			<binding>
+				<command>property-adjust</command>
+				<property>/sim/jetways/adjust/initial-pitch/offset</property>
+				<step>-1</step>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>update("initial-pitch")</script>
+			</binding>
+		</button>
+
+		<slider>
+			<name>initial-pitch</name>
+			<property>/sim/jetways/adjust/initial-pitch/slider</property>
+			<legend>pitch offset</legend>
+			<pref-width>250</pref-width>
+			<live>1</live>
+			<min>-1</min>
+			<max>1</max>
+
+			<color>
+				<red>0.8</red>
+				<green>0.8</green>
+				<blue>0.8</blue>
+				<alpha>0.8</alpha>
+			</color>
+
+			<binding>
+				<command>dialog-apply</command>
+				<object-name>initial-pitch</object-name>
+			</binding>
+		</slider>
+
+		<button>
+			<legend>&gt;</legend>
+			<pref-width>22</pref-width>
+			<pref-height>22</pref-height>
+
+			<binding>
+				<command>property-adjust</command>
+				<property>/sim/jetways/adjust/initial-pitch/offset</property>
+				<step>1</step>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>update("initial-pitch")</script>
+			</binding>
+		</button>
+
+		<button>
+			<legend>&gt;&gt;</legend>
+			<pref-width>22</pref-width>
+			<pref-height>22</pref-height>
+
+			<binding>
+				<command>property-adjust</command>
+				<property>/sim/jetways/adjust/initial-pitch/offset</property>
+				<step>2</step>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>update("initial-pitch")</script>
+			</binding>
+		</button>
+	</group>
+
+	<group>
+		<layout>hbox</layout>
+		<default-padding>0</default-padding>
+
+		<button>
+			<legend>&lt;&lt;</legend>
+			<pref-width>22</pref-width>
+			<pref-height>22</pref-height>
+
+			<binding>
+				<command>property-adjust</command>
+				<property>/sim/jetways/adjust/initial-heading/offset</property>
+				<step>-2</step>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>update("initial-heading")</script>
+			</binding>
+		</button>
+
+		<button>
+			<legend>&lt;</legend>
+			<pref-width>22</pref-width>
+			<pref-height>22</pref-height>
+
+			<binding>
+				<command>property-adjust</command>
+				<property>/sim/jetways/adjust/initial-heading/offset</property>
+				<step>-1</step>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>update("initial-heading")</script>
+			</binding>
+		</button>
+
+		<slider>
+			<name>initial-heading</name>
+			<property>/sim/jetways/adjust/initial-heading/slider</property>
+			<legend>rotation offset</legend>
+			<pref-width>250</pref-width>
+			<live>1</live>
+			<min>-1</min>
+			<max>1</max>
+
+			<color>
+				<red>0.6</red>
+				<green>0.6</green>
+				<blue>0.6</blue>
+				<alpha>0.6</alpha>
+			</color>
+
+			<binding>
+				<command>dialog-apply</command>
+				<object-name>initial-heading</object-name>
+			</binding>
+		</slider>
+
+		<button>
+			<legend>&gt;</legend>
+			<pref-width>22</pref-width>
+			<pref-height>22</pref-height>
+
+			<binding>
+				<command>property-adjust</command>
+				<property>/sim/jetways/adjust/initial-heading/offset</property>
+				<step>1</step>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>update("initial-heading")</script>
+			</binding>
+		</button>
+
+		<button>
+			<legend>&gt;&gt;</legend>
+			<pref-width>22</pref-width>
+			<pref-height>22</pref-height>
+
+			<binding>
+				<command>property-adjust</command>
+				<property>/sim/jetways/adjust/initial-heading/offset</property>
+				<step>2</step>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>update("initial-heading")</script>
+			</binding>
+		</button>
+	</group>
+
+	<group>
+		<layout>hbox</layout>
+		<default-padding>0</default-padding>
+
+		<button>
+			<legend>&lt;&lt;</legend>
+			<pref-width>22</pref-width>
+			<pref-height>22</pref-height>
+
+			<binding>
+				<command>property-adjust</command>
+				<property>/sim/jetways/adjust/initial-entrance-heading/offset</property>
+				<step>-6</step>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>update("initial-entrance-heading")</script>
+			</binding>
+		</button>
+
+		<button>
+			<legend>&lt;</legend>
+			<pref-width>22</pref-width>
+			<pref-height>22</pref-height>
+
+			<binding>
+				<command>property-adjust</command>
+				<property>/sim/jetways/adjust/initial-entrance-heading/offset</property>
+				<step>-1</step>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>update("initial-entrance-heading")</script>
+			</binding>
+		</button>
+
+		<slider>
+			<name>initial-entrance-heading</name>
+			<property>/sim/jetways/adjust/initial-entrance-heading/slider</property>
+			<legend>entrance rotation offset</legend>
+			<pref-width>250</pref-width>
+			<live>1</live>
+			<min>-1</min>
+			<max>1</max>
+
+			<color>
+				<red>0.4</red>
+				<green>0.4</green>
+				<blue>0.4</blue>
+				<alpha>0.4</alpha>
+			</color>
+
+			<binding>
+				<command>dialog-apply</command>
+				<object-name>initial-entrance-heading</object-name>
+			</binding>
+		</slider>
+
+		<button>
+			<legend>&gt;</legend>
+			<pref-width>22</pref-width>
+			<pref-height>22</pref-height>
+
+			<binding>
+				<command>property-adjust</command>
+				<property>/sim/jetways/adjust/initial-entrance-heading/offset</property>
+				<step>1</step>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>update("initial-entrance-heading")</script>
+			</binding>
+		</button>
+
+		<button>
+			<legend>&gt;&gt;</legend>
+			<pref-width>22</pref-width>
+			<pref-height>22</pref-height>
+
+			<binding>
+				<command>property-adjust</command>
+				<property>/sim/jetways/adjust/initial-entrance-heading/offset</property>
+				<step>6</step>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>update("initial-entrance-heading")</script>
+			</binding>
+		</button>
+	</group>
+
+	<group>
+		<layout>table</layout>
+		<text>
+			<row>0</row>
+			<col>0</col>
+			<halign>right</halign>
+			<label>Model:</label>
+		</text>
+		<combo>
+			<name>model</name>
+			<row>0</row>
+			<col>1</col>
+			<property>/sim/jetways/adjust/model</property>
+			<live type="bool">true</live>
+			<binding>
+				<command>dialog-apply</command>
+				<object-name>model</object-name>
+			</binding>
+		</combo>
+		<text>
+			<row>1</row>
+			<col>0</col>
+			<halign>right</halign>
+			<label>Door:</label>
+		</text>
+		<combo>
+			<name>door</name>
+			<row>1</row>
+			<col>1</col>
+			<property>/sim/jetways/adjust/door</property>
+			<live type="bool">true</live>
+			<value>0</value>
+			<value>1</value>
+			<value>2</value>
+			<binding>
+				<command>dialog-apply</command>
+				<object-name>door</object-name>
+			</binding>
+		</combo>
+		<text>
+			<row>0</row>
+			<col>2</col>
+			<halign>right</halign>
+			<label>Airline sign:</label>
+		</text>
+		<combo>
+			<name>airline</name>
+			<row>0</row>
+			<col>3</col>
+			<property>/sim/jetways/adjust/airline</property>
+			<live type="bool">true</live>
+			<binding>
+				<command>dialog-apply</command>
+				<object-name>airline</object-name>
+			</binding>
+		</combo>
+		<text>
+			<row>1</row>
+			<col>2</col>
+			<halign>right</halign>
+			<label>Gate:</label>
+		</text>
+		<input>
+			<name>gate</name>
+			<row>1</row>
+			<col>3</col>
+			<property>/sim/jetways/adjust/gate</property>
+			<live type="bool">true</live>
+			<binding>
+				<command>dialog-apply</command>
+				<object-name>gate</object-name>
+			</binding>
+		</input>
+	</group>
+
+	<hrule />
+
+	<group>
+		<layout>hbox</layout>
+		<button>
+			<pref-height>24</pref-height>
+			<legend>Center sliders</legend>
+			<binding>
+				<command>nasal</command>
+				<script>
+				 center_sliders();
+				</script>
+			</binding>
+		</button>
+		<button>
+			<pref-height>24</pref-height>
+			<legend>Export</legend>
+			<border>2</border>
+			<binding>
+				<command>nasal</command>
+				<script>
+				 jetways_edit.export();
+				</script>
+			</binding>
+		</button>
+		<button>
+			<pref-height>24</pref-height>
+			<legend>STG converter</legend>
+			<border>2</border>
+			<binding>
+				<command>nasal</command>
+				<script>
+				 jetways_edit.convert_stg();
+				</script>
+			</binding>
+		</button>
+		<button>
+			<pref-height>24</pref-height>
+			<legend>?</legend>
+			<border>2</border>
+			<binding>
+				<command>nasal</command>
+				<script>
+				 jetways_edit.print_help();
+				</script>
+			</binding>
+		</button>
+	</group>
+
+</PropertyList>

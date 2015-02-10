@@ -1,0 +1,146 @@
+# Jeff Scott
+# Cessna 172
+# small single piston engine general aviation airplane
+# This model was adapted from the file c172_aero.c in Flight 
+# Gear developed by Tony Peden.  This version uses stability 
+# derivatives only.  The aircraft data comes from:
+#       Tony Peden's c172_aero.c and c172_init.c files
+#       Roskam, Jan. Airplane Flight Dynamics and Automatic Flight
+#         Controls, Part I. Lawrence KS: DARcorporation, 1995, 
+#         pg 480-482.  (actually Cessna 182)
+# 02-01-2000    file creation
+
+init Dz_cg    2.5       # [ft]
+init nondim_rate_V_rel_wind
+
+geometry bw  35.8       # [ft]        FG c172_aero.c
+geometry cbar 4.90      # [ft]        FG c172_aero.c
+geometry Sw 174.0       # [ft^2]      FG c172_aero.c
+
+controlSurface de 28 23 # [deg]       FG c172_aero.c
+controlSurface da 20 15 # [deg]       FG c172_aero.c
+controlSurface dr 16 16 # [deg]       FG c172_aero.c
+
+mass Weight  2300.0     # [lb]        FG c172_init.c
+mass I_xx     948.0     # [slug-ft^2] FG c172_init.c
+mass I_yy    1346.0     # [slug-ft^2] FG c172_init.c
+mass I_zz    1967.0     # [slug-ft^2] FG c172_init.c
+mass I_xz       0.0     # [slug-ft^2] FG c172_init.c
+
+engine c172
+
+CL CLo      0.31        # []          FG c172_aero.c (from CL-a curve)
+CL CL_a     5.143       # [/rad]      FG c172_aero.c (from CL-a curve)
+CL CL_adot  1.7         # [/rad]      FG c172_aero.c
+CL CL_q     3.9         # [/rad]      FG c172_aero.c
+CL CL_de    0.43        # [/rad]      FG c172_aero.c
+#CL CLfa CLfa.dat 0 1    # [] FG c172_aero.c
+
+CD CDo      0.031       # []          FG c172_aero.c
+CD CDK      0.054       # []          FG c172_aero.c
+#CD CD_a    0.13         # [/rad]      FG c172_aero.c
+CD CD_de    0.06        # [/rad]      FG c172_aero.c
+
+Cm Cmo     -0.015       # []          FG c172_aero.c
+Cm Cm_a    -0.89        # [/rad]      FG c172_aero.c
+Cm Cm_adot -5.2         # [/rad]      FG c172_aero.c
+Cm Cm_q   -12.4         # [/rad]      FG c172_aero.c
+Cm Cm_de   -1.28        # [/rad]      FG c172_aero.c
+
+CY CY_beta -0.31        # [/rad]      FG c172_aero.c
+CY CY_p    -0.037       # [/rad]      FG c172_aero.c
+CY CY_r     0.21        # [/rad]      FG c172_aero.c
+CY CY_da    0.0         # [/rad]      FG c172_aero.c
+CY CY_dr    0.187       # [/rad]      FG c172_aero.c
+
+Cl Cl_beta -0.089       # [/rad]      FG c172_aero.c
+Cl Cl_p    -0.47        # [/rad]      FG c172_aero.c
+Cl Cl_r     0.096       # [/rad]      FG c172_aero.c
+Cl Cl_da   -0.178       # [/rad]      FG c172_aero.c
+Cl Cl_dr    0.0147      # [/rad]      FG c172_aero.c
+
+Cn Cn_beta  0.065       # [/rad]      FG c172_aero.c
+Cn Cn_p    -0.03        # [/rad]      FG c172_aero.c
+Cn Cn_r    -0.099       # [/rad]      FG c172_aero.c
+Cn Cn_da   -0.053       # [/rad]      FG c172_aero.c
+Cn Cn_dr   -0.0657      # [/rad]      FG c172_aero.c
+
+*
+
+# * above denotes end of data to read in.
+# uncommenting this line will produced the uiuc_record.dat 
+# file (flight data recorder file)
+
+#record Dx_pilot              # [ft]      x-location
+#record Dy_pilot              # [ft]     y-loaction
+#record Dz_pilot              # [ft]      z-location
+record V_north               # [ft/s]    x-velocity
+record V_east                # [ft/s]    y-velocity
+record V_down                # [ft/s]    z-velocity
+record V_rel_wind            # [ft/s]    total velocity
+record Dynamic_pressure      # [lb/ft^2] dynamic pressure
+record Alpha                 # [rad]     angle of attack
+record Alpha_dot             # [rad/s]   rate of change of alpha
+record Beta                  # [rad]     sideslip angle
+record Beta_dot              # [rad/s]   rate of change of beta
+#record Gamma                # [rad]     flight path angle
+#record P_body                # [rad]     roll rate
+#record Q_body                # [rad]     pitch rate
+#record R_body                # [rad]     yaw rate
+#record Phi                   # [rad]     bank angle
+#record Theta                 # [rad]     pitch attitude angle
+#record Theta_dot             # [rad]     rate change of theta
+#record Psi                   # [rad]     heading angle
+#record long_trim
+#record trim_inc
+#record Density               # [slug/ft^3] air density
+#record Mass                  # [slug]    aircraft mass
+#record Simtime               # [s]       current sim time
+#record dt                    # [s]       current time step
+record elevator              # [rad]     elevator deflection
+record aileron               # [rad]     aileron deflection
+record rudder                # [rad]     rudder deflection
+#record CDfaI                 # []        CD(alpha)
+#record CDfadeI               # []        CD(alpha,delta_e)
+#record CD                    # []        drag coefficient
+#record CLfaI                 # []        CL(alpha)
+#record CLfadeI               # []        CL(alpha,delta_e)
+record CL                    # []        lift coefficient
+#record CmfadeI               # []        Cm(alpha,delta_e)
+#record Cm                    # []        pitch moment coefficient
+#record CYfadaI               # []        CY(alpha,delta_a)
+#record CYfadrI               # []        CY(alpha,delta_r)
+#record CY                    # []        side-force coefficient
+#record ClfadaI               # []        Cl(alpha,delta_a)
+#record ClfadrI               # []        Cl(alpha,delta_r)
+#record Cl                    # []        roll moment coefficient
+#record CnfadaI               # []        Cn(alpha,delta_a)
+#record CnfadrI               # []        Cn(alpha,delta_r)
+#record Cn                    # []        yaw moment coefficient
+#record F_X_wind              # [lb]      aero x-force in wind-axes
+#record F_Y_wind              # [lb]      aero y-force in wind-axes
+#record F_Z_wind              # [lb]      aero z-force in wind-axes
+#record F_X_aero              # [lb]      aero x-force in body-axes
+#record F_Y_aero              # [lb]      aero y-force in body-axes
+#record F_Z_aero              # [lb]      aero z-force in body-axes
+#record F_X_engine            # [lb]      prop x-force in body-axes
+#record F_Y_engine            # [lb]      prop y-force in body-axes
+#record F_Z_engine            # [lb]      prop z-force in body-axes
+#record F_X_gear              # [lb]      gear x-force in body-axes
+#record F_Y_gear              # [lb]      gear y-force in body-axes
+#record F_Z_gear              # [lb]      gear z-force in body-axes
+#record F_X                   # [lb]      total x-force in body-axes
+#record F_Y                   # [lb]      total y-force in body-axes
+#record F_Z                   # [lb]      total z-force in body-axes
+#record M_l_aero              # [ft-lb]   aero roll moment in body axes
+#record M_m_aero              # [ft-lb]   aero pitch moment in body axes
+#record M_n_aero              # [ft-lb]   aero yaw moment in body axes
+#record M_l_engine            # [ft-lb]   prop roll moment in body axes
+#record M_m_engine            # [ft-lb]   prop pitch moment in body axes
+#record M_n_engine            # [ft-lb]   prop yaw moment in body axes
+#record M_l_gear              # [ft-lb]   gear roll moment in body axes
+#record M_m_gear              # [ft-lb]   gear pitch moment in body axes
+#record M_n_gear              # [ft-lb]   gear yaw moment in body axes
+#record M_l_rp                # [ft-lb]   total roll moment in body axes
+#record M_m_rp                # [ft-lb]   total pitch moment in body axes
+#record M_n_rp                # [ft-lb]   total yaw moment in body axes

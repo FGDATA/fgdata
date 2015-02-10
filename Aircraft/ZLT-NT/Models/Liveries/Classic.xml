@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!-- $Id$ -->
+<!--
+  Zeppelin NT-07 airship.
+
+  Copyright (C) 2009  Anders Gidenstam  (anders(at)gidenstam.org)
+  This file is licensed under the GPL license version 2 or later.
+-->
+<PropertyList>
+ <sim>
+  <model>
+   <livery>
+    <name type="string">Classic</name>
+    <index type="int">0</index>
+    <texture>Liveries/Classic-envelope.png</texture>
+   </livery>
+  </model>
+ </sim>
+</PropertyList>

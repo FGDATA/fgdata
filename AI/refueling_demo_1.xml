@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+	<scenario>
+
+		<description>
+			The following scenario puts an aerial tanker in a N/S
+			towline starting over KSFO at 8000 ft AGL. The tanker
+			uses the KC-135 model, but you can use any model.
+
+			Note that AI aircraft do not react to wind, therefore your
+			speed and bank angle will have to vary along the orbit
+			since your "user" aircraft *does* react to the wind.
+
+			I recommend using the T-38 as your airplane for four
+			reasons: (1) it has a radar screen which may be needed
+			to find the tanker;  (2) it has the speed to catch the
+			tanker; (3) it uses a JSBSim FDM, which means it can
+			onload fuel; (4) it has a green light added to the
+			instrument panel, between the fuel gauges, which comes
+			on when you are in the refueling envelope.
+
+			The A4F also has a refueling capabilty using
+			YASim, with a green light in the fuel level gauge.
+			It also has a nav-display which can be set to
+			display the A/A TACAN position of the channel
+			listed below.
+
+			Right now the air refueling envelope is very loose, and I
+			plan on tightening it up in the future.  Currently no
+			aerodynamic effects of refueling are modeled
+			(i.e downwash, bow wave, vortices).
+
+			Dave Culp,  davidculp2 at comcast.net
+		</description>
+
+		<entry>
+			<callsign>ESSO1</callsign>
+			<TACAN-channel-ID>040X</TACAN-channel-ID>
+			<type>tanker</type>
+			<class>tanker</class>
+			<model>Models/Geometry/KC135/KC135.xml</model>
+			<!--   <model>AI/Aircraft/KA6-D/KA6-D.xml</model>-->
+			<flightplan>tanker_racetrack.xml</flightplan>
+			<name>ESSO 1</name>
+			<repeat>1</repeat>
+		</entry>
+
+	</scenario>
+
+</PropertyList>

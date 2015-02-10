@@ -1,0 +1,374 @@
+<?xml version="1.0"?>
+<PropertyList>
+  <path>kt70.ac</path>
+
+<animation>
+   <type>material</type>
+   <object-name>knob0</object-name>
+   <object-name>knob4</object-name>
+   <object-name>knob3</object-name>
+   <object-name>knob2</object-name>
+   <object-name>knob1</object-name>
+   <object-name>vfr-btn</object-name>
+   <object-name>base</object-name>
+   <object-name>ident-btn</object-name>
+   <emission>
+      <red>0.75</red>
+      <green>0.25</green>
+      <blue>0.10</blue>
+      <factor-prop>systems/electrical/outputs/instrument-lights-norm</factor-prop>
+   </emission>
+  </animation>
+
+ <animation>
+   <type>textranslate</type>
+   <object-name>alt-dig-1</object-name>
+   <property>instrumentation/transponder/altitude</property>
+   <factor>0.00001</factor>
+   <step>10000</step>
+   <axis>
+     <x>1</x>
+     <y>0</y>
+     <z>0</z>
+   </axis>
+ </animation>
+ <animation>
+   <type>textranslate</type>
+   <object-name>alt-dig-2</object-name>
+   <property>instrumentation/transponder/altitude</property>
+   <factor>0.0001</factor>
+   <step>1000</step>
+   <axis>
+     <x>1</x>
+     <y>0</y>
+     <z>0</z>
+   </axis>
+ </animation>
+ <animation>
+   <type>textranslate</type>
+   <object-name>alt-dig-3</object-name>
+   <property>instrumentation/transponder/altitude</property>
+   <factor>0.001</factor>
+   <step>100</step>
+   <axis>
+     <x>1</x>
+     <y>0</y>
+     <z>0</z>
+   </axis>
+ </animation>
+<!--  Don't display the transponder code unless there is power  -->
+ <animation>
+   <type>select</type>
+   <object-name>digit1</object-name>
+   <object-name>digit2</object-name>
+   <object-name>digit3</object-name>
+   <object-name>digit4</object-name>
+   <object-name>alt</object-name>
+   <object-name>gnd</object-name>
+   <object-name>fl</object-name>
+   <object-name>on</object-name>
+   <object-name>reply</object-name>
+   <object-name>sby</object-name>
+   <condition>
+    <greater-than>
+     <property>systems/electrical/outputs/transponder</property>
+     <value>8.0</value>
+    </greater-than>
+   </condition>
+ </animation>
+
+ <animation>
+   <type>textranslate</type>
+   <object-name>digit1</object-name>
+   <property>instrumentation/transponder/inputs/digit[3]</property>
+   <factor>0.1</factor>
+   <step>1</step>
+   <axis>
+     <x>1</x>
+     <y>0</y>
+     <z>0</z>
+   </axis>
+ </animation>
+ <animation>
+   <type>textranslate</type>
+   <object-name>digit2</object-name>
+   <property>instrumentation/transponder/inputs/digit[2]</property>
+   <factor>0.1</factor>
+   <step>1</step>
+   <axis>
+     <x>1</x>
+     <y>0</y>
+     <z>0</z>
+   </axis>
+ </animation>
+ 
+ <animation>
+   <type>textranslate</type>
+   <object-name>digit3</object-name>
+   <property>instrumentation/transponder/inputs/digit[1]</property>
+   <factor>0.1</factor>
+   <step>1</step>
+   <axis>
+     <x>1</x>
+     <y>0</y>
+     <z>0</z>
+   </axis>
+ </animation>
+ 
+ <animation>
+   <type>textranslate</type>
+   <object-name>digit4</object-name>
+   <property>instrumentation/transponder/inputs/digit[0]</property>
+   <factor>0.1</factor>
+   <step>1</step>
+   <axis>
+     <x>1</x>
+     <y>0</y>
+     <z>0</z>
+   </axis>
+ </animation>
+
+<!-- Annunciators -->
+  <animation>
+    <type>select</type>
+    <object-name>alt</object-name>
+    <condition>
+      <equals>
+        <property>instrumentation/transponder/inputs/knob-mode</property>
+        <value>5</value>
+      </equals>
+    </condition>
+  </animation>
+  <animation>
+    <type>select</type>
+    <object-name>fl</object-name>
+    <condition>
+      <property>instrumentation/kt-70/annunciators/fl</property>
+    </condition>
+  </animation>
+  <animation>
+    <type>select</type>
+    <object-name>gnd</object-name>
+    <condition>
+      <equals>
+        <property>instrumentation/transponder/inputs/knob-mode</property>
+        <value>3</value>
+      </equals>
+    </condition>
+  </animation>
+  <animation>
+    <type>select</type>
+    <object-name>on</object-name>
+    <condition>
+      <greater-than>
+        <property>instrumentation/transponder/inputs/knob-mode</property>
+        <value>3</value>
+      </greater-than>
+    </condition>
+  </animation>
+  <animation>
+    <type>select</type>
+    <object-name>reply</object-name>
+    <condition>
+      <property>instrumentation/kt-70/annunciators/reply</property>
+    </condition>
+  </animation>
+  <animation>
+    <type>select</type>
+    <object-name>sby</object-name>
+    <condition>
+      <equals>
+        <property>instrumentation/transponder/inputs/knob-mode</property>
+        <value>1</value>
+      </equals>
+    </condition>
+  </animation>
+  <animation>
+    <type>select</type>
+    <object-name>digits</object-name>
+    <condition>
+      <greater-than>
+        <property>instrumentation/transponder/inputs/knob-mode</property>
+        <value>0</value>
+      </greater-than>        
+    </condition>
+  </animation>
+  <animation>
+    <type>select</type>
+    <object-name>altitude</object-name>
+    <condition>
+      <property>instrumentation/kt-70/annunciators/fl</property>
+    </condition>
+  </animation>
+
+<!-- Controls -->
+  <animation>
+    <type>knob</type>
+    
+    <proxy-name>click-func-L</proxy-name>
+    <proxy-name>click-func-R</proxy-name>
+    
+    <object-name>knob0</object-name>
+    <property>instrumentation/transponder/inputs/knob-mode</property>
+    <factor>30</factor>
+    <offset-deg>-90</offset-deg>
+    <center>
+      <x-m> 0</x-m>
+      <y-m> 0.0622</y-m>
+      <z-m> 0.0053</z-m>
+    </center>
+    <axis>
+      <x>-1</x>
+      <y>0</y>
+      <z>0</z>
+    </axis>
+    
+    <action>
+      <binding>
+        <command>property-adjust</command>
+        <property>instrumentation/transponder/inputs/knob-mode</property>
+        <factor>1</factor>
+        <min>0</min>
+        <max>5</max>
+        <wrap>false</wrap>
+      </binding>
+    </action>
+    
+    <hovered>
+     <binding>
+       <command>set-tooltip</command>
+       <tooltip-id>kt70-func</tooltip-id>
+       <label>Transponder mode: %s</label>
+       <property>instrumentation/transponder/inputs/knob-mode</property>
+       <mapping>nasal</mapping>
+       <script>
+         var modes = ['OFF', 'STANDBY', 'TEST', 'GROUND', 'ON', 'ALTITUDE'];
+         return modes[arg[0]];
+       </script>
+      </binding>
+    </hovered>
+  </animation>
+
+<!-- Numbers -->
+  <animation>
+    <type>knob</type>
+    
+    <object-name>click-digit1-L</object-name>
+    <object-name>click-digit1-R</object-name>
+    <visible>false</visible>
+    <action>
+      <binding>
+        <command>property-adjust</command>
+        <property>instrumentation/transponder/inputs/digit[3]</property>
+        <min>0</min>
+        <max>8</max>
+        <wrap>true</wrap>
+      </binding>
+    </action>
+  </animation>
+  
+  <animation>
+    <type>knob</type>
+    
+    <object-name>click-digit2-L</object-name>
+    <object-name>click-digit2-R</object-name>
+    <visible>false</visible>
+    <action>
+      <binding>
+        <command>property-adjust</command>
+        <property>instrumentation/transponder/inputs/digit[2]</property>
+        <min>0</min>
+        <max>8</max>
+        <wrap>true</wrap>
+      </binding>
+    </action>
+  </animation>
+  
+  <animation>
+    <type>knob</type>
+    
+    <object-name>click-digit3-L</object-name>
+    <object-name>click-digit3-R</object-name>
+    <visible>false</visible>
+    <action>
+      <binding>
+        <command>property-adjust</command>
+        <property>instrumentation/transponder/inputs/digit[1]</property>
+        <min>0</min>
+        <max>8</max>
+        <wrap>true</wrap>
+      </binding>
+    </action>
+  </animation>
+  
+  <animation>
+    <type>knob</type>
+    
+    <object-name>click-digit4-L</object-name>
+    <object-name>click-digit4-R</object-name>
+    <visible>false</visible>
+    <action>
+      <binding>
+        <command>property-adjust</command>
+        <property>instrumentation/transponder/inputs/digit[0]</property>
+        <min>0</min>
+        <max>8</max>
+        <wrap>true</wrap>
+      </binding>
+    </action>
+  </animation>
+ 
+  <!-- buttons -->
+ 
+  <animation>
+    <type>pick</type>
+    <object-name>ident-btn</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>property-assign</command>
+        <property>instrumentation/transponder/inputs/ident-btn</property>
+        <value>true</value>
+      </binding>
+      <mod-up>
+        <binding>
+          <command>property-assign</command>
+          <property>instrumentation/transponder/inputs/ident-btn</property>
+          <value>false</value>
+        </binding>
+      </mod-up>
+    </action>
+    
+    <hovered>
+     <binding>
+       <command>set-tooltip</command>
+       <tooltip-id>kt70-ident</tooltip-id>
+       <label>Identify to ATC</label>
+        </binding>
+    </hovered>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>vfr-btn</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>property-assign</command>
+        <property>instrumentation/transponder/id-code</property>
+        <value>1200</value>
+      </binding>
+    </action>
+    
+    <hovered>
+     <binding>
+       <command>set-tooltip</command>
+       <tooltip-id>kt70-vfr</tooltip-id>
+       <label>Set ID code to 1200 (VFR)</label>
+        </binding>
+    </hovered>
+  </animation>
+  
+  </PropertyList>

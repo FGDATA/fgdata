@@ -1,0 +1,273 @@
+<?xml version="1.0"?>
+
+<!--
+************************************************************************
+* Bindings for Microsoft SideWinder Precision Pro joystick.
+*
+*
+* Axis 0:                         ailerons
+* Axis 1:                         elevator
+* Axis 2(Unix)/3(Win) (twist):    rudder
+* Axis 3(Unix)/2(Win):            throttle
+* Axis 4(Unix)/6(Win) (hat):      view direction
+* Axes 5(Unix)/7(Win) (hat):      view elevation
+*
+* In game Name:                   Action:             Button name on Joystick:    Value:
+* Button 0 (trigger):             all brakes                                      0001
+* Button 1:                       view-cylce                                      0002
+* Button 2:                       elevator trim up                                0004
+* Button 3:                       elevator trim down                              0008
+* Button 4:                       flaps up            Button B                    0020
+* Button 5:                       flap down           Button A                    0010
+* Button 6:                       left brake only     Button C                    0040
+* Button 7:                       right brake only    Button D                    0080
+* Button 8(Unix)/9(Win):          gear toggle         Shift Button                0100(unix), 0200(Win)
+************************************************************************
+$Id$
+-->
+
+<PropertyList>
+
+ <name>Microsoft SideWinder Precision Pro</name>
+ <name>Microsoft SideWinder Precision 2 Joystick</name>
+ <name>Microsoft SideWinder Precision 2</name>
+ <name>Microsoft Microsoft SideWinder Precision Pro (USB)</name>
+ <name>Microsoft SideWinder Precision Pro (USB)</name>
+ <name>SideWinder Precision 2 Joystick</name>
+ 
+ <axis n="0">
+  <desc>Aileron</desc>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/aileron</property>
+   <squared type="bool">true</squared>
+  </binding>
+ </axis>
+
+ <axis n="1">
+  <desc>Elevator</desc>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/elevator</property>
+   <factor type="double">-1.0</factor>
+   <squared type="bool">true</squared>
+  </binding>
+ </axis>
+
+ <axis>
+  <desc>Rudder</desc>
+  <number>
+   <unix>2</unix>
+   <mac>2</mac>
+   <windows>3</windows>
+  </number>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/rudder</property>
+   <factor type="double">1.0</factor>
+  </binding>
+ </axis>
+
+ <axis>
+  <desc>Throttle</desc>
+  <number>
+   <unix>3</unix>
+   <mac>3</mac>
+   <windows>2</windows>
+  </number>
+  <binding>
+   <command>nasal</command>
+   <script>controls.throttleAxis()</script>
+  </binding>
+ </axis>
+
+  <axis>
+   <desc>View Direction</desc>
+   <number>
+    <unix>4</unix>
+    <mac>4</mac>
+    <windows>6</windows>
+   </number>
+   <low>
+    <repeatable>true</repeatable>
+    <binding>
+     <command>property-adjust</command>
+     <property>/sim/current-view/goal-heading-offset-deg</property>
+     <step type="double">1.0</step>
+    </binding>
+   </low>
+   <high>
+    <repeatable>true</repeatable>
+    <binding>
+     <command>property-adjust</command>
+     <property>/sim/current-view/goal-heading-offset-deg</property>
+     <step type="double">-1.0</step>
+    </binding>
+   </high>
+  </axis>
+
+  <axis>
+   <desc>View Elevation (Default)</desc>
+   <number>
+    <unix>5</unix>
+    <mac>5</mac>
+   </number>
+   <low>
+    <repeatable>true</repeatable>
+    <binding>
+     <command>property-adjust</command>
+     <property>/sim/current-view/goal-pitch-offset-deg</property>
+     <step type="double">1.0</step>
+    </binding>
+   </low>
+   <high>
+    <repeatable>true</repeatable>
+    <binding>
+     <command>property-adjust</command>
+     <property>/sim/current-view/goal-pitch-offset-deg</property>
+     <step type="double">-1.0</step>
+    </binding>
+   </high>
+  </axis>
+  <axis>
+   <desc>View Elevation (Windows)</desc>
+   <number>
+    <windows>7</windows>
+   </number>
+   <low>
+    <repeatable>true</repeatable>
+    <binding>
+     <command>property-adjust</command>
+     <property>/sim/current-view/goal-pitch-offset-deg</property>
+     <step type="double">-1.0</step>
+    </binding>
+   </low>
+   <high>
+    <repeatable>true</repeatable>
+    <binding>
+     <command>property-adjust</command>
+     <property>/sim/current-view/goal-pitch-offset-deg</property>
+     <step type="double">1.0</step>
+    </binding>
+   </high>
+  </axis>
+
+ <button n="0">
+  <desc>Brakes</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.applyBrakes(1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.applyBrakes(0)</script>
+   </binding>
+  </mod-up>
+ </button>
+
+
+ <button n="1">
+  <desc>Cycle view</desc>
+  <repeatable>false</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>view.stepView(1)</script>
+  </binding>
+ </button>
+
+ <button n="2">
+  <desc>Elevator trim up</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>property-adjust</command>
+   <property>/controls/flight/elevator-trim</property>
+   <step type="double">0.001</step>
+  </binding>
+ </button>
+
+ <button n="3">
+  <desc>Elevator trim down</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>property-adjust</command>
+   <property>/controls/flight/elevator-trim</property>
+   <step type="double">-0.001</step>
+  </binding>
+ </button>
+
+ <button n="4">
+  <desc>Flaps up</desc>
+  <repeatable>false</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.flapsDown(-1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.flapsDown(0)</script>
+   </binding>
+  </mod-up>
+ </button>
+ 
+  <button n="5">
+  <desc>Flaps down</desc>
+  <repeatable>false</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.flapsDown(1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.flapsDown(0)</script>
+   </binding>
+  </mod-up>
+ </button>
+
+ <button n="6">
+  <desc>Left brake</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.applyBrakes(1, -1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.applyBrakes(0, -1)</script>
+   </binding>
+  </mod-up>
+ </button>
+
+ <button n="7">
+  <desc>Right brake</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.applyBrakes(1, 1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.applyBrakes(0, 1)</script>
+   </binding>
+  </mod-up>
+ </button>
+
+ <button>
+  <desc>Gear Toggle.</desc>
+  <number>
+   <unix>8</unix>
+   <mac>8</mac>
+   <windows>9</windows>
+  </number>
+  <repeatable>false</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.gearToggle()</script>
+  </binding>
+ </button>
+
+</PropertyList>
+
+

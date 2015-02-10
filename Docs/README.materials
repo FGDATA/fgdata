@@ -1,0 +1,251 @@
+README.materials
+
+This README describes the materials.xml file format. It is targeted at those
+wanting to change the appearance of the scenery in FlightGear.
+
+As is the norm in FG, the materials.xml file is a properties file. However,
+it is only read on startup, is not part of the main property tree and cannot
+be changed at runtime.
+
+The properties file consists of a number of <material> entries, each of which
+describes a single visually distinct terrain material in the FG world.
+
+The rest of this document describes the children tags of the <material> entry.
+
+name : Scenery type names that map to this material. These are typically taken
+       from landclass definitions created by TerraGear. Multiple scenery types
+       may map to a single material. This is recommended to minimize texture
+       memory usage.
+
+condition : A condition statement used to activate the material. Note that this
+       if evaluated once at start-up.
+
+texture : A relative path to an SGI RGB, PNG or DDS file containing a texture
+       for the material. RGB and PNG are recommended for platform compatibility.
+       You may define more than one <texture> element, in which case the scenery
+       loader will choose one texture for each contiguous set of scenery
+       triangles.
+
+texture-set : If using an effect (see below), it may be necessary to define more
+       than one texture.  The texture-set element has multiple <texture> element
+       children which may then be referenced by the effect. You may define more
+       than one <texture-set> element, in which case the scenery loader will
+       choose one texture for each contiguous set of scenery triangles.
+
+object-mask : An optional bitmap file used to control random placement of lights,
+       buildings and vegetation on the terrain.  The green channel mask is used
+       for random vegetation placement, the blue channel for buildings and lights.
+       and the red channel controls the rotation of buildings (0.0 is North, 0.5
+       is South). Fractional colour values can be used to give a probability of
+       placement. Multiple object-masks may be defined to match up with <texture>
+       or <texture-set> elements.
+
+effect : The effect to be used for this material. (default:
+       Effects/terrain-default)
+
+       ambient, diffuse, specular, emissive, and shininess are copied into the
+       parameter section of the effect created for this material.
+
+parameters : Additional parameters to be used in the effect. See README.effects
+            for format information.
+
+wrapu : True if the texture should repeat horizontally over a surface, false if
+       it should not repeat (default: true).
+
+wrapv : True if the texture should repeat vertically over a surface, false if
+       it should not repeat (default: true).
+
+mipmap : True if the texture should be mipmapped, false otherwise. (default: true).
+
+xsize : The horizontal size of a single texture repetition, in meters.
+
+ysize : the vertical size of a single texture repetition, in meters
+
+light-coverage : The coverage of a single point of light in m^2. 0 indicates no
+        lights at all. Minimum value is 1000m^2. May be masked by the blue channel
+        of an object-mask. Lights are all generated 3m above the surface, and
+        have random colour (50% yellow, 35% white, 10% orange, 5% red)
+
+ambient : The ambient light colour for the material, specified as separate
+        r, g, b, a components (default: all color components 0.2, alpha 1.0).
+
+diffuse : The diffuse light colour for the material, specified as separate
+        r, g, b, a components (default: all color components 0.8, alpha 1.0).
+
+specular : The specular light colour for the material, specified as separate
+        r, g, b, a components (default: all color components 0.0, alpha 1.0).
+
+emissive : The emissive light colour for the material, specified as separate
+        r, g, b, a components (default: all color components 0.0, alpha 1.0).
+
+solid : Whether the surface is solid from an FDM perspective. If it is not
+        solid, it is assumed that the material models a fluid (water) surface.
+        (default: true).
+
+friction-factor : The friction factor for that material. The normalized
+        factor can be used by a FDM to post-multiply all contact friction forces
+        with that factor. That is the more slippery a material is the smaller
+        this value should be. (default: 1.0 for Dry concrete/Asphalt).
+
+rolling-friction : the gear rolling rolling-friction coefficient for this
+        particular material. (default: 0.02 for Dry concrete/Asphalt).
+
+bumpiness : normalized bumpiness factor for this particular terrain.
+        (default: 0.0 for a smooth surface).
+
+load-resistance : a pressure value how much force per surface area this
+        surface can carry without deformation. The value should be in N/m^2
+        (default: 1e30).
+
+glyph : group that defines one letter/digit/symbol in a font texture
+        sub-entries: name, left (default: 0.0), right (default: 1.0)
+        (left and right describe the horizontal position in the texture.)
+
+wood-coverage : The coverage of trees in areas marked as woodland in
+         m^2. A lower number means a higher density of trees. A value of
+         0 indicates no woods. May be masked by the green channel of an
+         object-mask. (default: 0)
+
+tree-range-m : The range at which trees become visible. Note that this
+         is not absolute, as trees are loaded in blocks. A lower number means
+         trees will not become visible until you are closer.
+
+tree-texture : A texture to use for the trees. Typically this will contain around
+         8 different trees in a row, duplicate 4 times. From bottom to top, the
+         rows contain
+         * summer textures
+         * summer snow texture
+         * winter texture
+         * winter snow texture
+
+         Each tree must have space at the top. For a 512x512 texture sheet, this
+         should be 8 pixels.  Otherwise subsequent rendering results in "top hats"
+         above trees in the distance where the trunk of the tree above in the
+         textures sheet bleeds downwards when the mipmaps are generated.
+
+tree-varieties : The number of different trees defined in the tree-texture
+         horizontally. (default: 1)
+
+tree-height-m : The average height of the trees. Actual tree height will
+         vary by +/- 50%. (default: 0)
+
+tree-width-m : The average width of the tree cover. Actual tree width will
+         vary by +/- 50%. (default 0)
+
+tree-max-density-angle-deg : The slope angle at which trees begin to thin out
+         as the slope is too steep to support the full coverage. Shallower
+         slopes have maximum wood-coverage.  Steeper slopes have fewer trees.
+         (default : 45)
+
+tree-zero-density-angle-deg : The angle at which the slope is too steep to
+         support significant vegetation.  Steeper slopes have no trees.
+         (default : 60)
+
+object-max-density-angle-deg : The angle at which objects and buildings become
+         less dense due to a steep slope. (default : 20)
+
+object-zero-density-angle-deg : The angle at which the slope is too steep to build
+         on.  No object/buildings will be placed on slopes steeper than this.
+         (default : 30)
+
+object-group : A group of random objects to be placed on the surface. Contains
+         <range-m> and one or more <object> children.
+
+range-m : The distance at which objects within this object-group become
+         visible. Note that for realism, 60% of the objects will become visible
+         at <range-m>, 30% at 1.5*<range-m>, and 10% at 2*<range-m>.
+         (default: 2000)
+
+object : A set of random objects to be placed. Contains <coverage-m2>, <path>
+         and <heading> children.
+
+coverage-m2 : The coverage of a single object in m2. Lower values mean a higher
+         density. Minimum value is 1000.
+
+spacing-m : The minimum space between this object and any other on the surface in
+         meters. This helps to avoid objects being placed ontop of each other.
+         (default 20)
+
+path :   Path relative to FG_ROOT to a model definition, usually .ac or .xml file.
+         More than one <path> may be included within the <object> tag, in which
+         case a single <path> is chosen at random for each individual object
+         placement.
+
+heading-type : Indicator of how the heading of the random objects should be
+         determined. Valid values are:
+           fixed     - Objects all point North. Default.
+           random    - Objects are assigned an individual random heading
+           mask      - Rotation is taken from the red channel of the object-mask
+           billboard - Object is always rotated to face camera - expensive
+
+
+Random Buildings
+================
+
+Random Buildings come in three sizes, with individual constraints.
+
+Small buildings.  These have different textures on the sides compared to the front
+and back.  Small buildings are never deeper than they are wide.
+
+Medium buildings, which are never taller than they are wide.
+
+Large buildings. There are no constraints on their width, depth or height.
+
+building-coverage : The coverage of random buildings in areas marked for random
+         objects in m^2. A lower number means a higher density of buildings. A
+         value of 0 indicates no buildings. May be masked by the blue channel of an
+         object-mask. (default: 0)
+
+building-spacing-m : The minimum spacing between random buildings and other buildings
+         or random objects. This helps avoid objects being placed on top of each
+         other. (default: 5)
+
+building-small-ratio: Ratio of small buildings. These buildings are 1-3 stories
+         in height, and may have a pitched roof. Fraction of small buildings is
+         (<building-ratio-small> / (<building-ratio-small> + <building-ratio-medium>
+         + <building-ratio-large>). (default: 0.8)
+
+building-medium-ratio : Ratio of medium buildings. These buildings are 3-6 stories
+         in height, and have a flat roof. (default: 0.15)
+
+building-large-ratio : Ratio of large buildings. These buildings are 5-10 stories in
+         height, and have a flat roof. (default 0.05)
+
+building-small-pitch : Fraction of small buildings with pitched roofs. (default 0.8)
+building-medium-pitch : Fraction of small buildings with pitched roofs. (default 0.2)
+building-large-pitch : Fraction of small buildings with pitched roofs. (default 0.1)
+
+building-small-min-floors : Min. number of floors for a small building. (default 1)
+building-small-max-floors : Max. number of floors for a small building. (default 3)
+
+building-medium-min-floors  : Min. number of floors for a medium building. (default 3)
+building-medium-max-floors  : Max. number of floors for a medium building. (default 8)
+
+building-large-min-floors  : Min. number of floors for a medium building. (default 5)
+building-large-max-floors  : Max. number of floors for a medium building. (default 20)
+
+building-small-min-width-m : Min. width of small buildings. (default 15)
+building-small-max-width-m : Max. width of small buildings. (default 60)
+building-small-min-depth-m : Min. depth of small buildings. (default 10)
+building-small-max-depth-m : Max. depth of small buildings. (default 20)
+
+building-medium-min-width-m : Min. width of medium buildings. (default 25)
+building-medium-max-width-m : Max. width of medium buildings. (default 50)
+building-medium-min-depth-m : Min. depth of medium buildings. (default 20)
+building-medium-max-depth-m : Max. depth of medium buildings. (default 50)
+
+building-large-min-width-m : Min. width of large buildings. (default 50)
+building-large-max-width-m : Max. width of large buildings. (default 75)
+building-large-min-depth-m : Min. depth of large buildings. (default 50)
+building-large-max-depth-m : Max. depth of large buildings. (default 75)
+
+building-texture : The texture used for all buildings. See Docs/buildings.png for
+                   details. (default Texture/buildings.png)
+
+building-lightmap: Emissive texture for all buildings, which is faded in at night to
+                   provide illusion of lit windows.  Same texture coordinates and
+                   format at building-texture above.
+
+building-range-m: Range at which all buildings are visible.  Beyond this point fewer
+                  and fewer buildings are rendered, with no buildings rendered at
+                  2*building-range-m (default 10000)

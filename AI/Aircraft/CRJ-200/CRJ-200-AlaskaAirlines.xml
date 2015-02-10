@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<PropertyList>
+  <description>Bombardier-Challenger</description>
+  <author>Chuck Dome, Innis Cunningham</author>
+  <path>Models/crj200.ac</path>
+  <texture-path>Textures/AlaskaAirlines</texture-path>
+  
+          	<animation>
+		<type>select</type>
+		<object-name>tyres</object-name>
+		<object-name>gear</object-name>            
+		<condition>
+			<less-than>
+				<property>velocities/true-airspeed-kt</property>
+				<value>150</value>
+			</less-than>
+		</condition>
+	</animation>
+  
+</PropertyList>
+
+

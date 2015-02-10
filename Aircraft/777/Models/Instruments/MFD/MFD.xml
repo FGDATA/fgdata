@@ -1,0 +1,105 @@
+<!--
+777 Multi Function display
+-->
+
+<PropertyList>
+
+<path>mfd.ac</path>
+    <animation>
+        <type>select</type>
+        <object-name>MFD.screenoff</object-name>
+        <condition>
+            <less-than>
+                <property>systems/electrical/outputs/efis</property>
+                <value>15</value>
+            </less-than>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>MFD.screen</object-name>
+        <condition>
+            <greater-than>
+                <property>systems/electrical/outputs/efis</property>
+                <value>15</value>
+            </greater-than>
+        </condition>
+    </animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>MFD.screen</object-name>
+	<action>
+		<button>0</button>
+		<repeatable>false</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>b777.mfdTogglePopup();</script>
+		</binding>
+	</action>
+</animation>
+
+	<animation>
+		<type>translate</type>
+		<object-name>DSPL_CTRL_AcryFace</object-name>
+		<object-name>DSPL_CTRL_Switch</object-name>
+		<object-name>DSPL_CTRL_Shutter.Top</object-name>
+		<object-name>DSPL_CTRL_Shutter.Bottom</object-name>
+		<property>controls/switches/c_dspl_switch</property>
+		<factor>0.004</factor>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>DSPL_CTRL_Shutter.Top</object-name>
+		<property>controls/switches/CDSPLSwitchTimer/position-norm</property>
+		<factor>-92</factor>
+		<center>
+			<x-m>0.0043</x-m>
+			<y-m>0</y-m>
+			<z-m>-0.119</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>DSPL_CTRL_Shutter.Bottom</object-name>
+		<property>controls/switches/CDSPLSwitchTimer/position-norm</property>
+		<factor>92</factor>
+		<center>
+			<x-m>0.0043</x-m>
+			<y-m>0</y-m>
+			<z-m>-0.119</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+		</animation>
+ 
+    <animation>
+        <type>pick</type>
+		<object-name>DSPL_CTRL_Switch</object-name>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-toggle</command>
+				<property>controls/switches/c_dspl_switch</property>
+            </binding>
+        </action>
+    </animation>
+
+</PropertyList>

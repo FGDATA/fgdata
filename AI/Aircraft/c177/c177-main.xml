@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+ <description>Cessna 177</description>
+ <author>Brett Harrison</author>  
+ <path>Models/c177.ac</path>
+ 
+  <offsets>
+   <pitch-deg>1.99</pitch-deg>
+ </offsets>   
+ 
+          <animation>
+    <name>propall</name>
+    <object-name>prop</object-name>
+    <object-name>propdisc</object-name>
+    <object-name>boss</object-name>
+  </animation>
+    
+
+    <animation>
+    <type>select</type>
+    <object-name>propdisc</object-name>
+    <condition>
+      <greater-than>
+        <property>velocities/true-airspeed-kt</property>
+        <value>50</value>
+      </greater-than>
+    </condition>
+  </animation>
+    
+      <animation>
+    <type>select</type>
+    <object-name>prop</object-name>
+    <condition>
+      <less-than>
+        <property>velocities/true-airspeed-kt</property>
+        <value>60</value>
+      </less-than>
+    </condition>
+  </animation>
+    
+      <animation>
+    <type>spin</type>
+    <object-name>propall</object-name>
+    <property>velocities/true-airspeed-kt</property>
+    <factor> 90 </factor>
+    <center>
+      <x-m> -2.7391</x-m>
+      <y-m> 0.000 </y-m>
+      <z-m> 0.9576 </z-m>
+    </center>
+    <axis>
+      <x> -1.000 </x>
+      <y>  0.000 </y>
+      <z>  0.000 </z>
+    </axis>
+  </animation>
+ 
+</PropertyList>

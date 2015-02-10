@@ -1,0 +1,64 @@
+Eurocopter BO105 CBS
+====================
+
+select model:
+
+  --prop:/sim/model/bo105/variant=0  (yellow, with Red Cross/Crescent symbol; default)
+  --prop:/sim/model/bo105/variant=1  (military, with Red Cross/Crescent symbol)
+  --prop:/sim/model/bo105/variant=2  (military, blank)
+  --prop:/sim/model/bo105/variant=3  (military, with HOT mounting, Austrian emblem)
+  --prop:/sim/model/bo105/variant=4  (blue, with Star-of-Life ambulance symbol)
+
+
+
+choose different medevac emblem:
+
+  --prop:/sim/model/bo105/emblem=foo.rgb
+
+
+
+choose different insignia for mil version:
+
+
+  --prop:/sim/model/bo105/insignia=bar.rgb
+
+
+
+remove wipers:
+
+  --prop:/sim/model/bo105/wiper=0
+
+
+
+suggested settings for Flight Data Recorder replay:
+
+  --generic=file,in,1,/home/m/.fgfs/replay/flight_007.txt,acms
+  --fdm=acms
+
+  --aircraft=bo105
+  --prop:/controls/engines/engine/magnetos=1
+  --prop:/rotors/main/rpm=442
+  --prop:/rotors/tail/rpm=2219
+  --prop:/sim/model/bo105/shadow=0
+  --prop:/sim/model/bo105/rotor-step-deg=30
+  --prop:/sim/model/bo105/state=2
+  --prop:/sim/model/bo105/turbine-rpm-pct=100
+  --prop:/sim/model/bo105/variant=2
+
+  --timeofday=noon
+  --disable-real-weather-fetch
+
+  --prop:/environment/clouds/layer[0]/coverage="clear"
+  --prop:/environment/clouds/layer[0]/elevation-ft=-9999
+  --prop:/environment/clouds/layer[1]/coverage="clear"
+  --prop:/environment/clouds/layer[1]/elevation-ft=-9999
+  --prop:/environment/clouds/layer[2]/coverage="clear"
+  --prop:/environment/clouds/layer[2]/elevation-ft=-9999
+  --prop:/environment/clouds/layer[3]/coverage="clear"
+  --prop:/environment/clouds/layer[3]/elevation-ft=-9999
+  --prop:/environment/clouds/layer[4]/coverage="clear"
+  --prop:/environment/clouds/layer[4]/elevation-ft=-9999
+  --prop:/environment/clouds/layer[5]/coverage="clear"
+  --prop:/environment/clouds/layer[5]/elevation-ft=-9999
+
+

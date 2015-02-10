@@ -1,0 +1,757 @@
+<?xml version="1.0"?>
+
+<!--
+hsi.xml
+
+HSI Bendix King
+
+Martin Dressler dr@musicabona.cz
+Mar 18 2003
+
+
+-->
+
+<PropertyList>
+
+ <name>HSI Bendix King</name>
+ <w-base>512</w-base>
+ <h-base>512</h-base>
+ 
+ <params>
+  <gs-needle>/instrumentation/nav[0]/gs-needle-deflection-norm</gs-needle>
+  <vor-needle>/instrumentation/nav[0]/heading-needle-deflection</vor-needle>
+  <radial-selected-deg>/instrumentation/nav[0]/radials/selected-deg</radial-selected-deg>
+  <to-flag>/instrumentation/nav[0]/to-flag</to-flag>
+  <from-flag>/instrumentation/nav[0]/from-flag</from-flag>
+  <vor-in-range>/instrumentation/nav[0]/in-range</vor-in-range>
+  <has-gs>/instrumentation/nav[0]/has-gs</has-gs>
+  <heading-deg>/orientation/heading-magnetic-deg</heading-deg>
+  <autopilot-heading-deg>/autopilot/settings/heading-bug-deg</autopilot-heading-deg>
+ </params>
+ 
+ <layers>
+ 
+  <layer>
+   <name>Black background</name>
+   <w>456</w>
+   <h>412</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/hsi2.rgb</path>
+    <x1>0.9375</x1>
+    <x2>1.0</x2>
+    <y1>0.0</y1>
+    <y2>0.0625</y2>
+   </texture>
+  </layer>
+
+  <layer>
+   <name>VOR background</name>
+   <w>240</w>
+   <h>240</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/hsi4.rgb</path>
+    <x1>0.0</x1>
+    <x2>0.46875</x2>
+    <y1>0.53125</y1>
+    <y2>1.0</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-23</offset>
+    </transformation>
+    <transformation>
+     <type>rotation</type>
+     <property alias="../../../../../params/radial-selected-deg"/>
+     <scale>1</scale>
+     <offset>180</offset>
+    </transformation>
+    <transformation>
+     <type>rotation</type>
+     <property alias="../../../../../params/heading-deg"/>
+     <scale>-1</scale>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>VOR TO</name>
+   <condition>
+    <equals>
+     <property alias="../../../../../params/to-flag"/>
+     <value>true</value>
+    </equals>
+   </condition>
+   <w>48</w>
+   <h>44</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/hsi2.rgb</path>
+    <x1>0.8515625</x1>
+    <x2>0.9453125</x2>
+    <y1>0.4375</y1>
+    <y2>0.5234375</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-23</offset>
+    </transformation>
+    <transformation>
+     <type>rotation</type>
+     <property alias="../../../../../params/radial-selected-deg"/>
+     <offset>180</offset>
+     <scale>1</scale>
+    </transformation>
+    <transformation>
+     <type>rotation</type>
+     <property alias="../../../../../params/heading-deg"/>
+     <scale>-1</scale>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-36</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>VOR FROM</name>
+   <condition>
+    <equals>
+     <property alias="../../../../../params/from-flag"/>
+     <value>true</value>
+    </equals>
+   </condition>
+   <w>48</w>
+   <h>44</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/hsi2.rgb</path>
+    <x1>0.8515625</x1>
+    <x2>0.9453125</x2>
+    <y1>0.4375</y1>
+    <y2>0.5234375</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-23</offset>
+    </transformation>
+    <transformation>
+     <type>rotation</type>
+     <property alias="../../../../../params/radial-selected-deg"/>
+     <offset>180</offset>
+     <scale>1</scale>
+    </transformation>
+    <transformation>
+     <type>rotation</type>
+     <property alias="../../../../../params/heading-deg"/>
+     <scale>-1</scale>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>36</offset>
+    </transformation>
+    <transformation>
+     <type>rotation</type>
+     <offset>180</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+
+  <layer>
+   <name>VOR markings</name>
+   <w>188</w>
+   <h>64</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/hsi2.rgb</path>
+    <x1>0.34375</x1>
+    <x2>0.7109375</x2>
+    <y1>0.0</y1>
+    <y2>0.125</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-23</offset>
+    </transformation>
+    <transformation>
+     <type>rotation</type>
+     <property alias="../../../../../params/radial-selected-deg"/>
+     <scale>1</scale>
+     <offset>180</offset>
+    </transformation>
+    <transformation>
+     <type>rotation</type>
+     <property alias="../../../../../params/heading-deg"/>
+     <scale>-1</scale>
+    </transformation>
+   </transformations>
+  </layer>
+
+
+  <layer>
+   <name>Compas rose shadow</name>
+   <w>240</w>
+   <h>240</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/hsi4.rgb</path>
+    <x1>0.46875</x1>
+    <x2>0.9375</x2>
+    <y1>0.53125</y1>
+    <y2>1.0</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-21</offset>
+    </transformation>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-1</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+
+  <layer>
+   <name>Compas rose</name>
+   <w>328</w>
+   <h>328</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/hsi3.rgb</path>
+    <x1>0.0</x1>
+    <x2>0.640625</x2>
+    <y1>0.359375</y1>
+    <y2>1.0</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-23</offset>
+    </transformation>
+    <transformation>
+     <type>rotation</type>
+     <property alias="../../../../../params/heading-deg"/>
+     <scale>-1</scale>
+    </transformation>
+   </transformations>
+  </layer>
+  
+  <layer>
+   <name>HDG bug</name>
+   <w>52</w>
+   <h>40</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/hsi2.rgb</path>
+    <x1>0.8515625</x1>
+    <x2>0.953125</x2>
+    <y1>0.359375</y1>
+    <y2>0.4375</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-23</offset>
+    </transformation>
+    <transformation>
+     <type>rotation</type>
+     <property alias="../../../../../params/autopilot-heading-deg"/>
+     <scale>1</scale>
+    </transformation>
+    <transformation>
+     <type>rotation</type>
+     <property alias="../../../../../params/heading-deg"/>
+     <scale>-1</scale>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>149</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>VOR needle</name>
+   <w>28</w>
+   <h>164</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/hsi2.rgb</path>
+    <x1>0.796875</x1>
+    <x2>0.8515625</x2>
+    <y1>0.359375</y1>
+    <y2>0.6796875</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-23</offset>
+    </transformation>
+    <transformation>
+     <type>rotation</type>
+     <property alias="../../../../../params/radial-selected-deg"/>
+     <offset>180</offset>
+     <scale>1</scale>
+    </transformation>
+    <transformation>
+     <type>rotation</type>
+     <property alias="../../../../../params/heading-deg"/>
+     <scale>-1</scale>
+    </transformation>
+    <transformation>
+     <type>x-shift</type>
+     <property alias="../../../../../params/vor-needle"/>
+     <min>-12.0</min>
+     <max>12.0</max>
+     <scale>-7.6</scale>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-2</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>VOR arrow arrow</name>
+   <w>44</w>
+   <h>72</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/hsi2.rgb</path>
+    <x1>0.8515625</x1>
+    <x2>0.9375</x2>
+    <y1>0.5390625</y1>
+    <y2>0.6796875</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-23</offset>
+    </transformation>
+    <transformation>
+     <type>rotation</type>
+     <property alias="../../../../../params/radial-selected-deg"/>
+     <offset>180</offset>
+     <scale>1</scale>
+    </transformation>
+    <transformation>
+     <type>rotation</type>
+     <property alias="../../../../../params/heading-deg"/>
+     <scale>-1</scale>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-109</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>VOR arrow tail</name>
+   <w>28</w>
+   <h>80</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/hsi2.rgb</path>
+    <x1>0.9375</x1>
+    <x2>0.9921875</x2>
+    <y1>0.5234375</y1>
+    <y2>0.6796875</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-23</offset>
+    </transformation>
+    <transformation>
+     <type>rotation</type>
+     <property alias="../../../../../params/radial-selected-deg"/>
+     <offset>180</offset>
+     <scale>1</scale>
+    </transformation>
+    <transformation>
+     <type>rotation</type>
+     <property alias="../../../../../params/heading-deg"/>
+     <scale>-1</scale>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>107</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>GS background</name>
+   <w>408</w>
+   <h>416</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/hsi2.rgb</path>
+    <x1>0.0</x1>
+    <x2>0.796875</x2>
+    <y1>0.1875</y1>
+    <y2>1.0</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-3</offset>
+    </transformation>
+   </transformations>
+  </layer>
+				  
+  <layer>
+   <name>GS needle right</name>
+   <condition>
+    <equals>
+     <property alias="../../../../../params/has-gs"/>
+     <value>true</value>
+    </equals>
+   </condition>
+   <w>40</w>
+   <h>44</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/hsi2.rgb</path>
+    <x1>0.875</x1>
+    <x2>0.953125</x2>
+    <y1>0.6796875</y1>
+    <y2>0.765625</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>192</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <property alias="../../../../../params/gs-needle"/>
+     <scale>84</scale>
+     <offset>-84</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>GS needle left</name>
+   <condition>
+    <equals>
+     <property alias="../../../../../params/has-gs"/>
+     <value>true</value>
+    </equals>
+   </condition>
+   <w>40</w>
+   <h>44</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/hsi2.rgb</path>
+    <x1>0.796875</x1>
+    <x2>0.875</x2>
+    <y1>0.6796875</y1>
+    <y2>0.765625</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-192</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <property alias="../../../../../params/gs-needle"/>
+     <min>-3.5</min>
+     <max>3.5</max>
+     <scale>24</scale>
+     <offset>-24</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+
+  <layer>
+   <name>NAV OFF</name>
+   <condition>
+    <equals>
+     <property alias="../../../../../params/vor-in-range"/>
+     <value>false</value>
+    </equals>
+   </condition>
+   <w>104</w>
+   <h>60</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/hsi2.rgb</path>
+    <x1>0.796875</x1>
+    <x2>1.0</x2>
+    <y1>0.765625</y1>
+    <y2>0.8828125</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-142</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>121</offset>
+    </transformation>
+    <transformation>
+     <type>x-shift</type>
+     <offset>67</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>HDG OFF</name>
+   <condition>
+    <less-than>
+     <property>/systems/electrical/outputs/hsi</property>
+     <value>1.0</value>
+    </less-than>
+   </condition>
+   <w>104</w>
+   <h>60</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/hsi2.rgb</path>
+    <x1>0.796875</x1>
+    <x2>1.0</x2>
+    <y1>0.8828125</y1>
+    <y2>1.0</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>142</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>121</offset>
+    </transformation>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-71</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>Foreground</name>
+   <w>512</w>
+   <h>512</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/hsi1.rgb</path>
+    <x1>0.0</x1>
+    <x2>1.0</x2>
+    <y1>0.0</y1>
+    <y2>1.0</y2>
+   </texture>
+  </layer>
+
+  <layer>
+   <name>HDG Knob</name>
+   <condition>
+    <equals>
+     <property>/sim/instrument-options/omit-knobs</property>
+     <value></value>
+    </equals>
+   </condition>
+   <w>88</w>
+   <h>88</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/hsi2.rgb</path>
+    <x1>0.0</x1>
+    <x2>0.171875</x2>
+    <y1>0.0</y1>
+    <y2>0.171875</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>195</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-147</offset>
+    </transformation>
+    <transformation>
+     <type>rotation</type>
+     <property alias="../../../../../params/autopilot-heading-deg"/>
+     <scale>-5</scale>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>OBS Knob</name>
+   <condition>
+    <equals>
+     <property>/sim/instrument-options/omit-knobs</property>
+     <value></value>
+    </equals>
+   </condition>
+   <w>88</w>
+   <h>88</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/hsi2.rgb</path>
+    <x1>0.171875</x1>
+    <x2>0.34375</x2>
+    <y1>0.0</y1>
+    <y2>0.171875</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-195</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-147</offset>
+    </transformation>
+    <transformation>
+     <type>rotation</type>
+     <property alias="../../../../../params/radial-selected-deg"/>
+     <scale>-5</scale>
+    </transformation>
+   </transformations>
+  </layer>
+ 
+ </layers>
+
+ <actions>
+
+  <action>
+   <name>OBS small clockwise rotation</name>
+   <button>0</button>
+   <x>-239</x>
+   <y>-192</y>
+   <w>45</w>
+   <h>90</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/radial-selected-deg"/>
+    <step>1.0</step>
+    <min>0</min>
+    <max>360</max>
+    <wrap>true</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>OBS small counter-clockwise rotation</name>
+   <button>0</button>
+   <x>-195</x>
+   <y>-192</y>
+   <w>45</w>
+   <h>90</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/radial-selected-deg"/>
+    <step>-1.0</step>
+    <min>0</min>
+    <max>360</max>
+    <wrap>true</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>OBS large clockwise rotation</name>
+   <button>1</button>
+   <x>-239</x>
+   <y>-192</y>
+   <w>45</w>
+   <h>90</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/radial-selected-deg"/>
+    <step>5.0</step>
+    <min>0</min>
+    <max>360</max>
+    <wrap>true</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>OBS large counter-clockwise rotation</name>
+   <button>1</button>
+   <x>-195</x>
+   <y>-192</y>
+   <w>45</w>
+   <h>90</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/radial-selected-deg"/>
+    <step>-5.0</step>
+    <min>0</min>
+    <max>360</max>
+    <wrap>true</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>Heading hold small clockwise rotation</name>
+   <button>0</button>
+   <x>150</x>
+   <y>-192</y>
+   <w>45</w>
+   <h>90</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/autopilot-heading-deg"/>
+    <step>1.0</step>
+    <min>0</min>
+    <max>360</max>
+    <wrap>true</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>Heading hold small counter-clockwise rotation</name>
+   <button>0</button>
+   <x>195</x>
+   <y>-192</y>
+   <w>45</w>
+   <h>90</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/autopilot-heading-deg"/>
+    <step>-1.0</step>
+    <min>0</min>
+    <max>360</max>
+    <wrap>true</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>Heading hold large clockwise rotation</name>
+   <button>1</button>
+   <x>150</x>
+   <y>-192</y>
+   <w>45</w>
+   <h>90</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/autopilot-heading-deg"/>
+    <step>5.0</step>
+    <min>0</min>
+    <max>360</max>
+    <wrap>true</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>Heading hold large counter-clockwise rotation</name>
+   <button>1</button>
+   <x>195</x>
+   <y>-192</y>
+   <w>45</w>
+   <h>90</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/autopilot-heading-deg"/>
+    <step>-5.0</step>
+    <min>0</min>
+    <max>360</max>
+    <wrap>true</wrap>
+   </binding>
+  </action>
+
+
+ </actions>
+
+</PropertyList>

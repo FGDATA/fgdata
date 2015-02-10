@@ -1,0 +1,202 @@
+<?xml version="1.0"?>
+<!--
+Author : Syd Adams
+Primus 2000 MFD
+-->
+<PropertyList>
+
+    <path>mfd3d.ac</path>
+
+    <panel>
+        <name>panel-area</name>
+        <path>Aircraft/CitationX/Models/Instruments/MFD/nd.xml</path>
+        <bottom-left>
+            <x-m>0.00025</x-m>
+            <y-m>-0.080</y-m>
+            <z-m>-0.080</z-m>
+        </bottom-left>
+        <bottom-right>
+            <x-m>0.00025</x-m>
+            <y-m>0.080</y-m>
+            <z-m>-0.080</z-m>
+        </bottom-right>
+        <top-left>
+            <x-m>0.00025</x-m>
+            <y-m>-0.080</y-m>
+            <z-m>0.108</z-m>
+        </top-left>
+    </panel>
+
+    <model>
+        <name>Mtext3d</name>
+        <path>Aircraft/CitationX/Models/Instruments/MFD/Mtext3d.xml</path>
+        <offsets>
+            <x-m>0.0005</x-m>
+            <y-m>0</y-m>
+            <z-m>0</z-m>
+            <pitch-deg>0</pitch-deg>
+        </offsets>
+    </model>
+
+    <animation>
+        <type>texrotate</type>
+        <object-name>MFD.hsi</object-name>
+        <property>orientation/heading-magnetic-deg</property>
+        <axis>
+            <x>0</x>
+            <y>0</y>
+            <z>-1</z>
+        </axis>
+        <center>
+            <x>0.5</x>
+            <y>0.5</y>
+        </center>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>MFD.tcas-off</object-name>
+        <condition>
+            <not>
+                <property>instrumentation/primus2000/dc840/tcas</property>
+            </not>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>MFD.hdg-bug</object-name>
+        <property>autopilot/internal/heading-bug-error-deg</property>
+        <axis>
+            <x>-1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+        <center>
+            <x-m>0.0</x-m>
+            <y-m>0.0</y-m>
+            <z-m>0.018</z-m>
+        </center>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>MFD.vor</object-name>
+        <condition>
+            <property>instrumentation/primus2000/dc840/mfd-wx</property>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>MFD.apt</object-name>
+        <condition>
+            <property>instrumentation/primus2000/dc840/mfd-wx</property>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>MFD.hdg-bug</object-name>
+        <condition>
+            <and>
+                <greater-than>
+                    <property>autopilot/internal/heading-bug-error-deg</property>
+                    <value>-55.0</value>
+                </greater-than>
+                <less-than>
+                    <property>autopilot/internal/heading-bug-error-deg</property>
+                    <value>55.0</value>
+                </less-than>
+                <property>instrumentation/primus2000/dc840/mfd-map</property>
+            </and>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>Lhdg-arrow</object-name>
+        <condition>
+            <and>
+                <less-than>
+                    <property>autopilot/internal/heading-bug-error-deg</property>
+                    <value>-55</value>
+                </less-than>
+                <property>instrumentation/primus2000/dc840/mfd-map</property>
+            </and>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>Rhdg-arrow</object-name>
+        <condition>
+            <and>
+                <greater-than>
+                    <property>autopilot/internal/heading-bug-error-deg</property>
+                    <value>55</value>
+                </greater-than>
+                <property>instrumentation/primus2000/dc840/mfd-map</property>
+            </and>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>MFD.tcas-auto</object-name>
+        <condition>
+            <property>instrumentation/primus2000/dc840/tcas</property>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>MFD.hsi</object-name>
+        <object-name>MFD.hdg-bracket</object-name>
+        <object-name>MagHdg</object-name>
+        <object-name>MFD.staticplane</object-name>
+        <condition>
+            <property>instrumentation/primus2000/dc840/mfd-map</property>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>MFD.trunorth</object-name>
+        <object-name>MFD.plane</object-name>
+         <condition>
+            <not>
+                <property>instrumentation/primus2000/dc840/mfd-map</property>
+            </not>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>textranslate</type>
+        <object-name>MFD.menu</object-name>
+        <property>instrumentation/primus2000/mfd/menu-num</property>
+        <factor>0.05</factor>
+        <axis>
+            <x>0</x>
+            <y>-1</y>
+            <z>0</z>
+        </axis>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>MFD.plane</object-name>
+        <property>orientation/heading-deg</property>
+        <center>
+            <x-m>0.0</x-m>
+            <y-m>0.0</y-m>
+            <z-m>0.018</z-m>
+        </center>
+        <axis>
+            <x>-1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+    </animation>
+
+</PropertyList>

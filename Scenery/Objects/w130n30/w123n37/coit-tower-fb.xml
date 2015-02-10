@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+ <path>coit-tower-fb.ac</path>
+
+ <!-- LOD -->
+
+ <animation>
+  <type>range</type>
+  <object-name>Detailed</object-name>
+  <min-m>0</min-m>
+<!--
+  <max-property>/sim/rendering/static-lod/detailed</max-property>
+ </animation>
+
+ <animation>
+  <type>range</type>
+  <object-name>Rough</object-name>
+  <min-property>/sim/rendering/static-lod/detailed</min-property>
+-->
+  <max-property>/sim/rendering/static-lod/rough</max-property>
+ </animation>
+
+ <animation>
+  <type>range</type>
+  <object-name>Bare</object-name>
+  <min-property>/sim/rendering/static-lod/rough</min-property>
+
+  <max-property>/sim/rendering/static-lod/bare</max-property>
+ </animation>
+ 
+ <animation>
+  <type>select</type>
+  <object-name>Night</object-name>
+  <condition>
+   <greater-than>
+    <property>/sim/time/sun-angle-rad</property>
+    <value>1.57</value>
+   </greater-than>
+  </condition>
+ </animation>
+ 
+ <animation>
+  <type>select</type>
+  <object-name>Day</object-name>
+  <condition>
+   <less-than-equals>
+    <property>/sim/time/sun-angle-rad</property>
+    <value>1.57</value>
+   </less-than-equals>
+  </condition>
+ </animation>
+ 
+ <animation>
+  <type>select</type>
+  <object-name>TopLight.1</object-name>
+  <object-name>TopLight.2</object-name>
+  <object-name>TopLight.3</object-name>
+  <condition>
+   <greater-than>
+    <property>/sim/time/sun-angle-rad</property>
+    <value>1.57</value>
+   </greater-than>
+  </condition>
+ </animation>
+
+ <animation>
+  <type>range</type>
+  <object-name>TopLight.1</object-name>
+  <min-m>0</min-m>
+  <max-m>2000</max-m>
+ </animation>
+
+ <animation>
+  <type>range</type>
+  <object-name>TopLight.2</object-name>
+  <min-m>2000</min-m>
+  <max-m>6000</max-m>
+ </animation>
+
+ <animation>
+  <type>range</type>
+  <object-name>TopLight.3</object-name>
+  <min-m>6000</min-m>
+  <max-m>100000</max-m>
+ </animation>
+
+</PropertyList>

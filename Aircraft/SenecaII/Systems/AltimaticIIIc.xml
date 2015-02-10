@@ -1,0 +1,513 @@
+<?xml version="1.0" ?>
+<!--
+ This file is part of FlightGear, the free flight simulator
+ http://www.flightgear.org/
+
+ Copyright (C) 2007 Torsten Dreyer, Torsten (at) t3r _dot_ de
+ Copyright (C) 2007 Dave Perry
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation; either version 2 of the
+ License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+-->
+<PropertyList>
+    <params>
+      <light-factor>sim/model/material/instruments/factor</light-factor>
+      <controls>
+        <roll>
+          <on>autopilot/CENTURYIII/controls/roll/button-on</on>
+          <off>autopilot/CENTURYIII/controls/roll/button-off</off>
+          <state>autopilot/CENTURYIII/controls/roll/button-state</state>
+        </roll>
+
+        <hdg>
+          <on>autopilot/CENTURYIII/controls/hdg/button-on</on>
+          <off>autopilot/CENTURYIII/controls/hdg/button-off</off>
+          <state>autopilot/CENTURYIII/controls/hdg/button-state</state>
+        </hdg>
+
+        <alt>
+          <on>autopilot/CENTURYIII/controls/alt/button-on</on>
+          <off>autopilot/CENTURYIII/controls/alt/button-off</off>
+          <state>autopilot/CENTURYIII/controls/alt/button-state</state>
+        </alt>
+
+        <pitch>
+          <on>autopilot/CENTURYIII/controls/pitch/button-on</on>
+          <off>autopilot/CENTURYIII/controls/pitch/button-off</off>
+          <state>autopilot/CENTURYIII/controls/pitch/button-state</state>
+        </pitch>
+
+        <hdg>autopilot/CENTURYIII/controls/hdg</hdg>
+        <hdg-lock>autopilot/CENTURYIII/controls/hdg-lock</hdg-lock>
+
+        <alt>autopilot/CENTURYIII/controls/alt</alt>
+        <alt-lock>autopilot/CENTURYIII/controls/alt-lock</alt-lock>
+
+        <pitch>autopilot/CENTURYIII/controls/pitch</pitch>
+        <pitch-lock>autopilot/CENTURYIII/controls/pitch-lock</pitch-lock>
+      </controls>
+    </params>
+
+    <path>AltimaticIIIc.ac</path>
+
+    <!-- Century III Autopilot -->
+
+    <animation>
+        <type>noshadow</type>
+        <object-name>Altimatic</object-name>
+    </animation>
+
+    <animation>
+        <type>material</type>
+        <object-name>Altimatic.Face</object-name>
+        <object-name>Altimatic.DeltaPitchNeedle</object-name>
+        <emission>
+          <red>0.45</red>
+          <green>0.09</green>
+          <blue>0.00001</blue>
+          <factor-prop alias="../../../params/light-factor"/>
+        </emission>
+    </animation>
+
+    <animation>
+        <type>material</type>
+        <object-name>Altimatic.HdgButton</object-name>
+        <object-name>Altimatic.AltButton</object-name>
+        <object-name>Altimatic.PitchButton</object-name>
+        <object-name>Altimatic.RollButton</object-name>
+        <object-name>Altimatic.PitchWheel</object-name>
+        <emission>
+          <red>0.2</red>
+          <green>0.04</green>
+          <blue>0.00002</blue>
+          <factor-prop alias="../../../params/light-factor"/>
+        </emission>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>Altimatic.RollButton</object-name>
+        <property alias="../../params/controls/roll/state"/>
+        <factor>-40</factor>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <center>
+            <x-m>0.00910878</x-m>
+            <y-m>-0.0176787</y-m>
+            <z-m>0.0165364</z-m>
+        </center>
+    </animation>
+
+    <animation>
+      <type>pick</type>
+      <object-name>Altimatic.RollButton</object-name>
+      <visible>true</visible>
+      <action>
+        <button>0</button>
+        <repeatable>false</repeatable>
+        <binding>
+          <condition>
+            <property alias="../../../../../params/controls/roll/state"/>
+          </condition>
+          <command>property-assign</command>
+          <property alias="../../../../params/controls/roll/off"/>
+          <value type="bool">true</value>
+        </binding>
+        <binding>
+          <condition>
+            <not>
+              <property alias="../../../../../../params/controls/roll/state"/>
+            </not>
+          </condition>
+          <command>property-assign</command>
+          <property alias="../../../../params/controls/roll/on"/>
+          <value type="bool">true</value>
+        </binding>
+        <mod-up>
+          <binding>
+            <command>property-assign</command>
+            <property alias="../../../../../params/controls/roll/on"/>
+            <value type="bool">false</value>
+          </binding>
+          <binding>
+            <command>property-assign</command>
+            <property alias="../../../../../params/controls/roll/off"/>
+            <value type="bool">false</value>
+          </binding>
+        </mod-up>
+      </action>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>Altimatic.HdgButton</object-name>
+        <property alias="../../params/controls/hdg/state"/>
+        <factor>-40</factor>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <center>
+            <x-m>0.00910878</x-m>
+            <y-m>-0.0176787</y-m>
+            <z-m>0.0165364</z-m>
+        </center>
+    </animation>
+
+    <animation>
+      <type>pick</type>
+      <object-name>Altimatic.HdgButton</object-name>
+      <action>
+        <button>0</button>
+        <repeatable>false</repeatable>
+        <binding>
+          <condition>
+            <property alias="../../../../../params/controls/hdg/state"/>
+          </condition>
+          <command>property-assign</command>
+          <property alias="../../../../params/controls/hdg/off"/>
+          <value type="bool">true</value>
+        </binding>
+        <binding>
+          <condition>
+            <not>
+              <property alias="../../../../../../params/controls/hdg/state"/>
+            </not>
+          </condition>
+          <command>property-assign</command>
+          <property alias="../../../../params/controls/hdg/on"/>
+          <value type="bool">true</value>
+        </binding>
+        <mod-up>
+          <binding>
+            <command>property-assign</command>
+            <property alias="../../../../../params/controls/hdg/on"/>
+            <value type="bool">false</value>
+          </binding>
+          <binding>
+            <command>property-assign</command>
+            <property alias="../../../../../params/controls/hdg/off"/>
+            <value type="bool">false</value>
+          </binding>
+        </mod-up>
+      </action>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>Altimatic.AltButton</object-name>
+        <property alias="../../params/controls/alt/state"/>
+        <factor>-40</factor>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <center>
+            <x-m>0.00910878</x-m>
+            <y-m>-0.0176787</y-m>
+            <z-m>0.0165364</z-m>
+        </center>
+    </animation>
+
+    <animation>
+      <type>pick</type>
+      <object-name>Altimatic.AltButton</object-name>
+      <action>
+        <button>0</button>
+        <repeatable>false</repeatable>
+        <binding>
+          <condition>
+            <property alias="../../../../../params/controls/alt/state"/>
+          </condition>
+          <command>property-assign</command>
+          <property alias="../../../../params/controls/alt/off"/>
+          <value type="bool">true</value>
+        </binding>
+        <binding>
+          <condition>
+            <not>
+              <property alias="../../../../../../params/controls/alt/state"/>
+            </not>
+          </condition>
+          <command>property-assign</command>
+          <property alias="../../../../params/controls/alt/on"/>
+          <value type="bool">true</value>
+        </binding>
+        <mod-up>
+          <binding>
+            <command>property-assign</command>
+            <property alias="../../../../../params/controls/alt/on"/>
+            <value type="bool">false</value>
+          </binding>
+          <binding>
+            <command>property-assign</command>
+            <property alias="../../../../../params/controls/alt/off"/>
+            <value type="bool">false</value>
+          </binding>
+        </mod-up>
+      </action>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>Altimatic.PitchButton</object-name>
+        <property alias="../../params/controls/pitch/state"/>
+        <factor>-40</factor>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <center>
+            <x-m>0.00910878</x-m>
+            <y-m>-0.0176787</y-m>
+            <z-m>0.0165364</z-m>
+        </center>
+    </animation>
+
+    <animation>
+      <type>pick</type>
+      <object-name>Altimatic.PitchButton</object-name>
+      <visible>true</visible>
+      <action>
+        <button>0</button>
+        <repeatable>false</repeatable>
+        <binding>
+          <condition>
+            <property alias="../../../../../params/controls/pitch/state"/>
+          </condition>
+          <command>property-assign</command>
+          <property alias="../../../../params/controls/pitch/off"/>
+          <value type="bool">true</value>
+        </binding>
+        <binding>
+          <condition>
+            <not>
+              <property alias="../../../../../../params/controls/pitch/state"/>
+            </not>
+          </condition>
+          <command>property-assign</command>
+          <property alias="../../../../params/controls/pitch/on"/>
+          <value type="bool">true</value>
+        </binding>
+        <mod-up>
+          <binding>
+            <command>property-assign</command>
+            <property alias="../../../../../params/controls/pitch/on"/>
+            <value type="bool">false</value>
+          </binding>
+          <binding>
+            <command>property-assign</command>
+            <property alias="../../../../../params/controls/pitch/off"/>
+            <value type="bool">false</value>
+          </binding>
+        </mod-up>
+      </action>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>Altimatic.RollKnob</object-name>
+        <property>autopilot/CENTURYIII/settings/roll-knob-deg</property>
+        <factor>-1.5</factor>
+        <axis>
+            <x>1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+        <center>
+            <x-m>0.011869</x-m>
+            <y-m>-0.0384962</y-m>
+            <z-m>-0.0182847</z-m>
+        </center>
+    </animation>
+
+    <animation>
+      <type>pick</type>
+      <object-name>Altimatic.RollPickR</object-name>
+      <visible>false</visible>
+      <action>
+        <button>0</button>
+        <repeatable>true</repeatable>
+        <binding>
+          <command>property-adjust</command>
+          <property>autopilot/CENTURYIII/settings/roll-knob-deg</property>
+          <step type="double">0.5</step>
+          <min>-30.0</min>
+          <max>30.0</max>
+        </binding>
+      </action>
+    </animation>
+
+    <animation>
+      <type>pick</type>
+      <object-name>Altimatic.RollPickL</object-name>
+      <visible>false</visible>
+      <action>
+        <button>0</button>
+        <repeatable>true</repeatable>
+        <binding>
+          <command>property-adjust</command>
+          <property>autopilot/CENTURYIII/settings/roll-knob-deg</property>
+          <step type="double">-0.5</step>
+          <min>-30.0</min>
+          <max>30.0</max>
+        </binding>
+      </action>
+    </animation>
+
+    <animation>
+      <type>pick</type>
+      <object-name>Altimatic.RollPick</object-name>
+      <visible>false</visible>
+      <action>
+        <button>1</button>
+        <repeatable>false</repeatable>
+        <binding>
+          <command>property-assign</command>
+          <property>autopilot/CENTURYIII/settings/roll-knob-deg</property>
+          <value type="double">0.0</value>
+        </binding>
+      </action>
+      <action>
+        <button>3</button>
+        <repeatable>false</repeatable>
+        <binding>
+          <command>property-adjust</command>
+          <property>autopilot/CENTURYIII/settings/roll-knob-deg</property>
+          <step type="double">-0.5</step>
+          <min>-30.0</min>
+          <max>30.0</max>
+        </binding>
+      </action>
+      <action>
+        <button>4</button>
+        <repeatable>false</repeatable>
+        <binding>
+          <command>property-adjust</command>
+          <property>autopilot/CENTURYIII/settings/roll-knob-deg</property>
+          <step type="double">0.5</step>
+          <min>-30.0</min>
+          <max>30.0</max>
+        </binding>
+      </action>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>Altimatic.PitchWheel</object-name>
+        <property>autopilot/CENTURYIII/settings/pitch-wheel-deg</property>
+        <factor>6</factor>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <center>
+            <x-m>0</x-m>
+            <y-m>0.0522644</y-m>
+            <z-m>0.0070982</z-m>
+        </center>
+    </animation>
+
+    <animation>
+      <type>pick</type>
+      <object-name>Altimatic.PitchPickU</object-name>
+      <visible>false</visible>
+      <action>
+        <button>0</button>
+        <repeatable>true</repeatable>
+        <binding>
+          <command>property-adjust</command>
+          <property>autopilot/CENTURYIII/settings/pitch-wheel-deg</property>
+          <step type="double">0.5</step>
+          <min>-10.0</min>
+          <max>10.0</max>
+        </binding>
+      </action>
+    </animation>
+
+    <animation>
+      <type>pick</type>
+      <object-name>Altimatic.PitchPickD</object-name>
+      <visible>false</visible>
+      <action>
+        <button>0</button>
+        <repeatable>true</repeatable>
+        <binding>
+          <command>property-adjust</command>
+          <property>autopilot/CENTURYIII/settings/pitch-wheel-deg</property>
+          <step type="double">-0.5</step>
+          <min>-10.0</min>
+          <max>10.0</max>
+        </binding>
+      </action>
+    </animation>
+
+    <animation>
+      <type>pick</type>
+      <object-name>Altimatic.PitchPick</object-name>
+      <visible>false</visible>
+      <action>
+        <button>1</button>
+        <repeatable>false</repeatable>
+        <binding>
+          <command>property-assign</command>
+          <property>autopilot/CENTURYIII/settings/pitch-wheel-deg</property>
+          <value type="double">0.0</value>
+        </binding>
+      </action>
+      <action>
+        <button>3</button>
+        <repeatable>false</repeatable>
+        <binding>
+          <command>property-adjust</command>
+          <property>autopilot/CENTURYIII/settings/pitch-wheel-deg</property>
+          <step type="double">-0.5</step>
+          <min>-10.0</min>
+          <max>10.0</max>
+        </binding>
+      </action>
+      <action>
+        <button>4</button>
+        <repeatable>false</repeatable>
+        <binding>
+          <command>property-adjust</command>
+          <property>autopilot/CENTURYIII/settings/pitch-wheel-deg</property>
+          <step type="double">0.5</step>
+          <min>-10.0</min>
+          <max>10.0</max>
+        </binding>
+      </action>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>Altimatic.DeltaPitchNeedle</object-name>
+        <property>autopilot/CENTURYIII/settings/delta-pitch</property>
+        <factor>-1</factor>
+        <axis>
+            <x>1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+        <center>
+            <x-m>0</x-m>
+            <y-m>-0.007029</y-m>
+            <z-m>-0.009073</z-m>
+        </center>
+    </animation>
+
+</PropertyList>

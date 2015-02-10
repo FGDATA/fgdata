@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<!--
+	Overlay that rotates the stick angle.
+	Copyright (c) 2011   Melchior FRANZ   mfranz # aon : at
+
+	Usage:   fgfs ~~prop:input/joysticks/overlays=stick_rotate ~~prop:d:input/joysticks/stick-angle=15
+-->
+
+<PropertyList>
+	<nasal>
+		<script>
+			contains(caller(0)[0], "stick") and removelistener(stick.listener);
+
+			var stick = {
+				init: func {
+					me.x = me.y = 0;
+					var a = props.globals.initNode("/input/joysticks/stick-angle");
+					me.listener = setlistener(a, func(n) {
+						me.angle = n.getValue() * D2R;
+						me.sin = math.sin(me.angle);
+						me.cos = math.cos(me.angle);
+					}, 1);
+				},
+				value: func cmdarg().getNode("setting").getValue(),
+				setx: func {
+					me.x = me.value();
+					me.update();
+				},
+				sety: func {
+					me.y = -me.value();
+					me.update();
+				},
+				update: func {
+					setprop("/controls/flight/aileron", me.x * me.cos + me.y * me.sin);
+					setprop("/controls/flight/elevator", me.y * me.cos - me.x * me.sin);
+				},
+			};
+
+			stick.init();
+		</script>
+	</nasal>
+
+	<axis n="0">
+		<tolerance>0.00001</tolerance>
+		<binding>
+			<command>nasal</command>
+			<script>stick.setx()</script>
+		</binding>
+	</axis>
+
+	<axis n="1">
+		<tolerance>0.00001</tolerance>
+		<binding>
+			<command>nasal</command>
+			<script>stick.sety()</script>
+		</binding>
+	</axis>
+</PropertyList>

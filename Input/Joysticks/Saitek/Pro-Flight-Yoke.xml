@@ -1,0 +1,301 @@
+<?xml version="1.0"?>
+<!-- Saitek Pro Flight Yoke
+     
+     Copyright (C) 2008  Oliver Schroeder  (fgfs(at)o-schroeder.de)
+     This file is released under the GPL license.
+     -->
+<PropertyList>
+    <name>Saitek Saitek Pro Flight Yoke</name>
+    <name>Saitek Pro Flight Yoke</name>
+    
+    <axis n="0">
+        <desc>Aileron</desc>
+        <binding>
+            <command>property-scale</command>
+            <property>/controls/flight/aileron</property>
+            <squared type="bool">true</squared>
+        </binding>
+    </axis>
+    <axis n="1">
+        <desc>Elevator</desc>
+        <binding>
+            <command>property-scale</command>
+            <property>/controls/flight/elevator</property>
+            <factor type="double">-1.0</factor>
+            <squared type="bool">true</squared>
+        </binding>
+    </axis>
+    <!-- Throttle Quadrant -->
+    <axis n="2">
+        <desc>Throttle</desc>
+        <binding>
+            <command>nasal</command>
+            <script>controls.throttleAxis()</script>
+        </binding>
+    </axis>
+    <axis>
+        <number>
+            <unix>3</unix>
+            <windows>4</windows>
+        </number>
+        <desc>Prop Pitch</desc>
+        <binding>
+            <command>nasal</command>
+            <script>controls.propellerAxis()</script>
+        </binding>
+    </axis>
+    <axis>
+        <number>
+            <unix>4</unix>
+            <windows>3</windows>
+        </number>
+        <desc>Mixture</desc>
+        <binding>
+            <command>nasal</command>
+            <script>controls.mixtureAxis()</script>
+        </binding>
+    </axis>
+    <!-- Coolie Hat -->
+    <axis>
+        <number>
+            <unix>5</unix>
+            <windows>6</windows>
+        </number>
+        <desc>View Direction</desc>
+        <low>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>property-adjust</command>
+                <property>/sim/current-view/goal-heading-offset-deg</property>
+                <step type="double">1.0</step>
+            </binding>
+        </low>
+        <high>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>property-adjust</command>
+                <property>/sim/current-view/goal-heading-offset-deg</property>
+                <step type="double">-1.0</step>
+            </binding>
+        </high>
+    </axis>
+    <axis>
+        <number>
+            <unix>6</unix>
+        </number>
+        <desc>View Elevation</desc>
+        <low>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>property-adjust</command>
+                <property>/sim/current-view/goal-pitch-offset-deg</property>
+                <step type="double">1.0</step>
+            </binding>
+        </low>
+        <high>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>property-adjust</command>
+                <property>/sim/current-view/goal-pitch-offset-deg</property>
+                <step type="double">-1.0</step>
+            </binding>
+        </high>
+    </axis>
+    <axis>
+        <number>
+            <windows>7</windows>
+        </number>
+        <desc>View Elevation</desc>
+        <low>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>property-adjust</command>
+                <property>/sim/current-view/goal-pitch-offset-deg</property>
+                <step type="double">-1.0</step>
+            </binding>
+        </low>
+        <high>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>property-adjust</command>
+                <property>/sim/current-view/goal-pitch-offset-deg</property>
+                <step type="double">1.0</step>
+            </binding>
+        </high>
+    </axis>
+    <!-- Buttons on the Yoke -->
+    <button n="0">
+        <desc>Cycle View</desc>
+        <repeatable>false</repeatable>
+        <binding>
+            <command>nasal</command>
+            <script>view.stepView(1)</script>
+        </binding>
+    </button>
+    <button n="1"> <!-- Labled as D -->
+        <desc>Toggle parking break</desc>
+        <binding>
+            <command>property-toggle</command>
+            <property>/controls/gear/brake-parking</property>
+        </binding>
+    </button>
+    <button n="2"> <!-- Labled as A1 -->
+        <desc>Elevator trim down</desc>
+        <repeatable>true</repeatable>
+        <binding>
+            <command>nasal</command>
+            <script>controls.elevatorTrim(0.75)</script>
+        </binding>
+    </button>
+    <button n="3"> <!-- Labled as A2 -->
+        <desc>Elevator trim up</desc>
+        <repeatable>true</repeatable>
+        <binding>
+            <command>nasal</command>
+            <script>controls.elevatorTrim(-0.75)</script>
+        </binding>
+    </button>
+    <button n="4"> <!-- Labled as B1 -->
+        <desc>Zoom In</desc>
+        <repeatable>true</repeatable>
+        <binding>
+            <command>property-adjust</command>
+            <property>/sim/current-view/field-of-view</property>
+            <step type="double">-0.5</step>
+        </binding>
+    </button>
+    <button n="5"> <!-- LAbled as B2 -->
+        <desc>Zoom Out</desc>
+        <repeatable>true</repeatable>
+        <binding>
+            <command>property-adjust</command>
+            <property>/sim/current-view/field-of-view</property>
+            <step type="double">+0.5</step>
+        </binding>
+    </button>
+    <button n="6"> <!-- Labled as C1 -->
+        <desc>Aileron trim left</desc>
+        <repeatable>true</repeatable>
+        <binding>
+            <command>nasal</command>
+            <script>controls.aileronTrim(-0.75)</script>
+        </binding>
+    </button>
+    <button n="7"> <!-- Labled as C2 -->
+        <desc>Aileron trim right</desc>
+        <repeatable>true</repeatable>
+        <binding>
+            <command>nasal</command>
+            <script>controls.aileronTrim(0.75)</script>
+        </binding>
+    </button>
+    
+    <!-- Buttons on the throttle Quadrant -->
+    <button n="14"> <!-- Labled as T1 -->
+        <desc>Flaps up</desc>
+        <repeatable>false</repeatable>
+        <binding>
+            <command>nasal</command>
+            <script>controls.flapsDown(-1)</script>
+        </binding>
+        <mod-up>
+            <binding>
+                <command>nasal</command>
+                <script>controls.flapsDown(0)</script>
+            </binding>
+        </mod-up>
+    </button>
+    <button n="15"> <!-- Labled as T2 -->
+        <desc>Flaps down</desc>
+        <repeatable>false</repeatable>
+        <binding>
+            <command>nasal</command>
+            <script>controls.flapsDown(1)</script>
+        </binding>
+        <mod-up>
+            <binding>
+                <command>nasal</command>
+                <script>controls.flapsDown(0)</script>
+            </binding>
+        </mod-up>
+    </button>
+    <button n="16"> <!-- Labled as T3 -->
+        <desc>Gear up</desc>
+        <repeatable>false</repeatable>
+        <binding>
+            <command>nasal</command>
+            <script>controls.gearDown(-1)</script>
+        </binding>
+        <mod-up>
+            <binding>
+                <command>nasal</command>
+                <script>controls.gearDown(0)</script>
+            </binding>
+        </mod-up>
+    </button>
+    <button n="17"> <!-- Labled as T4 -->
+        <desc>Gear down</desc>
+        <repeatable>false</repeatable>
+        <binding>
+            <command>nasal</command>
+            <script>controls.gearDown(1)</script>
+        </binding>
+        <mod-up>
+            <binding>
+                <command>nasal</command>
+                <script>controls.gearDown(0)</script>
+            </binding>
+        </mod-up>
+    </button>
+    <button n="18"> <!-- Labled as T5 -->
+        <desc>Retract Spoilers</desc>
+        <repeatable>false</repeatable>
+        <binding>
+            <command>nasal</command>
+            <script>controls.stepSpoilers(-1)</script>
+        </binding>
+        <mod-up>
+            <binding>
+                <command>nasal</command>
+                <script>controls.stepSpoilers(0)</script>
+            </binding>
+        </mod-up>
+    </button>
+    
+    <button n="19"> <!-- Labled as T6 -->
+        <desc>Deploy Spoilers</desc>
+        <repeatable>false</repeatable>
+        <binding>
+            <command>nasal</command>
+            <script>controls.stepSpoilers(1)</script>
+        </binding>
+        <mod-up>
+            <binding>
+                <command>nasal</command>
+                <script>controls.stepSpoilers(0)</script>
+            </binding>
+        </mod-up>
+    </button>
+    <button n="20">
+        <desc>thrust reverse</desc>
+        <repeatable type="bool">false</repeatable>
+        <binding>
+            <command>nasal</command>
+            <script>
+                props.setAll("/controls/engines/engine", "reverser", 1);
+                props.setAll("/controls/engines/engine", "throttle", 1);
+                gui.popupTip("Thrust reverse on!");
+            </script>
+        </binding>
+        <mod-up>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    props.setAll("/controls/engines/engine", "reverser", 0);
+                    props.setAll("/controls/engines/engine", "throttle", 0);
+                    gui.popupTip("Thrust reverse off!");
+                </script>
+            </binding>
+        </mod-up>
+    </button>
+</PropertyList>

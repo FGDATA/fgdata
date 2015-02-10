@@ -1,0 +1,157 @@
+<?xml version="1.0"?>
+<!-- GoFLight TQ-6 (advanced) throttle quadrant
+
+  Copyright (C) 2013         James Turner
+  This file is released under the GPL license version 2.
+-->
+<PropertyList>
+ <name>TQ6</name>
+ <name>GoFlight TQ6</name>
+ 
+ <nasal>
+  <script>
+   <![CDATA[
+
+   var MIN_READING = -0.7;
+   var MAX_READING = 0.62;
+
+   var clamp = func(v) { v < 0 ? 0 : v > 1 ? 1 : v }
+
+   var normalisedValue = func {
+       var raw = cmdarg().getNode('setting').getValue();
+       var range = MAX_READING - MIN_READING;
+       return clamp((raw - MIN_READING) / range);
+   };
+
+   var normalisedInvertedValue = func {
+       return 1 - normalisedValue();
+   };
+
+   ]]>
+  </script>
+ </nasal>
+
+ <!-- Levers left to right. -->
+ <axis>
+  <name>Left lever</name>
+  <number>
+   <unix>0</unix>
+   <mac>0</mac>
+   <windows>0</windows>
+  </number>
+  <desc>Speedbrake</desc>
+   <binding>
+    <command>nasal</command>
+    <script>setprop('/controls/flight/speedbrake-lever', normalisedValue());</script>
+   </binding>
+ </axis>
+ 
+ <axis>
+  <name>Lever 2</name>
+  <number>
+   <unix>1</unix>
+   <mac>1</mac>
+   <windows>1</windows>
+  </number>
+  <desc>Not used</desc>
+ </axis>
+ 
+ <axis>
+  <name>Left engine throttle</name>
+  <number>
+   <unix>2</unix>
+   <mac>2</mac>
+   <windows>2</windows>
+  </number>
+  <desc>Left engine throttle</desc>
+  <binding>
+   <command>nasal</command>
+   <script>setprop('/controls/engines/engine[0]/throttle', normalisedInvertedValue());</script>
+  </binding>
+ </axis>
+ 
+ <axis>
+  <name>Right engine throttle</name>
+  <number>
+   <unix>3</unix>
+   <mac>3</mac>
+   <windows>3</windows>
+  </number>
+  <desc>Right engine throttle</desc>
+  <binding>
+   <command>nasal</command>
+   <script>setprop('/controls/engines/engine[1]/throttle', normalisedInvertedValue());</script>
+  </binding>
+ </axis>
+ 
+ <axis>
+  <name>Lever 5</name>
+  <number>
+   <unix>4</unix>
+   <mac>4</mac>
+   <windows>4</windows>
+  </number>
+  <desc>Not used</desc>
+ </axis>
+
+ <axis>
+  <name>Flaps level</name>
+  <number>
+   <unix>5</unix>
+   <mac>5</mac>
+   <windows>5</windows>
+  </number>
+  <desc>Flaps</desc>
+  <binding>
+   <command>nasal</command>
+   <script>setprop('/controls/flight/flaps', normalisedValue());</script>
+  </binding>
+ </axis>
+ 
+ <!-- A/T disconnect button -->
+ <button>
+  <name>A/T disconnect</name>
+  <number>
+   <unix>0</unix>
+   <mac>0</mac>
+   <windows>0</windows>
+  </number>
+  <desc>Auto-Throttle Disconnect</desc>
+  <repeatable>false</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>debug.dump('A/T disconnect')</script>
+  </binding>
+ </button>
+ 
+ <button n="1">
+  <name>TO/GA</name>
+  <number>
+   <unix>3</unix>
+   <mac>3</mac>
+   <windows>3</windows>
+  </number>
+  <desc>Takeoff/Go-Around</desc>
+  <repeatable>false</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>debug.dump('TO/GA!')</script>
+  </binding>
+ </button>
+
+ <button n="2">
+  <name>Reverser - left</name>
+  <number>
+   <unix>1</unix>
+   <mac>1</mac>
+   <windows>1</windows>
+  </number>
+  <desc>Left reverser</desc>
+  <repeatable>false</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>debug.dump('left reverse thrust')</script>
+  </binding>
+ </button>
+ 
+</PropertyList>

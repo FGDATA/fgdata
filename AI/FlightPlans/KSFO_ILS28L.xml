@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+
+<!-- ILS Runway 28L, KSFO                  
+     Format:                                                         
+       <name>       Waypoint name.  When a waypoint named END is reached
+                    the AI airplane will delete itself.                                       
+       <lat>        latitude, degrees (-90 to 90)                                    
+       <lon>        Longitude, degrees (-180 to 180)                                   
+       <alt>        altitude above sea level, feet                                       
+       <crossat>    Crossing altitude, feet                              
+       <ktas>       Knots true airspeed
+       <on-ground>  Set true is on the ground.  The default value
+                    is false. 
+       <gear-down>  Set true for gear down, false for gear up.
+                    The default value is false.
+       <flaps-down> Set true for flaps down, false for flaps up.
+                    The default value is false.  
+-->
+ 
+<PropertyList>
+
+ <flightplan>
+
+  <wpt>
+   <name>HEMAN</name>
+   <lat>37.53337</lat>
+   <lon>-122.17219</lon>
+   <crossat>3200.0</crossat>
+   <ktas>200</ktas>
+  </wpt>
+
+  <wpt>
+   <name>OKDUE</name>
+   <lat>37.56996</lat>
+   <lon>-122.259008</lon>
+   <crossat>1800.0</crossat>
+   <ktas>150</ktas>
+  </wpt>
+
+  <wpt>
+   <name>28L-touchdown</name>
+   <lat>37.612726</lat>
+   <lon>-122.360828</lon>
+   <crossat>13.0</crossat>
+   <ktas>20</ktas>
+   <on-ground>true</on-ground>
+  </wpt>
+
+  <wpt>
+   <name>turnoff</name>
+   <lat>37.620115</lat>
+   <lon>-122.378371</lon>
+   <crossat>10.7</crossat>
+   <ktas>20</ktas>
+   <on-ground>true</on-ground>
+  </wpt>
+
+  <wpt>
+   <name>END</name>
+   <lat>37.61853</lat>
+   <lon>-122.38182</lon>
+   <crossat>21.8</crossat>
+  </wpt>
+
+  <wpt>
+   <name>EOF</name>
+  </wpt>
+
+ </flightplan>
+
+</PropertyList>

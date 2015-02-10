@@ -1,0 +1,86 @@
+<PropertyList>
+
+ <name>gear</name>
+ <w-base>40</w-base>
+ <h-base>100</h-base>
+
+<!-- <params>
+  <engine-throttle0-select>/controls/engines/engine[0]/throttle</engine-throttle0-select>
+
+</params> -->
+
+<!-- gear -->
+ <layers>
+ <layer>
+   <name>background</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/flaps.rgb</path>
+    <x1>0.988</x1>
+    <y1>0.25</y1>
+    <x2>.99</x2>
+    <y2>0.62</y2>
+  </texture>    
+   <w>5</w>
+   <h>50</h>
+
+ 
+  
+</layer> 
+
+<layer>
+   <name>throttle 0 handle </name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/handles.rgb</path>
+    <x1>0.387</x1>
+    <x2>0.525</x2>
+    <y1>0.5</y1>
+    <y2>1.0</y2>
+   </texture>
+   <w>20</w>
+   <h>55</h>
+ <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <property>/controls/gear/gear-down</property>
+     <min>0.0</min>
+     <max>1.0</max>
+     <scale>0.0</scale>
+     <offset>.05</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <property>/controls/gear/gear-down</property>
+     <min>0.0</min>
+     <max>1.0</max>
+     <scale>-50.0</scale>
+     <offset>28</offset>
+    </transformation>
+    <transformation>
+    <type>rotation</type>
+    <offset>180</offset>
+    </transformation>
+   </transformations>     
+  </layer>
+ </layers>
+
+ <actions>
+
+  <action>
+   <name>extend</name>
+   <button>0</button>
+   <x>-16</x>
+   <y>-50</y>
+   <w>32</w>
+   <h>96</h>
+   <binding>
+    <command>property-toggle</command>
+    <property>/controls/gear/gear-down</property>
+   
+    <min>1.0</min>
+    <max>0.0</max>
+    
+   </binding>
+  </action> 
+
+</actions>
+</PropertyList>

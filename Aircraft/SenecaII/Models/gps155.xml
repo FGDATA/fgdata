@@ -1,0 +1,57 @@
+<?xml version="1.0" ?>
+<!--
+ This file is part of FlightGear, the free flight simulator
+ http://www.flightgear.org/
+
+ Copyright (C) 2009 Torsten Dreyer, Torsten (at) t3r _dot_ de
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation; either version 2 of the
+ License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+-->
+<!--
+  $Id: gps155.xml,v 1.2 2010/03/18 07:47:41 torsten Exp $
+  Garmin GPS155 3d model
+   Texture image is (c) Garmin (www.garmin.com)
+    
+   Maintainer: Torsten Dreyer ( Torsten at t3r dot de)
+    
+  $Log: gps155.xml,v $
+  Revision 1.2  2010/03/18 07:47:41  torsten
+  Added copyright and license note. No functional change.
+
+  Revision 1.1  2008/08/21 11:15:47  torsten
+  Added gps155 and gtx330 - nonfunctional
+
+-->
+<PropertyList>
+  <path>gps155.ac</path>
+
+  <animation>
+    <type>noshadow</type>
+  </animation>
+  <animation>
+    <type>range</type>
+    <min-m>0</min-m>
+    <max-m>10</max-m>
+  </animation>
+<!--
+  <animation>
+    <type>material</type>
+    <object-name>gma340.Chassis</object-name>
+
+    <emission>
+      <red>0.05</red>
+      <green>0.1.</green>
+      <blue>0.05</blue>
+      <factor-prop>/controls/lighting/instruments-norm</factor-prop>
+    </emission>
+  </animation>
+-->
+</PropertyList>

@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<hlaConfiguration version="1">
+  <!-- This is the top level HLA configuration file for use with the
+       multiplayer federation. This serves now as first demo how to configure
+       flightgears hla implementation.
+       This toplevel file consists of startup parameters for the rti,
+       the federate object model to use on create and a way to map the hla
+       attribute values to a semantic meaning or flightgear properties.
+    -->
+
+  <rti version="RTI13">
+    <!-- is ignored for RTI13 anyway, so the example here ... -->
+    <argument>rtiarg0</argument>
+    <argument>rtiarg1</argument>
+  </rti>
+
+  <!-- Contains the data layout and the object classes -->
+  <federateObjectModel name="fg-local-fom.xml"/>
+
+  <objects>
+    <objectClass type="Multiplayer" name="MPAircraft">
+
+      <model type="native">
+        <dataElement type="model-path" name="model.path"/>
+      </model>
+
+      <!-- Should contain all those attributes that form the position and orientation of the aircraft in total -->
+      <position type="cartesian">
+        <!-- These are the positions in the earth centered coordinate system. -->
+        <dataElement type="position-x" name="location.position[0]"/>
+        <dataElement type="position-y" name="location.position[1]"/>
+        <dataElement type="position-z" name="location.position[2]"/>
+        <!-- A very compact and lossless representation of a quaternion wrt the earth centered coordinate system. -->
+        <dataElement type="orientation-sin-angle-axis-x" name="location.orientation[0]"/>
+        <dataElement type="orientation-sin-angle-axis-y" name="location.orientation[1]"/>
+        <dataElement type="orientation-sin-angle-axis-z" name="location.orientation[2]"/>
+
+        <!-- The body velocities in the usual x-fwd, z-down, righthandside body coordinate system. -->
+        <dataElement type="linear-velocity-x" name="velocity.linear[0]"/>
+        <dataElement type="linear-velocity-y" name="velocity.linear[1]"/>
+        <dataElement type="linear-velocity-z" name="velocity.linear[2]"/>
+        <dataElement type="angular-velocity-x" name="velocity.angular[0]"/>
+        <dataElement type="angular-velocity-y" name="velocity.angular[1]"/>
+        <dataElement type="angular-velocity-z" name="velocity.angular[2]"/>
+      </position>
+
+      <simTime type="attribute">
+        <dataElement type="local-simtime" name="simTime"/>
+      </simTime>
+
+      <!-- the attribute that carries the big blob of multiplayer attributes.
+           This datatype is tightly coupled with the implementation for now.
+           It is done in this way to provide the same feature set for the
+           multiplayer object like the existing multiplayer protocol.
+           In the long term, think more about the content of this blob and
+           sensibly distribute that across different datatypes and attributes.
+      -->
+      <mpProperties name="mpProperties"/>
+
+      <dataElement type="property" name="model.livery" in="sim/model/livery/file" out="sim/model/livery/file"/>
+
+    </objectClass>
+  </objects>
+</hlaConfiguration>

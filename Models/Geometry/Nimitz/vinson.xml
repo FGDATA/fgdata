@@ -1,0 +1,2494 @@
+<?xml version="1.0"?>
+<!-- The Eisenhower model is based on the work by Javier Fernandez, which
+he has kindly given FGFS permission to use. Very little of the original,
+apart from most of the very excellent textures, remain. -->
+<PropertyList>
+	<description>USS Vinson - CVN-70</description>
+	<author>Vivian Meazza, Alexis Bory</author>
+	<status>early-production</status>
+	<path>vinson.ac</path>
+
+	<nasal>
+		<load>
+			print("LOAD Vinson ", cmdarg().getPath());
+
+			var fg_root = getprop("/sim/fg-root");
+			var self = cmdarg();
+			var control_node = self.getNode("controls/turn-to-base-course", 1);
+			var pos_node = self.getNode("sim/antenna-pos-norm", 1);
+			pos_node.setDoubleValue(0);
+			var turn_old = 1;
+
+			########
+			# properties used to handle rendering, lighting and to control the Pack-Park
+			# Due to a change in MPcarrier system ?
+
+			var rembrandt_node = self.getNode("sim/rendering/rembrandt/enabled", 1);
+			var sunAngleRad_node = self.getNode("sim/time/sun-angle-rad", 1);
+			var deckPark_node = self.getNode("sim/current-view/deck-park",1);
+
+			########
+			# properties used to calculate rel wind for the bow-wave shader
+
+			var speed_Node = self.getNode("velocities/speed-kts", 1);
+			var hdg_Node = self.getNode("orientation/true-heading-deg", 1);
+			var wind_speed_Node = self.getNode("environment/rel-wind-speed-kts", 1);
+			wind_speed_Node.setDoubleValue(0);
+
+			########
+			# properties to control the E2C
+
+			var gear0_Node = self.getNode("gear/gear[0]/position-norm", 1);
+			gear0_Node.setDoubleValue(1);
+
+			var gear1_Node = self.getNode("gear/gear[1]/position-norm", 1);
+			gear1_Node.setDoubleValue(1);
+
+			var gear2_Node = self.getNode("gear/gear[2]/position-norm", 1);
+			gear2_Node.setDoubleValue(1);
+
+			var compression0_Node = self.getNode("gear/gear[0]/compression-norm", 1);
+			compression0_Node.setDoubleValue(0);
+
+			var compression1_Node = self.getNode("gear/gear[1]/compression-norm", 1);
+			compression1_Node.setDoubleValue(0.9);
+
+			var compression2_Node = self.getNode("gear/gear[2]/compression-norm", 1);
+			compression2_Node.setDoubleValue(0.9);
+
+			var wingfold_Node = self.getNode("surface-positions/wing-fold-pos-norm", 1);
+			wingfold_Node.setDoubleValue(1.0);
+
+			var rpm0_Node = self.getNode("engines/engine[0]/rpm", 1);
+			rpm0_Node.setDoubleValue(0.15);
+
+			var rpm1_Node = self.getNode("engines/engine[1]/rpm", 1);
+			rpm1_Node.setDoubleValue(0.17);
+
+			########
+			# the main loop
+
+			var update = func {
+			var turn = control_node.getValue();
+			var value = wind_speed_Node.getValue();
+			setprop("/environment/Vinson/rel-wind-speed-kts", value);
+			value = speed_Node.getValue();
+			setprop("/environment/Vinson/spd-kt", value);
+			value = hdg_Node.getValue();
+			setprop("/environment/Vinson/hdg-deg", value);
+
+			value = getprop("/sim/rendering/rembrandt/enabled");
+			rembrandt_node.setBoolValue(value);
+			value = getprop("/sim/current-view/deck-park");
+			deckPark_node.setBoolValue(value);
+			value = getprop("/sim/time/sun-angle-rad");
+			sunAngleRad_node.setValue(value);
+
+			if (turn_old != turn){
+			turn_old = turn;
+			move_whips();
+			}
+
+			settimer(update,0);
+			}
+
+			var move_whips = func {
+			var whip_pos = pos_node.getValue();
+			if (whip_pos &lt;=1 and whip_pos &gt;=0 and turn_old == 0){
+			whip_pos += 0.001;
+
+			if (whip_pos &gt; 1)
+			whip_pos = 1;
+
+			pos_node.setValue(whip_pos);
+			settimer(move_whips,0);
+			} elsif (whip_pos &lt;=1 and whip_pos &gt;=0 and turn_old == 1) {
+			whip_pos -= 0.001;
+
+			if (whip_pos &lt; 0)
+			whip_pos = 0;
+
+			pos_node.setValue(whip_pos);
+			settimer(move_whips,0);
+			} else {
+			return;
+			}
+
+			}
+
+			########
+			#start the main loop
+			update();
+
+		</load>
+	</nasal>
+
+	<unload>
+		#print("UNLOAD Vinson ", cmdarg().getPath());
+	</unload>
+
+	<!-- crew to be added later
+    <model>
+      <path>Models/Geometry/Nimitz/Crew/crew.xml</path>
+    </model>-->
+
+	<model>
+		<path>Models/Geometry/Nimitz/Models/flols.xml</path>
+		<offsets>
+			<x-m>69.84</x-m>
+			<y-m>-39.67</y-m>
+			<z-m>21.54</z-m>
+			<heading-deg>8</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>Bow-Wave</name>
+		<path>Models/Effects/Wakes/bow_wave.xml</path>
+		<!--<path>Models/Geometry/Nimitz/bow_wave.xml</path>-->
+		<offsets>
+			<x-m>-20</x-m>
+			<z-m>0</z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<name>E2C</name>
+		<path>AI/Aircraft/E-2C/Models/E-2C-deckpark.xml</path>
+		<offsets>
+			<!--109.201	40.231	-21.9681-->
+			<x-m>102.74</x-m>
+			<y-m>14.7722</y-m>
+			<z-m>22.6</z-m>
+			<pitch-deg>0.5</pitch-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>vinson-parks-and-objects</name>
+		<path>Models/Geometry/Nimitz/vinson-parks-and-objects.xml</path>
+	</model>
+
+
+	<model>
+		<name>Ensign</name>
+		<path>Models/Geometry/Nimitz/ensign.xml</path>
+		<offsets>
+			<!--113.263	47.9273	-29.4352-->
+			<x-m>113.263</x-m>
+			<y-m>29.4352</y-m>
+			<z-m>48.75</z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<name>Flag-Golf</name>
+		<path>Models/Geometry/Nimitz/golf.xml</path>
+		<offsets>
+			<!--109.524	43.3788	-36.5861-->
+			<x-m>109.524</x-m>
+			<y-m>36.5861</y-m>
+			<z-m>43.3788</z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<name>Flag-Foxtrot</name>
+		<path>Models/Geometry/Nimitz/foxtrot.xml</path>
+		<offsets>
+			<!--109.515	43.3368-->
+			<x-m>109.515</x-m>
+			<y-m>21.9681</y-m>
+			<z-m>43.3368</z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<name>Flag-Foxtrot-Dip</name>
+		<path>Models/Geometry/Nimitz/foxtrot.xml</path>
+		<offsets>
+			<!--109.201	40.231	-21.9681-->
+			<x-m>109.201</x-m>
+			<y-m>21.9681</y-m>
+			<z-m>40.231</z-m>
+		</offsets>
+	</model>
+
+	<animation>
+		<type>select</type>
+		<object-name>Flag-Foxtrot</object-name>
+		<condition>
+			<and>
+				<or>
+					<property>controls/turn-to-launch-hdg</property>
+					<property>controls/turn-to-recovery-hdg</property>
+				</or>
+				<property>environment/in-to-wind</property>
+			</and>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>Flag-Foxtrot-Dip</object-name>
+		<condition>
+			<and>
+				<or>
+					<property>controls/turn-to-launch-hdg</property>
+					<property>controls/turn-to-recovery-hdg</property>
+				</or>
+				<not>
+					<property>environment/in-to-wind</property>
+				</not>
+			</and>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>antenna-1</object-name>
+		<property>sim/antenna-pos-norm</property>
+		<factor>100</factor>
+		<axis>
+			<x1-m>-100.246</x1-m>
+			<y1-m>14.2688</y1-m>
+			<z1-m>18.7597</z1-m>
+			<x2-m>-100.746</x2-m>
+			<y2-m>14.2688</y2-m>
+			<z2-m>18.7597</z2-m>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>antenna-3</object-name>
+		<property>sim/antenna-pos-norm</property>
+		<factor>100</factor>
+		<!---84.1666	18.69	-17.9146
+		-84.6646	18.69	-17.8732-->
+		<axis>
+			<x1-m>-84.1666</x1-m>
+			<y1-m>17.9146</y1-m>
+			<z1-m>18.69</z1-m>
+			<x2-m>-84.6646</x2-m>
+			<y2-m>17.8732</y2-m>
+			<z2-m>18.69</z2-m>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>antenna-5</object-name>
+		<property>sim/antenna-pos-norm</property>
+		<factor>100</factor>
+		<axis>
+			<x1-m>-15.3531</x1-m>
+			<y1-m>35.4672</y1-m>
+			<z1-m>18.69</z1-m>
+			<x2-m>-15.7741</x2-m>
+			<y2-m>35.1967</y2-m>
+			<z2-m>18.69</z2-m>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>antenna-7</object-name>
+		<property>sim/antenna-pos-norm</property>
+		<factor>100</factor>
+		<axis>
+			<x1-m>-11.4673</x1-m>
+			<y1-m>37.856</y1-m>
+			<z1-m>18.69</z1-m>
+			<x2-m>-11.8883</x2-m>
+			<y2-m>37.5855</y2-m>
+			<z2-m>18.69</z2-m>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>antenna-2</object-name>
+		<property>sim/antenna-pos-norm</property>
+		<factor>-100</factor>
+		<axis>
+			<x1-m>-100.611</x1-m>
+			<y1-m>-14.5299</y1-m>
+			<z1-m>18.7597</z1-m>
+			<x2-m>-101.111</x2-m>
+			<y2-m>-14.5299</y2-m>
+			<z2-m>18.7597</z2-m>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>antenna-4</object-name>
+		<property>sim/antenna-pos-norm</property>
+		<factor>-100</factor>
+		<axis>
+			<x1-m>-84.1728</x1-m>
+			<y1-m>-18.75</y1-m>
+			<z1-m>18.69</z1-m>
+			<x2-m>-84.6708</x2-m>
+			<y2-m>-18.7914</y2-m>
+			<z2-m>18.69</z2-m>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>antenna-6</object-name>
+		<property>sim/antenna-pos-norm</property>
+		<factor>-100</factor>
+		<axis>
+			<x1-m>103.877</x1-m>
+			<y1-m>-40.2687</y1-m>
+			<z1-m>19.0388</z1-m>
+			<x2-m>103.377</x2-m>
+			<y2-m>-40.2687</y2-m>
+			<z2-m>19.0388</z2-m>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>antenna-8</object-name>
+		<property>sim/antenna-pos-norm</property>
+		<factor>-100</factor>
+		<axis>
+			<x1-m>129.86</x1-m>
+			<y1-m>-40.2825</y1-m>
+			<z1-m>19.0388</z1-m>
+			<x2-m>129.36</x2-m>
+			<y2-m>-40.2825</y2-m>
+			<z2-m>19.0388</z2-m>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>SPS-48-Antenna</object-name>
+		<property>/sim/time/elapsed-sec</property>
+		<factor>40</factor>
+		<center><x-m>100.49</x-m><y-m>29.41</y-m></center>
+		<axis><z>1</z></axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>SPS-49-Antenna</object-name>
+		<property>/sim/time/elapsed-sec</property>
+		<factor>50</factor>
+		<center><x-m>130.096</x-m><y-m>30.83</y-m></center>
+		<axis><z>1</z></axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>radar-1a</object-name>
+		<property>/sim/time/elapsed-sec</property>
+		<factor>35</factor>
+		<center><x-m>106.06</x-m><y-m>29.41</y-m></center>
+		<axis><z>1</z></axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>radar-1b</object-name>
+		<property>/sim/time/elapsed-sec</property>
+		<factor>65</factor>
+		<center><x-m>106.19</x-m><y-m>32.69</y-m></center>
+		<axis><z>1</z></axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>radar-1d</object-name>
+		<property>/sim/time/elapsed-sec</property>
+		<factor>65</factor>
+		<center><x-m>109.43</x-m><y-m>29.39</y-m></center>
+		<axis><z>1</z></axis>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>Wake</object-name>
+		<condition>
+			<not>
+				<property>/sim/rendering/particles</property>
+			</not>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>Bow-Wave</object-name>
+		<object-name>Stern-Wake</object-name>
+		<object-name>Wake</object-name>
+		<property>orientation/roll-deg</property>
+		<factor>1</factor>
+		<center><y-m>0.00</y-m><z-m>0.0473</z-m></center>
+		<axis><x>1</x></axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>Wake</object-name>
+		<property>surface-positions/rudder-pos-deg</property>
+		<factor>-0.334</factor>
+		<x-m>-88.6176</x-m>
+		<y-m>0.00</y-m>
+		<axis><z>-1</z></axis>
+		<enable-hot type="bool">false</enable-hot>
+	</animation>
+
+	<animation>
+		<object-name>Bow-Wave</object-name>
+		<type>scale</type>
+		<property>/environment/Vinson/spd-kt</property>
+		<x-factor>0.04</x-factor>
+		<y-factor>0.0</y-factor>
+		<z-factor>0.0</z-factor>
+		<x-offset>0.0</x-offset>
+		<y-offset>1.0</y-offset>
+		<z-offset>1.0</z-offset>
+		<x-min>0.0</x-min>
+		<x-max>1.2</x-max>
+		<center>
+			<x-m>-55.0</x-m>
+			<y-m>3.0</y-m>
+			<z-m>0</z-m>
+		</center>
+	</animation>
+
+
+	<animation>
+		<type>translate</type>
+		<object-name>Elevator-2</object-name>
+		<property>surface-positions/elevators-pos-norm</property>
+		<factor>10.62</factor>
+		<axis><z>1</z></axis>
+	</animation>
+
+	<animation>
+		<type>translate</type>
+		<object-name>Elevator-1</object-name>
+		<object-name>tractor-15</object-name>
+		<!--<object-name>Crew-41</object-name>-->
+		<property>surface-positions/elevators-pos-norm</property>
+		<factor>10.62</factor>
+		<axis><z>1</z></axis>
+	</animation>
+
+
+	<!--<animation>
+		<type>select</type>
+		<object-name>Crew</object-name>
+		<object-name>Crew-41</object-name>
+		<condition>
+			<property>controls/crew</property>
+		</condition>
+	</animation>-->
+
+	<!--<animation>
+		<type>select</type>
+		<object-name>Pilot-Mast</object-name>
+		<condition>
+			<or>
+				<not>
+					<property>controls/in-to-wind</property>
+				</not>
+				<not>
+					<property>controls/turn-to-launch-hdg</property>
+				</not>
+			</or>
+		</condition>
+	</animation>-->
+
+	<animation>
+		<type>rotate</type>
+		<object-name>JBD-1</object-name>
+		<property>surface-positions/jbd-pos-norm</property>
+		<interpolation>
+			<entry><ind>0.0000</ind><dep>0</dep></entry>
+			<entry><ind>0.0833</ind><dep>-12.2</dep></entry>
+			<entry><ind>0.1666</ind><dep>-20.4</dep></entry>
+			<entry><ind>0.2500</ind><dep>-28.2</dep></entry>
+			<entry><ind>0.3333</ind><dep>-34.6</dep></entry>
+			<entry><ind>0.4166</ind><dep>-40.6</dep></entry>
+			<entry><ind>0.5000</ind><dep>-45</dep></entry>
+			<entry><ind>0.5833</ind><dep>-49</dep></entry>
+			<entry><ind>0.6666</ind><dep>-51.6</dep></entry>
+			<entry><ind>0.7500</ind><dep>-54</dep></entry>
+			<entry><ind>0.8333</ind><dep>-55</dep></entry>
+			<entry><ind>0.9166</ind><dep>-56.2</dep></entry>
+			<entry><ind>1.0000</ind><dep>-56.2</dep></entry>
+		</interpolation>
+		<axis>
+			<x1-m>9.8260</x1-m>
+			<y1-m>-25.9232</y1-m>
+			<z1-m>19.9065</z1-m>
+			<x2-m>9.8260</x2-m>
+			<y2-m>-14.8995</y2-m>
+			<z2-m>19.9065</z2-m>
+		</axis>
+	</animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>JBD-1-strut-a</object-name>
+		<object-name>JBD-1-strut-b</object-name>
+		<property>surface-positions/jbd-pos-norm</property>
+		<interpolation>
+			<entry><ind>0.0000</ind><dep>0</dep></entry>
+			<entry><ind>0.0833</ind><dep>5</dep></entry>
+			<entry><ind>0.1666</ind><dep>10</dep></entry>
+			<entry><ind>0.2500</ind><dep>15</dep></entry>
+			<entry><ind>0.3333</ind><dep>20</dep></entry>
+			<entry><ind>0.4166</ind><dep>25</dep></entry>
+			<entry><ind>0.5000</ind><dep>30</dep></entry>
+			<entry><ind>0.5833</ind><dep>35</dep></entry>
+			<entry><ind>0.6666</ind><dep>40</dep></entry>
+			<entry><ind>0.7500</ind><dep>45</dep></entry>
+			<entry><ind>0.8333</ind><dep>50</dep></entry>
+			<entry><ind>0.9166</ind><dep>55</dep></entry>
+			<entry><ind>1.0000</ind><dep>60</dep></entry>
+		</interpolation>
+		<axis>
+			<x1-m>12.0900</x1-m>
+			<y1-m>-25.9850</y1-m>
+			<z1-m>19.6027</z1-m>
+			<x2-m>12.0900</x2-m>
+			<y2-m>-14.9613</y2-m>
+			<z2-m>19.6027</z2-m>
+		</axis>
+	</animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>JBD-1-strut-b</object-name>
+		<property>surface-positions/jbd-pos-norm</property>
+		<interpolation>
+			<entry><ind>0.0000</ind><dep>0</dep></entry>
+			<entry><ind>0.0833</ind><dep>-23.4</dep></entry>
+			<entry><ind>0.1666</ind><dep>-39.8</dep></entry>
+			<entry><ind>0.2500</ind><dep>-56.6</dep></entry>
+			<entry><ind>0.3333</ind><dep>-71.6</dep></entry>
+			<entry><ind>0.4166</ind><dep>-86.8</dep></entry>
+			<entry><ind>0.5000</ind><dep>-100</dep></entry>
+			<entry><ind>0.5833</ind><dep>-113</dep></entry>
+			<entry><ind>0.6666</ind><dep>-124.6</dep></entry>
+			<entry><ind>0.7500</ind><dep>-136.2</dep></entry>
+			<entry><ind>0.8333</ind><dep>-146</dep></entry>
+			<entry><ind>0.9166</ind><dep>-156</dep></entry>
+			<entry><ind>1.0000</ind><dep>-165.2</dep></entry>
+		</interpolation>
+		<axis>
+			<x1-m>11.0060</x1-m>
+			<y1-m>-25.9603</y1-m>
+			<z1-m>19.8103</z1-m>
+			<x2-m>11.0060</x2-m>
+			<y2-m>-14.9366</y2-m>
+			<z2-m>19.8103</z2-m>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>JBD-2</object-name>
+		<property>surface-positions/jbd-pos-norm</property>
+		<interpolation>
+			<entry><ind>0.0000</ind><dep>0</dep></entry>
+			<entry><ind>0.0833</ind><dep>-12.2</dep></entry>
+			<entry><ind>0.1666</ind><dep>-20.4</dep></entry>
+			<entry><ind>0.2500</ind><dep>-28.2</dep></entry>
+			<entry><ind>0.3333</ind><dep>-34.6</dep></entry>
+			<entry><ind>0.4166</ind><dep>-40.6</dep></entry>
+			<entry><ind>0.5000</ind><dep>-45</dep></entry>
+			<entry><ind>0.5833</ind><dep>-49</dep></entry>
+			<entry><ind>0.6666</ind><dep>-51.6</dep></entry>
+			<entry><ind>0.7500</ind><dep>-54</dep></entry>
+			<entry><ind>0.8333</ind><dep>-55</dep></entry>
+			<entry><ind>0.9166</ind><dep>-56.2</dep></entry>
+			<entry><ind>1.0000</ind><dep>-56.2</dep></entry>
+		</interpolation>
+		<axis>
+			<x1-m>17.8911</x1-m>
+			<y1-m>-25.9232</y1-m>
+			<z1-m>19.9065</z1-m>
+			<x2-m>17.8911</x2-m>
+			<y2-m>-14.8995</y2-m>
+			<z2-m>19.9065</z2-m>
+		</axis>
+	</animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>JBD-2-strut-a</object-name>
+		<object-name>JBD-2-strut-b</object-name>
+		<property>surface-positions/jbd-pos-norm</property>
+		<interpolation>
+			<entry><ind>0.0000</ind><dep>0</dep></entry>
+			<entry><ind>0.0833</ind><dep>5</dep></entry>
+			<entry><ind>0.1666</ind><dep>10</dep></entry>
+			<entry><ind>0.2500</ind><dep>15</dep></entry>
+			<entry><ind>0.3333</ind><dep>20</dep></entry>
+			<entry><ind>0.4166</ind><dep>25</dep></entry>
+			<entry><ind>0.5000</ind><dep>30</dep></entry>
+			<entry><ind>0.5833</ind><dep>35</dep></entry>
+			<entry><ind>0.6666</ind><dep>40</dep></entry>
+			<entry><ind>0.7500</ind><dep>45</dep></entry>
+			<entry><ind>0.8333</ind><dep>50</dep></entry>
+			<entry><ind>0.9166</ind><dep>55</dep></entry>
+			<entry><ind>1.0000</ind><dep>60</dep></entry>
+		</interpolation>
+		<axis>
+			<x1-m>20.1551</x1-m>
+			<y1-m>-25.9850</y1-m>
+			<z1-m>19.6027</z1-m>
+			<x2-m>20.1551</x2-m>
+			<y2-m>-14.9613</y2-m>
+			<z2-m>19.6027</z2-m>
+		</axis>
+	</animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>JBD-2-strut-b</object-name>
+		<property>surface-positions/jbd-pos-norm</property>
+		<interpolation>
+			<entry><ind>0.0000</ind><dep>0</dep></entry>
+			<entry><ind>0.0833</ind><dep>-23.4</dep></entry>
+			<entry><ind>0.1666</ind><dep>-39.8</dep></entry>
+			<entry><ind>0.2500</ind><dep>-56.6</dep></entry>
+			<entry><ind>0.3333</ind><dep>-71.6</dep></entry>
+			<entry><ind>0.4166</ind><dep>-86.8</dep></entry>
+			<entry><ind>0.5000</ind><dep>-100</dep></entry>
+			<entry><ind>0.5833</ind><dep>-113</dep></entry>
+			<entry><ind>0.6666</ind><dep>-124.6</dep></entry>
+			<entry><ind>0.7500</ind><dep>-136.2</dep></entry>
+			<entry><ind>0.8333</ind><dep>-146</dep></entry>
+			<entry><ind>0.9166</ind><dep>-156</dep></entry>
+			<entry><ind>1.0000</ind><dep>-165.2</dep></entry>
+		</interpolation>
+		<axis>
+			<x1-m>19.0711</x1-m>
+			<y1-m>-25.9603</y1-m>
+			<z1-m>19.8103</z1-m>
+			<x2-m>19.0711</x2-m>
+			<y2-m>-14.9366</y2-m>
+			<z2-m>19.8103</z2-m>
+		</axis>
+	</animation>
+
+	<!-- non-op until I can figure out a way of stopping JBD3 &  4 interfering
+
+	<animation>
+		<type>rotate</type>
+		<object-name>JBD-3</object-name>
+		<property>surface-positions/jbd-pos-norm</property>
+		<interpolation>
+			<entry><ind>0.0000</ind><dep>0</dep></entry>
+			<entry><ind>0.0833</ind><dep>-12.2</dep></entry>
+			<entry><ind>0.1666</ind><dep>-20.4</dep></entry>
+			<entry><ind>0.2500</ind><dep>-28.2</dep></entry>
+			<entry><ind>0.3333</ind><dep>-34.6</dep></entry>
+			<entry><ind>0.4166</ind><dep>-40.6</dep></entry>
+			<entry><ind>0.5000</ind><dep>-45</dep></entry>
+			<entry><ind>0.5833</ind><dep>-49</dep></entry>
+			<entry><ind>0.6666</ind><dep>-51.6</dep></entry>
+			<entry><ind>0.7500</ind><dep>-54</dep></entry>
+			<entry><ind>0.8333</ind><dep>-55</dep></entry>
+			<entry><ind>0.9166</ind><dep>-56.2</dep></entry>
+			<entry><ind>1.0000</ind><dep>-56.2</dep></entry>
+		</interpolation>
+		<axis>
+			<x1-m>107.7995</x1-m><y1-m>-25.9232</y1-m><z1-m>19.9065</z1-m>
+			<x2-m>107.7995</x2-m><y2-m>-14.8995</y2-m><z2-m>19.9065</z2-m>
+		</axis>
+	</animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>JBD-3-strut-a</object-name>
+		<object-name>JBD-3-strut-b</object-name>
+		<property>surface-positions/jbd-pos-norm</property>
+		<interpolation>
+			<entry><ind>0.0000</ind><dep>0</dep></entry>
+			<entry><ind>0.0833</ind><dep>5</dep></entry>
+			<entry><ind>0.1666</ind><dep>10</dep></entry>
+			<entry><ind>0.2500</ind><dep>15</dep></entry>
+			<entry><ind>0.3333</ind><dep>20</dep></entry>
+			<entry><ind>0.4166</ind><dep>25</dep></entry>
+			<entry><ind>0.5000</ind><dep>30</dep></entry>
+			<entry><ind>0.5833</ind><dep>35</dep></entry>
+			<entry><ind>0.6666</ind><dep>40</dep></entry>
+			<entry><ind>0.7500</ind><dep>45</dep></entry>
+			<entry><ind>0.8333</ind><dep>50</dep></entry>
+			<entry><ind>0.9166</ind><dep>55</dep></entry>
+			<entry><ind>1.0000</ind><dep>60</dep></entry>
+		</interpolation>
+		<axis>
+			<x1-m>110.0635</x1-m><y1-m>-25.9850</y1-m><z1-m>19.6027</z1-m>
+			<x2-m>110.0635</x2-m><y2-m>-14.9613</y2-m><z2-m>19.6027</z2-m>
+		</axis>
+	</animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>JBD-3-strut-b</object-name>
+		<property>surface-positions/jbd-pos-norm</property>
+		<interpolation>
+			<entry><ind>0.0000</ind><dep>0</dep></entry>
+			<entry><ind>0.0833</ind><dep>-23.4</dep></entry>
+			<entry><ind>0.1666</ind><dep>-39.8</dep></entry>
+			<entry><ind>0.2500</ind><dep>-56.6</dep></entry>
+			<entry><ind>0.3333</ind><dep>-71.6</dep></entry>
+			<entry><ind>0.4166</ind><dep>-86.8</dep></entry>
+			<entry><ind>0.5000</ind><dep>-100</dep></entry>
+			<entry><ind>0.5833</ind><dep>-113</dep></entry>
+			<entry><ind>0.6666</ind><dep>-124.6</dep></entry>
+			<entry><ind>0.7500</ind><dep>-136.2</dep></entry>
+			<entry><ind>0.8333</ind><dep>-146</dep></entry>
+			<entry><ind>0.9166</ind><dep>-156</dep></entry>
+			<entry><ind>1.0000</ind><dep>-165.2</dep></entry>
+		</interpolation>
+		<axis>
+			<x1-m>108.9795</x1-m><y1-m>-25.9603</y1-m><z1-m>19.8103</z1-m>
+			<x2-m>108.9795</x2-m><y2-m>-14.9366</y2-m><z2-m>19.8103</z2-m>
+		</axis>
+	</animation>-->
+
+
+	<animation>
+		<type>rotate</type>
+		<object-name>JBD-4</object-name>
+		<property>surface-positions/jbd-pos-norm</property>
+		<interpolation>
+			<entry><ind>0.0000</ind><dep>0</dep></entry>
+			<entry><ind>0.0833</ind><dep>-12.2</dep></entry>
+			<entry><ind>0.1666</ind><dep>-20.4</dep></entry>
+			<entry><ind>0.2500</ind><dep>-28.2</dep></entry>
+			<entry><ind>0.3333</ind><dep>-34.6</dep></entry>
+			<entry><ind>0.4166</ind><dep>-40.6</dep></entry>
+			<entry><ind>0.5000</ind><dep>-45</dep></entry>
+			<entry><ind>0.5833</ind><dep>-49</dep></entry>
+			<entry><ind>0.6666</ind><dep>-51.6</dep></entry>
+			<entry><ind>0.7500</ind><dep>-54</dep></entry>
+			<entry><ind>0.8333</ind><dep>-55</dep></entry>
+			<entry><ind>0.9166</ind><dep>-56.2</dep></entry>
+			<entry><ind>1.0000</ind><dep>-56.2</dep></entry>
+		</interpolation>
+		<axis>
+			<x1-m>125.8227</x1-m>
+			<y1-m>-25.9232</y1-m>
+			<z1-m>19.9065</z1-m>
+			<x2-m>125.8227</x2-m>
+			<y2-m>-14.8995</y2-m>
+			<z2-m>19.9065</z2-m>
+		</axis>
+	</animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>JBD-4-strut-a</object-name>
+		<object-name>JBD-4-strut-b</object-name>
+		<property>surface-positions/jbd-pos-norm</property>
+		<interpolation>
+			<entry><ind>0.0000</ind><dep>0</dep></entry>
+			<entry><ind>0.0833</ind><dep>5</dep></entry>
+			<entry><ind>0.1666</ind><dep>10</dep></entry>
+			<entry><ind>0.2500</ind><dep>15</dep></entry>
+			<entry><ind>0.3333</ind><dep>20</dep></entry>
+			<entry><ind>0.4166</ind><dep>25</dep></entry>
+			<entry><ind>0.5000</ind><dep>30</dep></entry>
+			<entry><ind>0.5833</ind><dep>35</dep></entry>
+			<entry><ind>0.6666</ind><dep>40</dep></entry>
+			<entry><ind>0.7500</ind><dep>45</dep></entry>
+			<entry><ind>0.8333</ind><dep>50</dep></entry>
+			<entry><ind>0.9166</ind><dep>55</dep></entry>
+			<entry><ind>1.0000</ind><dep>60</dep></entry>
+		</interpolation>
+		<axis>
+			<x1-m>128.0867</x1-m>
+			<y1-m>-25.9850</y1-m>
+			<z1-m>19.6027</z1-m>
+			<x2-m>128.0867</x2-m>
+			<y2-m>-14.9613</y2-m>
+			<z2-m>19.6027</z2-m>
+		</axis>
+	</animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>JBD-4-strut-b</object-name>
+		<property>surface-positions/jbd-pos-norm</property>
+		<interpolation>
+			<entry><ind>0.0000</ind><dep>0</dep></entry>
+			<entry><ind>0.0833</ind><dep>-23.4</dep></entry>
+			<entry><ind>0.1666</ind><dep>-39.8</dep></entry>
+			<entry><ind>0.2500</ind><dep>-56.6</dep></entry>
+			<entry><ind>0.3333</ind><dep>-71.6</dep></entry>
+			<entry><ind>0.4166</ind><dep>-86.8</dep></entry>
+			<entry><ind>0.5000</ind><dep>-100</dep></entry>
+			<entry><ind>0.5833</ind><dep>-113</dep></entry>
+			<entry><ind>0.6666</ind><dep>-124.6</dep></entry>
+			<entry><ind>0.7500</ind><dep>-136.2</dep></entry>
+			<entry><ind>0.8333</ind><dep>-146</dep></entry>
+			<entry><ind>0.9166</ind><dep>-156</dep></entry>
+			<entry><ind>1.0000</ind><dep>-165.2</dep></entry>
+		</interpolation>
+		<axis>
+			<x1-m>127.0027</x1-m>
+			<y1-m>-25.9603</y1-m>
+			<z1-m>19.8103</z1-m>
+			<x2-m>127.0027</x2-m>
+			<y2-m>-14.9366</y2-m>
+			<z2-m>19.8103</z2-m>
+		</axis>
+	</animation>
+
+
+	<!--Deck Edge Lights-->
+	<!--<deck>
+		<offsets>
+			<z-m>20.0238</z-m>
+		</offsets>
+	</deck>-->
+
+
+	<model>
+		<name>DeckEdgeLight.001</name>
+		<path>Models/Geometry/Nimitz/Models/deck-edge-light.xml</path>
+		<offsets>
+			<x-m>-9.37768</x-m>
+			<y-m>35.0563</y-m>
+			<z-m>20.0238</z-m>
+			<!--<z-m alias="../../../deck/offsets/x-m"/>-->
+			<heading-deg>0</heading-deg>
+		</offsets>
+	</model>
+
+	<!--<model>
+		<name>DeckEdgeLight.001</name>
+		<path>Models/Geometry/Nimitz/Models/deck-edge-light.xml</path>
+		<offsets>
+			<x-m>-9.37768</x-m>
+			<y-m>35.0563</y-m>
+			<z-m>20.0238</z-m>
+			<z-m alias="../../../deck/offsets/x-m"/>
+			<heading-deg>0</heading-deg>
+		</offsets>
+	</model>-->
+
+	<model>
+		<name>DeckEdgeLight.002</name>
+		<path>Models/Geometry/Nimitz/Models/deck-edge-light.xml</path>
+		<offsets>
+			<x-m>0</x-m>
+			<y-m>35.0563</y-m>
+			<z-m>20.0238</z-m>
+			<heading-deg>0</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DeckEdgeLight.003</name>
+		<path>Models/Geometry/Nimitz/Models/deck-edge-light.xml</path>
+		<offsets>
+			<x-m>9.37768</x-m>
+			<y-m>35.0563</y-m>
+			<z-m>20.0238</z-m>
+			<heading-deg>0</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DeckEdgeLight.004</name>
+		<path>Models/Geometry/Nimitz/Models/deck-edge-light.xml</path>
+		<offsets>
+			<x-m>42.7599</x-m>
+			<y-m>35.0563</y-m>
+			<z-m>20.0238</z-m>
+			<heading-deg>0</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DeckEdgeLight.005</name>
+		<path>Models/Geometry/Nimitz/Models/deck-edge-light.xml</path>
+		<offsets>
+			<x-m>52.2089</x-m>
+			<y-m>35.0563</y-m>
+			<z-m>20.0238</z-m>
+			<heading-deg>0</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DeckEdgeLight.006</name>
+		<path>Models/Geometry/Nimitz/Models/deck-edge-light.xml</path>
+		<offsets>
+			<x-m>61.658</x-m>
+			<y-m>35.0563</y-m>
+			<z-m>20.0238</z-m>
+			<heading-deg>0</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DeckEdgeLight.007</name>
+		<path>Models/Geometry/Nimitz/Models/deck-edge-light.xml</path>
+		<offsets>
+			<x-m>89.0213</x-m>
+			<y-m>35.0563</y-m>
+			<z-m>20.0238</z-m>
+			<heading-deg>0</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DeckEdgeLight.008</name>
+		<path>Models/Geometry/Nimitz/Models/deck-edge-light.xml</path>
+		<offsets>
+			<x-m>98.9996</x-m>
+			<y-m>35.0563</y-m>
+			<z-m>20.0238</z-m>
+			<heading-deg>0</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DeckEdgeLight.009</name>
+		<path>Models/Geometry/Nimitz/Models/deck-edge-light.xml</path>
+		<offsets>
+			<x-m>108.978</x-m>
+			<y-m>35.0563</y-m>
+			<z-m>20.0238</z-m>
+			<heading-deg>0</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DeckEdgeLight.010</name>
+		<path>Models/Geometry/Nimitz/Models/deck-edge-light.xml</path>
+		<offsets>
+			<x-m>118.905</x-m>
+			<y-m>35.0563</y-m>
+			<z-m>20.0238</z-m>
+			<heading-deg>0</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DeckEdgeLight.011</name>
+		<path>Models/Geometry/Nimitz/Models/deck-edge-light.xml</path>
+		<offsets>
+			<x-m>128.883</x-m>
+			<y-m>35.0563</y-m>
+			<z-m>20.0238</z-m>
+			<heading-deg>0</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DeckEdgeLight.012</name>
+		<path>Models/Geometry/Nimitz/Models/deck-edge-light.xml</path>
+		<offsets>
+			<x-m>138.862</x-m>
+			<y-m>35.0563</y-m>
+			<z-m>20.0238</z-m>
+			<heading-deg>0</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DeckEdgeLight.013</name>
+		<path>Models/Geometry/Nimitz/Models/deck-edge-light.xml</path>
+		<offsets>
+			<x-m>165.779</x-m>
+			<y-m>35.0563</y-m>
+			<z-m>20.0238</z-m>
+			<heading-deg>0</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DeckEdgeLight.014</name>
+		<path>Models/Geometry/Nimitz/Models/deck-edge-light.xml</path>
+		<offsets>
+			<x-m>168.441</x-m>
+			<y-m>26.8837</y-m>
+			<z-m>20.0238</z-m>
+			<heading-deg>-5</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DeckEdgeLight.015</name>
+		<path>Models/Geometry/Nimitz/Models/deck-edge-light.xml</path>
+		<offsets>
+			<x-m>182.647</x-m>
+			<y-m>25.8229</y-m>
+			<z-m>20.0238</z-m>
+			<heading-deg>-5</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DeckEdgeLight.016</name>
+		<path>Models/Geometry/Nimitz/Models/deck-edge-light.xml</path>
+		<offsets>
+			<x-m>196.854</x-m>
+			<y-m>24.7621</y-m>
+			<z-m>20.0238</z-m>
+			<heading-deg>-5</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DeckEdgeLight.017</name>
+		<path>Models/Geometry/Nimitz/Models/deck-edge-light.xml</path>
+		<offsets>
+			<x-m>202.996</x-m>
+			<y-m>17.8397</y-m>
+			<z-m>20.0238</z-m>
+			<heading-deg>-45</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DeckEdgeLight.018</name>
+		<path>Models/Geometry/Nimitz/Models/deck-edge-light.xml</path>
+		<offsets>
+			<x-m>216.059</x-m>
+			<y-m>-16.7117</y-m>
+			<z-m>20.0238</z-m>
+			<heading-deg>185</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DeckEdgeLight.019</name>
+		<path>Models/Geometry/Nimitz/Models/deck-edge-light.xml</path>
+		<offsets>
+			<x-m>206.647</x-m>
+			<y-m>-17.4611</y-m>
+			<z-m>20.0238</z-m>
+			<heading-deg>185</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DeckEdgeLight.020</name>
+		<path>Models/Geometry/Nimitz/Models/deck-edge-light.xml</path>
+		<offsets>
+			<x-m>197.236</x-m>
+			<y-m>-18.2105</y-m>
+			<z-m>20.0238</z-m>
+			<heading-deg>185</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DeckEdgeLight.021</name>
+		<path>Models/Geometry/Nimitz/Models/deck-edge-light.xml</path>
+		<offsets>
+			<x-m>187.824</x-m>
+			<y-m>-18.9599</y-m>
+			<z-m>20.0238</z-m>
+			<heading-deg>185</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DeckEdgeLight.022</name>
+		<path>Models/Geometry/Nimitz/Models/deck-edge-light.xml</path>
+		<offsets>
+			<x-m>178.412</x-m>
+			<y-m>-19.7093</y-m>
+			<z-m>20.0238</z-m>
+			<heading-deg>185</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DeckEdgeLight.023</name>
+		<path>Models/Geometry/Nimitz/Models/deck-edge-light.xml</path>
+		<offsets>
+			<x-m>175.6172</x-m>
+			<y-m>-28.681</y-m>
+			<z-m>20.0238</z-m>
+			<heading-deg>75</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DeckEdgeLight.024</name>
+		<path>Models/Geometry/Nimitz/Models/deck-edge-light.xml</path>
+		<offsets>
+			<x-m>172.752</x-m>
+			<y-m>-37.5</y-m>
+			<z-m>20.0238</z-m>
+			<heading-deg>180</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DeckEdgeLight.025</name>
+		<path>Models/Geometry/Nimitz/Models/deck-edge-light.xml</path>
+		<offsets>
+			<x-m>143.672</x-m>
+			<y-m>-35.8461</y-m>
+			<z-m>20.0238</z-m>
+			<heading-deg>180</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DeckEdgeLight.026</name>
+		<path>Models/Geometry/Nimitz/Models/deck-edge-light.xml</path>
+		<offsets>
+			<x-m>132.335</x-m>
+			<y-m>-35.8461</y-m>
+			<z-m>20.0238</z-m>
+			<heading-deg>180</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DeckEdgeLight.027</name>
+		<path>Models/Geometry/Nimitz/Models/deck-edge-light.xml</path>
+		<offsets>
+			<x-m>120.998</x-m>
+			<y-m>-35.8461</y-m>
+			<z-m>20.0238</z-m>
+			<heading-deg>180</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DeckEdgeLight.028</name>
+		<path>Models/Geometry/Nimitz/Models/deck-edge-light.xml</path>
+		<offsets>
+			<x-m>109.661</x-m>
+			<y-m>-35.8461</y-m>
+			<z-m>20.0238</z-m>
+			<heading-deg>180</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DeckEdgeLight.029</name>
+		<path>Models/Geometry/Nimitz/Models/deck-edge-light.xml</path>
+		<offsets>
+			<x-m>98.8604</x-m>
+			<y-m>-35.8461</y-m>
+			<z-m>20.0238</z-m>
+			<heading-deg>180</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DeckEdgeLight.030</name>
+		<path>Models/Geometry/Nimitz/Models/deck-edge-light.xml</path>
+		<offsets>
+			<x-m>86.0182</x-m>
+			<y-m>-35.8461</y-m>
+			<z-m>20.0238</z-m>
+			<heading-deg>180</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DeckEdgeLight.031</name>
+		<path>Models/Geometry/Nimitz/Models/deck-edge-light.xml</path>
+		<offsets>
+			<x-m>74.8251</x-m>
+			<y-m>-35.8461</y-m>
+			<z-m>20.0238</z-m>
+			<heading-deg>180</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DeckEdgeLight.032</name>
+		<path>Models/Geometry/Nimitz/Models/deck-edge-light.xml</path>
+		<offsets>
+			<x-m>63.632</x-m>
+			<y-m>-35.8461</y-m>
+			<z-m>20.0238</z-m>
+			<heading-deg>180</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DeckEdgeLight.033</name>
+		<path>Models/Geometry/Nimitz/Models/deck-edge-light.xml</path>
+		<offsets>
+			<x-m>52.4389</x-m>
+			<y-m>-35.8461</y-m>
+			<z-m>20.0238</z-m>
+			<heading-deg>180</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DeckEdgeLight.034</name>
+		<path>Models/Geometry/Nimitz/Models/deck-edge-light.xml</path>
+		<offsets>
+			<x-m>41.2458</x-m>
+			<y-m>-35.8461</y-m>
+			<z-m>20.0238</z-m>
+			<heading-deg>180</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DeckEdgeLight.035</name>
+		<path>Models/Geometry/Nimitz/Models/deck-edge-light.xml</path>
+		<offsets>
+			<x-m>32.4085</x-m>
+			<y-m>-38.0627</y-m>
+			<z-m>20.0238</z-m>
+			<heading-deg>165</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DeckEdgeLight.036</name>
+		<path>Models/Geometry/Nimitz/Models/deck-edge-light.xml</path>
+		<offsets>
+			<x-m>23.8013</x-m>
+			<y-m>-40.1717</y-m>
+			<z-m>20.0238</z-m>
+			<heading-deg>180</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DeckEdgeLight.037</name>
+		<path>Models/Geometry/Nimitz/Models/deck-edge-light.xml</path>
+		<offsets>
+			<x-m>9.43614</x-m>
+			<y-m>-40.1717</y-m>
+			<z-m>20.0238</z-m>
+			<heading-deg>180</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DeckEdgeLight.038</name>
+		<path>Models/Geometry/Nimitz/Models/deck-edge-light.xml</path>
+		<offsets>
+			<x-m>-4.92902</x-m>
+			<y-m>-40.1717</y-m>
+			<z-m>20.0238</z-m>
+			<heading-deg>180</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DeckEdgeLight.039</name>
+		<path>Models/Geometry/Nimitz/Models/deck-edge-light.xml</path>
+		<offsets>
+			<x-m>-33.1936</x-m>
+			<y-m>-17.7684</y-m>
+			<z-m>20.0238</z-m>
+			<heading-deg>175</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DeckEdgeLight.040</name>
+		<path>Models/Geometry/Nimitz/Models/deck-edge-light.xml</path>
+		<offsets>
+			<x-m>-46.5137</x-m>
+			<y-m>-16.6031</y-m>
+			<z-m>20.0238</z-m>
+			<heading-deg>175</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DeckEdgeLight.041</name>
+		<path>Models/Geometry/Nimitz/Models/deck-edge-light.xml</path>
+		<offsets>
+			<x-m>-59.8338</x-m>
+			<y-m>-15.4377</y-m>
+			<z-m>20.0238</z-m>
+			<heading-deg>175</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DeckEdgeLight.042</name>
+		<path>Models/Geometry/Nimitz/Models/deck-edge-light.xml</path>
+		<offsets>
+			<x-m>-71.806</x-m>
+			<y-m>-14.3903</y-m>
+			<z-m>20.0238</z-m>
+			<heading-deg>175</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DeckEdgeLight.043</name>
+		<path>Models/Geometry/Nimitz/Models/deck-edge-light.xml</path>
+		<offsets>
+			<x-m>-83.7692</x-m>
+			<y-m>-13.3436</y-m>
+			<z-m>20.0238</z-m>
+			<heading-deg>175</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DeckEdgeLight.044</name>
+		<path>Models/Geometry/Nimitz/Models/deck-edge-light.xml</path>
+		<offsets>
+			<x-m>-97.0938</x-m>
+			<y-m>-12.1779</y-m>
+			<z-m>20.0238</z-m>
+			<heading-deg>175</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DeckEdgeLight.045</name>
+		<path>Models/Geometry/Nimitz/Models/deck-edge-light.xml</path>
+		<offsets>
+			<x-m>-110.418</x-m>
+			<y-m>-11.0121</y-m>
+			<z-m>20.0238</z-m>
+			<heading-deg>175</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DeckEdgeLight.046</name>
+		<path>Models/Geometry/Nimitz/Models/deck-edge-light.xml</path>
+		<offsets>
+			<x-m>-33.1936</x-m>
+			<y-m>17.7684</y-m>
+			<z-m>20.0238</z-m>
+			<heading-deg>5</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DeckEdgeLight.047</name>
+		<path>Models/Geometry/Nimitz/Models/deck-edge-light.xml</path>
+		<offsets>
+			<x-m>-46.5137</x-m>
+			<y-m>16.6031</y-m>
+			<z-m>20.0238</z-m>
+			<heading-deg>5</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DeckEdgeLight.048</name>
+		<path>Models/Geometry/Nimitz/Models/deck-edge-light.xml</path>
+		<offsets>
+			<x-m>-59.8338</x-m>
+			<y-m>15.4377</y-m>
+			<z-m>20.0238</z-m>
+			<heading-deg>5</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DeckEdgeLight.049</name>
+		<path>Models/Geometry/Nimitz/Models/deck-edge-light.xml</path>
+		<offsets>
+			<x-m>-71.806</x-m>
+			<y-m>14.3903</y-m>
+			<z-m>20.0238</z-m>
+			<heading-deg>5</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DeckEdgeLight.050</name>
+		<path>Models/Geometry/Nimitz/Models/deck-edge-light.xml</path>
+		<offsets>
+			<x-m>-83.7692</x-m>
+			<y-m>13.3436</y-m>
+			<z-m>20.0238</z-m>
+			<heading-deg>5</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DeckEdgeLight.051</name>
+		<path>Models/Geometry/Nimitz/Models/deck-edge-light.xml</path>
+		<offsets>
+			<x-m>-97.0938</x-m>
+			<y-m>12.1779</y-m>
+			<z-m>20.0238</z-m>
+			<heading-deg>5</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DeckEdgeLight.052</name>
+		<path>Models/Geometry/Nimitz/Models/deck-edge-light.xml</path>
+		<offsets>
+			<x-m>-110.418</x-m>
+			<y-m>11.0121</y-m>
+			<z-m>20.0238</z-m>
+			<heading-deg>5</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DeckEdgeLight.053</name>
+		<path>Models/Geometry/Nimitz/Models/deck-edge-light.xml</path>
+		<offsets>
+			<x-m>-20.0262</x-m>
+			<y-m>26.7549</y-m>
+			<z-m>20.0238</z-m>
+			<heading-deg>35</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DeckEdgeLight.054</name>
+		<path>Models/Geometry/Nimitz/Models/deck-edge-light.xml</path>
+		<offsets>
+			<x-m>-30.7986</x-m>
+			<y-m>19.0018</y-m>
+			<z-m>20.0238</z-m>
+			<heading-deg>35</heading-deg>
+		</offsets>
+	</model>
+
+	<!--Center Line Lights -->
+	<!--<model>
+		<name>CenterLineLight.01</name>
+		<path>Models/Geometry/Nimitz/Models/centre-line-light.xml</path>
+		<offsets>
+			<x-m>-13.9188</x-m>
+			<y-m>-28.9478</y-m>
+			<z-m>20.0238</z-m>
+			<heading-deg>98</heading-deg>
+		</offsets>
+	</model>-->
+
+	<model>
+		<name>CenterLineLight.02</name>
+		<path>Models/Geometry/Nimitz/Models/centre-line-light.xml</path>
+		<offsets>
+			<x-m>0.346512</x-m>
+			<y-m>-26.8159</y-m>
+			<z-m>20.075</z-m>
+			<heading-deg>98</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>CenterLineLight.03</name>
+		<path>Models/Geometry/Nimitz/Models/centre-line-light.xml</path>
+		<offsets>
+			<x-m>14.6118</x-m>
+			<y-m>-24.6839</y-m>
+			<z-m>20.075</z-m>
+			<heading-deg>98</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>CenterLineLight.04</name>
+		<path>Models/Geometry/Nimitz/Models/centre-line-light.xml</path>
+		<offsets>
+			<x-m>28.8771</x-m>
+			<y-m>-22.5519</y-m>
+			<z-m>20.075</z-m>
+			<heading-deg>98</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>CenterLineLight.05</name>
+		<path>Models/Geometry/Nimitz/Models/centre-line-light.xml</path>
+		<offsets>
+			<x-m>43.1424</x-m>
+			<y-m>-20.42</y-m>
+			<z-m>20.075</z-m>
+			<heading-deg>98</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>CenterLineLight.06</name>
+		<path>Models/Geometry/Nimitz/Models/centre-line-light.xml</path>
+		<offsets>
+			<x-m>57.4077</x-m>
+			<y-m>-18.288</y-m>
+			<z-m>20.075</z-m>
+			<heading-deg>98</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>CenterLineLight.07</name>
+		<path>Models/Geometry/Nimitz/Models/centre-line-light.xml</path>
+		<offsets>
+			<x-m>71.6731</x-m>
+			<y-m>-16.15</y-m>
+			<z-m>20.075</z-m>
+			<heading-deg>98</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>CenterLineLight.08</name>
+		<path>Models/Geometry/Nimitz/Models/centre-line-light.xml</path>
+		<offsets>
+			<x-m>85.9383</x-m>
+			<y-m>-14.0241</y-m>
+			<z-m>20.075</z-m>
+			<heading-deg>98</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>CenterLineLight.09</name>
+		<path>Models/Geometry/Nimitz/Models/centre-line-light.xml</path>
+		<offsets>
+			<x-m>100.204</x-m>
+			<y-m>-11.8921</y-m>
+			<z-m>20.075</z-m>
+			<heading-deg>98</heading-deg>
+		</offsets>
+	</model>
+
+	<!--214.326	21.3818	-5.1636
+	200.061	21.3818	-3.03164
+	185.796	21.3818	-0.899675
+	171.53	21.3818	1.23228
+	157.265	21.3818	3.36426
+	-->
+
+	<model>
+		<name>CenterLineLight.10</name>
+		<path>Models/Geometry/Nimitz/Models/centre-line-light.xml</path>
+		<offsets>
+			<x-m>114.469</x-m>
+			<y-m>-9.76015</y-m>
+			<z-m>20.075</z-m>
+			<heading-deg>98</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>CenterLineLight.11</name>
+		<path>Models/Geometry/Nimitz/Models/centre-line-light.xml</path>
+		<offsets>
+			<x-m>128.734</x-m>
+			<y-m>-7.62819</y-m>
+			<z-m>20.075</z-m>
+			<heading-deg>98</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>CenterLineLight.12</name>
+		<path>Models/Geometry/Nimitz/Models/centre-line-light.xml</path>
+		<offsets>
+			<x-m>143</x-m>
+			<y-m>-5.49622</y-m>
+			<z-m>20.075</z-m>
+			<heading-deg>98</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>CenterLineLight.13</name>
+		<path>Models/Geometry/Nimitz/Models/centre-line-light.xml</path>
+		<offsets>
+			<x-m>157.265</x-m>
+			<y-m>-3.36426</y-m>
+			<z-m>20.075</z-m>
+			<heading-deg>98</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>CenterLineLight.14</name>
+		<path>Models/Geometry/Nimitz/Models/centre-line-light.xml</path>
+		<offsets>
+			<x-m>171.53</x-m>
+			<y-m>-1.23228</y-m>
+			<z-m>20.075</z-m>
+			<heading-deg>98</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>CenterLineLight.15</name>
+		<path>Models/Geometry/Nimitz/Models/centre-line-light.xml</path>
+		<offsets>
+			<x-m>185.796</x-m>
+			<y-m>0.899675</y-m>
+			<z-m>20.075</z-m>
+			<heading-deg>98</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>CenterLineLight.16</name>
+		<path>Models/Geometry/Nimitz/Models/centre-line-light.xml</path>
+		<offsets>
+			<x-m>200.061</x-m>
+			<y-m>3.03164</y-m>
+			<z-m>20.075</z-m>
+			<heading-deg>98</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>CenterLineLight.17</name>
+		<path>Models/Geometry/Nimitz/Models/centre-line-light.xml</path>
+		<offsets>
+			<x-m>214.326</x-m>
+			<y-m>5.1636</y-m>
+			<z-m>20.075</z-m>
+			<heading-deg>98</heading-deg>
+		</offsets>
+	</model>
+
+
+
+	<!-- Drop Line Lights -->
+	<model>
+		<name>DropLineLight.00</name>
+		<path>Models/Geometry/Nimitz/Models/light-drop-line.xml</path>
+		<offsets>
+			<x-m>218.335</x-m>
+			<y-m>5.754</y-m>
+			<z-m>17.396</z-m>
+			<heading-deg>-8.4</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DropLineLight.01</name>
+		<path>Models/Geometry/Nimitz/Models/light-drop-line.xml</path>
+		<offsets>
+			<x-m>218.335</x-m>
+			<y-m>5.754</y-m>9.748
+			<z-m>16.548</z-m>
+			<heading-deg>-8.4</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DropLineLight.02</name>
+		<path>Models/Geometry/Nimitz/Models/light-drop-line.xml</path>
+		<offsets>
+			<x-m>218.335</x-m>
+			<y-m>5.754</y-m>
+			<z-m>15.698</z-m>
+			<heading-deg>-8.4</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DropLineLight.03</name>
+		<path>Models/Geometry/Nimitz/Models/light-drop-line.xml</path>
+		<offsets>
+			<x-m>218.335</x-m>
+			<y-m>5.754</y-m>
+			<z-m>14.848</z-m>
+			<heading-deg>-8.4</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DropLineLight.04</name>
+		<path>Models/Geometry/Nimitz/Models/light-drop-line.xml</path>
+		<offsets>
+			<x-m>218.335</x-m>
+			<y-m>5.754</y-m>
+			<z-m>13.998</z-m>
+			<heading-deg>-8.4</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DropLineLight.05</name>
+		<path>Models/Geometry/Nimitz/Models/light-drop-line.xml</path>
+		<offsets>
+			<x-m>218.335</x-m>
+			<y-m>5.754</y-m>
+			<z-m>13.148</z-m>
+			<heading-deg>-8.4</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DropLineLight.06</name>
+		<path>Models/Geometry/Nimitz/Models/light-drop-line.xml</path>
+		<offsets>
+			<x-m>218.335</x-m>
+			<y-m>5.754</y-m>
+			<z-m>11.448</z-m>
+			<heading-deg>-8.4</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DropLineLight.07</name>
+		<path>Models/Geometry/Nimitz/Models/light-drop-line.xml</path>
+		<offsets>
+			<x-m>218.335</x-m>
+			<y-m>5.754</y-m>
+			<z-m>10.598</z-m>
+			<heading-deg>-8.4</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DropLineLight.08</name>
+		<path>Models/Geometry/Nimitz/Models/light-drop-line.xml</path>
+		<offsets>
+			<x-m>218.335</x-m>
+			<y-m>5.754</y-m>
+			<z-m>9.748</z-m>
+			<heading-deg>-8.4</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DropLineLight.09</name>
+		<path>Models/Geometry/Nimitz/Models/light-drop-line.xml</path>
+		<offsets>
+			<x-m>218.335</x-m>
+			<y-m>5.754</y-m>
+			<z-m>8.898</z-m>
+			<heading-deg>-8.4</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DropLineLight.10</name>
+		<path>Models/Geometry/Nimitz/Models/light-drop-line.xml</path>
+		<offsets>
+			<x-m>218.335</x-m>
+			<y-m>5.754</y-m>
+			<z-m>8.048</z-m>
+			<heading-deg>-8.4</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>DropLineLight.11</name>
+		<path>Models/Geometry/Nimitz/Models/light-drop-line.xml</path>
+		<offsets>
+			<x-m>218.335</x-m>
+			<y-m>5.754</y-m>
+			<z-m>7.198</z-m>
+			<heading-deg>-8.4</heading-deg>
+		</offsets>
+	</model>
+
+
+
+	<!-- End Line Lights -->
+	<model>
+		<name>EndLineLight.00</name>
+		<path>Models/Geometry/Nimitz/Models/end-line-light.xml</path>
+		<offsets>
+			<x-m>-5.098</x-m>
+			<y-m>-34.629</y-m>
+			<z-m>20.075</z-m>
+			<heading-deg>98</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>EndLineLight.01</name>
+		<path>Models/Geometry/Nimitz/Models/end-line-light.xml</path>
+		<offsets>
+			<x-m>-5.506</x-m>
+			<y-m>-32.363</y-m>
+			<z-m>20.075</z-m>
+			<heading-deg>98</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>EndLineLight.02</name>
+		<path>Models/Geometry/Nimitz/Models/end-line-light.xml</path>
+		<offsets>
+			<x-m>-5.914</x-m>
+			<y-m>-30.098</y-m>
+			<z-m>20.075</z-m>
+			<heading-deg>98</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>EndLineLight.03</name>
+		<path>Models/Geometry/Nimitz/Models/end-line-light.xml</path>
+		<offsets>
+			<x-m>-6.729</x-m>
+			<y-m>-25.567</y-m>
+			<z-m>20.075</z-m>
+			<heading-deg>98</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>EndLineLight.04</name>
+		<path>Models/Geometry/Nimitz/Models/end-line-light.xml</path>
+		<offsets>
+			<x-m>-7.137</x-m>
+			<y-m>-23.301</y-m>
+			<z-m>20.075</z-m>
+			<heading-deg>98</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>EndLineLight.05</name>
+		<path>Models/Geometry/Nimitz/Models/end-line-light.xml</path>
+		<offsets>
+			<x-m>-7.544</x-m>
+			<y-m>-21.035</y-m>
+			<z-m>20.075</z-m>
+			<heading-deg>98</heading-deg>
+		</offsets>
+	</model>
+
+
+	<!-- Threshold Lights -->
+	<model>
+		<name>ThresholdLight.00</name>
+		<path>Models/Geometry/Nimitz/Models/threshold-light.xml</path>
+		<offsets>
+			<x-m>216.533</x-m>
+			<y-m>-4.38014</y-m>
+			<z-m>20.075</z-m>
+			<heading-deg>98</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>ThresholdLight.01</name>
+		<path>Models/Geometry/Nimitz/Models/threshold-light.xml</path>
+		<offsets>
+			<x-m>213.602</x-m>
+			<y-m>14.8637</y-m>
+			<z-m>20.075</z-m>
+			<heading-deg>98</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>ThresholdLight.02</name>
+		<path>Models/Geometry/Nimitz/Models/threshold-light.xml</path>
+		<offsets>
+			<x-m>213.799</x-m>
+			<y-m>13.591</y-m>
+			<z-m>20.075</z-m>
+			<heading-deg>98</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>ThresholdLight.03</name>
+		<path>Models/Geometry/Nimitz/Models/threshold-light.xml</path>
+		<offsets>
+			<x-m>216.281</x-m>
+			<y-m>-3.10739</y-m>
+			<z-m>20.075</z-m>
+			<heading-deg>98</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>ThresholdLight.04</name>
+		<path>Models/Geometry/Nimitz/Models/threshold-light.xml</path>
+		<offsets>
+			<x-m>215.927</x-m>
+			<y-m>-0.721915</y-m>
+			<z-m>20.075</z-m>
+			<heading-deg>98</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>ThresholdLight.05</name>
+		<path>Models/Geometry/Nimitz/Models/threshold-light.xml</path>
+		<offsets>
+			<x-m>214.863</x-m>
+			<y-m>6.43452</y-m>
+			<z-m>20.075</z-m>
+			<heading-deg>98</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>ThresholdLight.06</name>
+		<path>Models/Geometry/Nimitz/Models/threshold-light.xml</path>
+		<offsets>
+			<x-m>214.154</x-m>
+			<y-m>11.2055</y-m>
+			<z-m>20.075</z-m>
+			<heading-deg>98</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>ThresholdLight.07</name>
+		<path>Models/Geometry/Nimitz/Models/threshold-light.xml</path>
+		<offsets>
+			<x-m>215.218</x-m>
+			<y-m>4.04904</y-m>
+			<z-m>20.075</z-m>
+			<heading-deg>98</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>ThresholdLight.08</name>
+		<path>Models/Geometry/Nimitz/Models/threshold-light.xml</path>
+		<offsets>
+			<x-m>215.572</x-m>
+			<y-m>1.66356</y-m>
+			<z-m>20.075</z-m>
+			<heading-deg>98</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>ThresholdLight.09</name>
+		<path>Models/Geometry/Nimitz/Models/threshold-light.xml</path>
+		<offsets>
+			<x-m>215.395</x-m>
+			<y-m>2.8563</y-m>
+			<z-m>20.075</z-m>
+			<heading-deg>98</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>ThresholdLight.10</name>
+		<path>Models/Geometry/Nimitz/Models/threshold-light.xml</path>
+		<offsets>
+			<x-m>214.686</x-m>
+			<y-m>7.62726</y-m>
+			<z-m>20.075</z-m>
+			<heading-deg>98</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>ThresholdLight.11</name>
+		<path>Models/Geometry/Nimitz/Models/threshold-light.xml</path>
+		<offsets>
+			<x-m>213.977</x-m>
+			<y-m>12.3982</y-m>
+			<z-m>20.075</z-m>
+			<heading-deg>98</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>ThresholdLight.12</name>
+		<path>Models/Geometry/Nimitz/Models/threshold-light.xml</path>
+		<offsets>
+			<x-m>216.104</x-m>
+			<y-m>-1.91465</y-m>
+			<z-m>20.075</z-m>
+			<heading-deg>98</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>ThresholdLight.13</name>
+		<path>Models/Geometry/Nimitz/Models/threshold-light.xml</path>
+		<offsets>
+			<x-m>215.749</x-m>
+			<y-m>0.470823</y-m>
+			<z-m>20.075</z-m>
+			<heading-deg>98</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>ThresholdLight.14</name>
+		<path>Models/Geometry/Nimitz/Models/threshold-light.xml</path>
+		<offsets>
+			<x-m>214.331</x-m>
+			<y-m>10.0127</y-m>
+			<z-m>20.075</z-m>
+			<heading-deg>98</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>ThresholdLight.15</name>
+		<path>Models/Geometry/Nimitz/Models/threshold-light.xml</path>
+		<offsets>
+			<x-m>213.404</x-m>
+			<y-m>16.1364</y-m>
+			<z-m>20.075</z-m>
+			<heading-deg>98</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>ThresholdLight.16</name>
+		<path>Models/Geometry/Nimitz/Models/threshold-light.xml</path>
+		<offsets>
+			<x-m>214.508</x-m>
+			<y-m>8.81999</y-m>
+			<z-m>20.075</z-m>
+			<heading-deg>98</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>ThresholdLight.17</name>
+		<path>Models/Geometry/Nimitz/Models/threshold-light.xml</path>
+		<offsets>
+			<x-m>216.786</x-m>
+			<y-m>-5.65289</y-m>
+			<z-m>20.075</z-m>
+			<heading-deg>98</heading-deg>
+		</offsets>
+	</model>
+
+	<!-- *** Effects *** -->
+
+	<model>
+		<name>bowwake-stbd</name>
+		<path>Models/Effects/Wakes/wake.xml</path>
+		<offsets>
+			<x-m>-98.0</x-m>
+			<y-m>0</y-m>
+			<z-m>2</z-m>
+			<heading-deg>0</heading-deg>
+		</offsets>
+	</model>
+	
+	<model>
+		<name>bowwake-port</name>
+		<path>Models/Effects/Wakes/wake.xml</path>
+		<offsets>
+			<x-m>-98.0</x-m>
+			<y-m>0</y-m>
+			<z-m>2</z-m>
+			<heading-deg>0</heading-deg>
+		</offsets>
+		<overlay>
+			<particlesystem>
+				<placer>
+					<type>segments</type>
+					<vertex>
+						<x-m>0</x-m>
+						<y-m>0</y-m>
+						<z-m>0</z-m>
+					</vertex>
+					<vertex>
+						<x-m>0</x-m>
+						<y-m>-1.0</y-m>
+						<z-m>0</z-m>
+					</vertex>
+					<vertex>
+						<x-m>6.5</x-m>
+						<y-m>-7.5</y-m>
+						<z-m>0</z-m>
+					</vertex>
+					<vertex>
+						<x-m>13</x-m>
+						<y-m>-15.0</y-m>
+						<z-m>0</z-m>
+					</vertex>
+				</placer>
+				<shooter>
+					<theta-min-deg>-80</theta-min-deg>
+					<theta-max-deg>-100</theta-max-deg>
+					<phi-min-deg>85</phi-min-deg>
+					<phi-max-deg>90</phi-max-deg>
+					<rotation-speed>
+						<z-max-deg-sec>15</z-max-deg-sec>
+						<z-min-deg-sec>-15</z-min-deg-sec>
+					</rotation-speed>
+				</shooter>
+			</particlesystem>
+		</overlay>
+	</model>
+
+	<model>
+		<name>sternwake</name>
+		<path>Models/Effects/Wakes/wake2.xml</path>
+		<offsets>
+			<x-m>210</x-m>
+			<y-m>0</y-m>
+			<z-m>2</z-m>
+			<heading-deg>0</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<path>Models/Generic/Effects/cat-steam.xml</path>
+		<name>cat-steam-1</name>
+		<offsets>
+			<x-m>-105.405</x-m>
+			<y-m>8.1564</y-m>
+			<z-m>20.0000</z-m>
+			<heading-deg>4</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<path>Models/Generic/Effects/cat-steam-eng.xml</path>
+		<name>cat-steam-1-eng</name>
+		<offsets>
+			<x-m>-3.6539</x-m>
+			<y-m>15.2715</y-m>
+			<z-m>20.0000</z-m>
+			<heading-deg>176</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<path>Models/Generic/Effects/cat-steam.xml</path>
+		<name>cat-steam-2</name>
+		<offsets>
+			<x-m>-100.376</x-m>
+			<y-m>-6.39604</y-m>
+			<z-m>20.0000</z-m>
+			<heading-deg>1</heading-deg>
+		</offsets>
+		<overlay>
+			<particlesystem>
+				<placer>
+					<type>segments</type>
+					<vertex>
+						<x-m>0</x-m>
+						<y-m>0</y-m>
+						<z-m>0</z-m>
+					</vertex>
+					<vertex>
+						<x-m>51</x-m>
+						<y-m>0</y-m>
+						<z-m>0</z-m>
+					</vertex>
+					<vertex>
+						<x-m>102</x-m>
+						<y-m>0</y-m>
+						<z-m>0</z-m>
+					</vertex>
+				</placer>
+			</particlesystem>
+		</overlay>
+	</model>
+
+	<!-- Transparent object registration for Rembrandt compatibility -->
+	<effect>
+		<inherits-from>Effects/model-transparent</inherits-from>
+		<object-name>Howdah-glass</object-name>
+		<object-name>glass</object-name>
+		<object-name>radar-screen-transparent</object-name>
+		<object-name>SPS-49-net-tranparent</object-name>
+		<object-name>Antenna-transparent</object-name>
+		<object-name>Net-transparent</object-name>
+		<object-name>island-projector-light-on</object-name>
+		<object-name>island-inside-red-lights</object-name>
+	</effect>
+
+        <effect>
+		<inherits-from>Models/Geometry/Nimitz/Effects/flightdeck</inherits-from>
+		<object-name>Flightdeck</object-name>
+	</effect>
+
+	<!-- Lighting -->
+
+	<model>
+		<path>Models/Geometry/Nimitz/vinson-rembrandt-lighting.xml</path>
+	</model>
+
+	<animation>
+		<type>select</type>
+		<object-name>island-projector-light-off</object-name>
+		<condition>
+			<less-than-equals>
+				<property>/sim/time/sun-angle-rad</property>
+				<value>1.57</value>
+			</less-than-equals>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>island-projector-light-on</object-name>
+		<condition>
+			<greater-than>
+				<property>/sim/time/sun-angle-rad</property>
+				<value>1.57</value>
+			</greater-than>
+		</condition>
+	</animation>
+
+	<animation>
+		<object-name>Flightdeck</object-name>
+		<type>material</type>
+		<condition>
+			<greater-than>
+				<property>/sim/time/sun-angle-rad</property>
+				<value>1.57</value>
+			</greater-than>
+			<not><property>/sim/rendering/rembrandt/enabled</property></not>
+		</condition>
+		<emission>
+			<factor-prop>controls/lighting/flood-lights-red-norm</factor-prop>
+			<red>0.75</red><green>0.25</green><blue>0.25</blue>
+		</emission>
+	</animation>
+
+	<!--<animation>
+		<type>material</type>
+		<object-name>Drop-Line</object-name>
+		<ambient>
+			<red>1.0</red><green>1.0</green><blue>1.0</blue>
+		</ambient>
+		<shininess>22</shininess>
+		<emission>
+			<factor-prop>controls/lighting/flood-lights-red-norm</factor-prop>
+			<factor>0.75</factor>
+			<red>1.0</red><green>1.0</green><blue>1.0</blue>
+		</emission>
+	</animation>-->
+
+	<animation>
+		<type>select</type>
+		<object-name>Hangar-Deckhead-white-lights</object-name>
+		<condition>
+			<less-than-equals>
+				<property>/sim/time/sun-angle-rad</property>
+				<value>1.57</value>
+			</less-than-equals>
+		</condition>
+	</animation>
+	<animation>
+		<type>material</type>
+		<object-name>Hangar-Deckhead-white-lights</object-name>
+		<condition>
+			<less-than-equals>
+				<property>/sim/time/sun-angle-rad</property>
+				<value>1.57</value>
+			</less-than-equals>
+		</condition>
+		<emission>
+			<red>1</red><green>1</green><blue>1</blue>
+		</emission>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>Hangar-Deckhead-red-lights</object-name>
+		<condition>
+			<greater-than>
+				<property>/sim/time/sun-angle-rad</property>
+				<value>1.57</value>
+			</greater-than>
+		</condition>
+	</animation>
+	<animation>
+		<type>material</type>
+		<object-name>Hangar-Deckhead-red-lights</object-name>
+		<object-name>island-inside-red-lights</object-name>
+		<condition>
+			<greater-than>
+				<property>/sim/time/sun-angle-rad</property>
+				<value>1.57</value>
+			</greater-than>
+		</condition>
+		<emission>
+			<red>1</red><green>0.5</green><blue>0.4</blue>
+		</emission>
+	</animation>
+
+
+	<animation>
+		<type>material</type>
+		<object-name>Hangar-Deckhead</object-name>
+		<condition>
+			<less-than-equals>
+				<property>/sim/time/sun-angle-rad</property>
+				<value>1.57</value>
+			</less-than-equals>
+			<not><property>/sim/rendering/rembrandt/enabled</property></not>
+		</condition>
+		<emission>
+			<factor-prop>controls/lighting/flood-lights-red-norm</factor-prop>
+			<red>1.0</red><green>1.0</green><blue>1.0</blue>
+		</emission>
+	</animation>
+
+	<animation>
+		<type>material</type>
+		<object-name>Hangar-Deckhead</object-name>
+		<condition>
+			<greater-than>
+				<property>/sim/time/sun-angle-rad</property>
+				<value>1.57</value>
+			</greater-than>
+			<not><property>/sim/rendering/rembrandt/enabled</property></not>
+		</condition>
+		<emission>
+			<factor-prop>controls/lighting/flood-lights-red-norm</factor-prop>
+			<red>0.1875</red><green>0.0625</green><blue>0.0625</blue>
+		</emission>
+	</animation>
+
+	<animation>
+		<type>material</type>
+		<object-name>All-Elevators-Doors</object-name>
+		<object-name>All-Elevators-Drives</object-name>
+		<object-name>Hangar-Plateform</object-name>
+		<object-name>Hangar-Walls</object-name>
+		<object-name>Hangar-Walls-logo</object-name>
+		<object-name>Hangar-Deck</object-name>
+		<condition>
+			<and>
+				<less-than-equals>
+					<property>/sim/time/sun-angle-rad</property>
+					<value>1.57</value>
+				</less-than-equals>
+				<not><property>/sim/rendering/rembrandt/enabled</property></not>
+			</and>
+		</condition>
+		<ambient>
+			<red>0.5</red><green>0.5</green><blue>0.58</blue>
+		</ambient>
+		<emission>
+			<factor-prop>controls/lighting/flood-lights-red-norm</factor-prop>
+			<red>1.0</red><green>1.0</green><blue>1.0</blue>
+		</emission>
+	</animation>
+
+
+	<animation>
+		<type>material</type>
+		<object-name>All-Elevators-Doors</object-name>
+		<object-name>All-Elevators-Drives</object-name>
+		<object-name>Hangar-Plateform</object-name>
+		<object-name>Hangar-Walls</object-name>
+		<object-name>Hangar-Walls-logo</object-name>
+		<object-name>Hangar-Deck</object-name>
+		<condition>
+			<greater-than>
+				<property>/sim/time/sun-angle-rad</property>
+				<value>1.57</value>
+			</greater-than>
+			<not><property>/sim/rendering/rembrandt/enabled</property></not>
+		</condition>
+		<ambient>
+			<red>0.2</red><green>0.2</green><blue>0.2</blue>
+		</ambient>
+		<emission>
+			<factor-prop>controls/lighting/flood-lights-red-norm</factor-prop>
+			<factor>1.0</factor>
+			<red>0.75</red><green>0.25</green><blue>0.25</blue>
+		</emission>
+	</animation>
+
+	<animation>
+		<type>material</type>
+		<object-name>Elevator-1-Deck-stripes</object-name>
+		<object-name>Elevator-2-Deck-stripes</object-name>
+		<object-name>Elevator-3-Deck-stripes</object-name>
+		<object-name>Elevator-4-Deck-stripes</object-name>
+		<object-name>Elevator-1-Deck</object-name>
+		<object-name>Elevator-2-Deck</object-name>
+		<object-name>Elevator-3-Deck</object-name>
+		<object-name>Elevator-4-Deck</object-name>
+		<condition>
+			<greater-than>
+				<property>/sim/time/sun-angle-rad</property>
+				<value>1.57</value>
+			</greater-than>
+			<not><property>/sim/rendering/rembrandt/enabled</property></not>
+		</condition>
+		<emission>
+			<factor-prop>controls/lighting/flood-lights-red-norm</factor-prop>
+			<factor>0.75</factor>
+			<red>0.75</red><green>0.25</green><blue>0.25</blue>
+		</emission>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>Walks</object-name>
+	</animation>
+
+<!-- Shadows -->
+	<animation>
+		<type>noshadow</type>
+		<object-name>wire-1</object-name>
+		<object-name>wire-2</object-name>
+		<object-name>wire-3</object-name>
+		<object-name>wire-4</object-name>
+	</animation>
+
+	<animation>
+		<type>noshadow</type>
+		<object-name>cat-1</object-name>
+		<object-name>cat-2</object-name>
+		<object-name>cat-3</object-name>
+		<object-name>cat-4</object-name>
+	</animation>
+
+
+	<!-- *** LoD *** -->
+	<animation>
+		<type>range</type>
+		<max-m>60000</max-m>
+	</animation>
+
+	<animation>
+		<type>range</type>
+		<object-name>1000ft</object-name>
+		<object-name>railing</object-name>
+		<object-name>Net</object-name>
+		<object-name>400ft</object-name>
+		<max-m>400</max-m>
+	</animation>
+
+
+	<animation>
+		<type>range</type>
+		<object-name>Wires</object-name>
+		<object-name>glass</object-name>
+		<object-name>Howdah-glass</object-name>
+		<object-name>beams</object-name>
+		<object-name>Hull-equipment</object-name>
+		<object-name>Antenna-frame</object-name>
+		<object-name>loud-speakers</object-name>
+		<max-m>1000</max-m>
+	</animation>
+	<animation>
+		<type>range</type>
+		<object-name>3000ft</object-name>
+		<object-name>SPS-49-Antenna</object-name>
+		<max-m>3000</max-m>
+	</animation>
+
+	<animation>
+		<type>interaction</type>
+		<object-name>cat-1</object-name>
+		<object-name>cat-2</object-name>
+		<object-name>cat-3</object-name>
+		<object-name>cat-4</object-name>
+		<interaction-type>carrier-catapult</interaction-type>
+	</animation>
+
+	<animation>
+		<type>interaction</type>
+		<object-name>wire-1</object-name>
+		<object-name>wire-2</object-name>
+		<object-name>wire-3</object-name>
+		<object-name>wire-4</object-name>
+		<interaction-type>carrier-wire</interaction-type>
+	</animation>
+
+</PropertyList>

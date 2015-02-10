@@ -1,0 +1,210 @@
+<?xml version="1.0"?>
+
+<!--
+fuel.xml
+
+Fuel Gauge from C172-S
+
+Martin Dressler dr@musicabona.cz
+Feb 7 2003
+
+
+-->
+
+<PropertyList>
+
+ <name>C172-S Fuel Gauge</name>
+ <w-base>512</w-base>
+ <h-base>512</h-base>
+ <params>
+  <left-level-select>/consumables/fuel/tank[0]/level-gal_us</left-level-select>
+  <right-level-select>/consumables/fuel/tank[1]/level-gal_us</right-level-select>
+ </params>
+ 
+ <layers>
+ 
+  <layer>
+   <name>Backplate</name>
+   <w>292</w>
+   <h>456</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/fuel1.rgb</path>
+    <x1>0.0</x1>
+    <x2>0.570312</x2>
+    <y1>0.109375</y1>
+    <y2>1.0</y2>
+   </texture>
+  </layer>
+
+  <layer>
+   <name>Left Tank Needle</name>
+   <w>148</w>
+   <h>32</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/misc2.rgb</path>
+    <x1>0.0</x1>
+    <x2>0.289062</x2>
+    <y1>0.554688</y1>
+    <y2>0.617188</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-142</offset>
+    </transformation>
+    <transformation>
+     <condition>
+      <greater-than-equals>
+       <property>/systems/electrical/volts</property>
+       <value>12</value>
+      </greater-than-equals>
+     </condition>
+     <type>rotation</type>
+     <property alias="../../../../../params/left-level-select"/>
+     <min>0.0</min>
+     <max>26.0</max>
+     <scale>1.0</scale>
+     <interpolation>
+      <entry><ind>   0</ind><dep> 56.0</dep></entry>
+      <entry><ind>   5</ind><dep> 33.5</dep></entry>
+      <entry><ind>  10</ind><dep> 11.0</dep></entry>
+      <entry><ind>  15</ind><dep>-11.5</dep></entry>
+      <entry><ind>  20</ind><dep>-32.5</dep></entry>
+      <entry><ind>  26</ind><dep>-53.0</dep></entry>
+     </interpolation>
+     <offset>0</offset>
+    </transformation>
+    <transformation>
+     <condition>
+      <less-than>
+       <property>/systems/electrical/volts</property>
+       <value>12</value>
+      </less-than>
+     </condition>
+     <type>rotation</type>
+     <offset>60</offset>
+    </transformation>
+    <transformation>
+     <type>x-shift</type>
+     <offset>78</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>Right Tank Needle</name>
+   <w>148</w>
+   <h>32</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/misc2.rgb</path>
+    <x1>0.0</x1>
+    <x2>0.289062</x2>
+    <y1>0.554688</y1>
+    <y2>0.617188</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>142</offset>
+    </transformation>
+    <transformation>
+     <condition>
+      <greater-than-equals>
+       <property>/systems/electrical/volts</property>
+       <value>12</value>
+      </greater-than-equals>
+     </condition>
+     <type>rotation</type>
+     <property alias="../../../../../params/right-level-select"/>
+     <min>0.0</min>
+     <max>26.0</max>
+     <scale>1.0</scale>
+     <interpolation>
+      <entry><ind>   0</ind><dep>124.0</dep></entry>
+      <entry><ind>   5</ind><dep>146.5</dep></entry>
+      <entry><ind>  10</ind><dep>169.0</dep></entry>
+      <entry><ind>  15</ind><dep>191.5</dep></entry>
+      <entry><ind>  20</ind><dep>212.5</dep></entry>
+      <entry><ind>  26</ind><dep>233.0</dep></entry>
+     </interpolation>
+     <offset>0</offset>
+    </transformation>
+    <transformation>
+     <condition>
+      <less-than>
+       <property>/systems/electrical/volts</property>
+       <value>12</value>
+      </less-than>
+     </condition>
+     <type>rotation</type>
+     <offset>120</offset>
+    </transformation>
+    <transformation>
+     <type>x-shift</type>
+     <offset>78</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>Foreground</name>
+   <w>512</w>
+   <h>512</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/smlf.rgb</path>
+    <x1>0.0</x1>
+    <x2>1.0</x2>
+    <y1>0.0</y1>
+    <y2>1.0</y2>
+   </texture>
+  </layer>
+
+  <layer>
+   <name>Left label</name>
+   <w>24</w>
+   <h>160</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/misc2.rgb</path>
+    <x1>0.90625</x1>
+    <x2>0.953125</x2>
+    <y1>0.6875</y1>
+    <y2>1.0</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-141</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-2</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>Right label</name>
+   <w>24</w>
+   <h>160</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/misc2.rgb</path>
+    <x1>0.953125</x1>
+    <x2>1.0</x2>
+    <y1>0.6875</y1>
+    <y2>1.0</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>148</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-2</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+ </layers>
+
+</PropertyList>

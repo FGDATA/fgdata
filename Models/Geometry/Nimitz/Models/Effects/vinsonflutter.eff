@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PropertyList>
+	
+	<name>Effects/vinsonflutter</name>
+	<inherits-from>/Effects/flutter</inherits-from>
+	<parameters>
+		<wind-speed>
+			<use>/environment/Vinson/rel-wind-speed-kts</use>
+		</wind-speed>
+		<offset>0.25</offset>
+		<amplitude-factor>0.2</amplitude-factor>
+	</parameters>
+
+</PropertyList>

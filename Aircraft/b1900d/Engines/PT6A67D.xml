@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+
+<turboprop_engine name="PT6A-67D">
+  <milthrust unit="LBS">2400</milthrust>
+  <idlen1>65.0</idlen1>
+  <maxn1>104.0</maxn1>
+  <maxpower unit="HP">1279</maxpower>
+  <psfc unit="LBS/HR/HP">0.0</psfc>
+  <idlefuelflow>0.0</idlefuelflow>
+  <n1idle_max_delay>2</n1idle_max_delay>
+  <maxstartingtime>1</maxstartingtime>
+  <startern1>30</startern1>
+  <ielumaxtorque unit="FT*LB">3950</ielumaxtorque>
+  <itt_delay>0.15</itt_delay>
+  <betarangeend>64</betarangeend>
+  <reversemaxpower>60</reversemaxpower>
+
+  <table name="EnginePowerVC">
+    <description> Engine power, function of airspeed and pressure </description>
+    <independentVar lookup="row">atmosphere/P-psf</independentVar>
+    <independentVar lookup="column">velocities/ve-kts</independentVar>
+    <tableData>
+	0	50	100	150	200	250	300
+503	0.630	0.788	0.829	0.836	0.840	0.841	0.845
+1048	0.685	0.856	0.901	0.909	0.913	0.914	0.919
+1328	0.721	0.901	0.949	0.957	0.961	0.962	0.967
+1496	0.743	0.929	0.978	0.986	0.991	0.992	0.997
+1684	0.751	0.939	0.988	0.996	1.001	1.002	1.007
+1896	0.759	0.948	0.998	1.006	1.011	1.012	1.017
+2135	0.764	0.955	1.006	1.014	1.019	1.020	1.025
+2213	0.768	0.960	1.011	1.019	1.024	1.025	1.030
+
+    </tableData>
+  </table>
+
+  <table name="EnginePowerRPM_N1" type="internal">
+    <description> Engine Power, function of RPM and N1 </description>
+    <tableData>
+	0	5	65	70	80	90	104
+0	.00	.50	.50	.50	.50	.50	.50
+500	.00	.50	15.81	158.05	316.11	421.48	526.85
+1000	.00	.50	25.17	228.80	457.61	602.11	752.64
+1400	.00	.50	37.79	314.88	629.76	839.68	1049.60
+1550	.00	.50	45.43	349.44	698.88	931.84	1164.80
+1700	.00	.50	53.76	384.00	768.00	1024.00	1280.00
+
+    </tableData>
+  </table>
+
+
+  <table name="ITT_N1" type="internal">
+    <description> Inter-Turbine Temperature ITT [deg C] depending on N1 and engine run (0=off / 1=running) </description>
+    <tableData>
+              0     1
+        0     0     0
+        30   90   370
+        65   180   750
+      104   300   800
+    </tableData>
+  </table>
+
+</turboprop_engine>

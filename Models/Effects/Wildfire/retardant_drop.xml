@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<!-- (C) 2012 - 2013  Anders Gidenstam.
+     Distribution: GPL v2 or later.
+-->
+<PropertyList>
+
+ <!-- Overlay this property to set the trigger. -->
+ <params>
+  <trigger>controls/armament/trigger</trigger>
+ </params>
+
+ <!--=========================================================================
+  Fire retardant.
+ -->
+ <particlesystem>
+  <name>Fire retardant</name>
+  <type>normal</type>
+  <texture>smoke.png</texture>
+  <emissive>false</emissive>
+  <lighting>true</lighting>
+
+  <condition>
+   <property alias="../../../params/trigger"/>
+  </condition>
+
+  <offsets>
+   <x-m>0</x-m>
+   <y-m>0</y-m>
+   <z-m>0</z-m>
+  </offsets>
+
+  <attach>world</attach>
+
+  <placer>
+   <type>point</type>
+  </placer>
+
+  <shooter>
+   <theta-min-deg>-205</theta-min-deg>
+   <theta-max-deg>-175</theta-max-deg>
+   <phi-min-deg>165</phi-min-deg>
+   <phi-max-deg>195</phi-max-deg>
+   <speed-mps>
+    <value>5.0</value>
+    <spread>1.0</spread>
+   </speed-mps>
+  </shooter>
+
+  <counter>
+   <particles-per-sec>
+    <value>75.0</value>
+    <spread>2.00</spread>
+   </particles-per-sec>
+  </counter>
+
+  <align>billboard</align>
+
+  <particle>
+   <start>
+    <color>
+     <red><value>1.0</value></red>
+     <green><value>0.1</value></green>
+     <blue><value>0.1</value></blue>
+     <alpha><value>1</value></alpha>
+    </color>
+    <size>
+     <value>0.5</value>
+     <spread>0.1</spread>
+    </size>
+   </start>
+   <end>
+    <color>
+     <red><value>0.8</value></red>
+     <green><value>0.05</value></green>
+     <blue><value>0.05</value></blue>
+     <alpha><value>0.15</value></alpha>
+    </color>
+    <size>
+     <value>40.0</value>
+     <spread>5.0</spread>
+    </size>
+   </end>
+
+   <life-sec>
+    <value>30.0</value>
+   </life-sec>
+   <mass-kg>25</mass-kg>
+   <radius-m>1</radius-m>
+  </particle>
+
+  <program>
+   <fluid>air</fluid>
+   <gravity>true</gravity>
+   <wind>true</wind>
+  </program>
+
+ </particlesystem>
+
+</PropertyList>

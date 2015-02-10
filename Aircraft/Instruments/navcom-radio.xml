@@ -1,0 +1,507 @@
+<?xml version="1.0"?>
+
+<!--
+Default NAVCOM  radio instrument.
+Parameterized and improved
+John Check <j4strngs@rockfish.net>
+June 2001
+
+This is an instrument configuration file for the open-source flight
+simulator FlightGear (www.flightgear.org).  The file is an XML-encoded
+FlightGear property list defining the instrument's layers and actions.
+
+Each instrument is composed of layers stacked on top of each other.
+A layer may be a texture (with transparent parts to show the layers
+underneath), text, or a special layer that switches between two
+others (say, to turn an indicator light on or off).  Each layer can
+move independently in proportion to a property value, and text
+can be generated from property values as well: all of the layer's
+movements are defined as transformations.
+
+Actions are hotspots on the instrument that will respond to a mouse
+click.  Actions always modify the values of properties, either by
+adjusting them, toggling them, or swaping them with other
+properties' values.
+-->
+
+<PropertyList>
+ 
+ <name>NavCom Radio</name>
+ <w-base>256</w-base>
+ <h-base>64</h-base>
+
+ <params>
+  <comm-freq-selected-prop>/instrumentation/comm[0]/frequencies/selected-mhz</comm-freq-selected-prop>
+  <comm-freq-standby-prop>/instrumentation/comm[0]/frequencies/standby-mhz</comm-freq-standby-prop>
+  <nav-freq-selected-prop>/instrumentation/nav[0]/frequencies/selected-mhz</nav-freq-selected-prop>
+  <nav-freq-standby-prop>/instrumentation/nav[0]/frequencies/standby-mhz</nav-freq-standby-prop>
+  <nav-morse-id-volume-prop>/instrumentation/nav[0]/volume</nav-morse-id-volume-prop>
+  <nav-morse-ident-toggle-prop>/instrumentation/nav[0]/ident</nav-morse-ident-toggle-prop>
+ </params>
+
+ <layers>
+
+ <layer>
+   <name>background</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/navcom-radios.rgb</path>
+    <x1>0.0</x1>
+    <y1>0.75</y1>
+    <x2>1.0</x2>
+    <y2>1.0</y2>
+   </texture>
+  </layer>
+
+  <layer>
+   <name>nav frequencies</name>
+   <type>text</type>
+   <font>led</font>
+   <point-size>7</point-size>
+   <color>
+    <red>1.0</red>
+    <green>0.5</green>
+    <blue>0.0</blue>
+   </color>
+   <chunks>
+    <chunk>
+     <type>number-value</type>
+     <property alias="../../../../../params/nav-freq-selected-prop"/>
+     <format>%.2f</format>
+    </chunk>
+    <chunk>
+     <type>number-value</type>
+     <property alias="../../../../../params/nav-freq-standby-prop"/>
+     <format>%8.2f</format>
+    </chunk>
+   </chunks>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>5</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>5</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>com frequencies</name>
+   <type>text</type>
+   <font>led</font>
+   <point-size>7</point-size>
+   <color>
+    <red>1.0</red>
+    <green>0.5</green>
+    <blue>0.0</blue>
+   </color>
+   <chunks>
+    <chunk>
+     <type>number-value</type>
+     <property alias="../../../../../params/comm-freq-selected-prop"/>
+     <scale>0.999992</scale>
+     <!--The above is to ensure that 25kHz increments with an undisplayed last 0.005 are always
+     rounded down as occurs in real life-->
+     <format>%.2f</format>
+    </chunk>
+    <chunk>
+     <type>number-value</type>
+     <property alias="../../../../../params/comm-freq-standby-prop"/>
+     <scale>0.999992</scale>
+     <format>%8.2f</format>
+    </chunk>
+   </chunks>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-119</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>5</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+  <name>nav knob</name>
+  <texture>
+   <path>Aircraft/Instruments/Textures/blister.rgb</path>
+   <x1>0.0</x1>
+   <y1>0.75</y1>
+   <x2>0.25</x2>
+   <y2>1.0</y2>
+  </texture>
+  <h>20</h>
+  <w>20</w>
+  <transformations>
+   <transformation>
+    <type>x-shift</type>
+    <offset>110</offset>
+   </transformation>
+   <transformation>
+    <type>y-shift</type>
+    <offset>-14</offset>
+   </transformation>
+  </transformations>
+ </layer>
+
+ <layer>
+  <name>voice knob</name>
+  <texture>
+   <path>Aircraft/Instruments/Textures/blister.rgb</path>
+   <x1>0.0</x1>
+   <y1>0.75</y1>
+   <x2>0.25</x2>
+   <y2>1.0</y2>
+  </texture>
+  <h>20</h>
+  <w>20</w>
+  <transformations>
+   <transformation>
+    <type>x-shift</type>
+    <offset>-17</offset>
+   </transformation>
+   <transformation>
+    <type>y-shift</type>
+    <offset>-14</offset>
+   </transformation>
+   </transformations>
+  </layer>   
+
+  <layer>
+  <name>ident knob</name>
+  <texture>
+   <path>Aircraft/Instruments/Textures/blister.rgb</path>
+   <x1>0.0</x1>
+   <y1>0.75</y1>
+   <x2>0.25</x2>
+   <y2>1.0</y2>
+  </texture>
+  <w>15</w>
+  <h>15</h>
+  <transformations>
+   <transformation>
+    <type>x-shift</type>
+    <offset>40</offset>
+   </transformation>
+   <transformation>
+    <type>y-shift</type>
+    <offset>-16</offset>
+   </transformation>
+  </transformations>
+ </layer>
+  <layer>
+   <name>ident knob pointer</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/blister.rgb</path>
+    <x1>0.0</x1>
+    <y1>0.1640625</y1>
+    <x2>0.1</x2>
+    <y2>0.328125</y2>
+   </texture>
+   <w>2</w>
+   <h>6</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>40</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-16</offset>
+    </transformation>
+    <transformation>
+     <type>rotation</type>
+     <property alias="../../../../../params/nav-morse-id-volume-prop"/>
+     <min>0</min>
+     <max>1</max>
+     <scale>140</scale>
+     <offset>-140</offset>
+    </transformation>
+    <transformation>
+    <type>y-shift</type>
+    <offset>3</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>voice/ident toggle</name>
+   <type>switch</type>
+   <layer>
+   <condition>
+    <property alias="../../../../../params/nav-morse-ident-toggle-prop"/>
+   </condition>
+   <name>voice on</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/switches.rgb</path>
+    <x1>0.0</x1>
+    <y1>0.75</y1>
+    <x2>0.25</x2>
+    <y2>1.0</y2>
+   </texture>
+   <w>12</w>
+   <h>12</h>
+   <transformations>
+    <transformation>
+     <type>y-shift</type>
+     <offset>1</offset>
+    </transformation>
+   </transformations>
+   </layer>
+   <layer>
+   <name>ident on</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/switches.rgb</path>
+    <x1>0.0</x1>
+    <y1>0.0</y1>
+    <x2>0.25</x2>
+    <y2>0.30</y2>
+   </texture>
+   <w>12</w>
+   <h>15</h>
+   </layer>
+   <transformations>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-20</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+ </layers>
+
+ <actions>
+
+  <action>
+   <name>nav frequency decrease (decimal part)</name>
+   <button>0</button>
+   <x>96</x>
+   <y>-32</y>
+   <w>16</w>
+   <h>32</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/nav-freq-standby-prop"/>
+    <mask>decimal</mask>
+    <step>-0.05</step>
+    <min>0.00</min>
+    <max>1.00</max>
+    <resolution>0.05</resolution>
+    <wrap>true</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>nav frequency decrease (integer part)</name>
+   <button>1</button>
+   <x>96</x>
+   <y>-32</y>
+   <w>16</w>
+   <h>32</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/nav-freq-standby-prop"/>
+    <mask>integer</mask>
+    <step>-1</step>
+    <min>108</min>
+    <max>118</max>
+    <resolution>1</resolution>
+    <wrap>true</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>nav frequency increase (decimal part)</name>
+   <button>0</button>
+   <x>112</x>
+   <y>-32</y>
+   <w>16</w>
+   <h>32</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/nav-freq-standby-prop"/>
+    <mask>decimal</mask>
+    <step>0.05</step>
+    <min>0.00</min>
+    <max>1.00</max>
+    <resolution>0.05</resolution>
+    <wrap>true</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>nav frequency increase (integer part)</name>
+   <button>1</button>
+   <x>112</x>
+   <y>-32</y>
+   <w>16</w>
+   <h>32</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/nav-freq-standby-prop"/>
+    <mask>integer</mask>
+    <step>1</step>
+    <min>108</min>
+    <max>118</max>
+    <resolution>1</resolution>
+    <wrap>true</wrap>
+   </binding>
+  </action>
+
+
+  <action>
+   <name>com frequency decrease (decimal part)</name>
+   <button>0</button>
+   <x>-32</x>
+   <y>-32</y>
+   <w>16</w>
+   <h>32</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/comm-freq-standby-prop"/>
+    <mask>decimal</mask>
+    <step>-0.025</step>
+    <min>0.000</min>
+    <max>1.000</max>
+    <resolution>0.025</resolution>
+    <wrap>true</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>com frequency decrease (integer part)</name>
+   <button>1</button>
+   <x>-32</x>
+   <y>-32</y>
+   <w>16</w>
+   <h>32</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/comm-freq-standby-prop"/>
+    <mask>integer</mask>
+    <step>-1</step>
+    <min>118</min>
+    <max>136</max>
+    <resolution>1</resolution>
+    <wrap>true</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>com frequency increase (decimal part)</name>
+   <button>0</button>
+   <x>-16</x>
+   <y>-32</y>
+   <w>16</w>
+   <h>32</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/comm-freq-standby-prop"/>
+    <mask>decimal</mask>
+    <step>0.025</step>
+    <min>0.000</min>
+    <max>1.000</max>
+    <resolution>0.025</resolution>
+    <wrap>true</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>com frequency increase (integer part)</name>
+   <button>1</button>
+   <x>-16</x>
+   <y>-32</y>
+   <w>16</w>
+   <h>32</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/comm-freq-standby-prop"/>
+    <mask>integer</mask>
+    <step>1</step>
+    <min>118</min>
+    <max>136</max>
+    <resolution>1</resolution>
+    <wrap>true</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>swap nav frequencies</name>
+   <button>0</button>
+   <x>48</x>
+   <y>-32</y>
+   <w>32</w>
+   <h>32</h>
+   <binding>
+    <command>property-swap</command>
+    <property alias="../../../../params/nav-freq-selected-prop"/>
+    <property alias="../../../../params/nav-freq-standby-prop"/>
+   </binding>
+  </action>
+
+  <action>
+   <name>swap com frequencies</name>
+   <button>0</button>
+   <x>-80</x>
+   <y>-32</y>
+   <w>32</w>
+   <h>32</h>
+   <binding>
+    <command>property-swap</command>
+    <property alias="../../../../params/comm-freq-selected-prop"/>
+    <property alias="../../../../params/comm-freq-standby-prop"/>
+   </binding>
+  </action>
+
+
+  <action>
+   <name>ident volume increase</name>
+   <button>0</button>
+   <x>40</x>
+   <y>-24</y>
+   <w>8</w>
+   <h>16</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/nav-morse-id-volume-prop"/>
+    <step>0.5</step>
+    <min>0</min>
+    <max>2</max>
+   </binding>
+  </action>
+
+  <action>
+   <name>ident volume decrease</name>
+   <button>0</button>
+   <x>32</x>
+   <y>-24</y>
+   <w>16</w>
+   <h>8</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/nav-morse-id-volume-prop"/>
+    <step>-0.5</step>
+    <min>0</min>
+    <max>2</max>
+   </binding>
+  </action>
+ 
+  <action>
+   <name>ident volume on/off</name>
+   <button>0</button>
+   <x>-6</x>
+   <y>-30</y>
+   <w>14</w>
+   <h>16</h>
+   <binding>
+    <command>property-toggle</command>
+    <property alias="../../../../params/nav-morse-ident-toggle-prop"/>
+   </binding>
+  </action>
+
+ </actions>
+
+</PropertyList>

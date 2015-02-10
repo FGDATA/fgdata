@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<PropertyList>
+	<name>atc-freq-search</name>
+	<layout>vbox</layout>
+
+	<text>
+		<label>Display Airport Frequencies</label>
+	</text>
+
+	<hrule/>
+
+	<group>
+		<name>quick-buttons</name>
+		<layout>hbox</layout>
+		<halign>center</halign>
+		<button-template>
+			<enabled>false</enabled>
+			<legend>ICAO</legend>
+			<binding>
+				<command>ATC-freq-display</command>
+				<icao type="string">ICAO</icao>
+			</binding>
+			<binding>
+				<command>dialog-close</command>
+			</binding>
+		</button-template>
+	</group>
+
+	<text>
+		<name>no-atc-in-range</name>
+		<enabled>false</enabled>
+		<label>No ATC in range 50 nm.</label>
+	</text>
+
+	<group>
+		<layout>hbox</layout>
+		<empty><stretch>true</stretch></empty>
+		<text>
+			<label>Airport identifier:</label>
+		</text>
+		<input>
+			<halign>fill</halign>
+			<stretch>false</stretch>
+			<property>/sim/atc/freq-airport</property>
+		</input>
+		<empty><stretch>true</stretch></empty>
+	</group>
+
+	<group>
+		<layout>hbox</layout>
+		<halign>fill</halign>
+		<default-padding>10</default-padding>
+		<empty><stretch>true</stretch></empty>
+
+		<button>
+			<legend>OK</legend>
+			<default>true</default>
+			<equal>true</equal>
+			<binding>
+				<command>dialog-apply</command>
+			</binding>
+			<binding>
+				<command>ATC-freq-display</command>
+			</binding>
+			<binding>
+				<command>dialog-close</command>
+			</binding>
+		</button>
+
+		<empty><stretch>true</stretch></empty>
+
+		<button>
+			<legend>Cancel</legend>
+			<equal>true</equal>
+			<key>Esc</key>
+			<binding>
+				<command>dialog-close</command>
+			</binding>
+		</button>
+
+		<empty><stretch>true</stretch></empty>
+	</group>
+
+</PropertyList>

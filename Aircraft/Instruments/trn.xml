@@ -1,0 +1,181 @@
+<?xml version="1.0"?>
+
+<!--
+trn.xml
+
+Turn coordinator from C172-S
+
+Martin Dressler dr@musicabona.cz
+Jan 28 2003
+
+
+-->
+
+<PropertyList>
+
+ <name>C172-S Turn coordiantor</name>
+ <w-base>512</w-base>
+ <h-base>512</h-base>
+ 
+ <layers>
+ 
+  <layer>
+   <name>tube-back</name>
+   <w>304</w>
+   <h>80</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/misc1.rgb</path>
+    <x1>0.0</x1>
+    <x2>0.59375</x2>
+    <y1>0.84375</y1>
+    <y2>1.0</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-78</offset>
+    </transformation>
+   </transformations>
+  </layer>
+				  
+  <layer>
+   <name>ball</name>
+   <w>62</w>
+   <h>80</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/misc1.rgb</path>
+    <x1>0.591796875</x1>
+    <x2>0.716796875</x2>
+    <y1>0.84375</y1>
+    <y2>1.0</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>y-shift</type>
+     <property>/instrumentation/slip-skid-ball/indicated-slip-skid</property>
+     <min>-1.1</min>
+     <max>0.0</max>
+     <scale>-13.0</scale>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <property>/instrumentation/slip-skid-ball/indicated-slip-skid</property>
+     <min>0.0</min>
+     <max>1.1</max>
+     <scale>13.0</scale>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-84</offset>
+    </transformation>
+    <transformation>
+     <type>x-shift</type>
+     <property>/instrumentation/slip-skid-ball/indicated-slip-skid</property>
+     <min>-1.1</min>
+     <max>1.1</max>
+     <scale>-108.0</scale>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>ON</name>
+   <condition>
+    <greater-than-equals>
+     <property>/instrumentation/turn-indicator/spin</property>
+     <value>0.7</value>
+    </greater-than-equals>
+   </condition>
+   <w>56</w>
+   <h>64</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/misc1.rgb</path>
+    <x1>0.890625</x1>
+    <x2>1.0</x2>
+    <y1>0.0</y1>
+    <y2>0.125</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>119</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>32</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>OFF</name>
+   <condition>
+    <less-than>
+     <property>/instrumentation/turn-indicator/spin</property>
+     <value>0.7</value>
+    </less-than>
+   </condition>
+   <w>56</w>
+   <h>64</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/misc1.rgb</path>
+    <x1>0.890625</x1>
+    <x2>1.0</x2>
+    <y1>0.125</y1>
+    <y2>0.25</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>119</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>32</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>foreground</name>
+   <w>512</w>
+   <h>512</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/trn1.rgb</path>
+    <x1>0.0</x1>
+    <x2>1.0</x2>
+    <y1>0.0</y1>
+    <y2>1.0</y2>
+   </texture>
+  </layer>
+
+  <layer>
+   <name>plane</name>
+   <w>88</w>
+   <h>320</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/misc1.rgb</path>
+    <x1>0.828125</x1>
+    <x2>1.0</x2>
+    <y1>0.375</y1>
+    <y2>1.0</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>rotation</type>
+     <property>/instrumentation/turn-indicator/indicated-turn-rate</property>
+     <min>-2.5</min>
+     <max>2.5</max>
+     <scale>20.0</scale>
+     <offset>-90</offset>
+    </transformation>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-4</offset>
+    </transformation>
+   </transformations>
+  </layer>
+ 
+ </layers>
+
+</PropertyList>

@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+    <name>ap_help</name>
+    <layout>vbox</layout>
+
+    <text>
+        <label>--- Autopilot Functions ---</label>
+        <halign>center</halign>
+    </text>
+
+    <hrule/>
+
+
+    <text>
+        <label>Notes:    All AP buttons must be pressed and held for 1/4 second to activate.
+        Activating autopilot without a mode selected will hold current pitch and roll.</label>
+        <halign>left</halign>
+    </text>
+
+    <text>
+        <label>   </label>
+        <halign>center</halign>
+    </text>
+
+    <hrule/>
+
+    <group>
+    <layout>table</layout>
+<!--HDG -->
+
+    <text>
+        <row>0</row>
+        <col>0</col>
+        <label>HDG:   Set heading bug with knob on pedestal.Press top of knob ( push HDG sync )
+        to set the hdg bug to current heading..Press HDG to activate.</label>
+    </text>
+
+    <text>
+        <row>1</row>
+        <col>0</col>
+        <label></label>
+    </text>
+
+    <text>
+        <row>3</row>
+        <col>0</col>
+        <label>NAV:   Set desired course with knob on pedestal.Press top of knob
+        ( push CRS direct ) to set course to current heading.</label>
+    </text>
+
+    <text>
+        <row>6</row>
+        <col>0</col>
+        <label>APPR:   Arms autopilot for ILS approach. Nav radio must be tuned to ILS frequency.
+        Glideslope will not activate unless localizer is captured</label>
+    </text>
+
+    </group>
+
+<hrule/>
+
+  <button>
+    <legend>Close</legend>
+    <default>true</default>
+    <key>Esc</key>
+    <binding>
+      <command>dialog-close</command>
+    </binding>
+  </button>
+
+</PropertyList>

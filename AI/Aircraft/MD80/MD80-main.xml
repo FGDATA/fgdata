@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<PropertyList>
+	<nasal>
+		<load>
+		 var model = cmdarg();
+		 model.getNode("door[0]/position-x-m",1).setValue(-19.241);
+		 model.getNode("door[0]/position-y-m",1).setValue(-1.529);
+		 model.getNode("door[0]/position-z-m",1).setValue(2.505);
+		 model.getNode("door[0]/jetway-hood-deg",1).setValue(3);
+		</load>
+	</nasal>
+</PropertyList>
+
+

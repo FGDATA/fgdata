@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<PropertyList>
+
+  <path>taxi-light-cone.ac</path>
+ 
+  <effect>
+  <inherits-from>Effects/light-cone</inherits-from>
+  <object-name>Cone</object-name>
+  </effect>
+<!--
+  <animation>
+    <type>select</type>
+    <object-name>Cone</object-name>
+    <object-name>Cone-texture</object-name>
+    <object-name>Light</object-name>
+    <condition>
+      <property>/controls/switches/taxilight-switch</property>
+    </condition>
+  </animation>
+-->
+</PropertyList>

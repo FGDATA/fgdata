@@ -1,0 +1,404 @@
+<?xml version="1.0"?>
+<!--
+
+This is the BENDIX/KING Radar Altimeter KRA-10A
+
+Started July 2005 by Torsten Dreyer Torsten@t3r.de
+
+To use it, place the following xml snippet in your panel definition file
+
+<instrument include="../Instruments/kra-10a.xml">
+  <name>Radio Altimeter</name>
+  <x>100</x>
+  <y>100</y>
+  <w>90</w>
+  <h>90</h>
+</instrument>
+
+for more information, see the README.xmlpanel in the FlightGear base package.
+
+This is an instrument configuration file for the open-source flight
+simulator FlightGear (www.flightgear.org).  The file is an XML-encoded
+FlightGear property list defining the instrument's layers and actions.
+
+-->
+<PropertyList>
+  <name>Radar Altimeter</name>
+  <w-base>512</w-base>
+  <h-base>512</h-base>
+  <params>
+    <height>/position/altitude-agl-ft</height>
+    <decision-height>/instrumentation/radar-altimeter/decision-height</decision-height>
+  </params>
+  <layers>
+    <layer>
+      <name>background</name>
+      <texture>
+        <path>Aircraft/Instruments/Textures/kra-10a-1.rgb</path>
+        <x1>0.0</x1>
+        <y1>0.0</y1>
+        <x2>1.0</x2>
+        <y2>1.0</y2>
+      </texture>
+      <w>512</w>
+      <h>512</h>
+    </layer>
+    <layer>
+      <name>DH Bug</name>
+      <texture>
+        <path>Aircraft/Instruments/Textures/kra-10a-2.rgb</path>
+        <x1>0.419921875</x1>
+        <y1>0.0</y1>
+        <x2>0.489746093</x2>
+        <y2>0.049238281</y2>
+      </texture>
+      <w>42</w>
+      <h>42</h>
+      <transformations>
+        <transformation>
+          <type>rotation</type>
+          <property alias="../../../../../params/decision-height"/>
+          <min>0</min>
+          <max>2500</max>
+          <scale>1.00</scale>
+          <offset>0</offset>
+          <interpolation>
+            <entry><ind>  0</ind><dep>  0.0</dep></entry>
+            <entry><ind>  50</ind><dep> 16.0</dep></entry>
+            <entry><ind> 100</ind><dep> 32.0</dep></entry>
+            <entry><ind> 200</ind><dep> 64.0</dep></entry>
+            <entry><ind> 300</ind><dep> 95.0</dep></entry>
+            <entry><ind> 400</ind><dep>129.0</dep></entry>
+            <entry><ind> 500</ind><dep>160.0</dep></entry>
+            <entry><ind>1000</ind><dep>182.0</dep></entry>
+            <entry><ind>1500</ind><dep>202.0</dep></entry>
+            <entry><ind>2000</ind><dep>222.0</dep></entry>
+            <entry><ind>2500</ind><dep>241.0</dep></entry>
+          </interpolation>
+        </transformation>
+        <transformation>
+          <type>y-shift</type>
+          <offset>204</offset>
+        </transformation>
+        <transformation>
+          <type>x-shift</type>
+          <offset>-5</offset>
+        </transformation>
+      </transformations>
+    </layer>
+    <layer>
+      <name>Needle</name>
+      <texture>
+        <path>Aircraft/Instruments/Textures/kra-10a-2.rgb</path>
+        <x1>0.1953125</x1>
+        <y1>0.0</y1>
+        <x2>0.2308789</x2>
+        <y2>0.22546875</y2>
+      </texture>
+      <w>32</w>
+      <h>176</h>
+      <transformations>
+        <transformation>
+          <type>rotation</type>
+          <property alias="../../../../../params/height"/>
+          <min>0</min>
+          <max>3000</max>
+          <scale>1.00</scale>
+          <offset>0</offset>
+          <interpolation>
+            <entry><ind>   0</ind><dep>270.0</dep></entry>
+            <entry><ind>  20</ind><dep>270.0</dep></entry>
+            <entry><ind>  30</ind><dep> 10.0</dep></entry>
+            <entry><ind>  50</ind><dep> 16.0</dep></entry>
+            <entry><ind> 100</ind><dep> 30.0</dep></entry>
+            <entry><ind> 200</ind><dep> 62.0</dep></entry>
+            <entry><ind> 300</ind><dep> 93.0</dep></entry>
+            <entry><ind> 400</ind><dep>127.0</dep></entry>
+            <entry><ind> 500</ind><dep>160.0</dep></entry>
+            <entry><ind>1000</ind><dep>180.0</dep></entry>
+            <entry><ind>1500</ind><dep>200.0</dep></entry>
+            <entry><ind>2000</ind><dep>220.0</dep></entry>
+            <entry><ind>2500</ind><dep>240.0</dep></entry>
+            <entry><ind>2700</ind><dep>270.0</dep></entry>
+          </interpolation>
+        </transformation>
+        <transformation>
+          <type>y-shift</type>
+          <offset>100</offset>
+        </transformation>
+      </transformations>
+    </layer>
+    <layer>
+      <name>DH Light on</name>
+      <condition>
+        <and>
+          <greater-than>
+            <property alias="../../../../../../params/decision-height"/>
+            <property alias="../../../../../../params/height"/>
+          </greater-than>
+          <greater-than>
+            <property alias="../../../../../../params/height"/>
+            <value>30</value>
+          </greater-than>
+        </and>
+      </condition>
+      <texture>
+        <path>Aircraft/Instruments/Textures/kra-10a-2.rgb</path>
+        <x1>0.234375</x1>
+        <y1>0.0</y1>
+        <x2>0.32226563</x2>
+        <y2>0.087890625</y2>
+      </texture>
+      <w>45</w>
+      <h>45</h>
+      <transformations>
+        <transformation>
+          <type>y-shift</type>
+          <offset>140</offset>
+        </transformation>
+        <transformation>
+          <type>x-shift</type>
+          <offset>-60</offset>
+        </transformation>
+      </transformations>
+    </layer>
+    <layer>
+      <name>DH Light off</name>
+      <condition>
+        <or>
+          <less-than-equals>
+            <property alias="../../../../../../params/decision-height"/>
+            <property alias="../../../../../../params/height"/>
+          </less-than-equals>
+          <less-than-equals>
+            <property alias="../../../../../../params/height"/>
+            <value>30</value>
+          </less-than-equals>
+        </or>
+      </condition>
+      <texture>
+        <path>Aircraft/Instruments/Textures/kra-10a-2.rgb</path>
+        <x1>0.322265625</x1>
+        <y1>0.0</y1>
+        <x2>0.41015625</x2>
+        <y2>0.087890625</y2>
+      </texture>
+      <w>45</w>
+      <h>45</h>
+      <transformations>
+        <transformation>
+          <type>y-shift</type>
+          <offset>140</offset>
+        </transformation>
+        <transformation>
+          <type>x-shift</type>
+          <offset>-60</offset>
+        </transformation>
+      </transformations>
+    </layer>
+    <layer>
+      <name>mask</name>
+      <texture>
+        <path>Aircraft/Instruments/Textures/kra-10a-2.rgb</path>
+        <x1>0.0</x1>
+        <y1>0.41796875</y1>
+        <x2>0.57390625</x2>
+        <y2>0.856269531</y2>
+      </texture>
+      <w>293</w>
+      <h>224</h>
+      <transformations>
+        <transformation>
+          <type>y-shift</type>
+          <offset>34</offset>
+        </transformation>
+        <transformation>
+          <type>x-shift</type>
+          <offset>-78</offset>
+        </transformation>
+      </transformations>
+    </layer>
+    <layer>
+      <name>DH Knob</name>
+      <texture>
+        <path>Aircraft/Instruments/Textures/kra-10a-2.rgb</path>
+        <x1>0.0</x1>
+        <y1>0.0</y1>
+        <x2>0.189453125</x2>
+        <y2>0.189453125</y2>
+      </texture>
+      <w>90</w>
+      <h>90</h>
+      <transformations>
+        <transformation>
+          <type>y-shift</type>
+          <offset>-180</offset>
+        </transformation>
+        <transformation>
+          <type>x-shift</type>
+          <offset>-180</offset>
+      </transformation>
+      <transformation>
+        <type>rotation</type>
+          <property alias="../../../../../params/decision-height"/>
+          <scale>-1</scale>
+        </transformation>
+      </transformations>
+    </layer>
+  </layers>
+  <!-- **************** ACTIONS **************** -->
+  <actions>
+    <action>
+      <name>DH small clockwise rotation</name>
+      <button>0</button>
+      <x>-225</x>
+      <y>-225</y>
+      <w>45</w>
+      <h>90</h>
+      <binding>
+        <!-- do steps of 10 above 500ft -->
+        <condition>
+          <greater-than-equals>
+            <property alias="../../../../../../params/decision-height"/>
+            <value>500</value>
+          </greater-than-equals>
+        </condition>
+        <command>property-adjust</command>
+        <property alias="../../../../params/decision-height"/>
+        <step>10.0</step>
+        <min>0</min>
+        <max>2500</max>
+        <wrap>false</wrap>
+      </binding>
+      <binding>
+        <!-- do steps of 1 below 500ft -->
+        <condition>
+          <less-than>
+            <property alias="../../../../../../params/decision-height"/>
+            <value>500</value>
+          </less-than>
+        </condition>
+        <command>property-adjust</command>
+        <property alias="../../../../params/decision-height"/>
+        <step>1.0</step>
+        <min>0</min>
+        <max>2500</max>
+        <wrap>false</wrap>
+      </binding>
+    </action>
+    <action>
+      <name>DH small counter clockwise rotation</name>
+      <button>0</button>
+      <x>-180</x>
+      <y>-225</y>
+      <w>45</w>
+      <h>90</h>
+      <binding>
+        <!-- do steps of -10 above 510ft -->
+        <condition>
+          <greater-than-equals>
+            <property alias="../../../../../../params/decision-height"/>
+            <value>510</value>
+          </greater-than-equals>
+        </condition>
+        <command>property-adjust</command>
+        <property alias="../../../../params/decision-height"/>
+        <step>-10.0</step>
+        <min>0</min>
+        <max>2500</max>
+        <wrap>false</wrap>
+      </binding>
+      <binding>
+        <!-- do steps of -1 below 510 -->
+        <condition>
+          <less-than>
+            <property alias="../../../../../../params/decision-height"/>
+            <value>510</value>
+          </less-than>
+        </condition>
+        <command>property-adjust</command>
+        <property alias="../../../../params/decision-height"/>
+        <step>-1.0</step>
+        <min>0</min>
+        <max>2500</max>
+        <wrap>false</wrap>
+      </binding>
+    </action>
+    <action>
+      <name>DH large clockwise rotation</name>
+      <button>1</button>
+      <x>-225</x>
+      <y>-225</y>
+      <w>45</w>
+      <h>90</h>
+      <binding>
+        <!-- do steps of 100 above 500ft -->
+        <condition>
+          <greater-than-equals>
+            <property alias="../../../../../../params/decision-height"/>
+            <value>500</value>
+          </greater-than-equals>
+        </condition>
+        <command>property-adjust</command>
+        <property alias="../../../../params/decision-height"/>
+        <step>100.0</step>
+        <min>0</min>
+        <max>2500</max>
+        <wrap>false</wrap>
+      </binding>
+      <binding>
+        <!-- do steps of 10 below 500ft -->
+        <condition>
+          <less-than>
+            <property alias="../../../../../../params/decision-height"/>
+            <value>500</value>
+          </less-than>
+        </condition>
+        <command>property-adjust</command>
+        <property alias="../../../../params/decision-height"/>
+        <step>10.0</step>
+        <min>0</min>
+        <max>2500</max>
+        <wrap>false</wrap>
+      </binding>
+    </action>
+    <action>
+      <name>DH large counter clockwise rotation</name>
+      <button>1</button>
+      <x>-180</x>
+      <y>-225</y>
+      <w>45</w>
+      <h>90</h>
+      <binding>
+        <!-- do steps of -100 above 600ft -->
+        <condition>
+          <greater-than-equals>
+            <property alias="../../../../../../params/decision-height"/>
+            <value>600</value>
+          </greater-than-equals>
+        </condition>
+        <command>property-adjust</command>
+        <property alias="../../../../params/decision-height"/>
+        <step>-100.0</step>
+        <min>0</min>
+        <max>2500</max>
+        <wrap>false</wrap>
+      </binding>
+      <binding>
+        <!-- do steps of -10 below 600ft -->
+        <condition>
+          <less-than>
+            <property alias="../../../../../../params/decision-height"/>
+            <value>600</value>
+          </less-than>
+        </condition>
+        <command>property-adjust</command>
+        <property alias="../../../../params/decision-height"/>
+        <step>-10.0</step>
+        <min>0</min>
+        <max>2500</max>
+        <wrap>false</wrap>
+      </binding>
+    </action>
+  </actions>
+</PropertyList>

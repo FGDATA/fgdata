@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<PropertyList>
+
+<name>Nav Panel</name>
+<background>Aircraft/CitationX/Models/Instruments/MFD/transparent.png</background>
+<w>512</w>
+<h>602</h>
+
+<instruments>
+    <instrument include="nd1.xml">
+    <condition>
+        <property>instrumentation/nd/serviceable</property>
+    </condition>
+    </instrument>
+
+<instrument include="nd2.xml">
+    <condition>
+        <property>instrumentation/nd/serviceable</property>
+    </condition>
+    </instrument>
+
+    <instrument include="tcas1.xml">
+    <condition>
+        <and>
+            <property>instrumentation/nd/serviceable</property>
+            <property>instrumentation/primus2000/dc840/tcas</property>
+        </and>
+    </condition>
+    </instrument>
+
+</instruments>
+
+</PropertyList>

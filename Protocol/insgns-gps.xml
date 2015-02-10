@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+
+<!-- Example usage: <dash><dash>generic=file,out,4,fgfs.gps,insgns-gps -->
+
+<PropertyList>
+
+ <generic>
+
+  <output>
+   <line_separator>newline</line_separator>
+   <var_separator>tab</var_separator>
+
+   <chunk>
+    <name>time (sec)</name>
+    <type>float</type>
+    <format>%.4f</format>
+    <node>/sim/time/elapsed-sec</node>
+   </chunk>
+
+   <chunk>
+    <name>latitude (rad)</name>
+    <type>float</type>
+    <format>%.10f</format>
+    <node>/position/latitude-deg</node>
+    <factor>0.01745329251994329576</factor>  <!-- degrees to radians -->
+   </chunk>
+
+   <chunk>
+    <name>longitude (rad)</name>
+    <type>float</type>
+    <format>%.10f</format>
+    <node>/position/longitude-deg</node>
+    <factor>0.01745329251994329576</factor>  <!-- degrees to radians -->
+   </chunk>
+
+   <chunk>
+    <name>negative altitiude (m)</name>
+    <type>float</type>
+    <format>%.3f</format>
+    <node>/position/altitude-ft</node>
+    <factor>-0.3048</factor>                  <!-- feet to meter -->
+   </chunk>
+
+   <chunk>
+    <name>Velocity North ("vn" mps)</name>
+    <type>float</type>
+    <format>%.8f</format>
+    <node>/velocities/speed-north-fps</node>
+    <factor>0.3048</factor>                  <!-- fps to mps -->
+   </chunk>
+
+   <chunk>
+    <name>Velocity East ("ve" mps)</name>
+    <type>float</type>
+    <format>%.8f</format>
+    <node>/velocities/speed-east-fps</node>
+    <factor>0.3048</factor>                  <!-- fps to mps -->
+   </chunk>
+
+   <chunk>
+    <name>Velocity Down ("vd" mps)</name>
+    <type>float</type>
+    <format>%.8f</format>
+    <node>/velocities/speed-down-fps</node>
+    <factor>0.3048</factor>                  <!-- fps to mps -->
+   </chunk>
+  </output>
+
+ </generic>
+
+</PropertyList>

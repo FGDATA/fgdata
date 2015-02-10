@@ -1,0 +1,63 @@
+<?xml version="1.0" ?>
+<!--
+************************************************************************
+*
+* Bindings for MFTech RC USB-Interface
+*
+* http://www.mftech.de/usb-interface.htm#RC_USB-Interface_II
+*
+* Adjusted for the use with BO-105
+*
+* Martin Spott
+* 2007/01/27
+*
+************************************************************************
+-->
+
+<PropertyList>
+
+ <name>MFTech RC_USB</name>
+
+ <axis n="0">
+  <desc>Bank</desc>
+  <direction>right</direction>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/aileron</property>
+   <offset type="double">0.0</offset>
+   <factor type="double">1.0</factor>
+  </binding>
+ </axis>
+
+ <axis n="5">
+  <desc>Pitch</desc>
+  <direction>down/forward</direction>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/elevator</property>
+   <factor type="double">1.0</factor>
+  </binding>
+ </axis>
+
+ <axis n="2">
+  <desc>Tail</desc>
+  <direction>right</direction>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/rudder</property>
+   <factor type="double">-1.0</factor>
+  </binding>
+ </axis>
+
+ <axis n="1">
+  <desc>Collective</desc>
+  <direction>forward</direction>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/engines/engine/throttle</property>
+   <offset type="double">1.0</offset>
+   <factor type="double">0.6</factor>
+  </binding>
+ </axis>
+
+</PropertyList>

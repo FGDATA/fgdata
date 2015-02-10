@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+
+<!-- ******************************************************
+
+Defines a Tachiametric Gunsight.  A Tachiametric gunsight
+uses angle rates combined with range to calculate aim-off. 
+Range can eiher be estimated or measured.  In this 
+implementation range can indicated by an arc variable 
+by length and radius.
+
+$Id$
+
+*********************************************************** -->
+
+
+<PropertyList>
+	<name>Tachiametric Gunsight</name>
+	<enable3d>true</enable3d>
+
+	<aiming-reticle>
+
+		<condition>
+			<equals>
+				<property>/sim/current-view/name</property>
+				<value>Cockpit View</value>
+			</equals>
+		</condition>
+
+		<active-condition>
+			<property>/sim/aim/active</property>
+		</active-condition>
+
+		<tachy-condition>
+			<property>/sim/aim/tachy</property>
+		</tachy-condition>
+
+		<align-condition>
+			<property>/sim/aim/align</property>
+		</align-condition>
+
+		<yaw-input>
+			<property>/orientation/yaw-rate-degps</property>
+			<factor>-1.0</factor>
+			<damp>2.0</damp>
+		</yaw-input>
+
+		<pitch-input>
+			<property>/orientation/pitch-rate-degps</property>
+			<factor>-1.0</factor>
+			<damp>1.5</damp>
+		</pitch-input>
+
+		<offset-x-input>
+			<property>/sim/aim/offsets/x</property>
+		</offset-x-input>
+
+		<offset-y-input>
+			<property>/sim/aim/offsets/y</property>
+		</offset-y-input>
+
+		<speed-input>
+			<property>/sim/aim/speed-fps</property>
+		</speed-input>
+
+		<range-input>
+			<property>/sim/aim/range-yds</property>
+		</range-input>
+
+		<!-- defines the diameter and length of the adjustable outer arc -->
+		<diameter-input>
+			<property>/sim/aim/radius</property>
+		</diameter-input>
+
+		<arc-start-input>
+			<property>/sim/aim/arc/start-deg</property>
+		</arc-start-input>
+
+		<arc-stop-input>
+			<property>/sim/aim/arc/stop-deg</property>
+		</arc-stop-input>
+
+		<x>-9</x>
+		<y>-15</y>
+		<width>15</width>
+		<height>15</height>
+		<compression-factor>10</compression-factor>
+		<limit-x>80</limit-x>
+		<limit-y>40</limit-y>
+
+	</aiming-reticle>
+
+</PropertyList>

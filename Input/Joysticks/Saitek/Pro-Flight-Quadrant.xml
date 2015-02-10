@@ -1,0 +1,297 @@
+<?xml version="1.0"?>
+<!-- Saitek Pro Flight Quadrant
+
+  Copyright (C) 2008         Ronald Jensen  (wino(at)jentronics.com)
+  Copyright (C) 2009 - 2010  Anders Gidenstam  (anders(at)gidenstam.org)
+  This file is released under the GPL license version 2.
+-->
+<PropertyList>
+ <name>Saitek Saitek Pro Flight Quadrant</name>
+ <name>Saitek Pro Flight Quadrant</name>
+ <name>Saitek Pro Flight Throttle Quadrant</name>
+
+ <nasal>
+  <script>
+   <![CDATA[
+     var self = cmdarg().getParent();
+     var data = self.getNode("data");
+     var engine_select_mode  = 0;
+     # TM0: All selected; TM1: #1-#3; TM2: #3-#6
+     var engine_axis_mode    = 0;
+     # Valid only in TM1 and TM2.
+     #   EA0: throttle
+     #   EA1: mixure
+     #   EA2: propeller
+     var pressed             = [0,0,0,0,0,0];
+     var engine              = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+     # Do per-aircraft modifications
+     if (contains({"Aircraft/Short_Empire/Models/Short_Empire-model.xml" : 0,
+                   "Aircraft/Lockheed1049/Models/Lockheed1049_twa.xml"   : 0},
+                  getprop("/sim/model/path"))) {
+       # Map port outer to axis 0, starboard outer to axis 2 and
+       # the inner engines to axis 1.
+       engine = [0, [1, 2], 3];
+     }
+     if (contains({"Aircraft/DO-X/Models/dox.xml"   : 0},
+                  getprop("/sim/model/path"))) {
+       engine = [[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11]];
+     }
+     if (contains({"Aircraft/Nordstern/Models/Nordstern.xml"   : 0},
+                  getprop("/sim/model/path"))) {
+       engine = [0, 1, [2, 3]];
+     }
+
+     var kbdctrl  = props.globals.getNode("/devices/status/keyboard/ctrl", 1);
+     var kbdalt   = props.globals.getNode("/devices/status/keyboard/alt", 1);
+
+     var axis_handler = func(axis) {
+       if (engine_select_mode == 0) {
+         if (axis == 0) {
+           controls.throttleAxis();
+         } elsif (axis == 1) {
+           controls.propellerAxis();
+         } elsif (axis == 2) {
+           controls.mixtureAxis();
+         }
+       } else {
+         controls.perEngineSelectedAxisHandler(engine_axis_mode)
+             (engine[axis + 3*(engine_select_mode - 1)]);
+       }
+     }
+
+     var trace = func(str) {
+       # Uncomment the line below to trace button presses.
+       #print("Pro-Flight-Quadrant.xml: " ~ str);
+     }
+   ]]>
+  </script>
+ </nasal>
+
+ <!-- Levers left to right. -->
+ <axis>
+  <name>Left lever</name>
+  <number>
+   <unix>0</unix>
+   <mac>0</mac>
+   <windows>0</windows>
+  </number>
+  <desc>TM0: throttle, TM1: throttle/propeller 1, TM2: throttle/propeller 4</desc>
+  <binding>
+   <command>nasal</command>
+   <script>axis_handler(0)</script>
+  </binding>
+ </axis>
+ <axis>
+  <name>Middle lever</name>
+  <number>
+   <unix>1</unix>
+   <mac>1</mac>
+   <windows>1</windows>
+  </number>
+  <desc>TM0: propeller, TM1: throttle/propeller 2, TM2: throttle/propeller 5</desc>
+  <binding>
+   <command>nasal</command>
+   <script>axis_handler(1)</script>
+  </binding>
+ </axis>
+ <axis>
+  <name>Right lever</name>
+  <number>
+   <unix>2</unix>
+   <mac>2</mac>
+   <windows>2</windows>
+  </number>
+  <desc>TM0: mixture, TM1: throttle/propeller 3, TM2: throttle/propeller 6</desc>
+  <binding>
+   <command>nasal</command>
+   <script>axis_handler(2)</script>
+  </binding>
+ </axis>
+
+ <!-- 2-way rocker switches. Left to right. -->
+ <button>
+  <name>Left button up</name>
+  <number>
+   <unix>0</unix>
+   <mac>0</mac>
+   <windows>0</windows>
+  </number>
+  <desc>Flaps up</desc>
+  <repeatable>false</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.flapsDown(-1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.flapsDown(0)</script>
+   </binding>
+  </mod-up>
+  <mod-shift>
+   <binding>
+    <command>nasal</command>
+    <script>
+      trace("Button 0 + shift pressed!");
+      gui.popupTip("Saitek Quadrant: Throttle Mode 1");
+      engine_select_mode = 1;
+    </script>
+   </binding>
+  </mod-shift>
+ </button>
+ <button n="1">
+  <name>Left button down</name>
+  <number>
+   <unix>1</unix>
+   <mac>1</mac>
+   <windows>1</windows>
+  </number>
+  <desc>Flaps down</desc>
+  <repeatable>false</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.flapsDown(1)</script>
+  </binding>
+  <mod-shift>
+   <binding>
+    <command>nasal</command>
+    <script>
+      trace("Button 1 + shift pressed!");
+      gui.popupTip("Saitek Quadrant: Throttle Mode 0");
+      engine_select_mode = 0;
+    </script>
+   </binding>
+  </mod-shift>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.flapsDown(0)</script>
+   </binding>
+  </mod-up>
+ </button>
+
+ <button>
+  <name>Middle button up</name>
+  <number>
+   <unix>2</unix>
+   <mac>2</mac>
+   <windows>2</windows>
+  </number>
+  <desc>Elevator trim up</desc>
+  <repeatable>true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.elevatorTrim(-0.75)</script>
+  </binding>
+  <mod-shift>
+   <binding>
+    <command>nasal</command>
+    <script>
+      trace("Button 2 + shift pressed!");
+      if (engine_select_mode) gui.popupTip("Saitek Quadrant: Throttle control");
+      engine_axis_mode = 0;
+    </script>
+   </binding>
+  </mod-shift>
+ </button>
+ <button>
+  <name>Middle button down</name>
+  <number>
+   <unix>3</unix>
+   <mac>3</mac>
+   <windows>3</windows>
+  </number>
+  <desc>Elevator trim down</desc>
+  <repeatable>true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.elevatorTrim(0.75)</script>
+  </binding>
+  <mod-shift>
+   <binding>
+    <command>nasal</command>
+    <script>
+      trace("Button 3 + shift pressed!");
+      if (engine_select_mode)
+        gui.popupTip("Saitek Quadrant: Propeller control");
+      engine_axis_mode = 2;
+    </script>
+   </binding>
+  </mod-shift>
+ </button>
+
+ <button>
+  <name>Right button up</name>
+  <number>
+   <unix>4</unix>
+   <mac>4</mac>
+   <windows>4</windows>
+  </number>
+  <desc>Gear up</desc>
+  <repeatable>false</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.gearDown(-1)</script>
+  </binding>
+ </button>
+ <button>
+  <name>Right button down</name>
+  <number>
+   <unix>5</unix>
+   <mac>5</mac>
+   <windows>5</windows>
+  </number>
+  <desc>Gear down</desc>
+  <repeatable>false</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.gearDown(1)</script>
+  </binding>
+ </button>
+
+ <!-- Axis reverse area switches. -->
+ <button>
+  <name>Left lever reverse</name>
+  <number>
+   <unix>6</unix>
+   <mac>6</mac>
+   <windows>6</windows>
+  </number>
+  <desc></desc>
+  <repeatable>false</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script></script>
+  </binding>
+ </button>
+ <button>
+  <name>Middle lever reverse</name>
+  <number>
+   <unix>7</unix>
+   <mac>7</mac>
+   <windows>7</windows>
+  </number>
+  <desc></desc>
+  <repeatable>false</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script></script>
+  </binding>
+ </button>
+ <button>
+  <name>Right lever reverse</name>
+  <number>
+   <unix>8</unix>
+   <mac>8</mac>
+   <windows>8</windows>
+  </number>
+  <desc></desc>
+  <repeatable>false</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script></script>
+  </binding>
+ </button>
+
+</PropertyList>

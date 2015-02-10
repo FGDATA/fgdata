@@ -1,0 +1,242 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+  <name>LCD GPS display</name>
+  <w-base>1024</w-base>
+  <h-base>1024</h-base>
+  <layers>
+
+    <!-- Line 0, top of screen -->
+    <layer>
+      <name>line 0</name>
+      <condition>
+	<greater-than>
+          <property>/instrumentation/zkv500/power</property>
+	  <value>0</value>
+	</greater-than>
+	<property>/instrumentation/gps/serviceable</property>
+      </condition>
+      <type>text</type>
+      <font>lcd</font>
+      <point-size>6</point-size>
+      <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+      </color>
+      <chunks>
+        <chunk>
+          <type>text-value</type>
+          <property>/instrumentation/zkv500/line[0]</property>
+          <format>%s</format>
+        </chunk>
+      </chunks>
+    </layer>
+
+    <!-- Line 1 --> 
+    <layer>
+      <name>line 1</name>
+      <condition>
+	<greater-than>
+          <property>/instrumentation/zkv500/power</property>
+	  <value>0</value>
+	</greater-than>
+	<property>/instrumentation/gps/serviceable</property>
+      </condition>
+      <type>text</type>
+      <font>lcd</font>
+      <point-size>6</point-size>
+      <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+      </color>
+      <chunks>
+        <chunk>
+          <type>text-value</type>
+          <property>/instrumentation/zkv500/line[1]</property>
+          <format>%s</format>
+        </chunk>
+      </chunks>
+      <transformations>
+        <transformation>
+	  <type>y-shift</type>
+	  <offset>-13</offset>
+	</transformation>
+      </transformations>
+    </layer>
+
+    <!-- line 2 -->
+    <layer>
+      <name>line 2</name>
+      <condition>
+	<greater-than>
+          <property>/instrumentation/zkv500/power</property>
+	  <value>0</value>
+	</greater-than>
+	<property>/instrumentation/gps/serviceable</property>
+      </condition>
+      <type>text</type>
+      <font>lcd</font>
+      <point-size>6</point-size>
+      <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+      </color>
+      <chunks>
+        <chunk>
+          <type>text-value</type>
+          <property>/instrumentation/zkv500/line[2]</property>
+          <format>%s</format>
+        </chunk>
+      </chunks>
+      <transformations>
+        <transformation>
+	  <type>y-shift</type>
+	  <offset>-26</offset>
+	</transformation>
+      </transformations>
+    </layer>
+
+    <!-- line 3 -->
+    <layer>
+      <name>line 3</name>
+      <condition>
+	<greater-than>
+          <property>/instrumentation/zkv500/power</property>
+	  <value>0</value>
+	</greater-than>
+	<property>/instrumentation/gps/serviceable</property>
+      </condition>
+      <type>text</type>
+      <font>lcd</font>
+      <point-size>6</point-size>
+      <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+      </color>
+      <chunks>
+        <chunk>
+          <type>text-value</type>
+          <property>/instrumentation/zkv500/line[3]</property>
+          <format>%s</format>
+        </chunk>
+      </chunks>
+      <transformations>
+        <transformation>
+	  <type>y-shift</type>
+	  <offset>-39</offset>
+	</transformation>
+      </transformations>
+    </layer>
+
+    <!-- line 4 -->
+    <layer>
+      <name>line 4</name>
+      <condition>
+	<greater-than>
+          <property>/instrumentation/zkv500/power</property>
+	  <value>0</value>
+	</greater-than>
+	<property>/instrumentation/gps/serviceable</property>
+      </condition>
+      <type>text</type>
+      <font>lcd</font>
+      <point-size>6</point-size>
+      <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+      </color>
+      <chunks>
+        <chunk>
+          <type>text-value</type>
+          <property>/instrumentation/zkv500/line[4]</property>
+          <format>%s</format>
+        </chunk>
+      </chunks>
+      <transformations>
+        <transformation>
+	  <type>y-shift</type>
+	  <offset>-52</offset>
+	</transformation>
+      </transformations>
+    </layer>
+
+    <!-- line 5->
+    <layer>
+      <name>line 5</name>
+      <condition>
+	<greater-than>
+          <property>/instrumentation/zkv500/power</property>
+	  <value>0</value>
+	</greater-than>
+	<property>/instrumentation/gps/serviceable</property>
+      </condition>
+      <type>text</type>
+      <font>lcd</font>
+      <point-size>6</point-size>
+      <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+      </color>
+      <chunks>
+        <chunk>
+          <type>text-value</type>
+          <property>/instrumentation/zkv500/line[5]</property>
+          <format>%s</format>
+        </chunk>
+      </chunks>
+      <transformations>
+        <transformation>
+	  <type>x-shift</type>
+	  <offset>0</offset>
+	</transformation>
+        <transformation>
+	  <type>y-shift</type>
+	  <offset>-60</offset>
+	</transformation>
+      </transformations>
+    </layer>
+
+    <!-line 6, screen bottom->
+    <layer>
+      <name>line 6</name>
+      <condition>
+	<greater-than>
+          <property>/instrumentation/zkv500/power</property>
+	  <value>0</value>
+	</greater-than>
+	<property>/instrumentation/gps/serviceable</property>
+      </condition>
+      <type>text</type>
+      <font>lcd</font>
+      <point-size>6</point-size>
+      <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+      </color>
+      <chunks>
+        <chunk>
+          <type>text-value</type>
+          <property>/instrumentation/zkv500/line[6]</property>
+          <format>%s</format>
+        </chunk>
+      </chunks>
+      <transformations>
+        <transformation>
+	  <type>x-shift</type>
+	  <offset>0</offset>
+	</transformation>
+        <transformation>
+	  <type>y-shift</type>
+	  <offset>0</offset>
+	</transformation>
+      </transformations>
+    </layer> -->
+  </layers>
+</PropertyList>

@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+
+<!--
+************************************************************************
+* Setup for Saitek Pro Combat Rudder Pedals.
+*
+* These are USB rudder pedals with toe brakes.  Bindings are as
+* follow:
+*
+* Axis 0 (left pedal): left brake
+* Axis 1 (right pedal): right brake
+* Axis 2 (sliding both pedals): rudder (and nosewheel)
+************************************************************************
+$Id$
+-->
+
+<PropertyList>
+
+ <name>Saitek Pro Flight Combat Rudder Pedals</name>
+ <name>Saitek Saitek Pro Flight Combat Rudder Pedals</name>
+
+ <axis n="0">
+  <desc>Brake left</desc>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/gear/brake-left</property>
+   <offset>1.0</offset>
+   <factor>0.5</factor>
+  </binding>
+ </axis>
+
+ <axis n="1">
+  <desc>Brake right</desc>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/gear/brake-right</property>
+   <offset>1.0</offset>
+   <factor>0.5</factor>
+  </binding>
+ </axis>
+
+ <axis n="2">
+  <number>
+   <windows>3</windows>
+   <mac>2</mac>
+   <unix>2</unix>
+  </number>
+  <desc>Rudder</desc>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/rudder</property>
+   <factor>1.0</factor>
+   <offset>0.0</offset>
+   <power type="double">2.0</power>
+  </binding>
+ </axis>
+
+</PropertyList>

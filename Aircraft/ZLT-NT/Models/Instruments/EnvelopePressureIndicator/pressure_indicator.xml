@@ -1,0 +1,184 @@
+<?xml version="1.0"?>
+<!--
+  Envelope Pressure Indicator for Zeppelin NT07 airship.
+
+  Copyright (C) 2010  Robert Leda
+  Copyright (C) 2010 - 2012  Anders Gidenstam  (anders(at)gidenstam.org)
+  This file is licensed under the GPL license v2 or later.
+-->
+<PropertyList>
+
+ <!-- Overlay this to set the source properties. -->
+ <params>
+  <indicated-gas-pressure-psf>instrumentation/envelope-pressure-indicator/indicated-gas-pressure-psf</indicated-gas-pressure-psf>
+  <indicated-fwd-ballonet-pressure-psf>instrumentation/envelope-pressure-indicator/indicated-fwd-ballonet-pressure-psf</indicated-fwd-ballonet-pressure-psf>
+  <indicated-aft-ballonet-pressure-psf>instrumentation/envelope-pressure-indicator/indicated-aft-ballonet-pressure-psf</indicated-aft-ballonet-pressure-psf>
+  <serviceable>instrumentation/envelope-pressure-indicator/serviceable</serviceable>
+
+  <lighting-norm>controls/lighting/panel-norm</lighting-norm>  
+ </params>
+
+ <!--
+   According to [FAA:2008:E8-6600] the ZLT envelope pressure indicator (EPI)
+   instrument provides "annunciation of the Helium and Ballonet Pressure
+   as well as indication of the aft and forward Fan and Sensor Fail status
+   using LED columns. The measurement range covers a red, amber and green
+   band by a colored scale adjacent to the LED columns. The LED columns are
+   continuously of an amber color, due to the technical solution possible
+   only. In addition, any out-of-limit pressure determination will trigger
+   a discrete warning output to the Integrated Instrument Display System
+   (IIDS) for crew alerting and generation of an appropriate warning message."
+
+   As failures are not yet implemented for the fans or the pressure sensor(s)
+   the indication lights are not yet fully animated.
+ -->
+
+ <path>pressure_indicator.ac</path>
+
+ <animation>
+  <type>material</type>
+  <object-name>ballonet_aft_bar</object-name>
+  <object-name>ballonet_fwd_bar</object-name>
+  <object-name>face</object-name>
+  <object-name>helium_bar</object-name>
+  <emission>
+   <factor-prop alias="../../../params/lighting-norm"/>
+   <red>0.8</red>
+   <green>0.8</green>
+   <blue>0.8</blue>
+  </emission>
+ </animation>
+
+ <!-- Helium pressure bar -->
+ <animation>
+  <type>textranslate</type>
+  <object-name>helium_bar</object-name>
+  <property alias="../../params/indicated-gas-pressure-psf"/>
+  <interpolation>
+   <entry><ind>12.50</ind><dep>0.46</dep></entry>  <!-- 6.0 hPa -->
+   <entry><ind>11.50</ind><dep>0.42</dep></entry>  <!-- 5.5 hPa -->
+   <entry><ind>10.40</ind><dep>0.37</dep></entry>  <!-- 5.0 hPa -->
+   <entry><ind> 9.40</ind><dep>0.26</dep></entry>  <!-- 4.5 hPa -->
+   <entry><ind> 8.35</ind><dep>0.15</dep></entry>  <!-- 4.0 hPa -->
+   <entry><ind> 7.31</ind><dep>0.04</dep></entry>  <!-- 3.5 hPa -->
+   <entry><ind> 6.27</ind><dep>0.00</dep></entry>  <!-- 3.0 hPa -->
+  </interpolation>
+  <axis>
+   <x>0.0</x>
+   <y>-1.0</y>
+   <z>0.0</z>
+  </axis>
+ </animation>
+
+ <!-- Fwd ballonet pressure bar -->
+ <animation>
+  <type>textranslate</type>
+  <object-name>ballonet_fwd_bar</object-name>
+  <property alias="../../params/indicated-fwd-ballonet-pressure-psf"/>
+  <interpolation>
+   <entry><ind>12.50</ind><dep>0.46</dep></entry>  <!-- 6.0 hPa -->
+   <entry><ind>11.50</ind><dep>0.42</dep></entry>  <!-- 5.5 hPa -->
+   <entry><ind>10.40</ind><dep>0.37</dep></entry>  <!-- 5.0 hPa -->
+   <entry><ind> 9.40</ind><dep>0.26</dep></entry>  <!-- 4.5 hPa -->
+   <entry><ind> 8.35</ind><dep>0.15</dep></entry>  <!-- 4.0 hPa -->
+   <entry><ind> 7.31</ind><dep>0.04</dep></entry>  <!-- 3.5 hPa -->
+   <entry><ind> 6.27</ind><dep>0.00</dep></entry>  <!-- 3.0 hPa -->
+  </interpolation>
+  <axis>
+   <x>0.0</x>
+   <y>-1.0</y>
+   <z>0.0</z>
+  </axis>
+ </animation>
+
+ <!-- Aft ballonet pressure bar -->
+ <animation>
+  <type>textranslate</type>
+  <object-name>ballonet_aft_bar</object-name>
+  <property alias="../../params/indicated-aft-ballonet-pressure-psf"/>
+  <interpolation>
+   <entry><ind>12.50</ind><dep>0.46</dep></entry>  <!-- 6.0 hPa -->
+   <entry><ind>11.50</ind><dep>0.42</dep></entry>  <!-- 5.5 hPa -->
+   <entry><ind>10.40</ind><dep>0.37</dep></entry>  <!-- 5.0 hPa -->
+   <entry><ind> 9.40</ind><dep>0.26</dep></entry>  <!-- 4.5 hPa -->
+   <entry><ind> 8.35</ind><dep>0.15</dep></entry>  <!-- 4.0 hPa -->
+   <entry><ind> 7.31</ind><dep>0.04</dep></entry>  <!-- 3.5 hPa -->
+   <entry><ind> 6.27</ind><dep>0.00</dep></entry>  <!-- 3.0 hPa -->
+  </interpolation>
+  <axis>
+   <x>0.0</x>
+   <y>-1.0</y>
+   <z>0.0</z>
+  </axis>
+ </animation>
+
+ <!-- Fwd fan lights -->
+ <animation>
+  <type>material</type>
+  <object-name>fwd_fan_light_up</object-name>
+  <emission>
+   <red>0.7</red>
+   <green>0.0</green>
+   <blue>0.0</blue>
+   <factor-prop>instrumentation/envelope-pressure-indicator/fwd-fan-light</factor-prop>
+  </emission>
+ </animation>
+
+ <animation>
+  <type>material</type>
+  <object-name>fwd_fan_light_down</object-name>
+  <emission>
+   <red>0.7</red>
+   <green>0.5</green>
+   <blue>0.0</blue>
+   <factor-prop>instrumentation/envelope-pressure-indicator/fwd-fan-light</factor-prop>
+  </emission>
+ </animation>
+ 
+ <!-- Aft fan lights -->
+ <animation>
+  <type>material</type>
+  <object-name>aft_fan_light_up</object-name>
+  <emission>
+    <red>0.7</red>
+    <green>0.0</green>
+    <blue>0.0</blue>
+    <factor-prop>instrumentation/envelope-pressure-indicator/aft-fan-light</factor-prop>
+  </emission>
+ </animation>
+
+ <animation>
+  <type>material</type>
+  <object-name>aft_fan_light_down</object-name>
+  <emission>
+   <red>0.7</red>
+   <green>0.5</green>
+   <blue>0.0</blue>
+   <factor-prop>instrumentation/envelope-pressure-indicator/aft-fan-light</factor-prop>
+  </emission>
+ </animation>
+
+ <animation>
+  <type>select</type>
+  <object-name>ballonet_fwd_bar</object-name>
+  <object-name>ballonet_aft_bar</object-name>
+  <object-name>helium_bar</object-name>
+  <condition>
+   <property alias="../../../params/serviceable"/>
+  </condition>
+ </animation>
+
+ <animation>
+  <type>noshadow</type>
+  <object-name>aft_fan_light_down</object-name>
+  <object-name>aft_fan_light_up</object-name>
+  <object-name>ballonet_aft_bar</object-name>
+  <object-name>ballonet_fwd_bar</object-name>
+  <object-name>face</object-name>
+  <object-name>fwd_fan_light_down</object-name>
+  <object-name>fwd_fan_light_up</object-name>
+  <object-name>helium_bar</object-name>
+  <object-name>sensor_light</object-name>
+ </animation>
+ 
+</PropertyList>

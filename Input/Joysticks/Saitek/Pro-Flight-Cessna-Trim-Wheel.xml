@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+
+<!--
+************************************************************************
+* Setup for Saitek Pro Flight Cessna Trim Wheel
+*
+* Axis 0 : Elevator Trim
+************************************************************************
+-->
+
+<PropertyList>
+
+ <name>Mad Catz Pro Flight Cessna Trim Wheel</name>
+ <name>Saitek Pro Flight Cessna Trim Wheel</name>
+ <name>Saitek Saitek Pro Flight Cessna Trim Wheel</name>
+ <name>ProFlight Cessna Trim Wheel</name>
+ <name>Pro Flight Cessna Trim Wheel</name>
+
+ <axis n="0">
+  <desc>Elevator Trim</desc>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/elevator-trim</property>
+   <factor>-1.0</factor>
+  </binding>
+ </axis>
+
+</PropertyList>

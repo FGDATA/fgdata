@@ -1,0 +1,672 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+  <name>local-weather</name>
+  <modal>false</modal>
+  <resizable>false</resizable>
+  <layout>vbox</layout>
+  <default-padding>3</default-padding>
+
+  <!-- Title bar with close button -->
+  <group>
+    <layout>hbox</layout>
+    <default-padding>1</default-padding>
+
+    <empty>
+      <stretch>true</stretch>
+    </empty>
+
+    <text>
+      <label>Advanced Weather Configuration</label>
+    </text>
+
+    <empty>
+      <stretch>true</stretch>
+    </empty>
+
+    <button>
+      <legend/>
+      <key>Esc</key>
+      <pref-width>16</pref-width>
+      <pref-height>16</pref-height>
+      <border>2</border>
+      <binding>
+        <command>dialog-close</command>
+      </binding>
+    </button>
+  </group>
+
+  <hrule/>
+
+  <group>
+    <layout>vbox</layout>
+      
+    <text>
+      <halign>left</halign>
+      <label>General Settings</label>
+    </text>
+    
+    <group>
+      <layout>table</layout>
+      
+      <text>
+        <row>0</row>
+        <col>0</col>
+        <halign>right</halign>
+        <label>Tile selection mode</label>
+      </text>
+
+      <combo>
+        <row>0</row>
+        <col>1</col>
+        <halign>left</halign>
+        <pref-width>150</pref-width>
+        <live>true</live>
+        <property>/local-weather/tmp/tile-management</property>
+        <value>single tile</value>
+        <value>repeat tile</value>
+        <value>realistic weather</value>
+        <value>METAR</value>
+        <binding>
+          <command>dialog-apply</command>
+        </binding>
+      </combo>
+
+      
+    
+      <text>
+        <row>1</row>
+        <col>0</col>
+        <halign>right</halign>
+        <label>Altitude offset (ft)</label>
+      </text>
+
+      <input>
+        <row>1</row>
+        <col>1</col>
+        <halign>left</halign>
+        <property>/local-weather/tmp/tile-alt-offset-ft</property>
+      </input>
+      
+      <text>
+        <row>2</row>
+        <col>0</col>
+        <halign>right</halign>
+        <label>Temperature offset (C)</label>
+      </text>
+
+      <input>
+        <row>2</row>
+        <col>1</col>
+        <halign>left</halign>
+        <property>/local-weather/config/temperature-offset-degc</property>
+      </input>
+
+      <checkbox>
+        <row>3</row>
+        <col>0</col>
+        <halign>left</halign>
+        <label>debug output</label>
+        <property>/local-weather/config/debug-output-flag</property>
+        <binding>
+          <command>dialog-apply</command>
+        </binding>
+      </checkbox>
+
+      <checkbox>
+        <row>3</row>
+        <col>1</col>
+        <halign>left</halign>
+        <label>terrain effects</label>
+        <property>/local-weather/config/detailed-terrain-interaction-flag</property>
+        <binding>
+          <command>dialog-apply</command>
+        </binding>
+      </checkbox>
+
+      <checkbox>
+        <row>3</row>
+        <col>2</col>
+        <halign>left</halign>
+        <label>terrain presampling</label>
+        <property>/local-weather/config/presampling-flag</property>
+        <binding>
+          <command>dialog-apply</command>
+        </binding>
+      </checkbox>
+    </group>
+    
+    <hrule/>
+    
+    <text>
+      <halign>left</halign>
+      <label>Wind Settings</label>
+    </text>
+    
+    <group>
+      <layout>vbox</layout>
+      
+      <group>
+        <layout>hbox</layout>
+        
+        <empty>
+          <stretch>true</stretch>
+        </empty>
+
+        <text>
+          <label>Wind:</label>
+        </text>
+
+        <input>
+          <pref-width>50</pref-width>
+          <property>/local-weather/tmp/tile-orientation-deg</property>
+        </input>
+
+        <text>
+          <label>degrees at</label>
+        </text>
+
+        <input>
+          <pref-width>30</pref-width>
+          <property>/local-weather/tmp/windspeed-kt</property>
+        </input>
+
+        <text>
+          <label>kts</label>
+        </text>
+
+        
+        <empty>
+          <stretch>true</stretch>
+        </empty>
+        
+      </group>
+      
+      <group>
+        <layout>table</layout>
+            
+        <text>
+          <row>0</row>
+          <col>0</col>
+          <halign>right</halign>
+          <label>Gust frequency (Hz)</label>
+        </text>
+
+        <slider>
+          <row>0</row>
+          <col>1</col>
+          <halign>fill</halign>
+          <min>0.0</min>
+          <max>2.0</max>
+          <property>/local-weather/tmp/gust-frequency-hz</property>
+          <binding>
+            <command>dialog-apply</command>
+          </binding>
+        </slider>
+
+        <text>
+          <row>0</row>
+          <col>2</col>
+          <label>1234</label>
+          <halign>left</halign>
+          <format>%.1f</format>
+          <property>/local-weather/tmp/gust-frequency-hz</property>
+          <live>true</live>
+        </text>
+
+        <text>
+          <row>1</row>
+          <col>0</col>
+          <halign>right</halign>
+          <label>Gust factor</label>
+        </text>
+
+        <slider>
+          <row>1</row>
+          <col>1</col>
+          <halign>fill</halign>
+          <min>0.0</min>
+          <max>1.5</max>
+          <property>/local-weather/tmp/gust-relative-strength</property>
+          <binding>
+            <command>dialog-apply</command>
+          </binding>
+        </slider>
+
+        <text>
+          <row>1</row>
+          <col>2</col>
+          <halign>left</halign>
+          <label>1234</label>
+          <format>%.1f</format>
+          <property>/local-weather/tmp/gust-relative-strength</property>
+          <live>true</live>
+        </text>
+      
+        <text>
+          <row>2</row>
+          <col>0</col>
+          <halign>right</halign>
+          <label>Gust direction variation</label>
+        </text>
+
+        <slider>
+          <row>2</row>
+          <col>1</col>
+          <halign>fill</halign>
+          <min>0.0</min>
+          <max>45.0</max>
+          <property>/local-weather/tmp/gust-angular-variation-deg</property>
+          <binding>
+            <command>dialog-apply</command>
+          </binding>
+        </slider>
+
+        <text>
+          <row>2</row>
+          <col>2</col>
+          <halign>left</halign>
+          <label>1234</label>
+          <format>%.1f</format>
+          <property>/local-weather/tmp/gust-angular-variation-deg</property>
+          <live>true</live>
+        </text>
+
+        <text>
+          <row>3</row>
+          <col>0</col>
+          <halign>right</halign>
+          <label>Wind model</label>
+        </text>
+
+        <combo>
+          <row>3</row>
+          <col>1</col>
+          <halign>fill</halign>
+          <live>true</live>
+          <property>/local-weather/config/wind-model</property>
+          <value>constant</value>
+          <value>constant in tile</value>
+          <value>aloft interpolated</value>
+          <value>aloft waypoints</value>
+          <!-- <value>airmass interpolated</value> -->
+          <binding>
+            <command>dialog-apply</command>
+          </binding>
+        </combo>
+      </group>
+    </group>
+    
+    <hrule/>
+    
+    <text>
+      <halign>left</halign>
+      <label>Thermic and Visibility Settings</label>
+    </text>
+      
+    <group>
+      <layout>table</layout>
+
+      <text>
+        <row>0</row>
+        <col>0</col>
+        <halign>right</halign>
+        <label>Generate thermals</label>
+      </text>
+
+      <checkbox>
+        <row>0</row>
+        <col>2</col>
+        <halign>left</halign>
+        <property>/local-weather/config/generate-thermal-lift-flag</property>
+        <binding>
+          <command>dialog-apply</command>
+        </binding>
+      </checkbox>
+
+      <text>
+        <row>0</row>
+        <col>3</col>
+        <halign>right</halign>
+        <label>Realistic visibility</label>
+      </text>
+
+      <checkbox>
+        <row>0</row>
+        <col>4</col>
+        <halign>left</halign>
+        <property>/local-weather/config/realistic-visibility-flag</property>
+        <binding>
+          <command>dialog-apply</command>
+        </binding>
+      </checkbox>
+
+     <text>
+        <row>1</row>
+        <col>0</col>
+        <halign>right</halign>
+        <label>Cloud shadows </label>
+      </text>
+
+      <checkbox>
+        <row>1</row>
+        <col>2</col>
+        <halign>left</halign>
+        <property>/local-weather/config/generate-cloud-shadows</property>
+        <binding>
+          <command>dialog-apply</command>
+        </binding>
+      </checkbox>
+
+    <text>
+        <row>1</row>
+        <col>3</col>
+        <halign>right</halign>
+        <label>(needs ALS shaders)</label>
+      </text>
+
+      <text>
+        <row>2</row>
+        <col>0</col>
+        <halign>right</halign>
+        <label>Convective conditions</label>
+      </text>
+      
+      <text>
+        <row>2</row>
+        <col>1</col>
+        <halign>right</halign>
+        <label>rough day</label>
+      </text>
+
+      <slider>
+        <row>2</row>
+        <col>2</col>
+        <min>0.3</min>
+        <max>1.5</max>
+        <property>/local-weather/config/thermal-properties</property>
+        <binding>
+          <command>dialog-apply</command>
+        </binding>
+      </slider>
+
+      <text>
+        <row>2</row>
+        <col>3</col>
+        <halign>left</halign>
+        <label>low convection</label>
+      </text>
+
+      <text>
+        <row>3</row>
+        <col>0</col>
+        <halign>right</halign>
+        <label>Ground haze</label>
+      </text>
+
+      <text>
+        <row>3</row>
+        <col>1</col>
+        <halign>right</halign>
+        <label>thick</label>
+      </text>
+
+      <slider>
+        <row>3</row>
+        <col>2</col>
+        <min>0.1</min>
+        <max>1.0</max>
+        <property>/local-weather/config/ground-haze-factor</property>
+        <binding>
+          <command>dialog-apply</command>
+        </binding>
+      </slider>
+
+      <text>
+        <row>3</row>
+        <col>3</col>
+        <halign>left</halign>
+        <label>thin</label>
+      </text>
+
+      <text>
+        <row>4</row>
+        <col>0</col>
+        <halign>right</halign>
+        <label>Air pollution</label>
+      </text>
+
+      <text>
+        <row>4</row>
+        <col>1</col>
+        <halign>right</halign>
+        <label>clean</label>
+      </text>
+
+      <slider>
+        <row>4</row>
+        <col>2</col>
+        <min>0.0</min>
+        <max>1.0</max>
+        <property>/environment/air-pollution-norm</property>
+        <binding>
+          <command>dialog-apply</command>
+        </binding>
+      </slider>
+
+      <text>
+        <row>4</row>
+        <col>3</col>
+        <halign>left</halign>
+        <label>smog</label>
+      </text>
+
+      <text>
+        <row>5</row>
+        <col>0</col>
+        <halign>right</halign>
+        <label>Fog properties</label>
+      </text>
+
+      <text>
+        <row>5</row>
+        <col>1</col>
+        <halign>right</halign>
+        <label>smooth</label>
+      </text>
+
+      <slider>
+        <row>5</row>
+        <col>2</col>
+        <min>0.0</min>
+        <max>12.0</max>
+        <property>/environment/fog-structure</property>
+        <binding>
+          <command>dialog-apply</command>
+        </binding>
+      </slider>
+
+      <text>
+        <row>5</row>
+        <col>3</col>
+        <halign>left</halign>
+        <label>structured</label>
+      </text>
+
+      <text>
+        <row>6</row>
+        <col>0</col>
+        <halign>right</halign>
+        <!--<enable>
+          <equals>
+            <property>/local-weather/config/realistic-visibility-flag</property>
+            <value>0</value>
+          </equals>
+        </enable>-->
+        <label>Max. visibility</label>
+      </text>
+
+      <text>
+        <row>6</row>
+        <col>1</col>
+        <halign>right</halign>
+        <label>20 km</label>
+      </text>
+
+      <slider>
+        <row>6</row>
+        <col>2</col>
+        <!--<enable>
+          <equals>
+          <property>/local-weather/config/realistic-visibility-flag</property>
+          <value>0</value>
+          </equals>
+        </enable>-->
+        <min>9.90348</min>
+        <max>12.429216196</max>
+        <property>/local-weather/config/aux-max-vis-range-m</property>
+        <binding>
+          <command>dialog-apply</command>
+        </binding>
+      </slider>
+
+      <text>
+        <row>6</row>
+        <col>3</col>
+        <halign>left</halign>
+        <label>250 km</label>
+      </text>
+
+      <text>
+        <row>6</row>
+        <col>4</col>
+        <halign>left</halign>
+        <!--<enable>
+          <equals>
+            <property>/local-weather/config/realistic-visibility-flag</property>
+            <value>0</value>
+          </equals>
+        </enable>-->
+        <label>12345678</label>
+        <format>%.fm</format>
+        <live>true</live>
+        <property>/local-weather/config/max-vis-range-m</property>
+      </text>
+    </group>
+      
+    <hrule/>
+    
+    <group>
+      <layout>vbox</layout>
+
+      <text>
+        <halign>left</halign>
+        <label>Weather Pattern Scales</label>
+      </text>
+      
+      <group>
+        <layout>table</layout>
+        <halign>center</halign>
+
+        <text>
+          <row>0</row>
+          <col>1</col>
+          <halign>left</halign>
+          <label>small</label>
+        </text>
+
+        <text>
+          <row>0</row>
+          <col>2</col>
+          <halign>right</halign>
+          <label>large</label>
+        </text>
+
+        <text>
+          <row>1</row>
+          <col>0</col>
+          <halign>right</halign>
+          <label>Airmass</label>
+        </text>
+
+        <slider>
+          <row>1</row>
+          <col>1</col>
+          <colspan>2</colspan>
+          <halign>fill</halign>
+          <min>0.5</min>
+          <max>2.0</max>
+          <property>/local-weather/config/large-scale-persistence</property>
+          <binding>
+            <command>dialog-apply</command>
+          </binding>
+        </slider>
+
+        <text>
+          <row>2</row>
+          <col>0</col>
+          <halign>right</halign>
+          <label>Cloud patterns</label>
+        </text>
+
+        <slider>
+          <row>2</row>
+          <col>1</col>
+          <colspan>2</colspan>
+          <halign>fill</halign>
+          <min>0.0</min>
+          <max>1.0</max>
+          <property>/local-weather/config/small-scale-persistence</property>
+          <binding>
+            <command>dialog-apply</command>
+          </binding>
+        </slider>
+      </group>
+    </group>
+  </group>
+  
+  <hrule/>
+
+  <group>  
+    <layout>hbox</layout>
+    
+    <empty>
+      <stretch>true</stretch>
+    </empty>
+    
+    <button>
+      <legend>OK</legend>
+      <binding>
+        <command>dialog-apply</command>
+      </binding>
+      <binding>
+        <command>dialog-close</command>
+      </binding>
+    </button>
+
+    <button>
+      <legend>Close</legend>
+      <default>true</default>
+      <key>Esc</key>
+      <binding>
+        <command>dialog-close</command>
+      </binding>
+    </button>
+
+    <button>
+      <legend>Wind Configuration...</legend>
+      <binding>
+        <command>dialog-show</command>
+        <dialog-name>local_weather_winds</dialog-name>
+      </binding>
+      <binding>
+        <command>dialog-apply</command>
+      </binding>
+    </button>
+
+    <empty>
+      <stretch>true</stretch>
+    </empty>
+  </group>
+
+</PropertyList>

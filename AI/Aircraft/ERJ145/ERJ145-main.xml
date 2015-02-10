@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<PropertyList>
+  <description>Embraer ERJ 145</description>
+  <author>Brett Harrison</author>
+  <path>Models/ERJ-145.ac</path>
+   
+<offsets>
+   <pitch-deg>-1.5</pitch-deg>
+ </offsets> 
+  
+  <animation>
+  <type>rotate</type>
+  <property>velocities/true-airspeed-kt</property>
+  <interpolation>
+<entry>
+    <ind>0.0</ind>
+    <dep>0.0</dep>
+   </entry>
+   
+   <entry>
+    <ind>70.0</ind>
+    <dep>0.0</dep>
+   </entry>
+   
+      <entry>
+    <ind>90</ind>
+    <dep>1.5</dep>
+   </entry>
+   
+   <entry>
+    <ind>100</ind>
+    <dep>1.5</dep>
+   </entry>
+  </interpolation>
+  <center>
+   <x-m>0.0</x-m>
+   <y-m>0.0</y-m>
+   <z-m>0.0</z-m>
+  </center>
+  <axis>
+   <x>0.0</x>
+   <y>1.0</y>
+   <z>0.0</z>
+  </axis>
+ </animation>
+  
+       <animation>
+		<type>select</type>
+		<object-name>gear</object-name>
+   		<object-name>geardoors</object-name>
+		<condition>
+			<less-than>
+				<property>velocities/true-airspeed-kt</property>
+				<value>180</value>
+			</less-than>
+		</condition>
+	</animation>
+  
+         <animation>
+		<type>select</type>
+		<object-name>retractgear</object-name>
+		<condition>
+			<greater-than>
+				<property>velocities/true-airspeed-kt</property>
+				<value>180</value>
+			</greater-than>
+		</condition>
+	</animation>
+  
+  
+  
+</PropertyList>

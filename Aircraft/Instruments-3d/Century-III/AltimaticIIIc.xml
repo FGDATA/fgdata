@@ -1,0 +1,203 @@
+<?xml version="1.0" ?>
+<!--
+    $Id$
+    This is the Altimatic IIIc Autopilot 3d instrument.
+    Maintainer: Torsten Dreyer, Dave Perry
+    
+    $Log$
+    Revision 1.3  2008/02/02 17:45:28  mfranz
+    Dave PERRY:
+
+    "All the pa24 and pa28 and Seneca II hot spots are now visible in osg and
+    plib with ctrl-c."
+
+    Revision 1.2  2007-11-26 15:10:26  mfranz
+    Dave PERRY: remove two <global> in material animations
+
+    Revision 1.1  2007-10-10 20:48:37  mfranz
+    Dave PERRY:
+
+    "For more than a month, I have been working with Torsten Dryer to model
+    these three autopilots that are very common in aircraft manufactured in
+    the 1960s through the late 1980s.  The Altimatic IIIc in the SenecaII is
+    a variation on the Century III and uses the same nasal model."
+
+    Revision 1.1  2006-06-01 12:58:33  mfranz
+    Torsten Dreyer: version 0.3 of the PA34-200T Seneca II (2006.05.30)
+
+-->
+<PropertyList>
+    <path>AltimaticIIIc.ac</path>
+
+    <!-- Century III Autopilot -->
+    <panel>
+        <path>Aircraft/Instruments-3d/Century-III/AltimaticIIIcPanel.xml</path>
+        <bottom-left>
+            <x-m>0.009</x-m>
+            <y-m>-0.081</y-m>
+            <z-m>-0.0368</z-m>
+        </bottom-left>
+        <bottom-right>
+            <x-m>0.009</x-m>
+            <y-m>0.081</y-m>
+            <z-m>-0.0368</z-m>
+        </bottom-right>
+        <top-left>
+            <x-m>0.009</x-m>
+            <y-m>-0.081</y-m>
+            <z-m>0.0368</z-m>
+        </top-left>
+    </panel>
+
+    <animation>
+        <type>noshadow</type>
+        <object-name>Altimatic</object-name>
+    </animation>
+
+    <animation>
+        <type>material</type>
+        <object-name>Altimatic.Face</object-name>
+        <object-name>Altimatic.DeltaPitchNeedle</object-name>
+        <emission>
+          <red>0.45</red>
+          <green>0.09</green>
+          <blue>0.00001</blue>
+          <factor-prop>/sim/model/material/instruments/factor</factor-prop>
+        </emission>
+    </animation>
+
+    <animation>
+        <type>material</type>
+        <object-name>Altimatic.HdgButton</object-name>
+        <object-name>Altimatic.AltButton</object-name>
+        <object-name>Altimatic.PitchButton</object-name>
+        <object-name>Altimatic.RollButton</object-name>
+        <object-name>Altimatic.PitchWheel</object-name>
+        <emission>
+          <red>0.2</red>
+          <green>0.04</green>
+          <blue>0.00002</blue>
+          <factor-prop>/sim/model/material/instruments/factor</factor-prop>
+        </emission>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>Altimatic.RollButton</object-name>
+        <property>/autopilot/CENTURYIII/controls/roll</property>
+        <factor>-40</factor>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <center>
+            <x-m>0.00910878</x-m>
+            <y-m>-0.0176787</y-m>
+            <z-m>0.0165364</z-m>
+        </center>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>Altimatic.HdgButton</object-name>
+        <property>/autopilot/CENTURYIII/controls/hdg</property>
+        <factor>-40</factor>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <center>
+            <x-m>0.00910878</x-m>
+            <y-m>-0.0176787</y-m>
+            <z-m>0.0165364</z-m>
+        </center>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>Altimatic.AltButton</object-name>
+        <property>/autopilot/CENTURYIII/controls/alt</property>
+        <factor>-40</factor>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <center>
+            <x-m>0.00910878</x-m>
+            <y-m>-0.0176787</y-m>
+            <z-m>0.0165364</z-m>
+        </center>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>Altimatic.PitchButton</object-name>
+        <property>/autopilot/CENTURYIII/controls/pitch</property>
+        <factor>-40</factor>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <center>
+            <x-m>0.00910878</x-m>
+            <y-m>-0.0176787</y-m>
+            <z-m>0.0165364</z-m>
+        </center>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>Altimatic.RollKnob</object-name>
+        <property>/autopilot/CENTURYIII/settings/roll-knob-deg</property>
+        <factor>-1.5</factor>
+        <axis>
+            <x>1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+        <center>
+            <x-m>0.011869</x-m>
+            <y-m>-0.0384962</y-m>
+            <z-m>-0.0182847</z-m>
+        </center>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>Altimatic.PitchWheel</object-name>
+        <property>/autopilot/CENTURYIII/settings/pitch-wheel-deg</property>
+        <factor>6</factor>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <center>
+            <x-m>0</x-m>
+            <y-m>0.0522644</y-m>
+            <z-m>0.0070982</z-m>
+        </center>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>Altimatic.DeltaPitchNeedle</object-name>
+        <property>/autopilot/CENTURYIII/settings/delta-pitch</property>
+        <factor>-1</factor>
+        <axis>
+            <x>1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+        <center>
+            <x-m>0</x-m>
+            <y-m>-0.007029</y-m>
+            <z-m>-0.009073</z-m>
+        </center>
+    </animation>
+
+</PropertyList>

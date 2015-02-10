@@ -1,0 +1,279 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<name>rembrandt-buffers</name>
+	<modal>false</modal>
+	<layout>vbox</layout>
+	<padding>20</padding>
+
+	<group>
+		<layout>hbox</layout>
+		<empty>
+			<stretch>1</stretch>
+		</empty>
+
+		<text>
+			<label>Rendering buffers</label>
+		</text>
+
+		<empty>
+			<stretch>1</stretch>
+		</empty>
+
+		<button>
+			<pref-width>16</pref-width>
+			<pref-height>16</pref-height>
+			<legend></legend>
+			<keynum>27</keynum>
+			<border>2</border>
+			<binding>
+				<command>dialog-close</command>
+			</binding>
+		</button>
+	</group>
+
+	<hrule/>
+	
+	<group>
+		<layout>table</layout>
+		<checkbox>
+			<halign>left</halign>
+			<label>North West buffer</label>
+			<name>buffer-nw-enabled</name>
+			<row>0</row>
+			<col>0</col>
+			<colspan>2</colspan>
+			<property>/sim/rendering/rembrandt/debug-buffer[0]/enabled</property>
+			<binding>
+				<command>dialog-apply</command>
+				<object-name>buffer-nw-enabled</object-name>
+			</binding>
+		</checkbox>
+
+		<text>
+			<label>Buffer</label>
+			<halign>right</halign>
+			<row>1</row>
+			<col>0</col>
+			<enable>
+				<property>/sim/rendering/rembrandt/debug-buffer[0]/enabled</property>
+			</enable>
+		</text>
+		<combo>
+			<halign>left</halign>
+			<name>buffer-nw-name</name>
+			<row>1</row>
+			<col>1</col>
+			<property>/sim/rendering/rembrandt/debug-buffer[0]/name</property>
+			<value>real-depth</value>
+			<value>depth</value>
+			<value>normal</value>
+			<value>diffuse</value>
+			<value>spec-emis</value>
+			<value>ao-1</value>
+			<value>ao-2</value>
+			<value>ao-3</value>
+			<value>bloom-1</value>
+			<value>bloom-2</value>
+			<value>bloom-3</value>
+			<value>lighting</value>
+			<value>shadow</value>
+			<binding>
+				<command>dialog-apply</command>
+				<object-name>buffer-nw-name</object-name>
+			</binding>
+			<enable>
+				<property>/sim/rendering/rembrandt/debug-buffer[0]/enabled</property>
+			</enable>
+		</combo>
+
+		<vrule>
+			<row>0</row>
+			<col>2</col>
+			<rowspan>2</rowspan>
+		</vrule>
+
+		<hrule>
+			<row>2</row>
+			<col>0</col>
+			<colspan>2</colspan>
+		</hrule>
+
+		<checkbox>
+			<halign>left</halign>
+			<label>North East buffer</label>
+			<name>buffer-ne-enabled</name>
+			<row>0</row>
+			<col>3</col>
+			<colspan>2</colspan>
+			<property>/sim/rendering/rembrandt/debug-buffer[1]/enabled</property>
+			<binding>
+				<command>dialog-apply</command>
+				<object-name>buffer-ne-enabled</object-name>
+			</binding>
+		</checkbox>
+
+		<text>
+			<label>Buffer</label>
+			<halign>right</halign>
+			<row>1</row>
+			<col>3</col>
+			<enable>
+				<property>/sim/rendering/rembrandt/debug-buffer[1]/enabled</property>
+			</enable>
+		</text>
+		<combo>
+			<halign>left</halign>
+			<name>buffer-ne-name</name>
+			<row>1</row>
+			<col>4</col>
+			<property>/sim/rendering/rembrandt/debug-buffer[1]/name</property>
+			<value>real-depth</value>
+			<value>depth</value>
+			<value>normal</value>
+			<value>diffuse</value>
+			<value>spec-emis</value>
+			<value>ao-1</value>
+			<value>ao-2</value>
+			<value>ao-3</value>
+			<value>bloom-1</value>
+			<value>bloom-2</value>
+			<value>bloom-3</value>
+			<value>lighting</value>
+			<value>shadow</value>
+			<binding>
+				<command>dialog-apply</command>
+				<object-name>buffer-ne-name</object-name>
+			</binding>
+			<enable>
+				<property>/sim/rendering/rembrandt/debug-buffer[1]/enabled</property>
+			</enable>
+		</combo>
+
+		<checkbox>
+			<halign>left</halign>
+			<label>South West buffer</label>
+			<name>buffer-sw-enabled</name>
+			<row>3</row>
+			<col>0</col>
+			<colspan>2</colspan>
+			<property>/sim/rendering/rembrandt/debug-buffer[2]/enabled</property>
+			<binding>
+				<command>dialog-apply</command>
+				<object-name>buffer-sw-enabled</object-name>
+			</binding>
+		</checkbox>
+
+		<text>
+			<label>Buffer</label>
+			<halign>right</halign>
+			<row>4</row>
+			<col>0</col>
+			<enable>
+				<property>/sim/rendering/rembrandt/debug-buffer[2]/enabled</property>
+			</enable>
+		</text>
+		<combo>
+			<halign>left</halign>
+			<name>buffer-sw-name</name>
+			<row>4</row>
+			<col>1</col>
+			<property>/sim/rendering/rembrandt/debug-buffer[2]/name</property>
+			<value>real-depth</value>
+			<value>depth</value>
+			<value>normal</value>
+			<value>diffuse</value>
+			<value>spec-emis</value>
+			<value>ao-1</value>
+			<value>ao-2</value>
+			<value>ao-3</value>
+			<value>bloom-1</value>
+			<value>bloom-2</value>
+			<value>bloom-3</value>
+			<value>lighting</value>
+			<value>shadow</value>
+			<binding>
+				<command>dialog-apply</command>
+				<object-name>buffer-sw-name</object-name>
+			</binding>
+			<enable>
+				<property>/sim/rendering/rembrandt/debug-buffer[2]/enabled</property>
+			</enable>
+		</combo>
+
+		<vrule>
+			<row>3</row>
+			<col>2</col>
+			<rowspan>2</rowspan>
+		</vrule>
+
+		<hrule>
+			<row>2</row>
+			<col>3</col>
+			<colspan>2</colspan>
+		</hrule>
+
+		<checkbox>
+			<halign>left</halign>
+			<label>South East buffer</label>
+			<name>buffer-se-enabled</name>
+			<row>3</row>
+			<col>3</col>
+			<colspan>2</colspan>
+			<property>/sim/rendering/rembrandt/debug-buffer[3]/enabled</property>
+			<binding>
+				<command>dialog-apply</command>
+				<object-name>buffer-se-enabled</object-name>
+			</binding>
+		</checkbox>
+
+		<text>
+			<label>Buffer</label>
+			<halign>right</halign>
+			<row>4</row>
+			<col>3</col>
+			<enable>
+				<property>/sim/rendering/rembrandt/debug-buffer[3]/enabled</property>
+			</enable>
+		</text>
+		<combo>
+			<halign>left</halign>
+			<name>buffer-se-name</name>
+			<row>4</row>
+			<col>4</col>
+			<property>/sim/rendering/rembrandt/debug-buffer[3]/name</property>
+			<value>real-depth</value>
+			<value>depth</value>
+			<value>normal</value>
+			<value>diffuse</value>
+			<value>spec-emis</value>
+			<value>ao-1</value>
+			<value>ao-2</value>
+			<value>ao-3</value>
+			<value>bloom-1</value>
+			<value>bloom-2</value>
+			<value>bloom-3</value>
+			<value>lighting</value>
+			<value>shadow</value>
+			<binding>
+				<command>dialog-apply</command>
+				<object-name>buffer-se-name</object-name>
+			</binding>
+			<enable>
+				<property>/sim/rendering/rembrandt/debug-buffer[3]/enabled</property>
+			</enable>
+		</combo>
+	</group>
+
+	<hrule/>
+
+	<button>
+		<legend>Close</legend>
+		<default>true</default>
+		<key>Esc</key>
+		<binding>
+			<command>dialog-close</command>
+		</binding>
+	</button>
+
+</PropertyList>

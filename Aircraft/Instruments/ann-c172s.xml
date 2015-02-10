@@ -1,0 +1,240 @@
+<?xml version="1.0"?>
+
+<!--
+C172S Annunciator
+
+Started May 2003 by Curtis L. Olson <curt@flightgear.org>
+
+This is an instrument configuration file for the open-source flight
+simulator FlightGear (www.flightgear.org).  The file is an XML-encoded
+FlightGear property list defining the instrument's layers and actions.
+
+Each instrument is composed of layers stacked on top of each other.
+A layer may be a texture (with transparent parts to show the layers
+underneath), text, or a special layer that switches between two
+others (say, to turn an indicator light on or off).  Each layer can
+move independently in proportion to a property value, and text
+can be generated from property values as well: all of the layer's
+movements are defined as transformations.
+
+Actions are hotspots on the instrument that will respond to a mouse
+click.  Actions always modify the values of properties, either by
+adjusting them, toggling them, or swaping them with other
+properties' values.
+
+
+Note: this file depends on the $FG_ROOT/Aircraft/Generic/annunciator.nas
+      file being included. Add this to your *-set.xml file:
+
+      <nasal>
+          <annunciator>
+              <file>Aircraft/Generic/annunciator.nas</file>
+          </annunciator>
+      </nasal>
+-->
+
+<PropertyList>
+ <name>C172S Annunciator</name>
+ <w-base>119</w-base>
+ <h-base>39</h-base>
+
+ <layers>
+  <layer>
+   <name>background</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/ann-c172s.rgb</path>
+    <x1>0.6</x1>
+    <y1>0.2</y1>
+    <x2>0.9</x2>
+    <y2>0.3</y2>
+   </texture>
+  <w>119</w>
+  <h>39</h>
+  </layer>
+
+  <layer>
+   <name>volts</name>
+   <condition>
+    <property>/instrumentation/annunciator/volts</property>
+   </condition>
+   <texture>
+    <path>Aircraft/Instruments/Textures/ann-c172s.rgb</path>
+    <x1>0.0625</x1>
+    <y1>0.789</y1>
+    <x2>0.465</x2>
+    <y2>0.898</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-47</offset>
+    </transformation>
+   </transformations>
+   <w>15</w>
+   <h>15</h>
+  </layer>
+
+  <layer>
+   <name>left fuel tank</name>
+   <condition>
+    <property>/instrumentation/annunciator/fuel-left</property>
+   </condition>
+   <texture>
+    <path>Aircraft/Instruments/Textures/ann-c172s.rgb</path>
+    <x1>0.0625</x1>
+    <y1>0.347</y1>
+    <x2>0.117</x2>
+    <y2>0.457</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-34</offset>
+    </transformation>
+   </transformations>
+   <w>4</w>
+   <h>15</h>
+  </layer>
+
+  <layer>
+   <name>shared fuel</name>
+   <condition>
+    <or>
+     <property>/instrumentation/annunciator/fuel-left</property>
+     <property>/instrumentation/annunciator/fuel-right</property>
+    </or>
+   </condition>
+   <texture>
+    <path>Aircraft/Instruments/Textures/ann-c172s.rgb</path>
+    <x1>0.145</x1>
+    <y1>0.347</y1>
+    <x2>0.793</x2>
+    <y2>0.457</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-18</offset>
+    </transformation>
+   </transformations>
+   <w>27</w>
+   <h>15</h>
+  </layer>
+
+  <layer>
+   <name>right fuel tank</name>
+   <condition>
+    <property>/instrumentation/annunciator/fuel-right</property>
+   </condition>
+   <texture>
+    <path>Aircraft/Instruments/Textures/ann-c172s.rgb</path>
+    <x1>0.832</x1>
+    <y1>0.347</y1>
+    <x2>0.906</x2>
+    <y2>0.457</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-2</offset>
+    </transformation>
+   </transformations>
+   <w>4</w>
+   <h>15</h>
+  </layer>
+
+  <layer>
+   <name>left vacuum</name>
+   <condition>
+    <property>/instrumentation/annunciator/vacuum-left</property>
+   </condition>
+   <texture>
+    <path>Aircraft/Instruments/Textures/ann-c172s.rgb</path>
+    <x1>0.0625</x1>
+    <y1>0.496</y1>
+    <x2>0.117</x2>
+    <y2>0.609</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>6</offset>
+    </transformation>
+   </transformations>
+   <w>4</w>
+   <h>15</h>
+  </layer>
+
+  <layer>
+   <name>shared vacuum</name>
+   <condition>
+    <or>
+     <property>/instrumentation/annunciator/vacuum-left</property>
+     <property>/instrumentation/annunciator/vacuum-right</property>
+    </or>
+   </condition>
+   <texture>
+    <path>Aircraft/Instruments/Textures/ann-c172s.rgb</path>
+    <x1>0.145</x1>
+    <y1>0.496</y1>
+    <x2>0.461</x2>
+    <y2>0.609</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>15</offset>
+    </transformation>
+   </transformations>
+   <w>12</w>
+   <h>15</h>
+  </layer>
+
+  <layer>
+   <name>right vacuum</name>
+   <condition>
+    <property>/instrumentation/annunciator/vacuum-right</property>
+   </condition>
+   <texture>
+    <path>Aircraft/Instruments/Textures/ann-c172s.rgb</path>
+    <x1>0.51</x1>
+    <y1>0.496</y1>
+    <x2>0.58</x2>
+    <y2>0.609</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>24</offset>
+    </transformation>
+   </transformations>
+   <w>4</w>
+   <h>15</h>
+  </layer>
+
+  <layer>
+   <name>oil pressure</name>
+   <condition>
+    <property>/instrumentation/annunciator/oil-pressure</property>
+   </condition>
+   <texture>
+    <path>Aircraft/Instruments/Textures/ann-c172s.rgb</path>
+    <x1>0.0625</x1>
+    <y1>0.641</y1>
+    <x2>0.684</x2>
+    <y2>0.75</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>42</offset>
+    </transformation>
+   </transformations>
+   <w>24</w>
+   <h>15</h>
+  </layer>
+
+ </layers>
+
+</PropertyList>
+

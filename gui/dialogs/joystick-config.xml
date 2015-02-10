@@ -1,0 +1,507 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<nasal>
+		<open><![CDATA[
+
+		
+var dlgRoot = cmdarg();
+
+var DIALOG_ROOT  = "/sim/gui/dialogs/joystick-config";
+
+# Read the current bindings
+joystick.readConfig();
+
+# Fill in the joystick names combo box.
+var joysticks = props.globals.getNode("/input/joysticks").getChildren("js");
+
+if (size(joysticks) == 0) {
+  # No joysticks found - no point filling in rest of dialog
+  setprop(DIALOG_ROOT ~ "joystick-count", 0);  
+} else {
+
+  var jsselect = gui.findElementByName(dlgRoot, "jsselect" );
+
+  forindex (var joystick_index; joysticks) {
+    var js = joysticks[joystick_index];
+    var js_id = "unknown";
+    if ((js.getNode("id") != nil) and (js.getNode("id").getValue() != nil))
+    {  
+      js_id = js.getNode("id").getValue();
+    }
+    
+    jsselect.getNode("value[" ~ joystick_index ~ "]", 1).setValue(js_id);
+  }
+
+  var joystick_index = getprop(DIALOG_ROOT ~ "/selected-joystick-index");
+
+  var table = gui.findElementByName(dlgRoot, "axistable");
+  table.removeChildren("checkbox");
+  table.removeChildren("combo");
+
+  # Fill in the valid axis bindings
+  for (var i = 0; i < joystick.MAX_AXES; i = i + 1) {
+
+    # Label      
+    var t = table.getChild("text", 2*i + 4, 1);
+    
+    t.getNode("row", 1).setValue(i + 1);
+    
+    t.getNode("col", 1).setValue(0);
+    t.getNode("label", 1).setValue("Axis " ~ i);
+    
+    # Raw data
+    t = table.getChild("text", 2*i + 5, 1);
+    t.getNode("property", 1).setValue("/devices/status/joysticks/joystick[" ~ joystick_index ~ "]/axis[" ~ i ~ "]");
+    t.getNode("row", 1).setValue(i +1 );
+    t.getNode("col", 1).setValue(1);
+    t.getNode("label", 1).setValue("01234");
+    t.getNode("format", 1).setValue("%2.2f");
+    t.getNode("halign", 1).setValue("right");
+    t.getNode("live", 1).setValue(1);
+
+    # Binding
+    t = table.getChild("combo", i, 1);
+    t.getNode("name", 1).setValue("axis" ~ i ~ "binding");
+    t.getNode("row", 1).setValue(i + 1);
+    t.getNode("col", 1).setValue("2");
+    t.getNode("halign", 1).setValue("fill");
+    t.getNode("pref-width", 1).setValue("150");
+    t.getNode("live", 1).setValue(1);
+    t.getNode("property", 1).setValue(DIALOG_ROOT ~ "/axis[" ~ i ~ "]/binding");
+    
+    forindex (var idx; joystick.axisBindings) {
+      t.getChild("value", idx, 1).setValue(joystick.axisBindings[idx].getName());
+    }
+
+    var b = t.getChild("binding", 0, 1);
+    b.getNode("command", 1).setValue("dialog-apply");
+    b.getNode("object-name", 1).setValue("axis" ~ i ~ "binding");
+   
+    b = t.getChild("binding", 1, 1);
+    b.getNode("command", 1).setValue("nasal");
+    b.getNode("script", 1).setValue("updateConfig();");
+    
+    # Inverted
+    t = table.getChild("checkbox", i, 1);
+    t.getNode("name", 1).setValue("axis" ~ i ~ "inverted");
+    t.getNode("property", 1).setValue(DIALOG_ROOT ~ "/axis[" ~ i ~ "]/inverted");
+    t.getNode("row", 1).setValue(i +1 );
+    t.getNode("col", 1).setValue(3);
+    t.getNode("visible", 1).getNode("property", 1).setValue(DIALOG_ROOT ~ "/axis[" ~ i ~ "]/invertable");
+    t.getNode("live", 1).setValue(1);
+
+    var b = t.getChild("binding", 0, 1);
+    b.getNode("command", 1).setValue("dialog-apply");
+    b.getNode("object-name", 1).setValue("axis" ~ i ~ "inverted");
+    
+    b = t.getChild("binding", 1, 1);
+    b.getNode("command", 1).setValue("nasal");
+    b.getNode("script", 1).setValue("updateConfig();");
+  }
+
+  # Set up the buttons.
+  table = gui.findElementByName(dlgRoot, "buttontable");
+  table.removeChildren("checkbox");
+  table.removeChildren("button");
+  var row = 1;
+  var col = 0;
+
+  for (var button = 0; button < joystick.MAX_BUTTONS; button = button + 1) {
+    
+    t = table.getChild("checkbox", button, 1);  
+    t.getNode("property", 1).setValue("/devices/status/joysticks/joystick[" ~ joystick_index ~ "]/button[" ~ button ~ "]");
+    t.getNode("row", 1).setValue(row );
+    t.getNode("col", 1).setValue(col);
+    t.getNode("live", 1).setValue(1);
+
+    t = table.getChild("button", button, 1);  
+    t.getNode("name", 1).setValue("button" ~ button);
+    t.getNode("pref-width", 1).setValue(140);
+    t.getNode("halign", 1).setValue("fill");
+    t.getNode("live", 1).setValue("fill");
+    t.getNode("row", 1).setValue(row );
+    t.getNode("col", 1).setValue(col +1);
+    t.getNode("legend", 1).setValue(getprop(DIALOG_ROOT ~ "/button[" ~ button ~ "]/binding"));
+    
+    var b = t.getChild("binding", 0, 1);
+    b.getNode("command", 1).setValue("property-assign");
+    b.getNode("property", 1).setValue("/sim/gui/dialogs/joystick-config/current-button");
+    b.getNode("value", 1).setValue(button);  
+   
+    b = t.getChild("binding", 1, 1);
+    b.getNode("command", 1).setValue("dialog-show");
+    b.getNode("dialog-name", 1).setValue("button-config");
+    
+    col = col + 2;
+    
+    if (col > 5) {
+      row = row +1;
+      col = 0;  
+    }  
+  }
+}
+
+var updateConfig = func() {
+  joystick.writeConfig();
+  fgcommand("reinit", props.Node.new({"subsystem": "input"}));
+  fgcommand("dialog-close", props.Node.new({"dialog-name": "joystick-config"}));
+  fgcommand("dialog-show", props.Node.new({"dialog-name": "joystick-config"}));
+}
+		]]></open>
+
+		<close><![CDATA[		
+		]]></close>
+	</nasal>
+
+
+	<name>joystick-config</name>
+	<layout>vbox</layout>
+	<resizable>true</resizable>
+	<default-padding>3</default-padding>
+
+	<group>
+		<layout>hbox</layout>
+		<default-padding>1</default-padding>
+
+		<empty><stretch>true</stretch></empty>
+
+		<text>
+			<label>Joystick Configuration</label>
+		</text>
+
+		<empty><stretch>true</stretch></empty>
+
+		<button>
+			<legend></legend>
+			<key>Esc</key>
+			<pref-width>16</pref-width>
+			<pref-height>16</pref-height>
+			<border>2</border>
+			<binding>
+				<command>dialog-close</command>
+			</binding>
+		</button>
+	</group>
+	
+	<hrule/>
+	
+	<text>
+	  <halign>left</halign>
+	  <label>To configure your joystick/yoke/pedals:</label>
+  </text>
+
+	<text>
+	  <halign>left</halign>
+	  <label>  1) Select the device your wish to configure from the drop-down.</label>
+  </text>
+
+	<text>
+	  <halign>left</halign>
+	  <label>  2) Identify the control you wish to configure by moving the joystick or pressing the button.  The result is shown in the Input column.</label>
+  </text>
+
+	<text>
+	  <halign>left</halign>
+	  <label>  3) Using the drop-down or dialog button, select what you want the control to do.  "Custom" indicates a manually configured command.</label>
+  </text>
+
+	<text>
+	  <halign>left</halign>
+	  <label>  Your selection will take effect immediately.</label>
+  </text>
+  
+	<text>
+	  <halign>left</halign>
+	  <label>  4) Test your control.  Some joystick controls can be "inverted" if you wish the control to take effect in the opposite direction.</label>
+  </text>
+
+	<text>
+	  <halign>left</halign>
+	  <label>Your modified joystick configuration is saved automatically.  You can reset the configuration to the default by pressing Reset Configuration.</label>
+  </text>
+  
+  <hrule/>
+	
+	<!-- Joystick selector -->
+	<group>
+	  <layout>table</layout>
+	  <halign>left</halign>
+	  
+	  <text>
+	    <row>0</row>
+	    <col>0</col>
+	    <halign>right</halign>
+	    <label>Joystick:</label>
+    </text>
+    
+    <combo>
+      <name>jsselect</name>
+	    <row>0</row>
+	    <col>1</col>
+      <halign>left</halign>
+      <property>/sim/gui/dialogs/joystick-config/selected-joystick</property>
+      <pref-width>350</pref-width>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>jsselect</object-name>
+      </binding>
+      <binding>
+        <command>nasal</command>
+        <script>        
+          fgcommand("dialog-close", props.Node.new({"dialog-name": "joystick-config"}));
+          fgcommand("dialog-show", props.Node.new({"dialog-name": "joystick-config"}));
+        </script>
+      </binding>
+    </combo>
+    
+    <button>
+      <row>0</row>
+      <col>2</col>
+      <halign>center</halign>
+      <legend>Reset Configuration</legend>
+      <binding>
+        <command>nasal</command>
+        <script>
+          joystick.resetConfig();
+          fgcommand("reinit", props.Node.new({"subsystem": "input"}));
+          fgcommand("dialog-close", props.Node.new({"dialog-name": "joystick-config"}));
+          fgcommand("dialog-show", props.Node.new({"dialog-name": "joystick-config"}));
+        </script>
+      </binding>
+    </button>
+
+    <button>
+      <row>0</row>
+      <col>3</col>
+      <halign>center</halign>
+      <legend>Refresh Joysticks</legend>
+      <binding>
+        <command>nasal</command>
+        <script>
+          fgcommand("reinit", props.Node.new({"subsystem": "input"}));
+          fgcommand("dialog-close", props.Node.new({"dialog-name": "joystick-config"}));
+          fgcommand("dialog-show", props.Node.new({"dialog-name": "joystick-config"}));
+        </script>
+      </binding>
+    </button>
+        
+    
+	  <text>
+	    <row>1</row>
+	    <col>0</col>
+	    <halign>right</halign>
+	    <label>Configuration File:</label>
+    </text>
+    
+	  <text>
+	    <row>1</row>
+	    <col>1</col>
+	    <colspan>3</colspan>
+	    <halign>left</halign>
+	    <label>Joystick Confgig</label>
+	    <property>/sim/gui/dialogs/joystick-config/selected-joystick-config</property>
+    </text>
+    
+  </group>
+  
+  
+  <hrule/>
+  
+  <group>
+    <layout>hbox</layout>
+    <valign>top</valign>
+    <halign>fill</halign>
+    
+    <!-- Axis list -->
+    <group>
+      <layout>table</layout>
+      <valign>top</valign>
+      <name>axistable</name>
+      
+      
+      <!-- Header Row -->
+      <text>
+        <row>0</row>
+        <col>0</col>
+        <label>Axis</label>
+      </text>
+      
+      <text>
+        <row>0</row>
+        <col>1</col>
+        <label>Input</label>
+      </text>
+      
+      <text>
+        <row>0</row>
+        <col>2</col>
+        <label>Control</label>
+      </text>
+    
+      <text>
+        <row>0</row>
+        <col>3</col>
+        <label>Inverted?</label>
+      </text>
+      
+      
+      <!-- Axes get added here -->
+
+    </group>
+    
+    <vrule/>
+    
+    <!-- Buttons -->
+    
+    <group>
+      <layout>table</layout>
+      <valign>top</valign>
+      <name>buttontable</name>
+      
+      <!-- Header row-->
+      <text>
+        <row>0</row><col>0</col>
+        <label>Input</label>
+      </text>
+        
+      <text>
+        <row>0</row><col>1</col>
+        <label>Control</label>
+      </text>
+        
+      <text>
+        <row>0</row><col>2</col>
+        <label>Input</label>
+      </text>
+        
+      <text>
+        <row>0</row><col>3</col>
+        <label>Control</label>
+      </text>
+
+      <text>
+        <row>0</row><col>4</col>
+        <label>Input</label>
+      </text>
+        
+      <text>
+        <row>0</row><col>5</col>
+        <label>Control</label>
+      </text>
+      
+      <!-- Buttons get added here -->
+          
+    </group>
+  </group>
+  
+  <hrule/>
+
+	<group>
+		<layout>table</layout>
+		<default-padding>2</default-padding>
+
+		<empty>
+			<width>150</width>
+			<col>0</col>
+			<row>0</row>
+		</empty>
+
+		<text>
+			<label>Aileron:  </label>
+			<halign>right</halign>
+			<col>1</col>
+			<row>0</row>
+		</text>
+
+		<text>
+			<label>-0.00000</label>
+			<halign>left</halign>
+			<format>%.5f</format>
+			<property>/controls/flight/aileron</property>
+			<live>1</live>
+			<col>2</col>
+			<row>0</row>
+		</text>
+
+		<text>
+			<label>Elevator:  </label>
+			<halign>right</halign>
+			<col>1</col>
+			<row>1</row>
+		</text>
+
+		<text>
+			<label>-0.00000</label>
+			<halign>left</halign>
+			<format>%.5f</format>
+			<property>/controls/flight/elevator</property>
+			<live>1</live>
+			<col>2</col>
+			<row>1</row>
+		</text>
+
+		<text>
+			<label>Rudder:  </label>
+			<halign>right</halign>
+			<col>3</col>
+			<row>0</row>
+		</text>
+
+		<text>
+			<label>-0.00000</label>
+			<halign>left</halign>
+			<format>%.5f</format>
+			<property>/controls/flight/rudder</property>
+			<live>1</live>
+			<col>4</col>
+			<row>0</row>
+		</text>
+
+		<text>
+			<label>Throttle:  </label>
+			<halign>right</halign>
+			<col>3</col>
+			<row>1</row>
+		</text>
+
+		<text>
+			<label>-0.00000</label>
+			<halign>left</halign>
+			<format>%.5f</format>
+			<property>/controls/engines/engine/throttle</property>
+			<live>1</live>
+			<col>4</col>
+			<row>1</row>
+		</text>
+
+		<empty>
+			<width>150</width>
+			<col>5</col>
+			<row>0</row>
+		</empty>
+	</group>
+	  
+  <hrule/>
+  
+  <!-- Button bar -->
+  <group>
+    <layout>hbox</layout>
+    
+    <empty>
+      <stretch>true</stretch>
+    </empty>
+    
+    <button>
+      <legend>Close</legend>
+      <binding>
+        <command>dialog-close</command>
+      </binding>
+    </button>
+    
+    <empty>
+      <stretch>true</stretch>
+    </empty>
+  </group>  
+  
+</PropertyList>

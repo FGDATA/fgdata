@@ -1,0 +1,439 @@
+<?xml version="1.0"?>
+<!--
+  Mast truck for Zeppelin NT07 airship.
+
+  Copyright (C) 2009 - 2010  Alexis Bory, author of the 3d model
+  Copyright (C) 2009 - 2012  Anders Gidenstam  (anders(at)gidenstam.org)
+  This file is licensed under the GPL license v2 or later.
+-->
+<PropertyList>
+
+ <params>
+  <mast-head-height-m type="string">sim/model/mast-truck/mast-head-height-m</mast-head-height-m>
+  <mast-head-heading-deg type="string">sim/model/mast-truck/mast-head-heading-deg</mast-head-heading-deg>
+  <mast-head-pitch-deg type="string">sim/model/mast-truck/mast-head-pitch-deg</mast-head-pitch-deg>
+
+  <!-- Other things to animate -->
+  <mast-fold-norm type="string">sim/model/mast-truck/mast-fold-norm</mast-fold-norm>
+  <legs-fold-norm type="string">sim/model/mast-truck/legs-fold-norm</legs-fold-norm>
+
+  <!-- Currently assumed to be the reverse to the truck heading. -->
+  <truck-heading-deg type="string">sim/model/mast-truck/truck-heading-deg</truck-heading-deg>
+
+  <!-- Make the wheels spin and turn when appropriate. -->
+  <speed-kt>sim/model/mast-truck/speed-kt</speed-kt>
+  <steer-angle-norm>sim/model/mast-truck/steer-angle-norm</steer-angle-norm>
+ </params>
+
+ <path>scania-mast-truck.ac</path>
+ <offsets>
+  <!-- x/y/z == back/right/up -->
+  <x-m>-0.748 </x-m>
+  <y-m> 0.00  </y-m>
+  <z-m> 0.00  </z-m>
+ </offsets>
+
+ <!-- Rembrandt transparency markup. -->
+ <!-- effect>
+  <inherits-from>Effects/model-transparent</inherits-from>
+  <object-name>glass</object-name>
+ </effect -->
+
+ <animation>
+  <type>rotate</type>
+  <object-name>mast-bottom</object-name>
+  <object-name>mast-upper</object-name>
+  <object-name>mast-head</object-name>
+  <property alias="../../params/mast-fold-norm"/>
+  <interpolation>
+   <entry><ind>0.0</ind> <dep>0.0</dep></entry>
+   <entry><ind>1.0</ind> <dep>-90.0</dep></entry>
+  </interpolation>
+  <axis>
+   <x>0.0</x>
+   <y>1.0</y>
+   <z>0.0</z>
+  </axis>
+  <center>
+   <x-m>0.752</x-m>
+   <y-m>0.000</y-m>
+   <z-m>3.401</z-m>
+  </center>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>top-head-receptacle</object-name>
+  <condition>
+   <equals>
+    <value>0.0</value>
+    <property alias="../../../../params/mast-fold-norm"/>
+   </equals>
+  </condition>
+  <property alias="../../params/mast-head-pitch-deg"/>
+  <offset-deg>0.0</offset-deg>
+  <factor>1.0</factor>
+  <axis>
+   <x>0.0</x>
+   <y>1.0</y>
+   <z>0.0</z>
+  </axis>
+  <center>
+   <x-m>0.824</x-m>
+   <y-m>0.000</y-m>
+   <z-m>8.418</z-m>
+  </center>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>mast-head</object-name>
+  <condition>
+   <equals>
+    <value>0.0</value>
+    <property alias="../../../../params/mast-fold-norm"/>
+   </equals>
+  </condition>
+  <property alias="../../params/mast-head-heading-deg"/>
+  <offset-deg>0.0</offset-deg>
+  <factor>-1.0</factor>
+  <axis>
+   <x>0.0</x>
+   <y>0.0</y>
+   <z>1.0</z>
+  </axis>
+  <center>
+   <x-m>0.748</x-m>
+   <y-m>0.0</y-m>
+   <z-m>0.0</z-m>
+  </center>
+ </animation>
+ 
+ <animation>
+  <type>rotate</type>
+  <object-name>mast-head</object-name>
+  <condition>
+   <equals>
+    <value>0.0</value>
+    <property alias="../../../../params/mast-fold-norm"/>
+   </equals>
+  </condition>
+  <property alias="../../params/truck-heading-deg"/>
+  <offset-deg>180.0</offset-deg> <!-- temporary hack: reversed -->
+  <factor>1.0</factor>           <!-- temporary hack: reversed -->
+  <axis>
+   <x>0.0</x>
+   <y>0.0</y>
+   <z>1.0</z>
+  </axis>
+  <center>
+   <x-m>0.748</x-m>
+   <y-m>0.0</y-m>
+   <z-m>0.0</z-m>
+  </center>
+ </animation>
+
+ <animation>
+  <type>translate</type>
+  <object-name>mast-upper</object-name>
+  <object-name>mast-head</object-name>
+  <property alias="../../params/mast-head-height-m"/>
+  <interpolation>
+   <entry><ind>8.42</ind>  <dep>0.0</dep></entry>
+   <entry><ind>11.92</ind> <dep>3.5</dep></entry>
+  </interpolation>
+  <axis>
+   <x>0.0</x>
+   <y>0.0</y>
+   <z>1.0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>mast-jack-low</object-name>
+  <object-name>mast-jack-up</object-name>
+  <property alias="../../params/mast-fold-norm"/>
+  <interpolation>
+   <entry><ind>0.0</ind> <dep>0.0</dep></entry>
+   <entry><ind>0.2</ind> <dep>-4.0</dep></entry>
+   <entry><ind>0.5</ind> <dep>-6.0</dep></entry>
+   <entry><ind>0.8</ind> <dep>-4.0</dep></entry>
+   <entry><ind>1.0</ind> <dep>0.0</dep></entry>
+  </interpolation>
+  <axis>
+   <x>0.0</x>
+   <y>1.0</y>
+   <z>0.0</z>
+  </axis>
+  <center>
+   <x-m>-0.495</x-m>
+   <y-m> 0.000</y-m>
+   <z-m> 1.453</z-m>
+  </center>
+ </animation>
+
+ <animation>
+  <type>translate</type>
+  <object-name>mast-jack-up</object-name>
+  <property alias="../../params/mast-fold-norm"/>
+  <interpolation>
+   <entry><ind>0.0</ind>  <dep>0.0</dep></entry>
+   <entry><ind>1.0</ind>  <dep>-1.0</dep></entry>
+  </interpolation>
+  <axis>
+   <x>0.0</x>
+   <y>0.0</y>
+   <z>1.0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>leg-fwd-L</object-name>
+  <object-name>jack-fwd-L</object-name>
+  <property alias="../../params/legs-fold-norm"/>
+  <interpolation>
+   <entry><ind>0.0</ind> <dep>0.0</dep></entry>
+   <entry><ind>0.1</ind> <dep>0.0</dep></entry>
+   <entry><ind>1.0</ind> <dep>90.0</dep></entry>
+  </interpolation>
+  <axis>
+   <x>0.0</x>
+   <y>0.0</y>
+   <z>1.0</z>
+  </axis>
+  <center>
+   <x-m>-2.372</x-m>
+   <y-m>-1.067</y-m>
+   <z-m> 0.000</z-m>
+  </center>
+ </animation>
+ <animation>
+  <type>rotate</type>
+  <object-name>leg-fwd-R</object-name>
+  <object-name>jack-fwd-R</object-name>
+  <property alias="../../params/legs-fold-norm"/>
+  <interpolation>
+   <entry><ind>0.0</ind> <dep>0.0</dep></entry>
+   <entry><ind>0.1</ind> <dep>0.0</dep></entry>
+   <entry><ind>1.0</ind> <dep>-90.0</dep></entry>
+  </interpolation>
+  <axis>
+   <x>0.0</x>
+   <y>0.0</y>
+   <z>1.0</z>
+  </axis>
+  <center>
+   <x-m>-2.372</x-m>
+   <y-m> 1.067</y-m>
+   <z-m> 0.000</z-m>
+  </center>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>leg-aft-L</object-name>
+  <object-name>jack-aft-L</object-name>
+  <property alias="../../params/legs-fold-norm"/>
+  <interpolation>
+   <entry><ind>0.0</ind> <dep>0.0</dep></entry>
+   <entry><ind>0.1</ind> <dep>0.0</dep></entry>
+   <entry><ind>1.0</ind> <dep>-110.0</dep></entry>
+  </interpolation>
+  <axis>
+   <x>0.0</x>
+   <y>0.0</y>
+   <z>1.0</z>
+  </axis>
+  <center>
+   <x-m> 2.372</x-m>
+   <y-m>-1.067</y-m>
+   <z-m> 0.000</z-m>
+  </center>
+ </animation>
+ <animation>
+  <type>rotate</type>
+  <object-name>leg-aft-R</object-name>
+  <object-name>jack-aft-R</object-name>
+  <property alias="../../params/legs-fold-norm"/>
+  <interpolation>
+   <entry><ind>0.0</ind> <dep>0.0</dep></entry>
+   <entry><ind>0.1</ind> <dep>0.0</dep></entry>
+   <entry><ind>1.0</ind> <dep>110.0</dep></entry>
+  </interpolation>
+  <axis>
+   <x>0.0</x>
+   <y>0.0</y>
+   <z>1.0</z>
+  </axis>
+  <center>
+   <x-m> 2.372</x-m>
+   <y-m> 1.067</y-m>
+   <z-m> 0.000</z-m>
+  </center>
+ </animation>
+
+ <animation>
+  <type>translate</type>
+  <object-name>jack-fwd-L</object-name>
+  <object-name>jack-fwd-R</object-name>
+  <object-name>jack-aft-L</object-name>
+  <object-name>jack-aft-R</object-name>
+  <property alias="../../params/legs-fold-norm"/>
+  <interpolation>
+   <entry><ind>0.0</ind>  <dep>0.00</dep></entry>
+   <entry><ind>0.1</ind>  <dep>0.40</dep></entry>
+  </interpolation>
+  <axis>
+   <x>0.0</x>
+   <y>0.0</y>
+   <z>1.0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>front-wheel-L</object-name>
+  <property alias="../../params/steer-angle-norm"/>
+  <factor>30.0</factor>
+  <axis>
+   <x>0.0</x>
+   <y>0.0</y>
+   <z>1.0</z>
+  </axis>
+  <center>
+   <x-m>-3.293</x-m>
+   <y-m>-0.950</y-m>
+   <z-m> 0.501</z-m>
+  </center>
+ </animation>
+ <animation>
+  <type>rotate</type>
+  <object-name>front-wheel-R</object-name>
+  <property alias="../../params/steer-angle-norm"/>
+  <factor>30.0</factor>
+  <axis>
+   <x>0.0</x>
+   <y>0.0</y>
+   <z>1.0</z>
+  </axis>
+  <center>
+   <x-m>-3.293</x-m>
+   <y-m> 0.950</y-m>
+   <z-m> 0.501</z-m>
+  </center>
+ </animation>
+
+ <animation>
+  <type>spin</type>
+  <object-name>front-wheel-L</object-name>
+  <property alias="../../params/speed-kt"/>
+  <factor>-9.0973751</factor>
+  <axis>
+   <x>0.0</x>
+   <y>1.0</y>
+   <z>0.0</z>
+  </axis>
+  <center>
+   <x-m>-3.293</x-m>
+   <y-m> 0.000</y-m>
+   <z-m> 0.501</z-m>
+  </center>
+ </animation>
+ <animation>
+  <type>spin</type>
+  <object-name>front-wheel-R</object-name>
+  <property alias="../../params/speed-kt"/>
+  <factor>-9.0973751</factor>
+  <axis>
+   <x>0.0</x>
+   <y>1.0</y>
+   <z>0.0</z>
+  </axis>
+  <center>
+   <x-m>-3.293</x-m>
+   <y-m> 0.000</y-m>
+   <z-m> 0.501</z-m>
+  </center>
+ </animation>
+
+
+ <animation>
+  <type>spin</type>
+  <object-name>back-wheels-1</object-name>
+  <property alias="../../params/speed-kt"/>
+  <factor>-9.0973751</factor>
+  <axis>
+   <x>0.0</x>
+   <y>1.0</y>
+   <z>0.0</z>
+  </axis>
+  <center>
+   <x-m> 0.945</x-m>
+   <y-m> 0.000</y-m>
+   <z-m> 0.502</z-m>
+  </center>
+ </animation>
+
+ <animation>
+  <type>spin</type>
+  <object-name>back-wheels-2</object-name>
+  <property alias="../../params/speed-kt"/>
+  <factor>-9.0973751</factor>
+  <axis>
+   <x>0.0</x>
+   <y>1.0</y>
+   <z>0.0</z>
+  </axis>
+  <center>
+   <x-m> 2.064</x-m>
+   <y-m> 0.000</y-m>
+   <z-m> 0.502</z-m>
+  </center>
+ </animation>
+
+
+ <!-- LOD for the model as a whole =========================================-->
+ <animation>
+  <type>range</type>
+  <min-m>0</min-m>
+  <max-m>10000</max-m>
+ </animation>
+
+ <nasal>
+  <load>
+##############################################################################
+# The on-load Nasal is not executed when this file is loaded as the user
+# aircraft.
+##############################################################################
+var rplayer = cmdarg();
+print("LOAD Scania-mast-truck", rplayer.getPath());
+
+rplayer.getNode("sim/model/mast-truck/legs-fold-norm").
+    alias(rplayer.getNode("sim/multiplay/generic/float[0]"));
+rplayer.getNode("sim/model/mast-truck/mast-fold-norm").
+    alias(rplayer.getNode("sim/multiplay/generic/float[1]"));
+rplayer.getNode("sim/model/mast-truck/mast-head-height-m").
+    alias(rplayer.getNode("sim/multiplay/generic/float[2]"));
+rplayer.getNode("sim/model/mast-truck/mast-head-heading-deg").
+    alias(rplayer.getNode("sim/multiplay/generic/float[3]"));
+rplayer.getNode("sim/model/mast-truck/mast-head-pitch-deg").
+    alias(rplayer.getNode("sim/multiplay/generic/float[4]"));
+rplayer.getNode("sim/model/mast-truck/speed-kt").
+    alias(rplayer.getNode("sim/multiplay/generic/float[5]"));
+rplayer.getNode("sim/model/mast-truck/steer-angle-norm").
+    alias(rplayer.getNode("surface-positions/rudder-pos-norm"));
+rplayer.getNode("sim/model/mast-truck/truck-heading-deg").
+    alias(rplayer.getNode("orientation/true-heading-deg"));
+##############################################################################
+  </load>
+  <unload>
+##############################################################################
+var rplayer = cmdarg();
+print("UNLOAD Scania-mast-truck", rplayer.getPath());
+##############################################################################
+  </unload>
+ </nasal>
+
+</PropertyList>

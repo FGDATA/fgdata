@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+ <description>Centrair 101</description>
+ <author>Brett Harrison</author>  
+ <path>Models/centrair-101.ac</path>
+ 
+  <offsets>
+   <pitch-deg>3.96</pitch-deg>
+   <roll-deg>5.716</roll-deg>
+ </offsets>   
+ 
+    <animation>
+  <type>rotate</type>
+  <property>velocities/true-airspeed-kt</property>
+  <interpolation>
+<entry>
+    <ind>0.0</ind>
+    <dep>0.0</dep>
+   </entry>
+   
+   <entry>
+    <ind>0.1</ind>
+    <dep>0.01</dep>
+   </entry>
+   
+      <entry>
+    <ind>12</ind>
+    <dep>-5.716</dep>
+   </entry>
+   
+  </interpolation>
+  <center>
+   <x-m>0.0</x-m>
+   <y-m>0.0</y-m>
+   <z-m>0.0</z-m>
+  </center>
+  <axis>
+   <x>1.0</x>
+   <y>0.0</y>
+   <z>0.0</z>
+  </axis>
+ </animation>
+ 
+   <animation>
+  <type>rotate</type>
+  <property>velocities/true-airspeed-kt</property>
+  <interpolation>
+<entry>
+    <ind>0.0</ind>
+    <dep>0.0</dep>
+   </entry>
+   
+   <entry>
+    <ind>30</ind>
+    <dep>0.0</dep>
+   </entry>
+   
+      <entry>
+    <ind>50</ind>
+    <dep>-3.96</dep>
+   </entry>
+   
+  </interpolation>
+  <center>
+   <x-m>0.0</x-m>
+   <y-m>0.0</y-m>
+   <z-m>0.0</z-m>
+  </center>
+  <axis>
+   <x>0.0</x>
+   <y>1.0</y>
+   <z>0.0</z>
+  </axis>
+ </animation>
+ 
+      <animation>
+   		<type>select</type>
+		<object-name>gear</object-name>
+		<condition>
+			<less-than>
+				<property>velocities/true-airspeed-kt</property>
+				<value>90</value>
+			</less-than>
+		</condition>
+	</animation>
+ 
+</PropertyList>

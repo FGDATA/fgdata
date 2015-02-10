@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Reflections
+
+	PARAMETERS: There are two forms of cube map texture:- vertical cross and 6 images.
+	Either can be used - alternative forms are shown in <parameters> and in <texture-unit>
+	The reflection is set proportional to the shininess of the material. Thus by
+	varying the material shininess value over or between objects the amount of
+	refection can be controlled. The overall amount of reflection may be
+	adjusted by the use of <refl_correction> -1.0 (fully transparent)- 1.0 (fully opaque).
+
+	The overall values of the noisiness, coloured fringing or fresnel effect may be adjusted
+	by the use of <noisiness>, <rainbowiness> and <fresneliness>.
+
+	If your result is too dark/too light the overall ambient light value can be adjusted
+	by the use of <ambient_correction>. This correction also takes out some of the blueness
+	added as default to compensate for the lack of reflection.
+
+	To use a reflection map set <reflect_map> to 1,and the path to the map texture in
+	<texture n="8">
+
+	To use a light map set <light_map> to 1,and the path to the map texture in
+	<texture n="2">
+
+	USE: 	To use the default reflection effect (controlled by material shininess values) use
+
+		<effect>
+			<inherits-from>Effects/reflect</inherits-from>
+			<object-name>Fuselage</object-name>
+		</<effect>
+
+	To use your own reflection effectuse
+
+		<effect>
+			<inherits-from>Aircraft/Lightning/Models/Effects/lightningreflect</inherits-from>
+			<object-name>Fuselage</object-name>
+		</<effect>
+
+	in your model file.
+
+	To use your own effect place your efffect file containing something like this:
+
+		<name>Effects/lightningreflect</name>
+		<inherits-from>Effects/reflect</inherits-from>
+
+	and the the modified tags in the path as above
+
+	EXAMPLES: You can find examples of both usages in the Hunter and Lightning models.
+-->
+
+<PropertyList>
+	<name>Effects/reflect</name>
+	<inherits-from>Effects/model-default</inherits-from>
+
+	<parameters>
+		<texture n="2">
+			<!--lightmap image -->
+			<image>Aircraft/Generic/Effects/greymap.png</image>
+			<filter>linear-mipmap-linear</filter>
+			<wrap-s>repeat</wrap-s>
+			<wrap-t>repeat</wrap-t>
+			<internal-format>normalized</internal-format>
+		</texture>
+
+		<texture n="5">
+			<type>cubemap</type>
+			<!-- use this form for a cube cross -->
+			<!--<image>Aircraft/Generic/Effects/CubeCrosses/blue_sky_big.jpg</image>-->
+
+			<!-- use this form for a 6 image cube map -->
+			<images>
+				<positive-x>Aircraft/Generic/Effects/CubeMaps/fair-sky/fair-sky_px.png</positive-x>
+				<negative-x>Aircraft/Generic/Effects/CubeMaps/fair-sky/fair-sky_nx.png</negative-x>
+				<positive-y>Aircraft/Generic/Effects/CubeMaps/fair-sky/fair-sky_py.png</positive-y>
+				<negative-y>Aircraft/Generic/Effects/CubeMaps/fair-sky/fair-sky_ny.png</negative-y>
+				<positive-z>Aircraft/Generic/Effects/CubeMaps/fair-sky/fair-sky_pz.png</positive-z>
+				<negative-z>Aircraft/Generic/Effects/CubeMaps/fair-sky/fair-sky_nz.png</negative-z>
+			</images>
+
+		</texture>
+		<texture n="6">
+			<image>Aircraft/Generic/Effects/Rainbow.png</image>
+			<filter>linear-mipmap-linear</filter>
+			<wrap-s>repeat</wrap-s>
+			<wrap-t>repeat</wrap-t>
+			<internal-format>normalized</internal-format>
+		</texture>
+		<texture n="7">
+			<image>Aircraft/Generic/Effects/FresnelLookUp.png</image>
+			<filter>linear-mipmap-linear</filter>
+			<wrap-s>repeat</wrap-s>
+			<wrap-t>repeat</wrap-t>
+			<internal-format>normalized</internal-format>
+		</texture>
+		<texture n="8">
+			<image>Aircraft/Generic/Effects/ReflectMaps/reflectmap.png</image>
+			<filter>linear-mipmap-linear</filter>
+			<wrap-s>repeat</wrap-s>
+			<wrap-t>repeat</wrap-t>
+			<internal-format>normalized</internal-format>
+		</texture>
+		<rendering-hint>transparent</rendering-hint>
+		<shade-model>smooth</shade-model>
+		<rainbowiness type="float">0.01</rainbowiness>
+		<fresneliness>0.1</fresneliness>
+		<noisiness>0.25</noisiness>
+		<refl_correction>0.0</refl_correction>
+		<ambient_correction>0.05</ambient_correction>
+		<reflect_map type="int">0</reflect_map>
+		<light_map type="int">0</light_map>
+		<factor>1</factor>
+	</parameters>
+
+	<technique n="9">
+
+		<predicate>
+			<and>
+				<property>/sim/rendering/shaders/quality-level</property>
+				<property>/sim/rendering/shaders/model</property>
+				<or>
+					<less-equal>
+						<value type="float">2.0</value>
+						<glversion/>
+					</less-equal>
+					<and>
+						<extension-supported>GL_ARB_shader_objects</extension-supported>
+						<extension-supported>GL_ARB_shading_language_100</extension-supported>
+						<extension-supported>GL_ARB_vertex_shader</extension-supported>
+						<extension-supported>GL_ARB_fragment_shader</extension-supported>
+					</and>
+				</or>
+			</and>
+		</predicate>
+
+		<pass>
+			<lighting>true</lighting>
+			<material>
+				<active>
+					<use>material/active</use>
+				</active>
+				<ambient>
+					<use>material/ambient</use>
+				</ambient>
+				<diffuse>
+					<use>material/diffuse</use>
+				</diffuse>
+				<specular>
+					<use>material/specular</use>
+				</specular>
+				<emissive>
+					<use>material/emissive</use>
+				</emissive>
+				<shininess>
+					<use>material/shininess</use>
+				</shininess>
+				<color-mode>
+					<use>material/color-mode</use>
+				</color-mode>
+			</material>
+			<blend>
+				<active>
+					<use>blend/active</use>
+				</active>
+				<source>
+					<use>blend/source</use>
+				</source>
+				<destination>
+					<use>blend/destination</use>
+				</destination>
+			</blend>
+			<shade-model>
+				<use>shade-model</use>
+			</shade-model>
+			<cull-face>
+				<use>cull-face</use>
+			</cull-face>
+			<rendering-hint>
+				<use>rendering-hint</use>
+			</rendering-hint>
+
+			<texture-unit>
+				<unit>0</unit>
+				<image>
+					<use>texture[0]/image</use>
+				</image>
+				<filter>
+					<use>texture[0]/filter</use>
+				</filter>
+				<wrap-s>
+					<use>texture[0]/wrap-s</use>
+				</wrap-s>
+				<wrap-t>
+					<use>texture[0]/wrap-t</use>
+				</wrap-t>
+				<internal-format>
+					<use>texture[0]/internal-format</use>
+				</internal-format>
+			</texture-unit>
+
+            <texture-unit>
+				<unit>1</unit>
+				<image>
+					<use>texture[8]/image</use>
+				</image>
+				<filter>
+					<use>texture[8]/filter</use>
+				</filter>
+				<wrap-s>
+					<use>texture[8]/wrap-s</use>
+				</wrap-s>
+				<wrap-t>
+					<use>texture[8]/wrap-t</use>
+				</wrap-t>
+				<internal-format>
+					<use>texture[8]/internal-format</use>
+				</internal-format>
+			</texture-unit>
+
+			<texture-unit>
+				<unit>2</unit>
+				<type>
+					<use>texture[2]/type</use>
+				</type>
+				<image>
+					<use>texture[2]/image</use>
+				</image>
+				<filter>linear-mipmap-linear</filter>
+				<wrap-s>repeat</wrap-s>
+				<wrap-t>repeat</wrap-t>
+			</texture-unit>
+
+            <texture-unit>
+				<unit>3</unit>
+				<type>noise</type>
+			</texture-unit>
+
+			<texture-unit>
+				<unit>5</unit>
+				<type>
+					<use>texture[5]/type</use>
+				</type>
+
+				<!-- use this form for a cube cross -->
+				<!--<image>
+					<use>texture[5]/image</use>
+				</image>-->
+
+				<!-- use this form for a 6 image cube map -->
+				<images>
+					<use>texture[5]/images</use>
+				</images>
+			</texture-unit>
+
+			<texture-unit>
+				<unit>6</unit>
+				<type>
+					<use>texture[6]/type</use>
+				</type>
+				<image>
+					<use>texture[6]/image</use>
+				</image>
+				<filter>
+					<use>texture[6]/filter</use>
+				</filter>
+				<wrap-s>
+					<use>texture[6]/wrap-s</use>
+				</wrap-s>
+				<wrap-t>
+					<use>texture[6]/wrap-t</use>
+				</wrap-t>
+			</texture-unit>
+
+			<texture-unit>
+				<unit>7</unit>
+				<type>
+					<use>texture[7]/type</use>
+				</type>
+				<image>
+					<use>texture[7]/image</use>
+				</image>
+				<filter>
+					<use>texture[7]/filter</use>
+				</filter>
+				<wrap-s>
+					<use>texture[7]/wrap-s</use>
+				</wrap-s>
+				<wrap-t>
+					<use>texture[7]/wrap-t</use>
+				</wrap-t>
+			</texture-unit>
+
+			<program>
+<!-- 				<vertex-shader n="0">Shaders/include_fog.vert</vertex-shader> -->
+				<vertex-shader n="1">Shaders/reflect.vert</vertex-shader>
+				<fragment-shader n="0">Shaders/include_fog.frag</fragment-shader>
+				<fragment-shader n="1">Shaders/reflect.frag</fragment-shader>
+				<attribute>
+					<name>tangent</name>
+					<index>6</index>
+				</attribute>
+				<attribute>
+					<name>binormal</name>
+					<index>7</index>
+				</attribute>
+				<attribute>
+					<name>normal</name>
+					<index>15</index>
+				</attribute>
+			</program>
+
+			<uniform>
+				<name>BaseTex</name>
+				<type>sampler-2d</type>
+				<value type="int">0</value>
+			</uniform>
+
+			<uniform>
+				<name>Map</name>
+				<type>sampler-2d</type>
+				<value type="int">1</value>
+			</uniform>
+
+			<uniform>
+				<name>Lightmap</name>
+				<type>sampler-2d</type>
+				<value type="int">2</value>
+			</uniform>
+
+            <uniform>
+				<name>Noise</name>
+				<type>sampler-3d</type>
+				<value type="int">3</value>
+			</uniform>
+
+			<uniform>
+				<name>Environment</name>
+				<type>sampler-cube</type>
+				<value type="int">5</value>
+			</uniform>
+
+			<uniform>
+				<name>Rainbow</name>
+				<type>sampler-2d</type>
+				<value type="int">6</value>
+			</uniform>
+
+			<uniform>
+				<name>Fresnel</name>
+				<type>sampler-2d</type>
+				<value type="int">7</value>
+			</uniform>
+			<!-- set the amount of fringing colour 0.0 - 1.0 -->
+			<uniform>
+				<name>rainbowiness</name>
+				<type>float</type>
+				<value>
+					<use>rainbowiness</use>
+				</value>
+			</uniform>
+
+			<!-- set the amount of fresnel effect colour 0.0 - 1.0 -->
+			<uniform>
+				<name>fresneliness</name>
+				<type>float</type>
+				<value>
+					<use>fresneliness</use>
+				</value>
+			</uniform>
+
+			<!-- set the amount of noisiness 0.0 - 1.0 -->
+			<uniform>
+				<name>noisiness</name>
+				<type>float</type>
+				<value>
+					<use>noisiness</use>
+				</value>
+			</uniform>
+
+			<!-- The reflection is set proportional to the shininess of the material.
+			The amount of reflection may be adjusted by the use of this correction
+			-1.0 (fully transparent)- 1.0 (fully opaque) -->
+			<uniform>
+				<name>refl_correction</name>
+				<type>float</type>
+				<value>
+					<use>refl_correction</use>
+				</value>
+			</uniform>
+
+			<!-- set the amount of ambient light correction 0.0 - 1.0  -->
+			<uniform>
+				<name>ambient_correction</name>
+				<type>float</type>
+				<value>
+					<use>ambient_correction</use>
+				</value>
+			</uniform>
+
+			<!-- use a reflection map-->
+			<uniform>
+				<name>reflect_map</name>
+				<type>int</type>
+				<value>
+					<use>reflect_map</use>
+				</value>
+			</uniform>
+
+			<!-- use a light map-->
+			<uniform>
+				<name>light_map</name>
+				<type>int</type>
+				<value>
+					<use>light_map</use>
+				</value>
+			</uniform>
+
+			<uniform>
+				<name>lightmap_factor</name>
+				<type>float</type>
+				<value>
+					<use>factor</use>
+				</value>
+			</uniform>
+
+		</pass>
+	</technique>
+
+</PropertyList>

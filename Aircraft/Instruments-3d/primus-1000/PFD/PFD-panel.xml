@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+<PropertyList>
+
+    <name>PFD 2d Panel</name>
+    <background>Aircraft/Instruments-3d/primus-1000/PFD/transparent.png</background>
+    <w>418</w>
+    <h>512</h>
+
+    <instruments>
+
+        <instrument include="ai.xml">
+            <name>AI</name>
+            <condition>
+                <greater-than>
+                    <property>systems/electrical/outputs/efis</property>
+                    <value>15</value>
+                </greater-than>
+            </condition>
+            <x>213</x>
+            <y>355</y>
+            <w>176</w>
+            <h>206</h>
+        </instrument>
+
+        <instrument include="hsi-r.xml">
+            <name>HSI-r</name>
+            <condition>
+                <and>
+                    <greater-than>
+                        <property>systems/electrical/outputs/efis</property>
+                        <value>15</value>
+                    </greater-than>
+                    <not>
+                        <property>instrumentation/primus1000/control/hsi</property>
+                    </not>
+                </and>
+            </condition>
+            <x>213</x>
+            <y>111.5</y>
+            <w>204</w>
+            <h>204</h>
+        </instrument>
+
+        <instrument include="hsi-a.xml">
+            <name>HSI-a</name>
+            <condition>
+                <and>
+                    <greater-than>
+                        <property>systems/electrical/outputs/efis</property>
+                        <value>15</value>
+                    </greater-than>
+                    <property>instrumentation/primus1000/control/hsi</property>
+                </and>
+            </condition>
+            <x>213</x>
+            <y>127</y>
+            <w>230</w>
+            <h>180</h>
+        </instrument>
+
+        <instrument include="speedtape.xml">
+            <name>Spd</name>
+            <condition>
+                <greater-than>
+                    <property>systems/electrical/outputs/efis</property>
+                    <value>15</value>
+                </greater-than>
+            </condition>
+            <x>47</x>
+            <y>355</y>
+            <w>52</w>
+            <h>228</h>
+        </instrument>
+
+        <instrument include="alttape.xml">
+            <name>Alt tape</name>
+            <condition>
+                <greater-than>
+                    <property>systems/electrical/outputs/efis</property>
+                    <value>15</value>
+                </greater-than>
+            </condition>
+            <x>365</x>
+            <y>355.25</y>
+            <w>68</w>
+            <h>232</h>
+        </instrument>
+
+        <instrument include="fdbars.xml">
+            <name>FDbars</name>
+            <condition>
+                <greater-than>
+                    <property>systems/electrical/outputs/efis</property>
+                    <value>15</value>
+                </greater-than>
+            </condition>
+            <x>213</x>
+            <y>355</y>
+            <w>176</w>
+            <h>206</h>
+        </instrument>
+
+        <instrument include="mask.xml">
+            <name>Mask1</name>
+            <condition>
+                <greater-than>
+                    <property>systems/electrical/outputs/efis</property>
+                    <value>15</value>
+                </greater-than>
+            </condition>
+            <x>209</x>
+            <y>256</y>
+            <w>418</w>
+            <h>512</h>
+        </instrument>
+
+    </instruments>
+</PropertyList>

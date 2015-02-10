@@ -1,0 +1,951 @@
+<PropertyList>
+    <name>Basic Operation</name>
+    <description>
+    Instruction on manual starting, initial setup , and takeoff of the B1900D.
+    
+    </description>
+    <step-time>1</step-time>
+    <exit-time>1</exit-time>
+
+    <init>
+        <set>
+            <property>sim/model/yokes-visible</property>
+            <value>0</value>
+        </set>
+        <set>
+            <property>controls/gear/brake-parking</property>
+            <value>1</value>
+        </set>
+        <set>
+            <property>controls/flight/flaps</property>
+            <value>0.0</value>
+        </set>
+        <set>
+            <property>controls/electric/external-power</property>
+            <value>0</value>
+        </set>
+        <set>
+            <property>controls/electric/battery-switch</property>
+            <value>0</value>
+        </set>
+        <set>
+            <property>controls/electric/engine[0]/generator</property>
+            <value>0</value>
+        </set>
+        <set>
+            <property>controls/electric/engine[1]/generator</property>
+            <value>0</value>
+        </set>
+        <set>
+            <property>controls/engines/engine[0]/condition</property>
+            <value>0</value>
+        </set>
+        <set>
+            <property>controls/engines/engine[1]/condition</property>
+            <value>0</value>
+        </set>
+        <set>
+            <property>controls/engines/engine[0]/ignition</property>
+            <value>0</value>
+        </set>
+        <set>
+            <property>controls/engines/engine[1]/ignition</property>
+            <value>0</value>
+        </set>
+        <set>
+            <property>controls/engines/engine[0]/propeller-pitch</property>
+            <value>0</value>
+        </set>
+        <set>
+            <property>controls/engines/engine[1]/propeller-pitch</property>
+            <value>0</value>
+        </set>
+        <set>
+            <property>controls/engines/engine[0]/throttle</property>
+            <value>0.0</value>
+        </set>
+        <set>
+            <property>controls/engines/engine[1]/throttle</property>
+            <value>0.0</value>
+        </set>
+        <set>
+            <property>engines/engine[0]/running</property>
+            <value>0</value>
+        </set>
+        <set>
+            <property>engines/engine[1]/running</property>
+            <value>0</value>
+        </set>
+        <set>
+            <property>controls/lighting/nav-lights</property>
+            <value>0</value>
+        </set>
+        <set>
+            <property>controls/lighting/beacon/switch</property>
+            <value>0</value>
+        </set>
+        <set>
+            <property>controls/lighting/strobe/switch</property>
+            <value>0</value>
+        </set>
+    </init>
+
+    <step>
+        <message>
+            Set Condition levers to CUTOFF position{|.}
+            (Press and hold key ' m ')
+            {|.}
+        </message>
+        <view>
+            <heading-offset-deg>318.5</heading-offset-deg>
+            <pitch-offset-deg>-45</pitch-offset-deg>
+            <field-of-view>35</field-of-view>
+        </view>
+        <error>
+            <message>
+             Set Condition levers to CUTOFF position{|.}
+            (Press and hold key ' m ')
+            {|.}
+            </message>
+            <condition>
+                <and>
+                    <greater-than>
+                        <property>controls/engines/engine/condition</property>
+                        <value>0.1</value>
+                    </greater-than>
+                    <greater-than>
+                        <property>controls/engines/engine[1]/condition</property>
+                        <value>0.1</value>
+                    </greater-than>
+                </and>
+            </condition>
+        </error>
+        <exit>
+            <condition>
+                <and>
+                    <less-than>
+                        <property>controls/engines/engine/condition</property>
+                        <value>0.1</value>
+                    </less-than>
+                    <less-than>
+                        <property>controls/engines/engine[1]/condition</property>
+                        <value>0.1</value>
+                    </less-than>
+                </and>
+            </condition>
+        </exit>
+    </step>
+
+    <step>
+        <message>
+            Set Prop levers to TAXI position{|.}
+            (N/n key or mouse drag){|.}
+            {|.}
+        </message>
+        <view>
+            <heading-offset-deg>318.5</heading-offset-deg>
+            <pitch-offset-deg>-45</pitch-offset-deg>
+            <field-of-view>35</field-of-view>
+        </view>
+        <error>
+            <message>
+             Set Prop levers to TAXI position{|.}
+            (N/n key or mouse drag){|.}
+            {|.}
+            </message>
+            <condition>
+                <and>
+                    <greater-than>
+                        <property>controls/engines/engine/propeller-pitch</property>
+                        <value>0.15</value>
+                    </greater-than>
+                    <less-than>
+                        <property>controls/engines/engine/propeller-pitch</property>
+                        <value>0.10</value>
+                    </less-than>
+                    <greater-than>
+                        <property>controls/engines/engine[1]/condition</property>
+                        <value>0.15</value>
+                    </greater-than>
+                    <less-than>
+                        <property>controls/engines/engine[1]/propeller-pitch</property>
+                        <value>0.10</value>
+                    </less-than>
+                </and>
+            </condition>
+        </error>
+        <exit>
+            <condition>
+                <and>
+                    <less-than>
+                        <property>controls/engines/engine[0]/propeller-pitch</property>
+                        <value>0.15</value>
+                    </less-than>
+                    <greater-than>
+                        <property>controls/engines/engine[0]/propeller-pitch</property>
+                        <value>0.10</value>
+                    </greater-than>
+                    <less-than>
+                        <property>controls/engines/engine[1]/condition</property>
+                        <value>0.15</value>
+                    </less-than>
+                    <greater-than>
+                        <property>controls/engines/engine[1]/propeller-pitch</property>
+                        <value>0.10</value>
+                    </greater-than>
+                </and>
+            </condition>
+        </exit>
+    </step>
+
+    <step>
+        <message>
+            Turn on BATT switch{|.}
+            {|.}
+        </message>
+        <view>
+            <heading-offset-deg>6</heading-offset-deg>
+            <pitch-offset-deg>-36</pitch-offset-deg>
+            <field-of-view>25</field-of-view>
+        </view>
+        <error>
+            <message>
+            Turn on the BATT switch{|.}
+            {|.}
+            </message>
+            <condition>
+                <not>
+                        <property>controls/electric/battery-switch</property>
+                    </not>
+            </condition>
+        </error>
+        <exit>
+            <condition>
+                <property>controls/electric/battery-switch</property>
+            </condition>
+        </exit>
+    </step>
+
+    <step>
+        <message>
+            Turn on the beacon light{|.}
+            {|.}
+        </message>
+        <view>
+            <heading-offset-deg>309</heading-offset-deg>
+            <pitch-offset-deg>38</pitch-offset-deg>
+            <field-of-view>33</field-of-view>
+        </view>
+        <error>
+            <message>
+            Turn on the beacon light{|.}
+            {|.}
+            </message>
+            <condition>
+                <not>
+                        <property>controls/lighting/beacon/switch</property>
+                    </not>
+            </condition>
+        </error>
+        <exit>
+            <condition>
+                <property>controls/lighting/beacon/switch</property>
+            </condition>
+        </exit>
+    </step>
+
+    <step>
+        <message>
+            Turn on the AVIONICS switch{|.}
+            {|.}
+        </message>
+        <view>
+            <heading-offset-deg>6</heading-offset-deg>
+            <pitch-offset-deg>-36</pitch-offset-deg>
+            <field-of-view>25</field-of-view>
+        </view>
+        <error>
+            <message>
+            Turn on the AVIONICS switch{|.}
+            {|.}
+            </message>
+            <condition>
+                <not>
+                    <property>controls/electric/avionics-switch</property>
+                </not>
+            </condition>
+        </error>
+        <exit>
+            <condition>
+                <property>controls/electric/avionics-switch</property>
+            </condition>
+        </exit>
+    </step>
+
+    <step>
+        <message>
+            Turn on the EFIS POWER - PILOT EADI EHSI and COPLT EADI EHSI switches{|.}
+            {|.}
+        </message>
+        <view>
+            <heading-offset-deg>315</heading-offset-deg>
+            <pitch-offset-deg>-61</pitch-offset-deg>
+            <field-of-view>18</field-of-view>
+        </view>
+        <error>
+            <message>
+            Turn on the EFIS POWER - PILOT EADI EHSI and COPLT EADI EHSI switches{|.}
+            {|.}
+            </message>
+            <condition>
+                <and>
+                    <not>
+                        <property>controls/electric/efis/bank</property>
+                    </not>
+                    <not>
+                        <property>controls/electric/efis/bank[1]</property>
+                    </not>
+                </and>
+            </condition>
+        </error>
+        <exit>
+            <condition>
+                <and>
+                    <property>controls/electric/efis/bank</property>
+                    <property>controls/electric/efis/bank[1]</property>
+                </and>
+            </condition>
+        </exit>
+    </step>
+
+    <step>
+        <message>
+            Set your altimer to .Tune your COM to ATIS frequency{|.}
+            or set to field elevation{|.}
+            {|.}
+        </message>
+        <view>
+            <heading-offset-deg>350</heading-offset-deg>
+            <pitch-offset-deg>-21</pitch-offset-deg>
+            <field-of-view>22</field-of-view>
+        </view>
+    </step>
+
+    <step>
+        <message>
+            Press and hold the right IGNITION AND ENGINE START switch{|.}
+            Set R condition lever to Low Idle at 15% N1( M/m key){|.}
+            {|.}
+        </message>
+        <view>
+            <heading-offset-deg>0.35</heading-offset-deg>
+            <pitch-offset-deg>-31.5</pitch-offset-deg>
+            <field-of-view>35</field-of-view>
+        </view>
+        <error>
+            <message>
+             Press and hold the right IGNITION AND ENGINE START switch{|.}
+           Set R condition lever to Low Idle at 15% N1 ( M/m key){|.}
+           {|.}
+            </message>
+            <condition>
+                <not>
+                    <property>engines/engine[1]/running</property>
+                </not>
+            </condition>
+        </error>
+        <exit>
+            <condition>
+                <property>engines/engine[1]/running</property>
+            </condition>
+        </exit>
+    </step>
+
+<step>
+        <message>
+            Turn on the R GEN{|.}
+            {|.}
+        </message>
+        <view>
+            <heading-offset-deg>6</heading-offset-deg>
+            <pitch-offset-deg>-36</pitch-offset-deg>
+            <field-of-view>25</field-of-view>
+        </view>
+        <error>
+            <message>
+            Turn on the R GEN{|.}
+            {|.}
+            </message>
+            <condition>
+                <not>
+                        <property>controls/electric/engine[1]/bus-tie</property>
+                    </not>
+            </condition>
+        </error>
+        <exit>
+            <condition>
+                <property>controls/electric/engine[1]/bus-tie</property>
+            </condition>
+        </exit>
+    </step>
+
+    <step>
+        <message>
+            Set R Condition lever to HIGH IDLE position{|.}
+            (Press and hold key ' m ')
+            {|.}
+        </message>
+        <view>
+            <heading-offset-deg>318.5</heading-offset-deg>
+            <pitch-offset-deg>-45</pitch-offset-deg>
+            <field-of-view>35</field-of-view>
+        </view>
+        <error>
+            <message>
+             Set R Condition lever to HIGH IDLE position{|.}
+            (Mouse drag up)
+            {|.}
+            </message>
+            <condition>
+                <less-than>
+                    <property>controls/engines/engine[1]/condition</property>
+                    <value>0.95</value>
+                </less-than>
+            </condition>
+        </error>
+        <exit>
+            <condition>
+                <greater-than>
+                    <property>controls/engines/engine[1]/condition</property>
+                    <value>0.1</value>
+                </greater-than>
+             </condition>
+        </exit>
+    </step>
+
+    <step>
+        <message>
+            Set L Condition lever to CUTOFF (drag down with mouse){|.}
+            {|.}
+        </message>
+        <view>
+            <heading-offset-deg>318.5</heading-offset-deg>
+            <pitch-offset-deg>-45</pitch-offset-deg>
+            <field-of-view>35</field-of-view>
+        </view>
+        <error>
+            <message>
+             Set L Condition lever to CUTOFF (drag down with mouse){|.}
+            {|.}
+            </message>
+            <condition>
+                <greater-than>
+                    <property>controls/engines/engine/condition</property>
+                    <value>0.1</value>
+                </greater-than>
+            </condition>
+        </error>
+        <exit>
+            <condition>
+                <less-than>
+                    <property>controls/engines/engine/condition</property>
+                    <value>0.1</value>
+                </less-than>
+            </condition>
+        </exit>
+    </step>
+
+    <step>
+        <message>
+            Press and hold the L IGNITION AND ENGINE START switch{|.}
+            Set L condition lever to Low Idle at 15% N1 (M/m key){|.}
+            {|.}
+        </message>
+        <view>
+            <heading-offset-deg>0.35</heading-offset-deg>
+            <pitch-offset-deg>-31.5</pitch-offset-deg>
+            <field-of-view>35</field-of-view>
+        </view>
+        <error>
+            <message>
+             Press and hold the L IGNITION AND ENGINE START switch{|.}
+           Set L condition lever to Low Idle at 15% N1 (M/m key){|.}
+           {|.}
+            </message>
+            <condition>
+                <not>
+                    <property>engines/engine[0]/running</property>
+                </not>
+            </condition>
+        </error>
+        <exit>
+            <condition>
+                <property>engines/engine[0]/running</property>
+            </condition>
+        </exit>
+    </step>
+
+<step>
+        <message>
+            Turn on the L GEN{|.}
+            {|.}
+        </message>
+        <view>
+            <heading-offset-deg>6</heading-offset-deg>
+            <pitch-offset-deg>-36</pitch-offset-deg>
+            <field-of-view>25</field-of-view>
+        </view>
+        <error>
+            <message>
+            Turn on the L GEN{|.}
+            {|.}
+            </message>
+            <condition>
+                <not>
+                        <property>controls/electric/engine[0]/bus-tie</property>
+                    </not>
+            </condition>
+        </error>
+        <exit>
+            <condition>
+                <property>controls/electric/engine[0]/bus-tie</property>
+            </condition>
+        </exit>
+    </step>
+
+    <step>
+        <message>
+            Set L Condition lever to HIGH IDLE position{|.}
+            (Press and hold key ' m ')
+            {|.}
+        </message>
+        <view>
+            <heading-offset-deg>318.5</heading-offset-deg>
+            <pitch-offset-deg>-45</pitch-offset-deg>
+            <field-of-view>35</field-of-view>
+        </view>
+        <error>
+            <message>
+             Set L Condition lever to HIGH IDLE position{|.}
+            (Mouse drag up)
+            {|.}
+            </message>
+            <condition>
+                <less-than>
+                    <property>controls/engines/engine[0]/condition</property>
+                    <value>0.95</value>
+                </less-than>
+            </condition>
+        </error>
+        <exit>
+            <condition>
+                <greater-than>
+                    <property>controls/engines/engine[0]/condition</property>
+                    <value>0.1</value>
+                </greater-than>
+             </condition>
+        </exit>
+    </step>
+
+    <step>
+        <message>
+            Set Prop levers full forward{|.}
+            (N/n key or mouse drag){|.}
+            {|.}
+        </message>
+        <view>
+            <heading-offset-deg>318.5</heading-offset-deg>
+            <pitch-offset-deg>-45</pitch-offset-deg>
+            <field-of-view>35</field-of-view>
+        </view>
+        <error>
+            <message>
+            Set Prop levers full forward{|.}
+            (N/n key or mouse drag){|.}
+            {|.}
+            </message>
+            <condition>
+                <and>
+                    <less-than>
+                        <property>controls/engines/engine/propeller-pitch</property>
+                        <value>0.9</value>
+                    </less-than>
+                    <less-than>
+                        <property>controls/engines/engine[1]/propeller-pitch</property>
+                        <value>0.9</value>
+                    </less-than>
+                </and>
+            </condition>
+        </error>
+        <exit>
+            <condition>
+                <and>
+                    <greater-than>
+                        <property>controls/engines/engine[0]/propeller-pitch</property>
+                        <value>0.9</value>
+                    </greater-than>
+                    <greater-than>
+                        <property>controls/engines/engine[1]/propeller-pitch</property>
+                        <value>0.9</value>
+                    </greater-than>
+                </and>
+            </condition>
+        </exit>
+    </step>
+
+    <step>
+        <message>
+            Press the flashing Master Warning and Caution lights to shut them off{|.}
+        </message>
+        <view>
+            <heading-offset-deg>355</heading-offset-deg>
+            <pitch-offset-deg>-10</pitch-offset-deg>
+            <field-of-view>20</field-of-view>
+        </view>
+        <error>
+            <message>Mouse-click the flashing Master Warning  and Caution lights to shut it off{|.}</message>
+            <condition>
+                <property>instrumentation/annunciators/warning/Master</property>
+            </condition>
+        </error>
+        <exit>
+            <condition>
+                <not>
+                    <property>instrumentation/annunciators/warning/Master</property>
+                </not>
+            </condition>
+        </exit>
+    </step>
+
+<step>
+        <message>
+            Switch on L - R AC bus
+            {|.}
+        </message>
+        <view>
+            <heading-offset-deg>8</heading-offset-deg>
+            <pitch-offset-deg>-32</pitch-offset-deg>
+            <field-of-view>20</field-of-view>
+        </view>
+        <error>
+            <message>Switch on L - R AC bus
+            {|.}</message>
+            <condition>
+                <or>
+                    <not>
+                        <property>controls/electric/LH-AC-bus</property>
+                    </not>
+                    <not>
+                        <property>controls/electric/RH-AC-bus</property>
+                    </not>
+                </or>
+            </condition>
+        </error>
+        <exit>
+            <condition>
+                <and>
+                    <property>controls/electric/LH-AC-bus</property>
+                    <property>controls/electric/RH-AC-bus</property>
+                </and>
+            </condition>
+        </exit>
+    </step>
+
+    <step>
+        <message>
+            Switch on taxi,nav, and strobe lights
+            {|.}
+        </message>
+        <view>
+            <heading-offset-deg>309</heading-offset-deg>
+            <pitch-offset-deg>36.5</pitch-offset-deg>
+            <field-of-view>45</field-of-view>
+        </view>
+        <error>
+            <message>Switch on taxi,nav, and strobe lights
+            {|.}</message>
+            <condition>
+                <and>
+                    <not>
+                        <property>controls/lighting/strobe/switch</property>
+                    </not>
+                    <not>
+                        <property>controls/lighting/taxi-lights</property>
+                    </not>
+                    <not>
+                        <property>controls/lighting/nav-lights</property>
+                    </not>
+                </and>
+            </condition>
+        </error>
+        <exit>
+            <condition>
+                <and>
+                    <property>controls/lighting/strobe/switch</property>
+                    <property>controls/lighting/taxi-lights</property>
+                    <property>controls/lighting/nav-lights</property>
+                </and>
+            </condition>
+        </exit>
+    </step>
+
+<step>
+        <message>
+            Switch on landing lights
+            {|.}
+        </message>
+        <view>
+            <heading-offset-deg>309</heading-offset-deg>
+            <pitch-offset-deg>36.5</pitch-offset-deg>
+            <field-of-view>45</field-of-view>
+        </view>
+        <error>
+            <message>Switch on landing lights
+            {|.}</message>
+            <condition>
+                <and>
+                    <not>
+                        <property>controls/lighting/landing-lights[0]</property>
+                    </not>
+                    <not>
+                        <property>controls/lighting/landing-lights[1]</property>
+                    </not>
+                </and>
+            </condition>
+        </error>
+        <exit>
+            <condition>
+                <and>
+                    <property>controls/lighting/landing-lights[0]</property>
+                    <property>controls/lighting/landing-lights[1]</property>
+                </and>
+            </condition>
+        </exit>
+    </step>
+
+    <step>
+        <message>
+            Arm the ENG AUTO IGNITION switches{|.}
+           {|.}
+        </message>
+        <view>
+            <heading-offset-deg>3.5</heading-offset-deg>
+            <pitch-offset-deg>-33</pitch-offset-deg>
+            <field-of-view>25</field-of-view>
+        </view>
+        <error>
+            <message>
+            Arm the ENG AUTO IGNITION switches{|.}
+            {|.}
+            </message>
+            <condition>
+                <and>
+                    <not>
+                        <property>controls/engines/engine/ignition</property>
+                    </not>
+                    <not>
+                        <property>controls/engines/engine[1]/ignition</property>
+                    </not>
+                </and>
+            </condition>
+        </error>
+        <exit>
+            <condition>
+                <and>
+                    <property>controls/engines/engine/ignition</property>
+                    <property>controls/engines/engine[1]/ignition</property>
+                </and>
+            </condition>
+        </exit>
+    </step>
+
+    <step>
+        <message>
+            Set takeoff flaps, (press " ] " or mouse click flap lever){|.}
+            {|.}
+        </message>
+        <view>
+            <heading-offset-deg>327</heading-offset-deg>
+            <pitch-offset-deg>-43</pitch-offset-deg>
+            <field-of-view>25</field-of-view>
+        </view>
+        <error>
+            <message>Set takeoff flaps, (press " ] " or mouse click flap lever){|.}
+            {|.}</message>
+            <condition>
+                <equals>
+                    <property>controls/flight/flaps</property>
+                    <value>0</value>
+                </equals>
+            </condition>
+        </error>
+        <exit>
+            <condition>
+                <greater-than>
+                    <property>controls/flight/flaps</property>
+                    <value>0.0</value>
+                </greater-than>
+            </condition>
+        </exit>
+    </step>
+
+
+    <step>
+        <message>
+            Release Parking Brake ( B )
+            {|.}
+        </message>
+        <view>
+            <heading-offset-deg>290</heading-offset-deg>
+            <pitch-offset-deg>-59</pitch-offset-deg>
+            <field-of-view>35</field-of-view>
+        </view>
+        <error>
+            <message>Release Parking Brake ( B )
+            {|.}</message>
+            <condition>
+                <property>controls/gear/brake-parking</property>
+            </condition>
+        </error>
+        <exit>
+            <condition>
+                <not>
+                    <property>controls/gear/brake-parking</property>
+                </not>
+            </condition>
+        </exit>
+    </step>
+
+    <step>
+        <message>
+            Apply full throttle and rotate at 100-120 knots.{|.}
+            Hold a pitch attitude of 10 - 15 degrees during climb.
+            {|.}
+        </message>
+        <view>
+            <heading-offset-deg>0</heading-offset-deg>
+            <pitch-offset-deg>-12</pitch-offset-deg>
+            <field-of-view>70</field-of-view>
+        </view>
+        <error>
+            <message>
+            Apply full throttle and rotate at 100-120 knots.{|.}
+            Hold a pitch attitude of 10 - 15 degrees during climb.
+            {|.}
+            </message>
+            <condition>
+                <less-than>
+                    <property>position/altitude-agl-ft</property>
+                    <value>200.0</value>
+                </less-than>
+            </condition>
+        </error>
+        <exit>
+            <condition>
+                <greater-than>
+                    <property>position/altitude-agl-ft</property>
+                    <value>200.0</value>
+                </greater-than>
+            </condition>
+        </exit>
+    </step>
+
+    <step>
+        <message>
+            Raise the landing gear (Press " G " or mouseclick the gear lever){|.}
+        </message>
+        <view>
+            <heading-offset-deg>0</heading-offset-deg>
+            <pitch-offset-deg>-12</pitch-offset-deg>
+            <field-of-view>70</field-of-view>
+        </view>
+        <error>
+            <message>Raise the landing gear.{|.}</message>
+            <condition>
+                <property>controls/gear/gear-down</property>
+            </condition>
+        </error>
+        <exit>
+            <condition>
+                <not>
+                    <property>controls/gear/gear-down</property>
+                </not>
+            </condition>
+        </exit>
+    </step>
+
+<step>
+        <message>
+            Raise flaps (" [ " key ") if you have a positive rate of climb{|.}
+        </message>
+        <view>
+            <heading-offset-deg>0</heading-offset-deg>
+            <pitch-offset-deg>-12</pitch-offset-deg>
+            <field-of-view>70</field-of-view>
+        </view>
+        <error>
+            <message>Raise flaps (" [ " key ").{|.}</message>
+            <condition>
+                <greater-than>
+                    <property>controls/flight/flaps</property>
+                    <value>0</value>
+                </greater-than>
+            </condition>
+        </error>
+        <exit>
+            <condition>
+                <equals>
+                    <property>controls/flight/flaps</property>
+                    <value>0</value>
+                </equals>
+            </condition>
+        </exit>
+    </step>
+
+<step>
+        <message>
+            Shut off Taxi and Landing Lights
+            {|.}
+        </message>
+        <view>
+            <heading-offset-deg>0</heading-offset-deg>
+            <pitch-offset-deg>-12</pitch-offset-deg>
+            <field-of-view>70</field-of-view>
+        </view>
+        <error>
+            <message>Shut off Taxi and Landing Lights
+            {|.}</message>
+            <condition>
+                <or>
+                    <property>controls/lighting/landing-lights[0]</property>
+                    <property>controls/lighting/landing-lights[1]</property>
+                    <property>controls/lighting/taxi-lights</property>
+                </or>
+            </condition>
+        </error>
+        <exit>
+            <condition>
+                <and>
+                    <not>
+                        <property>controls/lighting/landing-lights[0]</property>
+                    </not>
+                     <not>
+                        <property>controls/lighting/landing-lights[1]</property>
+                    </not>
+                     <not>
+                        <property>controls/lighting/taxi-lights</property>
+                    </not>
+                </and>
+            </condition>
+        </exit>
+    </step>
+
+    <end>
+        <message>End of tutorial{|.}</message>
+        <view>
+            <heading-offset-deg>0</heading-offset-deg>
+            <pitch-offset-deg>-12</pitch-offset-deg>
+            <field-of-view>70</field-of-view>
+        </view>
+    </end>
+</PropertyList>

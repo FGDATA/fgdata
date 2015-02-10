@@ -1,0 +1,229 @@
+<?xml version="1.1"?>
+<!--
+************************************************************************
+Piper J-3 Cub simulation configuration. This files ties together all the components
+used by FGFS to represent the J-3 Cub. Components include the flight data
+model, instrument panel, and external 3D model.
+************************************************************************
+version 2.0  090410-->
+
+<PropertyList>
+ <sim>
+
+  <description>Piper J-3 Cub (J3C-65, 1946 model)</description>
+  <author>David Megginson (3D, FDM), Jim Wilson (Instruments), Don Lavelle (3D remodel, instrument mods, pilot mods, effects, livery)</author>
+  <status>early-production</status>
+  <rating>
+    <FDM type="int">3</FDM>
+    <systems type="int">3</systems>
+    <model type="int">4</model>
+    <cockpit type="int">4</cockpit>
+  </rating>
+
+
+  <flight-model>yasim</flight-model>
+  <aero>Cub_FDM</aero>
+  <fuel-fraction>0.8</fuel-fraction>
+
+  <startup>
+   <splash-texture>Aircraft/Cub/splash.png</splash-texture>
+  </startup>
+
+  <systems>
+   <electrical>
+    <path>Aircraft/Cub/Cub-electrical.xml</path>
+   </electrical>
+  </systems>
+
+  <sound>
+   <path>Aircraft/Cub/Cub-sound.xml</path>
+  </sound>
+
+  <panel>
+   <visibility archive="n">false</visibility>
+  </panel>
+
+  <model>
+   <path archive="y">Aircraft/Cub/Models/Cub.xml</path>
+  </model>
+
+<!-- pilot viewpoint x=y y=z z=x ?  -->
+  <view>
+   <internal archive="y">true</internal>
+   <config>
+     <x-offset-m archive="y">0</x-offset-m>
+     <y-offset-m archive="y">-0.15</y-offset-m>
+     <z-offset-m archive="y">0.6</z-offset-m>
+     <pitch-offset-deg>-8</pitch-offset-deg>
+   </config>
+  </view>
+
+  <help>
+    <title>Piper J-3 Cub</title>
+    <line>cruise speed: 70 mph (61 kt)</line>
+    <line>never exceed (Vne): 122 mph (106 kt)</line>
+    <line>best glide (Vglide): 60 mph (52 kt)</line>
+    <line>maneuvering (Va): 70 mph (61 kt)</line>
+    <line>approach speed: 50-60 mph (44-52 kt)</line>
+    <line>stall speed (Vs): 38 mph (33 kt)</line>
+    <line></line>
+    <line>hit d to open/close door</line>
+    <line></line>
+    <line>aerotow:</line>
+    <line>place Cub within 60m of a glider</line>
+    <line>glider pilot presses Ctrl-o to hook up</line>
+    <line>Ctrl-O to detach tow</line>
+    <key>
+      <name>d</name>
+      <desc>open/close door</desc>
+    </key>
+    <key>
+      <name>o</name>
+      <desc>lock aerotow-hook</desc>
+    </key>
+    <key>
+      <name>O</name>
+      <desc>open aerotow-hook</desc>
+    </key>
+   </help>
+
+   <menubar include="Dialogs/Cub-menu.xml"/>
+
+  <hitches>
+   <!-- make sure some properties do exist, when the list for multiplayer transfer is defined-->
+   <!-- they need to be in the same value, as they are initilized in the FDM, to get the same values after reset
+    should fix this somehow-->
+   <aerotow>
+    <tow>
+     <length type="float">60</length>
+     <elastic-constant type="float">10000</elastic-constant>
+     <weight-per-m-kg-m type="float">1</weight-per-m-kg-m>
+     <dist type="float">1</dist>
+     <connected-to-property-node type="bool"></connected-to-property-node>
+     <brake-force type="float">100000</brake-force>
+     <connected-to-ai-or-mp-callsign type ="string">*</connected-to-ai-or-mp-callsign>
+     <end-force-x type ="float">0</end-force-x>
+     <end-force-y type ="float">0</end-force-y>
+     <end-force-z type ="float">0</end-force-z>
+    </tow>
+    <speed-in-tow-direction type="float">0</speed-in-tow-direction>
+    <open type="bool">true</open>
+    <local-pos-x type="float">0</local-pos-x>
+    <local-pos-y type="float">0</local-pos-y>
+    <local-pos-z type="float">0</local-pos-z>
+    <is-slave type="bool">false</is-slave>
+   </aerotow>
+  </hitches>
+   
+  <!-- Payload -->
+  <weight>
+   <name type="string">Pilot</name>
+   <weight-lb alias="/yasim/Cub/pilot-lb"/>
+   <min-lb type="double">0.0</min-lb>
+   <max-lb type="double">210.0</max-lb>
+  </weight>  
+  <weight>
+   <name type="string">Passenger</name>
+   <weight-lb alias="/yasim/Cub/passenger-lb"/>
+   <min-lb type="double">0.0</min-lb>
+   <max-lb type="double">210.0</max-lb>
+  </weight>
+ </sim>
+
+ <yasim>
+  <Cub>
+   <pilot-lb>180.0</pilot-lb>
+   <passenger-lb>0.0</passenger-lb>
+  </Cub>
+ </yasim>
+
+ <controls>
+  <flight>
+   <aileron-trim>0.0025</aileron-trim>   <!-- fixed -->
+   <elevator-trim>0.00</elevator-trim> <!-- controllable -->
+   <rudder-trim>0.075</rudder-trim>     <!-- fixed -->
+  </flight>
+  <engines>
+   <engine n="0">
+    <magnetos>3</magnetos>
+   </engine>
+  </engines>
+  <door>1.0</door>
+  <aerotow>
+   <find-aircraft type="bool">false</find-aircraft>
+  </aerotow>
+ </controls>
+
+ <engines>
+  <engine>
+   <rpm type="double">0</rpm>
+  </engine>
+ </engines>
+
+ <!-- An autopilot on a Cub??? -->
+ <autopilot>
+   <config>
+     <min-climb-speed-kt type="float">48.0</min-climb-speed-kt>
+     <best-climb-speed-kt type="float">56.0</best-climb-speed-kt>
+     <target-climb-rate-fpm type="float">400.0</target-climb-rate-fpm>
+     <target-descent-rate-fpm type="float">1000.0</target-descent-rate-fpm>
+     <elevator-adj-factor type="float">6000.0</elevator-adj-factor>
+     <integral-contribution type="float">0.008</integral-contribution>
+     <zero-pitch-throttle type="float">0.35</zero-pitch-throttle>
+     <zero-pitch-trim-full-throttle type="float">0.001</zero-pitch-trim-full-throttle>
+   </config>
+ </autopilot>
+
+ <input>
+  <keyboard>
+   <key n="79">
+    <name>O</name>
+    <desc>Open aerotow hook</desc>
+    <binding>
+     <command>property-assign</command>
+     <property>/sim/hitches/aerotow/open</property>
+     <value type="bool">true</value>
+    </binding>
+   </key>
+   <key n="100">
+     <name>d</name>
+     <desc>Open/Close door</desc>
+     <binding>
+       <command>nasal</command>
+       <script>
+         if(getprop("controls/door[0]") > 0) {
+           interpolate("controls/door[0]", 0, 1);
+         } else {
+           interpolate("controls/door[0]", 1, 1);
+         }
+       </script>
+     </binding>
+   </key>
+   <key n="111">
+    <name>o</name>
+    <desc>Lock aerotow hook</desc>
+     <binding>
+      <command>property-assign</command>
+      <property>/sim/hitches/aerotow/open</property>
+      <value type="bool">false</value>
+    </binding>
+   </key>
+  </keyboard>
+ </input>
+
+ <limits>
+   <max-positive-g>3.5</max-positive-g>
+   <max-negative-g>-1.52</max-negative-g>
+   <vne>106</vne>
+ </limits>
+
+ <nasal>
+  <Cub>
+   <file>Aircraft/Cub/Nasal/immat.nas</file>
+  </Cub>
+  <failures> 
+    <file>Aircraft/Generic/limits.nas</file>
+  </failures>
+ </nasal>
+
+</PropertyList>

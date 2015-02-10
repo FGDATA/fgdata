@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!-- Set of Urban buildings, for inclusion in a materials file -->
+<PropertyList>
+  <range-m>10000</range-m>
+  <object>
+    <path>Models/Buildings/factory.ac</path>
+    <coverage-m2>40000000</coverage-m2>
+    <heading-type>mask</heading-type>
+  </object>
+  <object>
+    <path>Models/Buildings/big-apartment.ac</path>
+    <coverage-m2>10000000</coverage-m2>
+    <heading-type>mask</heading-type>
+  </object>
+  <object>
+    <path>Models/Residential/cube-apartment.ac</path>
+    <path>Models/Residential/medium-apartment.ac</path>
+    <path>Models/Buildings/renovated-apartment.ac</path>
+    <coverage-m2>100000</coverage-m2>
+    <heading-type>mask</heading-type>
+  </object>
+  <object>
+    <path>Models/Commercial/small-glass-office-building.ac</path>
+    <path>Models/Buildings/medium-glass-office-building.ac</path>
+    <path>Models/Buildings/small-modern-office.ac</path>
+    <path>Models/Buildings/small-office.ac</path>
+    <coverage-m2>100000</coverage-m2>
+    <heading-type>mask</heading-type>
+  </object>
+  <object>
+    <path>Models/Buildings/big-church.ac</path>
+    <coverage-m2>500000</coverage-m2>
+    <heading-type>mask</heading-type>
+  </object>
+  <object>
+    <path>Models/Buildings/brick-school.ac</path>
+    <path>Models/Buildings/bank-building.ac</path>
+    <coverage-m2>100000</coverage-m2>
+    <heading-type>mask</heading-type>
+</object>
+</PropertyList>

@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+ <path>rear-airbrakes-handle.ac</path>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>ab-handles-link-2</object-name>
+   <property>surface-positions/speedbrake-pos-norm</property>
+   <interpolation>
+     <entry>
+       <ind>0</ind>
+       <dep>0</dep>
+     </entry>
+     <entry>
+       <ind>0.02</ind>
+       <dep>5.0</dep>
+     </entry>
+     <entry>
+       <ind>1.0</ind>
+       <dep>45</dep>
+     </entry>
+      </interpolation>
+		<center>
+			<x-m>-0.042094</x-m>
+			<y-m>0.018549</y-m>
+			<z-m>0.116201</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>-0.027171</y>
+			<z>0</z>
+		</axis>
+ </animation>
+
+</PropertyList>
+
+

@@ -1,0 +1,324 @@
+<?xml version="1.0"?>
+<!--
+ Electrical panel.
+ John Check <j4strngs@usa.net>
+-->
+
+<PropertyList>
+ <name>Dual magneto switch panel</name>
+ <w-base>150</w-base>
+ <h-base>72</h-base>
+
+ <params>
+  <magneto0-select>/controls/engines/engine[0]/magnetos</magneto0-select>
+  <starter0-select>/controls/engines/engine[0]/starter</starter0-select>
+  <magneto1-select>/controls/engines/engine[1]/magnetos</magneto1-select>
+  <starter1-select>/controls/engines/engine[1]/starter</starter1-select>
+ </params>
+
+ <layers>
+
+  <layer>
+   <name>backplate</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/flaps.rgb</path>
+    <x1>0.378125</x1>
+    <y1>0.65</y1>
+    <x2>1.0</x2>
+    <y2>1.0</y2>
+   </texture>
+   <w>150</w>
+   <h>72</h>
+  </layer>
+
+<!-- engine 0 -->
+  <layer>
+   <name>magneto 0 label</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/flaps.rgb</path>
+    <x1>0.0</x1>
+    <y1>0.65</y1>
+    <x2>0.375</x2>
+    <y2>1.0</y2>
+   </texture>
+   <w>64</w>
+   <h>64</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-35</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-5</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+ <layer>
+  <name>magneto 0 switch</name>
+  <type>switch</type>
+  <layer>
+   <condition>
+    <property alias="../../../../../params/starter0-select"/>
+   </condition>
+  <name>starter engage</name>
+  <texture>
+    <path>Aircraft/Instruments/Textures/navcom-radios.rgb</path>
+    <x1>0.53125</x1>
+    <x2>0.59765625</x2>
+    <y1>0.05859375</y1>
+    <y2>0.1484375</y2>
+  </texture>
+  <w>30</w>
+  <h>40</h>
+  <transformations>
+   <transformation>
+    <type>x-shift</type>
+    <offset>-40</offset>
+   </transformation>
+   <transformation>
+    <type>y-shift</type>
+    <offset>-13</offset>
+   </transformation>
+   <transformation>
+    <type>rotation</type>
+    <offset>90</offset>
+   </transformation>
+   <transformation>
+   <type>y-shift</type>
+   <offset>-5</offset>
+   </transformation>
+  </transformations>
+  </layer>
+  <layer>
+  <name>magneto 0 select</name>
+  <texture>
+    <path>Aircraft/Instruments/Textures/navcom-radios.rgb</path>
+    <x1>0.53125</x1>
+    <x2>0.59765625</x2>
+    <y1>0.05859375</y1>
+    <y2>0.1484375</y2>
+  </texture>
+  <w>30</w>
+  <h>40</h>
+  <transformations>
+   <transformation>
+    <type>x-shift</type>
+    <offset>-40</offset>
+   </transformation>
+   <transformation>
+    <type>y-shift</type>
+    <offset>-13</offset>
+   </transformation>
+   <transformation>
+    <type>rotation</type>
+    <property alias="../../../../../../params/magneto0-select"/>
+    <min>-0</min>
+    <max>135</max>
+    <scale>45</scale>
+    <offset>-90</offset>
+   </transformation>
+   <transformation>
+    <type>y-shift</type>
+    <offset>-5</offset>
+   </transformation>
+  </transformations>
+  </layer>
+ </layer>
+
+<!-- engine 1 -->
+ <layer>
+   <name>magneto 1 label</name>
+   <texture>
+    <path>Aircraft/Instruments/Textures/flaps.rgb</path>
+    <x1>0.0</x1>
+    <y1>0.65</y1>
+    <x2>0.375</x2>
+    <y2>1.0</y2>
+   </texture>
+   <w>64</w>
+   <h>64</h>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>35</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>-5</offset>
+    </transformation>
+   </transformations>
+  </layer>
+ <layer>
+  <name>magneto 1 switch</name>
+  <type>switch</type>
+  <layer>
+  <condition>
+   <property alias="../../../../../params/starter1-select"/>
+  </condition>
+  <name>starter engage</name>
+  <texture>
+    <path>Aircraft/Instruments/Textures/navcom-radios.rgb</path>
+    <x1>0.53125</x1>
+    <x2>0.59765625</x2>
+    <y1>0.05859375</y1>
+    <y2>0.1484375</y2>
+  </texture>
+  <w>30</w>
+  <h>40</h>
+  <transformations>
+   <transformation>
+    <type>x-shift</type>
+    <offset>30</offset>
+   </transformation>
+   <transformation>
+    <type>y-shift</type>
+    <offset>-13</offset>
+   </transformation>
+   <transformation>
+    <type>rotation</type>
+    <offset>90</offset>
+   </transformation>
+   <transformation>
+   <type>y-shift</type>
+   <offset>-5</offset>
+   </transformation>
+  </transformations>
+  </layer>
+  <layer>
+  <name>magneto 1 select</name>
+  <texture>
+    <path>Aircraft/Instruments/Textures/navcom-radios.rgb</path>
+    <x1>0.53125</x1>
+    <x2>0.59765625</x2>
+    <y1>0.05859375</y1>
+    <y2>0.1484375</y2>
+  </texture>
+  <w>30</w>
+  <h>40</h>
+  <transformations>
+   <transformation>
+    <type>x-shift</type>
+    <offset>30</offset>
+   </transformation>
+   <transformation>
+    <type>y-shift</type>
+    <offset>-13</offset>
+   </transformation>
+   <transformation>
+    <type>rotation</type>
+    <property alias="../../../../../../params/magneto1-select"/>
+    <min>-0</min>
+    <max>135</max>
+    <scale>45</scale>
+    <offset>-90</offset>
+   </transformation>
+   <transformation>
+    <type>y-shift</type>
+    <offset>-5</offset>
+   </transformation>
+  </transformations>
+  </layer>
+ </layer>
+
+</layers>
+
+ <actions>
+<!--engine 0 -->
+  <action>
+   <name>Rotate knob left</name>
+   <button>0</button>
+   <x>-70</x>
+   <y>-35</y>
+   <w>30</w>
+   <h>72</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/magneto0-select"/>
+    <step>-1</step>
+    <min>0</min>
+    <max>3</max>
+    <wrap>0</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>Rotate knob right</name>
+   <button>0</button>
+   <x>-40</x>
+   <y>-35</y>
+   <w>30</w>
+   <h>72</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/magneto0-select"/>
+    <step>1</step>
+    <min>0</min>
+    <max>3</max>
+    <wrap>0</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>Start</name>
+   <button>1</button>
+   <x>-70</x>
+   <y>-35</y>
+   <w>72</w>
+   <h>72</h>
+   <binding>
+    <command>property-toggle</command>
+    <property alias="../../../../params/starter0-select"/>
+   </binding>
+  </action>
+<!--engine 1 -->
+  <action>
+   <name>Rotate knob left</name>
+   <button>0</button>
+   <x>0</x>
+   <y>-35</y>
+   <w>30</w>
+   <h>72</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/magneto1-select"/>
+    <step>-1</step>
+    <min>0</min>
+    <max>3</max>
+    <wrap>0</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>Rotate knob right</name>
+   <button>0</button>
+   <x>20</x>
+   <y>-35</y>
+   <w>30</w>
+   <h>72</h>
+   <binding>
+    <command>property-adjust</command>
+    <property alias="../../../../params/magneto1-select"/>
+    <step>1</step>
+    <min>0</min>
+    <max>3</max>
+    <wrap>0</wrap>
+   </binding>
+  </action>
+
+  <action>
+   <name>Start</name>
+   <button>1</button>
+   <x>5</x>
+   <y>-35</y>
+   <w>72</w>
+   <h>72</h>
+   <binding>
+    <command>property-toggle</command>
+    <property alias="../../../../params/starter1-select"/>
+   </binding>
+  </action>
+ </actions>
+
+</PropertyList>

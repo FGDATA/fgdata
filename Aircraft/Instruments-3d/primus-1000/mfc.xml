@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+Author : Syd Adams
+MFD Controller
+-->
+<PropertyList>
+
+<path>mfc.ac</path>
+
+<animation>
+    <type>material</type>
+    <object-name>MFC.btns</object-name>
+    <emission>
+        <red>0.025-</red>
+        <green>0.015</green>
+        <blue>0.010</blue>
+        <factor-prop>systems/electrical/outputs/instrument-lights</factor-prop>
+    </emission>
+</animation>
+
+</PropertyList>

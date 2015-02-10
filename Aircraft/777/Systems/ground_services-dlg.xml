@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<PropertyList>
+
+	<name>ground_services</name>
+	<layout>vbox</layout>
+
+	<text>
+		<label>Ground Services Controls</label>
+	</text>
+
+	<hrule />
+		
+	<checkbox>
+		<label>Enable Primary External Power</label>
+		<property>controls/electric/external-power</property>
+		<binding>
+			<command>dialog-apply</command>
+		</binding>
+		<live>true</live>
+	</checkbox>
+	<checkbox>
+		<label>Enable Secondary External Power</label>
+		<property>controls/electric/external-power[1]</property>
+		<binding>
+			<command>dialog-apply</command>
+		</binding>
+		<live>true</live>
+	</checkbox>
+	
+	<hrule />
+	
+	<group>
+	<layout>hbox</layout>
+
+		<button>
+			<legend>Close</legend>
+			<default>true</default>
+			<key>Esc</key>
+		<padding>5</padding>
+			<binding>
+				<command>dialog-apply</command>
+			</binding>
+			<binding>
+				<command>dialog-close</command>
+			</binding>
+		</button>
+		
+	</group>
+
+</PropertyList>

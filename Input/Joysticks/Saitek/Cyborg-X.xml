@@ -1,0 +1,560 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Joystick binding definitions for "Saitek Cyborg X" and "Saitek F.L.Y. 5" Joysticks.
+This file was modified from the "Cyborg-Gold-3d-USB.xml" file that is distributed with FlightGear v2.60
+
+Modified By Andy Wagner(e-Tron on FlightGear forum)
+
+
+
+
+Axis #	(direction)			mapped to
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+axis 0:(left-right)			aileron
+axis 1:(forward-backward)		elevator
+axis 2:(slider)			        throttle
+axis 3:(twist)				rudder
+
+
+
+
+
+~~~~ Modifiers ~~~~
+button 9:(Button 10)      "^"		Modifier 1
+button 10:(Button 11)	  "F3"		Modifier 2
+button 13:(Shift state)	  "F4"		Modifier 3
+
+
+
+
+Button #(location)		No Mod			Mod 1				Mod 2			Mod 3
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+button 0:(trigger)	        Brakes		        Parking Brake		        SpeedBrake		Thrust Reverse
+button 1:(Button 2)		Flaps Up		Gear Up				#		        #
+button 2:(Button 3)		Flaps Down		Gear Down			#		        #
+button 3:(Button 4)	        Previous View           Trim Rudder                     #	                #
+button 4:(Button 5)	        Next View		Trim Rudder			#		        #
+button 5:(Button 6)		Reset View		Reset All Trim	                Cockpit View	        Tail Wheel Lock
+button 6:(Button 7)             Pause                   #                               #                       #
+button 7:(Button 8)             #                       #                               #                       #
+button 8:(Button 9)             #                       #                               #                       #
+button 11:(scroll wheel up)     Zoom In			#		                #		        #
+button 12:(scroll wheel dwn)    Zoom Out		#			        #		        #
+
+axis 5: (hat left-right) 	look l/r	        Trim Aileron		        Adj Mixture	    	#
+axis 6: (hat up-down)	        look u/d	        Trim Elevator		        Adj Propeller	        #
+
+-->
+
+
+<PropertyList>
+
+
+<name>Saitek Cyborg X</name>
+<name>Cyborg X</name>
+<name>F.L.Y 5</name>
+<name>FLY 5</name>
+<name>FLY5</name>
+<name>Mad Catz Mad Catz F.L.Y.5 Stick</name>
+<name>Saitek FLY5</name>
+<name>Saitek F.L.Y. 5</name>
+<name>Saitek FLY 5</name>
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~ Axis Bindings ~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+<axis n="0">
+	<desc>Aileron</desc>
+	<binding>
+		<command>property-scale</command>
+		<property>/controls/flight/aileron</property>
+		<power type="double">2</power>
+	</binding>
+</axis>
+
+<axis n="1">
+	<desc>Elevator</desc>
+	<binding>
+		<command>property-scale</command>
+		<property>/controls/flight/elevator</property>
+		<factor type="double">-1.0</factor>
+		<power type="double">2</power>
+	</binding>
+</axis>
+
+<axis>
+	<number>
+		<mac>3</mac>
+		<unix>2</unix>
+		<windows>2</windows> 
+	</number>
+	<desc>Throttle</desc>
+	<binding>
+		<command>nasal</command>
+		<script>controls.throttleAxis()</script>
+	</binding>
+</axis>
+
+<axis>
+	<number>
+		<mac>2</mac>
+		<unix>3</unix>
+		<windows>3</windows>
+	</number>
+	<desc>Rudder</desc>
+	<binding>
+		<command>property-scale</command>
+		<property>/controls/flight/rudder</property>
+		<power type="double">2</power>
+	</binding>
+</axis>
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~ Hat Switch ~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<axis>
+	<desc>View Direction; Aileron Trim;</desc>
+	<number>
+		<unix>5</unix>
+		<mac>5</mac>
+		<windows>5</windows>
+	</number>
+	<low>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>
+				mod = getprop("/input/joysticks/js[0]/saitek-cyborg-evo-modifier");
+				if (mod == nil or mod == 0) {
+					v = getprop("/sim/current-view/view-number");
+					if (v == 0 or v == 4) {
+						view.panViewDir(2);
+					} else {
+						view.panViewDir(2);
+					}
+				} elsif (mod == 1) {
+					controls.aileronTrim(-0.75);
+				} elsif (mod == 2) {
+					controls.adjMixture(-2);
+				} elsif (mod == 3) {
+					#
+				}
+			</script>
+		</binding>
+	</low>
+	<high>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>
+				mod = getprop("/input/joysticks/js[0]/saitek-cyborg-evo-modifier");
+				if (mod == nil or mod == 0) {
+					v = getprop("/sim/current-view/view-number");
+					if (v == 0 or v == 4) {
+						view.panViewDir(-2);
+					} else {
+						view.panViewDir(-2);
+					}
+				} elsif (mod == 1) {
+					controls.aileronTrim(0.75);
+				} elsif (mod == 2) {
+					controls.adjMixture(2);
+				} elsif (mod == 3) {
+					#
+				}
+			</script>
+		</binding>
+	</high>
+</axis>
+
+<axis>
+	<desc>View Elevation; Elevator Trim;</desc>
+	<number>
+		<unix>6</unix>
+		<mac>6</mac>
+		<windows>6</windows>
+	</number>
+	<low>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>
+				mod = getprop("/input/joysticks/js[0]/saitek-cyborg-evo-modifier");
+				if (mod == nil or mod == 0) {
+					view.panViewPitch(2);
+				} elsif (mod == 1) {
+					controls.elevatorTrim(0.75);
+				} elsif (mod == 2) {
+					controls.adjPropeller(1);
+				} elsif (mod == 3) {
+					#
+				}
+			</script>
+		</binding>
+	</low>
+	<high>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>
+				mod = getprop("/input/joysticks/js[0]/saitek-cyborg-evo-modifier");
+				if (mod == nil or mod == 0) {
+					view.panViewPitch(-2);
+				} elsif (mod == 1) {
+					controls.elevatorTrim(-0.75);
+				} elsif (mod == 2) {
+					controls.adjPropeller(-1);
+				} elsif (mod == 3) {
+					#
+				}
+			</script>
+		</binding>
+	</high>
+</axis>
+
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~ Button Bindings ~~~~~~~~~~~~~~~~~~~~~~~~ -->
+ 
+<!-- Trigger Button - Brakes, Parking Brake, Thrust Reverser -->
+<button n="0">
+	<desc>Brakes</desc>
+	<repeatable type="bool">true</repeatable>
+	<binding>
+		<command>nasal</command>
+		<script>
+			mod = getprop("/input/joysticks/js[0]/saitek-cyborg-evo-modifier");
+			if (mod == nil or mod == 0) {
+				interpolate("/controls/gear/brake-left", 1, 0.075);
+				interpolate("/controls/gear/brake-right", 1, 0.075);
+			} elsif (mod == 1) {
+				setprop("/controls/gear/brake-left", 1);
+				setprop("/controls/gear/brake-right", 1);
+			} elsif (mod == 2) {
+				#
+			} elsif (mod == 3) {
+				#
+			}
+		</script>
+	</binding>
+	<mod-up>
+	<repeatable type="bool">true</repeatable>
+	<binding>
+		<command>nasal</command>
+		<script>
+			mod = getprop("/input/joysticks/js[0]/saitek-cyborg-evo-modifier");
+			if (mod == nil or mod == 0) {
+				interpolate("/controls/gear/brake-left", 0, 0.075);
+				interpolate("/controls/gear/brake-right", 0, 0.075);
+			} elsif (mod == 1) {
+				brake = !getprop("/controls/gear/brake-parking");
+				setprop("/controls/gear/brake-parking", brake);
+				if (brake) {
+					gui.popupTip("Parking Brake ON");
+				} else {
+					gui.popupTip("Parking Brake OFF");
+				}
+				setprop("/controls/gear/brake-left", 0);
+				setprop("/controls/gear/brake-right", 0);
+			} elsif (mod == 2) {
+				speedbrake = !getprop("/controls/flight/speedbrake");
+				setprop("/controls/flight/speedbrake", speedbrake);
+			} elsif (mod == 3) {
+				reverser = !getprop("/controls/engines/engine[0]/reverser");
+				props.setAll("/controls/engines/engine", "reverser", reverser);
+				if (reverser) {
+					gui.popupTip("Thrust Reverser ON");
+				} else {
+					gui.popupTip("Thrust Reverser OFF");
+				}
+			}
+		</script>
+	</binding>
+	</mod-up>
+</button>
+
+
+
+<!-- Left Button below Hat-switch, labeled "2" -->
+<button n="1">
+	<desc>Flaps Up; Gear up</desc>
+	<repeatable type="bool">false</repeatable>
+	<binding>
+		<command>nasal</command>
+		<script>
+			mod = getprop("/input/joysticks/js[0]/saitek-cyborg-evo-modifier");
+			if (mod == nil or mod == 0) {
+				controls.flapsDown(-1);
+			} elsif (mod == 1) {
+				controls.gearDown(-1);
+			} elsif (mod == 2) {
+				#
+			} elsif (mod == 3) {
+				#
+			}
+		</script>
+	</binding>
+	<mod-up>
+		<binding>
+			<command>nasal</command>
+			<script>
+				mod = getprop("/input/joysticks/js[0]/saitek-cyborg-evo-modifier");
+				if (mod == nil or mod == 0) {
+					controls.flapsDown(0);
+				} elsif (mod == 1) {
+					controls.gearDown(0);
+				} elsif (mod == 2) {
+					#
+				} elsif (mod == 3) {
+					#
+				}
+			</script>
+		</binding>
+	</mod-up>
+</button>
+
+<!-- Right Button below Hat-switch, labeled "3" -->
+<button n="2">
+	<desc>Flaps Down; Gear down</desc>
+	<repeatable type="bool">false</repeatable>
+	<binding>
+		<command>nasal</command>
+		<script>
+			mod = getprop("/input/joysticks/js[0]/saitek-cyborg-evo-modifier");
+			if (mod == nil or mod == 0) {
+				controls.flapsDown(1);
+			} elsif (mod == 1) {
+				controls.gearDown(1);
+			} elsif (mod == 2) {
+				#
+			} elsif (mod == 3) {
+				#
+			}
+		</script>
+	</binding>
+	<mod-up>
+		<binding>
+			<command>nasal</command>
+			<script>
+				mod = getprop("/input/joysticks/js[0]/saitek-cyborg-evo-modifier");
+				if (mod == nil or mod == 0) {
+					controls.flapsDown(0);
+				} elsif (mod == 1) {
+					controls.gearDown(0);
+				} elsif (mod == 2) {
+					#
+				} elsif (mod == 3) {
+					#
+				}
+			</script>
+		</binding>
+	</mod-up>
+</button>
+
+<!-- Button left of Hat switch, Labeled '4' -->
+<button n="3">
+	<desc>Previous View</desc>
+	<repeatable type="bool">false</repeatable>
+	<binding>
+		<command>nasal</command>
+		<script>
+			mod = getprop("/input/joysticks/js[0]/saitek-cyborg-evo-modifier");
+			if (mod == nil or mod == 0) {
+				view.stepView(-1);
+			} elsif (mod == 1) {
+				controls.rudderTrim(-0.75);
+			} elsif (mod == 2) {
+				#
+			} elsif (mod == 3) {
+				#
+			}
+		</script>
+	</binding>
+</button>
+
+<!-- Button right of hat switch, Labeled '5' -->
+<button n="4">
+	<desc>Next View</desc>
+	<repeatable type="bool">false</repeatable>
+	<binding>
+		<command>nasal</command>
+		<script>
+			mod = getprop("/input/joysticks/js[0]/saitek-cyborg-evo-modifier");
+			if (mod == nil or mod == 0) {
+				view.stepView(1);
+			} elsif (mod == 1) {
+				controls.rudderTrim(0.75);
+			} elsif (mod == 2) {
+				#
+			} elsif (mod == 3) {
+				#
+			}
+		</script>
+	</binding>
+</button>
+
+<!-- Button labeled "6" -->
+<button>
+	<desc>Reset view; toggle tail-wheel lock; reset trim</desc>
+	<number>
+		<unix>5</unix>
+		<mac>5</mac>
+		<windows>5</windows>
+	</number>
+	<repeatable type="bool">false</repeatable>
+	<binding>
+		<command>nasal</command>
+		<script>
+			mod = getprop("/input/joysticks/js[0]/saitek-cyborg-evo-modifier");
+			if (mod == nil or mod == 0) {
+				view.resetView();
+			} elsif (mod == 1) {
+				setprop("/controls/flight/elevator-trim", 0);
+				setprop("/controls/flight/aileron-trim", 0);
+				setprop("/controls/flight/rudder-trim", 0);
+			} elsif (mod == 2) {
+				setprop("/sim/current-view/view-number", 0);
+				view.resetView();
+			} elsif (mod == 3) {
+				twlock = !getprop("/controls/gear/tailwheel-lock");
+				setprop("/controls/gear/tailwheel-lock", twlock);
+				if (twlock) {
+					gui.popupTip("Tail Wheel LOCKED");
+				} else {
+					gui.popupTip("Tail Wheel UNLOCKED");
+				}
+			}
+		</script>
+	</binding>
+</button>
+
+<!-- Button labeled "7" -->
+<button n="6">
+  	<desc>Toggle the pause state of the sim</desc>
+	<number>
+		<unix>6</unix>
+		<mac>6</mac>
+		<windows>6</windows>
+	</number>
+  	<binding>
+   		<command>property-toggle</command>
+   		<property>/sim/freeze/master</property>
+  	</binding>
+  	<binding>
+  		 <command>property-toggle</command>
+  		 <property>/sim/freeze/clock</property>
+  	</binding>
+	<binding>
+  		<condition>
+    		<property>/sim/freeze/replay-state</property>
+   		</condition>
+  		<command>property-assign</command>
+   		<property>/sim/freeze/replay-state</property>
+  		<value type="int">0</value>
+  	</binding>
+</button>
+<!-- Scroll wheel down -->
+<button n="12">
+	<desc>Zoom View</desc>
+	<repeatable type="bool">false</repeatable>
+	<binding>
+		<command>nasal</command>
+		<script>
+			mod = getprop("/input/joysticks/js[0]/saitek-cyborg-evo-modifier");
+			if (mod == nil or mod == 0) {
+				view.increase();
+			} elsif (mod == 1) {
+				#
+			} elsif (mod == 2) {
+				#
+			} elsif (mod == 3) {
+				#
+			}
+		</script>
+	</binding>
+</button>
+
+<!-- Scroll wheel up -->
+<button n="11">
+	<desc>Zoom View</desc>
+	<repeatable type="bool">false</repeatable>
+	<binding>
+		<command>nasal</command>
+		<script>
+			mod = getprop("/input/joysticks/js[0]/saitek-cyborg-evo-modifier");
+			if (mod == nil or mod == 0) {
+				view.decrease();
+			} elsif (mod == 1) {
+				#
+			} elsif (mod == 2) {
+				#
+			} elsif (mod == 3) {
+				#
+			}
+		</script>
+	</binding>
+</button><!-- ~~~~~~~~~~~~~~~~~~~~~~~~ Modifier Buttons ~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+<!-- Button labeled '10' -->
+<button n="9">
+	<desc>Modifier 1</desc>
+	<repeatable type="bool">false</repeatable>
+	<binding>
+		<command>nasal</command>
+			<script>
+				name = "/input/joysticks/js[0]/saitek-cyborg-evo-modifier";
+				setprop(name, 1);
+			</script>
+	</binding>
+	<mod-up>
+		<binding>
+			<command>nasal</command>
+			<script>
+				name = "/input/joysticks/js[0]/saitek-cyborg-evo-modifier";
+				setprop(name, 0);
+			</script>
+		</binding>
+	</mod-up>
+</button>
+
+<!-- Button labeled '11' -->
+<button n="10">
+	<desc>Modifier 2</desc>
+	<repeatable type="bool">false</repeatable>
+	<binding>
+		<command>nasal</command>
+		<script>
+			name = "/input/joysticks/js[0]/saitek-cyborg-evo-modifier";
+			setprop(name, 2);
+		</script>
+	</binding>
+	<mod-up>
+		<binding>
+			<command>nasal</command>
+			<script>
+				name = "/input/joysticks/js[0]/saitek-cyborg-evo-modifier";
+				setprop(name, 0);
+			</script>
+		</binding>
+	</mod-up>
+</button>
+
+<!-- Button labeled 0/O (Shift State Button) -->
+<button n="13">
+	<desc>Modifier 3</desc>
+	<repeatable type="bool">false</repeatable>
+	<binding>
+		<command>nasal</command>
+		<script>
+			name = "/input/joysticks/js[0]/saitek-cyborg-evo-modifier";
+			setprop(name, 3);
+		</script>
+	</binding>
+	<mod-up>
+		<binding>
+			<command>nasal</command>
+			<script>
+				name = "/input/joysticks/js[0]/saitek-cyborg-evo-modifier";
+				setprop(name, 0);
+			</script>
+		</binding>
+	</mod-up>
+</button>
+
+
+</PropertyList>

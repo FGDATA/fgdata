@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!-- CTL 62 ADF Control for ADF-462 receiver
+Active and preset displayed +
+4 frequency memory storage
+2.375"W x 2.625"H
+Freq. range 190.0 - 1800.0 (normal) 
+Strap option 2179.0 - 2185.0
+ 500 khz spacing
+Syd Adams
+
+Adapted for dual control by Anders Gidenstam
+
+NOTE: ctl62.nas MUST be loaded as Nasal module ADF462.
+ -->
+<PropertyList include="ctl62-adf.xml">
+
+ <params>
+  <serviceable>instrumentation/adf[1]/serviceable</serviceable>
+  <electrical-supply>systems/electrical/outputs/adf[1]</electrical-supply>
+  <volume-norm>instrumentation/adf[1]/volume-norm</volume-norm>
+  <selected-freq-khz>instrumentation/adf[1]/frequencies/selected-khz</selected-freq-khz>
+  <standby-freq-khz>instrumentation/adf[1]/frequencies/standby-khz</standby-freq-khz>
+  <swap-script>ADF462.swap(1);</swap-script>
+  <small-inc-script>ADF462.adjust_frequency(1,  1.0);</small-inc-script>
+  <small-dec-script>ADF462.adjust_frequency(1, -1.0);</small-dec-script>
+  <big-inc-script>ADF462.adjust_frequency(1,  10.0);</big-inc-script>
+  <big-dec-script>ADF462.adjust_frequency(1, -10.0);</big-dec-script>
+ </params>
+
+</PropertyList>

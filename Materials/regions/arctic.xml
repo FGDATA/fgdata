@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<!-- Regional definitions for Arctic sea regions -->
+<PropertyList>
+  <name>Arctic and Antarctic sea regions</name>
+
+  <!-- Arctic -->
+  <area>
+    <lon1>-180.0</lon1>
+    <lat1>68.0</lat1>
+    <lon2>180.0</lon2>
+    <lat2>90.0</lat2>
+  </area>
+
+  <!-- Greenland -->
+  <area>
+    <lon1>-60.0</lon1>
+    <lat1>60.0</lat1>
+    <lon2>-30.0</lon2>
+    <lat2>90.0</lat2>
+  </area>
+
+  <!-- Antarctic -->
+  <area>
+    <lon1>-180.0</lon1>
+    <lat1>-68.0</lat1>
+    <lon2>180.0</lon2>
+    <lat2>-90.0</lat2>
+  </area>
+
+  <condition>
+   <equals>
+    <property>sim/startup/season</property>
+    <value>summer</value>
+   </equals>
+  </condition>
+
+  <material>
+    <name>Ocean</name>
+    <effect>Effects/water</effect>
+    <texture>Terrain/water.png</texture>
+    <xsize>400</xsize>
+    <ysize>400</ysize>
+    <object-group>
+      <range-m>40000</range-m>
+      <object>
+        <path>Models/Geometry/container_carrier.ac</path>
+        <coverage-m2>500000000</coverage-m2>
+        <heading-type>random</heading-type>
+      </object>
+    </object-group>
+    <object-group>
+      <range-m>40000</range-m>
+      <object>
+        <path>Models/Maritime/Ice/iceberg1.xml</path>
+        <path>Models/Maritime/Ice/iceberg2.xml</path>
+        <path>Models/Maritime/Ice/iceberg3.xml</path>
+        <coverage-m2>5000000</coverage-m2>
+        <heading-type>random</heading-type>
+      </object>
+    </object-group>
+      <ambient>
+      <r>0.0</r>
+      <g>0.0</g>
+      <b>0.0</b>
+      <a>1.0</a>
+    </ambient>
+    <diffuse>
+      <r>0.4</r>
+      <g>0.4</g>
+      <b>0.4</b>
+      <a>1.0</a>
+    </diffuse>
+    <specular>
+      <r>0.0</r>
+      <g>0.0</g>
+      <b>0.2</b>
+      <a>1.0</a>
+    </specular>
+    <shininess>0</shininess>
+    <solid>0</solid>
+    <rolling-friction>2</rolling-friction>
+    <bumpiness>0.8</bumpiness>
+  </material>
+
+</PropertyList>

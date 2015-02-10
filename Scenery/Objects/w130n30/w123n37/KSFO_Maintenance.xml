@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+<path>KSFO_Maintenance.ac</path>
+
+ <nasal>
+  <load>
+   if (!contains(globals, "scenery")) globals["scenery"] = {};
+   if (!contains(scenery, "KSFO")) scenery["KSFO"] = {};
+   if (!contains(scenery.KSFO, "maintenance")) scenery.KSFO["maintenance"] = {};
+   if (contains(scenery, "sharedDoor")) {
+     scenery.KSFO.maintenance[0] =
+       { door :
+         [scenery.sharedDoor.new("/scenery/KSFO/maintenance[0]/door[0]", 25),
+          scenery.sharedDoor.new("/scenery/KSFO/maintenance[0]/door[1]", 25)
+         ]
+       };
+   } else {
+     scenery.KSFO.maintenance[0] =
+       { door :
+         [aircraft.door.new("/scenery/KSFO/maintenance[0]/door[0]", 25),
+          aircraft.door.new("/scenery/KSFO/maintenance[0]/door[1]", 25)
+         ]
+       };
+   }
+  </load>
+  <unload>
+   if (contains(scenery, "sharedDoor")) {
+     scenery.KSFO.maintenance[0].door[0].destroy();
+     scenery.KSFO.maintenance[0].door[1].destroy();
+   }
+  </unload>
+ </nasal>
+
+<animation>
+ <type>pick</type>
+ <object-name>door1</object-name>
+ <object-name>door2</object-name>
+ <object-name>door3</object-name>
+ <object-name>door4</object-name>
+ <visible>true</visible>
+ <action>
+  <name>click</name>
+  <button>0</button>
+  <repeatable>false</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>scenery.KSFO.maintenance[0].door[0].toggle();</script>
+  </binding>
+ </action>
+</animation>
+
+<animation>
+ <type>translate</type>
+ <object-name>door2</object-name>
+ <property>/scenery/KSFO/maintenance[0]/door[0]/position-norm</property>
+ <factor>35</factor>
+ <axis>
+  <x>0.47</x>
+  <y>0.88</y>
+  <z>0</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>translate</type>
+ <object-name>door3</object-name>
+ <property>/scenery/KSFO/maintenance[0]/door[0]/position-norm</property>
+ <factor>35</factor>
+ <axis>
+  <x>-0.47</x>
+  <y>-0.88</y>
+  <z>0</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>pick</type>
+ <object-name>door5</object-name>
+ <object-name>door6</object-name>
+ <object-name>door7</object-name>
+ <object-name>door8</object-name>
+ <visible>true</visible>
+ <action>
+  <name>click</name>
+  <button>0</button>
+  <repeatable>false</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>scenery.KSFO.maintenance[0].door[1].toggle();</script>
+  </binding>
+ </action>
+</animation>
+
+<animation>
+ <type>translate</type>
+ <object-name>door7</object-name>
+ <property>/scenery/KSFO/maintenance[0]/door[1]/position-norm</property>
+ <factor>35</factor>
+ <axis>
+  <x>0.47</x>
+  <y>0.88</y>
+  <z>0</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>translate</type>
+ <object-name>door6</object-name>
+ <property>/scenery/KSFO/maintenance[0]/door[1]/position-norm</property>
+ <factor>35</factor>
+ <axis>
+  <x>-0.47</x>
+  <y>-0.88</y>
+  <z>0</z>
+ </axis>
+</animation>
+
+</PropertyList>
+ 

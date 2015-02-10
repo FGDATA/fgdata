@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+ <path>A-14A.ac</path>
+
+    <animation>
+        <type>range</type>
+        <min-m>0</min-m>
+        <max-m>7</max-m>
+    </animation>
+
+ <animation>
+  <type>material</type>
+  <object-name>A-14A-Ox-pipe</object-name>
+  <object-name>A-14A-Body</object-name>
+  <object-name>A-14A-Alt-selector</object-name>
+  <object-name>A-14A-Hose-pipe</object-name>
+  <object-name>A-14A-main-connector</object-name>
+  <object-name>A-14A-Connector-elbow</object-name>
+  <object-name>A-14A-connector-ring</object-name>
+  <object-name>A-14A-Ox-inlet-pipe</object-name>
+  <object-name>A-14A-Ox-inlet-flang</object-name>
+  <object-name>A-14A-Ox-Con-nut</object-name>
+  <object-name>A-14A-normal-100-pct</object-name>
+  <object-name>A-14A-flang-3</object-name>
+  <object-name>A-14A-flang-1</object-name>
+  <object-name>A-14A-flang-2</object-name>
+  <object-name>A-14A-plug-flang</object-name>
+  <object-name>A-14A-blink-con</object-name>
+  <emission>
+    <factor-prop>controls/lighting/cabin-norm</factor-prop>
+    <red>0.25</red>
+    <green>0.12</green>
+    <blue>0.12</blue>
+  </emission>
+ </animation>
+
+</PropertyList>

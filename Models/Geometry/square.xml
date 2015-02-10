@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<path>square.ac</path>
+
+	<animation>
+		<type>select</type>
+		<object-name>top</object-name>
+		<condition>
+			<not>
+				<property>sim/model/geometry/square/top</property>
+			</not>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>left</object-name>
+		<condition>
+			<not>
+				<property>sim/model/geometry/square/left</property>
+			</not>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>right</object-name>
+		<condition>
+			<not>
+				<property>sim/model/geometry/square/right</property>
+			</not>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>bottom</object-name>
+		<condition>
+			<not>
+				<property>sim/model/geometry/square/bottom</property>
+			</not>
+		</condition>
+	</animation>
+</PropertyList>

@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<PropertyList>
+
+    <path>flightdeck.ac</path>
+
+    <model>
+        <name>panel1</name>
+        <path>Aircraft/CitationX/Models/panel.xml</path>
+        <offsets>
+            <x-m>-1.123</x-m>
+            <y-m>0</y-m>
+            <z-m>0.426</z-m>
+            <pitch-deg>-15</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <name>pedestal</name>
+        <path>Aircraft/CitationX/Models/pedestal.xml</path>
+        <offsets>
+            <x-m>-1.123</x-m>
+            <y-m>0</y-m>
+            <z-m>0.426</z-m>
+        </offsets>
+    </model>
+
+    <animation>
+        <type>select</type>
+        <object-name>panel1</object-name>
+        <object-name>pedestal</object-name>
+        <condition>
+            <property>sim/current-view/internal</property>
+        </condition>
+    </animation>
+
+<!-- Instruments-->
+
+    <animation>
+        <type>rotate</type>
+        <object-name>compassrose</object-name>
+        <property>instrumentation/magnetic-compass/indicated-heading-deg</property>
+        <axis>
+            <x>0.0</x>
+            <y>0.0</y>
+            <z>1.0</z>
+        </axis>
+        <center>
+            <x-m>-1.237</x-m>
+            <y-m>0.00</y-m>
+            <z-m>0.916</z-m>
+        </center>
+    </animation>
+<!-- text -->
+
+    <text>
+        <name>APUrpm</name>
+        <offsets>
+            <x-m>-0.876</x-m>
+            <y-m>0.700</y-m>
+            <z-m>0.517</z-m>
+        </offsets>
+        <alignment>center-center</alignment>
+        <axis-alignment>xz-plane</axis-alignment>
+        <type type="string">number-value</type>
+        <property>controls/APU/rpm</property>
+        <scale>100.0</scale>
+        <format>%3.1f</format>
+        <font>led.txf</font>
+        <character-size>0.009</character-size>
+        <character-aspect-ratio type="double">1.0</character-aspect-ratio>
+        <font-resolution>
+            <width type="int">64</width>
+            <height type="int">64</height>
+        </font-resolution>
+    </text>
+
+    <text>
+        <name>APUegt</name>
+        <offsets>
+            <x-m>-0.876</x-m>
+            <y-m>0.700</y-m>
+            <z-m>0.494</z-m>
+        </offsets>
+        <alignment>center-center</alignment>
+        <axis-alignment>xz-plane</axis-alignment>
+        <type type="string">number-value</type>
+        <property>controls/APU/rpm</property>
+        <scale>710.0</scale>
+        <format>%3.0f</format>
+        <font>led.txf</font>
+        <character-size>0.009</character-size>
+        <character-aspect-ratio type="double">1.0</character-aspect-ratio>
+        <font-resolution>
+            <width type="int">64</width>
+            <height type="int">64</height>
+        </font-resolution>
+    </text>
+
+    <text>
+        <name>APUvolts</name>
+        <offsets>
+            <x-m>-0.876</x-m>
+            <y-m>0.700</y-m>
+            <z-m>0.471</z-m>
+        </offsets>
+        <alignment>center-center</alignment>
+        <axis-alignment>xz-plane</axis-alignment>
+        <type type="string">number-value</type>
+        <property>controls/APU/battery</property>
+        <format>%2.1f</format>
+        <font>led.txf</font>
+        <character-size>0.009</character-size>
+        <character-aspect-ratio type="double">1.0</character-aspect-ratio>
+        <font-resolution>
+            <width type="int">64</width>
+            <height type="int">64</height>
+        </font-resolution>
+    </text>
+
+    <text>
+        <name>FLmeter</name>
+        <offsets>
+            <x-m>-0.842</x-m>
+            <y-m>0.700</y-m>
+            <z-m>0.626</z-m>
+        </offsets>
+        <alignment>right-center</alignment>
+        <axis-alignment>xz-plane</axis-alignment>
+        <type type="string">number-value</type>
+        <property>instrumentation/clock/flight-meter-hour</property>
+        <format>%4.1f</format>
+        <font>helvetica_bold.txf</font>
+        <character-size>0.009</character-size>
+        <character-aspect-ratio type="double">1.0</character-aspect-ratio>
+        <font-resolution>
+            <width type="int">64</width>
+            <height type="int">64</height>
+        </font-resolution>
+    </text>
+
+    <animation>
+        <type>select</type>
+        <object-name>APUrpm</object-name>
+        <object-name>APUegt</object-name>
+        <object-name>APUvolts</object-name>
+        <condition>
+            <property>controls/APU/master</property>
+        </condition>
+    </animation>
+
+<!-- hotspots -->
+
+    <animation>
+        <type>pick</type>
+        <object-name>APU.master</object-name>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-toggle</command>
+                <property>controls/APU/master</property>
+            </binding>
+        </action>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>APU.master</object-name>
+        <property>controls/APU/master</property>
+        <factor>30</factor>
+        <center>
+           <x-m>-0.830</x-m>
+            <y-m>0.698</y-m>
+            <z-m>0.434</z-m>
+        </center>
+        <axis>
+            <x>-1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+    </animation>
+
+    <animation>
+        <type>pick</type>
+        <object-name>APU.on_off</object-name>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-assign</command>
+                <property>controls/APU/off-start-run</property>
+                <value>2</value>
+            </binding>
+            <mod-up>
+                <binding>
+                    <command>property-assign</command>
+                    <property>controls/APU/off-start-run</property>
+                    <value>1</value>
+                </binding>
+            </mod-up>
+            <binding>
+                <command>property-assign</command>
+                <property>controls/APU/running</property>
+                <value>1</value>
+            </binding>
+        </action>
+        <action>
+            <button>1</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-assign</command>
+                <property>controls/APU/off-start-run</property>
+                <value>0</value>
+            </binding>
+            <mod-up>
+                <binding>
+                    <command>property-assign</command>
+                    <property>controls/APU/off-start-run</property>
+                    <value>1</value>
+                </binding>
+            </mod-up>
+            <binding>
+                <command>property-assign</command>
+                <property>controls/APU/running</property>
+                <value>0</value>
+            </binding>
+        </action>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>APU.on_off</object-name>
+        <property>controls/APU/off-start-run</property>
+        <factor>30</factor>
+        <center>
+           <x-m>-0.892</x-m>
+            <y-m>0.698</y-m>
+            <z-m>0.434</z-m>
+        </center>
+        <axis>
+            <x>-1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+    </animation>
+
+</PropertyList>

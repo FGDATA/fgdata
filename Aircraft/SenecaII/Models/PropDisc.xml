@@ -1,0 +1,72 @@
+<?xml version="1.0" ?>
+<!--
+ This file is part of FlightGear, the free flight simulator
+ http://www.flightgear.org/
+
+ Copyright (C) 2009 Torsten Dreyer, Torsten (at) t3r _dot_ de
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation; either version 2 of the
+ License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+-->
+<PropertyList>
+
+  <params>
+    <rpm-norm-inv>/engines/engine[0]/rpm-norm-inv</rpm-norm-inv>
+    <rpm>engines/engine[0]/rpm</rpm>
+  </params>
+
+  <path>PropDisc.ac</path>
+
+  <effect>
+    <inherits-from>Effects/model-transparent</inherits-from>
+    <object-name>PropDisc</object-name>
+  </effect>
+
+  <animation>
+    <type>material</type>
+    <object-name>PropDisc</object-name>
+    <threshold>0.001</threshold>
+    <transparency>
+      <alpha>0.2</alpha>
+      <factor-prop alias="../../../params/rpm-norm-inv"/>
+      <min>0.0</min>
+      <max>1.0</max>
+    </transparency>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>PropDisc</object-name>
+    <condition>
+      <greater-than>
+        <property alias="../../../../params/rpm"/>
+        <value>350</value>
+      </greater-than>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>spin</type>
+    <object-name>PropDisc</object-name>
+    <property alias="../../params/rpm"/>
+    <factor>1</factor>
+    <axis>
+      <x>1</x>
+      <y>0</y>
+      <z>0</z>
+    </axis>
+    <center>
+      <x-m>0</x-m>
+      <y-m>0</y-m>
+      <z-m>0</z-m>
+    </center>
+  </animation>
+
+</PropertyList>

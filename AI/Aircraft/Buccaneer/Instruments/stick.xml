@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+
+<!-- Control Column -->
+
+<PropertyList>
+
+	<path>../../../../Aircraft/Buccaneer/Instruments/stick.ac</path>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>main_moving_parts</object-name>
+		<property>/controls/flight/aileron</property>
+		<factor>35</factor>
+		<center>
+			<x-m>3.57185</x-m>
+			<y-m>-0.0536737</y-m>
+			<z-m>0.365299</z-m>
+		</center> 
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>translate</type>
+		<object-name>main_moving_parts</object-name>
+		<property>/controls/flight/elevator</property>
+		<factor>0.05</factor>
+		<center>
+			<x-m>3.57185</x-m>
+			<y-m>-0.0536737</y-m>
+			<z-m>0.365299</z-m>
+		</center> 
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>shader</type>
+		<shader>chrome</shader>
+		<texture>dirty_chrome.png</texture>
+		<object-name>control_column_shaft</object-name>
+	</animation>
+
+	<animation>
+		<type>shader</type>
+		<shader>chrome</shader>
+		<texture>plastic.png</texture>
+		<object-name>lamp_body</object-name>
+	</animation>
+
+	<!-- *** LoD *** -->
+	<animation>
+		<type>range</type>
+		<min-m>0</min-m>
+		<max-m>8</max-m>
+	</animation> 
+
+</PropertyList>

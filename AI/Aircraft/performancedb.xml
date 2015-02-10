@@ -1,0 +1,291 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+    <performancedb>
+        <aircraft>
+            <type>heavy_jet</type>
+            <acceleration-kts-hour>4.0</acceleration-kts-hour>
+            <deceleration-kts-hour>2.0</deceleration-kts-hour>
+            <climbrate-fpm>1500.0</climbrate-fpm>
+            <decentrate-fpm>800.0</decentrate-fpm>
+            <rotate-speed-kts>150.0</rotate-speed-kts>
+            <takeoff-speed-kts>160.0</takeoff-speed-kts>
+            <climbspeed-kts>300.0</climbspeed-kts>
+            <cruise-speed-kts>430.0</cruise-speed-kts>
+            <decent-speed-kts>300.0</decent-speed-kts>
+            <approach-speed-kts>170.0</approach-speed-kts>
+            <touchdown-speed-kts>150.0</touchdown-speed-kts>
+            <taxi-speed-kts>15.0</taxi-speed-kts>
+        </aircraft>
+        <aircraft>
+                <type>light</type>
+                <acceleration-kts-hour>2.0</acceleration-kts-hour>
+                <deceleration-kts-hour>2.0</deceleration-kts-hour>
+                <climbrate-fpm>450.0</climbrate-fpm>
+                <decentrate-fpm>1000.0</decentrate-fpm>
+                <rotate-speed-kts>70.0</rotate-speed-kts>
+                <takeoff-speed-kts>70.0</takeoff-speed-kts>
+                <climbspeed-kts>80.0</climbspeed-kts>
+                <cruise-speed-kts>100.0</cruise-speed-kts>
+                <decent-speed-kts>80.0</decent-speed-kts>
+                <approach-speed-kts>70.0</approach-speed-kts>
+                <touchdown-speed-kts>60.0</touchdown-speed-kts>
+                <taxi-speed-kts>15.0</taxi-speed-kts>
+        </aircraft>
+        <aircraft>
+                <type>ww2_fighter</type>
+                <acceleration-kts-hour>4.0</acceleration-kts-hour>
+                <deceleration-kts-hour>2.0</deceleration-kts-hour>
+                <climbrate-fpm>3000.0</climbrate-fpm>
+                <decentrate-fpm>1500.0</decentrate-fpm>
+                <rotate-speed-kts>110.0</rotate-speed-kts>
+                <takeoff-speed-kts>110.0</takeoff-speed-kts>
+                <climbspeed-kts>180.0</climbspeed-kts>
+                <cruise-speed-kts>250.0</cruise-speed-kts>
+                <decent-speed-kts>200.0</decent-speed-kts>
+                <approach-speed-kts>130.0</approach-speed-kts>
+                <touchdown-speed-kts>100.0</touchdown-speed-kts>
+                <taxi-speed-kts>15.0</taxi-speed-kts>
+        </aircraft>
+        <aircraft>
+                <type>jet_fighter</type>
+                <acceleration-kts-hour>7.0</acceleration-kts-hour>
+                <deceleration-kts-hour>3.0</deceleration-kts-hour>
+                <climbrate-fpm>4000.0</climbrate-fpm>
+                <decentrate-fpm>2000.0</decentrate-fpm>
+                <rotate-speed-kts>120.0</rotate-speed-kts>
+                <takeoff-speed-kts>150.0</takeoff-speed-kts>
+                <climbspeed-kts>350.0</climbspeed-kts>
+                <cruise-speed-kts>500.0</cruise-speed-kts>
+                <decent-speed-kts>350.0</decent-speed-kts>
+                <approach-speed-kts>170.0</approach-speed-kts>
+                <touchdown-speed-kts>150.0</touchdown-speed-kts>
+                <taxi-speed-kts>15.0</taxi-speed-kts>
+        </aircraft>
+        <aircraft>
+                <type>jet_transport</type>
+                <acceleration-kts-hour>5.0</acceleration-kts-hour>
+                <deceleration-kts-hour>2.0</deceleration-kts-hour>
+                <climbrate-fpm>3000.0</climbrate-fpm>
+                <decentrate-fpm>1500.0</decentrate-fpm>
+                <rotate-speed-kts>100.0</rotate-speed-kts>
+                <takeoff-speed-kts>140.0</takeoff-speed-kts>
+                <climbspeed-kts>300.0</climbspeed-kts>
+                <cruise-speed-kts>430.0</cruise-speed-kts>
+                <decent-speed-kts>300.0</decent-speed-kts>
+                <approach-speed-kts>170.0</approach-speed-kts>
+                <touchdown-speed-kts>130.0</touchdown-speed-kts>
+                <taxi-speed-kts>15.0</taxi-speed-kts>
+        </aircraft>
+        <aircraft>
+                <type>tanker</type>
+                <acceleration-kts-hour>5.0</acceleration-kts-hour>
+                <deceleration-kts-hour>2.0</deceleration-kts-hour>
+                <climbrate-fpm>3000.0</climbrate-fpm>
+                <decentrate-fpm>1500.0</decentrate-fpm>
+                <rotate-speed-kts>100.0</rotate-speed-kts>
+                <takeoff-speed-kts>140.0</takeoff-speed-kts>
+                <climbspeed-kts>300.0</climbspeed-kts>
+                <cruise-speed-kts>430.0</cruise-speed-kts>
+                <decent-speed-kts>300.0</decent-speed-kts>
+                <approach-speed-kts>170.0</approach-speed-kts>
+                <touchdown-speed-kts>130.0</touchdown-speed-kts>
+                <taxi-speed-kts>15.0</taxi-speed-kts>
+        </aircraft>
+        <aircraft>
+                <type>ufo</type>
+                <acceleration-kts-hour>30.0</acceleration-kts-hour>
+                <deceleration-kts-hour>30.0</deceleration-kts-hour>
+                <climbrate-fpm>6000.0</climbrate-fpm>
+                <decentrate-fpm>6000.0</decentrate-fpm>
+                <rotate-speed-kts>150.0</rotate-speed-kts>
+                <takeoff-speed-kts>150.0</takeoff-speed-kts>
+                <climbspeed-kts>300.0</climbspeed-kts>
+                <cruise-speed-kts>430.0</cruise-speed-kts>
+                <decent-speed-kts>300.0</decent-speed-kts>
+                <approach-speed-kts>170.0</approach-speed-kts>
+                <touchdown-speed-kts>130.0</touchdown-speed-kts>
+                <taxi-speed-kts>15.0</taxi-speed-kts>
+        </aircraft>	
+        
+        <alias> <!-- match any 777 type -->
+            <match>777-</match>
+            <alias>777</alias>
+        </alias>
+        <alias> <!-- match any 737 type -->
+            <match>73</match>
+            <alias>737</alias>
+        </alias>
+        
+        <alias> <!-- match any 76x type -->
+            <match>76</match>
+            <match>75</match> <!-- and any 75x for the moment -->
+            <alias>767</alias>
+        </alias>
+        
+        <alias> <!-- match 747-400s -->
+            <match>744</match>
+            <match>747-4</match>
+            <alias>747-400</alias>
+        </alias>
+        <alias> <!-- match MD11s -->
+            <match>MD11</match> <!-- note this matches all MD11 prefixes - eg MD11/P -->
+            <alias>MD11</alias>
+        </alias>
+        
+        <alias>
+            <match>346</match>
+            <match>343</match>
+            <alias>A340</alias>
+        </alias>
+        
+        <alias> <!-- map the A330 to the 767 for the moment -->
+            <match>A330</match>
+            <alias>767</alias>
+        </alias>
+        
+        <alias>
+            <match>320</match>
+            <match>319</match>
+            <match>318</match>
+            <match>321</match>
+            <alias>A320</alias>
+        </alias>
+        
+        <alias>
+            <match>F70</match>
+            <alias>F100</alias>
+        </alias>
+        
+        <alias>
+            <match>F27-</match>
+            <alias>F27</alias>
+        </alias>
+        
+        <aircraft>
+            <type>747-400</type>
+            <base>heavy_jet</base>
+            <acceleration-kts-hour>4.0</acceleration-kts-hour>
+            <deceleration-kts-hour>2.0</deceleration-kts-hour>
+            <rotate-speed-kts>160.0</rotate-speed-kts>
+            <takeoff-speed-kts>170.0</takeoff-speed-kts>
+            <climbspeed-kts>300.0</climbspeed-kts>
+            <cruise-speed-kts>490.0</cruise-speed-kts>
+            <decent-speed-kts>300.0</decent-speed-kts>
+            <approach-speed-kts>170.0</approach-speed-kts>
+            <touchdown-speed-kts>150.0</touchdown-speed-kts>
+        </aircraft>
+        
+        <aircraft>
+            <type>A340</type>
+            <base>heavy_jet</base>
+            <acceleration-kts-hour>3.8</acceleration-kts-hour>
+            <deceleration-kts-hour>2.0</deceleration-kts-hour>
+            <rotate-speed-kts>160.0</rotate-speed-kts>
+            <takeoff-speed-kts>170.0</takeoff-speed-kts>
+            <climbspeed-kts>300.0</climbspeed-kts>
+            <cruise-speed-kts>490.0</cruise-speed-kts>
+            <decent-speed-kts>300.0</decent-speed-kts>
+            <approach-speed-kts>170.0</approach-speed-kts>
+            <touchdown-speed-kts>150.0</touchdown-speed-kts>
+        </aircraft>
+        
+        <aircraft>
+            <type>777</type>
+            <base>heavy_jet</base>
+            <acceleration-kts-hour>4.5</acceleration-kts-hour>
+            <deceleration-kts-hour>2.0</deceleration-kts-hour>
+            <rotate-speed-kts>150.0</rotate-speed-kts>
+            <takeoff-speed-kts>160.0</takeoff-speed-kts>
+            <climbspeed-kts>300.0</climbspeed-kts>
+            <cruise-speed-kts>470.0</cruise-speed-kts>
+            <decent-speed-kts>300.0</decent-speed-kts>
+            <approach-speed-kts>160.0</approach-speed-kts>
+            <touchdown-speed-kts>145.0</touchdown-speed-kts>
+        </aircraft>
+        
+        <aircraft>
+            <type>767</type>
+            <base>heavy_jet</base>
+            <acceleration-kts-hour>4.5</acceleration-kts-hour>
+            <deceleration-kts-hour>2.0</deceleration-kts-hour>
+            <rotate-speed-kts>150.0</rotate-speed-kts>
+            <takeoff-speed-kts>160.0</takeoff-speed-kts>
+            <climbspeed-kts>300.0</climbspeed-kts>
+            <cruise-speed-kts>470.0</cruise-speed-kts>
+            <decent-speed-kts>300.0</decent-speed-kts>
+            <approach-speed-kts>160.0</approach-speed-kts>
+            <touchdown-speed-kts>145.0</touchdown-speed-kts>
+        </aircraft>
+        
+        <aircraft>
+            <type>A320</type>
+            <base>heavy_jet</base>
+            <acceleration-kts-hour>5.0</acceleration-kts-hour>
+            <deceleration-kts-hour>2.0</deceleration-kts-hour>
+            <rotate-speed-kts>140.0</rotate-speed-kts>
+            <takeoff-speed-kts>150.0</takeoff-speed-kts>
+            <climbspeed-kts>300.0</climbspeed-kts>
+            <cruise-speed-kts>440.0</cruise-speed-kts>
+            <decent-speed-kts>300.0</decent-speed-kts>
+            <approach-speed-kts>150.0</approach-speed-kts>
+            <touchdown-speed-kts>130.0</touchdown-speed-kts>
+        </aircraft>
+        
+        <aircraft>
+            <type>737</type>
+            <base>heavy_jet</base>
+            <acceleration-kts-hour>5.0</acceleration-kts-hour>
+            <deceleration-kts-hour>2.0</deceleration-kts-hour>
+            <rotate-speed-kts>140.0</rotate-speed-kts>
+            <takeoff-speed-kts>150.0</takeoff-speed-kts>
+            <climbspeed-kts>300.0</climbspeed-kts>
+            <cruise-speed-kts>440.0</cruise-speed-kts>
+            <decent-speed-kts>300.0</decent-speed-kts>
+            <approach-speed-kts>150.0</approach-speed-kts>
+            <touchdown-speed-kts>130.0</touchdown-speed-kts>
+        </aircraft>
+        
+        <aircraft>
+            <type>F100</type>
+            <acceleration-kts-hour>5.0</acceleration-kts-hour>
+            <deceleration-kts-hour>2.0</deceleration-kts-hour>
+            <rotate-speed-kts>120.0</rotate-speed-kts>
+            <takeoff-speed-kts>140.0</takeoff-speed-kts>
+            <climbspeed-kts>300.0</climbspeed-kts>
+            <cruise-speed-kts>390.0</cruise-speed-kts>
+            <decent-speed-kts>300.0</decent-speed-kts>
+            <approach-speed-kts>140.0</approach-speed-kts>
+            <touchdown-speed-kts>120.0</touchdown-speed-kts>
+            <taxi-speed-kts>15.0</taxi-speed-kts>
+        </aircraft>
+        
+        <aircraft>
+            <type>F27</type>
+            <acceleration-kts-hour>6.0</acceleration-kts-hour>
+            <deceleration-kts-hour>2.0</deceleration-kts-hour>
+            <rotate-speed-kts>100.0</rotate-speed-kts>
+            <takeoff-speed-kts>120.0</takeoff-speed-kts>
+            <climbspeed-kts>200.0</climbspeed-kts>
+            <cruise-speed-kts>248.0</cruise-speed-kts>
+            <decent-speed-kts>200.0</decent-speed-kts>
+            <approach-speed-kts>130.0</approach-speed-kts>
+            <touchdown-speed-kts>105.0</touchdown-speed-kts>
+            <taxi-speed-kts>15.0</taxi-speed-kts>
+        </aircraft>
+        
+        <aircraft>
+            <type>MD11</type>
+            <base>heavy_jet</base>
+            <acceleration-kts-hour>4.5</acceleration-kts-hour>
+            <deceleration-kts-hour>2.0</deceleration-kts-hour>
+            <rotate-speed-kts>150.0</rotate-speed-kts>
+            <takeoff-speed-kts>160.0</takeoff-speed-kts>
+            <climbspeed-kts>300.0</climbspeed-kts>
+            <cruise-speed-kts>470.0</cruise-speed-kts>
+            <decent-speed-kts>300.0</decent-speed-kts>
+            <approach-speed-kts>160.0</approach-speed-kts>
+            <touchdown-speed-kts>145.0</touchdown-speed-kts>
+        </aircraft>
+    </performancedb>
+</PropertyList>

@@ -1,0 +1,962 @@
+# ==============================================================================
+# Boeing Navigation Display by Gijs de Rooy
+# See: http://wiki.flightgear.org/Canvas_ND_Framework
+# ==============================================================================
+# This file makes use of the MapStructure framework, see: http://wiki.flightgear.org/Canvas_MapStructure
+#
+# Sooner or later, some parts will be revamped by coming up with a simple animation framework: http://wiki.flightgear.org/NavDisplay#mapping_vs._SVG_animation
+
+##
+# pseudo DSL-ish: use these as placeholders in the config hash  below
+var ALWAYS = func 1;
+var NOTHING = func nil;
+
+##
+# TODO: move ND-specific implementation details into this lookup hash
+# so that other aircraft and ND types can be more easily supported
+#
+# any aircraft-specific ND behavior should be wrapped here,
+# to isolate/decouple things in the generic NavDisplay class
+#
+# TODO: move this to an XML config file (maybe supporting SGCondition and/or SGStateMachine markup for the logic?)
+#
+var NDStyles = {
+	##
+	# this configures the 744 ND to help generalize the NavDisplay class itself
+	'Boeing': {
+		font_mapper: func(family, weight) {
+			if( family == "Liberation Sans" and weight == "normal" )
+				return "LiberationFonts/LiberationSans-Regular.ttf";
+		},
+
+		# where all the symbols are stored
+		# TODO: SVG elements should be renamed to use boeing/airbus prefix
+		# aircraft developers should all be editing the same ND.svg image
+		# the code can deal with the differences now
+		svg_filename: "Nasal/canvas/map/Images/boeingND.svg",
+		##
+		## this loads and configures existing layers (currently, *.layer files in Nasal/canvas/map)
+		##
+
+
+		# TODO: phase out isMapStructure flag once map.nas & *.draw files are killed
+		layers: [
+			# TODO: take z-indices from *.draw files -- now handled by MapStructure in the addLayer method.
+			{ name:'FIX', isMapStructure:1, update_on:['toggle_display_mode','toggle_range','toggle_waypoints'],
+				# FIXME: this is a really ugly place for controller code
+				predicate: func(nd, layer) {
+					# print("Running fix layer predicate");
+					# toggle visibility here
+					var visible=nd.get_switch('toggle_waypoints') and nd.in_mode('toggle_display_mode', ['MAP']) and (nd.rangeNm() <= 40);
+					layer.group.setVisible( visible );
+					if (visible) {
+						#print("Updating MapStructure ND layer: FIX");
+						# (Hopefully) smart update
+						layer.update();
+					}
+				}, # end of layer update predicate
+				'z-index': -3,
+			}, # end of FIX layer
+
+			# Should redraw every 10 seconds TODO: use new MapStructure/WXR here once that works properly (Gijs should check first!)
+			{ name:'WXR', isMapStructure:1, update_on:[ {rate_hz: 0.1}, 'toggle_range','toggle_weather','toggle_display_mode'],
+				predicate: func(nd, layer) {
+					#print("Running storms predicate");
+					var visible=nd.get_switch('toggle_weather') and nd.get_switch('toggle_display_mode') != "PLAN";
+					layer.group.setVisible(visible);
+					if (visible) {
+						print("storms update requested! (timer issue when closing the dialog?)");
+						layer.update(); 
+					}
+				}, # end of layer update predicate
+				'z-index': -4,
+			}, # end of storms/WXR layer
+
+			{ name:'APS', isMapStructure:1, update_on:['toggle_display_mode'], 
+				predicate: func(nd, layer) {
+					var visible = nd.get_switch('toggle_display_mode') == "PLAN";
+					layer.group.setVisible( visible );
+					if (visible) {
+						layer.update();
+					}
+				},
+			},
+
+			{ name:'APT', isMapStructure:1, update_on:['toggle_range','toggle_airports','toggle_display_mode'],
+				predicate: func(nd, layer) {
+					# toggle visibility here
+					var visible=nd.get_switch('toggle_airports') and nd.in_mode('toggle_display_mode', ['MAP']);
+					layer.group.setVisible( visible );
+					if (visible) {
+						#print("Updating MapStructure ND layer: APT");
+						layer.update();
+					}
+				}, # end of layer update predicate
+				'z-index': -1,
+			}, # end of APT layer
+
+			# Should distinct between low and high altitude navaids. Hiding above 40 NM for now, to prevent clutter/lag.
+			{ name:'VOR', isMapStructure:1, update_on:['toggle_range','toggle_stations','toggle_display_mode'],
+				# FIXME: this is a really ugly place for controller code
+				predicate: func(nd, layer) {
+					# toggle visibility here
+					var visible = nd.get_switch('toggle_stations') and nd.in_mode('toggle_display_mode', ['MAP']) and (nd.rangeNm() <= 40);
+					layer.group.setVisible( visible );
+					if (visible) {
+						#print("Updating MapStructure ND layer: VOR");
+						layer.update();
+					}
+				}, # end of layer update predicate
+				'z-index': -2,
+			}, # end of VOR layer
+
+			{ name:'DME', isMapStructure:1, update_on:['toggle_display_mode','toggle_range','toggle_stations'],
+				# FIXME: this is a really ugly place for controller code
+				predicate: func(nd, layer) {
+					var visible = nd.get_switch('toggle_stations') and nd.in_mode('toggle_display_mode', ['MAP']) and (nd.rangeNm() <= 40);
+					# toggle visibility here
+					layer.group.setVisible( visible );
+					if (visible) {
+						#print("Updating MapStructure ND layer: DME");
+						layer.update();
+					}
+				}, # end of layer update predicate
+				'z-index': -2,
+			}, # end of DME layer
+
+			{ name:'TFC', isMapStructure:1, update_on:['toggle_range','toggle_traffic'],
+				predicate: func(nd, layer) {
+					var visible = nd.get_switch('toggle_traffic');
+					layer.group.setVisible( visible );
+					if (visible) {
+						#print("Updating MapStructure ND layer: TFC");
+						layer.update();
+					}
+				}, # end of layer update predicate
+				'z-index': 4,
+			}, # end of traffic layer
+
+			{ name:'runway-nd', update_on:['toggle_range','toggle_display_mode'],
+				predicate: func(nd, layer) {
+					#print("runway-nd wants to be ported to MapStructure");
+					var visible = (nd.rangeNm() <= 40) and getprop("autopilot/route-manager/active") and nd.in_mode('toggle_display_mode', ['MAP','PLAN']) ;
+					if (visible)
+						layer._model.init(); # clear & redraw
+					layer._view.setVisible( visible );
+				}, # end of layer update predicate
+			}, # end of airports-nd layer
+
+			{ name:'RTE', isMapStructure:1, update_on:['toggle_range','toggle_display_mode'],
+				predicate: func(nd, layer) {
+					var visible= (nd.in_mode('toggle_display_mode', ['MAP','PLAN']));
+					layer.group.setVisible( visible );
+					if (visible)
+						layer.update();
+				}, # end of layer update predicate
+				'z-index': 1,
+			}, # end of route layer
+			{ name:'WPT', isMapStructure:1, update_on:['toggle_range','toggle_display_mode'],
+				predicate: func(nd, layer) {
+					var visible= (nd.in_mode('toggle_display_mode', ['MAP','PLAN']));
+					layer.group.setVisible( visible );
+
+					if (visible)
+						layer.update();
+				}, # end of layer update predicate
+				'z-index': 2,
+			}, # end of waypoint layer
+			{ name:'ALT-profile', isMapStructure:1, update_on:['toggle_range','toggle_display_mode'],
+				predicate: func(nd, layer) {
+					var visible= (nd.in_mode('toggle_display_mode', ['MAP','PLAN']));
+					layer.group.setVisible( visible );
+
+					if (visible)
+						layer.update();
+				}, # end of layer update predicate
+				'z-index': 3,
+			}, # end of altitude profile layer
+
+			## add other layers here, layer names must match the registered names as used in *.layer files for now
+			## this will all change once we're using Philosopher's MapStructure framework
+
+		], # end of vector with configured layers
+
+		# This is where SVG elements are configured by providing "behavior" hashes, i.e. for animations
+
+		# to animate each SVG symbol, specify behavior via callbacks (predicate, and true/false implementation)
+		# SVG identifier, callback  etc
+		# TODO: update_on([]), update_mode (update() vs. timers/listeners)
+		# TODO: support putting symbols on specific layers
+		features: [
+			{
+				# TODO: taOnly doesn't need to use getprop polling in update(), use a listener instead!
+				id: 'taOnly', # the SVG ID
+				impl: { # implementation hash
+					init: func(nd, symbol), # for updateCenter stuff, called during initialization in the ctor
+					predicate: func(nd) getprop("instrumentation/tcas/inputs/mode") == 2, # the condition
+					is_true:   func(nd) nd.symbols.taOnly.show(),
+					is_false:  func(nd) nd.symbols.taOnly.hide(),
+				}, # end of taOnly  behavior/callbacks
+			},
+			{
+				id: 'tcasOff',
+				impl: {
+					init: func(nd, symbol),
+					predicate: func(nd) getprop("instrumentation/tcas/inputs/mode") == 0 and nd.get_switch('toggle_traffic') and (nd.in_mode('toggle_display_mode', ['MAP']) or (nd.in_mode('toggle_display_mode', ['APP','VOR']) and !nd.get_switch('toggle_centered'))),
+					is_true:   func(nd) nd.symbols.tcasOff.show(),
+					is_false:  func(nd) nd.symbols.tcasOff.hide(),
+				},
+			},
+			{
+				id: 'tcasFail',
+				impl: {
+					init: func(nd, symbol),
+					predicate: func(nd) getprop("instrumentation/tcas/inputs/mode") != 0 and getprop("instrumentation/tcas/serviceable") != 1 and nd.get_switch('toggle_traffic') and (nd.in_mode('toggle_display_mode', ['MAP']) or (nd.in_mode('toggle_display_mode', ['APP','VOR']) and !nd.get_switch('toggle_centered'))),
+					is_true:   func(nd) nd.symbols.tcasFail.show(),
+					is_false:  func(nd) nd.symbols.tcasFail.hide(),
+				},
+			},
+			{
+				id: 'tcasTest',
+				impl: {
+					init: func(nd, symbol),
+					predicate: func(nd) getprop("instrumentation/tcas/inputs/self-test") == 1 and getprop("instrumentation/tcas/serviceable") == 1,
+					is_true:   func(nd) nd.symbols.tcasTest.show(),
+					is_false:  func(nd) nd.symbols.tcasTest.hide(),
+				},
+			},
+			{
+				id: 'tfc',
+				impl: {
+					init: func(nd, symbol),
+					predicate: func(nd) getprop("instrumentation/tcas/inputs/mode") != 0 and nd.get_switch('toggle_traffic') and (nd.in_mode('toggle_display_mode', ['MAP']) or (nd.in_mode('toggle_display_mode', ['APP','VOR']) and !nd.get_switch('toggle_centered'))),
+					is_true:   func(nd) nd.symbols.tfc.show(),
+					is_false:  func(nd) nd.symbols.tfc.hide(),
+				},
+			},
+			{
+				id: 'traffic',
+				impl: {
+					init: func(nd, symbol),
+					predicate: func(nd) getprop("instrumentation/tcas/outputs/traffic-alert") != 0 or getprop("instrumentation/tcas/outputs/advisory-alert"),
+					is_true:   func(nd) {
+						nd.symbols.traffic.show();
+						if (getprop("instrumentation/tcas/outputs/traffic-alert"))
+							nd.symbols.traffic.setColor(1,0,0);
+						else
+							nd.symbols.traffic.setColor(1,0.5,0);
+					},
+					is_false:  func(nd) nd.symbols.traffic.hide(),
+				},
+			},
+			{
+				id: 'tas',
+				impl: {
+					init: func(nd,symbol),
+					predicate: func(nd) nd.aircraft_source.get_spd() > 100,
+					is_true: func(nd) {
+						nd.symbols.tas.setText(sprintf("%3.0f",nd.aircraft_source.get_spd() ));
+						nd.symbols.tas.show();
+					},
+					is_false: func(nd) nd.symbols.tas.hide(),
+				},
+			},
+			{
+				id: 'tasLbl',
+				impl: {
+					init: func(nd,symbol),
+					predicate: func(nd) nd.aircraft_source.get_spd() > 100,
+					is_true: func(nd) nd.symbols.tasLbl.show(),
+					is_false: func(nd) nd.symbols.tasLbl.hide(),
+				},
+			},
+			{
+				id: 'ilsFreq',
+				impl: {
+					init: func(nd,symbol),
+					predicate: func(nd) nd.in_mode('toggle_display_mode', ['APP']),
+					is_true: func(nd) {
+						nd.symbols.ilsFreq.show();
+						if(getprop("instrumentation/nav/in-range"))
+							nd.symbols.ilsFreq.setText(getprop("instrumentation/nav/nav-id"));
+						else
+							nd.symbols.ilsFreq.setText(getprop("instrumentation/nav/frequencies/selected-mhz-fmt"));
+					},
+					is_false: func(nd) nd.symbols.ilsFreq.hide(),
+				},
+			},
+			{
+				id: 'ilsLbl',
+				impl: {
+					init: func(nd,symbol),
+					predicate: func(nd) nd.in_mode('toggle_display_mode', ['APP']),
+					is_true: func(nd) {
+						nd.symbols.ilsLbl.show();
+					},
+					is_false: func(nd) nd.symbols.ilsLbl.hide(),
+				},
+			},
+			{
+				id: 'wpActiveId',
+				impl: {
+					init: func(nd,symbol),
+					predicate: func(nd) getprop("/autopilot/route-manager/wp/id") != nil and getprop("autopilot/route-manager/active")
+						and nd.in_mode('toggle_display_mode', ['MAP','PLAN']),
+					is_true: func(nd) {
+						nd.symbols.wpActiveId.setText(getprop("/autopilot/route-manager/wp/id"));
+						nd.symbols.wpActiveId.show();
+					},
+					is_false: func(nd) nd.symbols.wpActiveId.hide(),
+				}, # of wpActiveId.impl
+			}, # of wpActiveId
+			{
+				id: 'wpActiveDist',
+				impl: {
+					init: func(nd,symbol),
+					predicate: func(nd) getprop("/autopilot/route-manager/wp/dist") != nil and getprop("autopilot/route-manager/active")
+						and nd.in_mode('toggle_display_mode', ['MAP','PLAN']),
+					is_true: func(nd) {
+						nd.symbols.wpActiveDist.setText(sprintf("%3.01f",getprop("/autopilot/route-manager/wp/dist")));
+						nd.symbols.wpActiveDist.show();
+					},
+					is_false: func(nd) nd.symbols.wpActiveDist.hide(),
+				},
+			},
+			{
+				id: 'wpActiveDistLbl',
+				impl: {
+					init: func(nd,symbol),
+					predicate: func(nd) getprop("/autopilot/route-manager/wp/dist") != nil and getprop("autopilot/route-manager/active")
+						and nd.in_mode('toggle_display_mode', ['MAP','PLAN']),
+					is_true: func(nd) {
+						nd.symbols.wpActiveDistLbl.show();
+						if(getprop("/autopilot/route-manager/wp/dist") > 1000)
+							nd.symbols.wpActiveDistLbl.setText("   NM");
+					},
+					is_false: func(nd) nd.symbols.wpActiveDistLbl.hide(),
+				},
+			},
+			{
+				id: 'eta',
+				impl: {
+					init: func(nd,symbol),
+					predicate: func(nd) getprop("autopilot/route-manager/wp/eta") != nil and getprop("autopilot/route-manager/active")
+						and nd.in_mode('toggle_display_mode', ['MAP','PLAN']),
+					is_true: func(nd) {
+						var etaSec = getprop("/sim/time/utc/day-seconds")+getprop("autopilot/route-manager/wp/eta-seconds");
+						var h = math.floor(etaSec/3600);
+						etaSec=etaSec-3600*h;
+						var m = math.floor(etaSec/60);
+						etaSec=etaSec-60*m;
+						var s = etaSec/10;
+						if (h>24) h=h-24;
+						nd.symbols.eta.setText(sprintf("%02.0f%02.0f.%01.0fz",h,m,s));
+						nd.symbols.eta.show();
+					},
+					is_false: func(nd) nd.symbols.eta.hide(),
+				},  # of eta.impl
+			}, # of eta
+			{
+				id: 'gsGroup',
+				impl: {
+					init: func(nd,symbol),
+					predicate: func(nd) nd.in_mode('toggle_display_mode', ['APP']),
+					is_true: func(nd) {
+						if(nd.get_switch('toggle_centered'))
+							nd.symbols.gsGroup.setTranslation(0,0);
+						else
+							nd.symbols.gsGroup.setTranslation(0,150);
+						nd.symbols.gsGroup.show();
+					},
+					is_false: func(nd) nd.symbols.gsGroup.hide(),
+				},
+			},
+			{
+				id: 'compassApp',
+				impl: {
+					init: func(nd,symbol),
+					predicate: func(nd) (nd.get_switch('toggle_centered') and nd.in_mode('toggle_display_mode', ['APP','VOR'])),
+					is_true: func(nd) {
+						if(nd.get_switch('toggle_true_north'))
+							var hdg = nd.aircraft_source.get_trk_tru();
+						else
+							var hdg = nd.aircraft_source.get_trk_mag();
+						nd.symbols.compassApp.setRotation(-hdg*D2R);
+						nd.symbols.compassApp.show();
+					},
+					is_false: func(nd) nd.symbols.compassApp.hide(),
+				},
+			},
+			{
+				id: 'compassMapCtr',
+				impl: {
+					init: func(nd,symbol),
+					predicate: func(nd) (nd.get_switch('toggle_centered') and nd.in_mode('toggle_display_mode', ['MAP'])),
+					is_true: func(nd) {
+						if(nd.get_switch('toggle_true_north'))
+							var hdg = nd.aircraft_source.get_trk_tru();
+						else
+							var hdg = nd.aircraft_source.get_trk_mag();
+						nd.symbols.compassMapCtr.setRotation(-hdg*D2R);
+						nd.symbols.compassMapCtr.show();
+					},
+					is_false: func(nd) nd.symbols.compassMapCtr.hide(),
+				},
+			},
+			{
+				id:'hdg',
+				impl: {
+					init: func(nd,symbol),
+					predicate: func(nd) nd.in_mode('toggle_display_mode', ['APP','MAP','VOR']),
+					is_true: func(nd) {
+						var hdgText = "";
+						if((nd.in_mode('toggle_display_mode', ['MAP']) and nd.get_switch('toggle_display_type') == "CRT")
+						    or (nd.get_switch('toggle_track_heading') and nd.get_switch('toggle_display_type') == "LCD"))
+						{
+							if(nd.get_switch('toggle_true_north'))
+								hdgText = nd.aircraft_source.get_trk_tru();
+							else
+								hdgText = nd.aircraft_source.get_trk_mag();
+						} else {
+							if(nd.get_switch('toggle_true_north'))
+								hdgText = nd.aircraft_source.get_hdg_tru();
+							else
+								hdgText = nd.aircraft_source.get_hdg_mag();
+						}
+						if(hdgText < 0.5) hdgText = 360 + hdgText;
+						elsif(hdgText >= 360.5) hdgText = hdgText - 360;
+						nd.symbols.hdg.setText(sprintf("%03.0f", hdgText));
+					},
+					is_false: NOTHING,
+				},
+			},
+			{
+				id:'hdgGroup',
+				impl: {
+					init: func(nd,symbol),
+					predicate: func(nd) nd.in_mode('toggle_display_mode', ['APP','MAP','VOR']),
+					is_true: func(nd) {
+						nd.symbols.hdgGroup.show();
+						if(nd.get_switch('toggle_centered'))
+							nd.symbols.hdgGroup.setTranslation(0,100);
+						else
+							nd.symbols.hdgGroup.setTranslation(0,0);
+					},
+					is_false: func(nd) nd.symbols.hdgGroup.hide(),
+				},
+			},
+			{
+				id:'gs',
+				impl: {
+					init: func(nd,symbol),
+					common: func(nd) nd.symbols.gs.setText(sprintf("%3.0f",nd.aircraft_source.get_gnd_spd() )),
+					predicate: func(nd) nd.aircraft_source.get_gnd_spd() >= 30,
+					is_true: func(nd) {
+						nd.symbols.gs.setFontSize(36);
+					},
+					is_false: func(nd) nd.symbols.gs.setFontSize(52),
+				},
+			},
+			{
+				id:'compass',
+				impl: {
+					init: func(nd,symbol),
+					predicate: func(nd) ((nd.get_switch('toggle_centered') and !nd.in_mode('toggle_display_mode', ['PLAN'])) or nd.in_mode('toggle_display_mode', ['PLAN'])),
+					is_true: func(nd) nd.symbols.compass.hide(),
+					is_false: func(nd) {
+						nd.symbols.compass.show();
+						nd.symbols.compass.setRotation(-nd.userHdgTrk*D2R);
+					},
+				},
+			},
+			{
+				id:'truMag',
+				impl: {
+					init: func(nd,symbol),
+					predicate: func(nd) nd.get_switch('toggle_true_north'),
+					is_true: func(nd) nd.symbols.truMag.setText("TRU"),
+					is_false: func(nd) nd.symbols.truMag.setText("MAG"),
+				},
+			},
+			{
+				id:'northUp',
+				impl: {
+					init: func(nd,symbol),
+					predicate: func(nd) nd.in_mode('toggle_display_mode', ['PLAN']),
+					is_true: func(nd) nd.symbols.northUp.show(),
+					is_false: func(nd) nd.symbols.northUp.hide(),
+				},
+			},
+			{
+				id:'planArcs',
+				impl: {
+					init: func(nd,symbol),
+					predicate: func(nd) nd.in_mode('toggle_display_mode', ['PLAN']),
+					is_true: func(nd) nd.symbols.planArcs.show(),
+					is_false: func(nd) nd.symbols.planArcs.hide(),
+				},
+			},
+			{
+				id:'aplSymMap',
+				impl: {
+					init: func(nd,symbol),
+					predicate: func(nd) (nd.in_mode('toggle_display_mode', ['APP','MAP','VOR'])  and !nd.get_switch('toggle_centered')),
+					is_true: func(nd) nd.symbols.aplSymMap.show(),
+					is_false: func(nd) nd.symbols.aplSymMap.hide(),
+				},
+			},
+			{
+				id:'aplSymMapCtr',
+				impl: {
+					init: func(nd,symbol),
+					predicate: func(nd) (nd.in_mode('toggle_display_mode', ['MAP'])  and nd.get_switch('toggle_centered')),
+					is_true: func(nd) nd.symbols.aplSymMapCtr.show(),
+					is_false: func(nd) nd.symbols.aplSymMapCtr.hide(),
+				},
+			},
+			{
+				id:'aplSymVor',
+				impl: {
+					init: func(nd,symbol),
+					predicate: func(nd) (nd.in_mode('toggle_display_mode', ['APP','VOR'])  and nd.get_switch('toggle_centered')),
+					is_true: func(nd) nd.symbols.aplSymVor.show(),
+					is_false: func(nd) nd.symbols.aplSymVor.hide(),
+				},
+			},
+			{
+				id:'rangeArcs',
+				impl: {
+					init: func(nd,symbol),
+					predicate: func(nd) !nd.get_switch('toggle_centered') and nd.get_switch('toggle_rangearc'),
+					is_true: func(nd) nd.symbols.rangeArcs.show(),
+					is_false: func(nd) nd.symbols.rangeArcs.hide(),
+				},
+			},
+			{
+				id:'rangePln1',
+				impl: {
+					init: func(nd,symbol),
+					predicate: func(nd) nd.get_switch('toggle_display_mode') == "PLAN",
+					is_true: func(nd) { 
+						nd.symbols.rangePln1.show();
+						nd.symbols.rangePln1.setText(sprintf("%3.0f",nd.rangeNm()));
+					},
+					is_false: func(nd) nd.symbols.rangePln1.hide(),
+				},
+			},
+			{
+				id:'rangePln2',
+				impl: {
+					init: func(nd,symbol),
+					predicate: func(nd) nd.get_switch('toggle_display_mode') == "PLAN",
+					is_true: func(nd) { 
+						nd.symbols.rangePln2.show();
+						nd.symbols.rangePln2.setText(sprintf("%3.0f",nd.rangeNm()/2));
+					},
+					is_false: func(nd) nd.symbols.rangePln2.hide(),
+				},
+			},
+			{
+				id:'rangePln3',
+				impl: {
+					init: func(nd,symbol),
+					predicate: func(nd) nd.get_switch('toggle_display_mode') == "PLAN",
+					is_true: func(nd) { 
+						nd.symbols.rangePln3.show();
+						nd.symbols.rangePln3.setText(sprintf("%3.0f",nd.rangeNm()/2));
+					},
+					is_false: func(nd) nd.symbols.rangePln3.hide(),
+				},
+			},
+			{
+				id:'rangePln4',
+				impl: {
+					init: func(nd,symbol),
+					predicate: func(nd) nd.get_switch('toggle_display_mode') == "PLAN",
+					is_true: func(nd) { 
+						nd.symbols.rangePln4.show();
+						nd.symbols.rangePln4.setText(sprintf("%3.0f",nd.rangeNm()));
+					},
+					is_false: func(nd) nd.symbols.rangePln4.hide(),
+				},
+			},
+			{
+				id:'range',
+				impl: {
+					init: func(nd,symbol),
+					predicate: func(nd) !nd.get_switch('toggle_centered'),
+					is_true: func(nd) { 
+						nd.symbols.range.setText(sprintf("%3.0f",nd.rangeNm()/2));
+					},
+					is_false: func(nd) nd.symbols.rangePln4.hide(),
+				},
+			},
+			{
+				id:'rangeCtr1',
+				impl: {
+					init: func(nd,symbol),
+					predicate: func(nd) (nd.get_switch('toggle_centered') and nd.in_mode('toggle_display_mode', ['APP','MAP','VOR'])),
+					is_true: func(nd) {
+						nd.symbols.rangeCtr1.show();
+						nd.symbols.rangeCtr1.setText(sprintf("%g",nd.rangeNm()/4));
+					},
+					is_false: func(nd) nd.symbols.rangeCtr1.hide(),
+				},
+			},
+			{
+				id:'rangeCtr2',
+				impl: {
+					init: func(nd,symbol),
+					predicate: func(nd) (nd.get_switch('toggle_centered') and nd.in_mode('toggle_display_mode', ['APP','MAP','VOR'])),
+					is_true: func(nd) { 
+						nd.symbols.rangeCtr2.show();
+						nd.symbols.rangeCtr2.setText(sprintf("%g",nd.rangeNm()/4));
+					},
+					is_false: func(nd) nd.symbols.rangeCtr2.hide(),
+				},
+			},
+			{
+				id:'altArc',
+				impl: {
+					init: func(nd,symbol),
+					predicate: func(nd) (!nd.get_switch('toggle_centered') and nd.in_mode('toggle_display_mode', ['MAP'])),
+					is_true: func(nd) { 
+						var altDiff = (getprop("autopilot/settings/target-altitude-ft") or 0)-(getprop("instrumentation/altimeter/indicated-altitude-ft") or 0);
+						if (abs(altDiff) > 50 and altDiff/nd.aircraft_source.get_vspd() > 0) {
+							var altRangeNm = altDiff/nd.aircraft_source.get_vspd()*nd.aircraft_source.get_gnd_spd()*KT2MPS*M2NM;
+							if(altRangeNm > 1) {
+								var altRangePx = (350/nd.rangeNm())*altRangeNm;
+								if (altRangePx > 700)
+									altRangePx = 700;
+								nd.symbols.altArc.setTranslation(0,-altRangePx);
+							}
+							nd.symbols.altArc.show();
+						} else
+							nd.symbols.altArc.hide();
+					},
+					is_false: func(nd) nd.symbols.altArc.hide(),
+				},
+			},
+			{
+				id:'altArcCtr',
+				impl: {
+					init: func(nd,symbol),
+					predicate: func(nd) (nd.get_switch('toggle_centered') and nd.in_mode('toggle_display_mode', ['MAP'])),
+					is_true: func(nd) { 
+						var altDiff = (getprop("autopilot/settings/target-altitude-ft") or 0)-(getprop("instrumentation/altimeter/indicated-altitude-ft") or 0);
+						if (abs(altDiff) > 50 and altDiff/nd.aircraft_source.get_vspd() > 0) {
+							var altRangeNm = altDiff/nd.aircraft_source.get_vspd()*nd.aircraft_source.get_gnd_spd()*KT2MPS*M2NM;
+							if(altRangeNm > 1) {
+								var altRangePx = (175/nd.rangeNm())*altRangeNm;
+								if (altRangePx > 350)
+									altRangePx = 350;
+								nd.symbols.altArcCtr.setTranslation(0,-altRangePx);
+							}
+							nd.symbols.altArcCtr.show();
+						} else
+							nd.symbols.altArcCtr.hide();
+					},
+					is_false: func(nd) nd.symbols.altArcCtr.hide(),
+				},
+			},
+			{
+				id:'crsLbl',
+				impl: {
+					init: func(nd,symbol),
+					predicate: func(nd) nd.in_mode('toggle_display_mode', ['APP','VOR']),
+					is_true: func(nd) nd.symbols.crsLbl.show(),
+					is_false: func(nd) nd.symbols.crsLbl.hide(),
+				},
+			},
+			{
+				id:'crs',
+				impl: {
+					init: func(nd,symbol),
+					predicate: func(nd) nd.in_mode('toggle_display_mode', ['APP','VOR']),
+					is_true: func(nd) {
+						nd.symbols.crs.show();
+						if(getprop("instrumentation/nav/radials/selected-deg") != nil)
+							nd.symbols.crs.setText(sprintf("%03.0f",getprop("instrumentation/nav/radials/selected-deg")));
+					},
+					is_false: func(nd) nd.symbols.crs.hide(),
+				},
+			},
+			{
+				id:'dmeLbl',
+				impl: {
+					init: func(nd,symbol),
+					predicate: func(nd) nd.in_mode('toggle_display_mode', ['APP','VOR']),
+					is_true: func(nd) nd.symbols.dmeLbl.show(),
+					is_false: func(nd) nd.symbols.dmeLbl.hide(),
+				},
+			},
+			{
+				id:'dme',
+				impl: {
+					init: func(nd,symbol),
+					predicate: func(nd) nd.in_mode('toggle_display_mode', ['APP','VOR']),
+					is_true: func(nd) {
+						nd.symbols.dme.show();
+						if(getprop("instrumentation/dme/in-range"))
+							nd.symbols.dme.setText(sprintf("%3.1f",getprop("instrumentation/dme/indicated-distance-nm")));
+					},
+					is_false: func(nd) nd.symbols.dme.hide(),
+				},
+			},
+			{
+				id:'trkInd2',
+				impl: {
+					init: func(nd,symbol),
+					predicate: func(nd) (nd.in_mode('toggle_display_mode', ['APP','VOR']) and nd.get_switch('toggle_centered')),
+					is_true: func(nd) { 
+						if (nd.get_switch('toggle_track_heading') and nd.get_switch('toggle_display_type') == "LCD")
+							nd.symbols.trkInd2.setRotation(0);
+						else
+							nd.symbols.trkInd2.setRotation((nd.userTrk-nd.userHdg)*D2R);
+						nd.symbols.trkInd2.show();
+					},
+					is_false: func(nd) nd.symbols.trkInd2.hide(),
+				},
+			},
+			{
+				id:'trkIndMapCtr',
+				impl: {
+					init: func(nd,symbol),
+					predicate: func(nd) (nd.in_mode('toggle_display_mode', ['MAP']) and nd.get_switch('toggle_centered')),
+					is_true: func(nd) {
+						if (nd.get_switch('toggle_display_type') == "CRT" or (nd.get_switch('toggle_track_heading') and nd.get_switch('toggle_display_type') == "LCD"))
+							nd.symbols.trkIndMapCtr.setRotation(0);
+						else
+							nd.symbols.trkIndMapCtr.setRotation((nd.userTrk-nd.userHdg)*D2R);
+						nd.symbols.trkIndMapCtr.show();
+					},
+					is_false: func(nd) nd.symbols.trkIndMapCtr.hide(),
+				},
+			},
+			{
+				id:'vorCrsPtr',
+				impl: {
+					init: func(nd,symbol),
+					predicate: func(nd) (nd.in_mode('toggle_display_mode', ['APP','VOR']) and !nd.get_switch('toggle_centered')),
+					is_true: func(nd) {
+						nd.symbols.vorCrsPtr.show();
+						if((nd.in_mode('toggle_display_mode', ['MAP']) and nd.get_switch('toggle_display_type') == "CRT")
+						    or (nd.get_switch('toggle_track_heading') and nd.get_switch('toggle_display_type') == "LCD"))
+							nd.symbols.vorCrsPtr.setRotation((getprop("instrumentation/nav/radials/selected-deg")-nd.aircraft_source.get_trk_mag())*D2R);
+						else
+							nd.symbols.vorCrsPtr.setRotation((getprop("instrumentation/nav/radials/selected-deg")-nd.aircraft_source.get_hdg_mag())*D2R);
+					},
+					is_false: func(nd) nd.symbols.vorCrsPtr.hide(),
+				},
+			},
+			{
+				id:'vorCrsPtr2',
+				impl: {
+					init: func(nd,symbol),
+					predicate: func(nd) (nd.in_mode('toggle_display_mode', ['APP','VOR']) and nd.get_switch('toggle_centered')),
+					is_true: func(nd) {
+						nd.symbols.vorCrsPtr2.show();
+						if((nd.in_mode('toggle_display_mode', ['MAP']) and nd.get_switch('toggle_display_type') == "CRT")
+						    or (nd.get_switch('toggle_track_heading') and nd.get_switch('toggle_display_type') == "LCD"))
+							nd.symbols.vorCrsPtr2.setRotation((getprop("instrumentation/nav/radials/selected-deg")-nd.aircraft_source.get_trk_mag())*D2R);
+						else
+							nd.symbols.vorCrsPtr2.setRotation((getprop("instrumentation/nav/radials/selected-deg")-nd.aircraft_source.get_hdg_mag())*D2R);
+					},
+					is_false: func(nd) nd.symbols.vorCrsPtr2.hide(),
+				},
+			},
+			{
+				id: 'gsDiamond',
+				impl: {
+					init: func(nd,symbol),
+					predicate: func(nd) nd.in_mode('toggle_display_mode', ['APP']) and getprop("instrumentation/nav/gs-in-range"),
+					is_true: func(nd) {
+						var gs_deflection = getprop("instrumentation/nav/gs-needle-deflection-norm");
+						if(gs_deflection != nil)
+							nd.symbols.gsDiamond.setTranslation(gs_deflection*150,0);
+						if(abs(gs_deflection) < 0.99)
+							nd.symbols.gsDiamond.setColorFill(1,0,1,1);
+						else
+							nd.symbols.gsDiamond.setColorFill(0,0,0,1);
+					},
+					is_false: func(nd) nd.symbols.gsGroup.hide(),
+				},
+			},
+			{
+				id:'locPtr',
+				impl: {
+					init: func(nd,symbol),
+					predicate: func(nd) (nd.in_mode('toggle_display_mode', ['APP','VOR']) and !nd.get_switch('toggle_centered') and getprop("instrumentation/nav/in-range")),
+					is_true: func(nd) {
+						nd.symbols.locPtr.show();
+						var deflection = getprop("instrumentation/nav/heading-needle-deflection-norm");
+						nd.symbols.locPtr.setTranslation(deflection*150,0);
+						if(abs(deflection) < 0.99)
+							nd.symbols.locPtr.setColorFill(1,0,1,1);
+						else
+							nd.symbols.locPtr.setColorFill(0,0,0,1);
+					},
+					is_false: func(nd) nd.symbols.locPtr.hide(),
+				},
+			},
+			{
+				id:'locPtr2',
+				impl: {
+					init: func(nd,symbol),
+					predicate: func(nd) (nd.in_mode('toggle_display_mode', ['APP','VOR']) and nd.get_switch('toggle_centered') and getprop("instrumentation/nav/in-range")),
+					is_true: func(nd) {
+						nd.symbols.locPtr2.show();
+						var deflection = getprop("instrumentation/nav/heading-needle-deflection-norm");
+						nd.symbols.locPtr2.setTranslation(deflection*150,0);
+						if(abs(deflection) < 0.99)
+							nd.symbols.locPtr2.setColorFill(1,0,1,1);
+						else
+							nd.symbols.locPtr2.setColorFill(0,0,0,1);
+					},
+					is_false: func(nd) nd.symbols.locPtr2.hide(),
+				},
+			},
+			{
+				id:'wind',
+				impl: {
+					init: func(nd,symbol),
+					predicate: func(nd) (nd.aircraft_source.get_spd() > 100 and getprop("environment/wind-speed-kt") > 4),
+					is_true: func(nd) {
+						var windDir = getprop("environment/wind-from-heading-deg");
+						var windSpd = getprop("environment/wind-speed-kt");
+						if(!nd.get_switch('toggle_true_north'))
+							windDir = windDir - getprop("environment/magnetic-variation-deg");
+						if(windDir < 0.5) windDir = 360 + windDir;
+						elsif(windDir >= 360.5) windDir = windDir - 360;
+						if (windSpd > 6)
+							nd.windShown = 1;
+						if (nd.windShown != 0) {
+							nd.symbols.wind.setText(sprintf("%03.0f / %02.0f",windDir,windSpd));
+							nd.symbols.wind.show();
+						} else
+							nd.symbols.wind.hide();
+					},
+					is_false: func(nd) {
+						nd.windShown = 0;
+						nd.symbols.wind.hide();
+					},
+				},
+			},
+			{
+				id:'windArrow',
+				impl: {
+					init: func(nd,symbol),
+					predicate: func(nd) (!(nd.in_mode('toggle_display_mode', ['PLAN']) and (nd.get_switch('toggle_display_type') == "LCD")) and nd.aircraft_source.get_spd() > 100 and getprop("environment/wind-speed-kt") > 4),
+					is_true: func(nd) {
+						if (nd.windShown != 0) {
+							nd.symbols.windArrow.show();
+							var windArrowRot = getprop("environment/wind-from-heading-deg");
+							if((nd.in_mode('toggle_display_mode', ['MAP','PLAN']) and nd.get_switch('toggle_display_type') == "CRT")
+								or (nd.get_switch('toggle_track_heading') and nd.get_switch('toggle_display_type') == "LCD"))
+									windArrowRot = windArrowRot - nd.aircraft_source.get_trk_mag();
+								else
+									windArrowRot = windArrowRot - nd.aircraft_source.get_hdg_mag();
+						nd.symbols.windArrow.setRotation(windArrowRot*D2R);
+						} else {
+							nd.symbols.windArrow.hide();
+						}
+					},
+					is_false: func(nd) nd.symbols.windArrow.hide(),
+				},
+			},
+			{
+				id:'vorL',
+				impl: {
+					init: func(nd,symbol),
+					predicate: func(nd) (nd.get_switch('toggle_lh_vor_adf') != 0),
+					is_true: func(nd) {
+						if(nd.get_switch('toggle_lh_vor_adf') == 1) {
+							nd.symbols.vorL.setText("VOR L");
+							nd.symbols.vorL.setColor(0.195,0.96,0.097);
+						} else {
+							nd.symbols.vorL.setText("ADF L");
+							nd.symbols.vorL.setColor(0,0.6,0.85);
+						}
+						nd.symbols.vorL.show();
+					},
+					is_false: func(nd) nd.symbols.vorL.hide(),
+				},
+			},
+			{
+				id:'vorLId',
+				impl: {
+					init: func(nd,symbol),
+					predicate: func(nd) (nd.get_switch('toggle_lh_vor_adf') != 0),
+					is_true: func(nd) {
+						if(nd.get_switch('toggle_lh_vor_adf') == 1) {
+							if(getprop("instrumentation/nav/in-range"))
+								nd.symbols.vorLId.setText(getprop("instrumentation/nav/nav-id"));
+							else
+								nd.symbols.vorLId.setText(getprop("instrumentation/nav/frequencies/selected-mhz-fmt"));
+							nd.symbols.vorLId.setColor(0.195,0.96,0.097);
+						} else {
+							if((var navident=getprop("instrumentation/adf/ident")) != "")
+								nd.symbols.vorLId.setText(navident);
+							else
+								nd.symbols.vorLId.setText(sprintf("%3d",getprop("instrumentation/adf/frequencies/selected-khz")));
+							nd.symbols.vorLId.setColor(0,0.6,0.85);
+						}
+						nd.symbols.vorLId.show();
+					},
+					is_false: func(nd) nd.symbols.vorLId.hide(),
+				},
+			},
+			{
+				id:'dmeLDist',
+				impl: {
+					init: func(nd,symbol),
+					predicate: func(nd) (nd.get_switch('toggle_lh_vor_adf') != 0),
+					is_true: func(nd) {
+						if(nd.get_switch('toggle_lh_vor_adf') == 1) {
+							if(getprop("instrumentation/dme/in-range"))
+								nd.symbols.dmeLDist.setText(sprintf("%3.1f",getprop("instrumentation/dme/indicated-distance-nm")));
+							else
+								nd.symbols.dmeLDist.setText(" ---");
+							nd.symbols.dmeLDist.setColor(0.195,0.96,0.097);
+						} else {
+							nd.symbols.dmeLDist.setText("");
+							nd.symbols.dmeLDist.setColor(0,0.6,0.85);
+						}
+						nd.symbols.dmeLDist.show();
+					},
+					is_false: func(nd) nd.symbols.dmeLDist.hide(),
+				},
+			},
+			{
+				id:'dmeL',
+				impl: {
+					init: func(nd,symbol),
+					predicate: func(nd) (nd.get_switch('toggle_lh_vor_adf') != 0),
+					is_true: func(nd) {
+						if(nd.get_switch('toggle_lh_vor_adf') == 1) {
+							nd.symbols.dmeL.setText("DME");
+							nd.symbols.dmeL.setColor(0.195,0.96,0.097);
+						} else {
+							nd.symbols.dmeL.setText("");
+							nd.symbols.dmeL.setColor(0,0.6,0.85);
+						}
+						nd.symbols.dmeL.show();
+					},
+					is_false: func(nd) nd.symbols.dmeL.hide(),
+				},
+			},
+
+		], # end of vector with features
+
+
+	}, # end of Boeing style
+#####
+##
+## add support for other aircraft/ND types and styles here (Airbus etc)
+## or move to other files.
+##
+## see: http://wiki.flightgear.org/NavDisplay#Custom_ND_Styles
+## and: http://wiki.flightgear.org/NavDisplay#Adding_new_features
+
+}; # end of NDStyles
+

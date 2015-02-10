@@ -1,0 +1,259 @@
+<?xml version="1.0" ?>
+<!--
+************************************************************************
+* Bindings for CH Fighterstick USB joystick.
+*
+* Axis 0  : Ailerons
+* Axis 1  : Elevator
+* Axis 2  : Throttle
+* Axes 6  : Rudder trim (8-way hat)
+* Axes 7  : Elevator trim (8-way hat)
+*
+* Button 0 (trigger)  : Trigger
+* Button 1 (top left) : PTT - Push To Talk (via VoIP)
+* Button 2 (top right): Parking brake
+* Button 3 (bottom)   : view reset
+* Button 5/6 (left 4-way up/down): Flaps
+* Button 8-11 (bottom right 4-way): Angle of view/View Cycle
+* Button 12-15 (thumb 4-way): View direction
+************************************************************************
+-->
+<PropertyList>
+
+  <name>CH FIGHTERSTICK USB </name>
+  <name>CH PRODUCTS CH FIGHTERSTICK USB </name>
+
+  <axis n="0">
+    <desc>Aileron</desc>
+    <binding>
+      <command>property-scale</command>
+      <property>/controls/flight/aileron</property>
+      <dead-band type="double">0.02</dead-band>
+      <offset type="double">0.0</offset>
+      <factor type="double">1.0</factor>
+    </binding>
+  </axis>
+
+  <axis n="1">
+    <desc>Elevator</desc>
+    <binding>
+      <command>property-scale</command>
+      <property>/controls/flight/elevator</property>
+      <dead-band type="double">0.02</dead-band>
+      <offset type="double">0.0</offset>
+      <factor type="double">-1.0</factor>
+    </binding>
+  </axis>
+
+  <axis n="2">
+    <desc>Throttle</desc>
+    <binding>
+      <command>nasal</command>
+      <script>controls.throttleAxis()</script>
+    </binding>
+  </axis>
+
+  <axis>
+    <desc>Rudder Trim</desc>
+    <number>
+      <unix>3</unix>
+      <windows>6</windows>
+    </number>
+    <low>
+      <repeatable>true</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>controls.rudderTrim(-1)</script>
+      </binding>
+    </low>
+    <high>
+      <repeatable>true</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>controls.rudderTrim(1)</script>
+      </binding>
+    </high>
+  </axis>
+
+  <axis>
+    <desc>Elevator Trim</desc>
+    <number>
+      <unix>4</unix>
+      <windows>7</windows>
+    </number>
+    <low>
+      <repeatable>true</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>controls.elevatorTrim(1)</script>
+      </binding>
+    </low>
+    <high>
+      <repeatable>true</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>controls.elevatorTrim(-1)</script>
+      </binding>
+    </high>
+  </axis>
+
+  <button n="0">
+    <name>trigger</name>
+    <desc>Trigger</desc>
+    <binding>
+      <command>nasal</command>
+      <script>controls.trigger(1)</script>
+    </binding>
+    <mod-up>
+      <binding>
+        <command>nasal</command>
+        <script>controls.trigger(0)</script>
+      </binding>
+    </mod-up>
+  </button>
+
+  <button n="1">
+    <name>PTT</name>
+    <desc>Push To Talk (FGCom)</desc>
+    <binding>
+      <command>nasal</command>
+      <script>controls.ptt(1)</script>
+    </binding>
+    <mod-up>
+      <binding>
+        <command>nasal</command>
+        <script>controls.ptt(0)</script>
+      </binding>
+    </mod-up>
+  </button>
+
+  <button n="2">
+    <desc>Parking Brake Off</desc>
+    <repeatable>false</repeatable>
+    <binding>
+      <command>nasal</command>
+      <script>controls.applyParkingBrake(1)</script>
+    </binding>
+  </button>
+
+  <button n="3">
+    <desc>Reset view</desc>
+    <repeatable>false</repeatable>
+    <binding>
+      <command>nasal</command>
+      <script>
+        setprop("/sim/current-view/view-number", 0);
+        setprop("/sim/current-view/goal-pitch-offset-deg", getprop("/sim/view[0]/config/pitch-offset-deg"));
+        setprop("/sim/current-view/goal-heading-offset-deg", 0.0);
+        #setprop("/sim/current-view/field-of-view", getprop("/sim/view/config/default-field-of-view-deg"));
+      </script>
+    </binding>
+  </button>
+
+  <button n="4">
+    <desc>Flaps Up</desc>
+    <repeatable>false</repeatable>
+    <binding>
+      <command>nasal</command>
+      <script>controls.flapsDown(-1)</script>
+    </binding>
+    <mod-up>
+      <binding>
+        <command>nasal</command>
+        <script>controls.flapsDown(0)</script>
+      </binding>
+    </mod-up>
+  </button>
+
+  <button n="6">
+    <desc>Flaps Down</desc>
+    <repeatable>false</repeatable>
+    <binding>
+      <command>nasal</command>
+      <script>controls.flapsDown(1)</script>
+    </binding>
+    <mod-up>
+      <binding>
+        <command>nasal</command>
+        <script>controls.flapsDown(0)</script>
+      </binding>
+    </mod-up>
+  </button>
+
+  <button n="8">
+    <desc>View Decrease</desc>
+    <repeatable>true</repeatable>
+    <binding>
+      <command>nasal</command>
+      <script>view.decrease(0.75)</script>
+    </binding>
+  </button>
+
+  <button n="9">
+    <desc>View Cycle Forwards</desc>
+    <repeatable>false</repeatable>
+    <binding>
+      <command>nasal</command>
+      <script>view.stepView(1)</script>
+    </binding>
+  </button>
+
+  <button n="10">
+    <desc>View Increase</desc>
+    <repeatable>true</repeatable>
+    <binding>
+      <command>nasal</command>
+      <script>view.increase(0.75)</script>
+    </binding>
+  </button>
+
+  <button n="11">
+    <desc>View Cycle Backwards</desc>
+    <repeatable>false</repeatable>
+    <binding>
+      <command>nasal</command>
+      <script>view.stepView(-1)</script>
+    </binding>
+  </button>
+
+  <button n="12">
+    <desc>View Up</desc>
+    <repeatable>false</repeatable>
+    <binding>
+      <command>property-adjust</command>
+      <property>/sim/current-view/goal-pitch-offset-deg</property>
+      <step>20.0</step>
+    </binding>
+  </button>
+
+  <button n="13">
+    <desc>View Right</desc>
+    <repeatable>false</repeatable>
+    <binding>
+      <command>property-adjust</command>
+      <property>/sim/current-view/goal-heading-offset-deg</property>
+      <step>-30.0</step>
+    </binding>
+  </button>
+
+  <button n="14">
+    <desc>View Down</desc>
+    <repeatable>false</repeatable>
+    <binding>
+      <command>property-adjust</command>
+      <property>/sim/current-view/goal-pitch-offset-deg</property>
+      <step>-20.0</step>
+    </binding>
+  </button>
+
+  <button n="15">
+    <desc>View Left</desc>
+    <repeatable>false</repeatable>
+    <binding>
+      <command>property-adjust</command>
+      <property>/sim/current-view/goal-heading-offset-deg</property>
+      <step>30.0</step>
+    </binding>
+  </button>
+
+</PropertyList>

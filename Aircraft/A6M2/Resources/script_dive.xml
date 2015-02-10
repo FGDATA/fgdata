@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="http://jsbsim.sf.net/JSBSimScript.xsl"?>
+<runscript xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://jsbsim.sf.net/JSBSimScript.xsd"
+    name="180 Degree turn in A6M2">
+
+  <description>
+    This script starts the aircraft at altitude with engine at 2550 rpm and 36 inHg (+150 mmHg.
+    The script sets an empircally chosen theta value to achieve a high speed dive.
+  </description>
+
+  <use aircraft="A6M2-jsbsim" initialize="Resources/init_cruise3km"/> 
+
+  <run start="0" end="70" dt="0.008333">
+
+    <property value="25"> simulation/notify-time-trigger </property>
+
+<!-- 
+
+  altitude   mixture 
+
+     12000   0.5
+     10000   0.58
+         0   1.0
+-->
+
+    <event name="Set engines running">
+      <condition> simulation/sim-time-sec le 0.1 </condition>
+      <set name="propulsion/set-running" value="-1"/>
+      <set name="fcs/throttle-cmd-norm[0]" value="0.979"/>
+      <set name="fcs/mixture-cmd-norm[0]" value="0.8"/>
+      <set name="fcs/advance-cmd-norm[0]" value="0.8"/>
+      <set name="gear/gear-cmd-norm" value="0"/>
+      <set name="gear/gear-pos-norm" value="0"/>
+      <notify>
+        <property>fcs/mixture-cmd-norm</property>
+        <property>fcs/mixture-pos-norm</property>
+      </notify>
+    </event>
+
+
+    <event name="Engage Pilot">
+      <condition> simulation/sim-time-sec gt 1 </condition>
+      <set name="ap/afcs/theta-trim-rad" value="-0.20"/>
+      <set name="ap/afcs/psi-trim-rad" value="3.1415"/>
+      <set name="ap/afcs/phi-trim-rad" value="0.0"/>
+      <set name="ap/afcs/pitch-channel-active-norm" value="15"/>
+      <set name="ap/afcs/yaw-channel-active-norm" value="10"/>
+      <set name="ap/afcs/roll-channel-active-norm" value="20"/>
+      <notify>
+        <property>fcs/mixture-cmd-norm</property>
+        <property>fcs/mixture-pos-norm</property>
+      </notify>
+    </event>
+
+<!--
+    <event name="Roll Out">
+      <condition>
+       simulation/sim-time-sec gt 25
+       attitude/psi-rad gt 3.14
+      </condition>
+      <set name="ap/afcs/theta-trim-rad" value="-0.095"/>
+      <set name="ap/afcs/psi-trim-rad" value="0.0"/>
+      <set name="ap/afcs/phi-trim-rad" value="0.0"/>
+      <set name="ap/afcs/pitch-channel-active-norm" value="10"/>
+      <set name="ap/afcs/yaw-channel-active-norm" value="0"/>
+      <set name="ap/afcs/roll-channel-active-norm" value="20"/>
+      <set name="fcs/elevator-cmd-norm"  value="-0.0"/>
+      <set name="fcs/rudder-cmd-norm"  value="-0.00"/>
+      <set name="ap/afcs/pitch-channel-active-norm" value="0"/>
+      <notify/>
+    </event>
+-->
+
+    <!--
+
+      For "do_simple_trim" (Classic trim):
+      0: Longitudinal
+      1: Full
+      2: Ground
+      3: Pullup
+      4: Custom
+      5: Turn
+      6: None
+    <event name="Trim">
+      <condition> simulation/sim-time-sec gt 0.1 </condition>
+      <set name="simulation/do_simple_trim" value="0"/>
+      <delay>5.0</delay>
+      <notify>
+        <property>propulsion/engine[0]/rpm</property>
+        <property>propulsion/engine[0]/thrust-lbs</property>
+        <property>propulsion/engine[0]/map-inhg</property>
+        <property>position/h-agl-ft</property>
+        <property>velocities/vc-kts</property>
+        <property>attitude/phi-rad</property>
+        <property>attitude/theta-rad</property>
+        <property>attitude/psi-rad</property>
+        <property>fcs/throttle-cmd-norm</property>
+        <property>fcs/throttle-pos-norm</property>
+        <property>fcs/mixture-cmd-norm</property>
+        <property>fcs/mixture-pos-norm</property>
+        <property>fcs/advance-cmd-norm</property>
+        <property>fcs/advance-pos-norm</property>
+      </notify>
+    </event>
+    -->
+
+    <event name="Repeating Notify" persistent="true">
+      <description>Output message at periodic intervals</description>
+      <notify>
+        <property>propulsion/engine[0]/rpm</property>
+        <property>propulsion/engine[0]/thrust-lbs</property>
+        <property>propulsion/engine[0]/map-inhg</property>
+        <property>fcs/left-aileron-pos-rad</property>
+        <property>fcs/elevator-pos-rad</property>
+        <property>fcs/rudder-pos-rad</property>
+        <property>position/h-agl-ft</property>
+        <property>velocities/vc-kts</property>
+        <property>velocities/mach</property>
+        <property>accelerations/n-pilot-z-norm</property>
+        <property>aero/alpha-deg</property>
+	<property>aero/beta-deg</property>
+        <property>attitude/phi-rad</property>
+        <property>attitude/theta-rad</property>
+        <property>attitude/psi-rad</property>
+        <property>propulsion/engine/fuel-flow-rate-pps</property>
+
+      </notify>
+      <condition> simulation/sim-time-sec >= simulation/notify-time-trigger </condition>
+      <set name="simulation/notify-time-trigger" value="20" type="FG_DELTA"/>
+    </event>
+
+  </run>
+
+</runscript>
+

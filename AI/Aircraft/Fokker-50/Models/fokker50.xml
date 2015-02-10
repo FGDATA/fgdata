@@ -1,0 +1,904 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+<path>Models/fokker50.ac</path>
+
+<offsets>
+  <z-m>1.25</z-m>
+  <pitch-deg>-1.0</pitch-deg>
+</offsets>
+
+<animation>
+ <type>alpha-test</type>
+ <alpha-factor>0.01</alpha-factor>
+</animation>
+
+<!-- no shadows -->
+ <animation>
+  <type>noshadow</type>
+  <object-name>markings</object-name>
+  <object-name>left_propdisk</object-name>
+  <object-name>right_propdisk</object-name>
+ </animation>
+
+<animation>
+ <type>rotate</type>
+ <object-name>right_aileron</object-name>
+ <property>surface-positions/left-aileron-pos-norm</property>
+ <factor>-30</factor>
+ <center>
+  <x-m>0.370000</x-m>
+  <y-m>12.305000</y-m>
+  <z-m>0.190000</z-m>
+ </center>
+ <axis>
+  <x>-0.066658</x>
+  <y>0.997492</y>
+  <z>0.023806</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>rotate</type>
+ <object-name>left_aileron</object-name>
+ <property>surface-positions/left-aileron-pos-norm</property>
+ <factor>-30</factor>
+ <center>
+  <x-m>0.370000</x-m>
+  <y-m>-12.305000</y-m>
+  <z-m>0.190000</z-m>
+ </center>
+ <axis>
+  <x>-0.066658</x>
+  <y>-0.997492</y>
+  <z>0.023806</z>
+ </axis>
+</animation>
+
+
+<animation>
+ <type>translate</type>
+ <object-name>right_inbound_flap</object-name>
+ <object-name>right_inbound_slot</object-name>
+ <property>surface-positions/flap-pos-norm</property>
+ <factor>0.4</factor>
+ <axis>
+  <x>1.0</x>
+  <y>0.0</y>
+  <z>0.2</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>rotate</type>
+ <object-name>right_inbound_flap</object-name>
+ <object-name>right_inbound_slot</object-name>
+ <property>surface-positions/flap-pos-norm</property>
+ <factor>11</factor>
+ <center>
+  <x-m>0.690000</x-m>
+  <y-m>1.865000</y-m>
+  <z-m>-0.055000</z-m>
+ </center>
+ <axis>
+  <x>-0.031342</x>
+  <y>0.999017</y>
+  <z>0.031342</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>rotate</type>
+ <object-name>right_inbound_flap</object-name>
+ <property>surface-positions/flap-pos-norm</property>
+ <factor>24</factor>
+ <center>
+  <x-m>1.275000</x-m>
+  <y-m>1.855000</y-m>
+  <z-m>-0.150000</z-m>
+ </center>
+ <axis>
+  <x>-0.058677</x>
+  <y>0.997510</y>
+  <z>0.039118</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>translate</type>
+ <object-name>left_inbound_flap</object-name>
+ <object-name>left_inbound_slot</object-name>
+ <property>surface-positions/flap-pos-norm</property>
+ <factor>0.4</factor>
+ <axis>
+  <x>1.0</x>
+  <y>0.0</y>
+  <z>0.2</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>rotate</type>
+ <object-name>left_inbound_flap</object-name>
+ <object-name>left_inbound_slot</object-name>
+ <property>surface-positions/flap-pos-norm</property>
+ <factor>-11</factor>
+ <center>
+  <x-m>0.690000</x-m>
+  <y-m>-1.865000</y-m>
+  <z-m>-0.055000</z-m>
+ </center>
+ <axis>
+  <x>-0.031342</x>
+  <y>-0.999017</y>
+  <z>0.031342</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>rotate</type>
+ <object-name>left_inbound_flap</object-name>
+ <property>surface-positions/flap-pos-norm</property>
+ <factor>-24</factor>
+ <center>
+  <x-m>1.275000</x-m>
+  <y-m>-1.855000</y-m>
+  <z-m>-0.150000</z-m>
+ </center>
+ <axis>
+  <x>-0.058677</x>
+  <y>-0.997510</y>
+  <z>0.039118</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>translate</type>
+ <object-name>right_outbound_flap</object-name>
+ <object-name>right_outbound_slot</object-name>
+ <property>surface-positions/flap-pos-norm</property>
+ <factor>0.4</factor>
+ <axis>
+  <x>1.0</x>
+  <y>0.0</y>
+  <z>0.2</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>rotate</type>
+ <object-name>right_outbound_flap</object-name>
+ <object-name>right_outbound_slot</object-name>
+ <property>surface-positions/flap-pos-norm</property>
+ <factor>11</factor>
+ <center>
+  <x-m>0.525000</x-m>
+  <y-m>7.155000</y-m>
+  <z-m>0.075000</z-m>
+ </center>
+ <axis>
+  <x>-0.056786</x>
+  <y>0.997805</y>
+  <z>0.034071</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>rotate</type>
+ <object-name>right_outbound_flap</object-name>
+ <property>surface-positions/flap-pos-norm</property>
+ <factor>24</factor>
+ <center>
+  <x-m>0.965000</x-m>
+  <y-m>7.155000</y-m>
+  <z-m>0.015000</z-m>
+ </center>
+ <axis>
+  <x>-0.056792</x>
+  <y>0.997910</y>
+  <z>0.030830</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>translate</type>
+ <object-name>left_outbound_flap</object-name>
+ <object-name>left_outbound_slot</object-name>
+ <property>surface-positions/flap-pos-norm</property>
+ <factor>0.4</factor>
+ <axis>
+  <x>1.0</x>
+  <y>0.0</y>
+  <z>0.2</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>rotate</type>
+ <object-name>left_outbound_flap</object-name>
+ <object-name>left_outbound_slot</object-name>
+ <property>surface-positions/flap-pos-norm</property>
+ <factor>-11</factor>
+ <center>
+  <x-m>0.525000</x-m>
+  <y-m>-7.155000</y-m>
+  <z-m>0.075000</z-m>
+ </center>
+ <axis>
+  <x>-0.056786</x>
+  <y>-0.997805</y>
+  <z>0.034071</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>rotate</type>
+ <object-name>left_outbound_flap</object-name>
+ <property>surface-positions/flap-pos-norm</property>
+ <factor>-24</factor>
+ <center>
+  <x-m>0.965000</x-m>
+  <y-m>-7.155000</y-m>
+  <z-m>0.015000</z-m>
+ </center>
+ <axis>
+  <x>-0.056792</x>
+  <y>-0.997910</y>
+  <z>0.030830</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>rotate</type>
+ <object-name>rudder</object-name>
+ <property>surface-positions/rudder-pos-norm</property>
+ <factor>25</factor>
+ <center>
+  <x-m>12.280001</x-m>
+  <y-m>0.000000</y-m>
+  <z-m>2.325000</z-m>
+ </center>
+ <axis>
+  <x>0.049813</x>
+  <y>0.000000</y>
+  <z>0.998759</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>rotate</type>
+ <object-name>right_elevator</object-name>
+ <property>surface-positions/elevator-pos-norm</property>
+ <factor>25</factor>
+ <center>
+  <x-m>11.665000</x-m>
+  <y-m>2.345000</y-m>
+  <z-m>0.165000</z-m>
+ </center>
+ <axis>
+  <x>-0.002162</x>
+  <y>0.996792</y>
+  <z>0.080003</z>
+ </axis>
+</animation>
+
+<animation>
+<type>rotate</type>
+ <object-name>left_elevator</object-name>
+ <property>surface-positions/elevator-pos-norm</property>
+ <factor>-25</factor>
+ <center>
+  <x-m>11.665000</x-m>
+  <y-m>-2.345000</y-m>
+  <z-m>0.165000</z-m>
+ </center>
+ <axis>
+  <x>-0.002162</x>
+  <y>-0.996792</y>
+  <z>0.080003</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>rotate</type>
+ <object-name>nose_wheel</object-name>
+ <object-name>nose_strut</object-name>
+ <property>gear/gear[0]/position-norm</property>
+ <factor>-224</factor>
+ <offset-deg>160</offset-deg>
+ <min-deg>0.0</min-deg>
+ <max-deg>112.0</max-deg>
+ <center>
+  <x-m>-9.410000</x-m>
+  <y-m>0.000000</y-m>
+  <z-m>-2.330000</z-m>
+ </center>
+ <axis>
+  <x>0</x>
+  <y>1</y>
+  <z>0</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>rotate</type>
+ <object-name>nose_wheel</object-name>
+ <object-name>nose_strut</object-name>
+ <property>surface-positions/rudder-pos-norm</property>
+ <factor>-35</factor>
+ <center>
+  <x-m>-9.510000</x-m>
+  <y-m>0.000000</y-m>
+  <z-m>-2.735000</z-m>
+ </center>
+ <axis>
+  <x>0.239714</x>
+  <y>0.000000</y>
+  <z>0.970843</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>rotate</type>
+ <object-name>left_main_wheel</object-name>
+ <object-name>left_top_strut</object-name>
+ <object-name>left_upper_strut</object-name>
+ <object-name>left_lower_strut</object-name>
+ <object-name>left_fwd_strut</object-name>
+ <object-name>left_lock_bar</object-name>
+ <property>gear/gear[1]/position-norm</property>
+ <factor>98.0</factor>
+ <offset-deg>-98.0</offset-deg>
+ <min-deg>-67.2</min-deg>
+ <max-deg>0.0</max-deg>
+ <center>
+  <x-m>-0.870000</x-m>
+  <y-m>0.000000</y-m>
+  <z-m>-0.880000</z-m>
+ </center>
+ <axis>
+  <x>0</x>
+  <y>1</y>
+  <z>0</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>rotate</type>
+ <object-name>left_top_strut</object-name>
+ <object-name>left_upper_strut</object-name>
+ <object-name>left_lower_strut</object-name>
+ <property>gear/gear[1]/position-norm</property>
+ <factor>45.0</factor>
+ <offset-deg>-45.0</offset-deg>
+ <min-deg>-30.0</min-deg>
+ <max-deg>0.0</max-deg>
+ <center>
+  <x-m>0.170000</x-m>
+  <y-m>0.000000</y-m>
+  <z-m>-2.720000</z-m>
+ </center>
+ <axis>
+  <x>0</x>
+  <y>1</y>
+  <z>0</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>rotate</type>
+ <object-name>left_top_strut</object-name>
+ <property>gear/gear[1]/position-norm</property>
+ <factor>-255.0</factor>
+ <offset-deg>255.0</offset-deg>
+ <min-deg>0.0</min-deg>
+ <max-deg>170.0</max-deg>
+ <center>
+  <x-m>0.520000</x-m>
+  <y-m>0.000000</y-m>
+  <z-m>-1.170000</z-m>
+ </center>
+ <axis>
+  <x>0</x>
+  <y>1</y>
+  <z>0</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>rotate</type>
+ <object-name>left_lock_bar</object-name>
+ <property>gear/gear[1]/position-norm</property>
+ <factor>-100.0</factor>
+ <offset-deg>100.0</offset-deg>
+ <min-deg>0.0</min-deg>
+ <max-deg>60.0</max-deg>
+ <center>
+  <x-m>-0.690000</x-m>
+  <y-m>0.000000</y-m>
+  <z-m>-1.180000</z-m>
+ </center>
+ <axis>
+  <x>0</x>
+  <y>1</y>
+  <z>0</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>rotate</type>
+ <object-name>right_main_wheel</object-name>
+ <object-name>right_top_strut</object-name>
+ <object-name>right_upper_strut</object-name>
+ <object-name>right_lower_strut</object-name>
+ <object-name>right_fwd_strut</object-name>
+ <object-name>right_lock_bar</object-name>
+ <property>gear/gear[2]/position-norm</property>
+ <factor>98.0</factor>
+ <offset-deg>-98.0</offset-deg>
+ <min-deg>-67.2</min-deg>
+ <max-deg>0.0</max-deg>
+ <center>
+  <x-m>-0.870000</x-m>
+  <y-m>0.000000</y-m>
+  <z-m>-0.880000</z-m>
+ </center>
+ <axis>
+  <x>0</x>
+  <y>1</y>
+  <z>0</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>rotate</type>
+ <object-name>right_top_strut</object-name>
+ <object-name>right_upper_strut</object-name>
+ <object-name>right_lower_strut</object-name>
+ <property>gear/gear[2]/position-norm</property>
+ <factor>45.0</factor>
+ <offset-deg>-45.0</offset-deg>
+ <min-deg>-30.0</min-deg>
+ <max-deg>0.0</max-deg>
+ <center>
+  <x-m>0.170000</x-m>
+  <y-m>0.000000</y-m>
+  <z-m>-2.720000</z-m>
+ </center>
+ <axis>
+  <x>0</x>
+  <y>1</y>
+  <z>0</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>rotate</type>
+ <object-name>right_top_strut</object-name>
+ <property>gear/gear[2]/position-norm</property>
+ <factor>-255.0</factor>
+ <offset-deg>255.0</offset-deg>
+ <min-deg>0.0</min-deg>
+ <max-deg>170.0</max-deg>
+ <center>
+  <x-m>0.520000</x-m>
+  <y-m>0.000000</y-m>
+  <z-m>-1.170000</z-m>
+ </center>
+ <axis>
+  <x>0</x>
+  <y>1</y>
+  <z>0</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>rotate</type>
+ <object-name>right_lock_bar</object-name>
+ <property>gear/gear[2]/position-norm</property>
+ <factor>-100.0</factor>
+ <offset-deg>100.0</offset-deg>
+ <min-deg>0.0</min-deg>
+ <max-deg>60.0</max-deg>
+ <center>
+  <x-m>-0.690000</x-m>
+  <y-m>0.000000</y-m>
+  <z-m>-1.180000</z-m>
+ </center>
+ <axis>
+  <x>0</x>
+  <y>1</y>
+  <z>0</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>rotate</type>
+ <object-name>left_aft_front_door</object-name>
+ <property>gear/gear[0]/position-norm</property>
+ <offset>0.0</offset>
+ <factor>300.0</factor>
+ <min-deg>0.0</min-deg>
+ <max-deg>100.0</max-deg>
+ <center>
+  <x-m>-9.500000</x-m>
+  <y-m>-0.250000</y-m>
+  <z-m>-2.435000</z-m>
+ </center>
+ <axis>
+  <x>-0.977268</x>
+  <y>0.088843</y>
+  <z>0.192492</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>rotate</type>
+ <object-name>right_aft_front_door</object-name>
+ <property>gear/gear[0]/position-norm</property>
+ <offset>0.0</offset>
+ <factor>-300.0</factor>
+ <max-deg>0.0</max-deg>
+ <min-deg>-100.0</min-deg>
+ <center>
+  <x-m>-9.500000</x-m>
+  <y-m>0.250000</y-m>
+  <z-m>-2.435000</z-m>
+ </center>
+ <axis>
+  <x>-0.977268</x>
+  <y>-0.088843</y>
+  <z>0.192492</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>rotate</type>
+ <object-name>left_fwd_front_door</object-name>
+ <property>gear/gear[0]/position-norm</property>
+ <interpolation>
+  <entry>
+   <ind>0.0</ind>
+   <dep>0.0</dep>
+  </entry>
+  <entry>
+   <ind>0.3</ind>
+   <dep>100.0</dep>
+  </entry>
+  <entry>
+   <ind>0.7</ind>
+   <dep>100.0</dep>
+  </entry>
+  <entry>
+   <ind>1.0</ind>
+   <dep>0.0</dep>
+  </entry>
+ </interpolation>
+ <center>
+  <x-m>-10.330000</x-m>
+  <y-m>-0.245000</y-m>
+  <z-m>-2.215000</z-m>
+ </center>
+ <axis>
+  <x>-0.965024</x>
+  <y>0.028951</y>
+  <z>0.260557</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>rotate</type>
+ <object-name>right_fwd_front_door</object-name>
+ <property>gear/gear[0]/position-norm</property>
+ <interpolation>
+  <entry>
+   <ind>0.0</ind>
+   <dep>0.0</dep>
+  </entry>
+  <entry>
+   <ind>0.3</ind>
+   <dep>-100.0</dep>
+  </entry>
+  <entry>
+   <ind>0.7</ind>
+   <dep>-100.0</dep>
+  </entry>
+  <entry>
+   <ind>1.0</ind>
+   <dep>0.0</dep>
+  </entry>
+ </interpolation>
+ <center>
+  <x-m>-10.330000</x-m>
+  <y-m>0.245000</y-m>
+  <z-m>-2.215000</z-m>
+ </center>
+ <axis>
+  <x>-0.965024</x>
+  <y>-0.028951</y>
+  <z>0.260557</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>rotate</type>
+ <object-name>left_fwd_door</object-name>
+ <property>gear/gear[1]/position-norm</property>
+ <factor>-101.0</factor>
+ <offset-deg>42.0</offset-deg>
+ <min-deg>-60.0</min-deg>
+ <max-deg>0.0</max-deg>
+ <center>
+  <x-m>-0.860000</x-m>
+  <y-m>-3.610000</y-m>
+  <z-m>-1.030000</z-m>
+ </center>
+ <axis>
+  <x>0.000000</x>
+  <y>-1.000000</y>
+  <z>0.000000</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>rotate</type>
+ <object-name>left_outbound_door</object-name>
+ <property>gear/gear[1]/position-norm</property>
+ <factor>-200.0</factor>
+ <offset-deg>0.0</offset-deg>
+ <min-deg>-60.0</min-deg>
+ <max-deg>0.0</max-deg>
+ <center>
+  <x-m>1.050000</x-m>
+  <y-m>-3.980000</y-m>
+  <z-m>-0.875000</z-m>
+ </center>
+ <axis>
+  <x>0.999487</x>
+  <y>0.000000</y>
+  <z>-0.032035</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>rotate</type>
+ <object-name>left_inbound_door</object-name>
+ <property>gear/gear[1]/position-norm</property>
+ <factor>200.0</factor>
+ <offset-deg>0.0</offset-deg>
+ <min-deg>0.0</min-deg>
+ <max-deg>60.0</max-deg>
+ <center>
+  <x-m>1.050000</x-m>
+  <y-m>-3.210000</y-m>
+  <z-m>-0.875000</z-m>
+ </center>
+ <axis>
+  <x>0.999487</x>
+  <y>0.000000</y>
+  <z>-0.032035</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>rotate</type>
+ <object-name>right_fwd_door</object-name>
+ <property>gear/gear[2]/position-norm</property>
+ <factor>101.0</factor>
+ <offset-deg>-42.0</offset-deg>
+ <min-deg>0.0</min-deg>
+ <max-deg>60.0</max-deg>
+ <center>
+  <x-m>-0.860000</x-m>
+  <y-m>3.610000</y-m>
+  <z-m>-1.030000</z-m>
+ </center>
+ <axis>
+  <x>0.000000</x>
+  <y>1.000000</y>
+  <z>0.000000</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>rotate</type>
+ <object-name>right_outbound_door</object-name>
+ <property>gear/gear[2]/position-norm</property>
+ <factor>200.0</factor>
+ <offset-deg>0.0</offset-deg>
+ <min-deg>0.0</min-deg>
+ <max-deg>60.0</max-deg>
+ <center>
+  <x-m>1.050000</x-m>
+  <y-m>3.980000</y-m>
+  <z-m>-0.875000</z-m>
+ </center>
+ <axis>
+  <x>0.999487</x>
+  <y>0.000000</y>
+  <z>-0.032035</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>rotate</type>
+ <object-name>right_inbound_door</object-name>
+ <property>gear/gear[2]/position-norm</property>
+ <factor>-200.0</factor>
+ <offset-deg>0.0</offset-deg>
+ <min-deg>-60.0</min-deg>
+ <max-deg>0.0</max-deg>
+ <center>
+  <x-m>1.050000</x-m>
+  <y-m>3.210000</y-m>
+  <z-m>-0.875000</z-m>
+ </center>
+ <axis>
+  <x>0.999487</x>
+  <y>0.000000</y>
+  <z>-0.032035</z>
+ </axis>
+</animation>
+
+<animation>
+ <object-name>right_propdisk</object-name>
+ <object-name>right_blade1</object-name>
+ <object-name>right_blade2</object-name>
+ <object-name>right_blade3</object-name>
+ <object-name>right_blade4</object-name>
+ <object-name>right_blade5</object-name>
+ <object-name>right_blade6</object-name>
+</animation>
+
+<animation>
+ <type>blend</type>
+ <object-name>right_blade1</object-name>
+ <object-name>right_blade2</object-name>
+ <object-name>right_blade3</object-name>
+ <object-name>right_blade4</object-name>
+ <object-name>right_blade5</object-name>
+ <object-name>right_blade6</object-name>
+ <property>engines/engine[0]/n2</property>
+ <factor>0.002</factor>
+</animation>
+
+<animation>
+ <type>blend</type>
+ <object-name>right_propdisk</object-name>
+ <property>engines/engine[0]/n2</property>
+ <factor>0.01</factor>
+ <min>0.3</min>
+</animation>
+
+<animation>
+ <type>spin</type>
+ <object-name>right_propdisk</object-name>
+ <property>engines/engine[0]/n2</property>
+ <factor>-0.079</factor>
+ <center>
+  <x-m>-3.530000</x-m>
+  <y-m>3.610000</y-m>
+  <z-m>-0.280000</z-m>
+ </center>
+ <axis>
+  <x>1.000000</x>
+  <y>0.000000</y>
+  <z>0.000000</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>select</type>
+ <object-name>right_propeller</object-name>
+ <condition>
+  <less-than>
+   <property>engines/engine[0]/n2</property>
+   <value>65.0</value>
+  </less-than>
+ </condition>
+</animation>
+
+<animation>
+ <type>spin</type>
+ <object-name>right_blade1</object-name>
+ <object-name>right_blade2</object-name>
+ <object-name>right_blade3</object-name>
+ <object-name>right_blade4</object-name>
+ <object-name>right_blade5</object-name>
+ <object-name>right_blade6</object-name>
+ <property>engines/engine[0]/n2</property>
+ <factor>-1.0</factor>
+ <center>
+  <x-m>-3.530000</x-m>
+  <y-m>3.610000</y-m>
+  <z-m>-0.280000</z-m>
+ </center>
+ <axis>
+  <x>1.000000</x>
+  <y>0.000000</y>
+  <z>0.000000</z>
+ </axis>
+</animation>
+
+<animation>
+ <object-name>left_propdisk</object-name>
+ <object-name>left_blade1</object-name>
+ <object-name>left_blade2</object-name>
+ <object-name>left_blade3</object-name>
+ <object-name>left_blade4</object-name>
+ <object-name>left_blade5</object-name>
+ <object-name>left_blade6</object-name>
+</animation>
+
+<animation>
+ <type>blend</type>
+ <object-name>left_blade1</object-name>
+ <object-name>left_blade2</object-name>
+ <object-name>left_blade3</object-name>
+ <object-name>left_blade4</object-name>
+ <object-name>left_blade5</object-name>
+ <object-name>left_blade6</object-name>
+ <property>engines/engine[1]/n2</property>
+ <factor>0.002</factor>
+</animation>
+
+<animation>
+ <type>blend</type>
+ <object-name>left_propdisk</object-name>
+ <property>engines/engine[1]/n2</property>
+ <factor>0.01</factor>
+ <min>0.3</min>
+</animation>
+
+<animation>
+ <type>spin</type>
+ <object-name>left_propdisk</object-name>
+ <property>engines/engine[1]/n2</property>
+ <factor>-0.083</factor>
+ <center>
+  <x-m>-3.530000</x-m>
+  <y-m>-3.610000</y-m>
+  <z-m>-0.280000</z-m>
+ </center>
+ <axis>
+  <x>1.000000</x>
+  <y>0.000000</y>
+  <z>0.000000</z>
+ </axis>
+</animation>
+
+<animation>
+ <type>select</type>
+ <object-name>left_propeller</object-name>
+ <condition>
+  <less-than>
+   <property>engines/engine[1]/n2</property>
+   <value>65.0</value>
+  </less-than>
+ </condition>
+</animation>
+
+<animation>
+ <type>spin</type>
+ <object-name>left_blade1</object-name>
+ <object-name>left_blade2</object-name>
+ <object-name>left_blade3</object-name>
+ <object-name>left_blade4</object-name>
+ <object-name>left_blade5</object-name>
+ <object-name>left_blade6</object-name>
+ <property>engines/engine[1]/n2</property>
+ <factor>-1.0</factor>
+ <center>
+  <x-m>-3.530000</x-m>
+  <y-m>-3.610000</y-m>
+  <z-m>-0.280000</z-m>
+ </center>
+ <axis>
+  <x>1.000000</x>
+  <y>0.000000</y>
+  <z>0.000000</z>
+ </axis>
+</animation>
+
+</PropertyList>

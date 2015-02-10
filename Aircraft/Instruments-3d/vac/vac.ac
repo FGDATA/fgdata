@@ -1,0 +1,48 @@
+AC3Db
+MATERIAL "DefaultWhite" rgb 1 1 1  amb 1 1 1  emis 0.15 0.15 0.15  spec 0.5 0.5 0.5  shi 64  trans 0
+OBJECT world
+kids 2
+OBJECT poly
+name "VacNeedle"
+crease 45.000000
+numvert 6
+0.001517 0.020026 -0.000697
+0.001517 -0.006661 -0.000697
+0.001517 -0.006661 0.000698
+0.001517 0.020026 0.000698
+0.001517 0.006682 0.000698
+0.001517 0.006682 -0.000697
+numsurf 2
+SURF 0x0
+mat 0
+refs 4
+0 0 0
+3 0 0
+4 0 0
+5 0 0
+SURF 0x0
+mat 0
+refs 4
+1 0 0
+5 0 0
+4 0 0
+2 0 0
+kids 0
+OBJECT poly
+name "Face"
+texture "vac-face.rgb"
+crease 45.000000
+numvert 4
+0 0.026 -0.026
+0 -0.026 -0.026
+0 -0.026 0.026
+0 0.026 0.026
+numsurf 1
+SURF 0x0
+mat 0
+refs 4
+0 0.9375 0.992188
+3 0.0078125 0.992188
+2 0.0078125 0.015625
+1 0.9375 0.015625
+kids 0

@@ -1,0 +1,694 @@
+<?xml version="1.0"?>
+<!--
+
+This is X52.xml, the joystick config file for the Saitek X52 
+USB stick and throttle.
+
+This configuration is meant to be suitable for a generic single-engine
+aircraft.
+
+Here are some of the features of a real aircraft that we would like to
+implement, and our "preferred" way of assigning them on the X52.
+
+  Flight Controls:
+    Aileron		stick L/R
+    Elevator		stick fwd/aft
+    Rudder		stick twist (or pedals!)
+    Flaps		T3/T4
+    Speedbrakes		shift T3/T4
+    Pitch trim		stick upper hat
+    Rudder trim		stick upper hat
+    Aileron trim	throttle rocker
+  Engine controls:
+    Throttle		throttle
+    Mixture		throttle lower rotary
+    Propeller RPM	throttle thumb slider
+    Carb heat (alt air)	T5/T6
+    Cowl Flaps		shift T5/T6
+    Fuel tank select	**not implemented**
+    Mag switch		keyboard "{" and "}"
+    Starter		keyboard "s"
+  Other important stuff:
+    gear handle up/down	T1/T2
+    Overall brakes	pinky trigger
+    L/R toe brakes	keyboard dot and comma
+    Parking brakes	keyboard capital-B
+    Push-to-talk	button (A) is a good candidate
+    			also keyboard "space"
+    Timer reset		MultiFunc reset
+    Timer -> clock	MultiFunc function
+    Autopilot disengage	**not implemented**
+    Autopilot go-around	**not implemented**
+  Electrical:
+    Master 		**not implemented**
+    Radio master 	**not implemented**
+    Landing lights	**not implemented**
+    Rotating beacon	**not implemented**
+    Strobes		**not implemented**
+    Cabin lights	**not implemented**
+    Instrument lights	**not implemented**
+    Circuit breakers	**not implemented**
+  Instruments:
+    Alternate static	**not implemented**
+    Instruments on/off	mouse
+    Instruments tuning	mouse or popup dialog
+  Simulator and view control:
+    Pan L/R Tilt Up/Dn	throttle lower hat
+    Shift PoV		D-shift + throttle lower hat
+    Restore std view	(C) button
+    Zoom out		(B) button
+    Zoom in		D-shift + (B) button
+
+=============================================================
+
+Here are the Unix axes observed by jsd using js_demo, and Windows axes
+observed by Satia Lumbar. Mac axes are little more than guesses based
+on reports of X45 behavior.  An "x" means observed to have no effect
+using js_demo.  U/M/W means unix/mac/windows:
+
+   U/ M/ W  Hardware Function		  Interpretation
+   =======  =================             ==============
+   0/ 0/ 0  Stick yaw		  +=R 	  Aileron
+   1/ 1/ 1  Stick pitch		  +=aft	  Elevator
+   2/ 2/ 2  Throttle		  +=aft	  Throttle
+   3/ 5/ 5  Throttle lower rotary +=cw 	  Mixture (fwd = rich)
+   4/ 8/ 8x Throttle upper rotary +=cw 	  [unassigned]
+   5/ 3/ 3  Stick twist		  +=R 	  Rudder
+   6/ 4/ 4  Throttle thumb slider +=up    Prop (fwd = high RPM)
+   7/ 6/ 6  Stick lower hat	  +=R	  Pan View Left/Right ... or shift
+   8/ 7/ 7  Stick lower hat	  +=down  Tilt View Up/Down ... or shift
+   9/ 9/ 9x Green mouse		  +=up 	  [Mouse???]
+  10/10/10x Green mouse		  +=away  [Mouse???]
+
+
+On the Windows platform, the assignment of axes 8, 9, and 10 as
+given above is only a hint, suggesting how the axes /should/ be
+assigned, if the lower-level implementation ever gets around to
+assigning them.
+
+In the meantime, I have maintained cross-platform compatibility by not
+assigning any critical functions to axes that don't work on the
+Windows platform.
+
+=======================
+
+Now for the buttons.  Unix button numbers observed by jsd using
+js_demo.  (Others rumored to be identical on Unix/Mac/Windows.)
+
+Before 1 Jan 2007, all versions of plib had a bug that affecting bits
+32 and 33.  The C and C++ language spec says that an out-of-range
+shift (such as shifting a 32-bit word 32 or more places) produces an
+/undefined/ result.  It is really not a good practice to be generating
+undefined results.
+
+I observe that on /some/ systems, bit #32 creates a conflict with bit
+#0, and bit #33 creates a conflict with bit #1.  That is, they "wrap
+around" the word boundary.  This means that if you roll the gray trim
+wheel, it fires the gun!  If that weren't bad enough, this behavior is
+not guaranteed from compiler to compiler or from hardware to hardware.
+Remember, according to the C language spec, an out-of-range shift
+produces an "undefined" result, so implementers can do anything they
+want with it.
+
+
+Bit  Binary     Hardware Function       Interpretation
+===  =========  =================       ====================
+ 0 = 0000 0001  Trigger (see also #14)
+ 0' (see also #32)
+ 1 = 0000 0002  FIRE Button (guarded)
+ 1' (see also #33)
+ 2 = 0000 0004  (A) Button		(should be push-to-talk)
+ 3 = 0000 0008  (B) Button		Expand field of view (shift: contract)
+ 4 = 0000 0010  (C) Button		Reset View
+ 5 = 0000 0020  Pinky subtrigger	Apply brakes
+ 6 = 0000 0040	(D) Button		D-Shift, modifies other functions
+ 7 = 0000 0080	(E) Button
+ 8 = 0000 0100  T1			Gear Handle Up
+ 9 = 0000 0200  T2			Gear Handle Down
+10 = 0000 0400  T3			Flaps retract 1 notch  (shift: speed brakes extend)
+11 = 0000 0800  T4			Flaps extend  1 notch  (shift: speed brakes retract)
+12 = 0000 1000  T5			Carb heat on  (shift: cowl flaps close)
+13 = 0000 2000  T6			Carb heat off (shift: cowl flaps open)
+14 = 0000 4001  More Trigger (==> #0)
+15 = 0000 8000  Yoke upper hat Fwd	Elevator trim
+16 = 0001 0000  Yoke upper hat R	Rudder trim
+17 = 0002 0000  Yoke upper hat Aft	Elevator trim
+18 = 0004 0000  Yoke upper hat L	Rudder trim
+19 = 0008 0000  Throttle rocker aft
+20 = 0010 0000  Throttle rocker R	Aileron trim
+21 = 0020 0000  Throttle rocker fwd
+22 = 0040 0000  Throttle rocker L	Aileron trim
+23 = 0080 0000  Mode Aft (green)
+24 = 0100 0000  Mode Mid (pink)
+25 = 0200 0000  Mode Fwd (red)
+26 = 0400 0000  MultiFunc Function	Timer -> clock again
+27 = 0800 0000  MultiFunc Start/Stop	** Timer start/stop not implemented **
+28 = 1000 0000  MultiFunc Reset		Timer reset
+29 = 2000 0000  (i) Button
+30 = 4000 0000  Green mouse click
+31 (not observed)
+32 = 1 0000 0000  Gray Roller step fwd	(see also bit #0)
+33 = 2 0000 0000  Gray Roller step aft	(see also bit #1)
+
+== Notes:
+
+*) Note that some joystick configurations specify square-law behavior
+ for some flight control axes (e.g. ailerons and/or rudder).  This is
+ very unlike the behavior of flight controls on real aircraft.
+
+ Aileron authority should be mushy at low airspeeds and crisp at high
+ airspeeds ... but this should be part of the flight dynamics of the
+ aircraft.  Building the correct behavior into the control stick
+ configuration is neither possible nor desirable.
+
+
+*) There are some aircraft in the simulator fleet that have very
+ little roll damping and very little yaw damping.  (You could also say
+ they have very little damping of the Dutch roll mode, but this is
+ merely a natural consequence of the roll and yaw issues, not really a
+ separate issue.)
+
+ Such aircraft are vastly easier to fly with auto-coordination turned
+ on.  In my opinion, you want auto-coordination on for flying an ILS
+ partial panel, i.e. no DG and no AI.  
+ 
+ For a crosswind landing, you need to have auto-coordination turned off.
+ That's why the switch to do that is on the yoke.
+
+*) This configuration does not bind the parking brake to any button on
+ the joystick (or throttle).  Using the keyboard (shift-B) seems
+ entirely satisfactory and more realistic than putting the /parking/
+ brake button on the stick.  
+
+*) In general, he HOTAS idea (hands on throttle and stick) should
+ apply to things you need /in flight/.
+
+-->
+
+<PropertyList>
+ 
+ <name>Saitek X52</name>
+ <name>Saitek X52 Flight Controller USB</name>
+ <name>Saitek X52 Flight Controller</name>
+ <name>Saitek X52 Flight Control Stick </name>
+ <name>Saitek X52 Flight Stick (USB)</name>
+ <name>Saitek X52 Flight Control System</name>
+ <name>Saitek Saitek X52</name>
+ <name>Saitek Saitek X52 Flight Stick (USB)</name>
+ <name>Saitek Saitek X52 Flight Control Stick</name>
+ <name>Saitek Saitek X52 Flight Control System</name>
+
+<axis>	<!-- 0/0/0 -->
+  <desc>Aileron</desc>
+  <number>
+   <unix>0</unix>
+   <mac>0</mac>
+   <windows>0</windows>
+  </number>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/aileron</property>
+  </binding>
+</axis>
+
+<axis>  <!-- 1/1/1 -->
+  <desc>Elevator</desc>
+  <number>
+   <unix>1</unix>
+   <mac>1</mac>
+   <windows>1</windows>
+  </number>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/elevator</property>
+   <factor type="double">-1.0</factor>
+  </binding>
+</axis>
+
+<axis>  <!-- 2/2/2 -->
+  <desc>Throttle</desc>
+  <number>
+   <unix>2</unix>
+   <mac>2</mac>
+   <windows>2</windows>
+  </number>
+  <binding>
+   <command>nasal</command>
+   <script>controls.throttleAxis()</script>
+  </binding>
+</axis>
+
+<axis>  <!-- 3/5/5 -->
+  <desc>Mixture</desc>
+  <number>
+   <unix>3</unix>
+   <mac>5</mac>
+   <windows>5</windows>
+  </number>
+  <binding>
+   <command>nasal</command>
+   <script>controls.mixtureAxis(-1)</script>
+  </binding>
+</axis>
+
+<!-- Alternate Prop RPM :: throttle upper rotary -->
+<axis>  <!-- 4/8/8 -->
+  <desc>unassigned (was: Propeller RPM)</desc>
+  <number>
+   <unix>4</unix>
+   <mac>8</mac>
+   <windows>8</windows>
+  </number>
+  <binding>
+   <command>nasal</command>
+   <script>
+     ####controls.propellerAxis(-1)
+   </script>
+  </binding>
+</axis>
+
+<!-- Rudder :: stick twist -->
+<axis>  <!-- 5/3/3 -->
+    <desc>Rudder</desc>
+    <number>
+	<unix>5</unix>
+	<mac>3</mac>
+	<windows>3</windows>
+    </number>
+    <binding>
+	<command>property-scale</command>
+	<property>/controls/flight/rudder</property>
+    </binding>
+</axis>
+
+<!-- Propeller RPM :: throttle thumb slider --> 
+<axis>  <!-- 6/4/4 -->
+  <desc>Propeller RPM</desc>
+  <number>
+   <unix>6</unix>
+   <mac>4</mac>
+   <windows>4</windows>
+  </number>
+  <binding>
+   <command>nasal</command>
+   <script>controls.propellerAxis(-1)</script>
+  </binding>
+</axis>
+
+
+<!-- View Direction :: stick lower hat -->
+<axis>  <!-- 7/6/6 -->
+  <desc>View Pan Left/Right (D-shift: move PoV)</desc>
+  <number>
+   <unix>7</unix>
+   <mac>6</mac>
+   <windows>6</windows>
+  </number>
+  <low>
+   <repeatable>true</repeatable>
+   <binding>
+    <command>nasal</command>
+    <script>
+      if (getprop("/sim/gui/d-button")){
+        setprop("/sim/current-view/x-offset-m", 
+	  -0.01 + getprop("/sim/current-view/x-offset-m"));
+      } else {
+	view.panViewDir(1)
+      }
+    </script>
+   </binding>
+  </low>
+  <high>
+   <repeatable>true</repeatable>
+   <binding>
+    <command>nasal</command>
+    <script>
+      if (getprop("/sim/gui/d-button")){
+        setprop("/sim/current-view/x-offset-m", 
+	  0.01 + getprop("/sim/current-view/x-offset-m"));
+      } else {
+	view.panViewDir(-1)
+      }
+    </script>
+   </binding>
+  </high>
+</axis>
+
+<axis> <!-- 8/7/7 -->
+  <desc>View Tilt Up/Down (D-shift: move PoV)</desc>
+  <number>
+   <unix>8</unix>
+   <mac>7</mac>
+   <windows>7</windows>
+  </number>
+  <low>
+   <repeatable>true</repeatable>
+   <binding>
+    <command>nasal</command>
+    <script>
+      if (getprop("/sim/gui/d-button")){
+        setprop("/sim/current-view/y-offset-m", 
+	  0.01 + getprop("/sim/current-view/y-offset-m"));
+      } else {
+        view.panViewPitch(1)
+      }
+    </script>
+   </binding>
+  </low>
+  <high>
+   <repeatable>true</repeatable>
+   <binding>
+    <command>nasal</command>
+    <script>
+      if (getprop("/sim/gui/d-button")){
+        setprop("/sim/current-view/y-offset-m", 
+	  -0.01 + getprop("/sim/current-view/y-offset-m"));
+      } else {
+        view.panViewPitch(-1)
+      }
+    </script>
+   </binding>
+  </high>
+</axis>
+
+
+<!-- End of axes;  now on to buttons -->
+
+<button n="1">
+   <desc>(FIRE) : Auto-Coordination off (D-shift: on)</desc>
+   <binding>
+    <command>nasal</command>
+    <script>
+      setprop("/controls/flight/auto-coordination", ! !getprop("/sim/gui/d-button"));
+    </script>
+   </binding>
+</button>
+
+
+<button n="3">
+   <desc>(B) : Zoom out i.e. increase field of view (D-shift: zoom in)</desc>
+   <repeatable type="bool">true</repeatable>
+   <binding>
+    <command>nasal</command>
+    <script>
+      if ( getprop("/sim/gui/d-button") ) {
+        view.decrease(0.5)		# zoom in
+      } else {
+        view.increase(0.5)		# zoom out
+      }
+    </script>
+   </binding>
+</button>
+
+<button n="4">
+  <desc>(C) : Reset View</desc>
+  <binding>
+   <command>nasal</command>
+   <script>
+     view.resetView();		# only resets tilt/pan/zoom:
+				# must reset x/y/z view point separately
+     vn = getprop("/sim/current-view/view-number");
+     conf = sprintf("/sim/view[%d]/config", vn);
+     foreach (parm ; ["x-offset-m", "y-offset-m", "z-offset-m"]) {
+       setprop("/sim/current-view/", parm, getprop(conf, parm));
+     }
+   </script>
+  </binding>
+</button>
+
+<!-- Main brakes (not parking brakes) :: pinky subtrigger -->
+<button n="5">
+  <desc>(Pinky) : Brakes</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.applyBrakes(1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.applyBrakes(0)</script>
+   </binding>
+  </mod-up>
+</button>
+
+<!-- Shift :: (D) button -->
+<button n="6">
+  <desc>(D) : Shift Key</desc>
+  <binding>
+   <command>nasal</command>
+   <script>
+     setprop("/sim/gui/d-button", 1);
+   </script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>
+      setprop("/sim/gui/d-button", 0);
+    </script>
+   </binding>
+  </mod-up>
+</button>
+
+
+  <!-- gear handle up/down :: button T1/T2 -->
+  <button n="8">
+   <desc>(T1) : Landing Gear Handle Up</desc>
+    <binding>
+     <command>nasal</command>
+      <script>
+       controls.gearDown(-1)
+     </script>
+    </binding>
+  </button>
+  <button n="9">
+    <desc>(T2) : Landing Gear Handle Down</desc>
+    <binding>
+     <command>nasal</command>
+     <script>
+       controls.gearDown(1)
+     </script>
+    </binding>
+  </button>
+
+
+<!-- Pitch trim :: stick upper hat Up/Dn -->
+<button n="15">
+  <desc>Elevator trim down</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.elevatorTrim(0.6)</script>
+  </binding>
+</button>
+<button n="17">
+  <desc>Elevator trim up</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.elevatorTrim(-0.6)</script>
+  </binding>
+</button>
+
+<!-- Rudder trim :: stick upper hat L/R -->
+<button n="16">
+  <desc>(Throttle Rocker) : Rudder trim right</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.rudderTrim(1)</script>
+  </binding>
+</button>
+<button n="18">
+  <desc>(Throttle Rocker) : Rudder trim left</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.rudderTrim(-1)</script>
+  </binding>
+</button>
+
+<!-- Flaps (shift: Speed Brakes) :: T3/T4 -->
+<button n="10">
+  <desc>(T3) : Decrease flaps (shift: Speed Brakes extend)</desc>
+  <binding>
+   <command>nasal</command>
+   <script>
+     if ( getprop("/sim/gui/d-button") ) {
+       setprop("/controls/flight/speedbrake", 1);
+     } else {
+       controls.flapsDown(-1)
+     }
+   </script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>
+      if ( getprop("/sim/gui/d-button") ) {
+        
+      } else {
+	controls.flapsDown(0)
+      }
+    </script>
+   </binding>
+  </mod-up>
+</button>
+<button n="11">
+  <desc>(T4) : Increase flaps (shift: Speed Brakes retract)</desc>
+  <binding>
+   <command>nasal</command>
+   <script>
+     if ( getprop("/sim/gui/d-button") ) {
+       setprop("/controls/flight/speedbrake", 0);
+     } else {
+       controls.flapsDown(1)
+     }
+   </script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>
+      if ( getprop("/sim/gui/d-button") ) {
+        
+      } else {
+	controls.flapsDown(0)
+      }
+    </script>
+   </binding>
+  </mod-up>
+</button>
+
+  <!-- Carb Heat (shift: Cowl Flaps) :: T6/T5 -->
+  <button n="12">
+    <desc>(T5) : Carb Heat On (shift: Cowl Flaps Close)</desc>
+    <binding>
+     <command>nasal</command>
+     <script>
+       if ( getprop("/sim/gui/d-button") ) {
+         props.setAll("/controls/engines/engine", "cowl-flaps-norm", 1);
+       } else {
+         props.setAll("/controls/engines/engine", "carb-heat", 0);
+       }
+     </script>
+    </binding>
+  </button>
+  <button n="13">
+    <desc>(T6) : Carb Heat Off (shift: Cowl Flaps Open)</desc>
+    <binding>
+     <command>nasal</command>
+     <script>
+       if ( getprop("/sim/gui/d-button") ) {
+         props.setAll("/controls/engines/engine", "cowl-flaps-norm", 0);
+       } else {
+         props.setAll("/controls/engines/engine", "carb-heat", 1);
+       }
+     </script>
+    </binding>
+  </button>
+
+<!-- Aileron trim :: throttle rocker -->
+<button n="20">
+  <desc>Aileron trim right</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.aileronTrim(0.5)</script>
+  </binding>
+</button>
+<button n="22">
+  <desc>Aileron trim left</desc>
+  <repeatable type="bool">true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.aileronTrim(-0.5)</script>
+  </binding>
+</button>
+
+
+<!-- Mode roller switch (buttons 23-25).   -->
+<!-- Just put it in the property tree,     -->
+<!-- in case somebody wants to look at it. -->
+<button n="23">
+  <desc>Mode 1</desc>
+  <binding>
+   <command>nasal</command>
+   <script>
+     setprop("/input/joysticks/js/saitek-x52-mode",1)
+   </script>
+  </binding>
+</button>
+<button n="24">
+  <desc>Mode 2</desc>
+  <binding>
+   <command>nasal</command>
+   <script>
+     setprop("/input/joysticks/js/saitek-x52-mode",2)
+   </script>
+  </binding>
+</button>
+<button n="25">
+  <desc>Mode 3</desc>
+  <binding>
+   <command>nasal</command>
+   <script>
+     setprop("/input/joysticks/js/saitek-x52-mode",3)
+   </script>
+  </binding>
+</button>
+
+<button n="26">
+  <desc>(MFD Func) : Stopwatch timer becomes clock again</desc>
+  <binding>
+   <command>nasal</command>
+   <script>
+      props.globals.getNode("/instrumentation/clock/offset-sec", 1).setValue(0);
+   </script>
+  </binding>
+</button>
+
+<button n="28">
+  <desc>(MFD Reset) : Stopwatch timer reset</desc>
+  <binding>
+   <command>nasal</command>
+   <script>
+   <!-- Note that the "indicated-sec" variable is a large number,
+     probably seconds since midnight ... *not* modulo 60. -->
+      ttt = props.globals.getNode("/instrumentation/clock/indicated-sec", 1).getValue();
+      node = props.globals.getNode("/instrumentation/clock/offset-sec", 1);
+      off = node.getValue();
+      node.setValue(off-ttt);
+   </script>
+  </binding>
+</button>
+
+<!-- (i) button :: unbound key -->
+<!-- just put it in the property tree -->
+<button n="29">
+  <desc>Mode 1</desc>
+  <binding>
+    <command>nasal</command>
+    <script>
+      setprop("/input/joysticks/js/saitek-x52-i",1)
+    </script>
+  </binding>
+  <mod-up><binding>
+    <command>nasal</command>
+    <script>
+      setprop("/input/joysticks/js/saitek-x52-i",0)
+    </script>
+  </binding></mod-up>
+</button>
+
+
+<!-- Parking brake :: unbound function -->
+<button n="666">
+   <desc>Toggle parking brake on or off</desc>
+   <binding>
+     <command>property-toggle</command>
+     <property>/controls/gear/brake-parking</property>
+   </binding>
+</button>
+
+</PropertyList>

@@ -1,0 +1,362 @@
+<?xml version="1.0"?>
+<!-- KR-87 ADF receiver
+
+3d model by Torsten Dreyer
+
+Adapted for dual control by Anders Gidenstam
+
+NOTE: kr87.nas MUST be loaded as Nasal module KR87.
+ -->
+<PropertyList>
+ 
+ <path>kr87.ac</path>
+ <texture-path>Aircraft/Generic/DualControl/Instruments/KX165/</texture-path>
+
+ <animation>
+  <type>select</type>
+  <object-name>kr87.indicators</object-name>
+  <condition>
+   <property>instrumentation/adf[0]/serviceable</property>
+   <property>instrumentation/adf[0]/power-btn</property>
+   <greater-than>
+    <property>systems/electrical/outputs/adf[0]</property>
+    <value>1</value>
+   </greater-than>
+  </condition>
+ </animation>
+
+ <animation>
+  <type>material</type>
+  <object-name>kr87.knobs.ADF</object-name>
+  <object-name>kr87.knobs.BFO</object-name>
+  <object-name>kr87.knobs.FRQ</object-name>
+  <object-name>kr87.knobs.FLT</object-name>
+  <object-name>kr87.knobs.SET</object-name>
+  <emission>
+   <red-prop>sim/model/instrument-lighting/emission/red</red-prop>
+   <green-prop>sim/model/instrument-lighting/emission/green</green-prop>
+   <blue-prop>sim/model/instrument-lighting/emission/blue</blue-prop>
+   <factor-prop>controls/lighting/instruments-norm</factor-prop>
+  </emission>
+ </animation>
+
+ <animation>
+  <type>select</type>
+  <object-name>kr87.indicators.ANT</object-name>
+  <condition>
+   <not>
+    <property>instrumentation/adf[0]/adf-btn</property>
+   </not>
+  </condition>
+ </animation>
+
+ <animation>
+  <type>select</type>
+  <object-name>kr87.indicators.ADF</object-name>
+  <condition>
+   <property>instrumentation/adf[0]/adf-btn</property>
+  </condition>
+ </animation>
+
+ <animation>
+  <type>select</type>
+  <object-name>kr87.indicators.BFO</object-name>
+  <condition>
+   <property>instrumentation/adf[0]/bfo-btn</property>
+  </condition>
+ </animation>
+
+ <animation>
+  <type>select</type>
+  <object-name>kr87.indicators.FRQ</object-name>
+  <condition>
+   <equals>
+    <property>instrumentation/adf[0]/display-mode</property>
+    <value type="int">0</value>
+   </equals>
+  </condition>
+ </animation>
+
+ <animation>
+  <type>select</type>
+  <object-name>kr87.indicators.FLT</object-name>
+  <condition>
+   <equals>
+    <property>instrumentation/adf[0]/display-mode</property>
+    <value type="int">1</value>
+   </equals>
+  </condition>
+ </animation>
+
+ <animation>
+  <type>select</type>
+  <object-name>kr87.indicators.ET</object-name>
+  <condition>
+   <equals>
+    <property>instrumentation/adf[0]/display-mode</property>
+    <value type="int">2</value>
+   </equals>
+  </condition>
+ </animation>
+
+ <!-- Use FREQ -->
+ <animation>
+  <type>select</type>
+  <object-name>kr87.indicators.Use.1000</object-name>
+  <condition>
+   <greater-than-equals>
+    <property>instrumentation/adf[0]/frequencies/selected-khz</property>
+    <value type="int">1000</value>
+   </greater-than-equals>
+  </condition>
+ </animation>
+
+ <animation>
+  <type>textranslate</type>
+  <object-name>kr87.indicators.Use.1000</object-name>
+  <property>instrumentation/adf[0]/frequencies/selected-khz</property>
+  <step>1000</step>
+  <factor>0.0001</factor>
+  <axis>
+   <x>1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>textranslate</type>
+  <object-name>kr87.indicators.Use.100</object-name>
+  <property>instrumentation/adf[0]/frequencies/selected-khz</property>
+  <step>100</step>
+  <factor>0.001</factor>
+  <axis>
+   <x>1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>textranslate</type>
+  <object-name>kr87.indicators.Use.10</object-name>
+  <property>instrumentation/adf[0]/frequencies/selected-khz</property>
+  <step>10</step>
+  <factor>0.01</factor>
+  <axis>
+   <x>1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>textranslate</type>
+  <object-name>kr87.indicators.Use.1</object-name>
+  <property>instrumentation/adf[0]/frequencies/selected-khz</property>
+  <step>1</step>
+  <factor>0.1</factor>
+  <axis>
+   <x>1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+ <!-- STBY FREQ -->
+ <animation>
+  <condition>
+   <not-equals>
+    <property>instrumentation/adf[0]/display-mode</property>
+    <value type="int">0</value>
+   </not-equals>
+  </condition>
+  <type>select</type>
+  <object-name>kr87.indicators.dots</object-name>
+ </animation>
+
+ <animation>
+  <type>select</type>
+  <object-name>kr87.indicators.Stby.1000</object-name>
+  <condition>
+   <greater-than-equals>
+    <property>instrumentation/adf[0]/right-display</property>
+    <value type="int">1000</value>
+   </greater-than-equals>
+  </condition>
+ </animation>
+
+ <animation>
+  <type>select</type>
+  <object-name>kr87.indicators.Stby.100</object-name>
+  <condition>
+   <greater-than-equals>
+    <property>instrumentation/adf[0]/right-display</property>
+    <value type="int">100</value>
+   </greater-than-equals>
+  </condition>
+ </animation>
+
+ <animation>
+  <type>textranslate</type>
+  <object-name>kr87.indicators.Stby.1000</object-name>
+  <property>instrumentation/adf[0]/right-display</property>
+  <step>1000</step>
+  <factor>0.0001</factor>
+  <axis>
+   <x>1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>textranslate</type>
+  <object-name>kr87.indicators.Stby.100</object-name>
+  <property>instrumentation/adf[0]/right-display</property>
+  <step>100</step>
+  <factor>0.001</factor>
+  <axis>
+   <x>1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>textranslate</type>
+  <object-name>kr87.indicators.Stby.10</object-name>
+  <property>instrumentation/adf[0]/right-display</property>
+  <step>10</step>
+  <factor>0.01</factor>
+  <axis>
+   <x>1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>textranslate</type>
+  <object-name>kr87.indicators.Stby.1</object-name>
+  <property>instrumentation/adf[0]/right-display</property>
+  <step>1</step>
+  <factor>0.1</factor>
+  <axis>
+   <x>1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>noshadow</type>
+ </animation>
+
+ <!-- OSG Hotspots for dual control -->
+
+ <animation>
+  <type>pick</type>
+  <object-name>kr87.knobs.FRQ</object-name>
+  <action>
+   <button>0</button>
+   <repeatable>false</repeatable>
+   <binding>
+    <command>nasal</command>
+    <script>KR87.swap(0);</script>
+   </binding>
+  </action>
+ </animation>
+
+ <animation>
+  <type>pick</type>
+  <object-name>kr87.knobs.FRQOuter</object-name>
+  <action>
+   <button>0</button>
+   <repeatable>true</repeatable>
+   <interval-sec>0.2</interval-sec>
+   <binding>
+    <command>nasal</command>
+    <script>KR87.adjust_frequency(0, 100);</script>
+   </binding>
+  </action>
+  <action>
+   <button>1</button>
+   <repeatable>true</repeatable>
+   <interval-sec>0.2</interval-sec>
+   <binding>
+    <command>nasal</command>
+    <script>KR87.adjust_frequency(0, -100);</script>
+   </binding>
+  </action>
+  <action>
+   <button>3</button>
+   <repeatable>false</repeatable>
+   <binding>
+    <command>nasal</command>
+    <script>KR87.adjust_frequency(0, -100.0);</script>
+   </binding>
+  </action>
+  <action>
+   <button>4</button>
+   <repeatable>false</repeatable>
+   <binding>
+    <command>nasal</command>
+    <script>KR87.adjust_frequency(0, 100.0);</script>
+   </binding>
+  </action>
+ </animation>
+
+ <animation>
+  <type>pick</type>
+  <object-name>kr87.knobs.FRQInner</object-name>
+  <action>
+   <button>0</button>
+   <repeatable>true</repeatable>
+   <interval-sec>0.2</interval-sec>
+   <binding>
+    <command>nasal</command>
+    <script>KR87.adjust_frequency(0, 1.0);</script>
+   </binding>
+  </action>
+  <action>
+   <button>1</button>
+   <repeatable>true</repeatable>
+   <interval-sec>0.2</interval-sec>
+   <binding>
+    <command>nasal</command>
+    <script>KR87.adjust_frequency(0, -1.0);</script>
+   </binding>
+  </action>
+  <action>
+   <button>3</button>
+   <repeatable>false</repeatable>
+   <binding>
+    <command>nasal</command>
+    <script>KR87.adjust_frequency(0, -1.0);</script>
+   </binding>
+  </action>
+  <action>
+   <button>4</button>
+   <repeatable>false</repeatable>
+   <binding>
+    <command>nasal</command>
+    <script>KR87.adjust_frequency(0, 1.0);</script>
+   </binding>
+  </action>
+ </animation>
+
+ <animation>
+  <type>pick</type>
+  <object-name>kr87.knobs.BFO</object-name>
+  <action>
+   <button>0</button>
+   <repeatable>false</repeatable>
+   <binding>
+    <command>nasal</command>
+    <script>KR87.toggle_BFO(0);</script>
+   </binding>
+  </action>
+ </animation>
+
+</PropertyList>

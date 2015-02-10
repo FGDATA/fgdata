@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+ <description>Boeing 737-300 Winglets</description>
+ <author>Ian(Yves) Tolosa, Original Model Innis Cunningham</author> 
+ <path>Models/73C.ac</path>
+  
+     <animation>
+		<type>select</type>
+		<object-name>Gear_Down</object-name>
+		<condition>
+			<less-than>
+				<property>velocities/true-airspeed-kt</property>
+				<value>150</value>
+			</less-than>
+		</condition>
+	</animation>
+</PropertyList>

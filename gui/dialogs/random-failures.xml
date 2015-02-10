@@ -1,0 +1,368 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+  <name>random-failures</name>
+  <modal>false</modal>
+  <layout>vbox</layout>
+
+  <nasal>
+    <open>
+      <![CDATA[
+        var groups = cmdarg().getChildren("group")[1].getChildren("group");
+        var mtbfNodes = groups[0].getChildren("radio");
+        var mcbfNodes = groups[1].getChildren("radio");
+
+        var set_mtbf = func(m) {
+          for (var i = 0; i < size(mtbfNodes); i +=1) {
+            var prop = mtbfNodes[i].getChild("property").getValue();
+            setprop(prop, (m == mtbfNodes[i].getChild("value").getValue()));
+          }
+
+          setprop("/sim/failure-manager/global-mtbf", m);
+        };
+
+        var set_mcbf = func(m) {
+          for (var i = 0; i < size(mcbfNodes); i +=1) {
+            var prop = mcbfNodes[i].getChild("property").getValue();
+            setprop(prop, (m == mcbfNodes[i].getChild("value").getValue()));
+          }
+
+          setprop("/sim/failure-manager/global-mcbf", m);
+        };
+
+        props.globals.initNode("/sim/failure-manager/global-mtbf", 0);
+        props.globals.initNode("/sim/failure-manager/global-mcbf", 0);
+
+        set_mtbf(getprop("/sim/failure-manager/global-mtbf"));
+        set_mcbf(getprop("/sim/failure-manager/global-mcbf"));
+      ]]>
+    </open>
+  </nasal>
+
+  <group>
+    <layout>hbox</layout>
+    <empty><stretch>1</stretch></empty>
+
+    <text>
+      <label>Random Failures</label>
+    </text>
+
+    <empty><stretch>1</stretch></empty>
+
+    <button>
+      <pref-width>16</pref-width>
+      <pref-height>16</pref-height>
+      <legend></legend>
+      <keynum>27</keynum>
+      <border>2</border>
+      <binding>
+        <command>dialog-close</command>
+      </binding>
+    </button>
+  </group>
+
+  <hrule/>
+
+  <text>
+    <halign>left</halign>
+    <label>Configure MTBF/MCBF for all systems and instruments.</label>
+  </text>
+
+  <hrule></hrule>
+
+  <group>
+    <layout>hbox</layout>
+    <halign>center</halign>
+    <valign>top</valign>
+    <stretch>true</stretch>
+
+    <group>
+      <stretch>true</stretch>
+      <layout>vbox</layout>
+      <halign>center</halign>
+      <valign>top</valign>
+      <text>
+        <label>Mean Time Between Failures</label>
+      </text>
+
+      <radio>
+        <halign>left</halign>
+        <property>/sim/failure-manager/global-mtbf-60</property>
+        <live>true</live>
+        <value>60</value>
+        <label>1 minute</label>
+        <binding>
+          <command>nasal</command>
+          <script>set_mtbf(60);</script>
+        </binding>
+      </radio>
+
+      <radio>
+        <halign>left</halign>
+        <property>/sim/failure-manager/global-mtbf-300</property>
+        <live>true</live>
+        <value>300</value>
+        <label>5 minutes</label>
+        <binding>
+          <command>nasal</command>
+          <script>set_mtbf(300);</script>
+        </binding>
+      </radio>
+
+      <radio>
+        <halign>left</halign>
+        <property>/sim/failure-manager/global-mtbf-600</property>
+        <live>true</live>
+        <value>600</value>
+        <label>10 minutes</label>
+        <binding>
+          <command>nasal</command>
+          <script>set_mtbf(600);</script>
+        </binding>
+      </radio>
+
+      <radio>
+        <halign>left</halign>
+        <property>/sim/failure-manager/global-mtbf-1800</property>
+        <live>true</live>
+        <value>1800</value>
+        <label>30 minutes</label>
+        <binding>
+          <command>nasal</command>
+          <script>set_mtbf(1800);</script>
+        </binding>
+      </radio>
+
+      <radio>
+        <halign>left</halign>
+        <property>/sim/failure-manager/global-mtbf-3600</property>
+        <live>true</live>
+        <value>3600</value>
+        <label>1 hour</label>
+        <binding>
+          <command>nasal</command>
+          <script>set_mtbf(3600);</script>
+        </binding>
+      </radio>
+
+      <radio>
+        <halign>left</halign>
+        <property>/sim/failure-manager/global-mtbf-21600</property>
+        <live>true</live>
+        <value>21600</value>
+        <label>6 hours</label>
+        <binding>
+          <command>nasal</command>
+          <script>set_mtbf(21600);</script>
+        </binding>
+      </radio>
+
+      <radio>
+        <halign>left</halign>
+        <property>/sim/failure-manager/global-mtbf-86400</property>
+        <live>true</live>
+        <value>86400</value>
+        <label>24 hours</label>
+        <binding>
+          <command>nasal</command>
+          <script>set_mtbf(86400);</script>
+        </binding>
+      </radio>
+
+      <radio>
+        <halign>left</halign>
+        <property>/sim/failure-manager/global-mtbf-0</property>
+        <value>0</value>
+        <label>0 (Disabled)</label>
+        <live>true</live>
+        <binding>
+          <command>nasal</command>
+          <script>set_mtbf(0);</script>
+        </binding>
+      </radio>
+
+    </group>
+
+    <empty><stretch>true</stretch></empty>
+
+    <vrule/>
+
+    <empty><stretch>true</stretch></empty>
+
+    <group>
+      <layout>vbox</layout>
+      <halign>left</halign>
+      <valign>top</valign>
+      <stretch>true</stretch>
+
+      <text>
+        <halign>center</halign>
+        <label>Mean Cycles Between Failures</label>
+      </text>
+
+      <radio>
+        <halign>left</halign>
+        <property>/sim/failure-manager/global-mcbf-5</property>
+        <value>5</value>
+        <label>5</label>
+        <live>true</live>
+        <binding>
+          <command>nasal</command>
+          <script>set_mcbf(5);</script>
+        </binding>
+      </radio>
+
+      <radio>
+        <halign>left</halign>
+        <property>/sim/failure-manager/global-mcbf-10</property>
+        <value>10</value>
+        <label>10</label>
+        <live>true</live>
+        <binding>
+          <command>nasal</command>
+          <script>set_mcbf(10);</script>
+        </binding>
+      </radio>
+
+      <radio>
+        <halign>left</halign>
+        <property>/sim/failure-manager/global-mcbf-20</property>
+        <value>20</value>
+        <label>20</label>
+        <live>true</live>
+        <binding>
+          <command>nasal</command>
+          <script>set_mcbf(20);</script>
+        </binding>
+      </radio>
+
+      <radio>
+        <halign>left</halign>
+        <property>/sim/failure-manager/global-mcbf-50</property>
+        <value>50</value>
+        <label>50</label>
+        <live>true</live>
+        <binding>
+          <command>nasal</command>
+          <script>set_mcbf(50);</script>
+        </binding>
+      </radio>
+
+      <radio>
+        <halign>left</halign>
+        <property>/sim/failure-manager/global-mcbf-100</property>
+        <value>100</value>
+        <label>100</label>
+        <live>true</live>
+        <binding>
+          <command>nasal</command>
+          <script>set_mcbf(100);</script>
+        </binding>
+      </radio>
+
+      <radio>
+        <halign>left</halign>
+        <property>/sim/failure-manager/global-mcbf-200</property>
+        <value>200</value>
+        <label>200</label>
+        <live>true</live>
+        <binding>
+          <command>nasal</command>
+          <script>set_mcbf(200);</script>
+        </binding>
+      </radio>
+
+      <radio>
+        <halign>left</halign>
+        <property>/sim/failure-manager/global-mcbf-500</property>
+        <value>500</value>
+        <label>500</label>
+        <live>true</live>
+        <binding>
+          <command>nasal</command>
+          <script>set_mcbf(500);</script>
+        </binding>
+      </radio>
+
+      <radio>
+        <halign>left</halign>
+        <property>/sim/failure-manager/global-mcbf-0</property>
+        <value>0</value>
+        <label>0 (Disabled)</label>
+        <live>true</live>
+        <binding>
+          <command>nasal</command>
+          <script>set_mcbf(0);</script>
+        </binding>
+      </radio>
+
+    </group>
+  </group>
+
+  <hrule></hrule>
+
+  <checkbox>
+    <valign>down</valign>
+    <name>onScreenMessages</name>
+    <label>Display failure messages on screen</label>
+    <width>10</width>
+    <height>10</height>
+    <property>/sim/failure-manager/display-on-screen</property>
+  </checkbox>
+
+  <hrule></hrule>
+
+  <group>
+    <layout>hbox</layout>
+
+    <button>
+    <legend>OK</legend>
+    <default>true</default>
+    <equal>true</equal>
+    <binding>
+      <command>dialog-apply</command>
+    </binding>
+    <binding>
+      <command>nasal</command>
+      <script>
+      compat_failure_modes.apply_global_mtbf(getprop("/sim/failure-manager/global-mtbf"));
+      compat_failure_modes.apply_global_mcbf(getprop("/sim/failure-manager/global-mcbf"));
+      </script>
+    </binding>
+    <binding>
+      <command>dialog-close</command>
+    </binding>
+    </button>
+
+    <button>
+    <legend>Apply</legend>
+    <equal>true</equal>
+    <binding>
+      <command>dialog-apply</command>
+    </binding>
+    <binding>
+      <command>nasal</command>
+      <script>
+      compat_failure_modes.apply_global_mtbf(getprop("/sim/failure-manager/global-mtbf"));
+      compat_failure_modes.apply_global_mcbf(getprop("/sim/failure-manager/global-mcbf"));
+      </script>
+    </binding>
+    </button>
+
+    <button>
+    <legend>Cancel</legend>
+    <equal>true</equal>
+    <key>Esc</key>
+    <binding>
+      <command>dialog-close</command>
+    </binding>
+    </button>
+
+  </group>
+
+  <empty>
+    <pref-height>1</pref-height>
+  </empty>
+
+</PropertyList>

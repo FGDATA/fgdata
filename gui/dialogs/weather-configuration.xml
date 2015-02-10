@@ -1,0 +1,1311 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+  <!-- Control the weather -->
+  <name>weather-configuration</name>
+  <modal>false</modal>
+  <resizable>false</resizable>
+  <layout>vbox</layout>
+  <default-padding>3</default-padding>
+
+  <!-- Title bar with close button -->
+  <group>
+    <layout>hbox</layout>
+    <default-padding>1</default-padding>
+
+    <empty>
+      <stretch>true</stretch>
+    </empty>
+
+    <text>
+      <label>Basic Troposphere Weather Conditions</label>
+    </text>
+
+    <empty>
+      <stretch>true</stretch>
+    </empty>
+
+    <button>
+      <legend/>
+      <key>Esc</key>
+      <pref-width>16</pref-width>
+      <pref-height>16</pref-height>
+      <border>2</border>
+      <binding>
+        <command>dialog-close</command>
+      </binding>
+    </button>
+  </group>
+
+  <hrule/>
+
+  <group>
+    <layout>hbox</layout>
+    <default-padding>0</default-padding>
+
+    <!-- Left Column -->
+    <group>
+      <layout>vbox</layout>
+      <group>
+        <layout>vbox</layout>
+        <default-padding>1</default-padding>
+
+        <!-- Cloud Layers -->
+        <group>
+          <layout>hbox</layout>
+          <text>
+            <label>Cloud Layers (All Altitudes ft-AMSL)</label>
+          </text>
+          <hrule>
+            <stretch>true</stretch>
+          </hrule>
+        </group>
+
+        <group>
+          <layout>hbox</layout>
+          <group>
+            <layout>table</layout>
+
+            <text>
+              <label>Altitude (ft)</label>
+              <row>0</row>
+              <col>1</col>
+            </text>
+
+            <text>
+              <label>Coverage</label>
+              <row>0</row>
+              <col>2</col>
+              <width>80</width>
+            </text>
+
+            <text>
+              <label>Thickness (ft)</label>
+              <row>0</row>
+              <col>3</col>
+            </text>
+
+
+            <!-- Layer 4 -->
+
+            <input>
+              <row>1</row>
+              <col>1</col>
+              <live>true</live>
+              <property>/environment/clouds/layer[4]/elevation-ft</property>
+              <binding>
+                <command>dialog-apply</command>
+              </binding>
+            </input>
+
+            <combo>
+              <row>1</row>
+              <col>2</col>
+              <pref-width>100</pref-width>
+              <live>true</live>
+              <property>/environment/clouds/layer[4]/coverage</property>
+              <value>clear</value>
+              <value>few</value>
+              <value>scattered</value>
+              <value>broken</value>
+              <value>overcast</value>
+              <value>cirrus</value>
+              <binding>
+                <command>dialog-apply</command>
+              </binding>
+            </combo>
+
+            <input>
+              <row>1</row>
+              <col>3</col>
+              <live>true</live>
+              <property>/environment/clouds/layer[4]/thickness-ft</property>
+              <binding>
+                <command>dialog-apply</command>
+              </binding>
+            </input>
+
+
+            <!-- Layer 3 -->
+
+            <input>
+              <row>2</row>
+              <col>1</col>
+              <live>true</live>
+              <property>/environment/clouds/layer[3]/elevation-ft</property>
+              <binding>
+                <command>dialog-apply</command>
+              </binding>
+            </input>
+
+            <combo>
+              <row>2</row>
+              <col>2</col>
+              <pref-width>100</pref-width>
+              <live>true</live>
+              <property>/environment/clouds/layer[3]/coverage</property>
+              <value>clear</value>
+              <value>few</value>
+              <value>scattered</value>
+              <value>broken</value>
+              <value>overcast</value>
+              <value>cirrus</value>
+              <binding>
+                <command>dialog-apply</command>
+              </binding>
+            </combo>
+
+            <input>
+              <row>2</row>
+              <col>3</col>
+              <live>true</live>
+              <property>/environment/clouds/layer[3]/thickness-ft</property>
+              <binding>
+                <command>dialog-apply</command>
+              </binding>
+            </input>
+
+
+            <!-- Layer 2 -->
+
+            <input>
+              <row>3</row>
+              <col>1</col>
+              <live>true</live>
+              <property>/environment/clouds/layer[2]/elevation-ft</property>
+              <binding>
+                <command>dialog-apply</command>
+              </binding>
+            </input>
+
+            <combo>
+              <row>3</row>
+              <col>2</col>
+              <pref-width>100</pref-width>
+              <live>true</live>
+              <property>/environment/clouds/layer[2]/coverage</property>
+              <value>clear</value>
+              <value>few</value>
+              <value>scattered</value>
+              <value>broken</value>
+              <value>overcast</value>
+              <value>cirrus</value>
+              <binding>
+                <command>dialog-apply</command>
+              </binding>
+            </combo>
+
+            <input>
+              <row>3</row>
+              <col>3</col>
+              <live>true</live>
+              <property>/environment/clouds/layer[2]/thickness-ft</property>
+              <binding>
+                <command>dialog-apply</command>
+              </binding>
+            </input>
+
+
+            <!-- Layer 1 -->
+
+            <input>
+              <row>4</row>
+              <col>1</col>
+              <live>true</live>
+              <property>/environment/clouds/layer[1]/elevation-ft</property>
+              <binding>
+                <command>dialog-apply</command>
+              </binding>
+            </input>
+
+            <combo>
+              <row>4</row>
+              <col>2</col>
+              <pref-width>100</pref-width>
+              <live>true</live>
+              <property>/environment/clouds/layer[1]/coverage</property>
+              <value>clear</value>
+              <value>few</value>
+              <value>scattered</value>
+              <value>broken</value>
+              <value>overcast</value>
+              <value>cirrus</value>
+              <binding>
+                <command>dialog-apply</command>
+              </binding>
+            </combo>
+
+            <input>
+              <row>4</row>
+              <col>3</col>
+              <live>true</live>
+              <property>/environment/clouds/layer[1]/thickness-ft</property>
+              <binding>
+                <command>dialog-apply</command>
+              </binding>
+            </input>
+
+
+            <!-- Layer 0 -->
+
+            <input>
+              <row>5</row>
+              <col>1</col>
+              <live>true</live>
+              <property>/environment/clouds/layer[0]/elevation-ft</property>
+              <binding>
+                <command>dialog-apply</command>
+              </binding>
+            </input>
+
+            <combo>
+              <row>5</row>
+              <col>2</col>
+              <pref-width>100</pref-width>
+              <live>true</live>
+              <editable>false</editable>
+              <property>/environment/clouds/layer[0]/coverage</property>
+              <value>clear</value>
+              <value>few</value>
+              <value>scattered</value>
+              <value>broken</value>
+              <value>overcast</value>
+              <value>cirrus</value>
+              <binding>
+                <command>dialog-apply</command>
+              </binding>
+            </combo>
+
+            <input>
+              <row>5</row>
+              <col>3</col>
+              <live>true</live>
+              <property>/environment/clouds/layer[0]/thickness-ft</property>
+              <binding>
+                <command>dialog-apply</command>
+              </binding>
+            </input>
+
+          </group>
+          <empty>
+            <stretch>true</stretch>
+          </empty>
+        </group>
+      </group>
+      <!-- Cloud Layers End -->
+
+      <!-- Precipitation -->
+      <group>
+        <layout>vbox</layout>
+        <default-padding>1</default-padding>
+
+        <group>
+          <layout>hbox</layout>
+          <text>
+            <label>Precipitation</label>
+          </text>
+          <hrule>
+            <stretch>true</stretch>
+          </hrule>
+        </group>
+
+        <group>
+          <layout>vbox</layout>
+          <halign>fill</halign>
+          <group>
+            <layout>table</layout>
+            <text>
+              <row>0</row>
+              <col>0</col>
+              <label>Rain</label>
+              <halign>left</halign>
+            </text>
+
+            <slider>
+              <row>0</row>
+              <col>1</col>
+              <live>true</live>
+              <halign>fill</halign>
+              <property>/environment/rain-norm</property>
+              <binding>
+                <command>dialog-apply</command>
+              </binding>
+              <stretch>true</stretch>
+            </slider>
+			
+            <text>
+              <row>1</row>
+              <col>0</col>
+              <label>Snow</label>
+              <halign>left</halign>
+            </text>
+
+            <slider>
+              <row>1</row>
+              <col>1</col>
+              <halign>fill</halign>
+              <property>/environment/snow-norm</property>
+              <live>true</live>
+              <pref-height>30</pref-height>
+              <binding>
+                <command>dialog-apply</command>
+              </binding>
+            </slider>
+
+            <text>
+              <row>0</row>
+              <col>3</col>
+              <label>QNH (inHg)</label>
+            </text>
+
+            <input>
+              <name>pressure-sea-level-inhg</name>
+              <row>1</row>
+              <col>3</col>
+              <pref-width>50</pref-width>
+              <property>/environment/config/boundary/entry[0]/pressure-sea-level-inhg</property>
+              <live>true</live>
+              <binding>
+                <command>dialog-apply</command>
+                <object-name>pressure-sea-level-inhg</object-name>
+              </binding>
+            </input>
+			
+
+          </group>
+		  
+          <empty>
+            <stretch>true</stretch>
+          </empty>
+
+        </group>
+      </group>
+      <!-- Precipitation End  -->
+    </group>
+    <!-- Left Column End -->
+
+    <vrule>
+      <stretch>true</stretch>
+    </vrule>
+
+    <!-- Right Column -->
+    <group>
+      <layout>vbox</layout>
+
+      <!-- Aloft -->
+      <group>
+        <layout>vbox</layout>
+        <default-padding>1</default-padding>
+
+        <group>
+          <layout>hbox</layout>
+          <text>
+            <label>Aloft (All Altitudes ft-AMSL)</label>
+          </text>
+          <hrule>
+            <stretch>true</stretch>
+          </hrule>
+        </group>
+
+        <group>
+          <layout>hbox</layout>
+          <group>
+            <layout>table</layout>
+            <text>
+              <row>0</row>
+              <col>0</col>
+              <label>Altitude</label>
+            </text>
+
+            <text>
+              <row>0</row>
+              <col>1</col>
+              <colspan>2</colspan>
+              <label>Wind (dir/kt)</label>
+            </text>
+
+            <text>
+              <row>0</row>
+              <col>3</col>
+              <label>Vis (m)</label>
+            </text>
+
+            <text>
+              <row>0</row>
+              <col>4</col>
+              <label>Temp (C)</label>
+            </text>
+
+            <text>
+              <row>0</row>
+              <col>5</col>
+              <label>Dewpt (C)</label>
+            </text>
+
+            <text>
+              <row>0</row>
+              <col>6</col>
+              <label>Turbulence</label>
+            </text>
+
+            <input>
+              <name>aloft-4-elevation-ft</name>
+              <row>1</row>
+              <col>0</col>
+              <pref-width>52</pref-width>
+              <property>/environment/config/aloft/entry[4]/elevation-ft</property>
+              <live>true</live>
+              <binding>
+                <command>dialog-apply</command>
+                <object-name>aloft-4-elevation-ft</object-name>
+              </binding>
+            </input>
+
+            <input>
+              <name>aloft-4-wind-from-heading-deg</name>
+              <row>1</row>
+              <col>1</col>
+              <pref-width>40</pref-width>
+              <property>/environment/config/aloft/entry[4]/wind-from-heading-deg</property>
+              <live>true</live>
+              <binding>
+                <command>dialog-apply</command>
+                <object-name>aloft-4-wind-from-heading-deg</object-name>
+              </binding>
+            </input>
+
+            <input>
+              <name>aloft-4-wind-speed-kt</name>
+              <row>1</row>
+              <col>2</col>
+              <pref-width>35</pref-width>
+              <property>/environment/config/aloft/entry[4]/wind-speed-kt</property>
+              <live>true</live>
+              <binding>
+                <command>dialog-apply</command>
+                <object-name>aloft-4-wind-speed-kt</object-name>
+              </binding>
+            </input>
+
+            <input>
+              <name>aloft-4-visibility-m</name>
+              <row>1</row>
+              <col>3</col>
+              <pref-width>55</pref-width>
+              <property>/environment/config/aloft/entry[4]/visibility-m</property>
+              <live>true</live>
+              <binding>
+                <command>dialog-apply</command>
+                <object-name>aloft-4-visibility-m</object-name>
+              </binding>
+            </input>
+
+            <input>
+              <name>aloft-4-temperature-degc</name>
+              <row>1</row>
+              <col>4</col>
+              <pref-width>60</pref-width>
+              <property>/environment/config/aloft/entry[4]/temperature-degc</property>
+              <live>true</live>
+              <binding>
+                <command>dialog-apply</command>
+                <object-name>aloft-4-temperature-degc</object-name>
+              </binding>
+            </input>
+
+            <input>
+              <name>aloft-4-dewpoint-degc</name>
+              <row>1</row>
+              <col>5</col>
+              <pref-width>60</pref-width>
+              <property>/environment/config/aloft/entry[4]/dewpoint-degc</property>
+              <live>true</live>
+              <binding>
+                <command>dialog-apply</command>
+                <object-name>aloft-4-dewpoint-degc</object-name>
+              </binding>
+            </input>
+
+            <combo>
+              <name>aloft-4-turbulence</name>
+              <row>1</row>
+              <col>6</col>
+              <pref-width>90</pref-width>
+              <live>true</live>
+              <property>/environment/config/aloft/entry[4]/turbulence-name</property>
+              <value>none</value>
+              <value>light</value>
+              <value>moderate</value>
+              <value>severe</value>
+              <binding>
+                <command>dialog-apply</command>
+                <object-name>aloft-4-turbulence</object-name>
+              </binding>
+              <binding>
+                <command>nasal</command>
+                <script>controller.setTurbulence("aloft",4);</script>
+              </binding>
+            </combo>
+
+            <input>
+              <name>aloft-3-elevation-ft</name>
+              <row>2</row>
+              <col>0</col>
+              <pref-width>52</pref-width>
+              <property>/environment/config/aloft/entry[3]/elevation-ft</property>
+              <live>true</live>
+              <binding>
+                <command>dialog-apply</command>
+                <object-name>aloft-3-elevation-ft</object-name>
+              </binding>
+            </input>
+
+            <input>
+              <name>aloft-3-wind-from-heading-deg</name>
+              <row>2</row>
+              <col>1</col>
+              <pref-width>40</pref-width>
+              <property>/environment/config/aloft/entry[3]/wind-from-heading-deg</property>
+              <live>true</live>
+              <binding>
+                <command>dialog-apply</command>
+                <object-name>aloft-3-wind-from-heading-deg</object-name>
+              </binding>
+            </input>
+
+            <input>
+              <name>aloft-3-wind-speed-kt</name>
+              <row>2</row>
+              <col>2</col>
+              <pref-width>35</pref-width>
+              <property>/environment/config/aloft/entry[3]/wind-speed-kt</property>
+              <live>true</live>
+              <binding>
+                <command>dialog-apply</command>
+                <object-name>aloft-3-wind-speed-kt</object-name>
+              </binding>
+            </input>
+
+            <input>
+              <name>aloft-3-visibility-m</name>
+              <row>2</row>
+              <col>3</col>
+              <pref-width>55</pref-width>
+              <property>/environment/config/aloft/entry[3]/visibility-m</property>
+              <live>true</live>
+              <binding>
+                <command>dialog-apply</command>
+                <object-name>aloft-3-visibility-m</object-name>
+              </binding>
+            </input>
+
+            <input>
+              <name>aloft-3-temperature-degc</name>
+              <row>2</row>
+              <col>4</col>
+              <pref-width>60</pref-width>
+              <property>/environment/config/aloft/entry[3]/temperature-degc</property>
+              <live>true</live>
+              <binding>
+                <command>dialog-apply</command>
+                <object-name>aloft-3-temperature-degc</object-name>
+              </binding>
+            </input>
+
+            <input>
+              <name>aloft-3-dewpoint-degc</name>
+              <row>2</row>
+              <col>5</col>
+              <pref-width>60</pref-width>
+              <property>/environment/config/aloft/entry[3]/dewpoint-degc</property>
+              <live>true</live>
+              <binding>
+                <command>dialog-apply</command>
+                <object-name>aloft-3-dewpoint-degc</object-name>
+              </binding>
+            </input>
+
+            <combo>
+              <name>aloft-3-turbulence</name>
+              <row>2</row>
+              <col>6</col>
+              <pref-width>90</pref-width>
+              <live>true</live>
+              <property>/environment/config/aloft/entry[3]/turbulence-name</property>
+              <value>none</value>
+              <value>light</value>
+              <value>moderate</value>
+              <value>severe</value>
+              <binding>
+                <command>dialog-apply</command>
+                <object-name>aloft-3-turbulence</object-name>
+              </binding>
+              <binding>
+                <command>nasal</command>
+                <script>controller.setTurbulence("aloft",3);</script>
+              </binding>
+            </combo>
+
+            <input>
+              <name>aloft-2-elevation-ft</name>
+              <row>3</row>
+              <col>0</col>
+              <pref-width>52</pref-width>
+              <property>/environment/config/aloft/entry[2]/elevation-ft</property>
+              <live>true</live>
+              <binding>
+                <command>dialog-apply</command>
+                <object-name>aloft-2-elevation-ft</object-name>
+              </binding>
+            </input>
+
+            <input>
+              <name>aloft-2-wind-from-heading-deg</name>
+              <row>3</row>
+              <col>1</col>
+              <pref-width>40</pref-width>
+              <property>/environment/config/aloft/entry[2]/wind-from-heading-deg</property>
+              <live>true</live>
+              <binding>
+                <command>dialog-apply</command>
+                <object-name>aloft-2-wind-from-heading-deg</object-name>
+              </binding>
+            </input>
+
+            <input>
+              <name>aloft-2-wind-speed-kt</name>
+              <row>3</row>
+              <col>2</col>
+              <pref-width>35</pref-width>
+              <property>/environment/config/aloft/entry[2]/wind-speed-kt</property>
+              <live>true</live>
+              <binding>
+                <command>dialog-apply</command>
+                <object-name>aloft-2-wind-speed-kt</object-name>
+              </binding>
+            </input>
+
+            <input>
+              <name>aloft-2-visibility-m</name>
+              <row>3</row>
+              <col>3</col>
+              <pref-width>55</pref-width>
+              <property>/environment/config/aloft/entry[2]/visibility-m</property>
+              <live>true</live>
+              <binding>
+                <command>dialog-apply</command>
+                <object-name>aloft-2-visibility-m</object-name>
+              </binding>
+            </input>
+
+            <input>
+              <name>aloft-2-temperature-degc</name>
+              <row>3</row>
+              <col>4</col>
+              <pref-width>60</pref-width>
+              <property>/environment/config/aloft/entry[2]/temperature-degc</property>
+              <live>true</live>
+              <binding>
+                <command>dialog-apply</command>
+                <object-name>aloft-2-temperature-degc</object-name>
+              </binding>
+            </input>
+
+            <input>
+              <name>aloft-2-dewpoint-degc</name>
+              <row>3</row>
+              <col>5</col>
+              <pref-width>60</pref-width>
+              <property>/environment/config/aloft/entry[2]/dewpoint-degc</property>
+              <live>true</live>
+              <binding>
+                <command>dialog-apply</command>
+                <object-name>aloft-2-dewpoint-degc</object-name>
+              </binding>
+            </input>
+
+            <combo>
+              <name>aloft-2-turbulence</name>
+              <row>3</row>
+              <col>6</col>
+              <pref-width>90</pref-width>
+              <live>true</live>
+              <property>/environment/config/aloft/entry[2]/turbulence-name</property>
+              <value>none</value>
+              <value>light</value>
+              <value>moderate</value>
+              <value>severe</value>
+              <binding>
+                <command>dialog-apply</command>
+                <object-name>aloft-2-turbulence</object-name>
+              </binding>
+              <binding>
+                <command>nasal</command>
+                <script>controller.setTurbulence("aloft",2);</script>
+              </binding>
+            </combo>
+
+
+            <input>
+              <name>aloft-1-elevation-ft</name>
+              <row>4</row>
+              <col>0</col>
+              <pref-width>52</pref-width>
+              <property>/environment/config/aloft/entry[1]/elevation-ft</property>
+              <live>true</live>
+              <binding>
+                <command>dialog-apply</command>
+                <object-name>aloft-1-elevation-ft</object-name>
+              </binding>
+            </input>
+
+            <input>
+              <name>aloft-1-wind-from-heading-deg</name>
+              <row>4</row>
+              <col>1</col>
+              <pref-width>40</pref-width>
+              <property>/environment/config/aloft/entry[1]/wind-from-heading-deg</property>
+              <live>true</live>
+              <binding>
+                <command>dialog-apply</command>
+                <object-name>aloft-1-wind-from-heading-deg</object-name>
+              </binding>
+            </input>
+
+            <input>
+              <name>aloft-1-wind-speed-kt</name>
+              <row>4</row>
+              <col>2</col>
+              <pref-width>35</pref-width>
+              <property>/environment/config/aloft/entry[1]/wind-speed-kt</property>
+              <live>true</live>
+              <binding>
+                <command>dialog-apply</command>
+                <object-name>aloft-1-wind-speed-kt</object-name>
+              </binding>
+            </input>
+
+            <input>
+              <name>aloft-1-visibility-m</name>
+              <row>4</row>
+              <col>3</col>
+              <pref-width>55</pref-width>
+              <property>/environment/config/aloft/entry[1]/visibility-m</property>
+              <live>true</live>
+              <binding>
+                <command>dialog-apply</command>
+                <object-name>aloft-1-visibility-m</object-name>
+              </binding>
+            </input>
+
+            <input>
+              <name>aloft-1-temperature-degc</name>
+              <row>4</row>
+              <col>4</col>
+              <pref-width>60</pref-width>
+              <property>/environment/config/aloft/entry[1]/temperature-degc</property>
+              <live>true</live>
+              <binding>
+                <command>dialog-apply</command>
+                <object-name>aloft-1-temperature-degc</object-name>
+              </binding>
+            </input>
+
+            <input>
+              <name>aloft-1-dewpoint-degc</name>
+              <row>4</row>
+              <col>5</col>
+              <pref-width>60</pref-width>
+              <property>/environment/config/aloft/entry[1]/dewpoint-degc</property>
+              <live>true</live>
+              <binding>
+                <command>dialog-apply</command>
+                <object-name>aloft-1-dewpoint-degc</object-name>
+              </binding>
+            </input>
+
+            <combo>
+              <name>aloft-1-turbulence</name>
+              <row>4</row>
+              <col>6</col>
+              <pref-width>90</pref-width>
+              <live>true</live>
+              <property>/environment/config/aloft/entry[1]/turbulence-name</property>
+              <value>none</value>
+              <value>light</value>
+              <value>moderate</value>
+              <value>severe</value>
+              <binding>
+                <command>dialog-apply</command>
+                <object-name>aloft-1-turbulence</object-name>
+              </binding>
+              <binding>
+                <command>nasal</command>
+                <script>controller.setTurbulence("aloft",1);</script>
+              </binding>
+            </combo>
+
+            <input>
+              <name>aloft-0-elevation-ft</name>
+              <row>5</row>
+              <col>0</col>
+              <pref-width>52</pref-width>
+              <property>/environment/config/aloft/entry[0]/elevation-ft</property>
+              <live>true</live>
+              <binding>
+                <command>dialog-apply</command>
+                <object-name>aloft-0-elevation-ft</object-name>
+              </binding>
+            </input>
+
+            <input>
+              <name>aloft-0-wind-from-heading-deg</name>
+              <row>5</row>
+              <col>1</col>
+              <pref-width>40</pref-width>
+              <property>/environment/config/aloft/entry[0]/wind-from-heading-deg</property>
+              <live>true</live>
+              <binding>
+                <command>dialog-apply</command>
+                <object-name>aloft-0-wind-from-heading-deg</object-name>
+              </binding>
+            </input>
+
+            <input>
+              <name>aloft-0-wind-speed-kt</name>
+              <row>5</row>
+              <col>2</col>
+              <pref-width>35</pref-width>
+              <property>/environment/config/aloft/entry[0]/wind-speed-kt</property>
+              <live>true</live>
+              <binding>
+                <command>dialog-apply</command>
+                <object-name>aloft-0-wind-speed-kt</object-name>
+              </binding>
+            </input>
+
+            <input>
+              <name>aloft-0-visibility-m</name>
+              <row>5</row>
+              <col>3</col>
+              <pref-width>55</pref-width>
+              <property>/environment/config/aloft/entry[0]/visibility-m</property>
+              <live>true</live>
+              <binding>
+                <command>dialog-apply</command>
+                <object-name>aloft-0-visibility-m</object-name>
+              </binding>
+            </input>
+
+            <input>
+              <name>aloft-0-temperature-degc</name>
+              <row>5</row>
+              <col>4</col>
+              <pref-width>60</pref-width>
+              <property>/environment/config/aloft/entry[0]/temperature-degc</property>
+              <live>true</live>
+              <binding>
+                <command>dialog-apply</command>
+                <object-name>aloft-0-temperature-degc</object-name>
+              </binding>
+            </input>
+
+            <input>
+              <name>aloft-0-dewpoint-degc</name>
+              <row>5</row>
+              <col>5</col>
+              <pref-width>60</pref-width>
+              <property>/environment/config/aloft/entry[0]/dewpoint-degc</property>
+              <live>true</live>
+              <binding>
+                <command>dialog-apply</command>
+                <object-name>aloft-0-dewpoint-degc</object-name>
+              </binding>
+            </input>
+
+            <combo>
+              <name>aloft-0-turbulence</name>
+              <row>5</row>
+              <col>6</col>
+              <pref-width>90</pref-width>
+              <live>true</live>
+              <property>/environment/config/aloft/entry[0]/turbulence-name</property>
+              <value>none</value>
+              <value>light</value>
+              <value>moderate</value>
+              <value>severe</value>
+              <binding>
+                <command>dialog-apply</command>
+                <object-name>aloft-0-turbulence</object-name>
+              </binding>
+              <binding>
+                <command>nasal</command>
+                <script>controller.setTurbulence("aloft",0);</script>
+              </binding>
+            </combo>
+
+          </group>
+          <empty>
+            <stretch>true</stretch>
+          </empty>
+        </group>
+
+      </group>
+      <!-- Aloft End -->
+
+      <!-- Boundary  -->
+      <group>
+        <layout>vbox</layout>
+        <default-padding>1</default-padding>
+
+        <group>
+          <layout>hbox</layout>
+          <text>
+            <label>Boundary (All Elevations ft-AGL)</label>
+          </text>
+          <hrule>
+            <stretch>true</stretch>
+          </hrule>
+        </group>
+
+        <group>
+          <layout>hbox</layout>
+          <group>
+
+            <layout>table</layout>
+
+            <text>
+              <row>0</row>
+              <col>0</col>
+              <label>Elevation</label>
+            </text>
+
+            <text>
+              <row>0</row>
+              <col>1</col>
+              <colspan>2</colspan>
+              <label>Wind (dir/kt)</label>
+            </text>
+
+            <text>
+              <row>0</row>
+              <col>3</col>
+              <label>Vis (m)</label>
+            </text>
+
+            <text>
+              <row>0</row>
+              <col>4</col>
+              <label>Temp (C)</label>
+            </text>
+
+            <text>
+              <row>0</row>
+              <col>5</col>
+              <label>Dewpt (C)</label>
+            </text>
+
+            <input>
+              <name>boundary-1-elevation-ft</name>
+              <row>1</row>
+              <col>0</col>
+              <pref-width>52</pref-width>
+              <property>/environment/config/boundary/entry[1]/elevation-ft</property>
+              <live>true</live>
+              <binding>
+                <command>dialog-apply</command>
+                <object-name>boundary-1-elevation-ft</object-name>
+              </binding>
+            </input>
+
+            <input>
+              <name>boundary-1-wind-from-heading-deg</name>
+              <row>1</row>
+              <col>1</col>
+              <pref-width>40</pref-width>
+              <property>/environment/config/boundary/entry[1]/wind-from-heading-deg</property>
+              <live>true</live>
+              <binding>
+                <command>dialog-apply</command>
+                <object-name>boundary-1-wind-from-heading-deg</object-name>
+              </binding>
+            </input>
+
+            <input>
+              <name>boundary-1-wind-speed-kt</name>
+              <row>1</row>
+              <col>2</col>
+              <pref-width>35</pref-width>
+              <property>/environment/config/boundary/entry[1]/wind-speed-kt</property>
+              <live>true</live>
+              <binding>
+                <command>dialog-apply</command>
+                <object-name>boundary-1-wind-speed-kt</object-name>
+              </binding>
+            </input>
+
+            <input>
+              <name>boundary-1-visibility-m</name>
+              <row>1</row>
+              <col>3</col>
+              <pref-width>55</pref-width>
+              <property>/environment/config/boundary/entry[1]/visibility-m</property>
+              <live>true</live>
+              <binding>
+                <command>dialog-apply</command>
+                <object-name>boundary-1-visibility-m</object-name>
+              </binding>
+            </input>
+
+            <input>
+              <name>boundary-1-temperature-degc</name>
+              <row>1</row>
+              <col>4</col>
+              <pref-width>60</pref-width>
+              <property>/environment/config/boundary/entry[1]/temperature-degc</property>
+              <live>true</live>
+              <binding>
+                <command>dialog-apply</command>
+                <object-name>boundary-1-temperature-degc</object-name>
+              </binding>
+            </input>
+
+            <input>
+              <name>boundary-1-dewpoint-degc</name>
+              <row>1</row>
+              <col>5</col>
+              <pref-width>60</pref-width>
+              <property>/environment/config/boundary/entry[1]/dewpoint-degc</property>
+              <live>true</live>
+              <binding>
+                <command>dialog-apply</command>
+                <object-name>boundary-1-dewpoint-degc</object-name>
+              </binding>
+            </input>
+
+            <combo>
+              <name>boundary-1-turbulence</name>
+              <row>1</row>
+              <col>6</col>
+              <pref-width>90</pref-width>
+              <live>true</live>
+              <property>/environment/config/boundary/entry[1]/turbulence-name</property>
+              <value>none</value>
+              <value>light</value>
+              <value>moderate</value>
+              <value>severe</value>
+              <binding>
+                <command>dialog-apply</command>
+                <object-name>boundary-1-turbulence</object-name>
+              </binding>
+              <binding>
+                <command>nasal</command>
+                <script>controller.setTurbulence("boundary",1);</script>
+              </binding>
+            </combo>
+
+            <input>
+              <name>boundary-0-elevation-ft</name>
+              <row>2</row>
+              <col>0</col>
+              <pref-width>52</pref-width>
+              <property>/environment/config/boundary/entry[0]/elevation-ft</property>
+              <live>true</live>
+              <binding>
+                <command>dialog-apply</command>
+                <object-name>boundary-0-elevation-ft</object-name>
+              </binding>
+            </input>
+
+            <input>
+              <name>boundary-0-wind-from-heading-deg</name>
+              <row>2</row>
+              <col>1</col>
+              <pref-width>40</pref-width>
+              <property>/environment/config/boundary/entry[0]/wind-from-heading-deg</property>
+              <live>true</live>
+              <binding>
+                <command>dialog-apply</command>
+                <object-name>boundary-0-wind-from-heading-deg</object-name>
+              </binding>
+            </input>
+
+            <input>
+              <name>boundary-0-wind-speed-kt</name>
+              <row>2</row>
+              <col>2</col>
+              <pref-width>35</pref-width>
+              <property>/environment/config/boundary/entry[0]/wind-speed-kt</property>
+              <live>true</live>
+              <binding>
+                <command>dialog-apply</command>
+                <object-name>boundary-0-wind-speed-kt</object-name>
+              </binding>
+            </input>
+
+            <input>
+              <name>boundary-0-visibility-m</name>
+              <row>2</row>
+              <col>3</col>
+              <pref-width>55</pref-width>
+              <property>/environment/config/boundary/entry[0]/visibility-m</property>
+              <live>true</live>
+              <binding>
+                <command>dialog-apply</command>
+                <object-name>boundary-0-visibility-m</object-name>
+              </binding>
+            </input>
+
+            <input>
+              <name>boundary-0-temperature-degc</name>
+              <row>2</row>
+              <col>4</col>
+              <pref-width>60</pref-width>
+              <property>/environment/config/boundary/entry[0]/temperature-degc</property>
+              <live>true</live>
+              <binding>
+                <command>dialog-apply</command>
+                <object-name>boundary-0-temperature-degc</object-name>
+              </binding>
+            </input>
+
+            <input>
+              <name>boundary-0-dewpoint-degc</name>
+              <row>2</row>
+              <col>5</col>
+              <pref-width>60</pref-width>
+              <property>/environment/config/boundary/entry[0]/dewpoint-degc</property>
+              <live>true</live>
+              <binding>
+                <command>dialog-apply</command>
+                <object-name>boundary-0-dewpoint-degc</object-name>
+              </binding>
+            </input>
+
+            <combo>
+              <name>boundary-0-turbulence</name>
+              <row>2</row>
+              <col>6</col>
+              <pref-width>90</pref-width>
+              <live>true</live>
+              <property>/environment/config/boundary/entry[0]/turbulence-name</property>
+              <value>none</value>
+              <value>light</value>
+              <value>moderate</value>
+              <value>severe</value>
+              <binding>
+                <command>dialog-apply</command>
+                <object-name>boundary-0-turbulence</object-name>
+              </binding>
+              <binding>
+                <command>nasal</command>
+                <script>controller.setTurbulence("boundary",0);</script>
+              </binding>
+            </combo>
+
+          </group>
+          <empty>
+            <stretch>true</stretch>
+          </empty>
+        </group>
+
+      </group>
+      <!-- Boundary  End -->
+
+    </group>
+    <!-- Right Column -->
+
+  </group>
+
+  <hrule/>
+
+  <group>
+    <empty>
+      <stretch>true</stretch>
+    </empty>
+    <layout>hbox</layout>
+    <button>
+      <legend>Close</legend>
+      <default>true</default>
+      <key>Esc</key>
+      <binding>
+        <command>dialog-close</command>
+      </binding>
+    </button>
+    <empty>
+      <stretch>true</stretch>
+    </empty>
+  </group>
+
+  <nasal>
+    <open><![CDATA[
+        var normalize_string = func(src) {
+          if( src == nil ) src = "";
+          var dst = "";
+          for( var i = 0; i < size(src); i+=1 ) {
+            if( src[i] == `\n` or src[i] == `\r` )
+              src[i] = ` `;
+
+            if( i != 0 and src[i] == ` ` and src[i-1] == ` ` )
+              continue;
+
+            dst = dst ~ " ";
+            dst[size(dst)-1] = src[i];
+          }
+          return dst;
+        }
+
+      var GlobalWeatherDialogController = {
+
+        new : func( dlgRoot ) {
+          var obj = { parents: [GlobalWeatherDialogController] };
+          obj.dlgRoot = dlgRoot;
+          obj.base = "sim/gui/dialogs/weather-scenario";
+          obj.baseN = props.globals.getNode( obj.base, 1 );
+
+          return obj;
+        },
+
+        open : func {
+          for( var i = 0; i < 5; i+=1 )
+            me.initTurbulence("aloft", i );
+
+          for( var i = 0; i < 2; i+=1 )
+            me.initTurbulence("boundary", i );
+        },
+
+        close : func {
+        },
+
+        setTurbulence : func( where, idx ) {
+          var propPath = "/environment/config/" ~ where ~ "/entry[" ~ idx ~ "]/";
+          setprop( propPath ~ "turbulence/magnitude-norm", 
+            me.turbulenceNames[getprop(propPath ~ "turbulence-name")]/(size(me.turbulenceNames)-1) );
+        },
+
+        initTurbulence : func( where, idx ) {
+          var propPath = "/environment/config/" ~ where ~ "/entry[" ~ idx ~ "]/";
+          var turb = getprop( propPath ~ "turbulence/magnitude-norm" ) * (size(me.turbulenceNames)-1);
+          turb = int(int(10*turb+5)/10); # round to nearest integer
+          foreach( var t; keys(me.turbulenceNames) ) {
+            if( me.turbulenceNames[t] == turb ) {
+              setprop( propPath ~ "turbulence-name", t );
+              break;
+            }
+          }
+        },
+
+        turbulenceNames : { "none" : 0, "light" : 1, "moderate" : 2, "severe" : 3 },
+
+      };
+
+      var controller = GlobalWeatherDialogController.new( cmdarg() );
+      controller.open();
+    ]]></open>
+
+    <close><![CDATA[
+      controller.close();
+    ]]></close>
+  </nasal>
+</PropertyList>

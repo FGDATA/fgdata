@@ -1,0 +1,615 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<sim>
+		<description>UFO from the 'White Project' of the UNESCO</description>
+		<author>ET</author>
+
+        <long-description>With the UFO you can place 3D objects in the FlightGear scenery, 
+            and inspect the scenery without worrying about crashing.</long-description>
+        <fr>
+            <long-description>Avec l'UFO (OVNI) vous pouvez placer des objets 3D dans les scènes de FlightGear scenery</long-description>
+        </fr>
+                
+                
+        <tags>
+            <tag>fictional</tag>
+            <tag>spaceship</tag>
+        </tags>
+            
+		<flight-model>ufo</flight-model>
+
+		<sound>
+			<path>Aircraft/ufo/ufo-sound.xml</path>
+		</sound>
+
+		<panel>
+			<visibility>false</visibility>
+			<path>Aircraft/ufo/Instruments/panel.xml</path>
+		</panel>
+
+		<model>
+			<path>Aircraft/ufo/Models/ufo.xml</path>
+			<always-show-in-MP type="bool">false</always-show-in-MP>
+		</model>
+
+		<instrumentation>
+			<path>Aircraft/ufo/Instruments/instrumentation.xml</path>
+		</instrumentation>
+
+		<!--current-view>
+			<view-number>-100</view-number>
+		</current-view-->
+
+		<view n="0">
+			<internal type="bool">true</internal>
+			<config>
+				<limits>
+					<enabled type="bool">false</enabled>
+				</limits>
+			</config>
+		</view>
+
+		<view n="100">
+			<name>Camera View</name>
+			<!--
+				same as "Cockpit View", but different index, so that it doesn't hide
+				parts of aircraft that are unselected for view number 0
+			-->
+			<enabled type="bool">false</enabled>
+			<type>lookfrom</type>
+			<internal type="bool">false</internal>
+			<config>
+				<from-model type="bool">true</from-model>
+				<from-model-idx type="int">0</from-model-idx>
+				<ground-level-nearplane-m type="double">0.5f</ground-level-nearplane-m>
+				<default-field-of-view-deg type="double">55.0</default-field-of-view-deg>
+				<default-pitch-deg type="double">0</default-pitch-deg>
+				<default-heading-deg type="double">0</default-heading-deg>
+				<front-direction-deg type="double">0</front-direction-deg>
+				<front-left-direction-deg type="double">45</front-left-direction-deg>
+				<left-direction-deg type="double">90</left-direction-deg>
+				<back-left-direction-deg type="double">135</back-left-direction-deg>
+				<back-direction-deg type="double">180</back-direction-deg>
+				<back-right-direction-deg type="double">225</back-right-direction-deg>
+				<right-direction-deg type="double">270</right-direction-deg>
+				<front-right-direction-deg type="double">315</front-right-direction-deg>
+				<dynamic-view type="bool">true</dynamic-view>
+			</config>
+		</view>
+
+		<help>
+			<title>UFO</title>
+			<key>
+				<name>joystick fire button</name>
+				<desc>fly backwards</desc>
+			</key>
+			<key>
+				<name>b</name>
+				<desc>fly backwards</desc>
+			</key>
+			<key>
+				<name>[ ]</name>
+				<desc>decrease/increase maximum speed</desc>
+			</key>
+			<key>
+				<name>Home</name>
+				<desc>Hover up</desc>
+			</key>
+			<key>
+				<name>End</name>
+				<desc>Hover down</desc>
+			</key>
+			<key>
+				<name>mouse click</name>
+				<desc>add model to scenery</desc>
+			</key>
+			<key>
+				<name>Ctrl + mouse click</name>
+				<desc>select nearest object</desc>
+			</key>
+			<key>
+				<name>Shift + mouse click</name>
+				<desc>add new object to selection</desc>
+			</key>
+			<key>
+				<name>Shift + Ctrl + mouse click</name>
+				<desc>add nearest object to selection</desc>
+			</key>
+			<key>
+				<name>Alt + mouse click</name>
+				<desc>move selected object(s) to new place</desc>
+			</key>
+			<key>
+				<name>Ctrl + Alt + mouse click</name>
+				<desc>Print lat/lon/alt and landclass of mouse click position</desc>
+			</key>
+			<key>
+				<name>g (gear) + click</name>
+				<desc>teleport to click position, looking at active object</desc>
+			</key>
+			<key>
+				<name>Ctrl + PgUp/PgDn</name>
+				<desc>cycle through model list</desc>
+			</key>
+			<key>
+				<name>Ctrl + cursor/arrow keys</name>
+				<desc>move selected object(s) away/nearer/left/right</desc>
+			</key>
+			<key>
+				<name>backspace</name>
+				<desc>remove selected object(s)</desc>
+			</key>
+			<key>
+				<name>d</name>
+				<desc>dump object data to terminal</desc>
+			</key>
+			<key>
+				<name>e</name>
+				<desc>export object data</desc>
+			</key>
+			<key>
+				<name>l</name>
+				<desc>load model file via file selector</desc>
+			</key>
+			<key>
+				<name>m</name>
+				<desc>toggle marker for active (= last selected) object</desc>
+			</key>
+			<key>
+				<name>n</name>
+				<desc>export flightplan</desc>
+			</key>
+			<key>
+				<name>P</name>
+				<desc>toggle radar panel (see Ctrl-C for the control areas)</desc>
+			</key>
+			<key>
+				<name>space</name>
+				<desc>open/close model select dialog</desc>
+			</key>
+			<key>
+				<name>=</name>
+				<desc>open/close cursor dialog</desc>
+			</key>
+
+			<line>Pre-select initial model (path relative to $FG_ROOT):</line>
+			<line>&#32;&#32;&#45;&#45;prop:cursor=Model/path.xml</line>
+			<line/>
+			<line>Set directories that are scanned for models (comma separated and</line>
+			<line>relative to $FG_ROOT; default: Models):</line>
+			<line>&#32;&#32;&#45;&#45;prop:source=Models,Scenery/Objects</line>
+			<line/>
+			<line>Exported data are written to:</line>
+			<line>&#32;&#32;~/.fgfs/Export/ufo-model-export.xml   (Unix)</line>
+			<line>&#32;&#32;%APPDATA%\flightgear.org\Export\ufo-model-export.xml   (Microsoft Windows)</line>
+			<line/>
+			<line>In the adjustment dialog (= key) holding the Ctrl or Shift key down</line>
+			<line>makes slider effects coarser/finer.</line>
+		</help>
+	</sim>
+
+	<input>
+		<keyboard>
+			<key n="8">
+				<name>Backspace</name>
+				<desc>Remove selected object</desc>
+				<binding>
+					<command>nasal</command>
+					<script>ufo.modelmgr.remove_selected()</script>
+				</binding>
+			</key>
+
+			<key n="7">
+				<name>Ctrl-G</name>
+				<desc>Gear Up.</desc>
+				<binding>
+					<command>nasal</command>
+					<script>controls.gearDown(-1)</script>
+				</binding>
+				<mod-up>
+					<binding>
+						<command>nasal</command>
+						<script>controls.gearDown(0)</script>
+					</binding>
+				</mod-up>
+			</key>
+
+			<key n="61">
+				<name>=</name>
+				<desc>Show object adjustment dialog</desc>
+				<binding>
+					<command>nasal</command>
+					<script>ufo.adjust_dialog.toggle()</script>
+				</binding>
+			</key>
+
+			<key n="32">
+				<name>SPACE</name>
+				<desc>Show model select dialog</desc>
+				<binding>
+					<command>nasal</command>
+					<script>ufo.select_dialog.toggle()</script>
+				</binding>
+			</key>
+
+			<key n="99">
+				<name>c</name>
+				<desc>Clone selected objects</desc>
+				<binding>
+					<command>nasal</command>
+					<script>ufo.modelmgr.clone_selected()</script>
+				</binding>
+			</key>
+
+			<key n="100">
+				<name>d</name>
+				<desc>Dump coordinates</desc>
+				<binding>
+					<command>nasal</command>
+					<script>ufo.print_data()</script>
+				</binding>
+			</key>
+
+			<key n="101">
+				<name>e</name>
+				<desc>Export object data XML file</desc>
+				<binding>
+					<command>nasal</command>
+					<script>ufo.export_data()</script>
+				</binding>
+			</key>
+
+			<key n="108">
+				<name>l</name>
+				<desc>Open file selector</desc>
+				<binding>
+					<command>nasal</command>
+					<script>ufo.file_select_model()</script>
+				</binding>
+			</key>
+
+			<key n="109">
+				<name>m</name>
+				<desc>Toggle "active object" marker</desc>
+				<binding>
+					<command>nasal</command>
+					<script>ufo.modelmgr.toggle_marker()</script>
+				</binding>
+			</key>
+
+			<key n="110">
+				<name>n</name>
+				<desc>Export FlightPlan</desc>
+				<binding>
+					<command>nasal</command>
+					<script>ufo.export_flightplan()</script>
+				</binding>
+			</key>
+
+			<key n="360">
+				<name>PageUp</name>
+				<desc>Increase throttle or autopilot autothrottle.</desc>
+				<repeatable type="bool">true</repeatable>
+				<binding>
+					<command>nasal</command>
+					<script>
+						if (getprop("/devices/status/keyboard/ctrl")) {
+							ufo.modelmgr.cycle(1);
+						} else {
+							controls.incThrottle(0.01, 1.0)
+						}
+					</script>
+				</binding>
+				<mod-shift>
+					<desc>Look front right.</desc>
+					<binding>
+						<command>property-assign</command>
+						<property>/sim/current-view/goal-heading-offset-deg</property>
+						<property>/sim/view/config/front-right-direction-deg</property>
+					</binding>
+				</mod-shift>
+			</key>
+
+			<key n="361">
+				<name>PageDown</name>
+				<desc>Decrease throttle or autopilot autothrottle.</desc>
+				<repeatable type="bool">true</repeatable>
+				<binding>
+					<command>nasal</command>
+					<script>
+						if (getprop("/devices/status/keyboard/ctrl")) {
+							ufo.modelmgr.cycle(-1);
+						} else {
+							controls.incThrottle(-0.01, -1.0)
+						}
+					</script>
+				</binding>
+				<mod-shift>
+					<desc>Look back right.</desc>
+					<binding>
+						<command>property-assign</command>
+						<property>/sim/current-view/goal-heading-offset-deg</property>
+						<property>/sim/view/config/back-right-direction-deg</property>
+					</binding>
+				</mod-shift>
+			</key>
+
+			<key n="356">
+				<name>Left</name>
+				<desc>Move aileron left (or adjust AP heading.)</desc>
+				<repeatable type="bool">true</repeatable>
+				<binding>
+					<command>nasal</command>
+					<script>
+						if (getprop("/devices/status/keyboard/ctrl")) {
+							ufo.modelmgr.adjust("transversal", -1);
+						} else {
+							controls.incAileron(-0.05, -1.0);
+						}
+					</script>
+				</binding>
+				<mod-shift>
+					<desc>Look left.</desc>
+					<binding>
+						<command>nasal</command>
+						<script>
+							if (getprop("/devices/status/keyboard/ctrl")) {
+								ufo.modelmgr.adjust("transversal", -10);
+							} else {
+								setprop("/sim/current-view/goal-heading-offset-deg",
+									getprop("/sim/view/config/left-direction-deg"));
+							}
+						</script>
+					</binding>
+				</mod-shift>
+			</key>
+
+			<key n="357">
+				<name>Up</name>
+				<desc>Increase elevator or autopilot altitude.</desc>
+				<repeatable type="bool">true</repeatable>
+				<binding>
+					<command>nasal</command>
+					<script>
+						if (getprop("/devices/status/keyboard/ctrl")) {
+							ufo.modelmgr.adjust("longitudinal", 1);
+						} else {
+							controls.incElevator(0.05, -100);
+						}
+					</script>
+				</binding>
+				<mod-shift>
+					<desc>Look forward.</desc>
+					<binding>
+						<command>nasal</command>
+						<script>
+							if (getprop("/devices/status/keyboard/ctrl")) {
+								ufo.modelmgr.adjust("longitudinal", 10);
+							} else {
+								setprop("/sim/current-view/goal-heading-offset-deg",
+									getprop("/sim/view/config/front-direction-deg"));
+							}
+						</script>
+					</binding>
+				</mod-shift>
+			</key>
+
+			<key n="358">
+				<name>Right</name>
+				<desc>Move aileron right (or adjust AP heading.)</desc>
+				<repeatable type="bool">true</repeatable>
+				<binding>
+					<command>nasal</command>
+					<script>
+						if (getprop("/devices/status/keyboard/ctrl")) {
+							ufo.modelmgr.adjust("transversal", 1);
+						} else {
+							controls.incAileron(0.05, 1.0);
+						}
+					</script>
+					<step type="double">0.05</step>
+				</binding>
+				<mod-shift>
+					<desc>Look right.</desc>
+					<binding>
+						<command>nasal</command>
+						<script>
+							if (getprop("/devices/status/keyboard/ctrl")) {
+								ufo.modelmgr.adjust("transversal", 10);
+							} else {
+								setprop("/sim/current-view/goal-heading-offset-deg",
+									getprop("/sim/view/config/right-direction-deg"));
+							}
+						</script>
+					</binding>
+				</mod-shift>
+			</key>
+
+			<key n="359">
+				<name>Down</name>
+				<desc>Decrease elevator or autopilot altitude.</desc>
+				<repeatable type="bool">true</repeatable>
+				<binding>
+					<command>nasal</command>
+					<script>
+						if (getprop("/devices/status/keyboard/ctrl")) {
+							ufo.modelmgr.adjust("longitudinal", -1);
+						} else {
+							controls.incElevator(-0.05, 100);
+						}
+					</script>
+				</binding>
+				<mod-shift>
+					<desc>Look backwards.</desc>
+					<binding>
+						<command>nasal</command>
+						<script>
+							if (getprop("/devices/status/keyboard/ctrl")) {
+								ufo.modelmgr.adjust("longitudinal", -10);
+							} else {
+								setprop("/sim/current-view/goal-heading-offset-deg",
+									getprop("/sim/view/config/back-direction-deg"));
+							}
+						</script>
+					</binding>
+				</mod-shift>
+			</key>
+
+			<key n="362">
+				<name>Home</name>
+				<desc>Hover Up</desc>
+				<binding>
+					<command>nasal</command>
+					<script>ufo.up(1)</script>
+				</binding>
+				<mod-up>
+					<binding>
+						<command>nasal</command>
+						<script>ufo.up(0)</script>
+					</binding>
+				</mod-up>
+			</key>
+
+			<key n="363">
+				<name>End</name>
+				<desc>Hover Down</desc>
+				<binding>
+					<command>nasal</command>
+					<script>ufo.up(-1)</script>
+				</binding>
+				<mod-up>
+					<binding>
+						<command>nasal</command>
+						<script>ufo.up(0)</script>
+					</binding>
+				</mod-up>
+			</key>
+
+			<key n="311">
+				<name>KP7</name>
+				<desc>Hover Up</desc>
+				<binding>
+					<command>nasal</command>
+					<script>ufo.up(1)</script>
+				</binding>
+				<mod-up>
+					<binding>
+						<command>nasal</command>
+						<script>ufo.up(0)</script>
+					</binding>
+				</mod-up>
+			</key>
+
+			<key n="305">
+				<name>KP1</name>
+				<desc>Hover Down</desc>
+				<binding>
+					<command>nasal</command>
+					<script>ufo.up(-1)</script>
+				</binding>
+				<mod-up>
+					<binding>
+						<command>nasal</command>
+						<script>ufo.up(0)</script>
+					</binding>
+				</mod-up>
+			</key>
+		</keyboard>
+	</input>
+
+	<!-- default model -->
+	<cursor type="string">Aircraft/ufo/Models/cursor.ac</cursor>
+
+	<!-- subdirs of $FG_ROOT to search models in. Comma separated, e.g. "Models,Scenery/Objects/w130n30" -->
+	<source type="string">Models</source>
+
+	<nasal>
+		<ufo>
+			<file>Aircraft/ufo/ufo.nas</file>
+		</ufo>
+
+		<aar>
+			<file>Aircraft/Generic/aar.nas</file>
+		</aar>
+	</nasal>
+
+	<systems>
+		<refuel>
+			<type>boom</type>
+			<type>probe</type>
+		</refuel>
+	</systems>
+
+	<instrumentation>
+		<radar>
+			<serviceable type="bool">true</serviceable>
+			<switch type="string" archive="y">on</switch>
+			<range type="double" archive="y">40</range>
+			<mode-control type="int" archive="y">2</mode-control>
+			<limit-deg type="double">180</limit-deg>
+
+			<mode type="string" archive="y">WX</mode>
+			<lightning type="bool" archive="y">true</lightning>
+			<display-mode type="string" archive="y">plan</display-mode>
+
+			<display-controls>
+				<WX type="bool" archive="y">false</WX>
+				<data type="bool" archive="y">true</data>
+				<pos type="bool" archive="y">true</pos>
+			</display-controls>
+		</radar>
+		<nav n="0">
+			<volume type="double">0</volume>
+		</nav>
+		<nav n="1">
+			<volume type="double">0</volume>
+		</nav>
+		<!-- mk-viii is disabled (enable in instruments.xml for testing purposes) -->
+        <mk-viii>  <!-- mk-viii configuration, see: http://wiki.flightgear.org/index.php/GPWS -->
+            <serviceable>true</serviceable>     <!-- EGPWS_ENABLE -->
+            <configuration-module>
+                <category-1>                    <!-- AIRCRAFT_MODE_TYPE_SELECT -->
+                   255 <!-- aircraft type T1, fast turbofan -->
+                </category-1>
+                <category-4>                    <!-- ALTITUDE_CALLOUTS -->
+                    13 <!-- enable all altitude callouts -->
+                </category-4>
+                <category-8>                    <!-- RADIO_ALTITUDE_INPUT_SELECT -->
+                     2
+                </category-8>
+                <category-13>                   <!-- INPUT_OUTPUT_DISCRETE_TYPE_SELECT -->
+                     5 <!-- flashing warning lamp -->
+                </category-13>
+            </configuration-module>
+            <voice>
+                <file-prefix type="string">Sounds/mk-viii/</file-prefix>
+            </voice>
+            <inputs>                            <!-- Module I/O -->
+                <arinc429>
+                    <!-- provide fixed value for decision height -->
+                    <decision-height-ncd> false </decision-height-ncd>
+                    <decision-height> 250 </decision-height>
+                </arinc429>
+            </inputs>
+            <speaker>                           <!-- Speaker Configuration -->
+                <max-dist type="double"> 200.0 </max-dist>        <!-- Max. distance where speaker is heard -->
+                <reference-dist type="double"> 2 </reference-dist> <!-- Distance to pilot -->
+                <volume type="double"> 0.6 </volume>          <!-- Volume at reference distance -->
+            </speaker>
+        </mk-viii>
+	</instrumentation>
+
+	<gear>
+		<gear>
+			<!-- hint for the route manager -->
+			<wow type="bool">false</wow>
+		</gear>
+	</gear>
+
+	<autopilot>
+		<route-manager>
+			<min-lock-altitude-agl-ft type="double">-10000</min-lock-altitude-agl-ft>
+		</route-manager>
+	</autopilot>
+</PropertyList>

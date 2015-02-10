@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+Author : Syd Adams
+GNX-XLS Flight Computer
+-->
+<PropertyList>
+
+<path>gnx.ac</path>
+
+    <animation>
+        <type>material</type>
+        <object-name>GNX.btns</object-name>
+        <emission>
+            <red>0.025</red>
+            <green>0.015</green>
+            <blue>0.010</blue>
+            <factor-prop>systems/electrical/outputs/instrument-lights</factor-prop>
+        </emission>
+    </animation>
+
+</PropertyList>

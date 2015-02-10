@@ -1,0 +1,158 @@
+<?xml version="1.0"?>
+<!--
+KI-256 FlightDirector Indicator
+Syd Adams
+-->
+
+<PropertyList>
+
+    <path>ki256.ac</path>
+    
+    <animation>
+        <type>material</type>
+        <object-name>KI256.ring</object-name>
+        <object-name>KI256.pitch</object-name>
+        <object-name>KI256.plane</object-name>
+        <object-name>FDbars</object-name>
+        <object-name>KI256.markers</object-name>
+        <object-name>Lpivot</object-name>
+        <object-name>Rpivot</object-name>
+        <emission>
+            <red>0.028</red>
+            <green>0.014</green>
+            <blue>0.007</blue>
+            <factor-prop>systems/electrical/outputs/instrument-lights</factor-prop>
+        </emission>
+    </animation>
+    
+<!-- 	KI-256		-->	
+    
+    <animation>
+        <type>rotate</type>
+        <object-name>KI256.ring</object-name>
+        <object-name>KI256.pitch</object-name>
+        <property>orientation/roll-deg</property>
+        <center>
+            <x-m>0.0</x-m>
+            <y-m>0.0</y-m>
+            <z-m>0.0</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+    </animation>
+
+    <animation>
+        <type>translate</type>
+        <object-name>KI256.pitch</object-name>
+        <object-name>FDbars</object-name>
+        <object-name>Lpivot</object-name>
+        <object-name>Rpivot</object-name>
+        <property>orientation/pitch-deg</property>
+        <interpolation>
+            <entry><ind>-30.0</ind><dep>0.0120</dep></entry>
+            <entry><ind>0.0</ind><dep>0.0</dep></entry>
+            <entry><ind>30.0</ind><dep>-0.0120</dep></entry>
+        </interpolation>
+        <center>
+            <x-m>0.0</x-m>
+            <y-m>0.0</y-m>
+            <z-m>0.0</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>0</y>
+            <z>1</z>
+        </axis>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>KI256.DH.001</object-name>
+        <condition>
+            <property>instrumentation/kfc200/dh-alert</property>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>FDbars</object-name>
+        <object-name>Lpivot</object-name>
+        <object-name>Rpivot</object-name>
+        <condition>
+            <property>instrumentation/kfc200/fd-on</property>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>translate</type>
+        <object-name>FDbars</object-name>
+        <object-name>Lpivot</object-name>
+        <object-name>Rpivot</object-name>
+        <property>autopilot/settings/target-pitch-deg</property>
+        <factor>0.0004</factor>
+        <axis>
+            <x>0.0</x>
+            <y>0.0</y>
+            <z>1.0</z>
+        </axis>
+        <center>
+            <x-m>0.0</x-m>
+            <y-m>0</y-m>
+            <z-m>0.0</z-m>
+        </center>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>FDbars</object-name>
+        <object-name>Lpivot</object-name>
+        <object-name>Rpivot</object-name>
+        <property>autopilot/internal/target-roll-deg</property>
+        <axis>
+            <x>-1.0</x>
+            <y>0.0</y>
+            <z>0.0</z>
+        </axis>
+        <center>
+            <x-m>0.004</x-m>
+            <y-m>0</y-m>
+            <z-m>0.0</z-m>
+        </center>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>Lpivot</object-name>
+        <property>autopilot/internal/target-roll-deg</property>
+        <axis>
+            <x>1.0</x>
+            <y>0.0</y>
+            <z>0.0</z>
+        </axis>
+        <center>
+            <x-m>0.00</x-m>
+            <y-m>-0.023</y-m>
+            <z-m>-0.003</z-m>
+        </center>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>Rpivot</object-name>
+        <property>autopilot/internal/target-roll-deg</property>
+        <axis>
+            <x>1.0</x>
+            <y>0.0</y>
+            <z>0.0</z>
+        </axis>
+        <center>
+            <x-m>0.00</x-m>
+            <y-m>0.023</y-m>
+            <z-m>-0.003</z-m>
+        </center>
+    </animation>
+ 
+</PropertyList>

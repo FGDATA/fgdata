@@ -1,0 +1,240 @@
+Configuring 3D Clouds
+=====================
+
+3D clouds can be created in two ways:
+- By placing individual clouds using a command (e.g. from Nasal)
+- Using the global weather function, which reads cloud definition from
+  an XML file.
+
+Placing Clouds Individually
+===========================
+
+Clouds are created using the "add-cloud" command, passing a property
+node defining the location and characterstics of the cloud.
+
+Location is defined by the following properties:
+
+<layer>      - The cloud layer number to add the cloud to. (default 0)
+<index>      - A unique identifier for the cloud in the layer. If a cloud
+               already exists with this index, the new cloud will not be
+               created, and 0 is returned.
+<lon-deg>    - Longitude to place the cloud, in degrees (default 0)
+<lat-deg>    - Latitude t place the cloud, in degrees (default 0)
+<alt-ft>     - Altitude to place the cloud, relative to the layer (!) in ft
+               (default 0)
+<x-offset-m> - Offset in m from the lon-deg. +ve is south (default 0)
+<y-offset-m> - Offset in m from the lat-deg. +ve is east (default 0)
+
+The cloud itself is built up of a number of "sprites" - simple 2D textures
+that are always rotated to be facing the viewer. These sprites are handled
+by a OpenGL Shader - a small program that is run on your graphics card.
+
+The cloud is defined by the following properties:
+
+<min-cloud-width-m>   - minimum width of the cloud in meters (default 500)
+<max-cloud-width-m>   - maximum width of the cloud (default min-cloud-width-m*1.5)
+<min-cloud-height-m>  - minimum height of the cloud (default 400)
+<max-cloud-height-m>  - maximum height of the cloud (default min-cloud-height-m*1.5)
+<texture>             - texture file of sprites to use (default cl_cumulus.png)
+<num-textures-x>      - number of cloud textures defined horizontally in the
+                        texture file (default 4)
+<num-textures-y>      - number of cloud textures defined vertically in the
+                        texture file (default 4)
+<height-map-texture>  - whether to choose the vertical texture index based on
+                        sprite height within the clouds (default false)
+<num-sprites>         - Number of sprite to generate for the cloud (default 20)
+<min-sprite-width-m>  - minimum width of the sprites used to create the cloud
+                        (default 200)
+<max-sprite-width-m>  - maximum width of the sprites used to create the cloud
+                        (default min-sprite-width-m*1.5)
+<min-sprite-height-m> - minimum height of the spites used to create the cloud
+                        (default 150)
+<max-sprite-height-m> - maximum height of the sprites used to create the cloud
+                        (default min-sprite-height-m*1.5)
+<z-scale>             - vertical scaling factor to apply to to the sprite after
+                        billboarding. A small value would create a sprite that
+                        looks squashed when viewed from the side. (default 1.0)
+<min-bottom-lighting-factor> - See Shading below (default 1.0)
+<max-bottom-lighting-factor> - See Shading below (default min-...-factor + 0.1)
+<min-middle-lighting-factor> - See Shading below (default 1.0)
+<max-middle-lighting-factor> - See Shading below (default min-...-factor + 0.1)
+<min-top-lighting-factor>    - See Shading below (default 1.0)
+<max-top-lighting-factor>    - See Shading below (default min-...-factor + 0.1)
+<min-shade-lighting-factor>  - See Shading below (default 0.5)
+<max-shade-lighting-factor>  - See Shading below (default min-...-factor + 0.1)
+                                                
+Shading
+-------
+
+the [min|max]-...-lighting-factor properties allow you to define diffuse lighting 
+multipliers to the bottom, middle, top, sunny and shaded parts of the cloud. In 
+each case, individual clouds will have a random multiplier between the min and 
+max values used to allow for some variation between individual clouds.
+
+The top, middle and bottom lighting factors are applied based on the pixels vertical 
+positon in the cloud. A linear interpolation is used either between top/middle (if
+the pixel is above the middle of the cloud) or middle/bottom (if the pixel is below
+the middle of the cloud). 
+
+The top factor is also applied to _all_ pixels on the sunny side of the cloud. The
+shade factor is applied based on the pixel position away from the sun, linearly
+interpolated from top to shade. E.g this is not a straight linear interpolation
+from top to shade across the entire cloud.
+
+The final lighting factor is determined by the minimum of the vertical factor and
+the sunny/shade factor. Note that this is applied to the individual pixels, not
+sprites.
+
+Textures
+--------
+
+The texture to use for the sprites is defined in the <texture> tag.
+To allow some variation, you can create a texture file containing multiple
+sprites in a grid, and define the <num-textures-x/y> tags. The code
+decides which texture to use for a given sprite : randomly in the x-direction
+and based on the altitude of the sprite within the cloud in the y-direction
+if <height-map-texture> is set. Therefore, you should put sprite textures 
+you want to use for the bottom of your cloud at the bottom of the texture 
+file, and those you want to use for the top of the cloud at the top of the 
+texture file.
+
+For example, the following Nasal snippet will create a cloud immediately above the
+aircraft at an altitude of 1000 ft above /environment/clouds/layer[0]/elevation-ft :
+
+var p = props.Node.new({ "layer" : 0,
+                         "index": 1,
+                         "lat-deg": getprop("/position/latitude-deg"),
+                         "lon-deg": getprop("/position/longitude-deg"),
+                         "alt-ft" : 1000 });
+fgcommand("add-cloud", p);
+
+Moving Individual Clouds
+========================
+
+Clouds may be moved by using the "move-cloud" command. This takes the following
+property arguments.
+
+<layer>      - The cloud layer number containing the cloud to move. (default 0)
+<index>      - The unique identifier of the cloud to move.
+<lon-deg>    - Longitude to place the cloud, in degrees (default 0)
+<lat-deg>    - Latitude t place the cloud, in degrees (default 0)
+<alt-ft>     - Altitude to place the cloud, relative to the layer (!) in ft
+               (default 0)
+<x-offset-m> - Offset in m from the lon-deg. +ve is south (default 0)
+<y-offset-m> - Offset in m from the lat-deg. +ve is east (default 0)
+
+Deleting Individual Clouds
+===========================
+
+Clouds may be deleted by using the "del-cloud" command. This takes the following
+property arguments.
+
+<layer>      - The cloud layer number containing the cloud to delete. (default 0)
+<index>      - The unique identifier of the cloud to delete.
+
+Global 3D Clouds
+================
+
+The global weather system uses sets of clouds defined in 
+FG_ROOT/Environment/cloudlayers.xml
+
+The file has 3 distinct sections: layers, cloud boxes and clouds,
+described below.
+
+Notes for those editing clouds:
+- All distances are in m. Note that this is in contrast to cloud heights
+  in METAR etc. which are in ft.
+- The XML file is loaded into the properties system, so you can modify
+  the settings in-sim, and see the results by re-generating the cloud
+  layer. The simplest way to do this is to disable METAR, and control
+  the cloud layers using the Clouds dialog, and in particular the coverage.
+- Texture files are in .png format, and have a transparent background.
+  To make the textures easier to edit, create a black layer behind them,
+  so there is some contrast between the background and the white cloud.
+  Having a grid based on the texture dimensions also helps, so you don't
+  bleed over the edges, which causes ugly sharp horizontal and vertical
+  lines.
+
+Clouds
+======
+
+The cloud definitions are as described above for placing individual
+clouds, but no position information is used (this is defined in the
+cloud box and layers below).
+
+Cloud Boxes
+===========
+
+The <boxes> section contains definitions of groups of cloads,for example
+an entire towering CB mass.
+
+The <boxes> section contains a number of named types, which are referenced
+by the <layers> section, described below. Therefore, the names used are
+completely user-defined.
+
+Each of the named section consists of one or more <box> section,
+defining a particular cloud type
+
+Each <box> section contains the following tags:
+
+<type>   - The cloud to use, defined above
+<count>  - The number of clouds to generate (+/- 50%)
+<width>  - The x and y within which these clouds should be generated
+<height> - The height within which the clouds should be generated
+<hdist>  - The horizontal distribution of the clouds within the area.
+           Equates to a sum of random distributions. Defaults to 1.
+           1 = even distribution, 2 = distributed towards the center.
+           3 = very strongly distributed towards the center.
+<vdist>  - The vertical distribution of the clouds. As for hdist.
+
+
+If the  /sim/rendering/clouds3d-density is less than 1.0 (100%), then a
+proportional number of clouds will be displayed.
+
+The following example shows a stratus cloud group, which consists of 5
+st-large clouds and 5 st-small clouds, distributed in a box 2000mx2000m,
+and 100m high, evenly distributed.
+
+    <st>
+      <box>
+        <type>st-large</type>
+        <count>5</count>
+        <width>2000</width>
+        <height>100</height>
+      </box>
+      <box>
+        <type>st-small</type>
+        <count>5</count>
+        <width>2000</width>
+        <height>100</height>
+      </box>
+    </st>
+
+
+Layers
+======
+
+The <layers> section contains definitions for a specific layer type.
+The layer type is derived from the METAR/Weather settings by FG itself.
+
+Each layer type is a named XML tag, i.e.: ns, sc, st, ac, cb, cu.
+If a layer type is not defined, then a 2D layer is used instead.
+
+The layer type contains one or more <cloud> definitions. This
+defines a type of cloud box, and a weighting for that type (<count>).
+
+For example, the following XML fragment will produce 3 "cb" cloud boxes
+for every 1 "cu":
+
+<cloud>
+    <name>cb</name>
+    <count>3</count>
+</cloud>
+<cloud>
+    <name>cu</name>
+    <count>1</count>
+</cloud>
+
+Clouds are randomly distributed across the sky in the x/y plane, but the
+height of them is set by the weather conditions, with a random height range
+applied, defined by <grid-z-rand>

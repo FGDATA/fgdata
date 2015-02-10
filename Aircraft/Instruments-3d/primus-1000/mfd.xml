@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<!--
+Author : Syd Adams
+Primus 1000 MFD
+-->
+<PropertyList>
+
+    <path>mfd.ac</path>
+
+    <animation>
+        <type>select</type>
+        <object-name>MFD.arc</object-name>
+        <object-name>MFD.range</object-name>
+        <object-name>MFD.bug</object-name>
+        <object-name>MFD.hdg</object-name>
+        <object-name>MFD.lines</object-name>
+        <condition>
+            <property>instrumentation/primus1000/mfd/serviceable</property>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>MFD.page</object-name>
+        <condition>
+            <and>
+                <property>instrumentation/primus1000/mfd/serviceable</property>
+                <equals>
+                    <property>instrumentation/primus1000/mfd/mode</property>
+                    <value>map</value>
+                </equals>
+            </and>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>texrotate</type>
+        <object-name>MFD.arc</object-name>
+        <property>orientation/heading-magnetic-deg</property>
+        <center>
+            <x>0.75</x>
+            <y>0.75</y>
+            <z>0.0</z>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>0</y>
+            <z>-1</z>
+        </axis>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>MFD.bug</object-name>
+        <property>autopilot/internal/fdm-heading-bug-error-deg</property>
+        <interpolate>
+            <entry><ind>-179.9</ind><dep>-65.1</dep></entry>
+            <entry><ind>-65</ind><dep>-65</dep></entry>
+            <entry><ind>0</ind><dep>0</dep></entry>
+            <entry><ind>65</ind><dep>65</dep></entry>
+            <entry><ind>179.9</ind><dep>65.1</dep></entry>
+        </interpolate>
+        <axis>
+            <x>-1.0</x>
+            <y>0.0</y>
+            <z>0.0</z>
+        </axis>
+        <center>
+            <x-m>0.0</x-m>
+            <y-m>0</y-m>
+            <z-m>0.027</z-m>
+        </center>
+    </animation>
+
+</PropertyList>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<PropertyList>
+
+  <model>
+    <path>AI/Aircraft/A330-MRTT/Models/A330-MRTT.xml</path>
+    <offsets>
+      <x-m>  0.0 </x-m>
+      <y-m>  0.0 </y-m>
+      <z-m> -0.2 </z-m>
+      <pitch-deg> -1 </pitch-deg>
+    </offsets>        
+  </model>
+
+  <multiplay>
+    <refuel>
+      <type>probe</type>
+      <type>boom</type>
+    </refuel>
+  </multiplay>
+
+</PropertyList>

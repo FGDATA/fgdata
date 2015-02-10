@@ -1,0 +1,120 @@
+AC3Db
+MATERIAL "ac3dmat6" rgb 0.278 0.863 0.384  amb 0.278 0.863 0.384  emis 0 0 0  spec 0.224 0.224 0.224  shi 2  trans 0
+MATERIAL "ac3dmat12" rgb 0.267 0.267 0.267  amb 0.267 0.267 0.267  emis 0 0 0  spec 0.071 0.071 0.071  shi 3  trans 0
+OBJECT world
+kids 2
+OBJECT poly
+loc -2.02399 4.59657 1.62044
+texture "roof-windows.rgb"
+texrep 2 3
+texoff -0.01 0
+numvert 6
+13.046 -0.5936 -12.1095
+-9.10345 -0.5936 -12.1095
+13.046 -0.5936 8.99262
+13.046 1.04851 -1.62652
+-9.10345 -0.5936 8.99262
+-9.10345 1.04851 -1.62652
+numsurf 4
+SURF 0x0
+mat 1
+refs 3
+5 0.5 0
+0 0 1
+1 0 0
+SURF 0x0
+mat 1
+refs 3
+0 0 1
+5 0.5 0
+3 0.5 1
+SURF 0x0
+mat 1
+refs 3
+3 0.5 1
+4 1 0
+2 1 1
+SURF 0x0
+mat 1
+refs 3
+3 0.5 1
+5 0.5 0
+4 1 0
+kids 0
+OBJECT poly
+loc -2.02398 2.66762 1.62039
+texture "container.rgb"
+texrep 3 1
+numvert 10
+-9.10346 1.33535 -12.1094
+-9.10346 1.33535 8.99267
+-9.10346 2.97745 -1.62647
+13.046 1.33535 -12.1094
+13.046 1.33535 8.99267
+13.046 2.97745 -1.62647
+-9.10346 -2.52254 -12.1094
+13.046 -2.52254 -12.1094
+13.046 -2.52254 8.99267
+-9.10346 -2.52254 8.99267
+numsurf 10
+SURF 0x0
+mat 0
+refs 3
+0 0 1
+1 1 1
+2 0.5 1
+SURF 0x0
+mat 0
+refs 3
+4 0 1
+3 1 1
+5 0.5 1
+SURF 0x0
+mat 0
+refs 3
+3 0 1
+6 1 0
+0 1 1
+SURF 0x0
+mat 0
+refs 3
+6 1 0
+3 0 1
+7 0 0
+SURF 0x0
+mat 0
+refs 3
+3 1 1
+8 0 0
+7 1 0
+SURF 0x0
+mat 0
+refs 3
+8 0 0
+3 1 1
+4 0 1
+SURF 0x0
+mat 0
+refs 3
+8 1 0
+1 0 1
+9 0 0
+SURF 0x0
+mat 0
+refs 3
+1 0 1
+8 1 0
+4 1 1
+SURF 0x0
+mat 0
+refs 3
+1 1 1
+6 0 0
+9 1 0
+SURF 0x0
+mat 0
+refs 3
+6 0 0
+1 1 1
+0 0 1
+kids 0

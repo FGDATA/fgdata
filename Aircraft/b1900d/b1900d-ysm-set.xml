@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+
+<PropertyList include="b190common.xml">
+    <sim>
+         <flight-model>yasim</flight-model>
+        <aero>b1900d</aero>
+        <fuel-fraction>0.5</fuel-fraction>
+        <startup>
+            <splash-texture>Aircraft/b1900d/b1900dsplash.png</splash-texture>
+        </startup>
+
+
+
+    <weight n="0">
+        <name>Pilot</name>
+        <weight-lb>180</weight-lb>
+        <max-lb>250</max-lb>
+        <min-lb>100</min-lb>
+    </weight>
+
+    <weight n="1">
+        <name>Copilot</name>
+        <weight-lb>180</weight-lb>
+        <max-lb>250</max-lb>
+        <min-lb>0</min-lb>
+    </weight>
+
+    <weight n="2">
+        <name>Passengers</name>
+        <weight-lb>1000</weight-lb>
+        <max-lb>4000</max-lb>
+        <min-lb>0</min-lb>
+    </weight>
+
+    <weight n="3">
+        <name>Baggage 1</name>
+        <weight-lb>100</weight-lb>
+        <max-lb>250</max-lb>
+        <min-lb>0</min-lb>
+    </weight>
+
+    <weight n="4">
+        <name>Baggage 2</name>
+        <weight-lb>200</weight-lb>
+        <max-lb>1000</max-lb>
+        <min-lb>0</min-lb>
+    </weight>
+
+    <weight n="5">
+        <name>Baggage 3</name>
+        <weight-lb>300</weight-lb>
+        <max-lb>630</max-lb>
+        <min-lb>0</min-lb>
+    </weight>
+
+</sim>
+
+<instrumentation>
+    <eng-gauge>
+        <itt n="0" type="double">0</itt>
+        <itt n="1" type="double">0</itt>
+        <torque n="0" alias="/engines/engine/torque-ftlb"/>
+        <torque n="1" alias="/engines/engine[1]/torque-ftlb"/>
+        <prop n="0" alias="/engines/engine/rpm"/>
+        <prop n="1" alias="/engines/engine[1]/rpm"/>
+        <turbine n="0" alias="/engines/engine/n1"/>
+        <turbine n="1" alias="/engines/engine[1]/n1"/>
+        <fuel-pph n="0" type="double">0</fuel-pph>
+        <fuel-pph n="1" type="double">0</fuel-pph>
+        <oil-psi-norm n="0" type="double">0</oil-psi-norm>
+        <oil-psi-norm n="1" type="double">0</oil-psi-norm>
+        <oil-temp-norm n="0" type="double">0</oil-temp-norm>
+        <oil-temp-norm n="1" type="double">0</oil-temp-norm>
+    </eng-gauge>
+    </instrumentation>
+
+    <controls>
+        <cabin-door>
+            <open type="bool">0</open>
+            <position-norm type="double">0</position-norm>
+        </cabin-door>
+    </controls>
+
+    <nasal>
+        <systems>
+            <file>Aircraft/b1900d/Nasal/Electrical.nas</file>
+            <file>Aircraft/b1900d/Nasal/systems.nas</file>
+            <file>Aircraft/b1900d/Nasal/kln90b.nas</file>
+            <!--file>Aircraft/b1900d/Nasal/lightmap.nas</file-->
+        </systems>
+        <dialogs>
+            <file>Aircraft/b1900d/Nasal/dialogs.nas</file>
+        </dialogs>
+        <FCS>
+            <file>Aircraft/b1900d/Nasal/flightdirector.nas</file>
+        </FCS>
+    </nasal>
+
+</PropertyList>

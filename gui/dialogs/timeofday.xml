@@ -1,0 +1,254 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<name>timeofday</name>
+	<layout>vbox</layout>
+	<padding>20</padding>
+	<modal>false</modal>
+
+	<group>
+		<layout>hbox</layout>
+		<empty><stretch>1</stretch></empty>
+
+		<text>
+			<label>Time Settings</label>
+		</text>
+
+		<empty><stretch>1</stretch></empty>
+
+		<button>
+			<pref-width>16</pref-width>
+			<pref-height>16</pref-height>
+			<legend></legend>
+			<keynum>27</keynum>
+			<border>2</border>
+			<binding>
+				<command>dialog-close</command>
+			</binding>
+		</button>
+	</group>
+
+	<hrule/>
+
+	<group>
+		<layout>hbox</layout>
+		<padding>4</padding>
+
+		<group>
+			<layout>vbox</layout>
+			<default-padding>0</default-padding>
+			<text>
+				<label>UTC</label>
+			</text>
+			<text>
+				<label>00:00:00</label>
+				<live>true</live>
+				<property>/sim/time/gmt-string</property>
+			</text>
+
+			<empty>
+				<pref-height>6</pref-height>
+			</empty>
+			<hrule/>
+			<empty>
+				<pref-height>6</pref-height>
+			</empty>
+
+			<text>
+				<label>Local</label>
+			</text>
+			<text>
+				<label>00:00</label>
+				<live>true</live>
+				<property>/instrumentation/clock/local-short-string</property>
+			</text>
+
+			<empty>
+				<pref-height>6</pref-height>
+			</empty>
+			<hrule/>
+			<empty>
+				<pref-height>6</pref-height>
+			</empty>
+
+			<text>
+				<label>Simulation Rate</label>
+			</text>
+			<text>
+				<label></label>
+				<live>true</live>
+				<property>/sim/speed-up</property>
+			</text>
+
+			<group>
+				<layout>hbox</layout>
+				<default-padding>0</default-padding>
+				<button>
+					<legend>-</legend>
+					<binding>
+						<command>nasal</command>
+						<script>controls.speedup(-1);</script>
+					</binding>
+				</button>
+				<button>
+					<legend>Reset</legend>
+					<binding>
+						<command>property-assign</command>
+						<property>/sim/speed-up</property>
+						<property>/sim/time/warp-delta</property>
+						<value>1</value>
+					</binding>
+				</button>
+				<button>
+					<legend>+</legend>
+					<binding>
+						<command>nasal</command>
+						<script>controls.speedup(1);</script>
+					</binding>
+				</button>
+			</group>
+
+			<empty>
+				<pref-height>6</pref-height>
+			</empty>
+			<hrule/>
+			<empty>
+				<pref-height>6</pref-height>
+			</empty>
+
+			<text>
+				<label>Time Warp</label>
+			</text>
+			<text>
+				<live>true</live>
+				<property>/sim/time/warp-delta</property>
+			</text>
+
+			<group>
+			<layout>hbox</layout>
+			<default-padding>0</default-padding>
+				<button>
+					<legend>-</legend>
+					<binding>
+						<command>property-adjust</command>
+						<property>/sim/time/warp-delta</property>
+						<step type="int">-30</step>
+					</binding>
+				</button>
+				<button>
+					<legend>Reset</legend>
+					<binding>
+						<command>property-assign</command>
+						<property>/sim/time/warp-delta</property>
+						<value>0</value>
+					</binding>
+				</button>
+				<button>
+					<legend>+</legend>
+					<binding>
+						<command>property-adjust</command>
+						<property>/sim/time/warp-delta</property>
+						<step type="int">30</step>
+					</binding>
+				</button>
+			</group>
+
+			<empty>
+				<stretch>true</stretch>
+			</empty>
+
+		</group>
+
+		<empty>
+			<pref-width>2</pref-width>
+		</empty>
+
+		<group>
+			<layout>vbox</layout>
+			<default-padding>0</default-padding>
+			<button>
+				<legend>Clock Time</legend>
+				<equal>true</equal>
+				<binding>
+					<command>timeofday</command>
+					<timeofday>real</timeofday>
+				</binding>
+			</button>
+
+			<button>
+				<legend>Dawn</legend>
+				<equal>true</equal>
+				<binding>
+					<command>timeofday</command>
+					<timeofday>dawn</timeofday>
+				</binding>
+			</button>
+
+			<button>
+				<legend>Morning</legend>
+				<equal>true</equal>
+				<binding>
+					<command>timeofday</command>
+					<timeofday>morning</timeofday>
+				</binding>
+			</button>
+
+			<button>
+				<legend>Noon</legend>
+				<equal>true</equal>
+				<binding>
+					<command>timeofday</command>
+					<timeofday>noon</timeofday>
+				</binding>
+			</button>
+
+			<button>
+				<legend>Afternoon</legend>
+				<equal>true</equal>
+				<binding>
+					<command>timeofday</command>
+					<timeofday>afternoon</timeofday>
+				</binding>
+			</button>
+
+			<button>
+				<legend>Dusk</legend>
+				<equal>true</equal>
+				<binding>
+					<command>timeofday</command>
+					<timeofday>dusk</timeofday>
+				</binding>
+			</button>
+
+			<button>
+				<legend>Evening</legend>
+				<equal>true</equal>
+				<binding>
+					<command>timeofday</command>
+					<timeofday>evening</timeofday>
+				</binding>
+			</button>
+
+			<button>
+				<legend>Night</legend>
+				<equal>true</equal>
+				<binding>
+					<command>timeofday</command>
+					<timeofday>midnight</timeofday>
+				</binding>
+			</button>
+		</group>
+	</group>
+
+  <hrule/>
+
+  <button>
+    <legend>Close</legend>
+    <default>true</default>
+    <key>Esc</key>
+    <binding>
+      <command>dialog-close</command>
+    </binding>
+  </button>
+
+</PropertyList>

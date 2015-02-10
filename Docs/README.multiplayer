@@ -1,0 +1,125 @@
+The commands are of the form:
+
+--multiplay=in | out,Hz,destination address,destination port
+--callsign=a_unique_name
+
+
+Below are some examples of startup commands that demonstrate the use of the
+multiplayer facilities.
+
+For two players on a local network or across the internet:
+----------------------------------------------------------
+Player1:
+--multiplay=out,10,192.168.0.3,5500 --multiplay=in,10,192.168.0.2,5501
+--callsign=player1
+
+Player2:
+--multiplay=out,10,192.168.0.2,5501 --multiplay=in,10,192.168.0.3,5500
+--callsign=player2
+
+
+For multiple players on a local network:
+----------------------------------------
+Player1:
+--multiplay=out,10,255.255.255.255,5500
+--multiplay=in,10,255.255.255.255,5500 --callsign=player1
+
+Playern:
+--multiplay=out,10,255.255.255.255,5500
+--multiplay=in,10,255.255.255.255,5500 --callsign=playern
+
+Note that the callsign is used to identify each player in a multiplayer game
+so the callsigns must be unique. The multiplayer code ignores packets that
+are sent back to itself, as would occur with broadcasting when the rx and tx
+ports are the same.
+
+
+Multiple players sending to a single player:
+--------------------------------------------
+Player1:
+--multiplay=out,10,192.168.0.2,5500 --callsign=player1
+
+Player2:
+--multiplay=out,10,192.168.0.2,5500 --callsign=player2
+
+Player3:
+--multiplay=out,10,192.168.0.2,5500 --callsign=player3
+
+Player4 (rx only):
+--multiplay=in,10,192.168.0.2,5500 --callsign=player4
+
+This demonstrates that it is possible to have multiple instances of
+Flightgear that send to a single instance that displays all the traffic. This
+is the sort of implementation that we are considering for use as a tower
+visual simulator.
+
+
+For use with a server:
+----------------------
+Oliver Schroeder has created a server for multiplayer flightgear use.
+The server acts as a packet forwarding mechanism. When it
+receives a packet, it sends it to all other active players
+in the vicinity (the server is configured to use 100nm by default).
+
+Check out the server homepage <http://www.o-schroeder.de/fg_server/>
+for the current status. You can either download the server for
+some local use, or join the developers flying at the existing servers.
+As with flightgear, the server is free software, released under GPL.
+
+Pigeon <http://pigeond.net> has created a web page monitoring
+two such servers, showing the traffic in a Google map environment.
+See <http://pigeond.net/flightgear/fg_server_map.html>.
+
+Options needed to enable multiplayer game with a server:
+Player1:
+--multiplay=out,10,serveraddress,5000 --multiplay=in,10,myaddress,5000
+--callsign=player1
+
+Player2:
+--multiplay=out,10,serveraddress,5000 --multiplay=in,10,myaddress,5000
+--callsign=player2
+
+...
+
+PlayerN:
+--multiplay=out,10,serveraddress,5000 --multiplay=in,10,myaddress,5000
+--callsign=playerN
+
+Note that if every player using a particular server, such as one of those
+listed on the Pigeon's page, needs to have a unique callsign, not
+already in use on that server.
+
+If you are sitting behind a NAT'ting firewall, then you need to forward
+the incoming traffic on the firewall outer (visible to the internet)
+address arriving at the UDP port you use (5000 in the case above)
+over to your private LAN address. In this case, use your PRIVATE LAN address
+as <myaddress>. Example (if your private LAN address is 10.0.0.1,
+in order to play on pigeond.net):
+
+fgfs --multiplay=in,10,10.0.0.1,5000 --multiplay=out,10,pigeond.net,5000
+	--callsign=...UNIQUE callsign here...
+
+If you and the server are in the same address space (i.e., both have a public
+IP address or both are on the same private LAN), you hopefully don't need to
+mess with any firewalls.
+
+If you don't see other players playing on the same server in your flightgear,
+check that you have followed the above router configuration guidelines.  Check
+that you don't have any LOCAL firewall running on your computer preventing the
+flightgear network traffic flow.
+
+Finally, use ethereal(1) or tethereal(1) to capture the UDP traffic on the port
+that you are using, and see if you observe both incoming and outgoing packets.
+
+It's a good idea to talk to the IRC channel #flightgear on irc.flightgear.org
+while flying on one of the public servers. Also, it makes sense for every user
+on the same server to use the same weather setup, e.g., the real weather
+METAR feed, selected by setting to true the real-world-weather-fetch and
+control-fdm-atmosphere properties.
+
+Further reading (a must if you have a problem):
+-----------------------------------------------
+[1] The flightgear server homepage <http://fgms.sourceforge.net/>
+[2] The wiki howto <http://wiki.flightgear.org/index.php/Howto:_Multiplayer>
+[3] If everything else fails, ask for help on
+the IRC channel #flightgear on irc.flightgear.org

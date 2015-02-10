@@ -1,0 +1,290 @@
+<PropertyList>
+    <checklist>  
+        <title>Before Starting Engine</title>
+        <item>
+            <name>Landing Gear</name>
+            <value>CHECK</value>
+        </item>
+        <item>
+            <name>Throttle Levers</name>
+            <value>IDLE position (PgUp/PgDn)</value>
+        </item>
+        <item>
+            <name>Propeller Levers</name>
+            <value>HIGH (N/n)</value>
+        </item>
+        <item>
+            <name>Condition Levers</name>
+            <value>CUTOFF (M/m)</value>
+        </item>
+        <item>
+            <name>Flaps</name>
+            <value>UP</value>
+        </item>
+        <item>
+            <name>Parking Brake</name>
+            <value>SET (shift b)</value>
+        </item>
+        <item>
+            <name>Master Battery</name>
+            <value>ON</value>
+        </item>
+        <item>
+            <name>Beacon</name>
+            <value>ON</value>
+        </item>
+        <item>
+            <name>Annuniator Lights</name>
+            <value>TEST</value>
+        </item>
+    </checklist>
+
+    <checklist>
+        <title>Starting Engine</title>
+        <item>
+            <name>Fuel Quantity</name>
+            <value>CHECK</value>
+        </item>
+        <item>
+            <name>Avionics Switch</name>
+            <value>ON</value>
+        </item>
+        <item>
+            <name>Pilot - Copilot EFIS power</name>
+            <value>ON</value>
+        </item>
+        <item>
+            <name>Altimeter</name>
+            <value>SET</value>
+        </item>
+        <item>
+            <name>Propellor Area</name>
+            <value>CLEAR</value>
+        </item>
+        <item>
+            <name>R Ignition and Engine Start</name>
+            <value>ON</value>
+        </item>
+        <item>
+            <name>R Condition Lever (after 12% N1)</name>
+            <value>Low Idle</value>
+        </item>
+        <item>
+            <name>R Fuel Press Lo</name>
+            <value>Extinguished</value>
+        </item>
+        <item>
+            <name>R Oil Press Lo</name>
+            <value>Extinguished</value>
+        </item>
+        <item>
+            <name>R Condition Lever</name>
+            <value>HIGH IDLE</value>
+        </item>
+        <item>
+            <name>R Generator</name>
+            <value>ON</value>
+        </item>
+        <item>
+            <name>L Ignition and Engine Start</name>
+            <value>ON</value>
+        </item>
+        <item>
+            <name>L Condition Lever (after 12% N1)</name>
+            <value>Low Idle</value>
+        </item>
+        <item>
+            <name>L Fuel Press Lo</name>
+            <value>Extinguished</value>
+        </item>
+        <item>
+            <name>L Oil Press Lo</name>
+            <value>Extinguished</value>
+        </item>
+        <item>
+            <name>L Condition Lever</name>
+            <value>HIGH IDLE</value>
+        </item>
+        <item>
+            <name>L Generator</name>
+            <value>ON</value>
+        </item>
+    </checklist>
+
+    <checklist>
+        <title>Before Taxi</title>
+        <item>
+            <name>Fuel Quantity</name>
+            <value>RECHECK</value>
+        </item>
+        <item>
+            <name>L - R AC Bus</name>
+            <value>ON</value>
+        </item>
+        <item>
+            <name>Heading Indicator</name>
+            <value>CHECK</value>
+        </item>
+        <item>
+            <name>Instruments</name>
+            <value>CHECK</value>
+        </item>
+        <item>
+            <name>Radios/Avionics</name>
+            <value>SET - CHECKED</value>
+        </item>
+        <item>
+            <name>Autopilot</name>
+            <value>OFF</value>
+        </item>
+        <item>
+            <name>Yaw Damper</name>
+            <value>OFF</value>
+        </item>
+        <item>
+            <name>Strobe,Nav, Taxi Lights</name>
+            <value>ON</value>
+        </item>
+    </checklist>
+
+    <checklist>
+        <title>TAXI</title>
+        <item>
+            <name>Park Brake</name>
+            <value>RELEASE</value>
+        </item>
+        <item>
+            <name>Brakes</name>
+            <value>CHECK during taxi</value>
+        </item>
+        <item>
+            <name>Heading Indicator</name>
+            <value>CHECK during turns</value>
+        </item>
+    </checklist>
+
+    <checklist>
+        <title>BEFORE TAKEOFF</title>
+        <item>
+            <name>Radio - Avionics</name>
+            <value>CHECK</value>
+        </item>
+        <item>
+            <name>Engine Instruments</name>
+            <value>CHECK</value>
+        </item>
+        <item>
+            <name>Annunciator Lights</name>
+            <value>CHECK</value>
+        </item>
+        <item>
+            <name>Fuel Quantity</name>
+            <value>CHECK</value>
+        </item>
+        <item>
+            <name>Landing Lights</name>
+            <value>ON</value>
+        </item>
+        <item>
+            <name>L - R Engine AutoIgnition</name>
+            <value>ARM</value>
+        </item>
+        <item>
+            <name>Elevator Trim</name>
+            <value>Set for takeoff</value>
+        </item>
+        <item>
+            <name>Throttle Levers</name>
+            <value>IDLE</value>
+        </item>
+        <item>
+            <name>Prop Levers</name>
+            <value>HIGH RPM</value>
+        </item>
+        <item>
+            <name>Flaps</name>
+            <value>TAKEOFF - 17 deg ( ] [ )</value>
+        </item>
+        <item>
+            <name>Park Brake</name>
+            <value>SET ( B )</value>
+        </item>
+    </checklist>
+
+    <checklist>
+        <title>DECISION - CLIMB SPEEDS</title>
+        <item>
+            <name></name>
+            <value>  Flaps Up               Flaps 17   </value>
+        </item>
+        <item>
+            <name>Weight</name>
+            <value>V1   Vr   V2          V1   Vr   V2   </value>
+        </item>
+        <item>
+            <name>17,120</name>
+            <value>118   119   123          107   109  112</value>
+        </item>
+        <item>
+            <name>16,000</name>
+            <value>113   114   120          102   104  109</value>
+        </item>
+        <item>
+            <name>15,000</name>
+            <value>109   110   117          100   100  106</value>
+        </item>
+        <item>
+            <name>14,000</name>
+            <value>104   106   114          100   100  106</value>
+        </item>
+        <item>
+            <name>13,000</name>
+            <value>103   103   112          100   100  106</value>
+        </item>
+    </checklist>
+
+    <checklist>
+        <title>TAKEOFF</title>
+        <item>
+            <name>Transponder</name>
+            <value>Mode ALT</value>
+        </item>
+        <item>
+            <name>Throttle Levers</name>
+            <value>TAKEOFF POWER</value>
+        </item>
+        <item>
+            <name>Torque-ITT</name>
+            <value>MONITOR</value>
+        </item>
+        <item>
+            <name>Park Brake-Brakes</name>
+            <value>RELEASE</value>
+        </item>
+    </checklist>
+
+    <checklist>
+        <title>CLIMB</title>
+        <item>
+            <name>Gear</name>
+            <value>UP</value>
+        </item>
+        <item>
+            <name>Flaps</name>
+            <value>UP</value>
+        </item>
+        <item>
+            <name>Taxi-Landing Lights</name>
+            <value>OFF</value>
+        </item>
+        <item>
+            <name>Yaw Damper</name>
+            <value>AS REQUIRED</value>
+        </item>
+        <item>
+            <name>Altimeter</name>
+            <value>SET 29.92 above 18,000 ft</value>
+        </item>
+    </checklist>
+
+</PropertyList>

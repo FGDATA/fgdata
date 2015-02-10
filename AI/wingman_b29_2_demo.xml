@@ -1,0 +1,138 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+	<scenario>
+
+		<name>B29 Section 2</name>
+
+		<description>
+
+			4 Ship Diamond Formation. A defensive
+			formation which was used on daylight
+			bombing missions
+
+			This scenario formates an additional
+			formation of 4 B-29s on the lead
+			aircraft.
+
+			Vivian Meazza
+		</description>
+
+		<entry>
+			<name>Wingman-Leader-2</name>
+			<type>wingman</type>
+			<model>AI/Aircraft/b29/Models/b29-wingman.xml</model>
+			<speed>0</speed>
+			<life>-1</life>
+			<repeat>false</repeat>
+			<count>1</count>
+			<x-offset>-500</x-offset>
+			<y-offset>-1500</y-offset>
+			<z-offset>50</z-offset>
+			<yaw-offset>0</yaw-offset>
+			<pitch-offset>0</pitch-offset>
+			<roll-offset>0</roll-offset>
+			<formate>true</formate>
+			<submodels>
+				<path type="string">/Aircraft/b29/b29-submodels.xml</path>
+				<serviceable type="bool">true</serviceable>
+			</submodels>
+			<coefficients>
+				<heading>5.0</heading>
+				<pitch>4.0</pitch>
+				<bank>4.0</bank>
+				<speed>2.5</speed>
+			</coefficients>
+			<!--<submodel-path>/Aircraft/b29/b29-submodels.xml</submodel-path>-->
+		</entry>
+
+		<entry>
+			<name>Wingman-Port-2</name>
+			<type>wingman</type>
+			<model>AI/Aircraft/b29/Models/b29-wingman.xml</model>
+			<speed>0</speed>
+			<life>-1</life>
+			<repeat>false</repeat>
+			<count>1</count>
+			<x-offset>-500</x-offset>
+			<y-offset>-500</y-offset>
+			<z-offset>0</z-offset>
+			<yaw-offset>0</yaw-offset>
+			<pitch-offset>0</pitch-offset>
+			<roll-offset>0</roll-offset>
+			<formate>true</formate>
+			<submodels>
+				<path type="string">/Aircraft/b29/b29-submodels.xml</path>
+				<serviceable type="bool">true</serviceable>
+			</submodels>
+			<!--<submodel-path>/Aircraft/b29/b29-submodels.xml</submodel-path>-->
+			<coefficients>
+				<heading>5.0</heading>
+				<pitch>4.0</pitch>
+				<bank>4.0</bank>
+				<speed>2.5</speed>
+			</coefficients>
+			<parent>Wingman-Leader-2</parent>
+		</entry>
+
+		<entry>
+			<name>Wingman-Stbd-2</name>
+			<type>wingman</type>
+			<model>AI/Aircraft/b29/Models/b29-wingman.xml</model>
+			<speed>0</speed>
+			<life>-1</life>
+			<repeat>false</repeat>
+			<count>1</count>
+			<x-offset>-500</x-offset>
+			<y-offset>500</y-offset>
+			<z-offset>0</z-offset>
+			<yaw-offset>0</yaw-offset>
+			<pitch-offset>0</pitch-offset>
+			<roll-offset>0</roll-offset>
+			<formate>true</formate>
+			<submodels>
+				<path type="string">/Aircraft/b29/b29-submodels.xml</path>
+				<serviceable type="bool">true</serviceable>
+			</submodels>
+			<!--<submodel-path>/Aircraft/b29/b29-submodels.xml</submodel-path>-->
+			<coefficients>
+				<heading>5.0</heading>
+				<pitch>4.0</pitch>
+				<bank>4.0</bank>
+				<speed>2.5</speed>
+			</coefficients>
+			<parent>Wingman-Leader-2</parent>
+		</entry>
+
+		<entry>
+			<name>Wingman-Centre-2</name>
+			<type>wingman</type>
+			<model>AI/Aircraft/b29/Models/b29-wingman.xml</model>
+			<speed>0</speed>
+			<life>-1</life>
+			<repeat>false</repeat>
+			<count>1</count>
+			<x-offset>-500</x-offset>
+			<y-offset>-500</y-offset>
+			<z-offset>50</z-offset>
+			<yaw-offset>0</yaw-offset>
+			<pitch-offset>0</pitch-offset>
+			<roll-offset>0</roll-offset>
+			<formate>true</formate>
+			<submodels>
+				<path type="string">/Aircraft/b29/b29-submodels.xml</path>
+				<serviceable type="bool">true</serviceable>
+			</submodels>
+			<coefficients>
+				<heading>5.0</heading>
+				<pitch>4.0</pitch>
+				<bank>4.0</bank>
+				<speed>2.5</speed>
+			</coefficients>
+			<!--<submodel-path>/Aircraft/b29/b29-submodels.xml</submodel-path>-->
+			<parent>Wingman-Stbd-2</parent>
+		</entry>
+	</scenario>
+
+</PropertyList>

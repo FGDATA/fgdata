@@ -1,0 +1,146 @@
+<?xml version="1.0"?>
+<PropertyList include="b190common.xml">
+    <sim>
+        <flight-model>jsb</flight-model>
+        <aero>b190jsb</aero>
+        <fuel-fraction>0.5</fuel-fraction>
+        <startup>
+            <splash-texture>Aircraft/b1900d/b1900dsplash.png</splash-texture>
+        </startup>
+    </sim>
+
+    <engines>
+        <engine n="0">
+            <thruster>
+                <torque type="float">0.0</torque>
+            </thruster>
+        </engine>
+        <engine n="1">
+            <thruster>
+                <torque type="float">0.0</torque>
+            </thruster>
+        </engine>
+    </engines>
+
+    <controls>
+        <cabin-door>
+            <open alias="/fdm/jsbsim/systems/door/open"/>
+            <position-norm alias="/fdm/jsbsim/systems/door/pos-norm"/>
+        </cabin-door>
+    </controls>
+
+
+<fdm>
+    <jsbsim>
+        <propulsion>
+            <cutoff_cmd type="bool" n="0">1</cutoff_cmd>
+            <cutoff_cmd type="bool" n="1">1</cutoff_cmd>
+            <engine n="0">
+                <fuel_pph type="float">0</fuel_pph>
+            </engine>
+            <engine n="1">
+                <fuel_pph type="float">0</fuel_pph>
+            </engine>
+            <tank n="0">
+                 <priority alias="/consumables/fuel/tank[0]/selected"/>
+            </tank>
+            <tank n="1">
+                 <priority alias="/consumables/fuel/tank[1]/selected"/>
+            </tank>
+            <tank n="2">
+                 <priority alias="/consumables/fuel/tank[2]/selected"/>
+            </tank>
+            <tank n="3">
+                 <priority alias="/consumables/fuel/tank[3]/selected"/>
+            </tank>
+        </propulsion>
+        <fcs>
+            <yaw-damper-enable alias="/instrumentation/fgc-65/app-65a/YD"/>
+        </fcs>
+    </jsbsim>
+</fdm>
+
+    <instrumentation>
+    <eng-gauge>
+        <itt n="0" alias="/fdm/jsbsim/propulsion/engine/itt-c"/>
+        <itt n="1" alias="/fdm/jsbsim/propulsion/engine[1]/itt-c"/>
+        <torque n="0" alias="/engines/engine/torque-ftlb"/>
+        <torque n="1" alias="/engines/engine[1]/torque-ftlb"/>
+        <prop n="0" alias="/engines/engine/thruster/rpm"/>
+        <prop n="1" alias="/engines/engine[1]/thruster/rpm"/>
+        <turbine n="0" alias="/engines/engine/n1"/>
+        <turbine n="1" alias="/engines/engine[1]/n1"/>
+        <fuel-pph n="0" alias="/fdm/jsbsim/propulsion/engine[0]/fuel_pph"/>
+        <fuel-pph n="1" alias="/fdm/jsbsim/propulsion/engine[1]/fuel_pph"/>
+        <oil-psi-norm n="0" type="double">0</oil-psi-norm>
+        <oil-psi-norm n="1" type="double">0</oil-psi-norm>
+        <oil-temp-norm n="0" type="double">0</oil-temp-norm>
+        <oil-temp-norm n="1" type="double">0</oil-temp-norm>
+    </eng-gauge>
+    <fuel-gauge>
+        <LH-qty type="double">0</LH-qty>
+        <RH-qty type="double">0</RH-qty>
+    </fuel-gauge>
+    </instrumentation>
+
+    <payload>
+        <weight n="0">
+            <name>Pilot</name>
+            <weight-lb alias="/fdm/jsbsim/inertia/pointmass-weight-lbs[0]">180</weight-lb>
+            <max-lb>250</max-lb>
+            <min-lb>90</min-lb>
+        </weight>
+
+        <weight n="1">
+            <name>Copilot</name>
+            <weight-lb alias="/fdm/jsbsim/inertia/pointmass-weight-lbs[1]">180</weight-lb>
+            <max-lb>250</max-lb>
+            <min-lb>0</min-lb>
+        </weight>
+
+        <weight n="2">
+            <name>Passengers</name>
+            <weight-lb alias="/fdm/jsbsim/inertia/pointmass-weight-lbs[2]">1000</weight-lb>
+            <max-lb>4000</max-lb>
+            <min-lb>0</min-lb>
+        </weight>
+
+        <weight  n="3">
+            <name type="string">Baggage 1</name>
+            <weight-lb alias="/fdm/jsbsim/inertia/pointmass-weight-lbs[3]">100</weight-lb>
+            <min-lb type="double">0.0</min-lb>
+            <max-lb type="double">250.0</max-lb>
+        </weight>
+
+        <weight  n="4">
+            <name type="string">Baggage 2</name>
+            <weight-lb alias="/fdm/jsbsim/inertia/pointmass-weight-lbs[4]">200</weight-lb>
+            <min-lb type="double">0.0</min-lb>
+            <max-lb type="double">1000.0</max-lb>
+        </weight>
+
+        <weight  n="5">
+            <name type="string">Baggage 3</name>
+            <weight-lb alias="/fdm/jsbsim/inertia/pointmass-weight-lbs[5]">300</weight-lb>
+            <min-lb type="double">0.0</min-lb>
+            <max-lb type="double">630.0</max-lb>
+        </weight>
+
+    </payload>
+
+
+    <nasal>
+        <systems>
+            <file>Aircraft/b1900d/Nasal/Electrical.nas</file>
+            <file>Aircraft/b1900d/Nasal/systems.nas</file>
+            <file>Aircraft/b1900d/Nasal/kln90b.nas</file>
+        </systems>
+        <dialogs>
+            <file>Aircraft/b1900d/Nasal/dialogs.nas</file>
+        </dialogs>
+        <FCS>
+            <file>Aircraft/b1900d/Nasal/flightdirector.nas</file>
+        </FCS>
+    </nasal>
+
+</PropertyList>

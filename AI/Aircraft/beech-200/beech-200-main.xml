@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<PropertyList>
+  <description>Beech 200 Super King Air</description>
+  <author>Brett Harrison</author>
+  <path>Models/beech-200.ac</path>
+  
+      <animation>
+		<type>select</type>
+		<object-name>gear</object-name>
+		<condition>
+			<less-than>
+				<property>velocities/true-airspeed-kt</property>
+				<value>130</value>
+			</less-than>
+		</condition>
+	</animation>
+    
+     <animation>
+    <name>leftprop</name>
+    <object-name>propleft</object-name>
+    <object-name>propblurleft</object-name>
+  </animation>
+    
+
+    <animation>
+    <type>select</type>
+    <object-name>propblurleft</object-name>
+    <condition>
+      <greater-than>
+        <property>velocities/true-airspeed-kt</property>
+        <value>50</value>
+      </greater-than>
+    </condition>
+  </animation>
+    
+      <animation>
+    <type>select</type>
+    <object-name>propleft</object-name>
+    <condition>
+      <less-than>
+        <property>velocities/true-airspeed-kt</property>
+        <value>60</value>
+      </less-than>
+    </condition>
+  </animation>
+    
+      <animation>
+    <type>spin</type>
+    <object-name>leftprop</object-name>
+    <property>velocities/true-airspeed-kt</property>
+    <factor>10</factor>
+    <center>
+      <x-m> -3.456 </x-m>
+      <y-m> -2.584 </y-m>
+      <z-m> 1.626 </z-m>
+    </center>
+    <axis>
+      <x> -1.000 </x>
+      <y>  0.000 </y>
+      <z>  0.000 </z>
+    </axis>
+  </animation>
+  
+      <animation>
+    <name>rightprop</name>
+    <object-name>propright</object-name>
+    <object-name>propblurright</object-name>
+    </animation>
+  
+      <animation>
+    <type>select</type>
+    <object-name>propblurright</object-name>
+    <condition>
+      <greater-than>
+        <property>velocities/true-airspeed-kt</property>
+        <value>50</value>
+      </greater-than>
+    </condition>
+  </animation>
+    
+      <animation>
+    <type>select</type>
+    <object-name>propright</object-name>
+    <condition>
+      <less-than>
+        <property>velocities/true-airspeed-kt</property>
+        <value>60</value>
+      </less-than>
+    </condition>
+  </animation>
+ 
+   <animation>
+    <type>spin</type>
+    <object-name>rightprop</object-name>
+    <property>velocities/true-airspeed-kt</property>
+    <factor> 10 </factor>
+    <center>
+      <x-m> -3.456 </x-m>
+      <y-m> 2.584 </y-m>
+      <z-m> 1.626 </z-m>
+    </center>
+    <axis>
+      <x> 1.000 </x>
+      <y>  0.000 </y>
+      <z>  0.000 </z>
+    </axis>
+  </animation>
+  
+</PropertyList>

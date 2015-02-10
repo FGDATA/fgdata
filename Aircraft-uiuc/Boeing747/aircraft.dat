@@ -1,0 +1,64 @@
+# Jeff Scott
+# Boeing 747, low cruise configuration
+# large commercial jetliner, data from:
+#       Roskam, Jan. Airplane Flight Dynamics and Automatic Flight
+#         Controls, Part I. Lawrence KS: DARcorporation, 1995, 
+#         pg 543-545
+# 03-23-2000    file creation
+
+init Dz_cg       0.0    # [ft]
+
+geometry bw    196.0    # [ft]
+geometry cbar   27.3    # [ft]
+geometry Sw   5500.0    # [ft^2]
+
+controlSurface de 20 20 # [deg]  guess for now
+controlSurface da 20 20 # [deg]  guess for now
+controlSurface dr 20 20 # [deg]  guess for now
+
+mass Weight  636640     # [lb]
+mass I_xx  18200000     # [slug-ft^2]
+mass I_yy  33100000     # [slug-ft^2]
+mass I_zz  49700000     # [slug-ft^2]
+mass I_xz    970000     # [slug-ft^2]
+
+
+# Roskam: CTx=0.025 (SL conditions) --> 39500 lb
+# aircraft specs: 4 engines of 41000 lb static thrust each (747-100)
+#                              63500 lb static thrust each (747-400)
+engine simpleSingle 39500 # [lb]
+
+
+CL CLo      0.210       # []
+CL CL_a     4.40        # [/rad]
+CL CL_adot  7.0         # [/rad]
+CL CL_q     6.6         # [/rad]
+CL CL_de    0.32        # [/rad]
+
+CD CDo      0.0164      # []
+CD CD_a     0.200       # [/rad]
+CD CD_de    0.0         # [/rad]
+
+Cm Cmo      0.0         # []
+Cm Cm_a    -1.0         # [/rad]
+Cm Cm_adot -4.0         # [/rad]
+Cm Cm_q   -20.5         # [/rad]
+Cm Cm_de   -1.3         # [/rad]
+
+CY CY_beta -0.9         # [/rad]
+CY CY_p     0.0         # [/rad]
+CY CY_r     0.0         # [/rad]
+CY CY_da    0.0         # [/rad]    sign reversed
+CY CY_dr    0.120       # [/rad]
+
+Cl Cl_beta -0.160       # [/rad]
+Cl Cl_p    -0.340       # [/rad]
+Cl Cl_r     0.130       # [/rad]
+Cl Cl_da   -0.013       # [/rad]    sign reversed
+Cl Cl_dr    0.008       # [/rad]
+
+Cn Cn_beta  0.16        # [/rad]
+Cn Cn_p    -0.026       # [/rad]
+Cn Cn_r    -0.280       # [/rad]
+Cn Cn_da   -0.0018      # [/rad]    sign reversed
+Cn Cn_dr   -0.1         # [/rad]

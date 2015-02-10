@@ -1,0 +1,236 @@
+<?xml version="1.0"?>
+<!--
+Author : Syd Adams
+Display Control 550
+-->
+<PropertyList>
+
+<path>dc550.ac</path>
+
+<animation>
+    <type>material</type>
+    <object-name>DC550.hsi</object-name>
+    <object-name>DC550.sc-cp</object-name>
+    <object-name>DC550.in-hpa</object-name>
+    <object-name>DC550.gspd-ttg</object-name>
+    <object-name>DC550.et</object-name>
+    <object-name>DC550.nav</object-name>
+    <object-name>DC550.fms</object-name>
+    <object-name>nav-pointer.001</object-name>
+    <object-name>nav-pointer.002</object-name>
+    <emission>
+        <red>0.025-</red>
+        <green>0.015</green>
+        <blue>0.010</blue>
+        <factor-prop>systems/electrical/outputs/instrument-lights</factor-prop>
+    </emission>
+</animation>
+
+<animation>
+   	<type>rotate</type>
+   	<object-name>nav-pointer.001</object-name>
+   	<property>instrumentation/primus1000/dc550/nav1ptr</property>
+   	<interpolation>
+    	<entry><ind>0.0</ind><dep>0.0</dep></entry>
+     	<entry><ind>1.0</ind><dep>35.0</dep></entry>
+     	<entry><ind>2.0</ind><dep>70.0</dep></entry>
+     	<entry><ind>3.0</ind><dep>100.0</dep></entry>
+   	</interpolation>
+   	<axis>
+    	<x>-1.0</x>
+     	<y>0.0</y>
+     	<z>0.0</z>
+   	</axis>
+   	<center>
+    	<x-m>0.002</x-m>
+     	<y-m>-0.053</y-m>
+     	<z-m>-0.012</z-m>
+   	</center>
+</animation>
+
+<animation>
+   	<type>rotate</type>
+   	<object-name>nav-pointer.002</object-name>
+   	<property>instrumentation/primus1000/dc550/nav2ptr</property>
+   	<interpolation>
+    	<entry><ind>0.0</ind><dep>0.0</dep></entry>
+     	<entry><ind>1.0</ind><dep>30.0</dep></entry>
+     	<entry><ind>2.0</ind><dep>60.0</dep></entry>
+     	<entry><ind>3.0</ind><dep>90.0</dep></entry>
+   	</interpolation>
+   	<axis>
+    	<x>-1.0</x>
+     	<y>0.0</y>
+     	<z>0.0</z>
+   	</axis>
+   	<center>
+    	<x-m>0.002</x-m>
+     	<y-m>0.051</y-m>
+     	<z-m>-0.012</z-m>
+   	</center>
+</animation>
+
+
+<!--    OSG hotspots    
+<animation>
+    <type>pick</type>
+    <object-name>N1ptr.dwn</object-name>
+    <action>
+        <button>0</button>
+        <repeatable>false</repeatable>
+        <binding>
+            <command>property-adjust</command>
+            <property>instrumentation/primus1000/dc550/nav1ptr</property>
+            <step>-1</step>
+            <min>0</min>
+            <max>3</max>
+            <wrap>false</wrap>
+        </binding>
+    </action>
+</animation>
+
+<animation>
+    <type>pick</type>
+    <object-name>N1ptr.up</object-name>
+    <action>
+        <button>0</button>
+        <repeatable>false</repeatable>
+        <binding>
+            <command>property-adjust</command>
+            <property>instrumentation/primus1000/dc550/nav1ptr</property>
+            <step>1</step>
+            <min>0</min>
+            <max>3</max>
+            <wrap>false</wrap>
+        </binding>
+    </action>
+</animation>
+
+<animation>
+    <type>pick</type>
+    <object-name>N2ptr.dwn</object-name>
+    <action>
+        <button>0</button>
+        <repeatable>false</repeatable>
+        <binding>
+            <command>property-adjust</command>
+            <property>instrumentation/primus1000/dc550/nav2ptr</property>
+            <step>-1</step>
+            <min>0</min>
+            <max>3</max>
+            <wrap>false</wrap>
+        </binding>
+    </action>
+</animation>
+
+<animation>
+    <type>pick</type>
+    <object-name>N2ptr.up</object-name>
+    <action>
+        <button>0</button>
+        <repeatable>false</repeatable>
+        <binding>
+            <command>property-adjust</command>
+            <property>instrumentation/primus1000/dc550/nav2ptr</property>
+            <step>1</step>
+            <min>0</min>
+            <max>3</max>
+            <wrap>false</wrap>
+        </binding>
+    </action>
+</animation>
+
+<animation>
+    <type>pick</type>
+    <object-name>DC550.hsi</object-name>
+    <action>
+        <button>0</button>
+        <repeatable>false</repeatable>
+        <binding>
+            <command>property-toggle</command>
+            <property>instrumentation/primus1000/dc550/hsi</property>
+        </binding>
+    </action>
+</animation>
+
+<animation>
+    <type>pick</type>
+    <object-name>DC550.sc-cp</object-name>
+    <action>
+        <button>0</button>
+        <repeatable>false</repeatable>
+        <binding>
+            <command>property-toggle</command>
+            <property>instrumentation/primus1000/dc550/cp</property>
+        </binding>
+    </action>
+</animation>
+
+<animation>
+    <type>pick</type>
+    <object-name>DC550.in-hpa</object-name>
+    <action>
+        <button>0</button>
+        <repeatable>false</repeatable>
+        <binding>
+            <command>property-toggle</command>
+            <property>instrumentation/primus1000/dc550/hpa</property>
+        </binding>
+    </action>
+</animation>
+
+<animation>
+    <type>pick</type>
+    <object-name>DC550.gspd-ttg</object-name>
+    <action>
+        <button>0</button>
+        <repeatable>false</repeatable>
+        <binding>
+            <command>property-toggle</command>
+            <property>instrumentation/primus1000/dc550/ttg</property>
+        </binding>
+    </action>
+</animation>
+
+<animation>
+    <type>pick</type>
+    <object-name>DC550.et</object-name>
+    <action>
+        <button>0</button>
+        <repeatable>false</repeatable>
+        <binding>
+            <command>property-toggle</command>
+            <property>instrumentation/primus1000/dc550/et</property>
+        </binding>
+    </action>
+</animation>
+
+<animation>
+    <type>pick</type>
+    <object-name>DC550.nav</object-name>
+    <action>
+        <button>0</button>
+        <repeatable>false</repeatable>
+        <binding>
+            <command>property-assign</command>
+            <property>instrumentation/primus1000/dc550/fms</property>
+			<value>0</value>
+        </binding>
+    </action>
+</animation>
+
+<animation>
+    <type>pick</type>
+    <object-name>DC550.fms</object-name>
+    <action>
+        <button>0</button>
+        <repeatable>false</repeatable>
+        <binding>
+            <command>property-assign</command>
+            <property>instrumentation/primus1000/dc550/fms</property>
+			<value>1</value>
+        </binding>
+    </action>
+</animation>
+-->
+</PropertyList>

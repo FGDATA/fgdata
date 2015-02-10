@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+ <scenario>
+
+  <name>737 takeoff from KSFO/28L (San Francisco)</name>
+  <description>
+     This scenario has a 737 takeoff from runway 28L at
+     KSFO and fly the Porte Departure to the south.  You can
+     change the aircraft type by substituting another model in
+     the &lt;model&gt; tag, and you can also change the "flight
+     plan" by changing the &lt;flightplan&gt; tag. Look in the
+     subdirectory FlightPlans to find some that I've already
+     defined, including some arrivals.  Normally, when an AI
+     aircraft gets to the end of its flight plan it deletes itself,
+     however the &lt;repeat&gt;1&lt;/repeat&gt; tag will cause the AI
+     aircraft to start again indefinitely. 
+
+     Dave Culp, davidculp2 at comcast.net
+  </description>
+
+  <entry>
+   <callsign>United 720</callsign>
+   <type>aircraft</type>
+   <class>jet_transport</class>
+   <model>Aircraft/737-300/Models/737-300.xml</model>
+   <flightplan>KSFO_depart_south_28L.xml</flightplan>
+   <repeat>1</repeat>
+  </entry>
+
+ </scenario>
+
+</PropertyList>

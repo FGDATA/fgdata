@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- flight recorder configuration -->
+<!-- position and aero parameters -->
+
+<PropertyList>
+
+    <signal>
+        <type>double</type>
+        <interpolation type="string">angular-deg</interpolation>
+        <property type="string">/position/longitude-deg</property>
+    </signal>
+    
+    <signal>
+        <type>double</type>
+        <interpolation type="string">angular-deg</interpolation>
+        <property type="string">/position/latitude-deg</property>
+    </signal>
+
+    <signal>
+        <type>double</type>
+        <property type="string">/position/altitude-ft</property>
+    </signal>
+    <signal>
+        <type>double</type>
+        <property type="string">/position/altitude-agl-ft</property>
+    </signal>
+
+    <signal>
+        <type>float</type>
+        <interpolation type="string">angular-deg</interpolation>
+        <property type="string">/orientation/roll-deg</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <interpolation type="string">angular-deg</interpolation>
+        <property type="string">/orientation/pitch-deg</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <interpolation type="string">angular-deg</interpolation>
+        <property type="string">/orientation/heading-deg</property>
+    </signal>
+
+    <signal>
+        <type>float</type>
+        <interpolation type="string">angular-deg</interpolation>
+        <property type="string">/orientation/alpha-deg</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <interpolation type="string">angular-rad</interpolation>
+        <property type="string">/orientation/side-slip-rad</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <interpolation type="string">angular-deg</interpolation>
+        <property type="string">/orientation/beta-deg</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">/orientation/roll-rate-degps</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">/orientation/pitch-rate-degps</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">/orientation/yaw-rate-degps</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">/velocities/mach</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">/velocities/airspeed-kt</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">/velocities/vertical-speed-fps</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">/velocities/speed-north-fps</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">/velocities/speed-east-fps</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">/velocities/speed-down-fps</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">/velocities/vBody-fps</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">/velocities/uBody-fps</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">/velocities/wBody-fps</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">/accelerations/pilot/x-accel-fps_sec</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">/accelerations/pilot/y-accel-fps_sec</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">/accelerations/pilot/z-accel-fps_sec</property>
+    </signal>
+
+    <signal>
+        <type>bool</type>
+        <property type="string">/sim/alarms/stall-warning</property>
+    </signal>
+
+    <signal>
+        <type>float</type>
+        <property type="string">/instrumentation/slip-skid-ball/indicated-slip-skid</property>
+    </signal>
+
+    <signal>
+        <type>float</type>
+        <property type="string">/position/ground-elev-m</property>
+    </signal>
+
+</PropertyList>

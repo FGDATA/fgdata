@@ -1,0 +1,66 @@
+If you wish to implement the ilec-sc7 on your glider,
+
+You will need to :
+
+* call the ilec-sc7.xml file from your model xml file
+* call the ilec-sc7.nas script from your [aircraft-name]-set.xml file
+* modify your sound.xml, including the following lines :
+
+<variometer-up>
+   <name>variometer-up</name>
+   <mode>looped</mode>
+   <path>Instruments-3d/glider/vario/ilec-sc7/vario.wav</path>
+   <condition>
+   <and>
+     <greater-than>
+      <property>instrumentation/ilec-sc7/audio</property>
+     <value>0</value>
+     </greater-than>
+     <greater-than>
+	 <property>instrumentation/ilec-sc7/te-reading-mps</property>
+     <value>0.01</value>
+     </greater-than>
+     </and>
+    </condition>
+    <pitch>
+     <property>instrumentation/ilec-sc7/te-reading-mps</property> 
+     <factor>0.246</factor>
+     <offset>1.0</offset>
+    </pitch>
+    <volume>
+     <property>instrumentation/ilec-sc7/volume</property>
+     <max>1</max>
+    </volume>
+  </variometer-up>
+  
+<variometer-down>
+   <name>variometer-down</name>
+   <mode>looped</mode>
+   <path>Instruments-3d/glider/vario/ilec-sc7/vario2.wav</path>
+    <condition>
+    <and>
+     <equals>
+     <property>instrumentation/ilec-sc7/audio</property>
+     <value>2</value>
+     </equals>
+     <greater-than>
+      <property>instrumentation/ilec-sc7/te-reading-mps</property>
+      <value>-10.66</value>
+     </greater-than>
+    <less-than>
+      <property>instrumentation/ilec-sc7/te-reading-mps</property>
+      <value>-0.01</value>
+     </less-than>
+    </and>
+    </condition>
+    <pitch>
+     <property>instrumentation/ilec-sc7/te-reading-neg</property>
+     <factor>-0.05</factor>
+     <offset>1.0</offset>
+    </pitch>
+    <volume>
+     <property>instrumentation/ilec-sc7/volume</property>
+     <max>1</max>
+    </volume>
+    
+</variometer-down>

@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!-- Set of town buildings, for inclusion in a materials file -->
+<PropertyList>
+  <range-m>10000</range-m>
+  <object>
+    <path>Models/Buildings/water-tower.ac</path>
+    <path>Models/Buildings/oil-tanks.ac</path>
+    <coverage-m2>2000000</coverage-m2>
+    <heading-type>random</heading-type>
+  </object>
+  <object>
+    <path>Models/Buildings/big-church.ac</path>
+    <path>Models/Buildings/brick-school.ac</path>
+    <coverage-m2>100000</coverage-m2>
+    <heading-type>mask</heading-type>
+  </object>
+  <object>
+    <path>Models/Buildings/shop.ac</path>
+    <path>Models/Buildings/hosshop.ac</path>
+    <path>Models/Buildings/weapshop.ac</path>
+    <coverage-m2>20000</coverage-m2>
+    <heading-type>mask</heading-type>
+  </object>
+  <object>
+    <path>Models/Residential/germanvillagehouse1.ac</path>
+    <path>Models/Residential/MontHse1Grey_White.ac</path>
+    <path>Models/Residential/MontHse1Red_Tile_Yellow.ac</path>
+    <coverage-m2>5000</coverage-m2>
+    <heading-type>mask</heading-type>
+  </object>
+</PropertyList>

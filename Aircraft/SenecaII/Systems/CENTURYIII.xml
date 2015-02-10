@@ -1,0 +1,521 @@
+<?xml version="1.0"?>
+<!--
+ This file is part of FlightGear, the free flight simulator
+ http://www.flightgear.org/
+
+ Copyright (C) 2009 Torsten Dreyer, Torsten (at) t3r _dot_ de
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation; either version 2 of the
+ License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+-->
+<!-- Altimatic IIIc Autopilot Configuration -->
+<!-- Written by Torsten Dreyer to match the performance described in -->
+<!-- CENTURY III AUTOPILOT FLIGHT SYSTEM - PILOT'S OPERATING HANDBOOK -->
+<!-- Based heavily on work from Dave Perry, who implemented the first -->
+<!-- working CENTURYIII autopilot for FlightGear -->
+<!-- this file contains the analog autopilot "model" -->
+<PropertyList>
+
+  <params include="CENTURYIII-IO.xml"/>
+
+  <!-- ========================================================================== -->
+  <!-- Roll Axis                                                                  -->
+  <!-- ========================================================================== -->
+
+  <!-- filter the cdi deflection. Source and filter time switchable -->
+  <filter>
+    <name>AP:CDI filter and selector</name>
+    <debug>false</debug>
+    <type>exponential</type>
+    <filter-time>
+      <condition>
+        <equals>
+          <property alias="../../../../../params/controls/mode"/>
+          <value alias="../../../../../params/const/mode-nav"/>
+        </equals>
+      </condition>
+      <value>5</value>
+    </filter-time>
+    <filter-time>
+      <condition>
+        <equals>
+          <property alias="../../../../../params/controls/mode"/>
+          <value alias="../../../../../params/const/mode-omni"/>
+        </equals>
+      </condition>
+      <value>1</value>
+    </filter-time>
+    <filter-time>0.5</filter-time> <!-- HDG (don't care), LOC and LOC/REV -->
+    <input>
+      <condition>
+        <equals>
+          <property alias="../../../../../params/controls/nav-source"/>
+          <value alias="../../../../../params/const/nav-2"/>
+        </equals>
+      </condition>
+      <property alias="../../../params/input/cdi-deflection-2"/>
+    </input>
+    <input alias="../../params/input/cdi-deflection-1"/>
+    <output alias="../../params/input/cdi-deflection"/>
+  </filter>
+
+  <filter>
+    <name>AP:course selector</name>
+    <debug>false</debug>
+    <type>gain</type>
+    <gain>1.0</gain>
+    <input>
+      <condition>
+        <equals>
+          <property alias="../../../../../params/controls/nav-source"/>
+          <value alias="../../../../../params/const/nav-2"/>
+        </equals>
+      </condition>
+      <property alias="../../../params/input/selected-course-2"/>
+    </input>
+    <input alias="../../params/input/selected-course-1"/>
+    <output alias="../../params/input/selected-course"/>
+  </filter>
+
+  <filter>
+    <name>AP:gs selector</name>
+    <debug>false</debug>
+    <type>gain</type>
+    <gain>1.0</gain>
+    <input>
+      <condition>
+        <equals>
+          <property alias="../../../../../params/controls/nav-source"/>
+          <value alias="../../../../../params/const/nav-2"/>
+        </equals>
+      </condition>
+      <property alias="../../../params/input/gs-deflection-2"/>
+    </input>
+    <input alias="../../params/input/gs-deflection-1"/>
+    <output alias="../../params/input/gs-deflection"/>
+  </filter>
+
+  <logic>
+    <name>AP:gs-valid select</name>
+    <input>
+      <or>
+        <and>
+          <not-equals>
+            <property alias="../../../../../../params/controls/nav-source"/>
+            <value alias="../../../../../../params/const/nav-2"/>
+          </not-equals>
+          <property alias="../../../../../params/input/gs-valid-1"/>
+        </and>
+        <and>
+          <equals>
+            <property alias="../../../../../../params/controls/nav-source"/>
+            <value alias="../../../../../../params/const/nav-2"/>
+          </equals>
+          <property alias="../../../../../params/input/gs-valid-2"/>
+        </and>
+      </or>
+    </input>
+    <output alias="../../params/input/gs-valid"/>
+  </logic>
+
+  <pi-simple-controller>
+    <name>cdi-integrator</name>
+    <debug>false</debug>
+    <enable>
+      <condition>
+        <not-equals>
+          <property alias="../../../../../params/controls/mode"/>
+          <value alias="../../../../../params/const/mode-hdg"/>
+        </not-equals>
+      </condition>
+    </enable>
+    <config>
+      <Kp>45.0</Kp>
+      <Ki>0.40</Ki>
+    </config>
+    <input alias="../../params/input/cdi-deflection"/>
+    <output alias="../../params/input/course-error"/>
+    <min>-45.0</min>
+    <max>45.0</max>
+  </pi-simple-controller>
+
+  <filter>
+    <name>intercept heading computer</name>
+    <debug>false</debug>
+    <type>gain</type>
+    <gain>1.0</gain>
+    <input alias="../../params/input/selected-course"/>
+    <reference>
+      <condition>
+        <equals>
+          <property alias="../../../../../params/controls/mode"/>
+          <value alias="../../../../../params/const/mode-loc-rev"/>
+        </equals>
+      </condition>
+      <property alias="../../../params/input/course-error"/>
+      <scale>-1.0</scale>
+    </reference>
+    <reference alias="../../params/input/course-error"/>
+    <output alias="../../params/input/intercept-heading"/>
+    <period>
+      <min>0</min>
+      <max>360</max>
+    </period>
+  </filter>
+
+  <!-- HDG mode is easy: heading-offset is offset from indicated heading
+       to heading bug.
+       normalize to -180..+180
+       Clockwise angles are positive. 
+    -->
+  <filter>
+    <name>AP:HDG:heading offset computer</name>
+    <debug>false</debug>
+    <type>gain</type>
+    <gain>1.0</gain>
+    <input>
+      <condition>
+        <equals>
+          <property alias="../../../../../params/controls/mode"/>
+          <value alias="../../../../../params/const/mode-hdg"/>
+        </equals>
+      </condition>
+      <property alias="../../../params/input/selected-heading"/>
+    </input>
+    <input alias="../../params/input/intercept-heading"/>
+    <reference alias="../../params/input/indicated-heading"/>
+    <output alias="../../params/input/heading-offset"/>
+    <period>
+      <min>-180</min>
+      <max>180</max>
+    </period>
+  </filter>
+
+  <!--  compute target roll based on heading offset
+        rule of thumb: start level off at half bank angle
+        opposite rule of thumb: bank angle is twice the heading offset
+        but limited to 18deg. This should result in a more or less
+        standard rate turn.
+  -->
+  <filter>
+    <name>AP:Target Roll Computer</name>
+    <debug>false</debug>
+    <type>gain</type>
+    <input alias="../../params/input/heading-offset"/>
+    <output alias="../../params/input/target-roll"/>
+    <gain>2.0</gain>
+    <u_min>-20.0</u_min> <!-- POH 9-15: max bank angle 20 deg -->
+    <u_max>20.0</u_max>
+  </filter>
+
+  <!-- compute aileron deflection to achieve the target-roll.
+       The result feeds the aileron servo -->
+  <pid-controller>
+    <name>AP:Roll Controller</name>
+    <debug>false</debug>
+    <enable>
+      <!-- disable this pid-controller if the roll/hdg mode is disabled
+           to reset the integral sum uppon restart. 
+           The servo driver feeds back the actual position of the aileron
+           to this pid controller, so it starts altering the current position
+           of the control surface.
+      -->
+      <condition>
+        <property alias="../../../../params/controls/roll/state"/>
+      </condition>
+    </enable>
+    <input alias="../../params/input/roll"/> <!-- compare actual roll with the reference -->
+    <reference>
+      <condition>
+        <not><!-- if it's not heading mode, it's roll mode -->
+          <property alias="../../../../../params/controls/hdg/state"/>
+        </not>
+      </condition>
+      <!-- in roll mode, the position of the roll-knob is the reference -->
+      <property>autopilot/CENTURYIII/settings/roll-knob-deg</property>
+    </reference>
+    <!-- if it's not roll mode, it's heading/nav mode. Let the roll
+         computer assign a roll and use target-roll as reference -->
+    <reference alias="../../params/input/target-roll"/>
+    <output alias="../../params/aileron-cmd"/>
+    <config>
+      <Kp>0.009</Kp>
+      <Ti>30</Ti>
+      <Td>0.0</Td>
+      <min>-1.0</min>
+      <max>1.0</max>
+    </config>
+  </pid-controller>
+
+  <!-- ========================================================================== -->
+  <!-- Pitch Axis                                                                 -->
+  <!-- ========================================================================== -->
+
+  <!--  Monitor current pressure altitude for altitude-hold, if not gs-captured -->
+  <filter>
+    <name>AP:Pressure Altitude Monitor</name>
+    <debug>false</debug>
+    <enable>
+      <condition>
+        <or>
+          <not>
+            <property alias="../../../../../../params/controls/alt/state"/>
+          </not>
+          <property alias="../../../../../params/controls/gs-captured"/>
+        </or>
+      </condition>
+    </enable>
+    <type>gain</type>
+    <input alias="../../params/input/altitude"/>
+    <output alias="../../params/input/target-altitude"/>
+    <gain>1.0</gain>
+  </filter>
+
+  <!-- compute the derivative of the altitude -->
+  <filter>
+    <name>AP:Rate of Climb Computer</name>
+    <debug>false</debug>
+    <type>differential</type>
+    <input alias="../../params/input/altitude"/>
+    <output alias="../../params/input/roc"/> <!-- feet per second -->
+    <filter-time>1.0</filter-time>
+  </filter>
+
+  <!-- compute rate of climb based on altitude offset -->
+  <filter>
+    <name>AP:Target Rate of Climb Computer (ALT HOLD)</name>
+    <debug>false</debug>
+    <enable>
+      <condition>
+        <not>
+          <property alias="../../../../../params/controls/gs-captured"/>
+        </not>
+      </condition>
+    </enable>
+    <type>gain</type>
+    <input alias="../../params/input/target-altitude"/>
+    <reference alias="../../params/input/altitude"/>
+    <gain>0.0833</gain>
+    <output alias="../../params/input/target-roc"/>
+    <min>-8.333</min> <!-- limit roc to +/-500fpm -->
+    <max>8.333</max>
+  </filter>
+
+  <filter>
+    <name>AP:Pitch monitor</name>
+    <debug>false</debug>
+    <enable>
+      <condition>
+        <not>
+          <property alias="../../../../../params/controls/alt/state"/>
+        </not>
+      </condition>
+    </enable>
+    <type>gain</type>
+    <gain>1.0</gain>
+    <input alias="../../params/input/pitch"/> 
+    <output alias="../../params/input/target-pitch"/> 
+  </filter>
+
+  <!-- compute target pitch based on target rate of climb -->
+
+  <pid-controller>
+    <name>AP:Target Pitch Computer</name>
+    <debug>false</debug>
+    <enable>
+      <condition>
+        <property alias="../../../../params/controls/alt/state"/>
+        <not>
+          <property alias="../../../../../params/controls/gs-captured"/>
+        </not>
+      </condition>
+    </enable>
+    <input alias="../../params/input/target-roc"/>
+    <reference alias="../../params/input/roc"/> <!-- feet per second -->
+    <output alias="../../params/input/target-pitch"/> 
+    <config>
+      <Kp>-0.2300</Kp>
+      <Ti>5</Ti>
+      <Td>0.0010</Td>
+      <u_min>-10.0</u_min>
+      <u_max>15.0</u_max>
+    </config>
+  </pid-controller>
+
+  <pid-controller>
+    <name>AP:Target Pitch Computer (GS)</name>
+    <debug>false</debug>
+    <enable>
+      <condition>
+        <property alias="../../../../params/controls/alt/state"/>
+        <property alias="../../../../params/controls/gs-captured"/>
+      </condition>
+    </enable>
+    <input>
+      <property alias="../../../params/input/gs-deflection"/>
+      <offset>autopilot/CENTURYIII/gs-deflection-offset</offset>
+    </input>
+    <reference>0</reference>
+    <output alias="../../params/input/target-pitch"/> 
+    <config>
+      <Kp>
+        <property>autopilot/CENTURYIII/gs-deflection-kp</property>
+        <value>-10</value>
+      </Kp>
+      <Ti>
+        <property>autopilot/CENTURYIII/gs-deflection-ti</property>
+        <value>20</value>
+      </Ti>
+      <Td>0.0</Td>
+    </config>
+    <min>-10</min>
+    <max>15</max>
+  </pid-controller>
+
+
+  <!-- compute elevator deflection for pitch-hold -->
+  <pid-controller>
+    <name>AP:Pitch Hold Controller</name>
+    <debug>false</debug>
+    <enable>
+      <condition>
+        <property alias="../../../../params/controls/pitch/state"/>
+      </condition>
+    </enable>
+    <input alias="../../params/input/pitch"/>
+    <reference>
+      <condition>
+        <property alias="../../../../params/controls/alt/state"/>
+      </condition>
+      <property alias="../../../params/input/target-pitch"/> 
+    </reference>
+    <reference>autopilot/CENTURYIII/settings/pitch-wheel-deg</reference>
+    <output alias="../../params/elevator-cmd"/> 
+    <config>
+      <Kp>-0.025</Kp>      <!-- proportional gain -->
+      <beta>1.0</beta>    <!-- input value weighing factor -->
+      <alpha>0.1</alpha>  <!-- low pass filter weighing factor -->
+      <gamma>0.0</gamma>  <!-- input value weighing factor for -->
+                          <!-- unfiltered derivative error -->
+      <Ti>10</Ti>         <!-- integrator time -->
+      <Td>0.0</Td>        <!-- derivator time -->
+      <min>-1.0</min> <!-- minimum output clamp -->
+      <max>1.0</max>  <!-- maximum output clamp -->
+    </config>
+  </pid-controller>
+
+  <!-- elevator auto trim. The real CENTURYIII tries to trim control force 
+       to zero. Fg does not calculate these forces, so we try to trim the 
+       elevator-cmd to neutral -->
+  <filter>
+    <name>AP:elevator-cmd filter</name>
+    <debug>false</debug>
+    <enable>
+      <condition>
+        <property alias="../../../../params/controls/pitch/state"/> 
+      </condition>
+    </enable>
+    <type>exponential</type>
+    <filter-time>10</filter-time>
+    <input>controls/flight/elevator</input>
+    <output>autopilot/CENTURYIII/filtered-elevator-cmd</output>
+  </filter>
+
+  <pi-simple-controller>
+    <name>AP:auto pitch trim</name>
+    <debug>false</debug>
+    <enable>
+      <condition>
+        <property alias="../../../../params/controls/pitch/state"/> 
+      </condition>
+    </enable>
+    <config>
+      <Kp>0.0</Kp>
+      <Ki>0.2</Ki>
+    </config>
+    <input>
+      <scale>-1.0</scale>
+      <property>autopilot/CENTURYIII/filtered-elevator-cmd</property>
+    </input>
+    <output alias="../../params/elevator-trim-cmd"/>
+    <min>-1.0</min>
+    <max>1.0</max>
+  </pi-simple-controller>
+
+  <!-- ========================================================================== -->
+  <!-- Server Driver - Pass output commands through a noise spike filter to avoid -->
+  <!-- rapid control inputs and simulate slow movement of the servos              -->
+  <!-- Disable servos in passive-mode                                             -->
+  <!-- ========================================================================== -->
+  <filter>
+    <name>SERVO-DRIVER:aileron</name>
+    <debug>false</debug>
+    <feedback-if-disabled>true</feedback-if-disabled>
+    <initialize-to>output</initialize-to>
+    <enable>
+      <condition>
+        <property alias="../../../../params/controls/roll/state"/>
+      </condition>
+    </enable>
+    <input alias="../../params/aileron-cmd"/>
+    <output>controls/flight/aileron</output>
+    <type>noise-spike</type>
+    <max-rate-of-change>0.167</max-rate-of-change> <!-- 12 seconds for full travel -->
+  </filter>
+
+  <filter>
+    <name>SERVO-DRIVER:elevator</name>
+    <debug>false</debug>
+    <feedback-if-disabled>true</feedback-if-disabled>
+    <initialize-to>output</initialize-to>
+    <enable>
+      <condition>
+        <property alias="../../../../params/controls/pitch/state"/>
+      </condition>
+    </enable>
+    <input alias="../../params/elevator-cmd"/>
+    <output>controls/flight/elevator</output>
+    <type>noise-spike</type>
+    <max-rate-of-change>0.0769</max-rate-of-change> <!-- 26 seconds for full travel -->
+  </filter>
+
+  <filter>
+    <name>SERVO-DRIVER:elevator-trim</name>
+    <debug>false</debug>
+    <feedback-if-disabled>false</feedback-if-disabled>
+    <initialize-to>output</initialize-to>
+    <enable>
+      <condition>
+        <property alias="../../../../params/serviceable"/>
+        <property alias="../../../../params/power"/>
+        <or>
+         <property alias="../../../../../params/controls/pitch/state"/> 
+         <not-equals>
+           <property alias="../../../../../../params/controls/manual-trim"/>
+           <value type="double">0.0</value>
+         </not-equals>
+        </or>
+      </condition>
+    </enable>
+    <input>
+      <condition>
+        <not-equals>
+          <property alias="../../../../../params/controls/manual-trim"/>
+          <value type="double">0.0</value>
+        </not-equals>
+      </condition>
+      <property alias="../../../params/controls/manual-trim"/>
+    </input>
+    <input alias="../../params/elevator-trim-cmd"/>
+    <output>controls/flight/elevator-trim</output>
+    <type>noise-spike</type>
+    <max-rate-of-change>0.0444</max-rate-of-change> <!-- 45 seconds for full travel -->
+  </filter>
+</PropertyList>

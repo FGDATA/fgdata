@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ This file is part of FlightGear, the free flight simulator
+ http://www.flightgear.org/
+
+ Copyright (C) 2009 Torsten Dreyer, Torsten (at) t3r _dot_ de
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation; either version 2 of the
+ License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+-->
+<PropertyList>
+  <name>Approach Check</name>
+  <description>This is the approach checklist. When approaching the destination, probably after the initial approach fix, use a spare second to check these items.</description>
+  <interval>0</interval>
+
+  <init>
+    <set>
+      <property>/sim/current-view/view-number</property>
+      <value>0</value>
+    </set>
+  </init>
+
+  <step>
+    <message>
+      WEATHER: copied
+    </message>
+  </step>
+
+  <step>
+    <message>
+      ALTIMETER: set
+    </message>
+  </step>
+
+  <step>
+    <message>
+      FUEL SELECTOR: on
+    </message>
+  </step>
+
+  <step>
+    <message>
+      GYRO: checked
+    </message>
+  </step>
+
+</PropertyList>

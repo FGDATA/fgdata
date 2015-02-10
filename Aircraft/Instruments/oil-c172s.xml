@@ -1,0 +1,213 @@
+<?xml version="1.0"?>
+
+<!--
+oil.xml
+
+Oil Gauge from C172-S
+
+Martin Dressler dr@musicabona.cz
+Feb 9 2003
+
+
+-->
+
+<PropertyList>
+
+ <name>C172-S Oil Temp/Pressure Gauge</name>
+ <w-base>512</w-base>
+ <h-base>512</h-base>
+ <params>
+  <engine-oil-temp-select>/engines/engine[0]/oil-temperature-degf</engine-oil-temp-select>
+  <engine-oil-press-select>/engines/engine[0]/oil-pressure-psi</engine-oil-press-select>
+ </params>
+ 
+ <layers>
+ 
+  <layer>
+   <name>Backplate</name>
+   <w>292</w>
+   <h>456</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/oil1.rgb</path>
+    <x1>0.0</x1>
+    <x2>0.570312</x2>
+    <y1>0.109375</y1>
+    <y2>1.0</y2>
+   </texture>
+  </layer>
+
+  <layer>
+   <name>TEMP Needle</name>
+   <w>148</w>
+   <h>32</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/misc2.rgb</path>
+    <x1>0.0</x1>
+    <x2>0.289062</x2>
+    <y1>0.554688</y1>
+    <y2>0.617188</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-142</offset>
+    </transformation>
+    <transformation>
+     <condition>
+      <greater-than-equals>
+       <property>/systems/electrical/volts</property>
+       <value>12</value>
+      </greater-than-equals>
+     </condition>
+     <type>rotation</type>
+     <property alias="../../../../../params/engine-oil-temp-select"/>
+     <min>55.0</min>
+     <max>250</max>
+     <scale>1.0</scale>
+     <offset>0.0</offset>
+     <interpolation>
+      <entry><ind>  55</ind><dep> 60.0</dep></entry>
+      <entry><ind>  75</ind><dep> 55.0</dep></entry>
+      <entry><ind> 100</ind><dep> 45.0</dep></entry>
+      <entry><ind> 150</ind><dep> 13.0</dep></entry>
+      <entry><ind> 200</ind><dep>-26.0</dep></entry>
+      <entry><ind> 245</ind><dep>-56.5</dep></entry>
+      <entry><ind> 260</ind><dep>-66.7</dep></entry>
+     </interpolation>
+    </transformation>
+    <transformation>
+     <condition>
+      <less-than>
+       <property>/systems/electrical/volts</property>
+       <value>12</value>
+      </less-than>
+     </condition>
+     <type>rotation</type>
+     <offset>60.0</offset>
+    </transformation>
+    <transformation>
+     <type>x-shift</type>
+     <offset>78</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>PRESS Needle</name>
+   <w>148</w>
+   <h>32</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/misc2.rgb</path>
+    <x1>0.0</x1>
+    <x2>0.289062</x2>
+    <y1>0.554688</y1>
+    <y2>0.617188</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>142</offset>
+    </transformation>
+    <transformation>
+     <condition>
+      <greater-than-equals>
+       <property>/systems/electrical/volts</property>
+       <value>12</value>
+      </greater-than-equals>
+     </condition>
+     <type>rotation</type>
+     <property alias="../../../../../params/engine-oil-press-select"/>
+     <min>0.0</min>
+     <max>120.0</max>
+     <scale>1.0</scale>
+     <interpolation>
+      <entry><ind>   0</ind><dep>-57.0</dep></entry>
+      <entry><ind>  20</ind><dep>-37.0</dep></entry>
+      <entry><ind>  40</ind><dep>-18.5</dep></entry>
+      <entry><ind>  60</ind><dep>  1.5</dep></entry>
+      <entry><ind>  80</ind><dep> 21.5</dep></entry>
+      <entry><ind> 100</ind><dep> 41.5</dep></entry>
+      <entry><ind> 115</ind><dep> 55.0</dep></entry>
+      <entry><ind> 120</ind><dep> 59.5</dep></entry>
+     </interpolation>
+     <offset>180</offset>
+    </transformation>
+    <transformation>
+     <condition>
+      <less-than>
+       <property>/systems/electrical/volts</property>
+       <value>12</value>
+      </less-than>
+     </condition>
+     <type>rotation</type>
+     <offset>118</offset>
+    </transformation>
+    <transformation>
+     <type>x-shift</type>
+     <offset>78</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>Foreground</name>
+   <w>512</w>
+   <h>512</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/smlf.rgb</path>
+    <x1>0.0</x1>
+    <x2>1.0</x2>
+    <y1>0.0</y1>
+    <y2>1.0</y2>
+   </texture>
+  </layer>
+
+  <layer>
+   <name>Temp label</name>
+   <w>26</w>
+   <h>160</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/misc2.rgb</path>
+    <x1>0.804688</x1>
+    <x2>0.855469</x2>
+    <y1>0.6875</y1>
+    <y2>1.0</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>-147</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>3</offset>
+    </transformation>
+   </transformations>
+  </layer>
+
+  <layer>
+   <name>Press label</name>
+   <w>26</w>
+   <h>160</h>
+   <texture>
+    <path>Aircraft/Instruments/Textures/misc2.rgb</path>
+    <x1>0.855469</x1>
+    <x2>0.90625</x2>
+    <y1>0.6875</y1>
+    <y2>1.0</y2>
+   </texture>
+   <transformations>
+    <transformation>
+     <type>x-shift</type>
+     <offset>144</offset>
+    </transformation>
+    <transformation>
+     <type>y-shift</type>
+     <offset>3</offset>
+    </transformation>
+   </transformations>
+  </layer>
+				  
+ </layers>
+
+</PropertyList>

@@ -1,0 +1,120 @@
+("Master files") Warthog-Stick.xml and Warthog-Throttle.xml support
+configuration overlay files. These are optional and can be used to
+modify the default configuration. Warthog-Stick.xml searches for
+overlay files in
+
+  {$FG_HOME,$FG_ROOT}/Input/Joysticks/ThrustMaster/Warthog/Stick/
+
+and Warthog-Throttle.xml in
+
+  {$FG_HOME,$FG_ROOT}/Input/Joysticks/ThrustMaster/Warthog/Throttle/
+
+
+Available files are loaded in the following order, where <x> is replaced
+by the contents of property "x":
+
+  - generic.xml
+  - helicopter.xml  (only helicopters)
+  - </sim/type>.xml  (some aircraft set this property to "seaplane")
+  - </input/joysticks/overlays>.xml  (not used by the system; meant to
+               be set on the command line or in wrapper scripts,
+               for example: --prop:input/joysticks/overlays=modern_jet;
+               accepts a single overlay file name -- withtout extension --
+               or a list of names separated by colon ":")
+  - </sim/aircraft>.xml  (aircraft name, for example "harrier.xml")
+
+
+If a file is found under $FG_HOME, then an equally named file under
+$FG_ROOT will be ignored.
+
+Overlay files are like stripped down joystick driver files, but shall
+not have a <name> entry. They only need to define what should differ
+from the already loaded joystick configuration. Make sure that an
+axis definition uses the same index as the master file. The n-th
+<axis> in an XML config file usually has index n, even if the axis
+uses <number><unix> etc. Nasal blocks are properly executed in the
+namespace of the master file, so you can access all its functions
+and variables.
+
+
+
+
+Standard overlay files:
+- stick_rotate: rotates stick X/Y axis by given angle. Apparently desired
+  by some users who have the stick between their knees and want to move it
+  in a more natural fashion. Usage:
+
+  fgfs --prop:input/joysticks/overlays=stick_rotate --prop:d:input/joysticks/stick-angle=15
+
+
+
+
+
+Joystick configuration from within FlightGear under Linux:
+--------------------------------------------------------------------------------
+This allows to set backlight brightness and LEDs from within FlightGear
+without requiring any config application, by directly writing to the devices
+via raw HID support.
+
+
+
+(1) Make sure your kernel has hidraw support compiled in: check if there is at
+    least one file listed with
+
+        $ ls /dev/hidraw*
+
+    or if your kernel .config contains:
+
+        CONFIG_HIDRAW=y
+
+
+
+(2) To get a reliable, persistent file name for your Warthog devices, create
+    a file /etc/udev/rules.d/00-local.rules and add these lines:
+
+        SUBSYSTEM=="input", ENV{ID_INPUT_JOYSTICK}!="?*", IMPORT{program}="input_id %p"
+        SUBSYSTEM=="hidraw", ENV{ID_SERIAL}!="?*", IMPORT{program}="usb_id --export %p"
+        SUBSYSTEM=="hidraw", SYMLINK+="input/hidraw/%E{ID_SERIAL}"
+        SUBSYSTEM=="hidraw", ENV{ID_INPUT_JOYSTICK}!="0", GROUP:="js"
+
+    If you don't have a user group "js" (for joystick hardware access) either
+    create one or, in the fourth line, use a group instead where all joystick
+    users are member, e.g. GROUP:="users". Then plug your Warthog devices out
+    and in again and check if this created two device links:
+
+        $ ls -l /dev/input/hidraw/*
+        lrwxrwxrwx 1 root root 10 Oct  2 14:23 Thrustmaster_Throttle_-_HOTAS_Warthog -> ../hidraw1
+        lrwxrwxrwx 1 root root 10 Oct  2 14:23 Thustmaster_Joystick_-_HOTAS_Warthog -> ../hidraw0
+
+    Also check if the linked-to hidraw devices have proper permissions (rw for "js"):
+
+        $ ls -l /dev/hidraw*
+        crw-rw---- 1 root js 251, 0 Oct  2 09:11 /dev/hidraw0
+        crw-rw---- 1 root js 251, 1 Oct  2 14:23 /dev/hidraw1
+            ^^            ^^
+
+
+(3) Allow FlightGear to write to the two devices. The best way to do this is
+    to edit a local copy of the global IOrules. Just copy the global file
+    to your FG_HOME directory:
+
+        $ mkdir -p ~/.fgfs/Nasal
+        $ cp $FG_ROOT/Nasal/IOrules ~/.fgfs/Nasal
+
+    Now add these four lines there:
+
+        READ ALLOW /dev/input/hidraw/Thustmaster_Joystick_-_HOTAS_Warthog
+        READ ALLOW /dev/input/hidraw/Thrustmaster_Throttle_-_HOTAS_Warthog
+        WRITE ALLOW /dev/input/hidraw/Thustmaster_Joystick_-_HOTAS_Warthog
+        WRITE ALLOW /dev/input/hidraw/Thrustmaster_Throttle_-_HOTAS_Warthog
+
+    CAVE: Don't fix the bad spelling of "Thrustmaster", unless your stick
+          really uses that!
+
+
+
+
+DISCLAIMER: Of course, you take all responsibility for any possible
+damages to your hardware if you make these changes. Neither the
+FlightGear project nor any of its developers and contributors are in
+any way liable.

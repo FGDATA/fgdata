@@ -1,0 +1,219 @@
+<?xml version="1.0" ?>
+
+<!--
+************************************************************************
+* Bindings for Boeder P-20 flightstick Pro USB
+* Jakub Klawiter
+*
+* Linux call this chep device as:
+*
+* usb 1-5: new low speed USB device using ohci_hcd and address 6
+* usb 1-5: configuration #1 chosen from 1 choice
+* input: HID 05ef:0321 as /class/input/input2
+* input: USB HID v1.00 Joystick [HID 05ef:0321] on usb-0000:00:02.0-5
+*
+* # lsusb
+* Bus 001 Device 006: ID 05ef:0321 AVB, Inc. [anko?]
+*
+* Windows says:
+* 4-axis 8 buttons joystick with setup switch
+* Windows pl_PL (here is the problemm):
+* 4-osiowy 8-przyciskowy joystick z prze��cznikiem ustawie�
+*
+* Axis 0 - ailerons         (lotki)
+* Axis 1 - elevator         (ster wysokosci)
+* Axis 2 - rudder           (ster kierunku)
+* Axis 3 - throttle         (przepustnica)
+* Axis 4 - view east/west   (widok prawo/lewo)
+* Axis 5 - view north/east  (widok gora/dol)
+*
+* button 0001 (0) - all brakes      (hamulec)
+* button 0002 (1) - views cycle     (widoki)
+* button 0004 (2) - flaps down      (klapy otwieranie)
+* button 0008 (3) - flaps up        (klapy zamykanie)
+* button 0010 (4) - mixture poorer  (ubozsza mieszanka)
+* button 0020 (5) - mixture richer  (bogatsza mieszanka)
+* button 0040 (6) - propeller pitch (kąt smigła)
+* button 0080 (7) - propeller pitch (kąt śmigła)
+************************************************************************
+$Id$
+-->
+
+
+<PropertyList>
+
+ <name>HID 05ef:0321</name>
+
+ <axis n="0">
+  <desc>Aileron</desc>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/aileron</property>
+   <dead-band type="double">0.02</dead-band>
+   <offset type="double">0.0</offset>
+   <factor type="double">1.0</factor>
+  </binding>
+ </axis>
+
+ <axis n="1">
+  <desc>Elevator</desc>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/elevator</property>
+   <dead-band type="double">0.02</dead-band>
+   <offset type="double">0.0</offset>
+   <factor type="double">-1.0</factor>
+  </binding>
+ </axis>
+
+ <axis n="2">
+  <desc>Rudder</desc>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/rudder</property>
+   <dead-band type="double">0.1</dead-band> <!-- fgjs 0.02 -->
+   <offset type="double">0.0</offset>
+   <factor type="double">1.0</factor>
+  </binding>
+ </axis>
+
+ <axis n="3">
+  <desc>Throttle</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.throttleAxis()</script>
+  </binding>
+ </axis>
+
+ <axis n="4">
+  <desc>View Direction</desc>
+  <low>
+   <repeatable>true</repeatable>
+   <binding>
+    <command>property-adjust</command>
+    <property>/sim/current-view/goal-heading-offset-deg</property>
+    <step type="double">1.0</step>
+   </binding>
+  </low>
+  <high>
+   <repeatable>true</repeatable>
+   <binding>
+    <command>property-adjust</command>
+    <property>/sim/current-view/goal-heading-offset-deg</property>
+    <step type="double">-1.0</step>
+   </binding>
+  </high>
+ </axis>
+
+ <axis n="5">
+  <desc>View Elevation</desc>
+  <low>
+   <repeatable>true</repeatable>
+   <binding>
+    <command>property-adjust</command>
+    <property>/sim/current-view/goal-pitch-offset-deg</property>
+    <step type="double">1.0</step>
+   </binding>
+  </low>
+  <high>
+   <repeatable>true</repeatable>
+   <binding>
+    <command>property-adjust</command>
+    <property>/sim/current-view/goal-pitch-offset-deg</property>
+    <step type="double">-1.0</step>
+   </binding>
+  </high>
+ </axis>
+
+ <button n="0">
+  <desc>Brakes</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.applyBrakes(1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.applyBrakes(0)</script>
+   </binding>
+  </mod-up>
+ </button>
+
+ <button n="1">
+  <desc>View Cycle</desc>
+  <repeatable>false</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>view.stepView(1)</script>
+  </binding>
+ </button>
+
+ <button n="2">
+  <desc>Flaps Down</desc>
+  <repeatable>false</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.flapsDown(1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.flapsDown(0)</script>
+   </binding>
+  </mod-up>
+ </button>
+
+ <button n="3">
+  <desc>Flaps Up</desc>
+  <repeatable>false</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.flapsDown(-1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.flapsDown(0)</script>
+   </binding>
+  </mod-up>
+ </button>
+
+ <button n="4">
+  <desc>Mixure weaker</desc>
+  <repeatable>true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.adjMixture(-1)</script>
+  </binding>
+ </button>
+
+ <button n="5">
+  <desc>Mixure richer</desc>
+  <repeatable>true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.adjMixture(1)</script>
+  </binding>
+ </button>
+
+ <button n="6">
+  <desc>Propeller pitch</desc>
+  <repeatable>true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.adjPropeller(-1)</script>
+  </binding>
+ </button>
+
+ <button n="7">
+  <desc>Propeller pitch</desc>
+  <repeatable>true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.adjPropeller(1)</script>
+  </binding>
+ </button>
+
+</PropertyList>
+
+<!-- end of joystick.xml -->

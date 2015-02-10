@@ -1,0 +1,198 @@
+<?xml version="1.0" ?>
+
+<PropertyList>
+
+ <!-- Joystick Configuration Template -->
+
+ <axis n="0">
+  <desc>Aileron</desc>
+  <direction>right</direction>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/aileron</property>
+   <offset type="double">0.0</offset>
+   <factor type="double">1.0</factor>
+   <power type="int">1</power>
+  </binding>
+ </axis>
+
+ <axis n="1">
+  <desc>Elevator</desc>
+  <direction>down/forward</direction>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/elevator</property>
+   <factor type="double">-1.0</factor>
+   <power type="int">1</power>
+  </binding>
+ </axis>
+
+ <axis n="2">
+  <desc>Rudder</desc>
+  <direction>right</direction>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/rudder</property>
+   <factor type="double">1.0</factor>
+   <power type="int">1</power>
+  </binding>
+ </axis>
+
+ <axis n="3">
+  <desc>Throttle</desc>
+  <direction>forward</direction>
+  <binding>
+   <command>nasal</command>
+   <script>controls.throttleAxis()</script>
+  </binding>
+ </axis>
+
+ <axis n="4">
+  <desc>View Direction</desc>
+  <direction>left</direction>
+  <low>
+   <repeatable>true</repeatable>
+   <binding>
+    <command>nasal</command>
+    <script>view.panViewDir(1)</script>
+   </binding>
+  </low>
+  <high>
+   <repeatable>true</repeatable>
+   <binding>
+    <command>nasal</command>
+    <script>view.panViewDir(-1)</script>
+   </binding>
+  </high>
+ </axis>
+
+ <axis n="5">
+  <desc>View Elevation</desc>
+  <direction>upward</direction>
+  <low>
+   <repeatable>true</repeatable>
+   <binding>
+    <command>nasal</command>
+    <script>view.panViewPitch(1)</script>
+   </binding>
+  </low>
+  <high>
+   <repeatable>true</repeatable>
+   <binding>
+    <command>nasal</command>
+    <script>view.panViewPitch(-1)</script>
+   </binding>
+  </high>
+ </axis>
+
+ <button n="0">
+  <desc>View Cycle</desc>
+  <repeatable>false</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>view.stepView(1)</script>
+  </binding>
+ </button>
+
+ <button n="1">
+  <desc>Brakes</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.applyBrakes(1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.applyBrakes(0)</script>
+   </binding>
+  </mod-up>
+ </button>
+
+ <button n="2">
+  <desc>Left Brake</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.applyBrakes(1, -1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.applyBrakes(0, -1)</script>
+   </binding>
+  </mod-up>
+ </button>
+
+ <button n="3">
+  <desc>Right Brake</desc>
+  <binding>
+   <command>nasal</command>
+   <script>controls.applyBrakes(1, 1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.applyBrakes(0, 1)</script>
+   </binding>
+  </mod-up>
+ </button>
+
+ <button n="4">
+  <desc>Flaps Up</desc>
+  <repeatable>false</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.flapsDown(-1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.flapsDown(0)</script>
+   </binding>
+  </mod-up>
+ </button>
+
+ <button n="5">
+  <desc>Flaps Down</desc>
+  <repeatable>false</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.flapsDown(1)</script>
+  </binding>
+  <mod-up>
+   <binding>
+    <command>nasal</command>
+    <script>controls.flapsDown(0)</script>
+   </binding>
+  </mod-up>
+ </button>
+
+ <button n="6">
+  <desc>Elevator Trim Forward</desc>
+  <repeatable>true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.elevatorTrim(0.75)</script>
+  </binding>
+ </button>
+
+ <button n="7">
+  <desc>Elevator Trim Backward</desc>
+  <repeatable>true</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.elevatorTrim(-0.75)</script>
+  </binding>
+ </button>
+
+ <button n="8">
+  <desc>Landing Gear Toggle</desc>
+  <repeatable>false</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>controls.gearToggle()</script>
+  </binding>
+ </button>
+
+</PropertyList>
+
+<!-- end of joystick.xml -->

@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PropertyList>
+  <name>Effects/surface-lights</name>
+  <parameters>
+    <!-- min-size, max-size, size, attenuation, cull-face parameters filled in by C++ code -->
+    <texture n="0">
+      <type>light-sprite</type>
+      <wrap-s>clamp</wrap-s>
+      <wrap-t>clamp</wrap-t>
+    </texture>
+    <visibility><use>/environment/ground-visibility-m</use></visibility>
+    <avisibility><use>/environment/visibility-m</use></avisibility>
+    <lthickness><use>/environment/ground-haze-thickness-m</use></lthickness>
+    <eye_alt><use>/sim/rendering/eye-altitude-m</use></eye_alt>
+    <terminator><use>/environment/terminator-relative-position-m</use></terminator>
+  </parameters>
+
+  <technique n="10">
+    <!-- ALS -->
+    <predicate>
+      <and>
+        <property>/sim/rendering/point-sprites</property>
+        <property>/sim/rendering/shaders/skydome</property>
+        <or>
+          <less-equal>
+            <value type="float">2.0</value>
+            <glversion/>
+          </less-equal>
+          <and>
+            <extension-supported>GL_ARB_point_sprite</extension-supported>
+            <extension-supported>GL_ARB_point_parameters</extension-supported>
+     	    <extension-supported>GL_ARB_shader_objects</extension-supported>
+            <extension-supported>GL_ARB_shading_language_100</extension-supported>
+            <extension-supported>GL_ARB_vertex_shader</extension-supported>
+            <extension-supported>GL_ARB_fragment_shader</extension-supported>
+          </and>
+        </or>
+      </and>
+    </predicate>
+		<pass>
+			<render-bin>
+				<bin-number>8</bin-number>
+				<bin-name>DepthSortedBin</bin-name>
+			</render-bin>
+			<lighting>false</lighting>
+			<blend>
+				<source>src-alpha</source>
+				<destination>one-minus-src-alpha</destination>
+			</blend>
+     			<depth>
+        			<write-mask>false</write-mask>
+     			 </depth>
+			<!--<alpha-test>
+				<comparison>gequal</comparison>
+				<reference type="float">0.03</reference>
+			</alpha-test>-->
+			<cull-face><use>cull-face</use></cull-face>
+			<polygon-mode>
+        <front>point</front>
+        <back>point</back>
+      </polygon-mode>
+      <point>
+        <min-size><use>min-size</use></min-size>
+        <max-size><use>max-size</use></max-size>
+        <size><use>size</use></size>
+        <attenuation><use>attenuation</use></attenuation>
+      </point>
+      <texture-unit>
+        <unit>0</unit>
+        <point-sprite>true</point-sprite>
+        <type><use>texture[0]/type</use></type>
+        <wrap-s><use>texture[0]/wrap-s</use></wrap-s>
+        <wrap-t><use>texture[0]/wrap-t</use></wrap-t>
+      </texture-unit>
+      <program>
+        <vertex-shader>Shaders/surface-light-ALS.vert</vertex-shader>
+        <fragment-shader>Shaders/surface-light-ALS.frag</fragment-shader>
+	<fragment-shader>Shaders/noise.frag</fragment-shader>
+      </program>
+      <uniform>
+	<name>size</name>
+	<type>float</type>
+        <value><use>size</use></value>
+      </uniform>
+      <uniform>
+        <name>visibility</name>
+        <type>float</type>
+        <value><use>visibility</use></value>
+      </uniform>
+      <uniform>
+        <name>avisibility</name>
+        <type>float</type>
+        <value><use>avisibility</use></value>
+      </uniform>
+      <uniform>
+        <name>hazeLayerAltitude</name>
+        <type>float</type>
+        <value><use>lthickness</use></value>
+      </uniform>
+      <uniform>
+        <name>eye_alt</name>
+        <type>float</type>
+        <value><use>eye_alt</use></value>
+      </uniform>
+      <uniform>
+        <name>max_size</name>
+        <type>float</type>
+        <value><use>max-size</use></value>
+      </uniform>
+      <uniform>
+        <name>is_directional</name>
+        <type>bool</type>
+        <value><use>light-directional</use></value>
+      </uniform>
+      <uniform>
+        <name>texture</name>
+        <type>sampler-2d</type>
+        <value type="int">0</value>
+      </uniform>
+      <uniform>
+        <name>terminator</name>
+        <type>float</type>
+        <value><use>terminator</use></value>
+      </uniform>
+    <vertex-program-point-size>true</vertex-program-point-size>
+   </pass>
+  </technique>
+
+
+
+
+  <technique n="17">
+    <!-- Combined technique -->
+    <predicate>
+      <and>
+        <property>/sim/rendering/point-sprites</property>
+        <or>
+          <less-equal>
+            <value type="float">2.0</value>
+            <glversion/>
+          </less-equal>
+          <and>
+            <extension-supported>GL_ARB_point_sprite</extension-supported>
+            <extension-supported>GL_ARB_point_parameters</extension-supported>
+          </and>
+        </or>
+      </and>
+    </predicate>
+    <pass>
+      <render-bin>
+        <bin-number>8</bin-number>
+        <bin-name>DepthSortedBin</bin-name>
+      </render-bin>
+      <lighting>false</lighting>
+      <depth>
+        <write-mask>false</write-mask>
+      </depth>
+      <blend>
+        <source>src-alpha</source>
+        <destination>one-minus-src-alpha</destination>
+      </blend>
+      <alpha-test>
+        <comparison>gequal</comparison>
+        <reference type="float">0.1</reference>
+      </alpha-test>
+      <cull-face>back</cull-face>
+      <polygon-mode>
+        <front>point</front>
+      </polygon-mode>
+      <point>
+        <min-size><use>min-size</use></min-size>
+        <max-size><use>max-size</use></max-size>
+        <size><use>size</use></size>
+        <attenuation><use>attenuation</use></attenuation>
+      </point>
+      <texture-unit>
+        <unit>0</unit>
+        <point-sprite>true</point-sprite>
+        <type><use>texture[0]/type</use></type>
+        <wrap-s><use>texture[0]/wrap-s</use></wrap-s>
+        <wrap-t><use>texture[0]/wrap-t</use></wrap-t>
+      </texture-unit>
+    </pass>
+  </technique>
+
+  <technique n="18">
+    <!-- Sprite technique -->
+    <predicate>
+      <and>
+        <property>/sim/rendering/point-sprites</property>
+        <or>
+          <less-equal>
+            <value type="float">2.0</value>
+            <glversion/>
+          </less-equal>
+          <extension-supported>GL_ARB_point_sprite</extension-supported>
+        </or>
+      </and>
+    </predicate>
+    <pass>
+      <render-bin>
+        <bin-number>8</bin-number>
+        <bin-name>DepthSortedBin</bin-name>
+      </render-bin>
+      <lighting>false</lighting>
+      <depth>
+        <write-mask>false</write-mask>
+      </depth>
+      <blend>
+        <source>src-alpha</source>
+        <destination>one-minus-src-alpha</destination>
+      </blend>
+      <cull-face><use>cull-face</use></cull-face>
+      <polygon-mode>
+        <front>point</front>
+      </polygon-mode>
+      <texture-unit>
+        <unit>0</unit>
+        <point-sprite>true</point-sprite>
+        <type><use>texture[0]/type</use></type>
+        <wrap-s><use>texture[0]/wrap-s</use></wrap-s>
+        <wrap-t><use>texture[0]/wrap-t</use></wrap-t>
+      </texture-unit>
+    </pass>
+  </technique>
+
+  <technique n="19">
+    <!-- Attenuation technique -->
+    <predicate>
+      <and>
+        <or>
+          <less-equal>
+            <value type="float">2.0</value>
+            <glversion/>
+          </less-equal>
+          <extension-supported>GL_ARB_point_parameters</extension-supported>
+        </or>
+      </and>
+    </predicate>
+    <pass>
+      <point>
+        <min-size><use>min-size</use></min-size>
+        <max-size><use>max-size</use></max-size>
+        <size><use>size</use></size>
+        <attenuation><use>attenuation</use></attenuation>
+      </point>
+      <render-bin>
+        <bin-number>8</bin-number>
+        <bin-name>DepthSortedBin</bin-name>
+      </render-bin>
+      <depth>
+        <write-mask>false</write-mask>
+      </depth>
+      <blend>
+        <source>src-alpha</source>
+        <destination>one-minus-src-alpha</destination>
+      </blend>
+      <lighting>false</lighting>
+      <cull-face><use>cull-face</use></cull-face>
+      <polygon-mode>
+        <front>point</front>
+        <back>point</back>
+      </polygon-mode>
+    </pass>
+  </technique>
+
+  <technique n="20">
+    <!-- Basic technique -->
+    <pass>
+      <render-bin>
+        <bin-number>8</bin-number>
+        <bin-name>DepthSortedBin</bin-name>
+      </render-bin>
+      <lighting>false</lighting>
+      <depth>
+        <write-mask>false</write-mask>
+      </depth>
+      <blend>
+        <source>src-alpha</source>
+        <destination>one-minus-src-alpha</destination>
+      </blend>
+      <cull-face><use>cull-face</use></cull-face>
+      <polygon-mode>
+        <front>point</front>
+      </polygon-mode>
+    </pass>
+  </technique>
+</PropertyList>

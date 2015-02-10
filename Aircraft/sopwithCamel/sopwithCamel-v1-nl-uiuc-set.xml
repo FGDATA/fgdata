@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<!--
+************************************************************************
+Sopwith Camel simulation config.  This file ties together all the
+components used by FGFS to represent the flight data model, instrument
+panel, and external model.
+
+Flight model details: 
+Aircraft/UIUC/sopwithCamel-v1-nl/README.sopwithCamel.html
+
+External model details:  
+Aircraft/sopwithCamel/Models/uiuc/sopwithCamel/README.TXT
+(courtesy of Scrubby PC, af_scrubbypc@hotmail.com)
+
+Last update: Nov 9, 2002 Michael Selig, m-selig@uiuc.edu
+************************************************************************
+-->
+
+<PropertyList>
+
+ <sim>
+
+  <description>Sopwith Camel (larcsim)</description>
+  <author>Michael Selig, Scrubby PC</author>
+  <status>production</status>
+
+  <flight-model>larcsim</flight-model>
+  <aero>uiuc</aero>
+  <aircraft-dir>Aircraft/UIUC/sopwithCamel-v1-nl</aircraft-dir>
+
+  <sound>
+   <path>Aircraft/sopwithCamel/Sounds/uiuc/sopwithCamel-sound.xml</path>
+  </sound>
+
+  <panel>
+   <path>Aircraft/Generic/Panels/generic-vfr-panel.xml</path>
+   <visibility>true</visibility>
+  </panel>
+
+  <panel_2>
+   <path>Aircraft/Generic/Panels/generic-trans-mini-panel.xml</path>
+  </panel_2>
+
+  <model>
+   <path>Aircraft/sopwithCamel/Models/uiuc/sopwithCamel/sopwithCamel-model.xml</path>
+  </model>
+
+  <view n="1">
+   <config>
+    <eye-heading-deg-path>/orientation/gamma-horiz-deg</eye-heading-deg-path>
+   </config>
+  </view>
+
+  <help>
+   <title>Sopwith Camel</title>
+  </help>
+
+ </sim>
+</PropertyList>

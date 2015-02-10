@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+
+
+    <system name="fuel">
+
+<property type="float" value="0">propulsion/engine[0]/fuel-consumption-pps</property>
+<property type="float" value="0">propulsion/engine[1]/fuel-consumption-pps</property>
+
+        <channel name="Left egnine fuel burn">
+
+            <fcs_function name="L_fuel burn rate pps">
+                <function>
+                    <product>
+                        <table>
+                            <independentVar lookup="row">propulsion/engine/n1</independentVar>
+                            <independentVar lookup="column">atmosphere/density-altitude</independentVar>
+                            <tableData>
+                                     0      30000
+                            0        0        0
+                            15      0        0
+                            65      0.02916    0.025
+                            104    0.1666       0.1527
+                            </tableData>
+                        </table>
+                    </product>            
+                </function>
+                <output>propulsion/engine[0]/fuel-consumption-pps</output>   
+            </fcs_function> 
+
+            <pure_gain name="Lff">
+                <input>propulsion/engine[0]/fuel-consumption-pps</input>
+                <gain>3600.0</gain>
+                <output>propulsion/engine[0]/fuel_pph</output>
+            </pure_gain>
+
+            <switch>
+                <default value="0.0"/>
+                <test logic="AND" value="-propulsion/engine[0]/fuel-consumption-pps">
+                    propulsion/tank[0]/priority > 0
+                    propulsion/tank[0]/pct-full GE 3.9
+                </test>
+                <output>propulsion/tank[0]/external-flow-rate-pps</output>
+            </switch>
+
+            <switch>
+                <default value="0.0"/>
+                <test logic="AND" value="-propulsion/engine[0]/fuel-consumption-pps">
+                    propulsion/tank[2]/priority > 0
+                    propulsion/tank[2]/pct-full GE 0.3975
+                </test>
+                <output>propulsion/tank[2]/external-flow-rate-pps</output>
+            </switch>
+
+       </channel>
+
+        <channel name="Right egnine fuel burn">
+
+            <fcs_function name="R_fuel burn rate pps">
+                <function>
+                    <product>
+                        <table>
+                            <independentVar lookup="row">propulsion/engine[1]/n1</independentVar>
+                            <independentVar lookup="column">atmosphere/density-altitude</independentVar>
+                            <tableData>
+                                     0      30000
+                            0        0        0
+                            15      0        0
+                            65      0.02916    0.025
+                            104    0.1666       0.1527
+                            </tableData>
+                        </table>
+                    </product>            
+                </function>
+                <output>propulsion/engine[1]/fuel-consumption-pps</output>   
+            </fcs_function> 
+
+            <pure_gain name="Rff">
+                <input>propulsion/engine[1]/fuel-consumption-pps</input>
+                <gain>3600.0</gain>
+                <output>propulsion/engine[1]/fuel_pph</output>
+            </pure_gain>
+
+            <switch>
+                <default value="0.0"/>
+                <test logic="AND" value="-propulsion/engine[1]/fuel-consumption-pps">
+                    propulsion/tank[1]/priority > 0
+                    propulsion/tank[1]/pct-full GE 3.9
+                </test>
+                <output>propulsion/tank[1]/external-flow-rate-pps</output>
+            </switch>
+
+            <switch>
+                <default value="0.0"/>
+                <test logic="AND" value="-propulsion/engine[1]/fuel-consumption-pps">
+                    propulsion/tank[3]/priority > 0
+                    propulsion/tank[3]/pct-full GE 0.3975
+                </test>
+                <output>propulsion/tank[3]/external-flow-rate-pps</output>
+            </switch>
+
+       </channel>
+
+    </system>

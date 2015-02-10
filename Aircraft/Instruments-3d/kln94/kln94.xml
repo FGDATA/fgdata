@@ -1,0 +1,164 @@
+<PropertyList>
+
+<path>kln94.ac</path>
+
+<!--
+<animation> 
+	<type>material</type> 
+	<texture alias="../../texture"/> 
+</animation>
+
+<effect>
+	<inherits-from>Effects/lightmap</inherits-from>
+	<parameters>
+		<texture n="1">
+			<image>Aircraft/Instruments-3d/cdu2/boeing_lightmap.png</image>
+		</texture>
+		<condition><use>/instrumentation/cdu/serviceable</use></condition>
+
+      <factor><use>/instrumentation/cdu/brightness-norm</use></factor>
+	</parameters>
+	<object-name>CDU</object-name>
+	<object-name>Btn.side.r.1</object-name>
+	<object-name>Btn.side.r.2</object-name>
+	<object-name>Btn.side.r.3</object-name>
+	<object-name>Btn.side.r.4</object-name>
+	<object-name>Btn.side.r.5</object-name>
+	<object-name>Btn.side.r.6</object-name>
+</effect> -->
+
+<animation>
+	<type>pick</type>
+	<object-name>ent-btn</object-name>
+	<action>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>KLN94.enter();</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>crsr-btn</object-name>
+	<action>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>KLN94.toggleCursorMode();</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>nrst-btn</object-name>
+	<action>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>KLN94.nearestButton();</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>dto-btn</object-name>
+	<action>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>KLN94.directTo();</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>obs-btn</object-name>
+	<action>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>KLN94.obsButton();</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>msg-btn</object-name>
+	<action>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>KLN94.messageButton();</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>alt-btn</object-name>
+	<action>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>KLN94.altitudeButton();</script>
+		</binding>
+	</action>
+</animation>
+
+<animation>
+	<type>pick</type>
+	<object-name>clr-btn</object-name>
+	<action>
+		<repeatable>false</repeatable>  
+		<binding>
+			<command>nasal</command>
+			<script>KLN94.clearButton();</script>
+		</binding>
+	</action>
+</animation>
+
+  <animation>
+  <type>knob</type>
+  <object-name>knob-inner</object-name>
+  <action>
+      <binding>
+          <command>nasal</command>
+          <script>KLN94.innerKnob(cmdarg().getNode('offset').getValue());</script>     
+        </binding>
+  </action>
+</animation>
+
+  <animation>
+  <type>knob</type>
+  <object-name>knob-outer</object-name>
+  <action>
+      <binding>
+          <command>nasal</command>
+          <script>KLN94.outerKnob(cmdarg().getNode('offset').getValue());</script>     
+        </binding>
+  </action>
+</animation>
+
+
+    <animation>
+    <type>knob</type>
+    <object-name>knob-brightness</object-name>
+    <action>
+        <binding>
+            <command>property-adjust</command>
+            <property>/instrumentation/kln94/brightness-norm</property> 
+            <step>0.05</step>
+            <min>0</min>
+            <max>1</max>                
+            <wrap>false</wrap>       
+    </binding>
+    </action>
+  </animation>
+
+</PropertyList>

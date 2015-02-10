@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+ <path>sailboat.ac</path>
+
+ <animation>
+  <type>select</type>
+  <object-name>masthead_light</object-name>
+  <object-name>portside_light</object-name>
+  <object-name>starboard_light</object-name>
+  <object-name>stern_light</object-name>
+  <condition>
+   <equals>
+    <property>controls/lighting/nav-lights</property>
+    <value>true</value>
+   </equals>
+  </condition>
+ </animation>
+
+</PropertyList>

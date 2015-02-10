@@ -1,0 +1,452 @@
+<?xml version="1.0" ?>
+<!--
+ This file is part of FlightGear, the free flight simulator
+ http://www.flightgear.org/
+
+ Copyright (C) 2010  Curtis L. Olson  - http://www.flightgear.org/~curt
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation; either version 2 of the
+ License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+-->
+<PropertyList>
+  <weather-scenarios>
+    <scenario>
+      <name type="string">Live data</name>
+      <description type="string">
+        Fetch live weather data for your nearest airport from noaa.gov. You need a working internet connection.
+        All the controls in this dialog are computed automatically, once a valid METAR is received.
+      </description>
+      <local-weather>
+        <tile-type>live</tile-type>
+        <tile-management>METAR</tile-management>        
+      </local-weather>
+    </scenario>
+    <scenario>
+      <name type="string">Manual input</name>
+      <description type="string">Enter your favorite METAR weather in the textbox above. A valid METAR syntax is required.</description>
+      <local-weather>
+        <tile-type>manual</tile-type>
+        <tile-management>METAR</tile-management>        
+      </local-weather>
+    </scenario>
+    <scenario>
+      <name type="string">Core high pressure region</name>
+      <metar type="string">XXXX 012345Z 15003KT 19SM FEW072 FEW350 25/07 Q1028 NOSIG</metar>
+      <description type="string">The center of a high pressure region, characterized by descending air and hence only weak cloud development with high visibility.</description>
+      <local-weather>
+        <tile-type>High-pressure-core</tile-type>
+        <tile-management>realistic weather</tile-management>        
+      </local-weather>
+    </scenario>
+    <scenario>
+      <name type="string">High pressure region</name>
+      <metar type="string">XXXX 012345Z 15003KT 12SM SCT048 FEW300 20/08 Q1022 NOSIG</metar>
+      <description type="string">A high pressure region, characterized my moderate to strong Cumulus development in the afternoon and fairly good visibility conditions.</description>
+      <local-weather>
+        <tile-type>High-pressure</tile-type>
+        <tile-management>realistic weather</tile-management>        
+      </local-weather>
+    </scenario>
+    <scenario>
+      <name type="string">Border of a high pressure region</name>
+      <metar type="string">XXXX 012345Z 15003KT 10SM SCT036 SCT150 17/08 Q1016 NOSIG</metar>
+      <description type="string">The border of a high pressure region, in which the airmass becomes unstable and various convective and stratiform clouds may appear.</description>
+      <local-weather>
+        <tile-type>High-pressure-border</tile-type>
+        <tile-management>realistic weather</tile-management>        
+      </local-weather>
+    </scenario>
+    <scenario>
+      <name type="string">Border of a low pressure region</name>
+      <metar type="string">XXXX 012345Z 15003KT 9SM BKN028 SCT090 FEW160 15/08 Q1010 NOSIG</metar>
+      <description type="string">The border of a low pressure region, in which the airmass is unstable and convective clouds start to form layers and merge into stratiform clouds.</description>
+      <local-weather>
+        <tile-type>Low-pressure-border</tile-type>
+        <tile-management>realistic weather</tile-management>        
+      </local-weather>
+    </scenario>
+    <scenario>
+      <name type="string">Low pressure region</name>
+      <metar type="string">XXXX 012345Z 15003KT 6SM SHRA BKN024 BKN053 FEW090 13/07 Q1004 NOSIG</metar>
+      <description type="string">A low pressure region, characterized by rising air, widespread formation of stratiform clouds and beginning rain.</description>
+      <local-weather>
+        <tile-type>Low-pressure</tile-type>
+        <tile-management>realistic weather</tile-management>        
+      </local-weather>
+    </scenario>
+    <scenario>
+      <name type="string">Core low pressure region</name>
+      <metar type="string">XXXX 012345Z 15003KT 4SM RA OVC020 SCT050 07/02 Q0998 NOSIG</metar>
+      <description type="string">The core of a low pressure region, characterized by overcast clouds, bad visibility on the ground and significant rainfall.</description>
+      <local-weather>
+        <tile-type>Low-pressure-core</tile-type>
+        <tile-management>realistic weather</tile-management>        
+      </local-weather>
+    </scenario>
+    <scenario>
+      <name type="string">Warm sector</name>
+      <metar type="string">XXXX 012345Z 15003KT 8SM SCT028 SCT088 20/14 Q1010 NOSIG</metar>
+      <description type="string">A warm sector, characterized by high moisture in the air and haze extending up to high altitudes, but otherwise largely convective cloud development. </description>
+      <local-weather>
+        <tile-type>Warm-sector</tile-type>
+        <tile-management>realistic weather</tile-management>        
+      </local-weather>
+    </scenario>
+    <scenario>
+      <name type="string">Fair weather</name>
+      <metar type="string">XXXX 012345Z 15003KT 12SM SCT041 FEW200 20/08 Q1015 NOSIG</metar>
+      <description type="string">A lovely day for trip to your favorite 100$ hamburger airfield</description>
+      <local-weather>
+        <tile-type>High-pressure-core</tile-type>
+        <tile-management>realistic weather</tile-management>        
+      </local-weather>
+    </scenario>
+    <scenario>
+      <name type="string">Thunderstorm</name>
+      <metar type="string">XXXX 012345Z 15012G25KT 4000 TSRA FEW030CB SCT035TCU 27/24 Q0995</metar>
+      <description type="string">
+        A hot and damp summer day with thunderstorms developing in the afternoon.
+        Be prepared for reduction of visibility in showers and strong gusts
+        near thunderstorms
+      </description>
+      <local-weather>
+        <tile-type>Thunderstorms</tile-type>
+        <tile-management>repeat tile</tile-management>        
+      </local-weather>
+    </scenario>
+    <scenario>
+      <name type="string">Stormy Monday</name>
+      <metar type="string">XXXX 012345Z 28035G50KT 250V300 9999 TSRA SCT022CB BKN030 13/09 Q1005</metar>
+      <description type="string">
+        You're out for an adventure? Gusty winds blowing from the west
+        and isolated thunderstorms should be avoided. Fasten your seatbelt!
+      </description>
+    </scenario>
+    <scenario>
+      <name type="string">Marginal VFR</name>
+      <metar type="string">XXXX 012345Z 23010KT 5000 SHRA SCT012 BKN018 OVC060 15/11 Q1010</metar>
+      <description type="string">
+        After the storm - limited visibility and some showers.
+        Go or No-Go?
+      </description>
+    </scenario>
+    <scenario>
+      <name type="string">CAT I minimum</name>
+      <metar type="string">XXXX 012345Z 15015KT 0800 -RA BKN002 OVC004 08/06 Q0990</metar>
+      <description type="string">If you just got your IFR rating, this is what you are allowed to do. But can you?</description>
+    </scenario>
+    <scenario>
+      <name type="string">CAT II minimum</name>
+      <metar type="string">XXXX 012345Z 15010KT 0400 -RA BKN001 OVC002 08/06 Q0990</metar>
+      <description type="string">
+        With just a 1/4 mile visibility and clouds at 100ft, you don't see much of the runway until
+        seconds before touchdown. Trust your instruments to stay alive.
+      </description>
+    </scenario>
+    <scenario>
+      <name type="string">CAT IIIb minimum</name>
+      <metar type="string">XXXX 012345Z VRB01KT 0100 -RA FG OVC001 OVC002 02/02 Q0990</metar>
+      <description type="string">
+        This is expert level. You will barely see the taxiway from the cockpit, even if you are
+        on ground. Fog and light drizzle, freezing level at 1000ft.
+      </description>
+    </scenario>
+
+    <scenario>
+      <name type="string">Early morning fog</name>
+      <metar type="string">XXXX 012345Z 00000KT 0800 FG NCD 08/08 A3030</metar>
+      <description type="string">
+        Fog developed this autumn's morning. Expect good visibility above the layer.
+        However - getting through it can be a challenge. Stay alive for a 500' climb
+        and you'll see the sun!
+      </description>
+    </scenario>
+  </weather-scenarios>
+  <weather-scenario type="string">Fair weather</weather-scenario>
+  <config>
+
+    <boundary-transition-ft type="double">500</boundary-transition-ft>
+
+    <boundary>
+
+      <entry>
+        <elevation-ft type="double">0</elevation-ft>
+        <wind-from-heading-deg type="double">270</wind-from-heading-deg>
+        <wind-speed-kt type="double">3</wind-speed-kt>
+        <visibility-m type="double">16093.44</visibility-m>
+        <pressure-sea-level-inhg type="double">29.92</pressure-sea-level-inhg>
+        <temperature-degc type="double">15.0</temperature-degc>
+        <dewpoint-degc type="double">5.0</dewpoint-degc>
+        <turbulence>
+          <factor type="double">0.2</factor>
+          <magnitude-norm type="double">0.0</magnitude-norm>
+          <rate-hz type="double">1.0</rate-hz>
+        </turbulence>
+        <wind-heading-change-deg type="double">0</wind-heading-change-deg>
+        <wind-speed-change-rel type="double">0</wind-speed-change-rel>
+      </entry>
+
+      <entry>
+        <elevation-ft type="double">500</elevation-ft>
+        <wind-from-heading-deg type="double">280</wind-from-heading-deg>
+        <wind-speed-kt type="double">6</wind-speed-kt>
+        <turbulence>
+          <factor type="double">1.0</factor>
+          <magnitude-norm type="double">0.1</magnitude-norm>
+          <rate-hz type="double">1.0</rate-hz>
+        </turbulence>
+        <wind-heading-change-deg type="double">5</wind-heading-change-deg>
+        <wind-speed-change-rel type="double">0.3</wind-speed-change-rel>
+      </entry>
+
+    </boundary>
+
+    <aloft>
+
+      <entry>
+        <elevation-ft type="double">5000</elevation-ft>
+        <wind-from-heading-deg type="double">300</wind-from-heading-deg>
+        <wind-speed-kt type="double">10</wind-speed-kt>
+        <visibility-m type="double">16093.44</visibility-m>
+        <pressure-sea-level-inhg type="double">29.92</pressure-sea-level-inhg>
+        <turbulence>
+          <factor type="double">0.5</factor>
+          <magnitude-norm type="double">0.05</magnitude-norm>
+          <rate-hz type="double">1.0</rate-hz>
+        </turbulence>
+        <wind-heading-change-deg type="double">25</wind-heading-change-deg>
+        <wind-speed-change-rel type="double">1</wind-speed-change-rel>
+      </entry>
+
+      <entry>
+        <elevation-ft type="double">10000</elevation-ft>
+        <wind-from-heading-deg type="double">310</wind-from-heading-deg>
+        <wind-speed-kt type="double">20</wind-speed-kt>
+        <turbulence>
+          <factor type="double">0.0</factor>
+          <magnitude-norm type="double">0.0</magnitude-norm>
+          <rate-hz type="double">1.0</rate-hz>
+        </turbulence>
+        <wind-heading-change-deg type="double">30</wind-heading-change-deg>
+        <wind-speed-change-rel type="double">1.2</wind-speed-change-rel>
+      </entry>
+
+      <entry>
+        <elevation-ft type="double">18000</elevation-ft>
+        <wind-from-heading-deg type="double">320</wind-from-heading-deg>
+        <wind-speed-kt type="double">30</wind-speed-kt>
+        <wind-heading-change-deg type="double">35</wind-heading-change-deg>
+        <wind-speed-change-rel type="double">1.3</wind-speed-change-rel>
+      </entry>
+
+      <entry>
+        <elevation-ft type="double">24000</elevation-ft>
+        <wind-from-heading-deg type="double">330</wind-from-heading-deg>
+        <wind-speed-kt type="double">50</wind-speed-kt>
+        <wind-heading-change-deg type="double">35</wind-heading-change-deg>
+        <wind-speed-change-rel type="double">1.3</wind-speed-change-rel>
+      </entry>
+
+      <entry>
+        <elevation-ft type="double">30000</elevation-ft>
+        <wind-from-heading-deg type="double">340</wind-from-heading-deg>
+        <wind-speed-kt type="double">70</wind-speed-kt>
+        <wind-heading-change-deg type="double">35</wind-heading-change-deg>
+        <wind-speed-change-rel type="double">1.3</wind-speed-change-rel>
+      </entry>
+
+    </aloft>
+
+  </config>
+
+  <clouds>
+    <layer n="0">
+      <coverage type="string">clear</coverage>
+      <elevation-ft type="double">-9999</elevation-ft>
+      <thickness-ft type="double">600</thickness-ft>
+      <transition-ft type="double">150</transition-ft>
+      <span-m>40000</span-m>
+    </layer>
+    <layer n="1">
+      <coverage type="string">clear</coverage>
+      <elevation-ft type="double">-9999</elevation-ft>
+      <thickness-ft type="double">65</thickness-ft>
+      <transition-ft type="double">25</transition-ft>
+      <span-m type="double">40000</span-m>
+    </layer>
+    <layer n="2">
+      <coverage type="string">clear</coverage>
+      <elevation-ft type="double">-9999</elevation-ft>
+      <span-m type="double">40000</span-m>
+    </layer>
+    <layer n="3">
+      <coverage type="double">clear</coverage>
+      <elevation-ft type="double">-9999</elevation-ft>
+      <span-m type="double">40000</span-m>
+    </layer>
+    <layer n="4">
+      <coverage type="string">clear</coverage>
+      <elevation-ft type="double">-9999</elevation-ft>
+      <span-m type="double">40000</span-m>
+    </layer>
+  </clouds>
+
+  <cloudlayers include="cloudlayers.xml"/>
+
+  <realwx>
+    <!-- Spawn a metar loader for each metar node 
+         index 0..9 are reserved for internal (hardcoded) loaders
+         and will be set from FlightGear's subsystems.
+         Index 10..n may be used by user defined systems
+         
+         To retrieve a METAR in /environment/metar[10], write
+         the station id (e.g. KSFO) to 
+         /enviornment/metar[10]/station-id and set 
+         /environment/metar[10]/time-to-live to zero
+         Wait for 
+         /environment/metar[10]/valid to become true.
+    -->
+    <metar n="0" type="string">/environment/metar[0]</metar>
+    <!-- nearest airport -->
+    <metar n="1" type="string">/environment/metar[1]</metar>
+    <!-- NAV1 -->
+    <metar n="2" type="string">/environment/metar[2]</metar>
+    <!-- NAV2 -->
+    <metar n="3" type="string">/environment/metar[3]</metar>
+    <!-- VHF-COMM1 -->
+    <metar n="4" type="string">/environment/metar[4]</metar>
+    <!-- VHF-COMM2 -->
+    <metar n="5" type="string">/environment/metar[5]</metar>
+    <!-- UHF-COMM1 -->
+    <metar n="6" type="string">/environment/metar[6]</metar>
+    <!-- UHF-COMM2 -->
+
+    <!-- User defined queries -->
+    <metar n="10" type="string">/environment/metar[10]</metar>
+    <metar n="11" type="string">/environment/metar[11]</metar>
+
+    <!-- use NOAA for METAR (no aloft data) -->
+    <data-source type="string">noaa</data-source>
+
+    <!-- use http://www.navlost.eu/ for METAR and aloft data -->
+    <!-- data-source>nwx<data-source -->
+    <enabled type="bool">true</enabled>
+  </realwx>
+
+  <metar>
+    <!-- create a low-level cloud layer for fog/mist/haze from metar -->
+    <set-ground-cloud-layer type="bool">true</set-ground-cloud-layer>
+  </metar>
+
+  <turbulence>
+    <!-- the turbulence/magnitude-norm interpolator applies this value
+          as an exponent to the magnitude -->
+    <sensitivity type="double">2</sensitivity>
+  </turbulence>
+
+  <params>
+    <!-- 
+      valid values for jsbsim-turbulence-model:
+      ttNone, ttStandard, ttBerndt, ttCulp, ttMilspec, ttTustin
+    -->
+    <jsbsim-turbulence-model type="string" userarchive="y">ttMilspec</jsbsim-turbulence-model>
+    <metar-max-age-min type="long">240</metar-max-age-min>
+    <metar-updates-environment type="bool">true</metar-updates-environment>
+    <metar-updates-winds-aloft type="bool">true</metar-updates-winds-aloft>
+    <metar-updates-snow-level type="bool" userarchive="y">true</metar-updates-snow-level>
+    <use-external-precipitation-level type="bool">false</use-external-precipitation-level>
+    <external-precipitation-level-m type="double">0</external-precipitation-level-m>
+    <control-fdm-atmosphere type="bool">true</control-fdm-atmosphere>
+    <contrail-altitude type="double">30000</contrail-altitude>
+    <!-- definitions for the metar generated fog/mist/haze layer -->
+    <fog-mist-haze-layer>
+      <offset-from-station-elevation-ft type="double">-200</offset-from-station-elevation-ft>
+      <visibility-above-layer-m type="double">20000</visibility-above-layer-m>
+
+      <fog-thickness-ft type="double">500</fog-thickness-ft>
+      <fog-2dlayer-alpha type="double">1.0</fog-2dlayer-alpha>
+      <fog-2dlayer-coverage type="string">overcast</fog-2dlayer-coverage>
+      <fog-bc-2dlayer-coverage type="string">broken</fog-bc-2dlayer-coverage>
+      <fog-shallow-thickness-ft type="double">30</fog-shallow-thickness-ft>
+
+      <mist-thickness-ft type="double">2000</mist-thickness-ft>
+      <mist-2dlayer-alpha type="double">0.8</mist-2dlayer-alpha>
+      <mist-2dlayer-coverage type="string">overcast</mist-2dlayer-coverage>
+
+      <haze-thickness-ft type="double">2000</haze-thickness-ft>
+      <haze-2dlayer-alpha type="double">0.6</haze-2dlayer-alpha>
+      <haze-2dlayer-coverage type="string">overcast</haze-2dlayer-coverage>
+    </fog-mist-haze-layer>
+  </params>
+
+
+  <wildfire>
+    <enabled type="bool" userarchive="y">false</enabled>
+    <share-events type="bool" userarchive="y">false</share-events>
+    <save-on-exit type="bool" userarchive="y">false</save-on-exit>
+    <restore-on-startup type="bool" userarchive="y">false</restore-on-startup>
+    <fire-on-crash type="bool" userarchive="y">false</fire-on-crash>
+    <report-score type="bool" userarchive="y">false</report-score>
+    <data type="string"/>
+  </wildfire>
+  
+  <snow-level-m type="double">3200.0</snow-level-m>
+
+  <!-- create on instance of the terrains-sampler but start disabled -->
+  <terrain>
+    <area>
+      <enabled type="bool">false</enabled>
+    </area>
+  </terrain>
+
+  <sea>
+    <config>
+      <wind-filter-time type="double">0.05</wind-filter-time>
+    </config>
+    <color_r type="double" userarchive="n">0.148</color_r>
+    <color_g type="double" userarchive="n">0.27</color_g>
+    <color_b type="double" userarchive="n">0.3</color_b>
+   <surface>
+    <ice-cover> 0.0</ice-cover>
+   </surface>
+  </sea>
+
+  <!-- definitions for the scattering skydome shader -->
+  <ground-visibility-m type="double" userarchive="n">16000.0</ground-visibility-m>
+  <air-pollution-norm type="double" userarchive="y">0.0</air-pollution-norm>
+  <ground-haze-thickness-m type="double" userarchive="n">2000.0</ground-haze-thickness-m>
+  <terminator-relative-position-m type="double" userarchive="n">1000000.0</terminator-relative-position-m>
+  <mean-terrain-elevation-m type="double" userarchive="n">0.0</mean-terrain-elevation-m>
+  <fog-structure type="double" userarchive="y">0.0</fog-structure>
+  <cloud-self-shading type="double" userarchive="n">1.0</cloud-self-shading>
+  <moonlight type="double" userarchive="n">0.0</moonlight>
+ <!-- config for noctilucent cloud generation -->
+  <create-noctilucent-clouds type="bool" userarchive="n">false</create-noctilucent-clouds>
+ 
+ <!-- definitions for the environment at surface interface -->
+  <surface>
+    <scattering type="double" userarchive="n">0.7</scattering>
+    <dust-cover-factor type="double" userarchive="y">0.0</dust-cover-factor>
+    <lichen-cover-factor type="double" userarchive="y">0.0</lichen-cover-factor>
+    <wetness-set type="double" userarchive="y">0.0</wetness-set>
+    <wetness type="double" userarchive="n">0.0</wetness>
+    <snow-thickness-factor type="double" userarchive="y">1.0</snow-thickness-factor>
+  </surface>
+
+ <!-- definitions for the detailed precipitation manager -->
+ <precipitation-control>
+     <rain-droplet-size type="float" userarchive="n">0.015</rain-droplet-size>
+     <snow-flake-size type="float" userarchive="n">0.03</snow-flake-size>
+     <detailed-precipitation type="bool" userarchive="n">false</detailed-precipitation>
+     <illumination type="float" userarchive="n">1.0</illumination>
+     <clip-distance type="float" userarchive="n">5.0</clip-distance>
+  </precipitation-control>
+
+</PropertyList>

@@ -1,0 +1,175 @@
+<?xml version="1.0"?>
+<!--
+  Zeppelin NT07 airship.
+
+  Copyright (C) 2008 - 2010  Anders Gidenstam  (anders(at)gidenstam.org)
+  This file is licensed under the GPL license version 2 or later.
+-->
+<PropertyList>
+
+ <fx>
+
+  <crank>
+   <name>crank 1</name>
+   <path>Sounds/coughing.wav</path>
+   <mode>looped</mode>
+   <condition>
+    <property>engines/engine/cranking</property>
+    <not>
+     <property>engines/engine/running</property>
+    </not>
+   </condition>
+   <position>
+    <!-- x/y/z == back/left/up -->
+    <x> 26.4 </x>
+    <y>  6.6 </y>
+    <z> -3.4 </z>
+   </position>
+   <reference-dist>10.0</reference-dist>
+   <volume>
+    <offset>0.4</offset>
+   </volume>
+  </crank>
+  <crank>
+   <name>crank 2</name>
+   <path>Sounds/coughing.wav</path>
+   <mode>looped</mode>
+   <condition>
+    <property>engines/engine[1]/cranking</property>
+    <not>
+     <property>engines/engine[1]/running</property>
+    </not>
+   </condition>
+   <position>
+    <!-- x/y/z == back/left/up -->
+    <x> 26.4 </x>
+    <y> -6.6 </y>
+    <z> -3.4 </z>
+   </position>
+   <reference-dist>10.0</reference-dist>
+   <volume>
+    <offset>0.4</offset>
+   </volume>
+  </crank>
+  <crank>
+   <name>crank 3</name>
+   <path>Sounds/coughing.wav</path>
+   <mode>looped</mode>
+   <condition>
+    <property>engines/engine[2]/cranking</property>
+    <not>
+     <property>engines/engine[2]/running</property>
+    </not>
+   </condition>
+   <position>
+    <!-- x/y/z == back/left/up -->
+    <x>  73.0 </x>
+    <y>  0.0 </y>
+    <z>  0.0 </z>
+   </position>
+   <reference-dist>10.0</reference-dist>
+   <volume>
+    <offset>0.4</offset>
+   </volume>
+  </crank>
+
+  <engine>
+   <name>engine 1</name>
+   <path>Sounds/wasp.wav</path>
+   <mode>looped</mode>
+   <property>engines/engine/running</property>
+   <position>
+    <!-- x/y/z == back/left/up -->
+    <x> 26.4 </x>
+    <y>  6.6 </y>
+    <z> -3.4 </z>
+   </position>
+   <reference-dist>10.0</reference-dist>
+   <volume>
+    <property>engines/engine/mp-inhg</property>
+    <factor>0.005</factor>
+    <min>0.10</min>
+    <max>0.3</max>
+    <offset>0.15</offset>
+   </volume>
+   <pitch>
+    <property>engines/engine/rpm</property>
+    <factor>0.0008</factor>
+    <min>.3</min>
+    <max>5.0</max>
+    <offset>0.3</offset>
+   </pitch>
+  </engine>
+
+  <engine>
+   <name>engine 2</name>
+   <path>Sounds/wasp.wav</path>
+   <mode>looped</mode>
+   <property>engines/engine[1]/running</property>
+   <position>
+    <!-- x/y/z == back/left/up -->
+    <x> 26.4 </x>
+    <y> -6.6 </y>
+    <z> -3.4 </z>
+   </position>
+   <reference-dist>10.0</reference-dist>
+   <volume>
+    <property>engines/engine[1]/mp-inhg</property>
+    <factor>0.005</factor>
+    <min>0.10</min>
+    <max>0.3</max>
+    <offset>0.15</offset>
+   </volume>
+   <pitch>
+    <property>engines/engine[1]/rpm</property>
+    <factor>0.0008</factor>
+    <min>.3</min>
+    <max>5.0</max>
+    <offset>0.3</offset>
+   </pitch>
+  </engine>
+
+  <engine>
+   <name>engine 3</name>
+   <path>Sounds/wasp.wav</path>
+   <mode>looped</mode>
+   <property>engines/engine[2]/running</property>
+   <position>
+    <!-- x/y/z == back/left/up -->
+    <x>  73.0 </x>
+    <y>  0.0 </y>
+    <z>  0.0 </z>
+   </position>
+   <reference-dist>10.0</reference-dist>
+   <volume>
+    <property>engines/engine[2]/mp-inhg</property>
+    <factor>0.005</factor>
+    <min>0.10</min>
+    <max>0.3</max>
+    <offset>0.15</offset>
+   </volume>
+   <pitch>
+    <property>engines/engine[2]/rpm</property>
+    <factor>0.0008</factor>
+    <min>.3</min>
+    <max>5.0</max>
+    <offset>0.3</offset>
+   </pitch>
+  </engine>
+
+  <envelope_pressure_warning>
+   <name>Envelope pressure warning</name>
+   <type>avionics</type>
+   <mode>looped</mode>
+   <path>Sounds/stall.wav</path>
+   <condition>
+    <less-than>
+     <property>instrumentation/envelope-pressure-indicator/indicated-gas-pressure-psf</property>
+     <value>6.5</value>
+    </less-than>    
+   </condition>
+  </envelope_pressure_warning>
+
+ </fx>
+
+</PropertyList>
